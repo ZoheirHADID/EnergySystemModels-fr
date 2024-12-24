@@ -1,10 +1,11 @@
 \pagebreak
 
-*Avant-propos*
+Thermodynamic Cycles Package
+============================
 
 **Objectif et approche**
 
-Ce document est destiné à tous les acteurs de l’efficacité énergétique:
+Le package Thermodynamic Cycles de la bibliothèque EnergySystemModels permet de modéliser et d'analyser différents cycles thermodynamiques. Ce document est destiné à tous les acteurs de l’efficacité énergétique:
 
 * Les professionnels du domaine de l’efficacité énergétique, souhaitant approfondir leur compréhension de l’efficacité énergétique et acquérir des compétences pratiques en matière de calcul et d’analyse de données, tels que les ingénieurs en énergie, les gestionnaires de l’énergie (Exploitants), les consultants en efficacité énergétique, les pilotes énergie (Energy Manager) et les responsables énergie.
 
@@ -24,9 +25,6 @@ Cependant, les modèles sont présentés étape par étape, de manière simple e
 Les calculs en Python se basent sur la bibliothèque EnergySystemModels, conçue spécialement pour ce document.
 
 Afin d’installer cette bibliothèque, il suffit de saisir la commande suivante dans un terminal Python : pip install --upgrade energysystemmodels
-
-Thermodynamic Cycles Package
-============================
 
 Fluid Source
 ------------
