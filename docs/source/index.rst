@@ -12,7 +12,11 @@ Afin de mieux comprendre les modèles d’efficacité énergétique présentés 
 
 Les calculs en Python se basent sur la bibliothèque EnergySystemModels, conçue spécialement pour ce document.
 
-Afin d’installer cette bibliothèque, il suffit de saisir la commande suivante dans un terminal Python : pip install --upgrade energysystemmodels
+Afin d’installer cette bibliothèque, il suffit de saisir la commande suivante dans un terminal Python :
+
+.. code-block:: python
+
+   pip install --upgrade energysystemmodels
 
 Contenu
 -------
