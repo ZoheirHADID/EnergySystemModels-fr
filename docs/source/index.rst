@@ -17,6 +17,15 @@ Contents
 --------
 
 .. toctree::
+   :maxdepth: 2
+   :caption: Contents:
 
    usage
    api
+   thermodynamic_cycles
+   ahu_modules
+   chiller_example
+   weather_data
+   ipmvp
+   solar_production
+   turpe_calculation
