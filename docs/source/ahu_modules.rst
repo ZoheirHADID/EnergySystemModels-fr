@@ -1,6 +1,7 @@
-\pagebreak
+# Le traitement d'air
 
-Afin d’installer cette bibliothèque, il suffit de saisir la commande suivante dans un terminal Python : pip install --upgrade energysystemmodels
+Ce chapitre fournit les pistes d'économie d'énergie ainsi que les outils nécessaires au calcul des gains énergétiques associés aux applications de traitement d'air. \pagebreak
+
 
 Documentation des Modules AHU
 =============================
@@ -143,9 +144,6 @@ Pour des informations détaillées sur l'API, consultez la section :doc:`api`.
     print(BC.Q_th,"kW")
     print(HMD.F_water,"kg/s")
 
-# Le traitement d'air
-
-Ce chapitre fournit les pistes d'économie d'énergie ainsi que les outils nécessaires au calcul des gains énergétiques associés aux applications de traitement d'air. \pagebreak
 
 ### Nomenclature
 
