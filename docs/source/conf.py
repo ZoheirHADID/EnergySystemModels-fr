@@ -6,8 +6,8 @@ project = 'EnergySystemModels'
 copyright = '2024, Zoheir HADID'
 author = 'Zoheir HADID'
 
-release = '0.1'
-version = '0.1.0'
+release = 'post9'
+version = '0.1.23'
 
 # -- General configuration
 
