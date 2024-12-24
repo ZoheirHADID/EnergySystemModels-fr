@@ -28,23 +28,3 @@ Pour utiliser EnergySystemModels, installez-le d'abord avec pip :
 
    (.venv) $ pip install --upgrade energysystemmodels
 
-Créer des recettes
-------------------
-
-Pour récupérer une liste d'ingrédients aléatoires,
-vous pouvez utiliser la fonction ``energysystemmodels.get_random_ingredients()`` :
-
-.. autofunction:: energysystemmodels.get_random_ingredients
-
-Le paramètre ``kind`` doit être soit ``"meat"``, ``"fish"``,
-ou ``"veggies"``. Sinon, :py:func:`energysystemmodels.get_random_ingredients`
-lèvera une exception.
-
-.. autoexception:: energysystemmodels.InvalidKindError
-
-Par exemple :
-
->>> import energysystemmodels
->>> energysystemmodels.get_random_ingredients()
-['coquilles', 'gorgonzola', 'persil']
-
