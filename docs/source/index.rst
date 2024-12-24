@@ -7,7 +7,6 @@ Contenu
    :caption: Contenu:
 
    usage
-   api
    thermodynamic_cycles
    ahu_modules
    chiller_example
@@ -79,3 +78,5 @@ Contenu
    deperditions_echangeur
 
    facture_gaz_naturel
+
+   api/index
