@@ -33,18 +33,29 @@ Fluid Source
 
 ### Input parameters
 
-+----------+---------------------+----------+------------------+
-| Symbol   | Description         | SI Units | Used Units       |
-+==========+=====================+==========+==================+
-| Ti_degC  | Inlet temperature   | K        | °C               |
-+----------+---------------------+----------+------------------+
-| fluid    | Fluid/Refrigerant   | String   | "air","ammonia", |
-|          | name                |          | "R134a",...      |
-+----------+---------------------+----------+------------------+
-| F, F_Sm3s, F_m3s, F_Sm3h, F_m3h, F_kgh | Input Flow rate | kg/s | kg/s, Sm3/s, m3/s, Sm3/h, m3/h, kg/h |
-+----------+---------------------+----------+------------------+
-| Pi_bar   | Inlet Pressure      | Pa       | bara             |
-+----------+---------------------+----------+------------------+
+.. list-table:: 
+   :header-rows: 1
+
+   * - Symbol
+     - Description
+     - SI Units
+     - Used Units
+   * - Ti_degC
+     - Inlet temperature
+     - K
+     - °C
+   * - fluid
+     - Fluid/Refrigerant name
+     - String
+     - "air","ammonia", "R134a",...
+   * - F, F_Sm3s, F_m3s, F_Sm3h, F_m3h, F_kgh
+     - Input Flow rate
+     - kg/s
+     - kg/s, Sm3/s, m3/s, Sm3/h, m3/h, kg/h
+   * - Pi_bar
+     - Inlet Pressure
+     - Pa
+     - bara
 
 .. code-block:: python
 
@@ -101,18 +112,29 @@ Test Compressor
 
 ### Input parameters
 
-+----------+---------------------+----------+------------------+
-| Symbol   | Description         | SI Units | Used Units       |
-+==========+=====================+==========+==================+
-| Pi_bar   | Inlet Pressure      | Pa       | bara             |
-+----------+---------------------+----------+------------------+
-| Ti_degC  | Inlet Temperature   | K        | °C               |
-+----------+---------------------+----------+------------------+
-| fluid    | Fluid/Refrigerant   | String   | "air","ammonia", |
-|          | name                |          | "R134a",...      |
-+----------+---------------------+----------+------------------+
-| F        | Input Flow rate     | kg/s     | kg/s             |
-+----------+---------------------+----------+------------------+
+.. list-table:: 
+   :header-rows: 1
+
+   * - Symbol
+     - Description
+     - SI Units
+     - Used Units
+   * - Pi_bar
+     - Inlet Pressure
+     - Pa
+     - bara
+   * - Ti_degC
+     - Inlet Temperature
+     - K
+     - °C
+   * - fluid
+     - Fluid/Refrigerant name
+     - String
+     - "air","ammonia", "R134a",...
+   * - F
+     - Input Flow rate
+     - kg/s
+     - kg/s
 
 .. code-block:: python
 
@@ -141,18 +163,29 @@ Test Turbine
 
 ### Input parameters
 
-+----------+---------------------+----------+------------------+
-| Symbol   | Description         | SI Units | Used Units       |
-+==========+=====================+==========+==================+
-| Pi_bar   | Inlet Pressure      | Pa       | bara             |
-+----------+---------------------+----------+------------------+
-| Ti_degC  | Inlet Temperature   | K        | °C               |
-+----------+---------------------+----------+------------------+
-| fluid    | Fluid/Refrigerant   | String   | "air","ammonia", |
-|          | name                |          | "R134a",...      |
-+----------+---------------------+----------+------------------+
-| F        | Input Flow rate     | kg/s     | kg/s             |
-+----------+---------------------+----------+------------------+
+.. list-table:: 
+   :header-rows: 1
+
+   * - Symbol
+     - Description
+     - SI Units
+     - Used Units
+   * - Pi_bar
+     - Inlet Pressure
+     - Pa
+     - bara
+   * - Ti_degC
+     - Inlet Temperature
+     - K
+     - °C
+   * - fluid
+     - Fluid/Refrigerant name
+     - String
+     - "air","ammonia", "R134a",...
+   * - F
+     - Input Flow rate
+     - kg/s
+     - kg/s
 
 .. code-block:: python
 
