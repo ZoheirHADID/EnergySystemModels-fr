@@ -1,84 +1,61 @@
 \pagebreak
 
-*Avant-propos*
-
-**Objectif et approche**
-
-Ce document est destiné à tous les acteurs de l’efficacité énergétique:
-
-* Les professionnels du domaine de l’efficacité énergétique, souhaitant approfondir leur compréhension de l’efficacité énergétique et acquérir des compétences pratiques en matière de calcul et d’analyse de données, tels que les ingénieurs en énergie, les gestionnaires de l’énergie (Exploitants), les consultants en efficacité énergétique, les pilotes énergie (Energy Manager) et les responsables énergie.
-
-* Les étudiants désirant découvrir et s’initier aux métiers de l’efficacité énergétique. Ce document offre une introduction pratique aux concepts clés de l’efficacité énergétique et leur donner une expérience concrète de l’utilisation de Python pour résoudre des problèmes énergétiques.
-
-* Les propriétaires d’entreprises, les gestionnaires de bâtiments
-
-* Les consommateurs qui cherchent à réduire leur consommation d’énergie et à améliorer leur efficacité énergétique.
-
-En proposant des modèles écrits en Python, vous pouvez facilement mettre en pratique les concepts décrits dans ce document. Les outils de calcul peuvent également faciliter la compréhension et l’analyse de données complexes liées à l’efficacité énergétique.
-
-**Prérequis**
-
-Afin de mieux comprendre les modèles d’efficacité énergétique présentés dans ce document et les outils de calcul en Python qui les accompagnent, il est nécessaire d’avoir des connaissances préalables en programmation, en particulier dans le langage Python.
-Cependant, les modèles sont présentés étape par étape, de manière simple et accessible, afin de faciliter leur appropriation par un large public.
-
-Les calculs en Python se basent sur la bibliothèque EnergySystemModels, conçue spécialement pour ce document.
-
 Afin d’installer cette bibliothèque, il suffit de saisir la commande suivante dans un terminal Python : pip install --upgrade energysystemmodels
 
-AHU Modules Documentation
-=========================
+Documentation des Modules AHU
+=============================
 
 Introduction
 ------------
 
-The AHU (Air Handling Unit) modules are designed to manage and control the air quality and temperature in buildings. These modules are essential for maintaining a comfortable and healthy indoor environment.
+Les modules AHU (Air Handling Unit) sont conçus pour gérer et contrôler la qualité de l'air et la température dans les bâtiments. Ces modules sont essentiels pour maintenir un environnement intérieur confortable et sain.
 
-Features
---------
+Caractéristiques
+----------------
 
-- **Air Filtration**: Removes contaminants and particles from the air.
-- **Temperature Control**: Maintains the desired temperature through heating or cooling.
-- **Humidity Control**: Regulates the moisture levels in the air.
-- **Ventilation**: Ensures a constant supply of fresh air.
+- **Filtration de l'air**: Élimine les contaminants et les particules de l'air.
+- **Contrôle de la température**: Maintient la température souhaitée grâce au chauffage ou à la climatisation.
+- **Contrôle de l'humidité**: Régule les niveaux d'humidité dans l'air.
+- **Ventilation**: Assure un approvisionnement constant en air frais.
 
-Usage
------
+Utilisation
+-----------
 
-To use the AHU modules, you need to integrate them into your building management system. The modules can be configured and controlled via the provided API.
+Pour utiliser les modules AHU, vous devez les intégrer dans votre système de gestion de bâtiment. Les modules peuvent être configurés et contrôlés via l'API fournie.
 
-Example
+Exemple
 -------
 
-Here is an example of how to initialize and configure an AHU module:
+Voici un exemple de la façon d'initialiser et de configurer un module AHU :
 
 .. code-block:: python
 
     from ahu_module import AHU
 
     ahu = AHU()
-    ahu.set_temperature(22)  # Set temperature to 22 degrees Celsius
-    ahu.set_humidity(50)     # Set humidity to 50%
+    ahu.set_temperature(22)  # Régler la température à 22 degrés Celsius
+    ahu.set_humidity(50)     # Régler l'humidité à 50%
     ahu.start()
 
-Fresh AHU Example
------------------
+Exemple de AHU Frais
+--------------------
 
 .. code-block:: python
 
     # =============================================================================
-    # AHU Model (Fresh air + Heating Coil + humidifier)
+    # Modèle AHU (Air frais + Batterie de chauffage + Humidificateur)
     # =============================================================================
 
     #module de calcul des prop d'air humide
     from AHU import FreshAir
-    #Heating Coil Component
+    #Composant Batterie de chauffage
     from AHU import HeatingCoil
-    #composant Humidifier (vapeur ou adiabatique)
+    #composant Humidificateur (vapeur ou adiabatique)
     from AHU.Humidification import Humidifier
     # connexion entre les composants
     from AHU.Connect import Air_connect
 
-    ##########Création des Objects
+    ##########Création des Objets
     AN=FreshAir.Object()
     BC=HeatingCoil.Object()
     HMD=Humidifier.Object()
@@ -88,36 +65,67 @@ Fresh AHU Example
     AN.T=14 #°C
     AN.RH_FreshAir=71 # %
     BC.To_target=15 #°C
-    HMD.wo_target=8 #g/Kg dry air
+    HMD.wo_target=8 #g/Kg air sec
 
-    #calculate les propriétés d'air neuf; !important
+    #calculer les propriétés d'air neuf; !important
     AN.calculate()
 
     Air_connect(BC.Inlet,AN.Outlet)
     BC.calculate()
 
     Air_connect(HMD.Inlet,BC.Outlet)
-    HMD.HumidType="vapeur" #par default : Humdificateur adiabatique
+    HMD.HumidType="vapeur" #par défaut : Humidificateur adiabatique
     HMD.calculate()
 
     #enregistrer les résultats du module d'air neuf
-    print("Fresh Air Absolute Humidity  g/kg_as",round(AN.w,1))
-    print("Fresh Air Sat Vapor Pressure   Pa",round(AN.Pvsat,0))
-    print("Fresh Air Wet-Bulb Temperature  °C",round(AN.T_hum,1))
-    print("Fresh Air Specific Enthalpy  KJ/Kg_as",round(AN.h,3))
+    print("Humidité Absolue de l'Air Frais  g/kg_as",round(AN.w,1))
+    print("Pression de Vapeur Saturée de l'Air Frais   Pa",round(AN.Pvsat,0))
+    print("Température de Bulbe Humide de l'Air Frais  °C",round(AN.T_hum,1))
+    print("Enthalpie Spécifique de l'Air Frais  KJ/Kg_as",round(AN.h,3))
 
-    #enregistrer les résultats de la Coil de préchauffage
-    print("Heating Coil Specific Enthalpy KJ/Kg_as",round(BC.ho,1))
-    print("Heating Coil Thermal Power  kW",round(BC.Qth,1))
-    print("Heating Coil Relative Humidity %",round(BC.RH_out,1))
-    print("Humidifier Steam mass flow rate Kg/s",round(HMD.F_water,3))  
-    print("Humidifier Dry air mass flow rate Kg/s",round(HMD.F_dry,3)) 
+    #enregistrer les résultats de la Batterie de préchauffage
+    print("Enthalpie Spécifique de la Batterie de Chauffage KJ/Kg_as",round(BC.ho,1))
+    print("Puissance Thermique de la Batterie de Chauffage  kW",round(BC.Qth,1))
+    print("Humidité Relative de la Batterie de Chauffage %",round(BC.RH_out,1))
+    print("Débit Massique de Vapeur de l'Humidificateur Kg/s",round(HMD.F_water,3))  
+    print("Débit Massique d'Air Sec de l'Humidificateur Kg/s",round(HMD.F_dry,3)) 
 
     # =============================================================================
-    # End AHU Model
+    # Fin du Modèle AHU
     # =============================================================================
 
-API Reference
+Référence API
 -------------
 
-For detailed information on the API, refer to the :doc:`api` section.
+Pour des informations détaillées sur l'API, consultez la section :doc:`api`.
+
+# Le traitement d'air
+
+Ce chapitre fournit les pistes d'économie d'énergie ainsi que les outils nécessaires au calcul des gains énergétiques associés aux applications de traitement d'air. \pagebreak
+
+### Nomenclature
+
+| Variable    | Description (Français)                     | Description (English)                  | Unité          |
+|-------------|--------------------------------------------|----------------------------------------|----------------|
+| F           | Débit massique d'air                       | Air Mass Flow Rate                     | kg/s           |
+| F_dry       | Débit massique d'air sec                   | Dry Air Mass Flow Rate                 | kg/s           |
+| h_in        | Enthalpie à l'entrée                       | Inlet Enthalpy                         | kJ/kg          |
+| h_out       | Enthalpie à la sortie                      | Outlet Enthalpy                        | kJ/kg          |
+| Inlet       | Port d'entrée de l'air                     | Inlet Air Port                         | -              |
+| Outlet      | Port de sortie de l'air                    | Outlet Air Port                        | -              |
+| P           | Pression atmosphérique                     | Atmospheric Pressure                   | Pascal         |
+| P_drop      | Perte de pression                          | Pressure Drop                          | Pascal         |
+| Pv          | Pression partielle de vapeur d'eau         | Partial Water Vapor Pressure           | Pascal         |
+| Pv_sat      | Pression de vapeur saturée                 | Saturated Vapor Pressure               | Pascal         |
+| Qth         | Charge thermique                           | Thermal Load                           | kW             |
+| RH          | Humidité relative                          | Relative Humidity                      | %              |
+| RH_out      | Humidité relative à la sortie              | Outlet Relative Humidity               | %              |
+| T           | Température                                | Temperature                            | °C             |
+| T_db        | Température sèche                          | Dry Bulb Temperature                   | °C             |
+| To_target   | Température cible de sortie                | Target Outlet Temperature              | °C             |
+| Td          | Température de rosée                       | Dew Point Temperature                  | °C             |
+| Tk          | Température en Kelvin                      | Temperature in Kelvin                  | K              |
+| w           | Humidité absolue                           | Absolute Humidity                      | g/kg d'air sec |
+| w_in        | Humidité absolue à l'entrée                | Inlet Absolute Humidity                | g/kg d'air sec |
+| ρ_hum       | Densité de l'air humide                    | Humid Air Density                      | kg/m³          |
+| v_hum       | Volume spécifique de l'air humide          | Humid Air Specific Volume              | m³/kg          |
