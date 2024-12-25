@@ -7,29 +7,71 @@ Ce package intégre la bibliothèque coolprop qui dispose d'un large choix de fl
 Fluid Source
 ------------
 
-### Input parameters
+### Modèle Mathématique
+
+Le modèle Fluid Source calcule le débit massique en fonction de diverses conditions d'entrée et des propriétés du fluide. Le modèle utilise la bibliothèque CoolProp pour déterminer les propriétés du fluide et effectue les calculs suivants :
+
+1. Convertir les débits volumiques en débits massiques en utilisant la densité du fluide.
+2. Calculer l'enthalpie de sortie et déterminer la qualité du fluide (liquide, vapeur, diphasique ou supercritique).
+3. Mettre à jour les propriétés de sortie et générer un DataFrame avec les résultats.
+
+Les principales équations utilisées dans le modèle sont :
+
+- Débit massique à partir de mètres cubes standards par heure (Sm³/h) :
+  \[
+  \dot{m} = \frac{F_{Sm3h}}{3600} \cdot \rho(P_{std}, T_{std})
+  \]
+
+- Débit massique à partir de mètres cubes normaux par heure (Nm³/h) :
+  \[
+  \dot{m} = \frac{F_{Nm3h}}{3600} \cdot \rho(P_{std}, T_{norm})
+  \]
+
+- Débit massique à partir de mètres cubes par seconde (m³/s) :
+  \[
+  \dot{m} = F_{m3s} \cdot \rho(P_{in}, T_{in})
+  \]
+
+- Enthalpie de sortie :
+  \[
+  h_{out} = \text{PropsSI}('H', 'P', P_{out}, 'T', T_{in}, \text{fluid})
+  \]
+
+- Qualité du fluide :
+  \[
+  Q = 1 - \frac{H_v - h_{out}}{H_v - H_l}
+  \]
+
+où :
+- \(\rho\) est la densité du fluide,
+- \(P_{std}\) et \(T_{std}\) sont la pression et la température standards,
+- \(P_{norm}\) et \(T_{norm}\) sont la pression et la température normales,
+- \(P_{in}\) et \(T_{in}\) sont la pression et la température d'entrée,
+- \(H_v\) et \(H_l\) sont les enthalpies de la vapeur et du liquide à la pression d'entrée.
+
+### Paramètres d'entrée
 
 .. list-table:: 
    :header-rows: 1
 
-   * - Symbol
+   * - Symbole
      - Description
-     - SI Units
-     - Used Units
+     - Unités SI
+     - Unités utilisées
    * - Ti_degC
-     - Inlet temperature
+     - Température d'entrée
      - K
      - °C
    * - fluid
-     - Fluid/Refrigerant name
+     - Nom du fluide/frigorigène
      - String
-     - "air","ammonia", "R134a",...
+     - "air","ammoniac", "R134a",...
    * - F, F_Sm3s, F_m3s, F_Sm3h, F_m3h, F_kgh
-     - Input Flow rate
+     - Débit d'entrée
      - kg/s
      - kg/s, Sm3/s, m3/s, Sm3/h, m3/h, kg/h
    * - Pi_bar
-     - Inlet Pressure
+     - Pression d'entrée
      - Pa
      - bara
 
