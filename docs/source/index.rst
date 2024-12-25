@@ -1,7 +1,6 @@
-
 **Objectif et approche**
 
-Cette docummentation présente la bibliothèque Python EnergySystemModels, conçue pour faciliter les calculs et analyses liés à l’efficacité énergétique. En proposant des modèles écrits en Python, vous pouvez facilement mettre en pratique les concepts d'éfficacité énergétique. Les outils de calcul peuvent également faciliter la compréhension et l’analyse de données complexes liées à l’efficacité énergétique.
+Cette documentation présente la bibliothèque Python EnergySystemModels, conçue pour faciliter les calculs et analyses liés à l’efficacité énergétique. En proposant des modèles écrits en Python, vous pouvez facilement mettre en pratique les concepts d'efficacité énergétique. Les outils de calcul peuvent également faciliter la compréhension et l’analyse de données complexes liées à l’efficacité énergétique.
 
 **Prérequis**
 
