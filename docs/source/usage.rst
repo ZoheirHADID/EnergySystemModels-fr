@@ -12,10 +12,12 @@ Pour utiliser EnergySystemModels, installez-le d'abord avec pip :
 
    (.venv) $ pip install energysystemmodels
 
+Mise à jour
+------------
+
 Pour mettre à jour EnergySystemModels, utilisez la commande suivante :
 
-
-.. code-block:: python
+.. code-block:: console
 
    pip install --upgrade energysystemmodels
 
