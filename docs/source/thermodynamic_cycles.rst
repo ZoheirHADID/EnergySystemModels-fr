@@ -7,7 +7,8 @@ Ce package intégre la bibliothèque coolprop qui dispose d'un large choix de fl
 Fluid Source
 ------------
 
-### Modèle Mathématique
+Modèle Physique
+---------------
 
 Le modèle Fluid Source calcule le débit massique en fonction de diverses conditions d'entrée et des propriétés du fluide. Le modèle utilise la bibliothèque CoolProp pour déterminer les propriétés du fluide et effectue les calculs suivants :
 
@@ -18,29 +19,29 @@ Le modèle Fluid Source calcule le débit massique en fonction de diverses condi
 Les principales équations utilisées dans le modèle sont :
 
 - Débit massique à partir de mètres cubes standards par heure (Sm³/h) :
-  \[
-  \dot{m} = \frac{F_{Sm3h}}{3600} \cdot \rho(P_{std}, T_{std})
-  \]
+
+  .. math::
+    \dot{m} = \frac{F_{Sm3h}}{3600} \cdot \rho(P_{std}, T_{std})
 
 - Débit massique à partir de mètres cubes normaux par heure (Nm³/h) :
-  \[
-  \dot{m} = \frac{F_{Nm3h}}{3600} \cdot \rho(P_{std}, T_{norm})
-  \]
+
+  .. math::
+    \dot{m} = \frac{F_{Nm3h}}{3600} \cdot \rho(P_{std}, T_{norm})
 
 - Débit massique à partir de mètres cubes par seconde (m³/s) :
-  \[
-  \dot{m} = F_{m3s} \cdot \rho(P_{in}, T_{in})
-  \]
+
+  .. math::
+    \dot{m} = F_{m3s} \cdot \rho(P_{in}, T_{in})
 
 - Enthalpie de sortie :
-  \[
-  h_{out} = \text{PropsSI}('H', 'P', P_{out}, 'T', T_{in}, \text{fluid})
-  \]
+
+  .. math::
+    h_{out} = \text{PropsSI}('H', 'P', P_{out}, 'T', T_{in}, \text{fluid})
 
 - Qualité du fluide :
-  \[
-  Q = 1 - \frac{H_v - h_{out}}{H_v - H_l}
-  \]
+
+  .. math::
+    Q = 1 - \frac{H_v - h_{out}}{H_v - H_l}
 
 où :
 - \(\rho\) est la densité du fluide,
@@ -49,7 +50,8 @@ où :
 - \(P_{in}\) et \(T_{in}\) sont la pression et la température d'entrée,
 - \(H_v\) et \(H_l\) sont les enthalpies de la vapeur et du liquide à la pression d'entrée.
 
-### Paramètres d'entrée
+Paramètres d'entrée
+-------------------
 
 .. list-table:: 
    :header-rows: 1
@@ -128,7 +130,8 @@ Compressor
 Test Compressor
 ---------------
 
-### Input parameters
+Input parameters
+----------------
 
 .. list-table:: 
    :header-rows: 1
@@ -179,7 +182,8 @@ Turbine
 Test Turbine
 ------------
 
-### Input parameters
+Input parameters
+----------------
 
 .. list-table:: 
    :header-rows: 1
