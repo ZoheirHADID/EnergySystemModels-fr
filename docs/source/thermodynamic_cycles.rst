@@ -1,12 +1,10 @@
-\pagebreak
-
 Thermodynamic Cycles Package
 ============================
 
 **Objectif et approche**
 
 Le package Thermodynamic Cycles de la bibliothèque EnergySystemModels permet de modéliser et d'analyser différents cycles thermodynamiques. 
-En proposant des modèles écrits en Python, vous pouvez facilement mettre en pratique les concepts décrits dans ce document. Les outils de calcul peuvent également faciliter la compréhension et l’analyse de données complexes liées à l’efficacité énergétique.
+Ce package intégre la bibliothèque coolprop qui dispose d'un large choix de fluides frigorigènes.
 
 Fluid Source
 ------------
