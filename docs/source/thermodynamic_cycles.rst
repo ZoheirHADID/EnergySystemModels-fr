@@ -1,8 +1,8 @@
 Thermodynamic Cycles Package
 ============================
 
-Nomenclature
-------------
+1. Nomenclature
+---------------
 
 .. list-table:: 
    :header-rows: 1
@@ -59,11 +59,11 @@ Nomenclature
 Le package Thermodynamic Cycles de la bibliothèque EnergySystemModels permet de modéliser et d'analyser différents cycles thermodynamiques. 
 Ce package intégre la bibliothèque coolprop qui dispose d'un large choix de fluides frigorigènes.
 
-Fluid Source
-------------
-
-Modèle Physique
+2. Fluid Source
 ---------------
+
+2.1. Modèle Physique et paramètre d'entrée
+------------------------------------------
 
 Le modèle Fluid Source calcule le débit massique en fonction de diverses conditions d'entrée et des propriétés du fluide. Le modèle utilise la bibliothèque CoolProp pour déterminer les propriétés du fluide et effectue les calculs suivants :
 
@@ -131,32 +131,8 @@ Les paramètres d'entrée du modèle sont les suivants :
      - Pa
      - bara
 
-Paramètres d'entrée
--------------------
-
-.. list-table:: 
-   :header-rows: 1
-
-   * - Symbole
-     - Description
-     - Unités SI
-     - Unités utilisées
-   * - Ti_degC
-     - Température d'entrée
-     - K
-     - °C
-   * - fluid
-     - Nom du fluide/frigorigène
-     - String
-     - "air","ammoniac", "R134a",...
-   * - F, F_Sm3s, F_m3s, F_Sm3h, F_m3h, F_kgh
-     - Débit d'entrée
-     - kg/s
-     - kg/s, Sm3/s, m3/s, Sm3/h, m3/h, kg/h
-   * - Pi_bar
-     - Pression d'entrée
-     - Pa
-     - bara
+2.2. Exemple d'utilisation de "Fluide Source"
+---------------------------------------------
 
 .. code-block:: python
 
@@ -178,11 +154,11 @@ Paramètres d'entrée
     # Data output
     print(SOURCE.df)
 
-Sink
-----
+3. Sink
+-------
 
-Test Sink
----------
+3.1. Test Sink
+--------------
 
 .. code-block:: python
 
@@ -205,11 +181,11 @@ Test Sink
     print(SINK.df)
     print(SINK.To_degC)
 
-Compressor
-----------
+4. Compressor
+-------------
 
-Test Compressor
----------------
+4.1. Test Compressor
+--------------------
 
 Input parameters
 ----------------
@@ -257,8 +233,8 @@ Input parameters
     # Print result
     print(COMPRESSOR.df)
 
-Turbine
--------
+5. Turbine
+----------
 
 Test Turbine
 ------------
