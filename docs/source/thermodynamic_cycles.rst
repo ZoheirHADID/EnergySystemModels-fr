@@ -60,7 +60,7 @@ Le package Thermodynamic Cycles de la bibliothèque EnergySystemModels permet de
 Ce package intégre la bibliothèque coolprop qui dispose d'un large choix de fluides frigorigènes.
 
 2. Fluid Source
----------------
+===============
 
 2.1. Modèle Physique et paramètre d'entrée
 ------------------------------------------
@@ -155,7 +155,7 @@ Les paramètres d'entrée du modèle sont les suivants :
     print(SOURCE.df)
 
 3. Sink
--------
+=======
 
 3.1. Test Sink
 --------------
@@ -182,7 +182,7 @@ Les paramètres d'entrée du modèle sont les suivants :
     print(SINK.To_degC)
 
 4. Compressor
--------------
+=============
 
 4.1. Test Compressor
 --------------------
@@ -234,7 +234,7 @@ Input parameters
     print(COMPRESSOR.df)
 
 5. Turbine
-----------
+==========
 
 Test Turbine
 ------------
