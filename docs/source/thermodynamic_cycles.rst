@@ -44,11 +44,11 @@ Les principales équations utilisées dans le modèle sont :
     Q = 1 - \frac{H_v - h_{out}}{H_v - H_l}
 
 où :
-- \(\rho\) est la densité du fluide,
-- \(P_{std}\) et \(T_{std}\) sont la pression et la température standards,
-- \(P_{norm}\) et \(T_{norm}\) sont la pression et la température normales,
-- \(P_{in}\) et \(T_{in}\) sont la pression et la température d'entrée,
-- \(H_v\) et \(H_l\) sont les enthalpies de la vapeur et du liquide à la pression d'entrée.
+- :math:`\rho` est la densité du fluide,
+- :math:`P_{std}` et :math:`T_{std}` sont la pression et la température standards,
+- :math:`P_{norm}` et :math:`T_{norm}` sont la pression et la température normales,
+- :math:`P_{in}` et :math:`T_{in}` sont la pression et la température d'entrée,
+- :math:`H_v` et :math:`H_l` sont les enthalpies de la vapeur et du liquide à la pression d'entrée.
 
 Paramètres d'entrée
 -------------------
