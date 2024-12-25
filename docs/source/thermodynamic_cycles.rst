@@ -188,7 +188,7 @@ Les paramètres d'entrée du modèle sont les suivants :
 --------------------
 
 Input parameters
-----------------
+================
 
 .. list-table:: 
    :header-rows: 1
@@ -236,11 +236,11 @@ Input parameters
 5. Turbine
 ==========
 
-Test Turbine
-------------
+5.1. Test Turbine
+-----------------
 
 Input parameters
-----------------
+================
 
 .. list-table:: 
    :header-rows: 1
