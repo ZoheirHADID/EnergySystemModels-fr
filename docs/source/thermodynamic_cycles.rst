@@ -1,8 +1,6 @@
 Thermodynamic Cycles Package
 ============================
 
-**Objectif et approche**
-
 Le package Thermodynamic Cycles de la bibliothèque EnergySystemModels permet de modéliser et d'analyser différents cycles thermodynamiques. 
 Ce package intégre la bibliothèque coolprop qui dispose d'un large choix de fluides frigorigènes.
 
