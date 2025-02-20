@@ -63,4 +63,7 @@ Exemple d'utilisation de la bibliothèque Python pour calculer le transfert de c
 
     # Calcul du transfert de chaleur total
     total = haut + bas + vertical1 + vertical2
-    print(f"{round(total,0)} W={round(haut,0)} W+{round(bas,0)} W+{round(vertical1,0)} W+{round(vertical2,0)} W")
+    print(f"{round(total,0)} W ={round(haut,0)} W +{round(bas,0)} W +{round(vertical1,0)} W +{round(vertical2,0)} W")
+
+Résultat : 
+1957.0 W =191.0 W +190.0 W +900.0 W +675.0 W
