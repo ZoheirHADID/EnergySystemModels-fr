@@ -1,14 +1,14 @@
 Transfert de Chaleur
 ====================
 
-L'image ci-dessous montre un exemple de transfert de chaleur à travers un échangeur de chaleur à plaques :
+L'image ci-dessous montre un exemple de transfert de chaleur confectif et radiatif à travers un échangeur de chaleur à plaques non isolé dont la température de la paroi est de 60°C et la température ambiante est de 25°C.:
 
 .. image:: images/PlateHeatTransfer.png
    :alt: Plate Heat Transfer
    :width: 200px
    :align: center
 
-Exemple d'utilisation de la bibliothèque Python pour calculer le transfert de chaleur :
+Les déperditions de chaleur à travers les parois de l'échangeur de chaleur à plaques peuvent être calculées en utilisant la classe PlateHeatTransfer. Cette classe permet de calculer les déperditions de chaleur à travers les parois horizontales et verticales de l'échangeur de chaleur à plaques. Les déperditions de chaleur à travers les parois horizontales peuvent être calculées en utilisant les paramètres suivants :
 
 .. code-block:: python
 
