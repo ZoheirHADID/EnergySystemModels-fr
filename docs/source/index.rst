@@ -11,6 +11,7 @@ Afin de mieux comprendre les modèles d’efficacité énergétique présentés 
    :caption: Sommaire:
 
    usage
+   transfert_chaleur
    thermodynamic_cycles
    ahu_modules
    chiller_example
