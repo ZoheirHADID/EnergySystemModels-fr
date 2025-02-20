@@ -15,7 +15,7 @@ Exemple d'utilisation de la bibliothèque Python pour calculer le transfert de c
     from EnergySystemModels.TransfertChaleur import PlateHeatTransfer
 
     # Température de la paroi en °C
-    Tp = 80
+    Tp = 60
     # Température ambiante en °C
     Ta = 25
     # Longueur en mètres
@@ -63,4 +63,4 @@ Exemple d'utilisation de la bibliothèque Python pour calculer le transfert de c
 
     # Calcul du transfert de chaleur total
     total = haut + bas + vertical1 + vertical2
-    print(total, ':', haut, '+', bas, '+', vertical1, '+', vertical2)
+    print(f"{round(total,0)} W={round(haut,0)} W+{round(bas,0)} W+{round(vertical1,0)} W+{round(vertical2,0)} W")
