@@ -5,7 +5,7 @@ L'image ci-dessous montre un exemple de transfert de chaleur à travers un écha
 
 .. image:: images/PlateHeatTransfer.png
    :alt: Plate Heat Transfer
-   :width: 600px
+   :width: 200px
    :align: center
 
 Exemple d'utilisation de la bibliothèque Python pour calculer le transfert de chaleur :
