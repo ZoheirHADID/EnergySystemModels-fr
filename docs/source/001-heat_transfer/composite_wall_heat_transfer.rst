@@ -91,6 +91,7 @@ Le modèle de transfert de chaleur dans un mur composite utilise les équations 
    - Résistance externe : 
      .. math::
        R_e = \frac{1}{h_e}
+       
    - Résistance interne : 
      .. math::
        R_i = \frac{1}{h_i}
