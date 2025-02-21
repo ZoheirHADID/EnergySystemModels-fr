@@ -11,11 +11,11 @@ Afin de mieux comprendre les modèles d’efficacité énergétique présentés 
    :caption: Sommaire:
 
    usage
-   heat_transfer/index
-   thermodynamic_cycles/index
+   1-heat_transfer/index
+   2-thermodynamic_cycles/index
    3-ahu_modules/index
-   hydraulic/index
-   aeraulic/index
+   4-hydraulic/index
+   5-aeraulic/index
 
    chiller_example
    weather_data
