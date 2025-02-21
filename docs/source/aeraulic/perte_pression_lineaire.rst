@@ -1,9 +1,9 @@
 .. _straight_pipe:
 
-Calcul de la perte de charge linéaire d'une gaine d'air
-=======================================================
+5.1. Calcul de la perte de charge linéaire d'une gaine d'air
+============================================================
 
-6.1. Exemple d'utilisation de "StraightPipe"
+5.1.1. Exemple d'utilisation de "StraightPipe"
 --------------------------------------------
 
 .. code-block:: python
