@@ -1,7 +1,7 @@
 .. _ahu_modules:
 
-AHU Modules
-===========
+1. AHU Modules
+==============
 
 .. toctree::
    :maxdepth: 2
