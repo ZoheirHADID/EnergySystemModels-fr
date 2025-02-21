@@ -1,5 +1,5 @@
 1. Transfert de chaleur convectif naturel et radiatif d'une plaque (avec différentes orientations de la plaque plane)
-==========================================================================================================
+=====================================================================================================================
 
 
 L'image ci-dessous montre un exemple de transfert de chaleur confectif et radiatif à travers un échangeur de chaleur à plaques non isolé dont la température de la paroi est de 60°C et la température ambiante est de 25°C.:
