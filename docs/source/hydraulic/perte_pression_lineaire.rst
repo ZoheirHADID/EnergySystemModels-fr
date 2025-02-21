@@ -1,9 +1,9 @@
 .. _straight_pipe:
 
-Calcul de la perte de charge linéaire d'un conduit d'eau
+4.1. de la perte de charge linéaire d'un conduit d'eau
 ========================================================
 
-6.1. Exemple d'utilisation de "StraightPipe"
+4.1.1. Exemple d'utilisation de "StraightPipe"
 --------------------------------------------
 
 .. code-block:: python

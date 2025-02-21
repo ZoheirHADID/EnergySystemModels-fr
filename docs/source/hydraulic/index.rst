@@ -1,6 +1,6 @@
 .. _hydraulic:
 
-5. Modèles Hydrauliques
+4. Modèles Hydrauliques
 =======================
 
 .. toctree::
