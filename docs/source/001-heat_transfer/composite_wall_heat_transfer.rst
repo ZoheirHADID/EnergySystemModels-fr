@@ -5,7 +5,7 @@ L'image ci-dessous montre un exemple de mur composite utilisé pour la simulatio
 
 .. image:: ../images/CompositeWall.png
    :alt: Composite Wall
-   :width: 400px
+   :width: 500px
    :align: center
 
 Exemple de simulation du transfert de chaleur dans un mur composite :
@@ -170,7 +170,10 @@ Le modèle de transfert de chaleur dans un mur composite utilise les équations 
    où \( A \) est la surface du mur, \( T_i \) est la température intérieure, et \( T_e \) est la température extérieure.
 
 6. **Températures aux interfaces des couches** :
-   - Les températures aux interfaces des couches sont calculées en utilisant le flux thermique et les résistances thermiques :
+   - La température de la paroi extérieure après la résistance convective est calculée comme suit :
+     .. math::
+       T_{\text{paroi extérieure}} = T_e + \frac{Q \cdot R_e}{A}
+   - Les températures aux interfaces des couches sont ensuite calculées en utilisant le flux thermique et les résistances thermiques :
      .. math::
        T_{\text{interface}} = T_{\text{précédente}} + \frac{Q \cdot R_{\text{couche}}}{A}
 
