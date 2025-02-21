@@ -13,7 +13,15 @@ Afin de mieux comprendre les modèles d’efficacité énergétique présentés 
    usage
    transfert_chaleur
    thermodynamic_cycles
-   ahu_modules
+
+   ahu_modules/introduction
+   ahu_modules/caracteristiques
+   ahu_modules/utilisation
+   ahu_modules/exemple_ahu_frais
+   ahu_modules/cta_air_neuf
+   ahu_modules/nomenclature
+
+
    chiller_example
    weather_data
    ipmvp
