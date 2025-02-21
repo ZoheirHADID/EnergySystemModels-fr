@@ -1,11 +1,11 @@
 .. _aeraulic:
 
-Modèles Hydrauliques
+Modèles Aerauliques
 ====================
 
 .. toctree::
    :maxdepth: 2
-   :caption: Modèles Hydrauliques:
+   :caption: Modèles Aerauliques:
 
    perte_pression_lineaire
    modelisation_tube
