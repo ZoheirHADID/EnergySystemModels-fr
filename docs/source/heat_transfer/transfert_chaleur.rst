@@ -1,4 +1,4 @@
-Transfert de chaleur convectif naturel et radiatif d'une plaque (avec différentes orientations de la plaque plane)
+1. Transfert de chaleur convectif naturel et radiatif d'une plaque (avec différentes orientations de la plaque plane)
 ==========================================================================================================
 
 
