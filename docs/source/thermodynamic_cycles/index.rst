@@ -1,15 +1,15 @@
-.. _ahu_modules:
+.. _thermodynamic_cycles:
 
-1. AHU Modules
-==============
+Thermodynamic Cycles Package
+============================
 
 .. toctree::
-   :maxdepth: 3
-   :caption: AHU Modules:
+   :maxdepth: 2
+   :caption: Thermodynamic Cycles:
 
-   introduction
-   caracteristiques
-   utilisation
-   exemple_ahu_frais
-   cta_air_neuf
    nomenclature
+   fluid_source
+   sink
+   compressor
+   turbine
+   straight_pipe
