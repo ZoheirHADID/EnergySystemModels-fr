@@ -11,7 +11,7 @@ Afin de mieux comprendre les modèles d’efficacité énergétique présentés 
    :caption: Sommaire:
 
    usage
-   transfert_chaleur/index
+   heat_transfer/index
    thermodynamic_cycles/index
    ahu_modules/index
 
