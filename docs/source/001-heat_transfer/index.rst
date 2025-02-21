@@ -8,3 +8,4 @@
    :caption: Heat Transfer:
 
    transfert_chaleur
+   composite_wall_heat_transfer
