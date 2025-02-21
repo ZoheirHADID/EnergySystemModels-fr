@@ -4,7 +4,7 @@
 
 L'image ci-dessous montre un exemple de transfert de chaleur confectif et radiatif à travers un échangeur de chaleur à plaques non isolé dont la température de la paroi est de 60°C et la température ambiante est de 25°C.:
 
-.. image:: images/PlateHeatTransfer.png
+.. image:: ../images/PlateHeatTransfer.png
    :alt: Plate Heat Transfer
    :width: 300px
    :align: center
