@@ -7,8 +7,6 @@
    :maxdepth: 3
    :caption: AHU Modules:
 
-   introduction
-   caracteristiques
    utilisation
    exemple_ahu_frais
    cta_air_neuf
