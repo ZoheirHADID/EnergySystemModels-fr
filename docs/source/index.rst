@@ -15,7 +15,7 @@ Afin de mieux comprendre les modèles d’efficacité énergétique présentés 
    thermodynamic_cycles/index
    ahu_modules/index
    hydraulic/index
-
+   aeraulic/index
 
    chiller_example
    weather_data
