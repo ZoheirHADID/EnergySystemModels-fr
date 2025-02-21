@@ -1,7 +1,7 @@
 .. _heat_transfer:
 
-Heat Transfer
-=============
+1. Heat Transfer
+================
 
 .. toctree::
    :maxdepth: 2

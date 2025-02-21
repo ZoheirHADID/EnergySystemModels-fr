@@ -1,6 +1,6 @@
 .. _ahu_modules:
 
-1. AHU Modules
+3. AHU Modules
 ==============
 
 .. toctree::

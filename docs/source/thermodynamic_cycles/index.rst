@@ -1,7 +1,7 @@
 .. _thermodynamic_cycles:
 
-Thermodynamic Cycles Package
-============================
+2. Thermodynamic Cycles Package
+===============================
 
 .. toctree::
    :maxdepth: 2
