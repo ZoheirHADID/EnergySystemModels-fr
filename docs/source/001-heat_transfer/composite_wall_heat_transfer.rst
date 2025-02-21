@@ -82,6 +82,58 @@ Résultat attendu :
      - 148.661889
      - 10
 
+Liste des matériaux disponibles
+-------------------------------
+
+.. list-table::
+   :header-rows: 1
+
+   * - Anglais
+     - Français
+     - Conductivité thermique (W/m.°C)
+   * - Glass wool
+     - Laine de verre
+     - 0.034
+   * - Expanded cork agglomerated with pitch
+     - Liège expansé aggloméré au brai
+     - 0.048
+   * - Pure expanded cork
+     - Liège expansé pur
+     - 0.043
+   * - Hollow concrete blocks
+     - Parpaings creux
+     - 1.4
+   * - Hard limestone (marble)
+     - Pierre calcaire dure (marbre)
+     - 2.9
+   * - Soft limestone
+     - Pierre calcaire tendre
+     - 0.95
+   * - Granite
+     - Pierre granit
+     - 3.5
+   * - Expanded polystyrene
+     - Polystyrène expansé
+     - 0.047
+   * - Polystyrene
+     - Polystyrène
+     - 0.03
+   * - Extruded polystyrene
+     - Polystyrène extrudé
+     - 0.035
+   * - Polyurethane foam
+     - Mousse de polyuréthane
+     - 0.03
+   * - Plaster
+     - Plâtre
+     - 0.5
+   * - Glass
+     - Verre
+     - 1.0
+   * - Air
+     - Air
+     - None
+
 Explication des équations utilisées
 -----------------------------------
 
