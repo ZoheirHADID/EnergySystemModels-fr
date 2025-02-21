@@ -1,7 +1,7 @@
 .. _aeraulic:
 
-Modèles Aerauliques
-====================
+4. Modèles Aerauliques
+======================
 
 .. toctree::
    :maxdepth: 2

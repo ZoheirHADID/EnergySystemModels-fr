@@ -1,7 +1,7 @@
 .. _hydraulic:
 
-Modèles Hydrauliques
-====================
+5. Modèles Hydrauliques
+=======================
 
 .. toctree::
    :maxdepth: 2
