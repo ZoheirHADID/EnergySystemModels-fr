@@ -21,6 +21,8 @@ Afin de mieux comprendre les modèles d’efficacité énergétique présentés 
    ahu_modules/cta_air_neuf
    ahu_modules/nomenclature
 
+   ahu_modules/index
+
 
    chiller_example
    weather_data
