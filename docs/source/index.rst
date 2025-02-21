@@ -13,7 +13,7 @@ Afin de mieux comprendre les modèles d’efficacité énergétique présentés 
    usage
    heat_transfer/index
    thermodynamic_cycles/index
-   ahu_modules/index
+   3-ahu_modules/index
    hydraulic/index
    aeraulic/index
 
