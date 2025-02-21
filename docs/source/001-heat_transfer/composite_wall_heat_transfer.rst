@@ -5,7 +5,7 @@ L'image ci-dessous montre un exemple de mur composite utilisé pour la simulatio
 
 .. image:: ../images/CompositeWall.png
    :alt: Composite Wall
-   :width: 300px
+   :width: 400px
    :align: center
 
 Exemple de simulation du transfert de chaleur dans un mur composite :
