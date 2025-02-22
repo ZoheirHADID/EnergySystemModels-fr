@@ -1,5 +1,5 @@
-Transfert de chaleur dans un mur composite
-==========================================
+1.2. Transfert de chaleur dans un mur composite
+===============================================
 
 L'image ci-dessous montre un exemple de mur composite utilisé pour la simulation du transfert de chaleur :
 

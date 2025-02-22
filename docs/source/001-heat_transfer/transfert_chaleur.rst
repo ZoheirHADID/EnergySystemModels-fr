@@ -1,5 +1,5 @@
 1.1. Transfert de chaleur convectif naturel et radiatif d'une plaque 
---------------------------------------------------------------------
+====================================================================
 
 
 L'image ci-dessous montre un exemple de transfert de chaleur confectif et radiatif à travers un échangeur de chaleur à plaques non isolé dont la température de la paroi est de 60°C et la température ambiante est de 25°C.:
@@ -69,8 +69,8 @@ Les déperditions de chaleur à travers les parois de l'échangeur de chaleur à
 Résultat : 
 1957.0 W = 191.0 W + 190.0 W + 900.0 W + 675.0 W
 
-1.2. Explication des équations utilisées
-----------------------------------------
+Explication des équations utilisées
+-----------------------------------
 
 La classe `PlateHeatTransfer` utilise différentes équations pour calculer les déperditions de chaleur en fonction de l'orientation de la plaque (horizontale ou verticale). Voici les principales équations utilisées :
 
