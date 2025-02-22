@@ -1,5 +1,5 @@
-Analyse de l'isolation des tuyaux
-=================================
+1.3. Analyse de l'isolation des tuyaux
+======================================
 
 L'image ci-dessous montre un exemple de tuyau isolé avec les paramètres de simulation :
 
