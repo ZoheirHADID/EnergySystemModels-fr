@@ -13,6 +13,7 @@ L'image ci-dessous montre un exemple de tube avec la source et le puits :
    :width: 800px
    :align: center
 
+Le code suivant montre comment utiliser la classe "StraightPipe" pour calculer la perte de charge linéaire d'un conduit d'eau :
 
 .. code-block:: python
 
