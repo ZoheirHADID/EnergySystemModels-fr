@@ -142,83 +142,124 @@ Nomenclature
 
    * - Parameter
      - Description
+     - Unité
    * - Ti_degC
      - Température d'entrée en degrés Celsius
+     - °C
    * - Pi_bar
      - Pression d'entrée en bars
+     - bar
    * - F_Sm3h
      - Débit volumétrique standard en mètres cubes par heure
+     - m³/h
    * - F_Nm3h
      - Débit volumétrique normal en mètres cubes par heure
+     - m³/h
    * - F_m3h
      - Débit volumétrique en mètres cubes par heure
+     - m³/h
    * - F_kgh
      - Débit massique en kilogrammes par heure
+     - kg/h
    * - F_kgs
      - Débit massique en kilogrammes par seconde
+     - kg/s
    * - F_m3s
      - Débit volumétrique en mètres cubes par seconde
+     - m³/s
    * - F_Sm3s
      - Débit volumétrique standard en mètres cubes par seconde
+     - m³/s
    * - Inlet.F
      - Débit massique à l'entrée en kilogrammes par seconde
+     - kg/s
    * - Inlet.h
      - Enthalpie à l'entrée en joules par kilogramme
+     - J/kg
    * - Outlet.h
      - Enthalpie à la sortie en joules par kilogramme
+     - J/kg
    * - A
      - Section du tube en mètres carrés
+     - m²
    * - V
      - Vitesse d'écoulement en mètres par seconde
+     - m/s
    * - Re
      - Nombre de Reynolds
+     - -
    * - delta_P
      - Perte de pression en pascals
+     - Pa
    * - Inlet.P
      - Pression à l'entrée en pascals
+     - Pa
    * - H
      - Puissance en watts
+     - W
    * - fluid_quality
      - Qualité du fluide
+     - -
    * - Q
      - Débit thermique
+     - -
    * - D
      - Densité en kilogrammes par mètre cube
+     - kg/m³
    * - Ti
      - Température d'entrée en Kelvin
+     - K
    * - To
      - Température de sortie en Kelvin
+     - K
    * - roughness
      - Rugosité de la surface
+     - m
    * - d_hyd
      - Diamètre hydraulique en mètres
+     - m
    * - L
      - Longueur en mètres
+     - m
    * - K
      - Rugosité en mètres
+     - m
    * - alpha
      - Angle d'inclinaison du tube en radians
+     - rad
    * - delta_Z
      - Hauteur du tuyau en mètres
+     - m
    * - delta_H
      - Perte de pression en mètres
+     - m
    * - eta
      - Viscosité dynamique du fluide
+     - Pa·s
    * - rho
      - Densité du fluide
+     - kg/m³
    * - delta_P
      - Perte de pression due aux frottements
+     - Pa
    * - diff_P
      - Différence de pression entre l'entrée et la sortie
+     - Pa
    * - m_flow
      - Débit massique en kilogrammes par seconde
+     - kg/s
    * - perimeter
      - Périmètre
+     - m
    * - A
      - Section du tube en mètres carrés
+     - m²
    * - V
      - Vitesse d'écoulement en mètres par seconde
+     - m/s
    * - Re
      - Nombre de Reynolds
+     - -
    * - h
      - Enthalpie en joules par kilogramme
+     - J/kg
