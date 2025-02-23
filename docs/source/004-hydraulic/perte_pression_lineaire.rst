@@ -210,10 +210,6 @@ Nomenclature
      - Perte de pression due aux frottements
    * - diff_P
      - Différence de pression entre l'entrée et la sortie
-   * - IN_con
-     - IN_con
-   * - IN_var
-     - IN_var
    * - m_flow
      - Débit massique en kilogrammes par seconde
    * - perimeter
