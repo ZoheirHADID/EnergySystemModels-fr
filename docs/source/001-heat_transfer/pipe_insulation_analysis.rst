@@ -110,6 +110,7 @@ Le modèle utilise les propriétés thermophysiques des matériaux et des fluide
    - Conductivité thermique : \( k = 0.0261 \, \text{W/m-°C} \)
 
 2. **Calcul des propriétés de l'air ambiant** :
+
    - Nombre de Rayleigh : 
      
      .. math::
@@ -124,6 +125,7 @@ Le modèle utilise les propriétés thermophysiques des matériaux et des fluide
        h_{\text{air}} = \frac{Nu \cdot k_{\text{air}}}{d_{\text{e, isolé}}}
 
 3. **Calcul des déperditions thermiques** :
+
    - Transfert de chaleur convectif : 
      
      .. math::
@@ -138,6 +140,7 @@ Le modèle utilise les propriétés thermophysiques des matériaux et des fluide
        q_{\text{total}} = q_{\text{conv}} + q_{\text{rad}}
 
 4. **Calcul des températures** :
+
    - Température de la paroi interne : 
      
      .. math::
