@@ -10,7 +10,7 @@ L'image ci-dessous montre un exemple de tube avec la source et le puits :
 
 .. image:: ../images/StraightPipe.png
    :alt: Straight Pipe
-   :width: 600px
+   :width: 800px
    :align: center
 
 
