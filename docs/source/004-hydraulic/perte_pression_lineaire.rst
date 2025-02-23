@@ -6,6 +6,14 @@
 4.1.1. Exemple d'utilisation de "StraightPipe"
 --------------------------------------------
 
+L'image ci-dessous montre un exemple de tube avec la source et le puits :
+
+.. image:: ../images/StraightPipe.png
+   :alt: Straight Pipe
+   :width: 600px
+   :align: center
+
+
 .. code-block:: python
 
     from ThermodynamicCycles.Hydraulic import StraightPipe
@@ -15,16 +23,17 @@
 
     SOURCE = Source.Object()
     STRAIGHT_PIPE = StraightPipe.Object()
+    STRAIGHT_PIPE2 = StraightPipe.Object()
     SINK = Sink.Object()
 
     SOURCE.fluid = "water"
     SOURCE.Ti_degC = 25
-    SOURCE.Pi_bar = 1
-    SOURCE.F_m3h = 1
+    SOURCE.Pi_bar = 2
+    SOURCE.F_m3h = 8
     SOURCE.calculate()
 
     STRAIGHT_PIPE.d_hyd = 0.050
-    STRAIGHT_PIPE.L = 1
+    STRAIGHT_PIPE.L = 500
     STRAIGHT_PIPE.K = 0.00002
 
     Fluid_connect(STRAIGHT_PIPE.Inlet, SOURCE.Outlet)
@@ -36,6 +45,8 @@
     print(STRAIGHT_PIPE.df)
     print(SINK.df)
 
+
+
 Résultats :
 -----------
 
@@ -45,27 +56,27 @@ Source
    :header-rows: 1
 
    * - Timestamp
-     - 2025-02-21 15:56:46
-   * - src_fluid
+     - 2025-02-23 17:32:30
+   * - fluid
      - water
-   * - src_Ti_degC
+   * - Ti_degC
      - 25.0
-   * - src_Pi_bar
-     - 1
-   * - src_F_Sm3h
-     - 0.997943
-   * - src_F_Nm3h
+   * - Pi_bar
+     - 2
+   * - F_Sm3h
+     - 8.0
+   * - F_Nm3h
      - None
-   * - src_F_m3h
-     - 1.0
-   * - src_F_kgh
-     - 997.047039
-   * - src_F_kgs
-     - 0.276958
-   * - src_F_m3s
-     - 0.000278
-   * - src_F_Sm3s
-     - 0.000277
+   * - F_m3h
+     - 8.0
+   * - F_kgh
+     - 7976.737
+   * - F_kgs
+     - 2.216
+   * - F_m3s
+     - 0.002
+   * - F_Sm3s
+     - 0.002
 
 StraightPipe
 ------------
@@ -74,24 +85,24 @@ StraightPipe
 
    * - Timestamp
      - None
-   * - str_fluid
+   * - fluid
      - water
-   * - str_Ti_degC
+   * - Ti_degC
      - 25.0
-   * - str_Inlet.F
-     - 0.276958
-   * - str_Inlet.h
-     - 104918.892828
-   * - str_Outlet.h
-     - 104918.892828
-   * - section du tube (m2)
-     - 0.001963
-   * - Vitesse écoulement (m/s)
-     - 0.141471
-   * - Nb Reynold
-     - 7924.140933
-   * - dP(Pa)
-     - 6.720714
+   * - Inlet.F (kg/s)
+     - 2.216
+   * - Inlet.h (j/kg)
+     - 105011.0
+   * - Outlet.h (j/kg)
+     - 105011.0
+   * - A (m2)
+     - 0.002
+   * - V (m/s)
+     - 1.132
+   * - Re
+     - 63397.0
+   * - delta_P(Pa)
+     - 136626.9
 
 Sink
 ----
@@ -99,26 +110,118 @@ Sink
    :header-rows: 1
 
    * - Timestamp
-     - 2025-02-21 15:56:46
-   * - sk_fluid
+     - 2025-02-23 17:32:30
+   * - fluid
      - water
-   * - sk_F_kgs
-     - 0.276958
-   * - sk_P(Pa)
-     - 100006.720714
-   * - sk_h(J/kg)
-     - 104918.892828
-   * - sk_H(W)
-     - 29058.075397
-   * - sk_fluid_quality
+   * - F_kgs
+     - 2.216
+   * - Inlet.P(Pa)
+     - 336626.9
+   * - Inlet.h(J/kg)
+     - 105011.0
+   * - H(W)
+     - 232680.0
+   * - fluid_quality
      - liquid
-   * - sk_Q
-     - -0.138472
-   * - sk_Density (kg/m3)
-     - 997.047042
-   * - sk_F_Sm3h
-     - 0.997943
-   * - sk_F_m3h
-     - 1.0
-   * - sk_F_kgh
-     - 997.047039
+   * - Q
+     - -0.220011
+   * - D (kg/m3)
+     - 997.2
+   * - F_Sm3h
+     - 8.0
+   * - F_m3h
+     - 8.0
+   * - F_kgh
+     - 7977.0
+
+Nomenclature
+------------
+.. list-table::
+   :header-rows: 1
+
+   * - Parameter
+     - Description
+   * - Ti_degC
+     - Température d'entrée en degrés Celsius
+   * - Pi_bar
+     - Pression d'entrée en bars
+   * - F_Sm3h
+     - Débit volumétrique standard en mètres cubes par heure
+   * - F_Nm3h
+     - Débit volumétrique normal en mètres cubes par heure
+   * - F_m3h
+     - Débit volumétrique en mètres cubes par heure
+   * - F_kgh
+     - Débit massique en kilogrammes par heure
+   * - F_kgs
+     - Débit massique en kilogrammes par seconde
+   * - F_m3s
+     - Débit volumétrique en mètres cubes par seconde
+   * - F_Sm3s
+     - Débit volumétrique standard en mètres cubes par seconde
+   * - Inlet.F
+     - Débit massique à l'entrée en kilogrammes par seconde
+   * - Inlet.h
+     - Enthalpie à l'entrée en joules par kilogramme
+   * - Outlet.h
+     - Enthalpie à la sortie en joules par kilogramme
+   * - A
+     - Section du tube en mètres carrés
+   * - V
+     - Vitesse d'écoulement en mètres par seconde
+   * - Re
+     - Nombre de Reynolds
+   * - delta_P
+     - Perte de pression en pascals
+   * - Inlet.P
+     - Pression à l'entrée en pascals
+   * - H
+     - Puissance en watts
+   * - fluid_quality
+     - Qualité du fluide
+   * - Q
+     - Débit thermique
+   * - D
+     - Densité en kilogrammes par mètre cube
+   * - Ti
+     - Température d'entrée en Kelvin
+   * - To
+     - Température de sortie en Kelvin
+   * - roughness
+     - Rugosité de la surface
+   * - d_hyd
+     - Diamètre hydraulique en mètres
+   * - L
+     - Longueur en mètres
+   * - K
+     - Rugosité en mètres
+   * - alpha
+     - Angle d'inclinaison du tube en radians
+   * - delta_Z
+     - Hauteur du tuyau en mètres
+   * - delta_H
+     - Perte de pression en mètres
+   * - eta
+     - Viscosité dynamique du fluide
+   * - rho
+     - Densité du fluide
+   * - delta_P
+     - Perte de pression due aux frottements
+   * - diff_P
+     - Différence de pression entre l'entrée et la sortie
+   * - IN_con
+     - IN_con
+   * - IN_var
+     - IN_var
+   * - m_flow
+     - Débit massique en kilogrammes par seconde
+   * - perimeter
+     - Périmètre
+   * - A
+     - Section du tube en mètres carrés
+   * - V
+     - Vitesse d'écoulement en mètres par seconde
+   * - Re
+     - Nombre de Reynolds
+   * - h
+     - Enthalpie en joules par kilogramme
