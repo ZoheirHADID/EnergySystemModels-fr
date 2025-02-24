@@ -7,7 +7,7 @@
    :maxdepth: 3
    :caption: AHU Modules:
 
-   utilisation
+
    exemple_ahu_frais
    cta_air_neuf
    nomenclature
