@@ -292,10 +292,13 @@ La formule générale du TURPE est donc :
    :maxdepth: 1
    :caption: Exemples TURPE
 
-   exemples/exemple_bt_m36_cu4
-   exemples/exemple_bt_p36_cu
    exemples/exemple_hta_cu_pf
    exemples/exemple_hta_cu_pm
    exemples/exemple_hta_lu_pf
    exemples/exemple_hta_lu_pm
+
+   exemples/exemple_bt_m36_cu4
+   exemples/exemple_bt_p36_cu
+   
+
 
