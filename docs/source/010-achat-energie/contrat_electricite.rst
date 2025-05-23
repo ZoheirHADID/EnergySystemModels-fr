@@ -55,3 +55,39 @@ La formule générale du TURPE est donc :
    .. code-block:: python
 
       from Facture.TURPE import input_Contrat, TurpeCalculator, input_Facture, input_Tarif
+
+10.1.2. Tarifs des clients raccordés en HTA
+--------------------------------------------
+
+Les clients raccordés en Haute Tension A (HTA) bénéficient de tarifs spécifiques pour le calcul du TURPE. Les principales données d'entrée à renseigner sont les suivantes :
+
+.. list-table::
+   :header-rows: 1
+   :widths: 30 70
+
+   * - Paramètre
+     - Description
+   * - Niveau de tension
+     - Niveau de raccordement (HTA)
+   * - Puissance souscrite (kVA)
+     - Puissance maximale appelée contractuellement
+   * - Nombre de périodes tarifaires
+     - Généralement 3 (heures pleines, heures creuses, heures de pointe)
+   * - Energie soutirée par période (MWh)
+     - Consommation annuelle par plage tarifaire
+   * - Energie réactive (kVArh)
+     - Quantité d’énergie réactive consommée
+   * - Dépassements de puissance (kW ou kVA)
+     - Excédents par rapport à la puissance souscrite
+   * - Type d’utilisation
+     - Usage industriel, tertiaire, etc.
+   * - Présence d’alimentation de secours
+     - Oui / Non
+   * - Sites regroupés
+     - Oui / Non
+   * - **CG (Composante de gestion)**
+     - Type d'utilisateur : utilisateur en CARD, utilisateur en contrat unique, utilisateur avec injection
+   * - **CS (Composante de soutirage)**
+     - 5 classes temporelles : pointe, HPH (heures pleines hiver), HCH (heures creuses hiver), HPB (heures pleines été), HCB (heures creuses été). Option tarifaire : CU avec pointe fixe, LU avec pointe fixe, CU avec pointe mobile, Longue Utilisation avec pointe mobile
+
+Ces données sont nécessaires pour renseigner le calculateur TURPE et obtenir une estimation précise du coût d’utilisation du réseau pour un site HTA.
