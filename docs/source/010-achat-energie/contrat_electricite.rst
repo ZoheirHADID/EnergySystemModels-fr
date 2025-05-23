@@ -125,19 +125,19 @@ La formule générale du TURPE est donc :
      - "BT < 36 kVA", "BT > 36 kVA", "HTA"
      - Domaine de tension du raccordement
    * - PS_pointe
-     - 0 à 36 (kVA) pour BT < 36 kVA ; >36 à ~250 (kVA) pour BT > 36 kVA ; généralement >250 kVA pour HTA
+     - 0 à 36 (kW) pour BT < 36 kVA ; >36 à ~250 (kW) pour BT > 36 kVA ; généralement >250 kW pour HTA
      - Puissance souscrite en période de pointe (selon domaine de tension)
    * - PS_HPH
-     - 0 à 36 (kVA) pour BT < 36 kVA ; >36 à ~250 (kVA) pour BT > 36 kVA ; généralement >250 kVA pour HTA
+     - 0 à 36 (kW) pour BT < 36 kVA ; >36 à ~250 (kW) pour BT > 36 kVA ; généralement >250 kW pour HTA
      - Puissance souscrite en heures pleines hiver
    * - PS_HCH
-     - 0 à 36 (kVA) pour BT < 36 kVA ; >36 à ~250 (kVA) pour BT > 36 kVA ; généralement >250 kVA pour HTA
+     - 0 à 36 (kW) pour BT < 36 kVA ; >36 à ~250 (kW) pour BT > 36 kVA ; généralement >250 kW pour HTA
      - Puissance souscrite en heures creuses hiver
    * - PS_HPB
-     - 0 à 36 (kVA) pour BT < 36 kVA ; >36 à ~250 (kVA) pour BT > 36 kVA ; généralement >250 kVA pour HTA
+     - 0 à 36 (kW) pour BT < 36 kVA ; >36 à ~250 (kW) pour BT > 36 kVA ; généralement >250 kW pour HTA
      - Puissance souscrite en heures pleines été
    * - PS_HCB
-     - 0 à 36 (kVA) pour BT < 36 kVA ; >36 à ~250 (kVA) pour BT > 36 kVA ; généralement >250 kVA pour HTA
+     - 0 à 36 (kW) pour BT < 36 kVA ; >36 à ~250 (kW) pour BT > 36 kVA ; généralement >250 kW pour HTA
      - Puissance souscrite en heures creuses été
    * - version_utilisation
      - Voir tableau dédié ci-dessous
