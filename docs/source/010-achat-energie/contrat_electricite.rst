@@ -3,7 +3,7 @@
 10.1. Calcul du coût du réseau électrique
 ============================================================
 
-10.1.1. Introduction au TURPE
+10.1.1. TURPE
 --------------------------------------------
 
 Le prix payé annuellement pour l’utilisation des réseaux publics de distribution (RPD) est la somme des composantes suivantes :
