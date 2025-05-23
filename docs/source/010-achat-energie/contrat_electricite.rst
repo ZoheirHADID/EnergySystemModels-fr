@@ -200,10 +200,14 @@ La formule générale du TURPE est donc :
      - Contrat unique pour tous les usages
    * - injection
      - Injection d'énergie sur le réseau
-   * - CU/LU avec pointe fixe
-     - Contrat CU ou LU avec période de pointe fixe
-   * - CU/LU avec pointe mobile
-     - Contrat CU ou LU avec période de pointe mobile
+   * - CU_pf
+     - Contrat CU avec pointe fixe
+   * - CU_pm
+     - Contrat CU avec pointe mobile
+   * - LU_pf
+     - Contrat LU avec pointe fixe
+   * - LU_pm
+     - Contrat LU avec pointe mobile
    * - 5 classes temporelles
      - Tarification selon : pointe, HPH (heures pleines hiver), HCH (heures creuses hiver), HPB (heures pleines été), HCB (heures creuses été)
    * - alimentation de secours
