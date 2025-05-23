@@ -48,76 +48,130 @@ La formule générale du TURPE est donc :
 - **CER** : Frais liés à l’énergie réactive consommée.
 - **CI** : Frais pour l’injection d’énergie sur le réseau.
 
-.. admonition:: Exemple d’utilisation en Python
+.. admonition:: Guide d'utilisation du calcul TURPE
 
-   Voici comment importer les modules nécessaires pour le calcul du TURPE :
+   Voici un exemple d'utilisation des fonctions pour calculer le TURPE :
 
    .. code-block:: python
 
       from Facture.TURPE import input_Contrat, TurpeCalculator, input_Facture, input_Tarif
+
+      # Création de la facture (consommations et dépassements)
+      facture = input_Facture(
+          start="2025-02-01",
+          end="2025-02-28",
+          heures_depassement=0,
+          depassement_PS_HPB=10,
+          kWh_pointe=0,
+          kWh_HPH=10,
+          kWh_HCH=10,
+          kWh_HPB=10,
+          kWh_HCB=10
+      )
+
+      # Définition du contrat (caractéristiques de raccordement)
+      contrat = input_Contrat(
+          domaine_tension="BT < 36 kVA",
+          PS_pointe=10,
+          PS_HPH=10,
+          PS_HCH=10,
+          PS_HPB=10,
+          PS_HCB=10,
+          version_utilisation="CU4",
+          pourcentage_ENR=0
+      )
+
+      # Définition des tarifs unitaires (en €/kWh ou selon composante)
+      tarif = input_Tarif(
+          c_euro_kWh_pointe=0,
+          c_euro_kWh_HPB=0,
+          c_euro_kWh_HCB=0,
+          c_euro_kWh_HPH=0,
+          c_euro_kWh_HCH=0,
+          c_euro_kWh_TCFE=0.02250,
+          c_euro_kWh_certif_capacite_pointe=0.0,
+          c_euro_kWh_certif_capacite_HPH=0.0,
+          c_euro_kWh_certif_capacite_HCH=0.0,
+          c_euro_kWh_certif_capacite_HPB=0.0,
+          c_euro_kWh_certif_capacite_HCB=0.0,
+          c_euro_kWh_ENR=0,
+          c_euro_kWh_ARENH=0
+      )
+
+      # Création du calculateur TURPE
+      turpe_calculator = TurpeCalculator(contrat, tarif, facture)
+
+      # Calcul du TURPE
+      turpe_calculator.calculate_turpe()
+
+      # Affichage des résultats
+      print(f"Acheminement (€) : {turpe_calculator.euro_TURPE}")
+      # print(f"Taxes et Contributions (€) : {turpe_calculator.euro_taxes_contrib}")
+
+   Les paramètres à renseigner dans `input_Facture`, `input_Contrat` et `input_Tarif` sont détaillés dans le tableau ci-dessus. Adaptez-les selon votre profil de consommation, votre contrat et les tarifs en vigueur.
+
+**Tableau des paramètres d'entrée pour le calcul TURPE**
+
+.. list-table::
+   :header-rows: 1
+   :widths: 30 35 35
+
+   * - Paramètre
+     - Valeurs possibles / Plage
+     - Description
+   * - start, end
+     - Date (YYYY-MM-DD)
+     - Début et fin de la période de facturation
+   * - heures_depassement
+     - Entier ≥ 0
+     - Nombre d'heures de dépassement de puissance souscrite
+   * - depassement_PS_HPB
+     - Réel ≥ 0 (kW ou kVA)
+     - Dépassement de puissance souscrite en HPB
+   * - kWh_pointe
+     - Réel ≥ 0
+     - Consommation en période de pointe (kWh)
+   * - kWh_HPH
+     - Réel ≥ 0
+     - Consommation en heures pleines hiver (kWh)
+   * - kWh_HCH
+     - Réel ≥ 0
+     - Consommation en heures creuses hiver (kWh)
+   * - kWh_HPB
+     - Réel ≥ 0
+     - Consommation en heures pleines été (kWh)
+   * - kWh_HCB
+     - Réel ≥ 0
+     - Consommation en heures creuses été (kWh)
+   * - domaine_tension
+     - "BT < 36 kVA", "BT > 36 kVA", "HTA"
+     - Domaine de tension du raccordement
+   * - PS_pointe
+     - Réel ≥ 0 (kVA)
+     - Puissance souscrite en période de pointe
+   * - PS_HPH
+     - Réel ≥ 0 (kVA)
+     - Puissance souscrite en heures pleines hiver
+   * - PS_HCH
+     - Réel ≥ 0 (kVA)
+     - Puissance souscrite en heures creuses hiver
+   * - PS_HPB
+     - Réel ≥ 0 (kVA)
+     - Puissance souscrite en heures pleines été
+   * - PS_HCB
+     - Réel ≥ 0 (kVA)
+     - Puissance souscrite en heures creuses été
+   * - version_utilisation
+     - "CU4", "LU", "CARD", "contrat unique", "injection", etc.
+     - Version d'utilisation ou option tarifaire
+   * - pourcentage_ENR
+     - 0 à 100 (%)
+     - Pourcentage d'énergie renouvelable injectée ou autoconsommée
+
+Ce tableau permet de renseigner précisément les fonctions `input_Facture` et `input_Contrat` pour le calcul du TURPE selon le profil de consommation et le contrat du client.
 
 10.1.2. Tarifs des clients raccordés en HTA et BT
 -----------------------------------------------
 
 Les clients peuvent être raccordés en Haute Tension A (HTA) ou en Basse Tension (BT), avec des puissances souscrites inférieures ou supérieures à 36 kVA. Les données d'entrée pour le calcul du TURPE varient selon le domaine de tension, la puissance souscrite et la version d'utilisation.
 
-**Possibilités de raccordement selon le domaine de tension :**
-
-.. list-table::
-   :header-rows: 1
-   :widths: 30 70
-
-   * - Domaine de tension
-     - Possibilités de raccordement
-   * - BT ≤ 36 kVA
-     - Raccordement monophasé ou triphasé, puissance ≤ 36 kVA, usage résidentiel ou petit tertiaire
-   * - BT > 36 kVA
-     - Raccordement triphasé, puissance > 36 kVA, usage tertiaire, industriel, collectif
-   * - HTA (généralement 20 kV)
-     - Raccordement industriel, tertiaire, collectivités, puissance importante, alimentation principale ou de secours
-
-**Versions d'utilisation et options tarifaires :**
-
-.. list-table::
-   :header-rows: 1
-   :widths: 30 70
-
-   * - Domaine de tension
-     - Versions d'utilisation / Options tarifaires
-   * - BT ≤ 36 kVA
-     - Tarif Bleu, option Base, option Heures Pleines/Heures Creuses
-   * - BT > 36 kVA
-     - Tarif Jaune (historique), Tarif Vert (historique), CARD, contrat unique, injection, options Heures Pleines/Heures Creuses, EJP, Tempo
-   * - HTA
-     - CARD, contrat unique, utilisateur avec injection, options tarifaires : CU/LU avec pointe fixe ou mobile, 5 classes temporelles (pointe, HPH, HCH, HPB, HCB), alimentation de secours, sites regroupés
-
-**Résumé des principales données d'entrée pour le calcul TURPE :**
-
-.. list-table::
-   :header-rows: 1
-   :widths: 40 60
-
-   * - Paramètre
-     - Description / Exemple
-   * - Domaine de tension
-     - BT ≤ 36 kVA, BT > 36 kVA, HTA (ex : 20 kV)
-   * - Puissance souscrite (kVA)
-     - Valeur contractuelle (ex : 30 kVA, 100 kVA…)
-   * - Nombre de périodes tarifaires
-     - Selon l’option tarifaire (ex : 1, 2, 3 ou 5 périodes)
-   * - Energie soutirée par période (MWh)
-     - Consommation annuelle par plage tarifaire
-   * - Energie réactive (kVArh)
-     - Quantité d’énergie réactive consommée
-   * - Dépassements de puissance (kW ou kVA)
-     - Excédents par rapport à la puissance souscrite
-   * - Type d’utilisation
-     - Usage industriel, tertiaire, résidentiel, etc.
-   * - Présence d’alimentation de secours
-     - Oui / Non
-   * - Sites regroupés
-     - Oui / Non
-   * - Options tarifaires spécifiques
-     - CARD, contrat unique, injection, classes temporelles (pointe, HPH, HCH, HPB, HCB), CU/LU, pointe fixe/mobile
-
-Ces paramètres sont à adapter selon le type de raccordement et l’option tarifaire choisie. Ils permettent de renseigner le calculateur TURPE pour obtenir une estimation précise du coût d’utilisation du réseau pour chaque profil de client.
