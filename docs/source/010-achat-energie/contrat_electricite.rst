@@ -156,43 +156,43 @@ La formule générale du TURPE est donc :
      - Valeurs possibles / Plage
      - Description
    * - c_euro_kWh_pointe
-     - Réel ≥ 0 (€/kWh)
+     -  ≥ 0 (€/kWh)
      - Tarif unitaire période de pointe
    * - c_euro_kWh_HPB
-     - Réel ≥ 0 (€/kWh)
+     -  ≥ 0 (€/kWh)
      - Tarif unitaire heures pleines été
    * - c_euro_kWh_HCB
-     - Réel ≥ 0 (€/kWh)
+     -  ≥ 0 (€/kWh)
      - Tarif unitaire heures creuses été
    * - c_euro_kWh_HPH
-     - Réel ≥ 0 (€/kWh)
+     -  ≥ 0 (€/kWh)
      - Tarif unitaire heures pleines hiver
    * - c_euro_kWh_HCH
-     - Réel ≥ 0 (€/kWh)
+     -  ≥ 0 (€/kWh)
      - Tarif unitaire heures creuses hiver
    * - c_euro_kWh_TCFE
-     - Réel ≥ 0 (€/kWh)
+     -  ≥ 0 (€/kWh)
      - Tarif unitaire TCFE (taxe communale/foncière)
    * - c_euro_kWh_certif_capacite_pointe
-     - Réel ≥ 0 (€/kWh)
+     -  ≥ 0 (€/kWh)
      - Certificat capacité période de pointe
    * - c_euro_kWh_certif_capacite_HPH
-     - Réel ≥ 0 (€/kWh)
+     -  ≥ 0 (€/kWh)
      - Certificat capacité heures pleines hiver
    * - c_euro_kWh_certif_capacite_HCH
-     - Réel ≥ 0 (€/kWh)
+     -  ≥ 0 (€/kWh)
      - Certificat capacité heures creuses hiver
    * - c_euro_kWh_certif_capacite_HPB
-     - Réel ≥ 0 (€/kWh)
+     -  ≥ 0 (€/kWh)
      - Certificat capacité heures pleines été
    * - c_euro_kWh_certif_capacite_HCB
-     - Réel ≥ 0 (€/kWh)
+     -  ≥ 0 (€/kWh)
      - Certificat capacité heures creuses été
    * - c_euro_kWh_ENR
-     - Réel ≥ 0 (€/kWh)
+     -  ≥ 0 (€/kWh)
      - Tarif ENR (énergie renouvelable)
    * - c_euro_kWh_ARENH
-     - Réel ≥ 0 (€/kWh)
+     -  ≥ 0 (€/kWh)
      - Tarif ARENH (Accès régulé à l'électricité nucléaire historique)
 
 ***Déclarer une facture***
@@ -211,22 +211,22 @@ La formule générale du TURPE est donc :
      - Entier ≥ 0
      - Nombre d'heures de dépassement de puissance souscrite
    * - depassement_PS_HPB
-     - Réel ≥ 0 (kW ou kVA)
+     -  ≥ 0 (kW ou kVA)
      - Dépassement de puissance souscrite en HPB
    * - kWh_pointe
-     - Réel ≥ 0
+     -  ≥ 0
      - Consommation en période de pointe (kWh)
    * - kWh_HPH
-     - Réel ≥ 0
+     -  ≥ 0
      - Consommation en heures pleines hiver (kWh)
    * - kWh_HCH
-     - Réel ≥ 0
+     -  ≥ 0
      - Consommation en heures creuses hiver (kWh)
    * - kWh_HPB
-     - Réel ≥ 0
+     -  ≥ 0
      - Consommation en heures pleines été (kWh)
    * - kWh_HCB
-     - Réel ≥ 0
+     -  ≥ 0
      - Consommation en heures creuses été (kWh)
 
 **version_utilisation : valeurs possibles selon le domaine de tension**
