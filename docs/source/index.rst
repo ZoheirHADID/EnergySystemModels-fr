@@ -16,6 +16,7 @@ Afin de mieux comprendre les modèles d’efficacité énergétique présentés 
    003-ahu_modules/index
    004-hydraulic/index
    005-aeraulic/index
+   010-achat-energie/index
 
    chiller_example
    weather_data
