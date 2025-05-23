@@ -170,6 +170,41 @@ La formule générale du TURPE est donc :
 
 Ce tableau permet de renseigner précisément les fonctions `input_Facture` et `input_Contrat` pour le calcul du TURPE selon le profil de consommation et le contrat du client.
 
+**Résumé des paramètres d'entrée et de leurs valeurs possibles**
+
+.. list-table::
+   :header-rows: 1
+   :widths: 35 65
+
+   * - Paramètre
+     - Plage ou valeurs possibles
+   * - start, end
+     - Date au format "YYYY-MM-DD"
+   * - heures_depassement
+     - Entier ≥ 0
+   * - depassement_PS_HPB
+     - Nombre réel ≥ 0 (kW ou kVA)
+   * - kWh_pointe
+     - Nombre réel ≥ 0 (kWh)
+   * - kWh_HPH
+     - Nombre réel ≥ 0 (kWh)
+   * - kWh_HCH
+     - Nombre réel ≥ 0 (kWh)
+   * - kWh_HPB
+     - Nombre réel ≥ 0 (kWh)
+   * - kWh_HCB
+     - Nombre réel ≥ 0 (kWh)
+   * - domaine_tension
+     - "BT < 36 kVA", "BT > 36 kVA", "HTA"
+   * - PS_pointe, PS_HPH, PS_HCH, PS_HPB, PS_HCB
+     - Nombre réel ≥ 0 (kVA)
+   * - version_utilisation
+     - "CU4", "LU", "CARD", "contrat unique", "injection", etc.
+   * - pourcentage_ENR
+     - 0 à 100 (%)
+
+Ce tableau synthétise les paramètres à renseigner dans les fonctions `input_Facture`, `input_Contrat` et `input_Tarif` pour le calcul du TURPE.
+
 10.1.2. Tarifs des clients raccordés en HTA et BT
 -----------------------------------------------
 
