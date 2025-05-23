@@ -3,6 +3,8 @@
 
 .. code-block:: python
 
+   from Facture.TURPE import input_Contrat, TurpeCalculator, input_Facture, input_Tarif
+   
    contrat = input_Contrat(domaine_tension="HTA", PS_pointe=500, PS_HPH=500, PS_HCH=500, PS_HPB=500, PS_HCB=500, version_utilisation="LU_pf", pourcentage_ENR=0)
    tarif = input_Tarif(
        c_euro_kWh_pointe=0.13,
