@@ -56,20 +56,7 @@ La formule générale du TURPE est donc :
 
       from Facture.TURPE import input_Contrat, TurpeCalculator, input_Facture, input_Tarif
 
-      # Création de la facture (consommations et dépassements)
-      facture = input_Facture(
-          start="2025-02-01",
-          end="2025-02-28",
-          heures_depassement=0,
-          depassement_PS_HPB=10,
-          kWh_pointe=0,
-          kWh_HPH=10,
-          kWh_HCH=10,
-          kWh_HPB=10,
-          kWh_HCB=10
-      )
-
-      # Définition du contrat (caractéristiques de raccordement)
+      # 1. Définition du contrat (caractéristiques de raccordement)
       contrat = input_Contrat(
           domaine_tension="BT < 36 kVA",
           PS_pointe=10,
@@ -77,6 +64,19 @@ La formule générale du TURPE est donc :
           PS_HCH=10,
           PS_HPB=10,
           PS_HCB=10,
+          version_utilisation="CU4",
+          pourcentage_ENR=0
+      )
+
+      # 2. Définition des tarifs unitaires (en €/kWh ou selon composante)
+      tarif = input_Tarif(
+          c_euro_kWh_pointe=0,
+          c_euro_kWh_HPB=0,
+          c_euro_kWh_HCB=0,
+          c_euro_kWh_HPH=0,
+          c_euro_kWh_HCH=0,
+          c_euro_kWh_TCFE=0.02250,
+          c_euro_kWh_certif_capacite_pointe=0.0,
           version_utilisation="CU4",
           pourcentage_ENR=0
       )
@@ -161,47 +161,26 @@ La formule générale du TURPE est donc :
    * - PS_HCB
      - Réel ≥ 0 (kVA)
      - Puissance souscrite en heures creuses été
-   * - version_utilisation
-     - "CU4", "LU", "CARD", "contrat unique", "injection", etc.
-     - Version d'utilisation ou option tarifaire
    * - pourcentage_ENR
      - 0 à 100 (%)
      - Pourcentage d'énergie renouvelable injectée ou autoconsommée
 
 Ce tableau permet de renseigner précisément les fonctions `input_Facture` et `input_Contrat` pour le calcul du TURPE selon le profil de consommation et le contrat du client.
 
-**Résumé des paramètres d'entrée et de leurs valeurs possibles**
+**version_utilisation : valeurs possibles selon le domaine de tension**
 
 .. list-table::
    :header-rows: 1
    :widths: 35 65
 
-   * - Paramètre
-     - Plage ou valeurs possibles
-   * - start, end
-     - Date au format "YYYY-MM-DD"
-   * - heures_depassement
-     - Entier ≥ 0
-   * - depassement_PS_HPB
-     - Nombre réel ≥ 0 (kW ou kVA)
-   * - kWh_pointe
-     - Nombre réel ≥ 0 (kWh)
-   * - kWh_HPH
-     - Nombre réel ≥ 0 (kWh)
-   * - kWh_HCH
-     - Nombre réel ≥ 0 (kWh)
-   * - kWh_HPB
-     - Nombre réel ≥ 0 (kWh)
-   * - kWh_HCB
-     - Nombre réel ≥ 0 (kWh)
-   * - domaine_tension
-     - "BT < 36 kVA", "BT > 36 kVA", "HTA"
-   * - PS_pointe, PS_HPH, PS_HCH, PS_HPB, PS_HCB
-     - Nombre réel ≥ 0 (kVA)
-   * - version_utilisation
-     - "CU4", "LU", "CARD", "contrat unique", "injection", etc.
-   * - pourcentage_ENR
-     - 0 à 100 (%)
+   * - Domaine de tension
+     - Valeurs possibles pour version_utilisation
+   * - BT < 36 kVA
+     - "CU4" (Contrat Unique 4 périodes), "Base", "Heures Pleines/Heures Creuses"
+   * - BT > 36 kVA
+     - "LU" (Longue Utilisation), "CARD", "contrat unique", "injection", "Heures Pleines/Heures Creuses", "EJP", "Tempo"
+   * - HTA
+     - "CARD", "contrat unique", "injection", "CU/LU avec pointe fixe", "CU/LU avec pointe mobile", "5 classes temporelles" (pointe, HPH, HCH, HPB, HCB), "alimentation de secours", "sites regroupés"
 
-Ce tableau synthétise les paramètres à renseigner dans les fonctions `input_Facture`, `input_Contrat` et `input_Tarif` pour le calcul du TURPE.
+Adaptez la valeur de `version_utilisation` selon votre domaine de tension et votre contrat pour garantir un calcul correct du TURPE.
 
