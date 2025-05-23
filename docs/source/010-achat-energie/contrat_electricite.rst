@@ -146,6 +146,71 @@ La formule générale du TURPE est donc :
      - 0 à 100 (%)
      - Pourcentage d'énergie renouvelable injectée ou autoconsommée
 
+**Versions d'utilisation selon le domaine de tension**
+
+***BT < 36 kVA***
+
+.. list-table::
+   :header-rows: 1
+   :widths: 25 75
+
+   * - Symbole
+     - Définition
+   * - CU4
+     - Contrat Unique 4 périodes (pointe, HPH, HCH, HPB, HCB)
+   * - Base
+     - Tarif de base sans différenciation horaire
+   * - Heures Pleines/Heures Creuses
+     - Tarif différencié selon les heures pleines et creuses
+
+***BT > 36 kVA***
+
+.. list-table::
+   :header-rows: 1
+   :widths: 25 75
+
+   * - Symbole
+     - Définition
+   * - LU
+     - Longue Utilisation
+   * - CARD
+     - Contrat d’Accès au Réseau de Distribution
+   * - contrat unique
+     - Contrat unique pour tous les usages
+   * - injection
+     - Injection d'énergie sur le réseau
+   * - Heures Pleines/Heures Creuses
+     - Tarif différencié selon les heures pleines et creuses
+   * - EJP
+     - Effacement Jour de Pointe
+   * - Tempo
+     - Tarif Tempo (jours bleus, blancs, rouges)
+
+***HTA***
+
+.. list-table::
+   :header-rows: 1
+   :widths: 25 75
+
+   * - Symbole
+     - Définition
+   * - CARD
+     - Contrat d’Accès au Réseau de Distribution
+   * - contrat unique
+     - Contrat unique pour tous les usages
+   * - injection
+     - Injection d'énergie sur le réseau
+   * - CU/LU avec pointe fixe
+     - Contrat CU ou LU avec période de pointe fixe
+   * - CU/LU avec pointe mobile
+     - Contrat CU ou LU avec période de pointe mobile
+   * - 5 classes temporelles
+     - Tarification selon : pointe, HPH (heures pleines hiver), HCH (heures creuses hiver), HPB (heures pleines été), HCB (heures creuses été)
+   * - alimentation de secours
+     - Présence d'une alimentation de secours
+   * - sites regroupés
+     - Plusieurs sites regroupés sous un même contrat
+
 ***Déclarer vos tarifs***
 
 .. list-table::
@@ -229,17 +294,3 @@ La formule générale du TURPE est donc :
      -  ≥ 0
      - Consommation en heures creuses été (kWh)
 
-**version_utilisation : valeurs possibles selon le domaine de tension**
-
-.. list-table::
-   :header-rows: 1
-   :widths: 35 65
-
-   * - Domaine de tension
-     - Valeurs possibles pour version_utilisation
-   * - BT < 36 kVA
-     - "CU4" (Contrat Unique 4 périodes), "Base", "Heures Pleines/Heures Creuses"
-   * - BT > 36 kVA
-     - "LU" (Longue Utilisation), "CARD", "contrat unique", "injection", "Heures Pleines/Heures Creuses", "EJP", "Tempo"
-   * - HTA
-     - "CARD", "contrat unique", "injection", "CU/LU avec pointe fixe", "CU/LU avec pointe mobile", "5 classes temporelles" (pointe, HPH, HCH, HPB, HCB), "alimentation de secours", "sites regroupés"
