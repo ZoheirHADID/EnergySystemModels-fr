@@ -152,10 +152,10 @@ La formule générale du TURPE est donc :
 
 .. list-table::
    :header-rows: 1
-   :widths: 25 75
+   :widths: 30 70
 
-   * - Symbole
-     - Définition
+   * - Version d'utilisation
+     - Description
    * - CU4
      - Contrat Unique 4 périodes (pointe, HPH, HCH, HPB, HCB)
    * - Base
@@ -167,10 +167,10 @@ La formule générale du TURPE est donc :
 
 .. list-table::
    :header-rows: 1
-   :widths: 25 75
+   :widths: 30 70
 
-   * - Symbole
-     - Définition
+   * - Version d'utilisation
+     - Description
    * - LU
      - Longue Utilisation
    * - CARD
@@ -190,10 +190,10 @@ La formule générale du TURPE est donc :
 
 .. list-table::
    :header-rows: 1
-   :widths: 25 75
+   :widths: 30 70
 
-   * - Symbole
-     - Définition
+   * - Version d'utilisation
+     - Description
    * - CARD
      - Contrat d’Accès au Réseau de Distribution
    * - contrat unique
