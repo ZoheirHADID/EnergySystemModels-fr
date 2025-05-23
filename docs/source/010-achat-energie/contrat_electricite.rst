@@ -112,6 +112,91 @@ La formule générale du TURPE est donc :
 
 **Tableau des paramètres d'entrée pour le calcul TURPE**
 
+***Déclarer un contrat***
+
+.. list-table::
+   :header-rows: 1
+   :widths: 30 35 35
+
+   * - Paramètre
+     - Valeurs possibles / Plage
+     - Description
+   * - domaine_tension
+     - "BT < 36 kVA", "BT > 36 kVA", "HTA"
+     - Domaine de tension du raccordement
+   * - PS_pointe
+     - 0 à 36 (kVA) pour BT < 36 kVA ; >36 à ~250 (kVA) pour BT > 36 kVA ; généralement >250 kVA pour HTA
+     - Puissance souscrite en période de pointe (selon domaine de tension)
+   * - PS_HPH
+     - 0 à 36 (kVA) pour BT < 36 kVA ; >36 à ~250 (kVA) pour BT > 36 kVA ; généralement >250 kVA pour HTA
+     - Puissance souscrite en heures pleines hiver
+   * - PS_HCH
+     - 0 à 36 (kVA) pour BT < 36 kVA ; >36 à ~250 (kVA) pour BT > 36 kVA ; généralement >250 kVA pour HTA
+     - Puissance souscrite en heures creuses hiver
+   * - PS_HPB
+     - 0 à 36 (kVA) pour BT < 36 kVA ; >36 à ~250 (kVA) pour BT > 36 kVA ; généralement >250 kVA pour HTA
+     - Puissance souscrite en heures pleines été
+   * - PS_HCB
+     - 0 à 36 (kVA) pour BT < 36 kVA ; >36 à ~250 (kVA) pour BT > 36 kVA ; généralement >250 kVA pour HTA
+     - Puissance souscrite en heures creuses été
+   * - version_utilisation
+     - Voir tableau dédié ci-dessous
+     - Option tarifaire selon le domaine de tension
+   * - pourcentage_ENR
+     - 0 à 100 (%)
+     - Pourcentage d'énergie renouvelable injectée ou autoconsommée
+
+***Déclarer vos tarifs***
+
+.. list-table::
+   :header-rows: 1
+   :widths: 30 35 35
+
+   * - Paramètre
+     - Valeurs possibles / Plage
+     - Description
+   * - c_euro_kWh_pointe
+     - Réel ≥ 0 (€/kWh)
+     - Tarif unitaire période de pointe
+   * - c_euro_kWh_HPB
+     - Réel ≥ 0 (€/kWh)
+     - Tarif unitaire heures pleines été
+   * - c_euro_kWh_HCB
+     - Réel ≥ 0 (€/kWh)
+     - Tarif unitaire heures creuses été
+   * - c_euro_kWh_HPH
+     - Réel ≥ 0 (€/kWh)
+     - Tarif unitaire heures pleines hiver
+   * - c_euro_kWh_HCH
+     - Réel ≥ 0 (€/kWh)
+     - Tarif unitaire heures creuses hiver
+   * - c_euro_kWh_TCFE
+     - Réel ≥ 0 (€/kWh)
+     - Tarif unitaire TCFE (taxe communale/foncière)
+   * - c_euro_kWh_certif_capacite_pointe
+     - Réel ≥ 0 (€/kWh)
+     - Certificat capacité période de pointe
+   * - c_euro_kWh_certif_capacite_HPH
+     - Réel ≥ 0 (€/kWh)
+     - Certificat capacité heures pleines hiver
+   * - c_euro_kWh_certif_capacite_HCH
+     - Réel ≥ 0 (€/kWh)
+     - Certificat capacité heures creuses hiver
+   * - c_euro_kWh_certif_capacite_HPB
+     - Réel ≥ 0 (€/kWh)
+     - Certificat capacité heures pleines été
+   * - c_euro_kWh_certif_capacite_HCB
+     - Réel ≥ 0 (€/kWh)
+     - Certificat capacité heures creuses été
+   * - c_euro_kWh_ENR
+     - Réel ≥ 0 (€/kWh)
+     - Tarif ENR (énergie renouvelable)
+   * - c_euro_kWh_ARENH
+     - Réel ≥ 0 (€/kWh)
+     - Tarif ARENH (Accès régulé à l'électricité nucléaire historique)
+
+***Déclarer une facture***
+
 .. list-table::
    :header-rows: 1
    :widths: 30 35 35
@@ -143,29 +228,6 @@ La formule générale du TURPE est donc :
    * - kWh_HCB
      - Réel ≥ 0
      - Consommation en heures creuses été (kWh)
-   * - domaine_tension
-     - "BT < 36 kVA", "BT > 36 kVA", "HTA"
-     - Domaine de tension du raccordement
-   * - PS_pointe
-     - Réel ≥ 0 (kVA)
-     - Puissance souscrite en période de pointe
-   * - PS_HPH
-     - Réel ≥ 0 (kVA)
-     - Puissance souscrite en heures pleines hiver
-   * - PS_HCH
-     - Réel ≥ 0 (kVA)
-     - Puissance souscrite en heures creuses hiver
-   * - PS_HPB
-     - Réel ≥ 0 (kVA)
-     - Puissance souscrite en heures pleines été
-   * - PS_HCB
-     - Réel ≥ 0 (kVA)
-     - Puissance souscrite en heures creuses été
-   * - pourcentage_ENR
-     - 0 à 100 (%)
-     - Pourcentage d'énergie renouvelable injectée ou autoconsommée
-
-Ce tableau permet de renseigner précisément les fonctions `input_Facture` et `input_Contrat` pour le calcul du TURPE selon le profil de consommation et le contrat du client.
 
 **version_utilisation : valeurs possibles selon le domaine de tension**
 
@@ -181,6 +243,3 @@ Ce tableau permet de renseigner précisément les fonctions `input_Facture` et `
      - "LU" (Longue Utilisation), "CARD", "contrat unique", "injection", "Heures Pleines/Heures Creuses", "EJP", "Tempo"
    * - HTA
      - "CARD", "contrat unique", "injection", "CU/LU avec pointe fixe", "CU/LU avec pointe mobile", "5 classes temporelles" (pointe, HPH, HCH, HPB, HCB), "alimentation de secours", "sites regroupés"
-
-Adaptez la valeur de `version_utilisation` selon votre domaine de tension et votre contrat pour garantir un calcul correct du TURPE.
-
