@@ -158,10 +158,18 @@ La formule générale du TURPE est donc :
      - Description
    * - CU4
      - Contrat Unique 4 périodes (pointe, HPH, HCH, HPB, HCB)
-   * - Base
-     - Tarif de base sans différenciation horaire
-   * - Heures Pleines/Heures Creuses
-     - Tarif différencié selon les heures pleines et creuses
+   * - CU
+     - Contrat Unique (tarification standard BT < 36 kVA)
+   * - MU4
+     - Multi-usage 4 périodes
+   * - MU_DT
+     - Multi-usage double tarif
+   * - LU
+     - Longue Utilisation
+   * - CU4_ac
+     - Contrat Unique 4 périodes avec alimentation de secours
+   * - MU_ac
+     - Multi-usage avec alimentation de secours
 
 ***BT > 36 kVA***
 
@@ -171,20 +179,14 @@ La formule générale du TURPE est donc :
 
    * - Version d'utilisation
      - Description
+   * - CU
+     - Contrat Unique (tarification standard BT > 36 kVA)
    * - LU
-     - Longue Utilisation
-   * - CARD
-     - Contrat d’Accès au Réseau de Distribution
-   * - contrat unique
-     - Contrat unique pour tous les usages
-   * - injection
-     - Injection d'énergie sur le réseau
-   * - Heures Pleines/Heures Creuses
-     - Tarif différencié selon les heures pleines et creuses
-   * - EJP
-     - Effacement Jour de Pointe
-   * - Tempo
-     - Tarif Tempo (jours bleus, blancs, rouges)
+     - Longue Utilisation (tarification spécifique pour usages prolongés)
+   * - CU_ac
+     - Contrat Unique avec alimentation de secours
+   * - LU_ac
+     - Longue Utilisation avec alimentation de secours
 
 ***HTA***
 
@@ -194,26 +196,14 @@ La formule générale du TURPE est donc :
 
    * - Version d'utilisation
      - Description
-   * - CARD
-     - Contrat d’Accès au Réseau de Distribution
-   * - contrat unique
-     - Contrat unique pour tous les usages
-   * - injection
-     - Injection d'énergie sur le réseau
    * - CU_pf
-     - Contrat CU avec pointe fixe
+     - Contrat CU (Contrat Unique) avec pointe fixe
    * - CU_pm
-     - Contrat CU avec pointe mobile
+     - Contrat CU (Contrat Unique) avec pointe mobile
    * - LU_pf
-     - Contrat LU avec pointe fixe
+     - Contrat LU (Longue Utilisation) avec pointe fixe
    * - LU_pm
-     - Contrat LU avec pointe mobile
-   * - 5 classes temporelles
-     - Tarification selon : pointe, HPH (heures pleines hiver), HCH (heures creuses hiver), HPB (heures pleines été), HCB (heures creuses été)
-   * - alimentation de secours
-     - Présence d'une alimentation de secours
-   * - sites regroupés
-     - Plusieurs sites regroupés sous un même contrat
+     - Contrat LU (Longue Utilisation) avec pointe mobile
 
 ***Déclarer vos tarifs***
 
