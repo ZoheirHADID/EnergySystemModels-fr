@@ -205,8 +205,3 @@ Ce tableau permet de renseigner précisément les fonctions `input_Facture` et `
 
 Ce tableau synthétise les paramètres à renseigner dans les fonctions `input_Facture`, `input_Contrat` et `input_Tarif` pour le calcul du TURPE.
 
-10.1.2. Tarifs des clients raccordés en HTA et BT
------------------------------------------------
-
-Les clients peuvent être raccordés en Haute Tension A (HTA) ou en Basse Tension (BT), avec des puissances souscrites inférieures ou supérieures à 36 kVA. Les données d'entrée pour le calcul du TURPE varient selon le domaine de tension, la puissance souscrite et la version d'utilisation.
-
