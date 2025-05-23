@@ -77,25 +77,25 @@ La formule générale du TURPE est donc :
           c_euro_kWh_HCH=0,
           c_euro_kWh_TCFE=0.02250,
           c_euro_kWh_certif_capacite_pointe=0.0,
-          version_utilisation="CU4",
-          pourcentage_ENR=0
-      )
-
-      # Définition des tarifs unitaires (en €/kWh ou selon composante)
-      tarif = input_Tarif(
-          c_euro_kWh_pointe=0,
-          c_euro_kWh_HPB=0,
-          c_euro_kWh_HCB=0,
-          c_euro_kWh_HPH=0,
-          c_euro_kWh_HCH=0,
-          c_euro_kWh_TCFE=0.02250,
-          c_euro_kWh_certif_capacite_pointe=0.0,
           c_euro_kWh_certif_capacite_HPH=0.0,
           c_euro_kWh_certif_capacite_HCH=0.0,
           c_euro_kWh_certif_capacite_HPB=0.0,
           c_euro_kWh_certif_capacite_HCB=0.0,
           c_euro_kWh_ENR=0,
           c_euro_kWh_ARENH=0
+      )
+
+      # 3. Création de la facture (consommations et dépassements)
+      facture = input_Facture(
+          start="2025-02-01",
+          end="2025-02-28",
+          heures_depassement=0,
+          depassement_PS_HPB=10,
+          kWh_pointe=0,
+          kWh_HPH=10,
+          kWh_HCH=10,
+          kWh_HPB=10,
+          kWh_HCB=10
       )
 
       # Création du calculateur TURPE
@@ -108,7 +108,7 @@ La formule générale du TURPE est donc :
       print(f"Acheminement (€) : {turpe_calculator.euro_TURPE}")
       # print(f"Taxes et Contributions (€) : {turpe_calculator.euro_taxes_contrib}")
 
-   Les paramètres à renseigner dans `input_Facture`, `input_Contrat` et `input_Tarif` sont détaillés dans le tableau ci-dessus. Adaptez-les selon votre profil de consommation, votre contrat et les tarifs en vigueur.
+   Les paramètres à renseigner dans `input_Contrat`, `input_Tarif` et `input_Facture` sont détaillés dans les tableaux ci-dessous. Adaptez-les selon votre profil de consommation, votre contrat et les tarifs en vigueur.
 
 **Tableau des paramètres d'entrée pour le calcul TURPE**
 
