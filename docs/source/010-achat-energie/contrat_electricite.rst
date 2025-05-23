@@ -59,16 +59,31 @@ La formule générale du TURPE est donc :
 10.1.2. Tarifs des clients raccordés en HTA
 --------------------------------------------
 
-Les clients raccordés en Haute Tension A (HTA) bénéficient de tarifs spécifiques pour le calcul du TURPE. Les principales données d'entrée à renseigner sont les suivantes :
+Les clients raccordés en Haute Tension A (HTA) bénéficient de tarifs spécifiques pour le calcul du TURPE. Les principales données d'entrée à renseigner sont détaillées dans les tableaux suivants :
+
+**Domaine de tension**
 
 .. list-table::
    :header-rows: 1
-   :widths: 30 70
+   :widths: 40 60
 
    * - Paramètre
-     - Description
+     - Valeur/Description
    * - Niveau de tension
-     - Niveau de raccordement (HTA)
+     - HTA (Haute Tension A, généralement 20 kV)
+   * - Présence d’alimentation de secours
+     - Oui / Non
+   * - Sites regroupés
+     - Oui / Non
+
+**Composantes principales pour le calcul TURPE**
+
+.. list-table::
+   :header-rows: 1
+   :widths: 40 60
+
+   * - Composante
+     - Détail / Valeur attendue
    * - Puissance souscrite (kVA)
      - Puissance maximale appelée contractuellement
    * - Nombre de périodes tarifaires
@@ -79,15 +94,21 @@ Les clients raccordés en Haute Tension A (HTA) bénéficient de tarifs spécifi
      - Quantité d’énergie réactive consommée
    * - Dépassements de puissance (kW ou kVA)
      - Excédents par rapport à la puissance souscrite
+
+**Version d'utilisation et options tarifaires**
+
+.. list-table::
+   :header-rows: 1
+   :widths: 40 60
+
+   * - Paramètre
+     - Détail / Options
    * - Type d’utilisation
      - Usage industriel, tertiaire, etc.
-   * - Présence d’alimentation de secours
-     - Oui / Non
-   * - Sites regroupés
-     - Oui / Non
    * - **CG (Composante de gestion)**
      - Type d'utilisateur : utilisateur en CARD, utilisateur en contrat unique, utilisateur avec injection
    * - **CS (Composante de soutirage)**
-     - 5 classes temporelles : pointe, HPH (heures pleines hiver), HCH (heures creuses hiver), HPB (heures pleines été), HCB (heures creuses été). Option tarifaire : CU avec pointe fixe, LU avec pointe fixe, CU avec pointe mobile, Longue Utilisation avec pointe mobile
+     - 5 classes temporelles : pointe, HPH (heures pleines hiver), HCH (heures creuses hiver), HPB (heures pleines été), HCB (heures creuses été).
+       Option tarifaire : CU avec pointe fixe, LU avec pointe fixe, CU avec pointe mobile, Longue Utilisation avec pointe mobile
 
 Ces données sont nécessaires pour renseigner le calculateur TURPE et obtenir une estimation précise du coût d’utilisation du réseau pour un site HTA.
