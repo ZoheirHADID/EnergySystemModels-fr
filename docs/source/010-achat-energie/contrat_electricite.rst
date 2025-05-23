@@ -288,3 +288,68 @@ La formule générale du TURPE est donc :
      -  ≥ 0
      - Consommation en heures creuses été (kWh)
 
+10.1.2. Exemples d'utilisation pour les contrats HTA
+------------------------------------------------------------
+
+Voici quelques exemples de déclaration de contrat et de facture pour les principales options tarifaires HTA :
+
+**Exemple : HTA CU_pf (Contrat Unique avec pointe fixe)**
+
+.. code-block:: python
+
+   contrat = input_Contrat(
+       domaine_tension="HTA",
+       PS_pointe=300,
+       PS_HPH=300,
+       PS_HCH=300,
+       PS_HPB=300,
+       PS_HCB=300,
+       version_utilisation="CU_pf",
+       pourcentage_ENR=0
+   )
+
+**Exemple : HTA CU_pm (Contrat Unique avec pointe mobile)**
+
+.. code-block:: python
+
+   contrat = input_Contrat(
+       domaine_tension="HTA",
+       PS_pointe=300,
+       PS_HPH=300,
+       PS_HCH=300,
+       PS_HPB=300,
+       PS_HCB=300,
+       version_utilisation="CU_pm",
+       pourcentage_ENR=0
+   )
+
+**Exemple : HTA LU_pf (Longue Utilisation avec pointe fixe)**
+
+.. code-block:: python
+
+   contrat = input_Contrat(
+       domaine_tension="HTA",
+       PS_pointe=500,
+       PS_HPH=500,
+       PS_HCH=500,
+       PS_HPB=500,
+       PS_HCB=500,
+       version_utilisation="LU_pf",
+       pourcentage_ENR=0
+   )
+
+**Exemple : HTA LU_pm (Longue Utilisation avec pointe mobile)**
+
+.. code-block:: python
+
+   contrat = input_Contrat(
+       domaine_tension="HTA",
+       PS_pointe=500,
+       PS_HPH=500,
+       PS_HCH=500,
+       PS_HPB=500,
+       PS_HCB=500,
+       version_utilisation="LU_pm",
+       pourcentage_ENR=0
+   )
+
