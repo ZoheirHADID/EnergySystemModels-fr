@@ -169,7 +169,7 @@ La formule générale du TURPE est donc :
    * - CU4_ac
      - Contrat Unique 4 périodes avec alimentation de secours
    * - MU_ac
-     - Multi-usage avec alimentation de secours
+     - Multi-usage avec autoproduction collective
 
 ***BT > 36 kVA***
 
