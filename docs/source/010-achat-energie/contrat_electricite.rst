@@ -288,204 +288,53 @@ La formule générale du TURPE est donc :
      -  ≥ 0
      - Consommation en heures creuses été (kWh)
 
-10.1.2. Exemples d'utilisation pour les contrats HTA
+10.1.2. Exemples d'utilisation pour les contrats TURPE
 ------------------------------------------------------------
 
-Voici quelques exemples de déclaration de contrat, tarifs et facture pour les principales options tarifaires HTA :
+Voici des exemples de déclaration de contrat, tarifs et facture pour chaque combinaison (domaine de tension - option tarifaire) :
 
-**Exemple : HTA CU_pf (Contrat Unique avec pointe fixe)**
-
-.. code-block:: python
-
-   from Facture.TURPE import input_Contrat, TurpeCalculator, input_Facture, input_Tarif
-
-   # 1. Définition du contrat (caractéristiques de raccordement)
-   contrat = input_Contrat(
-       domaine_tension="HTA",
-       PS_pointe=300,
-       PS_HPH=300,
-       PS_HCH=300,
-       PS_HPB=300,
-       PS_HCB=300,
-       version_utilisation="CU_pf",
-       pourcentage_ENR=0
-   )
-
-   # 2. Définition des tarifs unitaires (en €/kWh ou selon composante)
-   tarif = input_Tarif(
-       c_euro_kWh_pointe=0,
-       c_euro_kWh_HPB=0,
-       c_euro_kWh_HCB=0,
-       c_euro_kWh_HPH=0,
-       c_euro_kWh_HCH=0,
-       c_euro_kWh_TCFE=0.02250,
-       c_euro_kWh_certif_capacite_pointe=0.0,
-       c_euro_kWh_certif_capacite_HPH=0.0,
-       c_euro_kWh_certif_capacite_HCH=0.0,
-       c_euro_kWh_certif_capacite_HPB=0.0,
-       c_euro_kWh_certif_capacite_HCB=0.0,
-       c_euro_kWh_ENR=0,
-       c_euro_kWh_ARENH=0
-   )
-
-   # 3. Création de la facture (consommations et dépassements)
-   facture = input_Facture(
-       start="2025-02-01",
-       end="2025-02-28",
-       heures_depassement=0,
-       depassement_PS_HPB=10,
-       kWh_pointe=0,
-       kWh_HPH=10,
-       kWh_HCH=10,
-       kWh_HPB=10,
-       kWh_HCB=10
-   )
-
-   # Création du calculateur TURPE
-   turpe_calculator = TurpeCalculator(contrat, tarif, facture)
-
-   # Calcul du TURPE
-   turpe_calculator.calculate_turpe()
-
-   # Affichage des résultats
-   print(f"Acheminement (€) : {turpe_calculator.euro_TURPE}")
-   # print(f"Taxes et Contributions (€) : {turpe_calculator.euro_taxes_contrib}")
-
-**Exemple : HTA CU_pm (Contrat Unique avec pointe mobile)**
+**BT < 36 kVA**
 
 .. code-block:: python
 
-   from Facture.TURPE import input_Contrat, TurpeCalculator, input_Facture, input_Tarif
+   # CU4
+   contrat = input_Contrat(domaine_tension="BT < 36 kVA", PS_pointe=10, PS_HPH=10, PS_HCH=10, PS_HPB=10, PS_HCB=10, version_utilisation="CU4", pourcentage_ENR=0)
+   # CU
+   contrat = input_Contrat(domaine_tension="BT < 36 kVA", PS_pointe=10, PS_HPH=10, PS_HCH=10, PS_HPB=10, PS_HCB=10, version_utilisation="CU", pourcentage_ENR=0)
+   # MU4
+   contrat = input_Contrat(domaine_tension="BT < 36 kVA", PS_pointe=10, PS_HPH=10, PS_HCH=10, PS_HPB=10, PS_HCB=10, version_utilisation="MU4", pourcentage_ENR=0)
+   # MU_DT
+   contrat = input_Contrat(domaine_tension="BT < 36 kVA", PS_pointe=10, PS_HPH=10, PS_HCH=10, PS_HPB=10, PS_HCB=10, version_utilisation="MU_DT", pourcentage_ENR=0)
+   # LU
+   contrat = input_Contrat(domaine_tension="BT < 36 kVA", PS_pointe=10, PS_HPH=10, PS_HCH=10, PS_HPB=10, PS_HCB=10, version_utilisation="LU", pourcentage_ENR=0)
+   # CU4_ac
+   contrat = input_Contrat(domaine_tension="BT < 36 kVA", PS_pointe=10, PS_HPH=10, PS_HCH=10, PS_HPB=10, PS_HCB=10, version_utilisation="CU4_ac", pourcentage_ENR=0)
+   # MU_ac
+   contrat = input_Contrat(domaine_tension="BT < 36 kVA", PS_pointe=10, PS_HPH=10, PS_HCH=10, PS_HPB=10, PS_HCB=10, version_utilisation="MU_ac", pourcentage_ENR=0)
 
-   contrat = input_Contrat(
-       domaine_tension="HTA",
-       PS_pointe=300,
-       PS_HPH=300,
-       PS_HCH=300,
-       PS_HPB=300,
-       PS_HCB=300,
-       version_utilisation="CU_pm",
-       pourcentage_ENR=0
-   )
-   tarif = input_Tarif(
-       c_euro_kWh_pointe=0,
-       c_euro_kWh_HPB=0,
-       c_euro_kWh_HCB=0,
-       c_euro_kWh_HPH=0,
-       c_euro_kWh_HCH=0,
-       c_euro_kWh_TCFE=0.02250,
-       c_euro_kWh_certif_capacite_pointe=0.0,
-       c_euro_kWh_certif_capacite_HPH=0.0,
-       c_euro_kWh_certif_capacite_HCH=0.0,
-       c_euro_kWh_certif_capacite_HPB=0.0,
-       c_euro_kWh_certif_capacite_HCB=0.0,
-       c_euro_kWh_ENR=0,
-       c_euro_kWh_ARENH=0
-   )
-   facture = input_Facture(
-       start="2025-02-01",
-       end="2025-02-28",
-       heures_depassement=0,
-       depassement_PS_HPB=10,
-       kWh_pointe=0,
-       kWh_HPH=10,
-       kWh_HCH=10,
-       kWh_HPB=10,
-       kWh_HCB=10
-   )
-   turpe_calculator = TurpeCalculator(contrat, tarif, facture)
-   turpe_calculator.calculate_turpe()
-   print(f"Acheminement (€) : {turpe_calculator.euro_TURPE}")
-
-**Exemple : HTA LU_pf (Longue Utilisation avec pointe fixe)**
+**BT > 36 kVA**
 
 .. code-block:: python
 
-   from Facture.TURPE import input_Contrat, TurpeCalculator, input_Facture, input_Tarif
+   # CU
+   contrat = input_Contrat(domaine_tension="BT > 36 kVA", PS_pointe=50, PS_HPH=50, PS_HCH=50, PS_HPB=50, PS_HCB=50, version_utilisation="CU", pourcentage_ENR=0)
+   # LU
+   contrat = input_Contrat(domaine_tension="BT > 36 kVA", PS_pointe=50, PS_HPH=50, PS_HCH=50, PS_HPB=50, PS_HCB=50, version_utilisation="LU", pourcentage_ENR=0)
+   # CU_ac
+   contrat = input_Contrat(domaine_tension="BT > 36 kVA", PS_pointe=50, PS_HPH=50, PS_HCH=50, PS_HPB=50, PS_HCB=50, version_utilisation="CU_ac", pourcentage_ENR=0)
+   # LU_ac
+   contrat = input_Contrat(domaine_tension="BT > 36 kVA", PS_pointe=50, PS_HPH=50, PS_HCH=50, PS_HPB=50, PS_HCB=50, version_utilisation="LU_ac", pourcentage_ENR=0)
 
-   contrat = input_Contrat(
-       domaine_tension="HTA",
-       PS_pointe=500,
-       PS_HPH=500,
-       PS_HCH=500,
-       PS_HPB=500,
-       PS_HCB=500,
-       version_utilisation="LU_pf",
-       pourcentage_ENR=0
-   )
-   tarif = input_Tarif(
-       c_euro_kWh_pointe=0,
-       c_euro_kWh_HPB=0,
-       c_euro_kWh_HCB=0,
-       c_euro_kWh_HPH=0,
-       c_euro_kWh_HCH=0,
-       c_euro_kWh_TCFE=0.02250,
-       c_euro_kWh_certif_capacite_pointe=0.0,
-       c_euro_kWh_certif_capacite_HPH=0.0,
-       c_euro_kWh_certif_capacite_HCH=0.0,
-       c_euro_kWh_certif_capacite_HPB=0.0,
-       c_euro_kWh_certif_capacite_HCB=0.0,
-       c_euro_kWh_ENR=0,
-       c_euro_kWh_ARENH=0
-   )
-   facture = input_Facture(
-       start="2025-02-01",
-       end="2025-02-28",
-       heures_depassement=0,
-       depassement_PS_HPB=10,
-       kWh_pointe=0,
-       kWh_HPH=10,
-       kWh_HCH=10,
-       kWh_HPB=10,
-       kWh_HCB=10
-   )
-   turpe_calculator = TurpeCalculator(contrat, tarif, facture)
-   turpe_calculator.calculate_turpe()
-   print(f"Acheminement (€) : {turpe_calculator.euro_TURPE}")
-
-**Exemple : HTA LU_pm (Longue Utilisation avec pointe mobile)**
+**HTA**
 
 .. code-block:: python
 
-   from Facture.TURPE import input_Contrat, TurpeCalculator, input_Facture, input_Tarif
-
-   contrat = input_Contrat(
-       domaine_tension="HTA",
-       PS_pointe=500,
-       PS_HPH=500,
-       PS_HCH=500,
-       PS_HPB=500,
-       PS_HCB=500,
-       version_utilisation="LU_pm",
-       pourcentage_ENR=0
-   )
-   tarif = input_Tarif(
-       c_euro_kWh_pointe=0,
-       c_euro_kWh_HPB=0,
-       c_euro_kWh_HCB=0,
-       c_euro_kWh_HPH=0,
-       c_euro_kWh_HCH=0,
-       c_euro_kWh_TCFE=0.02250,
-       c_euro_kWh_certif_capacite_pointe=0.0,
-       c_euro_kWh_certif_capacite_HPH=0.0,
-       c_euro_kWh_certif_capacite_HCH=0.0,
-       c_euro_kWh_certif_capacite_HPB=0.0,
-       c_euro_kWh_certif_capacite_HCB=0.0,
-       c_euro_kWh_ENR=0,
-       c_euro_kWh_ARENH=0
-   )
-   facture = input_Facture(
-       start="2025-02-01",
-       end="2025-02-28",
-       heures_depassement=0,
-       depassement_PS_HPB=10,
-       kWh_pointe=0,
-       kWh_HPH=10,
-       kWh_HCH=10,
-       kWh_HPB=10,
-       kWh_HCB=10
-   )
-   turpe_calculator = TurpeCalculator(contrat, tarif, facture)
-   turpe_calculator.calculate_turpe()
-   print(f"Acheminement (€) : {turpe_calculator.euro_TURPE}")
+   # CU_pf
+   contrat = input_Contrat(domaine_tension="HTA", PS_pointe=300, PS_HPH=300, PS_HCH=300, PS_HPB=300, PS_HCB=300, version_utilisation="CU_pf", pourcentage_ENR=0)
+   # CU_pm
+   contrat = input_Contrat(domaine_tension="HTA", PS_pointe=300, PS_HPH=300, PS_HCH=300, PS_HPB=300, PS_HCB=300, version_utilisation="CU_pm", pourcentage_ENR=0)
+   # LU_pf
+   contrat = input_Contrat(domaine_tension="HTA", PS_pointe=500, PS_HPH=500, PS_HCH=500, PS_HPB=500, PS_HCB=500, version_utilisation="LU_pf", pourcentage_ENR=0)
+   # LU_pm
+   contrat = input_Contrat(domaine_tension="HTA", PS_pointe=500, PS_HPH=500, PS_HCH=500, PS_HPB=500, PS_HCB=500, version_utilisation="LU_pm", pourcentage_ENR=0)
 
