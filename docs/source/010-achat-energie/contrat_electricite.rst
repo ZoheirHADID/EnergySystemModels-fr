@@ -167,9 +167,9 @@ La formule générale du TURPE est donc :
    * - LU
      - Longue Utilisation
    * - CU4_ac
-     - Contrat Unique 4 périodes avec alimentation de secours
+     - Contrat Unique 4 périodes avec autoproduction collective et/ou alimentation de secours
    * - MU_ac
-     - Multi-usage avec autoproduction collective
+     - Multi-usage avec autoproduction collective et/ou alimentation de secours
 
 ***BT > 36 kVA***
 
@@ -184,9 +184,9 @@ La formule générale du TURPE est donc :
    * - LU
      - Longue Utilisation (tarification spécifique pour usages prolongés)
    * - CU_ac
-     - Contrat Unique avec alimentation de secours
+     - Contrat Unique avec autoproduction collective et/ou alimentation de secours
    * - LU_ac
-     - Longue Utilisation avec alimentation de secours
+     - Longue Utilisation avec autoproduction collective et/ou alimentation de secours
 
 ***HTA***
 
