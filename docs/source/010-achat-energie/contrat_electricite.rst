@@ -56,59 +56,68 @@ La formule générale du TURPE est donc :
 
       from Facture.TURPE import input_Contrat, TurpeCalculator, input_Facture, input_Tarif
 
-10.1.2. Tarifs des clients raccordés en HTA
---------------------------------------------
+10.1.2. Tarifs des clients raccordés en HTA et BT
+-----------------------------------------------
 
-Les clients raccordés en Haute Tension A (HTA) bénéficient de tarifs spécifiques pour le calcul du TURPE. Les principales données d'entrée à renseigner sont détaillées dans les tableaux suivants :
+Les clients peuvent être raccordés en Haute Tension A (HTA) ou en Basse Tension (BT), avec des puissances souscrites inférieures ou supérieures à 36 kVA. Les données d'entrée pour le calcul du TURPE varient selon le domaine de tension, la puissance souscrite et la version d'utilisation.
 
-**Domaine de tension**
+**Possibilités de raccordement selon le domaine de tension :**
+
+.. list-table::
+   :header-rows: 1
+   :widths: 30 70
+
+   * - Domaine de tension
+     - Possibilités de raccordement
+   * - BT ≤ 36 kVA
+     - Raccordement monophasé ou triphasé, puissance ≤ 36 kVA, usage résidentiel ou petit tertiaire
+   * - BT > 36 kVA
+     - Raccordement triphasé, puissance > 36 kVA, usage tertiaire, industriel, collectif
+   * - HTA (généralement 20 kV)
+     - Raccordement industriel, tertiaire, collectivités, puissance importante, alimentation principale ou de secours
+
+**Versions d'utilisation et options tarifaires :**
+
+.. list-table::
+   :header-rows: 1
+   :widths: 30 70
+
+   * - Domaine de tension
+     - Versions d'utilisation / Options tarifaires
+   * - BT ≤ 36 kVA
+     - Tarif Bleu, option Base, option Heures Pleines/Heures Creuses
+   * - BT > 36 kVA
+     - Tarif Jaune (historique), Tarif Vert (historique), CARD, contrat unique, injection, options Heures Pleines/Heures Creuses, EJP, Tempo
+   * - HTA
+     - CARD, contrat unique, utilisateur avec injection, options tarifaires : CU/LU avec pointe fixe ou mobile, 5 classes temporelles (pointe, HPH, HCH, HPB, HCB), alimentation de secours, sites regroupés
+
+**Résumé des principales données d'entrée pour le calcul TURPE :**
 
 .. list-table::
    :header-rows: 1
    :widths: 40 60
 
    * - Paramètre
-     - Valeur/Description
-   * - Niveau de tension
-     - HTA (Haute Tension A, généralement 20 kV)
-   * - Présence d’alimentation de secours
-     - Oui / Non
-   * - Sites regroupés
-     - Oui / Non
-
-**Composantes principales pour le calcul TURPE**
-
-.. list-table::
-   :header-rows: 1
-   :widths: 40 60
-
-   * - Composante
-     - Détail / Valeur attendue
+     - Description / Exemple
+   * - Domaine de tension
+     - BT ≤ 36 kVA, BT > 36 kVA, HTA (ex : 20 kV)
    * - Puissance souscrite (kVA)
-     - Puissance maximale appelée contractuellement
+     - Valeur contractuelle (ex : 30 kVA, 100 kVA…)
    * - Nombre de périodes tarifaires
-     - Généralement 3 (heures pleines, heures creuses, heures de pointe)
+     - Selon l’option tarifaire (ex : 1, 2, 3 ou 5 périodes)
    * - Energie soutirée par période (MWh)
      - Consommation annuelle par plage tarifaire
    * - Energie réactive (kVArh)
      - Quantité d’énergie réactive consommée
    * - Dépassements de puissance (kW ou kVA)
      - Excédents par rapport à la puissance souscrite
-
-**Version d'utilisation et options tarifaires**
-
-.. list-table::
-   :header-rows: 1
-   :widths: 40 60
-
-   * - Paramètre
-     - Détail / Options
    * - Type d’utilisation
-     - Usage industriel, tertiaire, etc.
-   * - **CG (Composante de gestion)**
-     - Type d'utilisateur : utilisateur en CARD, utilisateur en contrat unique, utilisateur avec injection
-   * - **CS (Composante de soutirage)**
-     - 5 classes temporelles : pointe, HPH (heures pleines hiver), HCH (heures creuses hiver), HPB (heures pleines été), HCB (heures creuses été).
-       Option tarifaire : CU avec pointe fixe, LU avec pointe fixe, CU avec pointe mobile, Longue Utilisation avec pointe mobile
+     - Usage industriel, tertiaire, résidentiel, etc.
+   * - Présence d’alimentation de secours
+     - Oui / Non
+   * - Sites regroupés
+     - Oui / Non
+   * - Options tarifaires spécifiques
+     - CARD, contrat unique, injection, classes temporelles (pointe, HPH, HCH, HPB, HCB), CU/LU, pointe fixe/mobile
 
-Ces données sont nécessaires pour renseigner le calculateur TURPE et obtenir une estimation précise du coût d’utilisation du réseau pour un site HTA.
+Ces paramètres sont à adapter selon le type de raccordement et l’option tarifaire choisie. Ils permettent de renseigner le calculateur TURPE pour obtenir une estimation précise du coût d’utilisation du réseau pour chaque profil de client.
