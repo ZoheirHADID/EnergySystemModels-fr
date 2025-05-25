@@ -12,7 +12,7 @@
        c_euro_kWh_HCB=0.13,
        c_euro_kWh_HPH=0.17,
        c_euro_kWh_HCH=0.14,
-       c_euro_kWh_TCFE=0.02250,
+       c_euro_kWh_TICFE=0.02250,
        c_euro_kWh_certif_capacite_pointe=0.001,
        c_euro_kWh_certif_capacite_HPH=0.001,
        c_euro_kWh_certif_capacite_HCH=0.001,
