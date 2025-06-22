@@ -8,4 +8,5 @@
    :caption: Achat d'énergie:
 
    contrat_electricite
-   
+   contrat_gaz
+
