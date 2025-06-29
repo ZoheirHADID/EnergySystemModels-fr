@@ -130,10 +130,11 @@ Elle est calculée selon la formule suivante :
    CTA = [Quote-part distribution] × (20,80 % + [Coefficient] × 4,71 %)
 
 où :
-- **Quote-part distribution** : part fixe annuelle de l’acheminement distribution (ATRD)
-- **20,80 %** : taux fixe appliqué à la distribution
-- **4,71 %** : taux appliqué à la part transport
-- **Coefficient** : coefficient de proportionnalité (exemple : 83,21)
+
+- **Quote-part distribution** : part fixe annuelle de l’acheminement distribution (ATRD)
+- **20,80 %** : taux fixe appliqué à la distribution
+- **4,71 %** : taux appliqué à la part transport
+- **Coefficient** : coefficient de proportionnalité (exemple : 83,21)
 
 Les valeurs des taux et du coefficient sont fixées par la réglementation et peuvent évoluer.
 
