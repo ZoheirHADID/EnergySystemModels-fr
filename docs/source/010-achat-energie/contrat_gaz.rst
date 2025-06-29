@@ -9,7 +9,7 @@ Introduction
 La facture de gaz naturel se compose généralement de trois grandes parties principales :
 
 - **La part acheminement** : liée au transport (ATRT) et à la distribution (ATRD) du gaz jusqu’au site de consommation.
-- **La part Taxes et contributions** : comprenant diverses taxes et contributions réglementaires.
+- **La part Taxes et contributions** : comprenant la TICGN (Taxe Intérieure sur la Consommation de Gaz Naturel) et
 - **La part Fourniture** : correspondant à la consommation de gaz facturée par le fournisseur.
 
 Chacune de ces composantes joue un rôle spécifique dans le coût global de la fourniture de gaz. Les sections suivantes détaillent chacune de ces parties.
