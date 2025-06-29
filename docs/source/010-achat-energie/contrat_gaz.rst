@@ -3,18 +3,24 @@
 10.2. Calcul du coût du réseau gaz naturel
 ============================================================
 
-10.2.1. ATRD & ATRT
---------------------------------------------
+Introduction
+----------------------------
 
-Le prix payé pour l’utilisation du réseau de distribution et de transport du gaz naturel comprend principalement deux volets :
+La facture de gaz naturel se compose généralement de trois grandes parties principales :
+
+- **La part acheminement** : liée au transport (ATRT) et à la distribution (ATRD) du gaz jusqu’au site de consommation.
+- **La part Taxes et contributions** : comprenant diverses taxes et contributions réglementaires.
+- **La part Fourniture** : correspondant à la consommation de gaz facturée par le fournisseur.
+
+Chacune de ces composantes joue un rôle spécifique dans le coût global de la fourniture de gaz. Les sections suivantes détaillent chacune de ces parties.
+
+------------------------------------------------------------
+Partie 1 : Acheminement (ATRD & ATRT)
+------------------------------------------------------------
+
+Le prix payé pour l’utilisation du réseau de distribution et de transport du gaz naturel comprend principalement deux volets :
 - **ATRD** : Accès des Tiers au Réseau de Distribution
 - **ATRT** : Accès des Tiers au Réseau de Transport
-
-La facture de gaz naturel se compose généralement de trois grandes parties :
-
-- **La part acheminement** : composée d’une partie Transport (ATRT) et d’une partie Distribution (ATRD)
-- **La part Taxes et contributions** : comprenant la TICGN (Taxe Intérieure sur la Consommation de Gaz Naturel) et la CTA (Contribution Tarifaire d’Acheminement)
-- **La part Fourniture** : correspondant à la consommation de gaz facturée par le fournisseur
 
 .. list-table::
    :header-rows: 1
@@ -26,20 +32,14 @@ La facture de gaz naturel se compose généralement de trois grandes parties :
      - Coût d’acheminement sur le réseau de distribution (GRDF ou régie locale)
    * - **ATRT**
      - Coût d’acheminement sur le réseau de transport (GRTgaz ou Teréga)
-   * - **TICGN**
-     - Taxe intérieure sur la consommation de gaz naturel
-   * - **CTA**
-     - Contribution Tarifaire d’Acheminement (part sociale sur l’acheminement)
-   * - **Fourniture**
-     - Coût de la consommation de gaz (énergie fournie par le fournisseur)
 
-La formule générale du coût d’acheminement du gaz est donc :
+La formule générale du coût d’acheminement du gaz est donc :
 
 .. code-block:: text
 
    Coût_acheminement_gaz = ATRD + ATRT 
 
-**Exemple de calcul ATRD/ATRT en Python :**
+**Exemple de calcul ATRD/ATRT en Python :**
 
 .. code-block:: python
 
@@ -86,7 +86,25 @@ Les paramètres à renseigner dans `input_Contrat`, `input_Facture` et `input_Ta
      - Description
    * - type_tarif_acheminement
      - "T1", "T2", "T3", "T4"
-     - Classe de consommation (T1 : <6 MWh/an, T2 : 6-300 MWh/an, T3 : 300-5000 MWh/an, T4 : >5000 MWh/an)
+     - Classe de consommation (T1 : <6 MWh/an, T2 : 6-300 MWh/an, T3 : 300-5000 MWh/an, T4 : >5000 MWh/an)
+   * - CJA_MWh_j
+     - ≥ 0
+     - Capacité journalière annuelle (en MWh/j)
+   * - CAR_MWh
+     - ≥ 0
+     - Consommation annuelle de référence (en MWh)
+   * - profil
+     - ex : "P019"
+     - Profil de consommation
+   * - station_meteo
+     - ex : "NANTES-BOUGUENAIS"
+     - Station météo de référence
+   * - reseau_transport
+     - "GRTgaz", "Téréga"
+     - Gestionnaire du réseau de transport
+   * - niv_tarif_region
+     - 0 à 10
+     - Niveau tarifaire régional
 
 ***Déclarer une facture gaz***
 
@@ -183,7 +201,41 @@ L’ATRT (Accès des Tiers au Réseau de Transport) correspond au coût d’ache
    * - **Total ATRT**
      - Coût global d’accès au réseau de transport : ``ATRT = CJN × (TCS + TCR × NTR + TCL) + TS``
 
-L’addition de ces composantes donne le coût total du transport (ATRT) sur la période
+L’addition de ces composantes donne le coût total du transport (ATRT) sur la période.
+
+------------------------------------------------------------
+Partie 2 : Taxes et contributions
+------------------------------------------------------------
+
+Cette partie regroupe les taxes et contributions obligatoires appliquées à la consommation de gaz naturel :
+
+.. list-table::
+   :header-rows: 1
+   :widths: 25 75
+
+   * - Composant
+     - Description
+   * - **TICGN**
+     - Taxe Intérieure sur la Consommation de Gaz Naturel
+   * - **CTA**
+     - Contribution Tarifaire d’Acheminement (part sociale sur l’acheminement)
+
+Ces montants sont fixés par la réglementation et évoluent régulièrement.
+
+------------------------------------------------------------
+Partie 3 : Fourniture
+------------------------------------------------------------
+
+La part fourniture correspond à la consommation de gaz facturée par le fournisseur. Elle dépend du volume de gaz consommé (en kWh ou MWh) et du prix unitaire négocié dans le contrat de fourniture.
+
+.. list-table::
+   :header-rows: 1
+   :widths: 25 75
+
+   * - Composant
+     - Description
+   * - **Fourniture**
+     - Coût de la consommation de gaz (énergie fournie par le fournisseur)
 
 .. toctree::
    :maxdepth: 1
