@@ -37,7 +37,7 @@ La formule générale du coût d’acheminement du gaz est donc :
 
 .. code-block:: text
 
-   Coût_acheminement_gaz = ATRD + ATRT + TICGN
+   Coût_acheminement_gaz = ATRD + ATRT 
 
 **Exemple de calcul ATRD/ATRT en Python :**
 
