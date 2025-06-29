@@ -115,38 +115,67 @@ Les paramètres à renseigner dans `input_Contrat`, `input_Facture` et `input_Ta
 
 **Explication du calcul de l'ATRT**
 
-L’ATRT (Accès des Tiers au Réseau de Transport) correspond au coût d’acheminement sur le réseau de transport du gaz naturel (GRTgaz ou Teréga). Ce coût est composé de plusieurs termes, chacun lié à une fonction spécifique du réseau :
+L’ATRT (Accès des Tiers au Réseau de Transport) correspond au coût d’acheminement sur le réseau de transport du gaz naturel (GRTgaz ou Teréga). Ce coût est composé de plusieurs termes, chacun lié à une fonction spécifique du réseau.
+
+**Composantes du tarif ATRT :**
 
 .. list-table::
    :header-rows: 1
-   :widths: 30 35 35
+   :widths: 25 30 45
 
-   * - Composante
-     - Formule de calcul
-     - Explication
+   * - **Composante**
+     - **Formule de calcul**
+     - **Explication**
    * - **TCS** (réseau principal)
      - ``CJN × TCS``
-     - Terme de capacité de sortie sur le réseau principal
+     - Coût d’accès au réseau principal (capacité de sortie)
    * - **TCR** (réseau régional)
      - ``CJN × TCR × NTR``
-     - Terme de transport régional selon le niveau tarifaire régional
-   * - **TCL** (livraison)
+     - Coût d’acheminement régional, pondéré par le niveau tarifaire (NTR)
+   * - **TCL** (capacité de livraison)
      - ``CJN × TCL_PITD``
-     - Terme de capacité de livraison au PITD
+     - Coût pour la livraison à un point de distribution (PITD), dépend du GRT
    * - **TS** (compensation stockage)
      - ``Modulation_hivernale × coef_stockage``
-     - Coût lié à la modulation saisonnière, dépend de la variabilité de la consommation
+     - Coût de modulation hivernale, lié à la variabilité saisonnière de la consommation
+   * - **Total ATRT**
+     - ``CJN × (TCS + TCR × NTR + TCL) + TS``
+     - Somme de toutes les composantes du transport et du stockage
 
-**Légende des termes :**
-- **CJN** : Capacité journalière souscrite (en MWh/j)
-- **TCS** : Tarif de capacité de sortie sur le réseau principal
-- **TCR** : Tarif de capacité régionale
-- **NTR** : Niveau tarifaire régional (coefficient selon la zone)
-- **TCL_PITD** : Tarif de capacité de livraison au Point d’Interface Transport-Distribution
-- **Modulation_hivernale** : Quantité de modulation hivernale souscrite
-- **coef_stockage** : Coefficient de stockage applicable
+**Définitions des termes utilisés :**
 
-L’addition de ces composantes donne le coût total du transport (ATRT) sur la période considérée.
+.. list-table::
+   :header-rows: 1
+   :widths: 30 70
+
+   * - **Terme**
+     - **Description**
+   * - **CAR**
+     - Consommation Annuelle de Référence (en MWh/an), fournie dans le contrat
+   * - **Zi**
+     - Coefficient climatique selon la station météo et le profil de consommation
+   * - **A**
+     - Coefficient réseau (dépend de GRTgaz ou Téréga)
+   * - **CJN**
+     - Capacité Journalière Normalisée (en MWh/j) : ``CJN = CAR × Zi × A``
+   * - **Modulation_hivernale**
+     - Variation saisonnière de la consommation : ``Modulation = CJN - (CAR / 365)``
+   * - **TCS**
+     - Tarif unitaire de sortie du réseau principal (€/MWh/j/an), fixé par la CRE
+   * - **TCR**
+     - Tarif unitaire du réseau régional (€/MWh/j/an), fixé par la CRE
+   * - **NTR**
+     - Niveau Tarifaire Régional (de 0 à 10) selon la localisation du site
+   * - **TCL_PITD**
+     - Tarif de livraison au point d’interface transport/distribution (€/MWh/j/an)
+   * - **coef_stockage**
+     - Coefficient unitaire de stockage (€/MWh), ex : 139,06 €/MWh pour 2024–2025
+   * - **TS**
+     - Terme de stockage : ``TS = Modulation_hivernale × coef_stockage``
+   * - **Total ATRT**
+     - Coût global d’accès au réseau de transport : ``ATRT = CJN × (TCS + TCR × NTR + TCL) + TS``
+
+L’addition de ces composantes donne le coût total du transport (ATRT) sur la période
 
 .. toctree::
    :maxdepth: 1
