@@ -120,7 +120,63 @@ Cette partie regroupe les taxes et contributions obligatoires appliquées à la 
    * - **CTA**
      - Contribution Tarifaire d’Acheminement (part sociale sur l’acheminement)
 
-Ces montants sont fixés par la réglementation et évoluent régulièrement.
+**Calcul de la CTA (Contribution Tarifaire d’Acheminement)**
+
+La CTA est une contribution sociale appliquée à la part fixe de l’acheminement (ATRD). Elle est calculée selon la formule suivante :
+
+.. code-block:: text
+
+   CTA = [Quote-part distribution] × (20,80 % + [Coefficient] × 4,71 %)
+
+où :
+- **Quote-part distribution** : part fixe annuelle de l’acheminement distribution (ATRD)
+- **20,80 %** : taux fixe appliqué à la distribution
+- **4,71 %** : taux appliqué à la part transport
+- **Coefficient** : coefficient de proportionnalité (exemple : 83,21)
+
+**Exemple de calcul Python :**
+
+.. code-block:: python
+
+   # Paramètres
+   distribution_cta_rate = 0.2080
+   transport_cta_rate = 0.0471
+   coefficient_proportionnalite_cta = 83.21
+   euro_an_ATRD_fixe_total = ...  # part fixe annuelle ATRD (€)
+
+   euro_an_CTA = round(
+       euro_an_ATRD_fixe_total * (
+           distribution_cta_rate +
+           coefficient_proportionnalite_cta * transport_cta_rate
+       ),
+       2
+   )
+
+Les valeurs des taux et du coefficient sont fixées par la réglementation et peuvent évoluer.
+
+**Calcul de la TICGN (Taxe Intérieure sur la Consommation de Gaz Naturel)**
+
+La TICGN est une taxe appliquée sur la quantité de gaz naturel consommée. Elle se calcule simplement en multipliant la consommation totale (en kWh) par le taux unitaire de la TICGN.
+
+.. code-block:: text
+
+   TICGN = Consommation totale (kWh) × taux TICGN (€/kWh)
+
+Par exemple, si la consommation totale est de 100 000 kWh et que le taux TICGN est de 0,00837 €/kWh :
+
+.. code-block:: python
+
+   ticgn_rate = 0.00837  # €/kWh
+   kWh_total = 100_000
+   euro_TICGN = round(kWh_total * ticgn_rate, 2)  # Résultat : 837.00 €
+
+Dans le code Python, cela correspond à :
+
+.. code-block:: python
+
+   self.euro_TICGN = round(self.facture.kWh_total * self.coeff_atrd["ticgn_rate"], 2)
+
+Le taux TICGN est fixé par la réglementation et peut évoluer chaque année.
 
 ------------------------------------------------------------
 3. Fourniture
