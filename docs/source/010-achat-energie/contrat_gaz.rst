@@ -10,13 +10,17 @@ Le prix payé pour l’utilisation du réseau de distribution et de transport du
 - **ATRD** : Accès des Tiers au Réseau de Distribution
 - **ATRT** : Accès des Tiers au Réseau de Transport
 
-La facture de gaz naturel se compose donc de plusieurs éléments, dont les principaux sont :
+La facture de gaz naturel se compose généralement de trois grandes parties :
+
+- **La part acheminement** : composée d’une partie Transport (ATRT) et d’une partie Distribution (ATRD)
+- **La part Taxes et contributions** : comprenant la TICGN (Taxe Intérieure sur la Consommation de Gaz Naturel) et la CTA (Contribution Tarifaire d’Acheminement)
+- **La part Fourniture** : correspondant à la consommation de gaz facturée par le fournisseur
 
 .. list-table::
    :header-rows: 1
-   :widths: 20 80
+   :widths: 25 75
 
-   * - Abréviation
+   * - Composant
      - Description
    * - **ATRD**
      - Coût d’acheminement sur le réseau de distribution (GRDF ou régie locale)
@@ -24,6 +28,10 @@ La facture de gaz naturel se compose donc de plusieurs éléments, dont les prin
      - Coût d’acheminement sur le réseau de transport (GRTgaz ou Teréga)
    * - **TICGN**
      - Taxe intérieure sur la consommation de gaz naturel
+   * - **CTA**
+     - Contribution Tarifaire d’Acheminement (part sociale sur l’acheminement)
+   * - **Fourniture**
+     - Coût de la consommation de gaz (énergie fournie par le fournisseur)
 
 La formule générale du coût d’acheminement du gaz est donc :
 
