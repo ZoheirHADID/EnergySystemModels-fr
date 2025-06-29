@@ -143,37 +143,46 @@ La part fourniture correspond à la consommation de gaz facturée par le fournis
 
 Cette section présente un exemple d’utilisation des fonctions Python pour calculer les différentes composantes d’une facture de gaz naturel.
 
-**Exemple de calcul ATRD/ATRT en Python :**
+**Exemple de calcul ATR (ATRD + ATRT) en Python :**
 
 .. code-block:: python
 
-   from Facture.ATR_Transport_Distribution import input_Contrat, input_Facture, input_Tarif, ATRD_calculation, ATRT_calculation
+   from Facture.ATR_Transport_Distribution import input_Contrat, input_Facture, input_Tarif, ATR_calculation
 
    if __name__ == "__main__":
        contrat = input_Contrat(
-           type_tarif_acheminement='T3',
-           CJA_MWh_j=93,
-           CAR_MWh=8920.959,
+           type_tarif_acheminement='T4',
+           CJN_MWh_j=93,
+           modulation_MWh_j=20.217,
+           CAR_MWh=6801.540,
            profil="P019",
-           station_meteo="NANTES-BOUGUENAIS",
+           station_meteo="PARIS-MONTSOURIS",
            reseau_transport="GRTgaz",
-           niv_tarif_region=1
+           niv_tarif_region=2
        )
        facture = input_Facture(
-           start="2024-01-01",
-           end="2024-01-31",
-           kWh_total=1358713
+           start="2024-06-01",
+           end="2024-06-30",
+           kWh_total=0
        )
        tarif = input_Tarif(prix_kWh=0.03171+0.00571)
 
-       atrd = ATRD_calculation(contrat, facture, tarif)
-       atrd.calculate()
-       print("=== Distribution (ATRD) ===")
-       print(atrd.resume())
-       atrt = ATRT_calculation(contrat, facture)
-       atrt.calculate()
-       print("=== Transport (ATRT) ===")
-       print(atrt.resume())
+       atr = ATR_calculation(contrat, facture, tarif)
+       atr.calculate()
+       print(atr.df)
+       print(atr.df_transport)
+       print(atr.df_distribution)
+       print(atr.df_taxes_contributions)
+       print(atr.df_molecule)
+       print(atr.df_annuel)
+
+       print("atr.CJN_MWh_j", atr.CJN)
+       # zi
+       print("art.cofficient_zi", atr.zi)
+       # coef A
+       print("atr.cofficient_A", atr.coef_A)
+
+       print("coef_stockage", atr.coef_stockage)
 
 Les paramètres à renseigner dans `input_Contrat`, `input_Facture` et `input_Tarif` sont détaillés ci-dessous. Adaptez-les selon votre contrat et votre consommation.
 
