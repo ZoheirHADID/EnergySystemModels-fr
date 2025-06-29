@@ -176,6 +176,12 @@ Cette section présente un exemple d’utilisation des fonctions Python pour cal
 
 **Exemple de calcul ATR (ATRD + ATRT) en Python :**
 
+
+.. note::
+
+   Dans cet exemple, la facture donne directement les valeurs de `CJN_MWh_j` (capacité journalière normalisée) et de `modulation_MWh_j` (la modulation hivernale).  
+   Si ces paramètres sont renseignés (`CJN_MWh_j=93`, `modulation_MWh_j=20.217`), ils ne sont donc pas recalculés par le modèle mais utilisés tels quels dans
+
 .. code-block:: python
 
    from Facture.ATR_Transport_Distribution import input_Contrat, input_Facture, input_Tarif, ATR_calculation
