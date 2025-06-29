@@ -189,8 +189,8 @@ Cette section présente un exemple d’utilisation des fonctions Python pour cal
    if __name__ == "__main__":
        contrat = input_Contrat(
            type_tarif_acheminement='T4',
-           CJN_MWh_j=93,
-           modulation_MWh_j=20.217,
+           CJN_MWh_j=93,# Si non renseigné, il sera recalculé
+           modulation_MWh_j=20.217, # Si non renseigné, il sera recalculé
            CAR_MWh=6801.540,
            profil="P019",
            station_meteo="PARIS-MONTSOURIS",
