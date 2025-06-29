@@ -113,6 +113,41 @@ Les paramètres à renseigner dans `input_Contrat`, `input_Facture` et `input_Ta
 
    Les fonctions ATRD_calculation et ATRT_calculation permettent de distinguer le coût d’acheminement sur le réseau de distribution et sur le réseau de transport. Les résultats sont affichés séparément pour chaque composante.
 
+**Explication du calcul de l'ATRT**
+
+L’ATRT (Accès des Tiers au Réseau de Transport) correspond au coût d’acheminement sur le réseau de transport du gaz naturel (GRTgaz ou Teréga). Ce coût est composé de plusieurs termes, chacun lié à une fonction spécifique du réseau :
+
+.. list-table::
+   :header-rows: 1
+   :widths: 30 35 35
+
+   * - Composante
+     - Formule de calcul
+     - Explication
+   * - **TCS** (réseau principal)
+     - ``CJN × TCS``
+     - Terme de capacité de sortie sur le réseau principal
+   * - **TCR** (réseau régional)
+     - ``CJN × TCR × NTR``
+     - Terme de transport régional selon le niveau tarifaire régional
+   * - **TCL** (livraison)
+     - ``CJN × TCL_PITD``
+     - Terme de capacité de livraison au PITD
+   * - **TS** (compensation stockage)
+     - ``Modulation_hivernale × coef_stockage``
+     - Coût lié à la modulation saisonnière, dépend de la variabilité de la consommation
+
+**Légende des termes :**
+- **CJN** : Capacité journalière souscrite (en MWh/j)
+- **TCS** : Tarif de capacité de sortie sur le réseau principal
+- **TCR** : Tarif de capacité régionale
+- **NTR** : Niveau tarifaire régional (coefficient selon la zone)
+- **TCL_PITD** : Tarif de capacité de livraison au Point d’Interface Transport-Distribution
+- **Modulation_hivernale** : Quantité de modulation hivernale souscrite
+- **coef_stockage** : Coefficient de stockage applicable
+
+L’addition de ces composantes donne le coût total du transport (ATRT) sur la période considérée.
+
 .. toctree::
    :maxdepth: 1
    :caption: Exemples Gaz
