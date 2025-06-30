@@ -176,11 +176,10 @@ Cette section présente un exemple d’utilisation des fonctions Python pour cal
 
 **Exemple de calcul ATR (ATRD + ATRT) en Python :**
 
-
 .. note::
 
    Dans cet exemple, la facture donne directement les valeurs de `CJN_MWh_j` (capacité journalière normalisée) et de `modulation_MWh_j` (la modulation hivernale).  
-   Si ces paramètres sont renseignés (`CJN_MWh_j=93`, `modulation_MWh_j=20.217`), ils ne sont donc pas recalculés par le modèle mais utilisés tels quels dans
+   Si ces paramètres sont renseignés (`CJN_MWh_j=93`, `modulation_MWh_j=20.891`), ils ne sont donc pas recalculés par le modèle mais utilisés tels quels dans le calcul.
 
 .. code-block:: python
 
@@ -189,18 +188,18 @@ Cette section présente un exemple d’utilisation des fonctions Python pour cal
    if __name__ == "__main__":
        contrat = input_Contrat(
            type_tarif_acheminement='T4',
-           CJN_MWh_j=93,# Si non renseigné, il sera recalculé
-           modulation_MWh_j=20.217, # Si non renseigné, il sera recalculé
-           CAR_MWh=6801.540,
+           CJN_MWh_j=93,
+           modulation_MWh_j=20.891,
+           CAR_MWh=8920.959,
            profil="P019",
            station_meteo="PARIS-MONTSOURIS",
            reseau_transport="GRTgaz",
            niv_tarif_region=2
        )
        facture = input_Facture(
-           start="2024-06-01",
-           end="2024-06-30",
-           kWh_total=0
+           start="2024-01-01",
+           end="2024-01-31",
+           kWh_total=1358713
        )
        tarif = input_Tarif(prix_kWh=0.03171+0.00571)
 
@@ -212,6 +211,7 @@ Cette section présente un exemple d’utilisation des fonctions Python pour cal
        print(atr.df_taxes_contributions)
        print(atr.df_molecule)
        print(atr.df_annuel)
+       print(atr.df_euro_MWh)
 
        print("atr.CJN_MWh_j", atr.CJN)
        # zi
@@ -220,6 +220,10 @@ Cette section présente un exemple d’utilisation des fonctions Python pour cal
        print("atr.cofficient_A", atr.coef_A)
 
        print("coef_stockage", atr.coef_stockage)
+
+       atr.plot()
+       atr.plot_detail()
+       atr.plot_euro_MWh()
 
 Les paramètres à renseigner dans `input_Contrat`, `input_Facture` et `input_Tarif` sont détaillés ci-dessous. Adaptez-les selon votre contrat et votre consommation.
 
