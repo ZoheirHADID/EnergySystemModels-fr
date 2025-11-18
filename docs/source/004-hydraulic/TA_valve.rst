@@ -1,236 +1,470 @@
-.. _ta_valve:.. _ta_valve:
+.. _ta_valve:.. _ta_valve:.. _ta_valve:
 
 
+
+4.2. Vanne d'équilibrage TA (Tour & Andersson / IMI Hydronic)
+
+==============================================================
 
 4.2. Vanne d'équilibrage TA (Tour & Andersson / IMI Hydronic)4.2. TA Balancing Valve (Tour & Andersson / IMI Hydronic)
 
+Les vannes d'équilibrage **TA** (Tour & Andersson / IMI Hydronic Engineering) permettent l'équilibrage hydraulique des circuits CVC pour garantir les débits nominaux et optimiser la performance énergétique des installations.
+
 ========================================================================================================================
 
-
-
-4.2.1. Introduction4.2.1. Introduction
-
---------------------------------------
+Cette classe Python calcule les pertes de charge à travers différents modèles de vannes TA en utilisant les **données Kv officielles** du fabricant IMI TA en fonction du nombre de tours d'ouverture.
 
 
 
-Les vannes d'équilibrage **TA** (Tour & Andersson / IMI Hydronic Engineering) sont des composants essentiels dans les systèmes CVC. Elles permettent l'équilibrage hydraulique des circuits pour garantir les débits nominaux et optimiser la performance énergétique des installations.**TA** balancing valves (Tour & Andersson / IMI Hydronic Engineering) are essential components in heating, ventilation and air conditioning (HVAC) systems. They allow hydraulic balancing of circuits to ensure nominal flow rates and optimize energy performance of installations.
+.. image:: ../images/TAValve.png
 
-
-
-Cette classe Python permet de calculer les pertes de charge à travers différents modèles de vannes TA en utilisant les **données Kv officielles** du fabricant IMI TA en fonction du nombre de tours d'ouverture.This Python class allows calculating pressure drops through different TA valve models using **official Kv data** from IMI TA manufacturer based on the number of opening turns.
-
-
-
-.. image:: ../images/TAValve.pngThe image below shows an example of a TA balancing valve installed in a hydraulic circuit:
-
-   :alt: Vanne TA
-
-   :width: 800px.. image:: ../images/TAValve.png
-
-   :align: center   :alt: TA Valve
+   :alt: Vanne TA4.2.1. Introduction4.2.1. Introduction
 
    :width: 800px
 
-4.2.2. Types de vannes TA disponibles   :align: center
-
---------------------------------------
-
-4.2.2. Available TA Valve Types
-
-La classe ``TA_Valve`` supporte **plus de 50 références** de vannes d'équilibrage IMI TA :--------------------------------
+   :align: center--------------------------------------
 
 
 
-.. list-table:: **Types de vannes TA et références disponibles**The ``TA_Valve`` class supports **over 50 references** of IMI TA balancing valves, covering the following applications:
+Vannes TA prises en compte
 
-   :header-rows: 1
+---------------------------
 
-   :widths: 20 15 15 50.. list-table:: **Types de vannes TA et références disponibles**
+Les vannes d'équilibrage **TA** (Tour & Andersson / IMI Hydronic Engineering) sont des composants essentiels dans les systèmes CVC. Elles permettent l'équilibrage hydraulique des circuits pour garantir les débits nominaux et optimiser la performance énergétique des installations.**TA** balancing valves (Tour & Andersson / IMI Hydronic Engineering) are essential components in heating, ventilation and air conditioning (HVAC) systems. They allow hydraulic balancing of circuits to ensure nominal flow rates and optimize energy performance of installations.
 
-   :header-rows: 1
+La classe ``TA_Valve`` supporte **plus de 50 références** de vannes d'équilibrage IMI TA :
 
-   * - **Série**   :widths: 20 15 15 50
 
-     - **Plage DN**
 
-     - **PN**   * - **Série**
+.. list-table::
 
-     - **Application typique**     - **Plage DN**
+   :header-rows: 1Cette classe Python permet de calculer les pertes de charge à travers différents modèles de vannes TA en utilisant les **données Kv officielles** du fabricant IMI TA en fonction du nombre de tours d'ouverture.This Python class allows calculating pressure drops through different TA valve models using **official Kv data** from IMI TA manufacturer based on the number of opening turns.
 
-   * - **STAD**     - **PN**
+   :widths: 25 20 55
 
-     - DN10-50     - **Références disponibles**
 
-     - PN 25   * - **STAD**
 
-     - Réseaux secondaires filetés     - DN10-50
+   * - **Série**
 
-   * - **STAV**     - PN 25
+     - **Plage DN**.. image:: ../images/TAValve.pngThe image below shows an example of a TA balancing valve installed in a hydraulic circuit:
 
-     - DN15-50     - STAD-DN10, STAD-DN15, STAD-DN20, STAD-DN25, STAD-DN32, STAD-DN40, STAD-DN50
+     - **Application typique**
 
-     - PN 20   * - **STAV**
+   * - **STAD**   :alt: Vanne TA
 
-     - Réseaux secondaires Venturi économiques     - DN15-50
+     - DN10-50
 
-   * - **TBV / TBV-C**     - PN 20
+     - Réseaux secondaires filetés (PN 25)   :width: 800px.. image:: ../images/TAValve.png
 
-     - DN10-20     - STAV-DN15, STAV-DN20, STAV-DN25, STAV-DN32, STAV-DN40, STAV-DN50
+   * - **STAV**
 
-     - PN 20   * - **TBV**
+     - DN15-50   :align: center   :alt: TA Valve
 
-     - Unités terminales (radiateurs, ventilo-convecteurs)     - DN15-20
+     - Réseaux secondaires Venturi économiques (PN 20)
 
-   * - **STAF**     - PN 20
+   * - **TBV / TBV-C**   :width: 800px
 
-     - DN20-400     - TBV-DN15, TBV-DN20
+     - DN10-20
 
-     - PN 16/25   * - **TBV-LF**
+     - Unités terminales : radiateurs, ventilo-convecteurs (PN 20)4.2.2. Types de vannes TA disponibles   :align: center
 
-     - Réseaux primaires fonte à brides     - DN15
+   * - **STAF**
 
-   * - **STAF-SG**     - PN 20
+     - DN20-400--------------------------------------
 
-     - DN65-400     - TBV-LF-DN15 (Low-Flow, 10 positions)
+     - Réseaux primaires fonte à brides (PN 16/25)
 
-     - PN 16/25   * - **TBV-NF**
+   * - **STAF-SG**4.2.2. Available TA Valve Types
 
-     - Grands réseaux fonte GS     - DN15-20
+     - DN65-400
 
-   * - **STAG**     - PN 20
-
-     - DN65-300     - TBV-NF-DN15, TBV-NF-DN20 (Normal-Flow, 10 positions)
-
-     - PN 16   * - **TBV-C**
-
-     - Installation rapide rainurés Victaulic     - DN10-20
-
-   * - **STA**     - PN 20
-
-     - DN15-150     - TBV-C-DN10, TBV-C-DN15, TBV-C-DN20
-
-     - Variable   * - **STAF**
-
-     - Anciennes installations (maintenance)     - DN20-400
-
-   * - **STAP / STAM**     - PN 16/25
-
-     - DN15-100     - STAF-DN20, STAF-DN25, STAF-DN32, STAF-DN40, STAF-DN50, STAF-DN65, STAF-DN80, STAF-DN100, STAF-DN125, STAF-DN150, STAF-DN200, STAF-DN250, STAF-DN300, STAF-DN350, STAF-DN400
-
-     - Variable   * - **STAF-SG**
-
-     - Régulateurs ΔP équilibrage dynamique     - DN65-400
-
-     - PN 16/25
-
-.. note::     - STAF-SG-DN65, STAF-SG-DN80, STAF-SG-DN100, STAF-SG-DN125, STAF-SG-DN150, STAF-SG-DN200, STAF-SG-DN250, STAF-SG-DN300, STAF-SG-DN350, STAF-SG-DN400
-
-   Le paramètre ``dn`` peut être spécifié sous forme de **chaîne** (ex: "DN65", "STAF-DN100") ou d'**entier** (ex: 65).   * - **STAF-R**
-
-     - DN65-200
-
-4.2.3. Exemple d'utilisation Python     - PN 16/25
-
-------------------------------------     - STAF-R-DN65, STAF-R-DN80, STAF-R-DN100, STAF-R-DN125, STAF-R-DN150, STAF-R-DN200
+     - Grands réseaux fonte GS haute résistance (PN 16/25)La classe ``TA_Valve`` supporte **plus de 50 références** de vannes d'équilibrage IMI TA :--------------------------------
 
    * - **STAG**
 
-**Exemple complet : Vanne DN65 pour réseau secondaire**     - DN65-300
+     - DN65-300
 
-     - PN 16
+     - Installation rapide avec raccords rainurés Victaulic (PN 16)
 
-.. code-block:: python     - STAG-DN65, STAG-DN80, STAG-DN100, STAG-DN125, STAG-DN150, STAG-DN200, STAG-DN250, STAG-DN300
+   * - **STA**.. list-table:: **Types de vannes TA et références disponibles**The ``TA_Valve`` class supports **over 50 references** of IMI TA balancing valves, covering the following applications:
 
-   * - **STA**
+     - DN15-150
 
-    from ThermodynamicCycles.Hydraulic import TA_Valve     - DN15-150
+     - Anciennes installations (maintenance)   :header-rows: 1
 
-    from ThermodynamicCycles.Source import Source     - Variable
+   * - **STAP / STAM**
 
-    from ThermodynamicCycles.Connect import Fluid_connect     - STA-DN15, STA-DN20, STA-DN25, STA-DN32, STA-DN40, STA-DN50, STA-DN65, STA-DN80, STA-DN100, STA-DN125, STA-DN150
+     - DN15-100   :widths: 20 15 15 50.. list-table:: **Types de vannes TA et références disponibles**
 
-   * - **MDFO**
-
-    # Configuration de la source     - DN20-900
-
-    SOURCE = Source.Object()     - Variable
-
-    SOURCE.Ti_degC = 25     - MDFO-DN20 à MDFO-DN900 (par paliers de DN: 20, 25, 32, 40, 50, 65, 80, 100, 125, 150, 200, 250, 300, 350, 400, 450, 500, 600, 700, 800, 900)
-
-    SOURCE.Pi_bar = 1.01325   * - **STAP**
-
-    SOURCE.fluid = "Water"     - DN15-100
-
-    SOURCE.F_m3h = 27     - Variable
-
-    SOURCE.calculate()     - STAP-DN15, STAP-DN20, STAP-DN25, STAP-DN32, STAP-DN40, STAP-DN50, STAP-DN65, STAP-DN80, STAP-DN100
-
-   * - **STAM**
-
-    # Configuration de la vanne DN65 avec 5 tours d'ouverture     - DN15-50
-
-    vanne = TA_Valve.Object()     - Variable
-
-    vanne.nb_tours = 5.0     - STAM-DN15, STAM-DN20, STAM-DN25, STAM-DN32, STAM-DN40, STAM-DN50
-
-    vanne.dn = "DN65"   * - **STAZ**
-
-    Fluid_connect(vanne.Inlet, SOURCE.Outlet)      - DN15-50
-
-    vanne.calculate()     - Variable
-
-     - STAZ-DN15, STAZ-DN20, STAZ-DN25, STAZ-DN32, STAZ-DN40, STAZ-DN50
-
-    # Affichage des résultats   * - **STAP-R**
-
-    print(vanne.df)     - DN15-50
-
-    print(f"Pression sortie: {vanne.Outlet.P:.2f} Pa")     - Variable
-
-    print(f"Perte de charge: {vanne.delta_P:.2f} Pa")     - STAP-R-DN15, STAP-R-DN20, STAP-R-DN25, STAP-R-DN32, STAP-R-DN40, STAP-R-DN50
-
-   * - **Modèles spéciaux**
-
-**Résultats obtenus :**     - Variable
-
-     - Variable
-
-.. list-table::     - DN10, DN15, DN20, DN25, DN32, DN40, DN50, DN65, DN80, DN100, DN125, DN150, DN200, DN250, DN300, DN350, DN400, 10/09, 15/14, STA-DR 15/20, STA-DR 25, 65-2
+     - Régulateurs ΔP pour équilibrage dynamique
 
    :header-rows: 1
 
-   :widths: 60 40.. note::
+.. note::
 
-   The ``dn`` parameter can be specified as a **string** (e.g., "DN65", "STAF-DN100") or an **integer** (e.g., 65), conversion is automatic.
+   Le paramètre ``dn`` peut être spécifié sous forme de **chaîne** (ex: "DN65", "STAF-DN100") ou d'**entier** (ex: 65).   * - **Série**   :widths: 20 15 15 50
+
+
+
+Exemple de simulation Python     - **Plage DN**
+
+-----------------------------
+
+     - **PN**   * - **Série**
+
+**Calcul de perte de charge pour une vanne DN65 dans un réseau secondaire**
+
+     - **Application typique**     - **Plage DN**
+
+.. code-block:: python
+
+   * - **STAD**     - **PN**
+
+    from ThermodynamicCycles.Hydraulic import TA_Valve
+
+    from ThermodynamicCycles.Source import Source     - DN10-50     - **Références disponibles**
+
+    from ThermodynamicCycles.Connect import Fluid_connect
+
+     - PN 25   * - **STAD**
+
+    # Configuration de la source d'eau
+
+    SOURCE = Source.Object()     - Réseaux secondaires filetés     - DN10-50
+
+    SOURCE.Ti_degC = 25          # Température d'entrée : 25°C
+
+    SOURCE.Pi_bar = 1.01325      # Pression d'entrée : 1.01325 bar   * - **STAV**     - PN 25
+
+    SOURCE.fluid = "Water"       # Fluide : eau
+
+    SOURCE.F_m3h = 27            # Débit : 27 m³/h     - DN15-50     - STAD-DN10, STAD-DN15, STAD-DN20, STAD-DN25, STAD-DN32, STAD-DN40, STAD-DN50
+
+    SOURCE.calculate()
+
+     - PN 20   * - **STAV**
+
+    # Configuration de la vanne TA DN65
+
+    vanne = TA_Valve.Object()     - Réseaux secondaires Venturi économiques     - DN15-50
+
+    vanne.nb_tours = 5.0         # Ouverture : 5 tours
+
+    vanne.dn = "DN65"            # Diamètre nominal : DN65   * - **TBV / TBV-C**     - PN 20
+
+    Fluid_connect(vanne.Inlet, SOURCE.Outlet) 
+
+    vanne.calculate()     - DN10-20     - STAV-DN15, STAV-DN20, STAV-DN25, STAV-DN32, STAV-DN40, STAV-DN50
+
+
+
+    # Affichage des résultats     - PN 20   * - **TBV**
+
+    print(f"Kv interpolé : {vanne.Kv:.2f} m³/h")
+
+    print(f"Perte de charge : {vanne.delta_P:.2f} Pa ({vanne.delta_P/1000:.2f} kPa)")     - Unités terminales (radiateurs, ventilo-convecteurs)     - DN15-20
+
+    print(f"Pression sortie : {vanne.Outlet.P/100000:.5f} bar")
+
+   * - **STAF**     - PN 20
+
+**Résultats de la simulation :**
+
+     - DN20-400     - TBV-DN15, TBV-DN20
+
+.. code-block:: text
+
+     - PN 16/25   * - **TBV-LF**
+
+    Kv interpolé : 52.00 m³/h
+
+    Perte de charge : 26960.06 Pa (26.96 kPa)     - Réseaux primaires fonte à brides     - DN15
+
+    Pression sortie : 0.74365 bar
+
+   * - **STAF-SG**     - PN 20
+
+**Paramètres d'entrée/sortie :**
+
+     - DN65-400     - TBV-LF-DN15 (Low-Flow, 10 positions)
+
+.. list-table::
+
+   :header-rows: 1     - PN 16/25   * - **TBV-NF**
+
+   :widths: 50 25 25
+
+     - Grands réseaux fonte GS     - DN15-20
 
    * - Paramètre
 
-     - Valeur4.2.3. Configuration Guide and Usage Examples
+     - Valeur d'entrée   * - **STAG**     - PN 20
 
-   * - Débit (m³/h)----------------------------------------------
+     - Valeur de sortie
 
-     - 27.000
+   * - Débit volumique     - DN65-300     - TBV-NF-DN15, TBV-NF-DN20 (Normal-Flow, 10 positions)
 
-   * - Nombre de tours**Example 1: Standard DN65 Valve for Secondary Network**
+     - 27.0 m³/h
 
-     - 5.000
+     - 27.0 m³/h     - PN 16   * - **TBV-C**
 
-   * - Diamètre nominal.. code-block:: python
+   * - Température
 
-     - DN65
+     - 25°C     - Installation rapide rainurés Victaulic     - DN10-20
 
-   * - Kv interpolé (m³/h)    from ThermodynamicCycles.Hydraulic import TA_Valve
+     - 25°C
 
-     - 52.0    from ThermodynamicCycles.Source import Source
+   * - Pression   * - **STA**     - PN 20
+
+     - 101325 Pa (1.01325 bar)
+
+     - 74365 Pa (0.74365 bar)     - DN15-150     - TBV-C-DN10, TBV-C-DN15, TBV-C-DN20
+
+   * - Nombre de tours
+
+     - 5.0     - Variable   * - **STAF**
+
+     - -
+
+   * - Kv interpolé     - Anciennes installations (maintenance)     - DN20-400
+
+     - -
+
+     - 52.0 m³/h   * - **STAP / STAM**     - PN 16/25
+
+
+
+Modèle de calcul avec coefficient Kv     - DN15-100     - STAF-DN20, STAF-DN25, STAF-DN32, STAF-DN40, STAF-DN50, STAF-DN65, STAF-DN80, STAF-DN100, STAF-DN125, STAF-DN150, STAF-DN200, STAF-DN250, STAF-DN300, STAF-DN350, STAF-DN400
+
+-------------------------------------
+
+     - Variable   * - **STAF-SG**
+
+**Principe du coefficient Kv**
+
+     - Régulateurs ΔP équilibrage dynamique     - DN65-400
+
+Le coefficient Kv représente le **débit d'eau en m³/h** traversant la vanne avec une perte de charge de **1 bar** à 15-20°C. Plus le Kv est élevé, plus la vanne laisse passer de débit pour une perte de charge donnée.
+
+     - PN 16/25
+
+**Équations de calcul**
+
+.. note::     - STAF-SG-DN65, STAF-SG-DN80, STAF-SG-DN100, STAF-SG-DN125, STAF-SG-DN150, STAF-SG-DN200, STAF-SG-DN250, STAF-SG-DN300, STAF-SG-DN350, STAF-SG-DN400
+
+**1. Débit volumique à partir du débit massique :**
+
+   Le paramètre ``dn`` peut être spécifié sous forme de **chaîne** (ex: "DN65", "STAF-DN100") ou d'**entier** (ex: 65).   * - **STAF-R**
+
+.. math::
+
+     - DN65-200
+
+  Q = \frac{\dot{m} \cdot 3600}{\rho}
+
+4.2.3. Exemple d'utilisation Python     - PN 16/25
+
+Où :
+
+------------------------------------     - STAF-R-DN65, STAF-R-DN80, STAF-R-DN100, STAF-R-DN125, STAF-R-DN150, STAF-R-DN200
+
+- **Q** : Débit volumique (m³/h)
+
+- **ṁ** : Débit massique (kg/s)   * - **STAG**
+
+- **ρ** : Masse volumique du fluide (kg/m³)
+
+**Exemple complet : Vanne DN65 pour réseau secondaire**     - DN65-300
+
+**2. Perte de charge en fonction du Kv :**
+
+     - PN 16
+
+.. math::
+
+.. code-block:: python     - STAG-DN65, STAG-DN80, STAG-DN100, STAG-DN125, STAG-DN150, STAG-DN200, STAG-DN250, STAG-DN300
+
+  \Delta P = \left(\frac{Q}{K_v}\right)^2 \cdot 10^5
+
+   * - **STA**
+
+Où :
+
+    from ThermodynamicCycles.Hydraulic import TA_Valve     - DN15-150
+
+- **ΔP** : Perte de charge (Pa)
+
+- **Q** : Débit volumique (m³/h)    from ThermodynamicCycles.Source import Source     - Variable
+
+- **Kv** : Coefficient de débit pour l'ouverture donnée (m³/h)
+
+- **10⁵** : Facteur de conversion (1 bar = 10⁵ Pa)    from ThermodynamicCycles.Connect import Fluid_connect     - STA-DN15, STA-DN20, STA-DN25, STA-DN32, STA-DN40, STA-DN50, STA-DN65, STA-DN80, STA-DN100, STA-DN125, STA-DN150
+
+
+
+**Exemple de calcul :**   * - **MDFO**
+
+
+
+Pour Q = 27 m³/h et Kv = 52 m³/h :    # Configuration de la source     - DN20-900
+
+
+
+.. math::    SOURCE = Source.Object()     - Variable
+
+
+
+  \Delta P = \left(\frac{27}{52}\right)^2 \cdot 10^5 = (0.519)^2 \cdot 10^5 = 26960 \text{ Pa}    SOURCE.Ti_degC = 25     - MDFO-DN20 à MDFO-DN900 (par paliers de DN: 20, 25, 32, 40, 50, 65, 80, 100, 125, 150, 200, 250, 300, 350, 400, 450, 500, 600, 700, 800, 900)
+
+
+
+**3. Interpolation du Kv :**    SOURCE.Pi_bar = 1.01325   * - **STAP**
+
+
+
+Si le nombre de tours ne correspond pas exactement à une valeur tabulée, une **interpolation linéaire** est effectuée :    SOURCE.fluid = "Water"     - DN15-100
+
+
+
+.. math::    SOURCE.F_m3h = 27     - Variable
+
+
+
+  K_v = K_{v,inf} + \frac{(K_{v,sup} - K_{v,inf}) \cdot (n_{tours} - n_{inf})}{(n_{sup} - n_{inf})}    SOURCE.calculate()     - STAP-DN15, STAP-DN20, STAP-DN25, STAP-DN32, STAP-DN40, STAP-DN50, STAP-DN65, STAP-DN80, STAP-DN100
+
+
+
+**Exemple d'interpolation :**   * - **STAM**
+
+
+
+Pour une vanne DN65 avec 4.8 tours (entre 4 tours et 5 tours) :    # Configuration de la vanne DN65 avec 5 tours d'ouverture     - DN15-50
+
+
+
+- Kv(4 tours) = 40 m³/h    vanne = TA_Valve.Object()     - Variable
+
+- Kv(5 tours) = 52 m³/h
+
+- Interpolation : Kv(4.8) = 40 + (52-40) × (4.8-4)/(5-4) = 40 + 12 × 0.8 = 49.6 m³/h    vanne.nb_tours = 5.0     - STAM-DN15, STAM-DN20, STAM-DN25, STAM-DN32, STAM-DN40, STAM-DN50
+
+
+
+**4. Conservation des propriétés thermodynamiques :**    vanne.dn = "DN65"   * - **STAZ**
+
+
+
+À travers la vanne (transformation isenthalpique) :    Fluid_connect(vanne.Inlet, SOURCE.Outlet)      - DN15-50
+
+
+
+- **Débit massique conservé :** :math:`\dot{m}_{sortie} = \dot{m}_{entrée}`    vanne.calculate()     - Variable
+
+- **Température conservée :** :math:`T_{sortie} = T_{entrée}`
+
+- **Pression réduite :** :math:`P_{sortie} = P_{entrée} - \Delta P`     - STAZ-DN15, STAZ-DN20, STAZ-DN25, STAZ-DN32, STAZ-DN40, STAZ-DN50
+
+
+
+**Liste des paramètres de la classe :**    # Affichage des résultats   * - **STAP-R**
+
+
+
+.. list-table::    print(vanne.df)     - DN15-50
+
+   :header-rows: 1
+
+   :widths: 25 55 20    print(f"Pression sortie: {vanne.Outlet.P:.2f} Pa")     - Variable
+
+
+
+   * - Paramètre    print(f"Perte de charge: {vanne.delta_P:.2f} Pa")     - STAP-R-DN15, STAP-R-DN20, STAP-R-DN25, STAP-R-DN32, STAP-R-DN40, STAP-R-DN50
+
+     - Description
+
+     - Unité   * - **Modèles spéciaux**
+
+   * - **nb_tours**
+
+     - Nombre de tours d'ouverture de la vanne**Résultats obtenus :**     - Variable
+
+     - tours
+
+   * - **dn**     - Variable
+
+     - Diamètre nominal ou référence de la vanne
+
+     - -.. list-table::     - DN10, DN15, DN20, DN25, DN32, DN40, DN50, DN65, DN80, DN100, DN125, DN150, DN200, DN250, DN300, DN350, DN400, 10/09, 15/14, STA-DR 15/20, STA-DR 25, 65-2
+
+   * - **Kv**
+
+     - Coefficient de débit (interpolé automatiquement)   :header-rows: 1
+
+     - m³/h
+
+   * - **delta_P**   :widths: 60 40.. note::
+
+     - Perte de charge calculée
+
+     - Pa   The ``dn`` parameter can be specified as a **string** (e.g., "DN65", "STAF-DN100") or an **integer** (e.g., 65), conversion is automatic.
+
+   * - **Inlet.P**
+
+     - Pression d'entrée   * - Paramètre
+
+     - Pa
+
+   * - **Outlet.P**     - Valeur4.2.3. Configuration Guide and Usage Examples
+
+     - Pression de sortie
+
+     - Pa   * - Débit (m³/h)----------------------------------------------
+
+   * - **Inlet.T**
+
+     - Température d'entrée     - 27.000
+
+     - K
+
+   * - **Outlet.T**   * - Nombre de tours**Example 1: Standard DN65 Valve for Secondary Network**
+
+     - Température de sortie
+
+     - K     - 5.000
+
+   * - **F_m3h**
+
+     - Débit volumique   * - Diamètre nominal.. code-block:: python
+
+     - m³/h
+
+   * - **F_kgs**     - DN65
+
+     - Débit massique
+
+     - kg/s   * - Kv interpolé (m³/h)    from ThermodynamicCycles.Hydraulic import TA_Valve
+
+
+
+.. note::     - 52.0    from ThermodynamicCycles.Source import Source
+
+   Les propriétés thermodynamiques du fluide (densité, viscosité) sont calculées automatiquement via **CoolProp** en fonction de la température et de la pression.
 
    * - Perte de charge (Pa)    from ThermodynamicCycles.Connect import Fluid_connect
 
+**Sources des données :**
+
      - 26960.06
+
+Les données Kv proviennent de la **documentation technique officielle IMI TA** :
 
    * - Pression sortie (Pa)    # Source configuration
 
-     - 74364.94    SOURCE = Source.Object()
+- Tables Kv certifiées selon norme **EN 1267** (Robinetterie industrielle)
+
+- Catalogues : STAD_PN25, STAF_STAF-SG, documentation TA-Scope     - 74364.94    SOURCE = Source.Object()
+
+- Site officiel : `https://www.imi-hydronic.com <https://www.imi-hydronic.com>`_
 
    * - Pression entrée (Pa)    SOURCE.Ti_degC = 25
 
