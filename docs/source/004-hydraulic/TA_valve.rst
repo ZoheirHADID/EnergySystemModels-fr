@@ -22,84 +22,82 @@ The image below shows an example of a TA balancing valve installed in a hydrauli
 
 The ``TA_Valve`` class supports **over 50 references** of IMI TA balancing valves, covering the following applications:
 
-**STAD – Threaded Valves PN 25 (DN 10-50)**
-  Manual threaded balancing valves for secondary networks:
-  
-  - STAD-DN10, STAD-DN15, STAD-DN20, STAD-DN25, STAD-DN32, STAD-DN40, STAD-DN50
+.. list-table:: **Types de vannes TA et références disponibles**
+   :header-rows: 1
+   :widths: 20 15 15 50
 
-**STAV – Venturi Valves PN 20 (DN 15-50)**
-  Venturi threaded balancing valves for economical applications:
-  
-  - STAV-DN15, STAV-DN20, STAV-DN25, STAV-DN32, STAV-DN40, STAV-DN50
-
-**TBV – Terminal Valves (DN 15-20)**
-  Valves for terminal units (radiators, fan coil units):
-  
-  - TBV-DN15, TBV-DN20
-  - TBV-LF-DN15 (Low-Flow, 10 positions)
-  - TBV-NF-DN15, TBV-NF-DN20 (Normal-Flow, 10 positions)
-
-**TBV-C – Terminal Valves with Control (DN 10-20)**
-  Terminal valves balancing + control with TA-Scope:
-  
-  - TBV-C-DN10, TBV-C-DN15, TBV-C-DN20
-
-**STAF – Cast Iron Flanged Valves PN 16/25 (DN 20-400)**
-  Flanged balancing valves for main networks:
-  
-  - STAF-DN20, STAF-DN25, STAF-DN32, STAF-DN40, STAF-DN50
-  - STAF-DN65, STAF-DN80, STAF-DN100, STAF-DN125, STAF-DN150
-  - STAF-DN200, STAF-DN250, STAF-DN300, STAF-DN350, STAF-DN400
-
-**STAF-SG – GS Cast Iron Valves PN 16/25 (DN 65-400)**
-  STAF variant in GS cast iron for large networks:
-  
-  - STAF-SG-DN65, STAF-SG-DN80, STAF-SG-DN100, STAF-SG-DN125, STAF-SG-DN150
-  - STAF-SG-DN200, STAF-SG-DN250, STAF-SG-DN300, STAF-SG-DN350, STAF-SG-DN400
-
-**STAF-R – "Return" Valves PN 16/25 (DN 65-200)**
-  Balancing valves "return" version for existing installations:
-  
-  - STAF-R-DN65, STAF-R-DN80, STAF-R-DN100, STAF-R-DN125, STAF-R-DN150, STAF-R-DN200
-
-**STAG – Victaulic Grooved Valves PN 16 (DN 65-300)**
-  Grooved-end valves Victaulic type for fast installation:
-  
-  - STAG-DN65, STAG-DN80, STAG-DN100, STAG-DN125, STAG-DN150
-  - STAG-DN200, STAG-DN250, STAG-DN300
-
-**STA – Legacy Valves (DN 15-150)**
-  TA balancing valves old series for maintenance:
-  
-  - STA-DN15, STA-DN20, STA-DN25, STA-DN32, STA-DN40, STA-DN50
-  - STA-DN65, STA-DN80, STA-DN100, STA-DN125, STA-DN150
-
-**MDFO – Fixed Measuring Orifices (DN 20-900)**
-  Calibrated orifices for balancing + TA-Scope measurement (fixed Kv):
-  
-  - MDFO-DN20 to MDFO-DN400 (by DN steps)
-  - MDFO-DN450, MDFO-DN500, MDFO-DN600, MDFO-DN700, MDFO-DN800, MDFO-DN900
-
-**STAP – Dynamic ΔP Regulators (DN 15-100)**
-  Differential pressure regulators for dynamic balancing:
-  
-  - STAP-DN15, STAP-DN20, STAP-DN25, STAP-DN32, STAP-DN40, STAP-DN50
-  - STAP-DN65, STAP-DN80, STAP-DN100
-
-**STAM – Loop ΔP Regulators (DN 15-50)**
-  Differential pressure regulators for loops and risers:
-  
-  - STAM-DN15, STAM-DN20, STAM-DN25, STAM-DN32, STAM-DN40, STAM-DN50
-
-**STAZ / STAP-R – Legacy Regulators (DN 15-50)**
-  Old regulator variants for retrofits:
-  
-  - STAZ-DN15 to STAZ-DN50
-  - STAP-R-DN15 to STAP-R-DN50
-
-**Standard DN Valves and Special Models:**
-  - DN10, DN15, DN20, DN25, DN32, DN40, DN50, DN65, DN80, DN100, DN125, DN150, DN200, DN250, DN300, DN350, DN400
-  - 10/09, 15/14, STA-DR 15/20, STA-DR 25, 65-2
+   * - **Série**
+     - **Plage DN**
+     - **PN**
+     - **Références disponibles**
+   * - **STAD**
+     - DN10-50
+     - PN 25
+     - STAD-DN10, STAD-DN15, STAD-DN20, STAD-DN25, STAD-DN32, STAD-DN40, STAD-DN50
+   * - **STAV**
+     - DN15-50
+     - PN 20
+     - STAV-DN15, STAV-DN20, STAV-DN25, STAV-DN32, STAV-DN40, STAV-DN50
+   * - **TBV**
+     - DN15-20
+     - PN 20
+     - TBV-DN15, TBV-DN20
+   * - **TBV-LF**
+     - DN15
+     - PN 20
+     - TBV-LF-DN15 (Low-Flow, 10 positions)
+   * - **TBV-NF**
+     - DN15-20
+     - PN 20
+     - TBV-NF-DN15, TBV-NF-DN20 (Normal-Flow, 10 positions)
+   * - **TBV-C**
+     - DN10-20
+     - PN 20
+     - TBV-C-DN10, TBV-C-DN15, TBV-C-DN20
+   * - **STAF**
+     - DN20-400
+     - PN 16/25
+     - STAF-DN20, STAF-DN25, STAF-DN32, STAF-DN40, STAF-DN50, STAF-DN65, STAF-DN80, STAF-DN100, STAF-DN125, STAF-DN150, STAF-DN200, STAF-DN250, STAF-DN300, STAF-DN350, STAF-DN400
+   * - **STAF-SG**
+     - DN65-400
+     - PN 16/25
+     - STAF-SG-DN65, STAF-SG-DN80, STAF-SG-DN100, STAF-SG-DN125, STAF-SG-DN150, STAF-SG-DN200, STAF-SG-DN250, STAF-SG-DN300, STAF-SG-DN350, STAF-SG-DN400
+   * - **STAF-R**
+     - DN65-200
+     - PN 16/25
+     - STAF-R-DN65, STAF-R-DN80, STAF-R-DN100, STAF-R-DN125, STAF-R-DN150, STAF-R-DN200
+   * - **STAG**
+     - DN65-300
+     - PN 16
+     - STAG-DN65, STAG-DN80, STAG-DN100, STAG-DN125, STAG-DN150, STAG-DN200, STAG-DN250, STAG-DN300
+   * - **STA**
+     - DN15-150
+     - Variable
+     - STA-DN15, STA-DN20, STA-DN25, STA-DN32, STA-DN40, STA-DN50, STA-DN65, STA-DN80, STA-DN100, STA-DN125, STA-DN150
+   * - **MDFO**
+     - DN20-900
+     - Variable
+     - MDFO-DN20 à MDFO-DN900 (par paliers de DN: 20, 25, 32, 40, 50, 65, 80, 100, 125, 150, 200, 250, 300, 350, 400, 450, 500, 600, 700, 800, 900)
+   * - **STAP**
+     - DN15-100
+     - Variable
+     - STAP-DN15, STAP-DN20, STAP-DN25, STAP-DN32, STAP-DN40, STAP-DN50, STAP-DN65, STAP-DN80, STAP-DN100
+   * - **STAM**
+     - DN15-50
+     - Variable
+     - STAM-DN15, STAM-DN20, STAM-DN25, STAM-DN32, STAM-DN40, STAM-DN50
+   * - **STAZ**
+     - DN15-50
+     - Variable
+     - STAZ-DN15, STAZ-DN20, STAZ-DN25, STAZ-DN32, STAZ-DN40, STAZ-DN50
+   * - **STAP-R**
+     - DN15-50
+     - Variable
+     - STAP-R-DN15, STAP-R-DN20, STAP-R-DN25, STAP-R-DN32, STAP-R-DN40, STAP-R-DN50
+   * - **Modèles spéciaux**
+     - Variable
+     - Variable
+     - DN10, DN15, DN20, DN25, DN32, DN40, DN50, DN65, DN80, DN100, DN125, DN150, DN200, DN250, DN300, DN350, DN400, 10/09, 15/14, STA-DR 15/20, STA-DR 25, 65-2
 
 .. note::
    The ``dn`` parameter can be specified as a **string** (e.g., "DN65", "STAF-DN100") or an **integer** (e.g., 65), conversion is automatic.
