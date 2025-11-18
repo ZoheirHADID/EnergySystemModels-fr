@@ -110,9 +110,11 @@ Le code suivant montre comment utiliser la classe "TA_Valve" pour calculer la pe
 
 **Explication des tests :**
 
-- **TEST 1** : Vanne DN65 avec 5 tours d'ouverture et un débit de 27 m³/h (Perte de charge: 26960 Pa)
-- **TEST 2** : Vanne DN80 avec 4 tours d'ouverture, débit réduit à 15 m³/h (Perte de charge: 26754 Pa)  
-- **TEST 3** : Vanne STA-DR 15/20 avec 3 tours d'ouverture, débit réduit à 1 m³/h (Perte de charge: 71818 Pa)
+- **TEST 1** : Vanne DN65 avec 5 tours d'ouverture (Kv=52.0) et un débit de 27 m³/h
+- **TEST 2** : Vanne DN80 avec 4 tours d'ouverture (Kv=29.0) et un débit réduit à 15 m³/h  
+- **TEST 3** : Vanne STA-DR 15/20 avec 3 tours d'ouverture (Kv=1.18) et un débit réduit à 1 m³/h
+
+La classe utilise des données de Kv pré-calibrées pour chaque type de vanne TA selon les spécifications du fabricant Tour & Andersson.
 
 **Sortie console exemple :**
 
@@ -256,17 +258,20 @@ Nomenclature
      - Nombre de tours d'ouverture de la vanne
      - tours
    * - dn
-     - Diamètre nominal de la vanne
-     - mm
-   * - Kvs
-     - Coefficient de débit nominal (vanne complètement ouverte)
+     - Diamètre nominal de la vanne (string ou int)
+     - -
+   * - q
+     - Débit volumétrique calculé
      - m³/h
    * - Kv
-     - Coefficient de débit actuel selon l'ouverture
+     - Coefficient de débit selon les tables TA
      - m³/h
    * - delta_P
      - Perte de pression à travers la vanne
      - Pa
+   * - rho
+     - Densité du fluide (calculée via CoolProp)
+     - kg/m³
    * - Ti_degC
      - Température d'entrée en degrés Celsius
      - °C
@@ -289,35 +294,65 @@ Nomenclature
 Équations utilisées
 -------------------
 
-La perte de pression à travers une vanne TA est calculée selon la formule suivante :
+**Calcul du débit volumétrique :**
 
 .. math::
 
-  \Delta P = \frac{\rho \cdot Q^2}{2 \cdot Kv^2} \cdot 10^{10}
+  Q = \frac{\dot{m} \cdot 3600}{\rho}
 
 Où :
-
-- **ΔP** : Perte de pression (Pa)
-- **ρ** : Densité du fluide (kg/m³)
 - **Q** : Débit volumétrique (m³/h)
-- **Kv** : Coefficient de débit selon l'ouverture (m³/h)
+- **ṁ** : Débit massique (kg/s)
+- **ρ** : Densité du fluide (kg/m³) 
 
-Le coefficient Kv dépend du type de vanne et du nombre de tours d'ouverture selon les courbes caractéristiques du fabricant Tour & Andersson.
+**Calcul de la perte de pression :**
 
-**Relation Kv/Kvs :**
+La perte de pression à travers une vanne TA est calculée selon la formule simplifiée :
 
 .. math::
 
-  Kv = Kvs \cdot f(ouverture)
+  \Delta P = \left(\frac{Q}{Kv}\right)^2 \cdot 10^5
 
-Où f(ouverture) est une fonction caractéristique de chaque type de vanne TA.
+Où :
+- **ΔP** : Perte de pression (Pa)
+- **Q** : Débit volumétrique (m³/h)
+- **Kv** : Coefficient de débit pour l'ouverture donnée (m³/h)
 
-Types de vannes TA supportées
------------------------------
+**Détermination du coefficient Kv :**
 
-- **STAD** : Vanne d'équilibrage statique standard
-- **STAF** : Vanne d'équilibrage avec mesure intégrée
-- **STAG** : Vanne d'équilibrage avec régulation
-- **STAM** : Vanne d'équilibrage avec mesure de pression différentielle
+Le coefficient Kv est déterminé par interpolation linéaire à partir de tables pré-calibrées contenant les couples (nombre_de_tours, Kv) pour chaque type de vanne TA. Ces données sont basées sur les spécifications du fabricant Tour & Andersson.
 
-Chaque type de vanne a ses propres caractéristiques de Kvs selon le DN et ses courbes d'ouverture spécifiques.
+**Calcul des propriétés thermodynamiques :**
+
+La densité du fluide est calculée via CoolProp :
+
+.. math::
+
+  \rho = PropsSI('D', 'P', P_{inlet}, 'H', h_{inlet}, fluide)
+
+Les propriétés de sortie sont calculées en conservant :
+- Le débit massique : F_{outlet} = F_{inlet}
+- La température : T_{outlet} = T_{inlet} 
+- La pression réduite : P_{outlet} = P_{inlet} - ΔP
+
+Types de vannes TA supportées (avec données Kv intégrées)
+-------------------------------------------------------------
+
+**Vannes standards :**
+- DN10, DN15, DN20, DN25, DN32, DN40, DN50, DN65, DN80, DN100, DN125, DN150, DN200, DN250, DN300, DN350, DN400
+
+**Vannes spéciales :**
+- **10/09** : Vanne spéciale 10/09
+- **15/14** : Vanne spéciale 15/14  
+- **STA-DR 15/20** : Vanne STA-DR 15/20
+- **STA-DR 25** : Vanne STA-DR 25
+- **65-2** : Vanne spéciale 65-2
+
+**Caractéristiques :**
+
+Chaque vanne possède une table pré-calibrée de couples (nb_tours, Kv) basée sur les spécifications du fabricant Tour & Andersson. La classe effectue une recherche exacte du nombre de tours dans ces tables pour déterminer le coefficient Kv correspondant.
+
+**Exemple de données DN65 :**
+- 5.0 tours → Kv = 52.0 m³/h
+- 4.0 tours → Kv = 35.3 m³/h
+- 3.0 tours → Kv = 16.3 m³/h
