@@ -49,27 +49,37 @@ Les déperditions de chaleur à travers les parois de l'échangeur de chaleur à
   print(f"Face avec le plus grand transfert: {objet.df.iloc[:-1]['Heat Transfer (W)'].idxmax()}")
   print(f"Valeur max: {objet.df.iloc[:-1]['Heat Transfer (W)'].max():.2f} W")
 
-Résultat ::
+Résultat
+--------
 
-  ### EXEMPLE ###
+**Dimensions:** L=0.6m x W=0.8m x H=1.5m
 
-  ================================================================================
-  TRANSFERT DE CHALEUR - CORPS PARALLÉLÉPIPÉDIQUE
-  ================================================================================
-  Dimensions: L=0.6m x W=0.8m x H=1.5m
-  Température ambiante: 25°C
-  ================================================================================
-    Face       Orientation  Surface (m²) Tp (°C)  Ta (°C) ΔT (°C) Isolated  Heat Transfer (W)  Heat Flux (W/m²)
-     top   Horizontal (up)          0.48    60.0       25    35.0    False             191.19            398.31
-  bottom Horizontal (down)          0.48    60.0       25    35.0    False             189.98            395.80
-   front          Vertical          1.20    60.0       25    35.0    False             450.11            375.09
-    back          Vertical          1.20    60.0       25    35.0    False             450.11            375.09
-    left          Vertical          0.90    60.0       25    35.0    False             337.58            375.09
-   right          Vertical          0.90    60.0       25    35.0    False             337.58            375.09
-   TOTAL                 -          5.16       -       25       -        -            1956.56            379.18
-  ================================================================================
+**Température ambiante:** 25°C
 
-  Accès au DataFrame:
+**Tableau des résultats de transfert de chaleur:**
+
++--------+-------------------+--------------+--------+--------+--------+----------+-------------------+-------------------+
+| Face   | Orientation       | Surface (m²) | Tp (°C)| Ta (°C)| ΔT (°C)| Isolated | Heat Transfer (W) | Heat Flux (W/m²) |
++========+===================+==============+========+========+========+==========+===================+===================+
+| top    | Horizontal (up)   | 0.48         | 60.0   | 25     | 35.0   | False    | 191.19            | 398.31            |
++--------+-------------------+--------------+--------+--------+--------+----------+-------------------+-------------------+
+| bottom | Horizontal (down) | 0.48         | 60.0   | 25     | 35.0   | False    | 189.98            | 395.80            |
++--------+-------------------+--------------+--------+--------+--------+----------+-------------------+-------------------+
+| front  | Vertical          | 1.20         | 60.0   | 25     | 35.0   | False    | 450.11            | 375.09            |
++--------+-------------------+--------------+--------+--------+--------+----------+-------------------+-------------------+
+| back   | Vertical          | 1.20         | 60.0   | 25     | 35.0   | False    | 450.11            | 375.09            |
++--------+-------------------+--------------+--------+--------+--------+----------+-------------------+-------------------+
+| left   | Vertical          | 0.90         | 60.0   | 25     | 35.0   | False    | 337.58            | 375.09            |
++--------+-------------------+--------------+--------+--------+--------+----------+-------------------+-------------------+
+| right  | Vertical          | 0.90         | 60.0   | 25     | 35.0   | False    | 337.58            | 375.09            |
++--------+-------------------+--------------+--------+--------+--------+----------+-------------------+-------------------+
+| TOTAL  | -                 | 5.16         | -      | 25     | -      | -        | **1956.56**       | 379.18            |
++--------+-------------------+--------------+--------+--------+--------+----------+-------------------+-------------------+
+
+**DataFrame complet:**
+
+.. code-block:: text
+
        Face        Orientation  Surface (m²) Tp (°C)  Ta (°C) ΔT (°C) Isolated  \
   0     top    Horizontal (up)          0.48    60.0       25    35.0    False   
   1  bottom  Horizontal (down)          0.48    60.0       25    35.0    False   
@@ -88,10 +98,11 @@ Résultat ::
   5             337.58            375.09  
   6            1956.56            379.18  
 
-  Analyse des données:
-  Transfert total: 1956.56 W
-  Face avec le plus grand transfert: 2
-  Valeur max: 450.11 W
+**Analyse des données:**
+
+- **Transfert total:** 1956.56 W
+- **Face avec le plus grand transfert:** front et back (450.11 W chacune)
+- **Transfert maximal par face:** 450.11 W
 
 Explication des équations utilisées
 -----------------------------------
