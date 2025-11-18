@@ -13,7 +13,7 @@ Les déperditions de chaleur à travers les parois de l'échangeur de chaleur à
 
 .. code-block:: python
 
-    from EnergySystemModels.TransfertChaleur import PlateHeatTransfer
+    from HeatTransfer import PlateHeatTransfer
 
     # Température de la paroi en °C
     Tp = 60
