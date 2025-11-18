@@ -1,9 +1,9 @@
-Template for the Read the Docs tutorial
-=======================================
+EnergySystemModels Documentation - English
+==========================================
 
-This GitHub template includes fictional Python library
-with some basic Sphinx docs.
+This repository contains the English documentation for the EnergySystemModels Python library,
+designed to facilitate calculations and analysis related to energy efficiency.
 
-Read the tutorial here:
+Read the full documentation here:
 
-https://docs.readthedocs.io/en/stable/tutorial/
+https://energysystemmodels-en.readthedocs.io/
