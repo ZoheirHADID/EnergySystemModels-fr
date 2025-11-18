@@ -1,23 +1,22 @@
-Utilisation
-===========
+Usage
+=====
 
 .. _installation:
 
 Installation
 ------------
 
-Pour utiliser EnergySystemModels, installez-le d'abord avec pip :
+To use EnergySystemModels, first install it using pip:
 
 .. code-block:: console
 
    (.venv) $ pip install energysystemmodels
 
-Mise à jour
-------------
+Updating
+--------
 
-Pour mettre à jour EnergySystemModels, utilisez la commande suivante :
+To update EnergySystemModels, use the following command:
 
 .. code-block:: console
 
    pip install --upgrade energysystemmodels
-
