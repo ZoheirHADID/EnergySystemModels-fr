@@ -1,10 +1,10 @@
-EnergySystemModels Documentation - English
-==========================================
+Documentation EnergySystemModels - Français
+===========================================
 
-This repository contains the English documentation for the EnergySystemModels Python library,
-designed to facilitate calculations and analysis related to energy efficiency.
+Ce dépôt contient la documentation en français de la bibliothèque Python EnergySystemModels,
+conçue pour faciliter les calculs et analyses liés à l'efficacité énergétique.
 
-Read the full documentation here:
+Consultez la documentation complète ici :
 
 https://energysystemmodels-fr.readthedocs.io/
 
