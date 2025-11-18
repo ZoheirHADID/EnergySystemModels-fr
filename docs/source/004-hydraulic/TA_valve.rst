@@ -181,86 +181,110 @@ Résultats des différents tests
 
 **TEST 1 - Vanne DN65 (5 tours, 27 m³/h) :**
 
-+-----------------------------+------------------+
-| Paramètre                   | Valeur           |
-+=============================+==================+
-| Débit (m³/h)                | 27.000           |
-+-----------------------------+------------------+
-| Nombre de tours             | 5.000            |
-+-----------------------------+------------------+
-| Diamètre nominal            | DN65             |
-+-----------------------------+------------------+
-| Perte de charge (Pa)        | 26960.06         |
-+-----------------------------+------------------+
-| Pression sortie (Pa)        | 74364.94         |
-+-----------------------------+------------------+
-| Pression entrée (Pa)        | 101325.0         |
-+-----------------------------+------------------+
+.. list-table::
+   :header-rows: 1
+   :widths: 60 40
+
+   * - Paramètre
+     - Valeur
+   * - Débit (m³/h)
+     - 27.000
+   * - Nombre de tours
+     - 5.000
+   * - Diamètre nominal
+     - DN65
+   * - Perte de charge (Pa)
+     - 26960.06
+   * - Pression sortie (Pa)
+     - 74364.94
+   * - Pression entrée (Pa)
+     - 101325.0
 
 **TEST 2 - Vanne DN80 (4 tours, 15 m³/h) :**
 
-+-----------------------------+------------------+
-| Paramètre                   | Valeur           |
-+=============================+==================+
-| Débit (m³/h)                | 15.000           |
-+-----------------------------+------------------+
-| Nombre de tours             | 4.000            |
-+-----------------------------+------------------+
-| Diamètre nominal            | DN80             |
-+-----------------------------+------------------+
-| Perte de charge (Pa)        | 26753.86         |
-+-----------------------------+------------------+
-| Pression sortie (Pa)        | 74571.14         |
-+-----------------------------+------------------+
-| Pression entrée (Pa)        | 101325.0         |
-+-----------------------------+------------------+
+.. list-table::
+   :header-rows: 1
+   :widths: 60 40
+
+   * - Paramètre
+     - Valeur
+   * - Débit (m³/h)
+     - 15.000
+   * - Nombre de tours
+     - 4.000
+   * - Diamètre nominal
+     - DN80
+   * - Perte de charge (Pa)
+     - 26753.86
+   * - Pression sortie (Pa)
+     - 74571.14
+   * - Pression entrée (Pa)
+     - 101325.0
 
 **TEST 3 - Vanne STA-DR 15/20 (3 tours, 1 m³/h) :**
 
-+-----------------------------+------------------+
-| Paramètre                   | Valeur           |
-+=============================+==================+
-| Débit (m³/h)                | 1.000            |
-+-----------------------------+------------------+
-| Nombre de tours             | 3.000            |
-+-----------------------------+------------------+
-| Type                        | STA-DR 15/20     |
-+-----------------------------+------------------+
-| Perte de charge (Pa)        | 71818.44         |
-+-----------------------------+------------------+
-| Pression sortie (Pa)        | 29506.56         |
-+-----------------------------+------------------+
-| Pression entrée (Pa)        | 101325.0         |
-+-----------------------------+------------------+
+.. list-table::
+   :header-rows: 1
+   :widths: 60 40
+
+   * - Paramètre
+     - Valeur
+   * - Débit (m³/h)
+     - 1.000
+   * - Nombre de tours
+     - 3.000
+   * - Type
+     - STA-DR 15/20
+   * - Perte de charge (Pa)
+     - 71818.44
+   * - Pression sortie (Pa)
+     - 29506.56
+   * - Pression entrée (Pa)
+     - 101325.0
 
 Nomenclature
 ------------
 
-+--------------------+-------------------------------------------------------------+----------+
-| Paramètre          | Description                                                 | Unité    |
-+====================+=============================================================+==========+
-| nb_tours           | Nombre de tours d'ouverture de la vanne                    | tours    |
-+--------------------+-------------------------------------------------------------+----------+
-| dn                 | Diamètre nominal de la vanne                               | mm       |
-+--------------------+-------------------------------------------------------------+----------+
-| Kvs                | Coefficient de débit nominal (vanne complètement ouverte)  | m³/h     |
-+--------------------+-------------------------------------------------------------+----------+
-| Kv                 | Coefficient de débit actuel selon l'ouverture             | m³/h     |
-+--------------------+-------------------------------------------------------------+----------+
-| delta_P            | Perte de pression à travers la vanne                      | Pa       |
-+--------------------+-------------------------------------------------------------+----------+
-| Ti_degC            | Température d'entrée en degrés Celsius                    | °C       |
-+--------------------+-------------------------------------------------------------+----------+
-| Pi_bar             | Pression d'entrée en bars                                 | bar      |
-+--------------------+-------------------------------------------------------------+----------+
-| F_m3h              | Débit volumétrique en mètres cubes par heure              | m³/h     |
-+--------------------+-------------------------------------------------------------+----------+
-| F_kgs              | Débit massique en kilogrammes par seconde                 | kg/s     |
-+--------------------+-------------------------------------------------------------+----------+
-| rho                | Densité du fluide                                          | kg/m³    |
-+--------------------+-------------------------------------------------------------+----------+
-| eta                | Viscosité dynamique du fluide                              | Pa·s     |
-+--------------------+-------------------------------------------------------------+----------+
+.. list-table::
+   :header-rows: 1
+   :widths: 20 60 20
+
+   * - Paramètre
+     - Description
+     - Unité
+   * - nb_tours
+     - Nombre de tours d'ouverture de la vanne
+     - tours
+   * - dn
+     - Diamètre nominal de la vanne
+     - mm
+   * - Kvs
+     - Coefficient de débit nominal (vanne complètement ouverte)
+     - m³/h
+   * - Kv
+     - Coefficient de débit actuel selon l'ouverture
+     - m³/h
+   * - delta_P
+     - Perte de pression à travers la vanne
+     - Pa
+   * - Ti_degC
+     - Température d'entrée en degrés Celsius
+     - °C
+   * - Pi_bar
+     - Pression d'entrée en bars
+     - bar
+   * - F_m3h
+     - Débit volumétrique en mètres cubes par heure
+     - m³/h
+   * - F_kgs
+     - Débit massique en kilogrammes par seconde
+     - kg/s
+   * - rho
+     - Densité du fluide
+     - kg/m³
+   * - eta
+     - Viscosité dynamique du fluide
+     - Pa·s
 
 Équations utilisées
 -------------------
