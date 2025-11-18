@@ -3,7 +3,7 @@
 # -- Project information
 
 project = 'EnergySystemModels'
-copyright = '2024, Zoheir HADID'
+copyright = '2024-2025, Zoheir HADID'
 author = 'Zoheir HADID'
 
 release = 'post9'
