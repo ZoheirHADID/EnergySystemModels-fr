@@ -13,61 +13,85 @@ Les déperditions de chaleur à travers les parois de l'échangeur de chaleur à
 
 .. code-block:: python
 
-    from HeatTransfer import PlateHeatTransfer
+  from HeatTransfer import ParallelepipedicBody
 
-    # Température de la paroi en °C
-    Tp = 60
-    # Température ambiante en °C
-    Ta = 25
-    # Longueur en mètres
-    L = 0.6
-    # Largeur en mètres
-    W = 0.8
-    # Hauteur en mètres
-    H = 1.5
+  # Exemple 
+  print("\n### EXEMPLE ###")
+  thermal_measurements = {
+      'top': {'Tp': 60.0, 'isolated': False},
+      'bottom': {'Tp': 60.0, 'isolated': False},
+      'front': {'Tp': 60.0, 'isolated': False},
+      'back': {'Tp': 60.0, 'isolated': False},
+      'left': {'Tp': 60.0, 'isolated': False},
+      'right': {'Tp': 60.0, 'isolated': False}
+  }
 
-    # Calcul du transfert de chaleur pour la paroi horizontale supérieure
-    haut = PlateHeatTransfer.Object(
-        orientation='horizontal_up',
-        Tp=Tp,  # Température de la paroi en °C
-        Ta=Ta,  # Température ambiante en °C
-        W=W,    # Largeur en mètres
-        L=L     # Longueur en mètres
-    ).calculate()
+  objet = ParallelepipedicBody.Object(
+      L=0.6,
+      W=0.8,
+      H=1.5,
+      Ta=25,
+      faces_config=thermal_measurements
+  )
+  objet.calculate()
 
-    # Calcul du transfert de chaleur pour la paroi horizontale inférieure
-    bas = PlateHeatTransfer.Object(
-        orientation='horizontal_down',
-        Tp=Tp,  # Température de la paroi en °C
-        Ta=Ta,  # Température ambiante en °C
-        W=W,    # Largeur en mètres
-        L=L     # Longueur en mètres
-    ).calculate()
+  # Afficher le résumé
+  objet.print_summary()
 
-    # Calcul du transfert de chaleur pour la première paroi verticale
-    vertical1 = PlateHeatTransfer.Object(
-        orientation='vertical',
-        Tp=Tp,  # Température de la paroi en °C
-        Ta=Ta,  # Température ambiante en °C
-        W=W,    # Largeur en mètres
-        H=H     # Hauteur en mètres
-    ).calculate() * 2
+  # Accéder et afficher le DataFrame complet
+  print("\nAccès au DataFrame:")
+  print(objet.df)
 
-    # Calcul du transfert de chaleur pour la deuxième paroi verticale
-    vertical2 = PlateHeatTransfer.Object(
-        orientation='vertical',
-        Tp=Tp,  # Température de la paroi en °C
-        Ta=Ta,  # Température ambiante en °C
-        W=L,    # Largeur en mètres
-        H=H     # Hauteur en mètres
-    ).calculate() * 2
+  # Analyse des données
+  print("\nAnalyse des données:")
+  print(f"Transfert total: {objet.get_total_heat_transfer():.2f} W")
+  # On exclut la dernière ligne 'TOTAL' pour trouver la face avec le max
+  print(f"Face avec le plus grand transfert: {objet.df.iloc[:-1]['Heat Transfer (W)'].idxmax()}")
+  print(f"Valeur max: {objet.df.iloc[:-1]['Heat Transfer (W)'].max():.2f} W")
 
-    # Calcul du transfert de chaleur total
-    total = haut + bas + vertical1 + vertical2
-    print(f"{round(total, 0)} W = {round(haut, 0)} W + {round(bas, 0)} W + {round(vertical1, 0)} W + {round(vertical2, 0)} W")
+Résultat ::
 
-Résultat : 
-1957.0 W = 191.0 W + 190.0 W + 900.0 W + 675.0 W
+  ### EXEMPLE ###
+
+  ================================================================================
+  TRANSFERT DE CHALEUR - CORPS PARALLÉLÉPIPÉDIQUE
+  ================================================================================
+  Dimensions: L=0.6m x W=0.8m x H=1.5m
+  Température ambiante: 25°C
+  ================================================================================
+    Face       Orientation  Surface (m²) Tp (°C)  Ta (°C) ΔT (°C) Isolated  Heat Transfer (W)  Heat Flux (W/m²)
+     top   Horizontal (up)          0.48    60.0       25    35.0    False             191.19            398.31
+  bottom Horizontal (down)          0.48    60.0       25    35.0    False             189.98            395.80
+   front          Vertical          1.20    60.0       25    35.0    False             450.11            375.09
+    back          Vertical          1.20    60.0       25    35.0    False             450.11            375.09
+    left          Vertical          0.90    60.0       25    35.0    False             337.58            375.09
+   right          Vertical          0.90    60.0       25    35.0    False             337.58            375.09
+   TOTAL                 -          5.16       -       25       -        -            1956.56            379.18
+  ================================================================================
+
+  Accès au DataFrame:
+       Face        Orientation  Surface (m²) Tp (°C)  Ta (°C) ΔT (°C) Isolated  \
+  0     top    Horizontal (up)          0.48    60.0       25    35.0    False   
+  1  bottom  Horizontal (down)          0.48    60.0       25    35.0    False   
+  2   front           Vertical          1.20    60.0       25    35.0    False   
+  3    back           Vertical          1.20    60.0       25    35.0    False   
+  4    left           Vertical          0.90    60.0       25    35.0    False   
+  5   right           Vertical          0.90    60.0       25    35.0    False   
+  6   TOTAL                  -          5.16       -       25       -        -   
+
+     Heat Transfer (W)  Heat Flux (W/m²)  
+  0             191.19            398.31  
+  1             189.98            395.80  
+  2             450.11            375.09  
+  3             450.11            375.09  
+  4             337.58            375.09  
+  5             337.58            375.09  
+  6            1956.56            379.18  
+
+  Analyse des données:
+  Transfert total: 1956.56 W
+  Face avec le plus grand transfert: 2
+  Valeur max: 450.11 W
 
 Explication des équations utilisées
 -----------------------------------
