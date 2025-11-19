@@ -7,6 +7,6 @@
    :maxdepth: 2
    :caption: Transfert de chaleur:
 
-   transfert_chaleur
+   corps_parallelepipedique
    composite_wall_heat_transfer
    pipe_insulation_analysis

@@ -39,6 +39,18 @@ Utilisation
   print(f"Transfert total: {objet.get_total_heat_transfer():.2f} W")
   print(objet.df)
 
+Résultats ::
+
+  Transfert total: 1956.56 W
+       Face        Orientation  Surface (m²) Tp (°C)  Ta (°C) ΔT (°C) Isolated  Heat Transfer (W)  Heat Flux (W/m²)
+  0     top    Horizontal (up)          0.48    60.0       25    35.0    False             191.19            398.31
+  1  bottom  Horizontal (down)          0.48    60.0       25    35.0    False             189.98            395.80
+  2   front           Vertical          1.20    60.0       25    35.0    False             450.11            375.09
+  3    back           Vertical          1.20    60.0       25    35.0    False             450.11            375.09
+  4    left           Vertical          0.90    60.0       25    35.0    False             337.58            375.09
+  5   right           Vertical          0.90    60.0       25    35.0    False             337.58            375.09
+  6   TOTAL                  -          5.16       -       25       -        -            1956.56            379.18
+
 Le calcul retourne :
 
 - **Transfert thermique total** : Somme des pertes par toutes les faces [W]
