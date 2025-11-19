@@ -109,45 +109,7 @@ La classe ``TA_Valve`` supporte **plus de 120 références** de vannes d'équili
 .. note::
    Le paramètre ``dn`` peut être spécifié sous forme de **chaîne** (ex: "DN65", "STAF-DN100") ou d'**entier** (ex: 65).
 
-4.2.3. Exemple d'utilisation Python
-------------------------------------
-
-**Exemple complet : Vanne STAF-DN100 pour réseau principal**
-
-.. code-block:: python
-
-    from ThermodynamicCycles.Hydraulic import TA_Valve
-    from ThermodynamicCycles.Source import Source
-    from ThermodynamicCycles.Connect import Fluid_connect
-
-    # Configuration de la source d'eau
-    SOURCE = Source.Object()
-    SOURCE.Ti_degC = 25           # Température d'entrée : 25°C
-    SOURCE.Pi_bar = 3.0           # Pression d'entrée : 3 bar
-    SOURCE.fluid = "Water"        # Fluide : eau
-    SOURCE.F_m3h = 70             # Débit : 70 m³/h
-    SOURCE.calculate()
-
-    # Configuration de la vanne STAF-DN100
-    vanne = TA_Valve.Object()
-    vanne.dn = "STAF-DN100"       # Type : STAF-DN100 (bride fonte, PN 16/25)
-    vanne.nb_tours = 4.3          # Ouverture : 4.3 tours (interpolation auto)
-    Fluid_connect(vanne.Inlet, SOURCE.Outlet) 
-    vanne.calculate()
-
-    # Affichage des résultats
-    print(vanne.df)
-    print(f"Pression sortie: {vanne.Outlet.P:.2f} Pa")
-    print(f"Perte de charge: {vanne.delta_P:.2f} Pa")
-
-**Résultats de la simulation :**
-
-.. list-table::
-   :header-rows: 1
-   :widths: 60 40
-
-   * - Paramètre
-     - Valeur
+**Paramètres de configuration**
    * - Débit (m³/h)
      - 70.000
    * - Nombre de tours
