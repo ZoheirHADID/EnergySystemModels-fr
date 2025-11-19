@@ -36,4 +36,5 @@ Table des matières
    009-pv-solaire/index
    010-achat-energie/index
    011-cee/index
+   nomenclature
    api
