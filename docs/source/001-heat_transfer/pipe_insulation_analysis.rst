@@ -178,6 +178,11 @@ Analyse paramétrique de l'épaisseur d'isolant
     plt.grid(True)
     plt.show()
 
+.. image:: ../images/001_heat_transfer_pipe_evolution.png
+   :alt: Analyse paramétrique de l'épaisseur d'isolation
+   :width: 800px
+   :align: center
+
 Explication du modèle
 ----------------------
 
