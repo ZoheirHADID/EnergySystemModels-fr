@@ -8,6 +8,6 @@
    :caption: AHU Modules:
 
 
-   exemple_ahu_frais
+
    cta_air_neuf
    nomenclature
