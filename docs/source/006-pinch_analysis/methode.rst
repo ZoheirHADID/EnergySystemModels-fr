@@ -1,104 +1,95 @@
-Méthodologie de l'Analyse Pinch
-================================
+Utilisation du module
+=====================
 
-La méthodologie de l'analyse Pinch se déroule en plusieurs étapes systématiques pour identifier les opportunités d'économies d'énergie.
+Création de l'objet PinchAnalysis
+----------------------------------
 
-Étape 1 : Extraction des données
----------------------------------
+.. code-block:: python
 
-Identifier tous les flux de procédé
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   import pandas as pd
+   from PinchAnalysis import PinchAnalysis
 
-Pour chaque flux (courant de matière), collecter :
+   # Données des flux
+   data = {
+       'Ti': [200, 125, 50, 45],      # Température initiale [°C]
+       'To': [50, 45, 250, 195],      # Température finale [°C]
+       'mCp': [3.0, 2.5, 2.0, 4.0],   # Débit capacité [kW/K]
+       'dTmin2': [5, 5, 5, 5],        # ΔTmin/2 [K]
+       'integration': [True, True, True, True]
+   }
+   
+   df = pd.DataFrame(data)
+   
+   # Créer l'objet PinchAnalysis
+   pinch = PinchAnalysis.Object(df)
 
-* **Température d'entrée (Ti)** : température initiale du flux [°C]
-* **Température de sortie (To)** : température finale souhaitée [°C]
-* **Débit massique × Capacité thermique (mCp)** : capacité thermique du flux [kW/°C]
-* **Type de flux** : flux chaud (Ti > To) ou flux froid (Ti < To)
+Méthodes de visualisation
+--------------------------
 
-Exemple de tableau de données :
+Courbes composites
+~~~~~~~~~~~~~~~~~~
 
-.. list-table:: Flux de procédé
-   :header-rows: 1
-   :widths: 15 15 15 20 15 20
+.. code-block:: python
 
-   * - ID
-     - Type
-     - Ti [°C]
-     - To [°C]
-     - mCp [kW/°C]
-     - Charge thermique [kW]
-   * - H1
-     - Chaud
-     - 200
-     - 50
-     - 3.0
-     - 450
-   * - H2
-     - Chaud
-     - 125
-     - 45
-     - 2.5
-     - 200
-   * - C1
-     - Froid
-     - 50
-     - 250
-     - 2.0
-     - 400
-   * - C2
-     - Froid
-     - 45
-     - 195
-     - 4.0
-     - 600
+   pinch.plot_composites_curves()
 
-La charge thermique Q [kW] se calcule par :
+Affiche les courbes composites chaude et froide.
 
-.. math::
+Grande courbe composite (GCC)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-   Q = mCp \times (T_i - T_o)
+.. code-block:: python
 
-Étape 2 : Construction des tables de températures
--------------------------------------------------
+   pinch.plot_GCC()
 
-Températures décalées
-~~~~~~~~~~~~~~~~~~~~~
+Affiche le profil énergétique du procédé.
 
-Pour permettre les échanges thermiques, on applique un décalage de ΔTmin/2 aux températures :
+Flux et intervalles de température
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-* **Flux chauds** : T* = T - ΔTmin/2
-* **Flux froids** : T* = T + ΔTmin/2
+.. code-block:: python
 
-Ce décalage garantit que la différence de température entre flux chauds et froids reste toujours ≥ ΔTmin.
+   pinch.plot_streams_and_temperature_intervals()
 
-Exemple avec ΔTmin = 10°C :
+Affiche les flux et les intervalles de température décalés.
 
-.. list-table:: Températures décalées
-   :header-rows: 1
+Réseau d'échangeurs (HEN)
+--------------------------
 
-   * - Flux
-     - Ti [°C]
-     - To [°C]
-     - Ti* [°C]
-     - To* [°C]
-   * - H1
-     - 200
-     - 50
-     - 195
-     - 45
-   * - H2
-     - 125
-     - 45
-     - 120
-     - 40
-   * - C1
-     - 50
-     - 250
-     - 55
-     - 255
-   * - C2
-     - 45
+Conception graphique
+~~~~~~~~~~~~~~~~~~~~
+
+.. code-block:: python
+
+   pinch.graphical_hen_design()
+
+Génère une proposition de réseau d'échangeurs de chaleur.
+
+Résultats disponibles
+---------------------
+
+DataFrames générés
+~~~~~~~~~~~~~~~~~~
+
+.. code-block:: python
+
+   # Flux intégrés avec températures décalées
+   print(pinch.stream_list)
+   
+   # Intervalles de température
+   print(pinch.df_intervals)
+   
+   # Décomposition des flux par intervalle
+   print(pinch.df_decomposition_flux)
+   
+   # Surplus/déficit énergétique
+   print(pinch.df_surplus_deficit)
+   
+   # Courbes composites
+   print(pinch.df_composite_curve)
+   
+   # Combinaisons d'échange possibles
+   print(pinch.df_heat_exchange_combinations)
      - 195
      - 50
      - 200
