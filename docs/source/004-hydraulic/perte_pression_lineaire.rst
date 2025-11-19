@@ -3,16 +3,13 @@
 Perte de charge linéaire d'un conduit d'eau
 ============================================
 
-Schéma
-------
+Utilisation
+-----------
 
 .. image:: ../images/004_hydraulic_straight_pipe.png
    :alt: Straight Pipe
    :width: 800px
    :align: center
-
-Exemple de code
----------------
 
 .. code-block:: python
 
@@ -46,9 +43,6 @@ Exemple de code
     print(SOURCE.df)
     print(STRAIGHT_PIPE.df)
     print(SINK.df)
-
-Résultats de simulation
-------------------------
 
 **Source** :
 
