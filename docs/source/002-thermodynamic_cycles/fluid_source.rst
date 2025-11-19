@@ -72,6 +72,67 @@ Les paramètres d'entrée du modèle sont les suivants :
      - Pa
      - bara
 
+Fluides disponibles dans CoolProp
+----------------------------------
+
+**Fluides purs courants :**
+
+- ``'Water'`` - Eau
+- ``'Air'`` - Air
+- ``'Ammonia'`` (ou ``'NH3'``) - Ammoniac
+- ``'CO2'`` (ou ``'CarbonDioxide'``) - Dioxyde de carbone
+- ``'Nitrogen'`` (ou ``'N2'``) - Azote
+- ``'Oxygen'`` (ou ``'O2'``) - Oxygène
+- ``'Hydrogen'`` (ou ``'H2'``) - Hydrogène
+- ``'Methane'`` - Méthane
+- ``'Propane'`` - Propane
+- ``'n-Butane'`` - n-Butane
+- ``'IsoButane'`` - Isobutane
+
+**Frigorigènes HFC :**
+
+- ``'R134a'`` - 1,1,1,2-Tétrafluoroéthane
+- ``'R32'`` - Difluorométhane
+- ``'R125'`` - Pentafluoroéthane
+- ``'R143a'`` - 1,1,1-Trifluoroéthane
+- ``'R152a'`` - 1,1-Difluoroéthane
+- ``'R404A'`` - Mélange (R125/143a/134a)
+- ``'R407C'`` - Mélange (R32/125/134a)
+- ``'R410A'`` - Mélange (R32/125)
+- ``'R507A'`` - Mélange (R125/143a)
+
+**Frigorigènes naturels et autres :**
+
+- ``'R290'`` (ou ``'Propane'``) - Propane
+- ``'R600a'`` (ou ``'IsoButane'``) - Isobutane
+- ``'R717'`` (ou ``'Ammonia'``) - Ammoniac
+- ``'R744'`` (ou ``'CO2'``) - Dioxyde de carbone
+- ``'R1234yf'`` - 2,3,3,3-Tétrafluoropropène
+- ``'R1234ze(E)'`` - trans-1,3,3,3-Tétrafluoropropène
+
+**Fluides industriels :**
+
+- ``'Toluene'`` - Toluène
+- ``'Ethanol'`` - Éthanol
+- ``'Acetone'`` - Acétone
+- ``'Methanol'`` - Méthanol
+
+.. note::
+   Pour la liste complète des fluides disponibles, consultez la documentation officielle de CoolProp : http://www.coolprop.org/fluid_properties/PurePseudoPure.html
+
+Nomenclature des paramètres
+----------------------------
+
+- ``Ti_degC`` : Température d'entrée [°C]
+- ``fluid`` : Nom du fluide/frigorigène (voir liste ci-dessus)
+- ``Pi_bar`` : Pression d'entrée [bara]
+- ``F`` : Débit massique [kg/s]
+- ``F_Sm3s`` : Débit volumique standard [Sm³/s]
+- ``F_m3s`` : Débit volumique [m³/s]
+- ``F_Sm3h`` : Débit volumique standard [Sm³/h]
+- ``F_m3h`` : Débit volumique [m³/h]
+- ``F_kgh`` : Débit massique [kg/h]
+
 2.2. Exemple d'utilisation de "Fluide Source"
 ---------------------------------------------
 
@@ -79,18 +140,16 @@ Les paramètres d'entrée du modèle sont les suivants :
 
     from ThermodynamicCycles.Source import Source
 
-    # Create Compressor Object
+    # Créer un objet Source
     SOURCE = Source.Object()
 
-    # Data Input
+    # Paramètres d'entrée
     SOURCE.Pi_bar = 1.01325
     SOURCE.fluid = "air"
     SOURCE.F = 1
-    # SOURCE.F_Sm3s = 2937.482966 / 3600 # SOURCE.F_m3s = 2480.143675 / 3600
-    # SOURCE.F_Sm3h = 1 # SOURCE.F_m3h = 2480.143675 # SOURCE.F_kgh = 3600
 
-    # Calculate Object
+    # Calcul
     SOURCE.calculate()
 
-    # Data output
+    # Résultats
     print(SOURCE.df)
