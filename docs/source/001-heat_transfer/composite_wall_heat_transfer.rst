@@ -1,16 +1,13 @@
 Transfert de chaleur - Mur composite
 =====================================
 
-Schéma
-------
+Utilisation
+-----------
 
 .. image:: ../images/001_heat_transfer_composite_wall.png
    :alt: Composite Wall
    :width: 500px
    :align: center
-
-Exemple de code
----------------
 
 .. code-block:: python
 
@@ -31,9 +28,6 @@ Exemple de code
     print(f"Résistance totale: {wall.R_total:.3f} m².K/W")
     print(f"Flux thermique: {wall.Q:.2f} W")
     print(wall.df)
-
-Résultats de simulation
-------------------------
 
 Le calcul retourne :
 

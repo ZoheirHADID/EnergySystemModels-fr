@@ -1,16 +1,13 @@
 Transfert de chaleur - Corps parallélépipédique
 ===============================================
 
-Schéma
-------
+Utilisation
+-----------
 
 .. image:: ../images/001_heat_transfer_parallelepiped.png
    :alt: Plate Heat Transfer
    :width: 400px
    :align: center
-
-Exemple de code
----------------
 
 .. code-block:: python
 
@@ -41,9 +38,6 @@ Exemple de code
   # Afficher les résultats
   print(f"Transfert total: {objet.get_total_heat_transfer():.2f} W")
   print(objet.df)
-
-Résultats de simulation
-------------------------
 
 Le calcul retourne :
 
