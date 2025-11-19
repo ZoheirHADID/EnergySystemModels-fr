@@ -1,7 +1,7 @@
 Transfert de chaleur - Corps parallélépipédique
 ===============================================
 
-.. image:: ../images/PlateHeatTransfer.png
+.. image:: ../images/001_heat_transfer_parallelepiped.png
    :alt: Plate Heat Transfer
    :width: 400px
    :align: center
