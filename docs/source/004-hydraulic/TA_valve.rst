@@ -1,18 +1,70 @@
 .. _ta_valve:
 
-4.2. Vanne d'équilibrage TA (Tour & Andersson / IMI Hydronic)
-==============================================================
+Vanne d'équilibrage TA (Tour & Andersson / IMI Hydronic)
+=========================================================
 
 Les vannes d'équilibrage **TA** (Tour & Andersson / IMI Hydronic Engineering) permettent l'équilibrage hydraulique des circuits CVC pour garantir les débits nominaux et optimiser la performance énergétique des installations.
 
 Cette classe Python calcule les pertes de charge à travers différents modèles de vannes TA en utilisant les **données Kv officielles** du fabricant IMI TA en fonction du nombre de tours d'ouverture.
+
+Utilisation
+-----------
 
 .. image:: ../images/TAValve.png
    :alt: Vanne TA
    :width: 800px
    :align: center
 
-4.2.1. Introduction
+.. code-block:: python
+
+    from ThermodynamicCycles.Hydraulic import TA_Valve
+    from ThermodynamicCycles.Source import Source
+    from ThermodynamicCycles.Connect import Fluid_connect
+
+    # Configuration de la source d'eau
+    SOURCE = Source.Object()
+    SOURCE.Ti_degC = 25           # Température d'entrée : 25°C
+    SOURCE.Pi_bar = 3.0           # Pression d'entrée : 3 bar
+    SOURCE.fluid = "Water"        # Fluide : eau
+    SOURCE.F_m3h = 70             # Débit : 70 m³/h
+    SOURCE.calculate()
+
+    # Configuration de la vanne STAF-DN100
+    vanne = TA_Valve.Object()
+    vanne.dn = "STAF-DN100"       # Type : STAF-DN100 (bride fonte, PN 16/25)
+    vanne.nb_tours = 4.3          # Ouverture : 4.3 tours (interpolation auto)
+    Fluid_connect(vanne.Inlet, SOURCE.Outlet) 
+    vanne.calculate()
+
+    # Affichage des résultats
+    print(vanne.df)
+    print(f"Pression sortie: {vanne.Outlet.P:.2f} Pa")
+    print(f"Perte de charge: {vanne.delta_P:.2f} Pa")
+
+Résultats :
+
+.. list-table::
+   :header-rows: 1
+   :widths: 60 40
+
+   * - Paramètre
+     - Valeur
+   * - Débit (m³/h)
+     - 70.000
+   * - Nombre de tours
+     - 4.3
+   * - Diamètre nominal
+     - STAF-DN100
+   * - Kv interpolé (m³/h)
+     - ~81.4
+   * - Perte de charge (Pa)
+     - ~73500 (~0.74 bar)
+   * - Pression entrée (bar)
+     - 3.0
+   * - Pression sortie (bar)
+     - ~2.26
+
+Paramètres possibles
 --------------------------------------
 
 Les vannes d'équilibrage **TA** (Tour & Andersson / IMI Hydronic Engineering) sont des composants essentiels dans les systèmes CVC. Elles permettent l'équilibrage hydraulique des circuits pour garantir les débits nominaux et optimiser la performance énergétique des installations.
