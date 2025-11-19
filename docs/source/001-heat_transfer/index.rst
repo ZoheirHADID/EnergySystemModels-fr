@@ -1,11 +1,11 @@
 .. _heat_transfer:
 
-1. Heat Transfer
-================
+1. Transfert de chaleur
+========================
 
 .. toctree::
    :maxdepth: 2
-   :caption: Heat Transfer:
+   :caption: Transfert de chaleur:
 
    transfert_chaleur
    composite_wall_heat_transfer
