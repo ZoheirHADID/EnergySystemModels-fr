@@ -64,7 +64,7 @@ Résultats
 
 Le diagramme psychrométrique ci-dessous montre les points de fonctionnement de la CTA :
 
-.. image:: ../images/AHUFreshAir-Figure_1.png
+.. image:: ../images/003_ahu_fresh_air_figure1.png
    :alt: Diagramme psychrométrique
    :width: 600px
    :align: center

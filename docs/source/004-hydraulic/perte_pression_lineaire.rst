@@ -8,7 +8,7 @@
 
 L'image ci-dessous montre un exemple de tube avec la source et le puits :
 
-.. image:: ../images/StraightPipe.png
+.. image:: ../images/004_hydraulic_straight_pipe.png
    :alt: Straight Pipe
    :width: 800px
    :align: center
