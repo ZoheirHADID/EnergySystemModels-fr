@@ -30,5 +30,10 @@ Table des matières
    003-ahu_modules/index
    004-hydraulic/index
    005-aeraulic/index
+   006-pinch_analysis/index
+   007-ipmvp/index
+   008-meteo/index
+   009-pv-solaire/index
    010-achat-energie/index
+   011-cee/index
    api

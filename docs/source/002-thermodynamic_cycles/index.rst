@@ -12,4 +12,10 @@
    sink
    compressor
    turbine
+   pump
+   evaporator_condenser
+   heat_exchangers
+   expansion_valve
+   tank
+   chiller
    straight_pipe
