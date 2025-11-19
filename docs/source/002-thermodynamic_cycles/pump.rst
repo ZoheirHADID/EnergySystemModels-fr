@@ -1,35 +1,62 @@
 Pompes Hydrauliques
 ===================
 
-Le module Pump permet de modéliser des pompes hydrauliques avec prise en compte des courbes caractéristiques et du rendement.
+Le module ``Pump`` de la bibliothèque EnergySystemModels permet de modéliser des pompes hydrauliques à partir de leurs courbes caractéristiques réelles.
 
-Types de pompes
----------------
+Principe de fonctionnement
+---------------------------
 
-Pump - Pompe avec courbe caractéristique
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Le module utilise une **régression polynomiale** pour modéliser deux courbes caractéristiques :
 
-Modélise une pompe avec :
+1. **Courbe H(Q)** : Hauteur manométrique en fonction du débit
+2. **Courbe η(Q)** : Rendement en fonction du débit
 
-* Courbe hauteur-débit H(Q)
-* Courbe de rendement η(Q)
-* Calcul de la puissance électrique
+À partir de points caractéristiques fournis, le module :
 
-Pump_m - Pompe avec débit massique
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+* Génère un modèle polynomial (degré = nombre de points - 1)
+* Calcule la hauteur manométrique pour un débit donné
+* Calcule le rendement correspondant
+* Détermine la puissance électrique consommée
 
-Variante avec débit massique comme entrée.
+Configuration de la pompe
+--------------------------
 
-Utilisation
------------
-
-Exemple avec courbe caractéristique
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Points caractéristiques requis
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. code-block:: python
 
-   from ThermodynamicCycles.Pump import Pump
+   PUMP.X_F = [2, 15, 30]        # Débit volumique [m³/h]
+   PUMP.Y_hmt = [44, 35, 20]     # Hauteur manométrique [m]
+   PUMP.Y_eta = [0.4, 0.8, 0.6]  # Rendement [-]
+
+Le module calcule automatiquement un polynôme de degré `n-1` où `n` est le nombre de points.
+
+Modes de calcul
+~~~~~~~~~~~~~~~
+
+**Mode 1 : Débit imposé**
+
+Si le débit est connu, la pompe calcule automatiquement la hauteur manométrique et le rendement.
+
+**Mode 2 : Pression imposée**
+
+Si la pression de refoulement est spécifiée, la pompe calcule le débit de fonctionnement.
+
+.. code-block:: python
+
+   PUMP.Pdischarge_bar = 3.0  # Pression refoulement [bar]
+
+Exemple d'utilisation
+---------------------
+
+Exemple complet
+~~~~~~~~~~~~~~~
+
+.. code-block:: python
+
    from ThermodynamicCycles.Source import Source
+   from ThermodynamicCycles.Pump import Pump
    from ThermodynamicCycles.Sink import Sink
    from ThermodynamicCycles.Connect import Fluid_connect
 
@@ -42,12 +69,13 @@ Exemple avec courbe caractéristique
    SOURCE.Ti_degC = 20
    SOURCE.Pi_bar = 1.0
    SOURCE.fluid = "water"
-   SOURCE.F_m3h = 50  # 50 m³/h
+   SOURCE.F_m3h = 15  # 15 m³/h
    SOURCE.calculate()
 
-   # Configuration de la pompe
-   PUMP.head = 30  # Hauteur manométrique [m]
-   PUMP.eta = 0.75  # Rendement pompe [-]
+   # Configuration de la pompe avec points caractéristiques
+   PUMP.X_F = [2, 15, 30]        # Points de débit [m³/h]
+   PUMP.Y_hmt = [44, 35, 20]     # Hauteur manométrique [m]
+   PUMP.Y_eta = [0.4, 0.8, 0.6]  # Rendement [-]
    
    # Connexion et calcul
    Fluid_connect(PUMP.Inlet, SOURCE.Outlet)
@@ -55,13 +83,11 @@ Exemple avec courbe caractéristique
    Fluid_connect(SINK.Inlet, PUMP.Outlet)
    SINK.calculate()
 
-   # Résultats
-   print(f"Débit : {SOURCE.F_m3h} m³/h")
-   print(f"Hauteur manométrique : {PUMP.head} m")
-   print(f"Pression refoulement : {PUMP.Outlet.P/100000:.2f} bar")
-   print(f"Puissance hydraulique : {PUMP.P_hydraulique/1000:.2f} kW")
-   print(f"Puissance électrique : {PUMP.P_electrique/1000:.2f} kW")
-   print(f"Rendement : {PUMP.eta*100:.1f}%")
+   # Affichage des résultats
+   print(PUMP.df)
+   
+   # Tracer la courbe caractéristique
+   PUMP.plot_pump_curve()
 
 Calculs
 -------
