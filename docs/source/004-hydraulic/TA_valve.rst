@@ -180,7 +180,7 @@ La classe ``TA_Valve`` supporte **plus de 120 références** de vannes d'équili
    - Pour régulateurs (STAP, STAM, STAZ) et orifices fixes (MDFO), utiliser **nb_tours = 0**
 
 Explication du modèle
--------------------------------------
+---------------------
 
 **Principe du coefficient Kv**
 
