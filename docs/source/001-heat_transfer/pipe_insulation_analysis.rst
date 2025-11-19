@@ -1,6 +1,11 @@
 Isolation des tuyaux
 ====================
 
+.. image:: ../images/PipeInsulationAnalysis.png
+   :alt: Pipe Insulation Analysis
+   :width: 600px
+   :align: center
+
 .. code-block:: python
 
     from HeatTransfer import PipeInsulationAnalysis

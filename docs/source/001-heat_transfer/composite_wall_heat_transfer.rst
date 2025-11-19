@@ -1,6 +1,11 @@
 Transfert de chaleur - Mur composite
 =====================================
 
+.. image:: ../images/CompositeWall.png
+   :alt: Composite Wall
+   :width: 500px
+   :align: center
+
 .. code-block:: python
 
     from HeatTransfer import CompositeWall
