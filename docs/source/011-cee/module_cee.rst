@@ -1,20 +1,11 @@
-Module CEE d'EnergySystemModels
-================================
+Module CEE
+==========
 
-Le module CEE permet de calculer les économies d'énergie et les certificats associés pour différents types de projets.
+Utilisation de base
+-------------------
 
-Utilisation
------------
-
-Import du module
-~~~~~~~~~~~~~~~~
-
-.. code-block:: python
-
-   from CEE.CEE import calcul_CEE
-
-Exemple : Isolation de combles
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Exemple : Isolation
+~~~~~~~~~~~~~~~~~~~
 
 .. code-block:: python
 
