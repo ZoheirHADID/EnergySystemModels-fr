@@ -7,6 +7,4 @@
    :maxdepth: 2
    :caption: Analyse Pinch:
 
-   introduction
-   methode
    exemples

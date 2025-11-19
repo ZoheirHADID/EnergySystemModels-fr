@@ -1,32 +1,44 @@
-Exemple d'utilisation
-=====================
+Analyse Pinch
+=============
 
 .. code-block:: python
 
    import pandas as pd
    from PinchAnalysis import PinchAnalysis
 
-   # Définition des flux (chauds et froids)
+   # Créer un DataFrame avec les flux thermiques
+   # Ti/To : températures initiale/finale [°C]
+   # mCp : débit de capacité thermique [kW/K]
+   # dTmin2 : ΔTmin/2 pour chaque flux [K]
+   # integration : inclure le flux dans l'analyse
    df = pd.DataFrame({
-       'Ti': [200, 125, 50, 45],      
+       'Ti': [200, 125, 50, 45],      # 2 flux chauds, 2 flux froids
        'To': [50, 45, 250, 195],      
        'mCp': [3.0, 2.5, 2.0, 4.0],   
        'dTmin2': [5, 5, 5, 5],        
        'integration': [True, True, True, True]
    })
 
-   # Analyse
+   # Créer l'objet d'analyse
    pinch = PinchAnalysis.Object(df)
    
-   # Résultats
-   print(f"Utilité chaude min: {pinch.Qh_min} kW")
-   print(f"Utilité froide min: {pinch.Qc_min} kW")
-   print(pinch.df_surplus_deficit)
+   # Accéder aux résultats
+   print(f"Point Pinch: {pinch.T_pinch}°C")
+   print(f"Utilité chaude minimale: {pinch.Qh_min} kW")
+   print(f"Utilité froide minimale: {pinch.Qc_min} kW")
    
-   # Visualisations
-   pinch.plot_composites_curves()
-   pinch.plot_GCC()
-   pinch.graphical_hen_design()
+   # DataFrames de résultats
+   print(pinch.stream_list)                    # Flux avec températures décalées
+   print(pinch.df_intervals)                   # Intervalles de température
+   print(pinch.df_surplus_deficit)             # Bilan énergétique
+   print(pinch.df_composite_curve)             # Données courbes composites
+   print(pinch.df_heat_exchange_combinations)  # Combinaisons d'échange
+   
+   # Générer les visualisations
+   pinch.plot_composites_curves()              # Courbes composites
+   pinch.plot_GCC()                            # Grande courbe composite
+   pinch.plot_streams_and_temperature_intervals()  # Flux et intervalles
+   pinch.graphical_hen_design()                # Réseau d'échangeurs
    print("\nRéseau d'échangeurs de chaleur :")
    print(hen.df_matches)
 

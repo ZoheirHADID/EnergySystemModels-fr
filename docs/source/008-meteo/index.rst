@@ -7,6 +7,5 @@
    :maxdepth: 2
    :caption: Données Météo:
 
-   openweathermap
    meteociel
-   degres_jours
+   openweathermap
