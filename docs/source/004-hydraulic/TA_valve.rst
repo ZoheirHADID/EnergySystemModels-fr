@@ -246,7 +246,7 @@ Pour une vanne STAF-DN100 avec 4.3 tours (entre 4 tours et 4.5 tours) :
 - **Pression réduite :** :math:`P_{sortie} = P_{entrée} - \Delta P`
 
 Sources des données et références
------------------------------------------
+----------------------------------
 
 Les données Kv utilisées proviennent de la **documentation technique officielle IMI TA** :
 
