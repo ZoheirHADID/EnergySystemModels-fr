@@ -129,6 +129,55 @@ Paramètres possibles
 
 DN de 6 à 1050 mm (voir table complète dans le code source)
 
+Analyse paramétrique de l'épaisseur d'isolant
+----------------------------------------------
+
+.. code-block:: python
+
+    import matplotlib.pyplot as plt
+    from HeatTransfer import PipeInsulationAnalysis
+
+    # Simulation de l'effet de l'épaisseur d'isolation sur les déperditions
+    insulation_thicknesses = [0.0001 + 0.005 * i for i in range(41)]  # Épaisseurs de 0.0001m à 0.2001m
+    heat_losses = []
+    surface_temperatures = []
+
+    for thickness in insulation_thicknesses:
+        pipe = PipeInsulationAnalysis.Object(
+            fluid='water', 
+            T_fluid=70, 
+            F_m3h=20, 
+            DN=80, 
+            L_tube=500, 
+            material='Acier', 
+            insulation='laine minérale', 
+            insulation_thickness=thickness, 
+            Tamb=20
+        )
+        pipe.calculate()
+        heat_losses.append(pipe.q_total)
+        surface_temperatures.append(pipe.Tc)
+
+    # Tracer les résultats
+    fig, ax1 = plt.subplots(figsize=(10, 6))
+
+    color = 'tab:blue'
+    ax1.set_xlabel('Épaisseur d\'isolation (m)')
+    ax1.set_ylabel('Déperditions thermiques (W)', color=color)
+    ax1.plot(insulation_thicknesses, heat_losses, marker='o', color=color, label='Déperditions (W)')
+    ax1.tick_params(axis='y', labelcolor=color)
+
+    ax2 = ax1.twinx()  # Créer un second axe y partageant le même axe x
+    color = 'tab:red'
+    ax2.set_ylabel('Température de surface (°C)', color=color)
+    ax2.plot(insulation_thicknesses, surface_temperatures, marker='x', color=color, label='Température de surface (°C)')
+    ax2.tick_params(axis='y', labelcolor=color)
+
+    fig.tight_layout()
+    plt.title('Effet de l\'épaisseur d\'isolation sur les déperditions et la température de surface')
+    plt.grid(True)
+    plt.show()
+
 Explication du modèle
 ----------------------
 
