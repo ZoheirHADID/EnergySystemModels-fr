@@ -10,6 +10,11 @@ Cette classe Python calcule les pertes de charge à travers différents modèles
 Utilisation
 -----------
 
+.. image:: ../images/004_TA_valve.png
+   :alt: Schéma Vanne TA
+   :width: 800px
+   :align: center
+
 .. image:: ../images/TAValve.png
    :alt: Vanne TA
    :width: 800px
