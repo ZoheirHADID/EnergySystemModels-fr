@@ -1,124 +1,61 @@
-MeteoCiel - Scraping de Données Historiques
-============================================
+Données Météorologiques
+=======================
 
-Récupération de données historiques
+MeteoCiel - Données historiques
+--------------------------------
+
+.. code-block:: python
+
+   from MeteoCiel.MeteoCiel_Scraping import MeteoCiel_histoScraping
+   from datetime import datetime
+
+   # Récupérer données météo historiques depuis MeteoCiel
+   # 10637 : code station (exemple : Paris-Montsouris)
+   # Codes stations : 7480=Lyon, 7650=Marseille, 7510=Bordeaux, 7630=Toulouse
+   # Trouver codes sur https://www.meteociel.fr
+   df_histo, df_day, df_month, df_year = MeteoCiel_histoScraping(
+       10637,                      # Code station MeteoCiel
+       datetime(2020, 1, 1),       # Date début
+       datetime(2023, 12, 31),     # Date fin
+       base_chauffage=18,          # Base DJU chauffage [°C]
+       base_refroidissement=23     # Base DJU refroidissement [°C]
+   )
+
+   # DataFrames retournés :
+   # df_histo : données horaires (T, HR, P, Vent, Précipitations)
+   # df_day : journalier (T_moy/min/max, DJU_chaud, DJU_froid)
+   # df_month : mensuel (T_moy, DJU_chaud_cumul, DJU_froid_cumul)
+   # df_year : annuel (T_moy, DJU_annuel)
+   
+   print(df_month[['mois', 'T_moy', 'DJU_chaud', 'DJU_froid']])
+
+OpenWeatherMap - Données temps réel
 ------------------------------------
 
 .. code-block:: python
 
-   from datetime import datetime
-   from MeteoCiel.MeteoCiel_Scraping import MeteoCiel_histoScraping
+   from OpenWeatherMap.OpenWeatherMap import OpenWeatherMap_call_location
 
-   # Code de la station météo (voir meteociel.fr)
-   code_station = 10637  # Paris-Montsouris
-
-   # Période souhaitée
-   date_debut = datetime(2023, 1, 1)
-   date_fin = datetime(2023, 12, 31)
-
-   # Scraping avec calcul DJU
-   df_histo, df_day, df_month, df_year = MeteoCiel_histoScraping(
-       code_station,
-       date_debut,
-       date_fin,
-       base_chauffage=18,        # Base DJU chauffage
-       base_refroidissement=23   # Base DJU refroidissement
-   )
-
-   # Affichage
-   print("Données horaires :")
-   print(df_histo.head())
+   # Récupérer météo actuelle + prévisions
+   # Nécessite clé API OpenWeatherMap (gratuite sur openweathermap.org)
+   api_key = "VOTRE_CLE_API"
    
-   print("\nDonnées journalières avec DJU :")
-   print(df_day.head())
-
-DataFrames retournés
---------------------
-
-Le module retourne 4 DataFrames :
-
-* **df_histo** : Données horaires (Timestamp, T, HR, P, Vent, Précipitations)
-* **df_day** : Journalier (Date, T_moy/min/max, DJU_chaud, DJU_froid)
-* **df_month** : Mensuel (Mois, T_moy, DJU_chaud_cumul, DJU_froid_cumul)
-* **df_year** : Annuel (Année, T_moy, DJU_annuel)
-
-Codes stations principales
----------------------------
-
-.. code-block:: python
-
-   # Paris-Montsouris: 10637
-   # Lyon-Bron: 7480
-   # Marseille: 7650
-   # Bordeaux: 7510
-   # Toulouse: 7630
-   # Lille: 7015
-   # Strasbourg: 7190
+   data = OpenWeatherMap_call_location(
+       api_key,
+       latitude=48.8566,     # Paris
+       longitude=2.3522,
+       units='metric'        # Unités métriques (°C, m/s)
+   )
    
-   # Trouver d'autres codes sur https://www.meteociel.fr
-
-Export Excel
-------------
-
-.. code-block:: python
-
-   from datetime import datetime
-   from MeteoCiel.MeteoCiel_Scraping import MeteoCiel_histoScraping
-
-   code_station = 10637
-   date_debut = datetime(2022, 1, 1)
-   date_fin = datetime(2023, 12, 31)
-
-   # Scraping
-   df_histo, df_day, df_month, df_year = MeteoCiel_histoScraping(
-       code_station, date_debut, date_fin
-   )
-
-   # Export Excel
-   df_histo.to_excel(f"meteo_horaire_{code_station}.xlsx", index=False)
-   df_day.to_excel(f"meteo_jour_{code_station}.xlsx", index=False)
-   df_month.to_excel(f"meteo_mois_{code_station}.xlsx", index=False)
-   df_year.to_excel(f"meteo_annee_{code_station}.xlsx", index=False)
-
-   print("Données exportées !")
-
-Utilisation avec IPMVP
-----------------------
-
-.. code-block:: python
-
-   from MeteoCiel.MeteoCiel_Scraping import MeteoCiel_histoScraping
-   from IPMVP.IPMVP import Mathematical_Models
-   from datetime import datetime
-   import pandas as pd
-
-   # 1. Récupérer les données météo
-   code_station = 10637
-   date_debut = datetime(2020, 1, 1)
-   date_fin = datetime(2023, 12, 31)
-
-   df_histo, df_day, df_month, df_year = MeteoCiel_histoScraping(
-       code_station, date_debut, date_fin,
-       base_chauffage=18,
-       base_refroidissement=23
-   )
-
-   # 2. Charger les consommations énergétiques
-   df_conso = pd.read_excel('consommations_mensuelles.xlsx')
-   df_conso['date'] = pd.to_datetime(df_conso['date'])
-
-   # 3. Fusionner météo + consommations
-   df = df_month.merge(df_conso, left_on='mois', right_on='date')
-
-   # 4. Modèle IPMVP
-   X = df[['DJU_chaud', 'DJU_froid']]
-   y = df['consommation_kWh']
-
-   model = Mathematical_Models(
-       y, X,
-       datetime(2020, 1, 1), datetime(2021, 12, 31),
-       datetime(2022, 1, 1), datetime(2023, 12, 31)
-   )
-
-   print(f"R² : {model.r2:.3f}")
-   print(f"Économies : {model.total_savings:.0f} kWh")
+   # Données actuelles
+   print(f"Température : {data['current']['temp']}°C")
+   print(f"Humidité : {data['current']['humidity']}%")
+   print(f"Vitesse vent : {data['current']['wind_speed']} m/s")
+   
+   # Prévisions horaires (48h)
+   for hour in data['hourly'][:24]:
+       print(f"Heure {hour['dt']} : {hour['temp']}°C")
+   
+   # Prévisions journalières (7 jours)
+   for day in data['daily']:
+       print(f"Jour {day['dt']} : {day['temp']['day']}°C")
