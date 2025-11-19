@@ -3,8 +3,8 @@
 Fluid Source
 ============
 
-Exemple de code
----------------
+Utilisation
+-----------
 
 .. code-block:: python
 
@@ -23,9 +23,6 @@ Exemple de code
 
     # Résultats
     print(SOURCE.df)
-
-Résultats de simulation
-------------------------
 
 Le calcul retourne un DataFrame avec :
 

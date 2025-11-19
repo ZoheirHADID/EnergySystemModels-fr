@@ -3,16 +3,13 @@
 CTA d'air neuf
 ==============
 
-Schéma
-------
+Utilisation
+-----------
 
 .. image:: ../images/003_ahu_fresh_air.png
    :alt: AHU Fresh Air
    :width: 600px
    :align: center
-
-Exemple de code
----------------
 
 .. code-block:: python
 
@@ -52,9 +49,6 @@ Exemple de code
     ]
     chart.add_points(custom_points)
     chart.show(draw_arrows=True)
-
-Résultats de simulation
-------------------------
 
 **Diagramme psychrométrique** :
 
