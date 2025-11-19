@@ -1,18 +1,8 @@
-Exemples d'Application PV
-=========================
+Exemples d'Application
+======================
 
-Exemple 1 : Installation résidentielle
----------------------------------------
-
-Contexte
-~~~~~~~~
-
-* Maison individuelle à Lyon
-* Toiture orientée Sud, inclinaison 35°
-* Installation 6 kWc
-
-Code
-~~~~
+Installation résidentielle
+--------------------------
 
 .. code-block:: python
 
@@ -52,19 +42,10 @@ Code
    gain_injection = energy_injected * prix_injection
    gain_total = gain_autoconso + gain_injection
 
-   print(f"\nÉconomies annuelles : {gain_total:.0f} €/an")
+   print(f"Économies : {gain_total:.0f} €/an")
 
-Résultats attendus :
-
-* Production : ~6500 kWh/an
-* Productible spécifique : ~1080 kWh/kWc/an
-* Économies : ~800-1000 €/an
-
-Exemple 2 : Optimisation de l'orientation
-------------------------------------------
-
-Comparaison de différentes orientations
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Optimisation de l'orientation
+------------------------------
 
 .. code-block:: python
 
@@ -100,52 +81,8 @@ Comparaison de différentes orientations
    plt.grid(True, alpha=0.3, axis='y')
    plt.show()
 
-Exemple 3 : Installation tertiaire avec stockage
--------------------------------------------------
-
-Dimensionnement avec batterie
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-.. code-block:: python
-
-   # Installation toiture commerciale
-   system = SolarSystem(
-       latitude=43.3,
-       longitude=5.4,
-       location_name='Marseille',
-       tilt=30,
-       timezone='Etc/GMT-1',
-       azimuth=180.0,
-       system_capacity=100.0  # 100 kWc
-   )
-
-   system.retrieve_module_inverter_data()
-   system.retrieve_weather_data()
-   system.calculate_solar_parameters()
-
-   annual_prod = system.annual_production
-   
-   # Simulation simple de stockage
-   battery_capacity = 200  # kWh
-   autoconso_without_battery = 0.30
-   autoconso_with_battery = 0.60  # Amélioration grâce au stockage
-   
-   energy_autoconso_no_batt = annual_prod * autoconso_without_battery
-   energy_autoconso_with_batt = annual_prod * autoconso_with_battery
-   
-   additional_selfconso = energy_autoconso_with_batt - energy_autoconso_no_batt
-   additional_savings = additional_selfconso * 0.15  # €/kWh
-   
-   print(f"Production annuelle : {annual_prod:.0f} kWh")
-   print(f"Autoconso sans batterie : {energy_autoconso_no_batt:.0f} kWh ({autoconso_without_battery*100:.0f}%)")
-   print(f"Autoconso avec batterie : {energy_autoconso_with_batt:.0f} kWh ({autoconso_with_battery*100:.0f}%)")
-   print(f"Gain additionnel : {additional_savings:.0f} €/an")
-
-Exemple 4 : Analyse multi-sites
---------------------------------
-
-Comparaison géographique
-~~~~~~~~~~~~~~~~~~~~~~~~~
+Comparaison multi-sites
+-----------------------
 
 .. code-block:: python
 
@@ -193,44 +130,8 @@ Comparaison géographique
    plt.tight_layout()
    plt.show()
 
-Résultats typiques :
-
-* Lille : ~950 kWh/kWc/an
-* Paris : ~1000 kWh/kWc/an
-* Lyon : ~1080 kWh/kWc/an
-* Bordeaux : ~1150 kWh/kWc/an
-* Marseille : ~1350 kWh/kWc/an
-
-Bonnes pratiques
-----------------
-
-1. **Choix de l'inclinaison**
-   
-   * Production maximale : tilt = latitude - 10°
-   * Autonettoyage : tilt ≥ 15°
-   * Neige : tilt ≥ 30°
-
-2. **Orientation**
-   
-   * Optimal : plein Sud (azimut 180°)
-   * Acceptable : ±45° (SE à SO)
-   * Éviter : Nord (azimut 0°)
-
-3. **Dimensionnement**
-   
-   * Résidentiel : 3-9 kWc typique
-   * PME/Tertiaire : 20-100 kWc
-   * Industriel : >100 kWc
-
-4. **Validation**
-   
-   * Comparer avec PVGIS (outil européen)
-   * Vérifier les ombres portées sur site
-   * Tenir compte des pertes réelles (salissure, câblage)
-
-Références
-----------
-
-* PVGIS : https://re.jrc.ec.europa.eu/pvg_tools/en/
-* ADEME : Guide sur le photovoltaïque
-* Outil BDPV : Base de données des installations PV en France
+   # Productibles typiques :
+   # Lille : ~950 kWh/kWc/an
+   # Paris : ~1000 kWh/kWc/an
+   # Lyon : ~1080 kWh/kWc/an
+   # Marseille : ~1350 kWh/kWc/an

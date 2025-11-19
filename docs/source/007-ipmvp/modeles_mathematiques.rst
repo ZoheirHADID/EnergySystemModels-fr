@@ -1,54 +1,10 @@
-Modèles Mathématiques pour l'IPMVP
-===================================
-
-Cette section présente les modèles mathématiques utilisés pour l'Option C (analyse de bâtiment entier) avec le module IPMVP d'EnergySystemModels.
-
-Types de modèles de régression
--------------------------------
-
-Modèle linéaire simple
-~~~~~~~~~~~~~~~~~~~~~~
-
-Pour les bâtiments avec chauffage uniquement :
-
-.. math::
-
-   E = a + b \cdot \text{DJU}_{\text{base}} + \epsilon
-
-Modèle à deux variables (chauffage et refroidissement)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-.. math::
-
-   E = a + b_1 \cdot \text{DJU}_{\text{chaud}} + b_2 \cdot \text{DJU}_{\text{froid}} + \epsilon
-
-Modèle polynomial
-~~~~~~~~~~~~~~~~~
-
-Pour capturer des non-linéarités :
-
-.. math::
-
-   E = a + b_1 \cdot X + b_2 \cdot X^2 + b_3 \cdot X^3 + \epsilon
-
-Modèle multi-variables
-~~~~~~~~~~~~~~~~~~~~~~
-
-Avec variables opérationnelles :
-
-.. math::
-
-   E = a + \sum_{i} b_i \cdot X_i + \epsilon
-
-où X_i peuvent être : DJU, production, occupation, heures d'ouverture, etc.
-
 Utilisation du module IPMVP
-----------------------------
+===========================
 
-Le module IPMVP d'EnergySystemModels permet de créer automatiquement des modèles de baseline et de calculer les économies d'énergie selon l'Option C.
+Le module IPMVP d'EnergySystemModels permet de créer des modèles de baseline et de calculer les économies d'énergie selon l'Option C.
 
-Exemple complet
-~~~~~~~~~~~~~~~
+Exemple de base
+---------------
 
 .. code-block:: python
 
@@ -68,7 +24,7 @@ Exemple complet
    end_reporting = datetime(2023, 12, 31)
 
    # Préparer les variables
-   X = df[['DJU_chaud', 'DJU_froid', 'production']]  # Variables indépendantes
+   X = df[['DJU_chaud', 'DJU_froid']]  # Variables indépendantes
    y = df['consommation_kWh']  # Variable dépendante
 
    # Créer le modèle IPMVP
@@ -76,28 +32,65 @@ Exemple complet
        y, X,
        start_baseline, end_baseline,
        start_reporting, end_reporting,
-       degree=2,  # Degré du polynôme
-       print_report=True,  # Afficher le rapport
-       seuil_z_scores=3  # Seuil pour détection d'outliers
+       degree=2,
+       print_report=True
    )
 
    # Résultats
-   print(f"R² du modèle : {model.r2:.3f}")
+   print(f"R² : {model.r2:.3f}")
    print(f"CV(RMSE) : {model.cv_rmse:.1f}%")
    print(f"Économies totales : {model.total_savings:.0f} kWh")
 
-Paramètres du modèle
-~~~~~~~~~~~~~~~~~~~~~
+Paramètres
+----------
 
-* **y** : Série temporelle de la consommation énergétique (variable dépendante)
-* **X** : DataFrame des variables indépendantes
-* **start_baseline_period** : Date de début de la période de référence
-* **end_baseline_period** : Date de fin de la période de référence
-* **start_reporting_period** : Date de début de la période de rapport
-* **end_reporting_period** : Date de fin de la période de rapport
+* **y** : Consommation énergétique (série temporelle)
+* **X** : Variables indépendantes (DataFrame)
+* **start_baseline_period** / **end_baseline_period** : Période de référence
+* **start_reporting_period** / **end_reporting_period** : Période de rapport
 * **degree** : Degré du polynôme (1=linéaire, 2=quadratique, 3=cubique)
-* **print_report** : Afficher le rapport de régression (True/False)
-* **seuil_z_scores** : Seuil de détection des valeurs aberrantes (typiquement 2-3)
+* **print_report** : Afficher le rapport de régression
+* **seuil_z_scores** : Détection des valeurs aberrantes (défaut: 3)
+
+Attributs disponibles
+---------------------
+
+Après création du modèle, les attributs suivants sont disponibles :
+
+* ``model.r2`` : Coefficient de détermination R²
+* ``model.cv_rmse`` : Coefficient de variation du RMSE (%)
+* ``model.total_savings`` : Économies totales (kWh)
+* ``model.savings_percentage`` : Réduction (%)
+* ``model.monthly_savings`` : Économies mensuelles
+* ``model.cumulative_savings`` : Économies cumulées
+* ``model.baseline_adjusted`` : Baseline ajustée
+* ``model.consumption_measured`` : Consommation mesurée
+
+Méthodes de visualisation
+--------------------------
+
+.. code-block:: python
+
+   # Qualité du modèle baseline
+   model.plot_baseline_fit()
+   
+   # Comparaison mensuelle
+   model.plot_monthly_comparison()
+   
+   # Économies cumulées
+   model.plot_cumulative_savings()
+   
+   # Analyse des résidus
+   model.plot_residuals()
+
+Critères de validation
+-----------------------
+
+Pour un modèle valide :
+
+* **R² ≥ 0.75**
+* **CV(RMSE) ≤ 15%** (données mensuelles)
+* **CV(RMSE) ≤ 30%** (données horaires)
 
 Calcul des Degrés Jours Unifiés (DJU)
 --------------------------------------
