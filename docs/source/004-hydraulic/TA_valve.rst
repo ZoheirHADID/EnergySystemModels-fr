@@ -15,11 +15,6 @@ Utilisation
    :width: 800px
    :align: center
 
-.. image:: ../images/TAValve.png
-   :alt: Vanne TA
-   :width: 800px
-   :align: center
-
 .. code-block:: python
 
     from ThermodynamicCycles.Hydraulic import TA_Valve
