@@ -41,28 +41,19 @@ Utilisation
     print(f"Pression sortie: {vanne.Outlet.P:.2f} Pa")
     print(f"Perte de charge: {vanne.delta_P:.2f} Pa")
 
-Résultats :
+Résultats ::
 
-.. list-table::
-   :header-rows: 1
-   :widths: 60 40
-
-   * - Paramètre
-     - Valeur
-   * - Débit (m³/h)
-     - 70.000
-   * - Nombre de tours
-     - 4.3
-   * - Diamètre nominal
-     - STAF-DN100
-   * - Kv interpolé (m³/h)
-     - ~81.4
-   * - Perte de charge (Pa)
-     - ~73500 (~0.74 bar)
-   * - Pression entrée (bar)
-     - 3.0
-   * - Pression sortie (bar)
-     - ~2.26
+                             
+  Débit (m3/h)                      70.0
+  Nombre de tours                    4.3
+  Diamètre nominal (DN)       STAF-DN100
+  Kv                               81.42
+  Pression d'entrée (Pa)        300000.0
+  Perte de charge (Pa)      73915.221715
+  Pression de sortie (Pa)  226084.778285
+  
+  Pression sortie: 226084.78 Pa
+  Perte de charge: 73915.22 Pa
 
 Paramètres possibles
 --------------------
