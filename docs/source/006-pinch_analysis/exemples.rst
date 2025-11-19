@@ -1,154 +1,72 @@
 Exemples d'utilisation
 ======================
 
-Cette section présente des exemples pratiques d'utilisation du module PinchAnalysis avec des cas industriels simplifiés.
-
-Exemple 1 : Cas simple avec 4 flux
------------------------------------
-
-Contexte
-~~~~~~~~
-
-Considérons un procédé industriel avec :
-
-* 2 flux chauds à refroidir (H1, H2)
-* 2 flux froids à chauffer (C1, C2)
-* ΔTmin = 10°C
-
-Données des flux
-~~~~~~~~~~~~~~~~
+Exemple 1 : Cas simple
+----------------------
 
 .. code-block:: python
 
    import pandas as pd
    from PinchAnalysis.PinchAnalysis import Object as PinchAnalysis
-   import matplotlib.pyplot as plt
 
-   # Définition des flux de procédé
+   # Définition des flux
    df = pd.DataFrame({
-       'id': [1, 2, 3, 4],
-       'name': ['H1', 'H2', 'C1', 'C2'],
-       'Ti': [200, 125, 50, 45],      # Température d'entrée [°C]
-       'To': [50, 45, 250, 195],      # Température de sortie [°C]
-       'mCp': [3.0, 2.5, 2.0, 4.0],   # Capacité thermique [kW/°C]
-       'dTmin2': [5, 5, 5, 5],        # ΔTmin/2 [°C]
+       'Ti': [200, 125, 50, 45],      
+       'To': [50, 45, 250, 195],      
+       'mCp': [3.0, 2.5, 2.0, 4.0],   
+       'dTmin2': [5, 5, 5, 5],        
        'integration': [True, True, True, True]
    })
 
-Calculs thermiques
-~~~~~~~~~~~~~~~~~~
-
-Calculons les charges thermiques de chaque flux :
-
-.. code-block:: python
-
-   # Calcul de la charge thermique de chaque flux
-   df['Q'] = df['mCp'] * abs(df['To'] - df['Ti'])
-   print("Charges thermiques des flux :")
-   print(df[['name', 'Ti', 'To', 'mCp', 'Q']])
-
-Résultats :
-
-.. list-table:: Charges thermiques
-   :header-rows: 1
-   :widths: 15 15 15 15 20
-
-   * - Flux
-     - Ti [°C]
-     - To [°C]
-     - mCp [kW/°C]
-     - Q [kW]
-   * - H1
-     - 200
-     - 50
-     - 3.0
-     - 450
-   * - H2
-     - 125
-     - 45
-     - 2.5
-     - 200
-   * - C1
-     - 50
-     - 250
-     - 2.0
-     - 400
-   * - C2
-     - 45
-     - 195
-     - 4.0
-     - 600
-
-**Bilan énergétique brut** :
-
-* Chaleur disponible (flux chauds) : 450 + 200 = **650 kW**
-* Chaleur requise (flux froids) : 400 + 600 = **1000 kW**
-* Besoin externe net : 1000 - 650 = **350 kW de chauffage**
-
-Analyse Pinch
-~~~~~~~~~~~~~
-
-.. code-block:: python
-
-   # Créer l'objet PinchAnalysis
+   # Analyse Pinch
    pinch = PinchAnalysis(df)
 
-   # Accéder aux résultats
-   print(f"Température du Pinch : {pinch.T_pinch}°C")
-   print(f"Utilité chaude minimale : {pinch.Qh_min:.1f} kW")
-   print(f"Utilité froide minimale : {pinch.Qc_min:.1f} kW")
-   print(f"Potentiel de récupération : {pinch.Q_recovered:.1f} kW")
-
-Résultats attendus :
-
-* **Température du Pinch** : ~120°C
-* **Utilité chaude minimale (Qh,min)** : ~400 kW
-* **Utilité froide minimale (Qc,min)** : ~50 kW
-* **Chaleur récupérée** : ~600 kW
-
-**Économies potentielles** :
-
-Sans intégration thermique :
-
-* Chauffage requis : 1000 kW
-* Refroidissement requis : 650 kW
-
-Avec intégration optimale (Pinch) :
-
-* Chauffage requis : 400 kW → **économie de 600 kW**
-* Refroidissement requis : 50 kW → **économie de 600 kW**
-
-Visualisation des courbes composites
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-.. code-block:: python
-
-   # Tracer les courbes composites
+   # Visualisations
    pinch.plot_composites_curves()
-   plt.title('Courbes Composites')
-   plt.xlabel('Enthalpie [kW]')
-   plt.ylabel('Température [°C]')
-   plt.legend()
-   plt.grid(True)
-   plt.show()
-
-   # Tracer la Grande Courbe Composite (GCC)
    pinch.plot_GCC()
-   plt.title('Grande Courbe Composite')
-   plt.xlabel('Enthalpie [kW]')
-   plt.ylabel('Température décalée [°C]')
-   plt.grid(True)
-   plt.show()
+   pinch.plot_streams_and_temperature_intervals()
+   pinch.graphical_hen_design()
 
-Conception du réseau d'échangeurs (HEN)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Exemple 2 : Procédé industriel
+-------------------------------
 
 .. code-block:: python
 
-   # Générer le réseau d'échangeurs de chaleur
-   hen = pinch.HeatExchangerNetwork()
+   # Procédé avec 6 flux
+   df = pd.DataFrame({
+       'Ti': [180, 150, 120, 40, 60, 85],
+       'To': [60, 50, 75, 180, 140, 130],
+       'mCp': [4.5, 3.0, 2.5, 3.5, 2.8, 4.0],
+       'dTmin2': [5, 5, 5, 5, 5, 5],
+       'integration': [True, True, True, True, True, True]
+   })
 
-   # Afficher les appariements de flux
+   pinch = PinchAnalysis(df)
+   
+   # Résultats
+   print(pinch.df_surplus_deficit)
+   print(pinch.df_composite_curve)
+   print(pinch.df_heat_exchange_combinations)
+   
+   pinch.plot_composites_curves()
+
+Exemple 3 : Exclusion de flux
+------------------------------
+
+Certains flux peuvent être exclus de l'intégration :
+
+.. code-block:: python
+
+   df = pd.DataFrame({
+       'Ti': [200, 150, 50, 40],
+       'To': [50, 60, 220, 180],
+       'mCp': [3.0, 2.0, 2.5, 3.5],
+       'dTmin2': [5, 5, 5, 5],
+       'integration': [True, False, True, True]  # Flux 2 exclu
+   })
+
+   pinch = PinchAnalysis(df)
+   pinch.plot_composites_curves()
    print("\nRéseau d'échangeurs de chaleur :")
    print(hen.df_matches)
 
