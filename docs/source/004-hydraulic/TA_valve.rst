@@ -110,22 +110,76 @@ La classe ``TA_Valve`` supporte **plus de 120 références** de vannes d'équili
    Le paramètre ``dn`` peut être spécifié sous forme de **chaîne** (ex: "DN65", "STAF-DN100") ou d'**entier** (ex: 65).
 
 **Paramètres de configuration**
-   * - Débit (m³/h)
-     - 70.000
-   * - Nombre de tours
-     - 4.3
-   * - Diamètre nominal
-     - STAF-DN100
-   * - Kv interpolé (m³/h)
-     - ~81.4
-   * - Perte de charge (Pa)
-     - ~73500 (~0.74 bar)
-   * - Pression entrée (bar)
-     - 3.0
-   * - Pression sortie (bar)
-     - ~2.26
 
-4.2.4. Modèle de calcul avec coefficient Kv
+.. list-table::
+   :header-rows: 1
+   :widths: 20 60 20
+
+   * - Paramètre
+     - Description
+     - Unité
+   * - **nb_tours**
+     - Nombre de tours d'ouverture de la vanne (0 pour régulateurs/orifices fixes)
+     - tours
+   * - **dn**
+     - Diamètre nominal ou référence de la vanne (chaîne ou entier)
+     - -
+   * - **q**
+     - Débit volumique calculé à partir du débit massique
+     - m³/h
+   * - **Kv**
+     - Coefficient de débit selon tables IMI TA (interpolé si nécessaire)
+     - m³/h
+   * - **delta_P**
+     - Perte de charge à travers la vanne
+     - Pa
+   * - **rho**
+     - Masse volumique du fluide (calculée via CoolProp)
+     - kg/m³
+   * - **Ti_degC**
+     - Température d'entrée
+     - °C
+   * - **Pi_bar**
+     - Pression d'entrée
+     - bar
+   * - **F_m3h**
+     - Débit volumique
+     - m³/h
+   * - **F_kgs**
+     - Débit massique
+     - kg/s
+   * - **Inlet**
+     - Port d'entrée du fluide
+     - FluidPort
+   * - **Outlet**
+     - Port de sortie du fluide
+     - FluidPort
+
+.. note::
+   Les propriétés thermodynamiques du fluide (densité, viscosité) sont calculées automatiquement via **CoolProp** en fonction de la température et de la pression.
+
+**Conseils de sélection :**
+
+1. **Réseaux primaires (> DN50)** : Préférer STAF, STAF-SG ou STAG
+2. **Réseaux secondaires (DN15-50)** : Utiliser STAD ou STAV
+3. **Unités terminales** : Choisir TBV ou TBV-C
+4. **Équilibrage automatique** : Utiliser STAP ou STAM
+5. **Orifices de mesure** : MDFO pour mesure TA-Scope
+
+**Dimensionnement :**
+
+- Calculer le débit nominal du circuit
+- Sélectionner le DN pour une perte de charge entre **3 et 15 kPa** au débit nominal
+- Vérifier la plage de réglage disponible (nombre de tours)
+- Prévoir une marge pour les ajustements futurs
+
+.. warning::
+   - Ne pas dépasser les limites de température du fluide (typiquement -20°C à +120°C)
+   - Respecter les pressions nominales PN 16/20/25 selon les modèles
+   - Vérifier la compatibilité fluide/matériau (eau glycolée, etc.)
+   - Pour régulateurs (STAP, STAM, STAZ) et orifices fixes (MDFO), utiliser **nb_tours = 0**
+
+Explication du modèle
 -------------------------------------
 
 **Principe du coefficient Kv**
