@@ -29,6 +29,17 @@ Utilisation
     print(f"Flux thermique: {wall.Q:.2f} W")
     print(wall.df)
 
+Résultats ::
+
+  Résistance totale: 2.018 m².K/W
+  Flux thermique: 148.66 W
+     Épaisseur (m)         Matériau  Conductivité (W/m.°C)  Résistance (m².°C/W)  Température entrée (°C)  Température sortie (°C)       Q (W)  A (m²)
+  0            NaN    Air extérieur                    NaN              0.043478               -10.000000                -9.353644  148.661889      10
+  1           0.20  Parpaings creux                   1.40              0.142857                -9.353644                -7.229903  148.661889      10
+  2           0.05      Polystyrène                   0.03              1.666667                -7.229903                17.547079  148.661889      10
+  3           0.02           Plâtre                   0.50              0.040000                17.547079                18.141726  148.661889      10
+  4            NaN    Air intérieur                    NaN              0.125000                18.141726                20.000000  148.661889      10
+
 Le calcul retourne :
 
 - **Résistance thermique totale** (``R_total``) [m²·K/W]
