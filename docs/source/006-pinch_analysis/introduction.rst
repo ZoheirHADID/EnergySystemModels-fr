@@ -1,31 +1,28 @@
-Introduction à l'Analyse Pinch
-==============================
+Analyse Pinch
+=============
 
-Le module ``PinchAnalysis`` permet d'optimiser l'intégration thermique de procédés industriels en identifiant le potentiel de récupération de chaleur.
+Le module ``PinchAnalysis`` optimise la récupération de chaleur entre flux chauds et froids.
 
-Objectif
---------
+Utilisation
+-----------
 
-Minimiser les besoins en :
-* Chauffage externe (chaudières, vapeur)
-* Refroidissement externe (tours aéroréfrigérantes, eau de refroidissement)
+.. code-block:: python
 
-Principe
---------
+   import pandas as pd
+   from PinchAnalysis import PinchAnalysis
 
-À partir de flux chauds (à refroidir) et froids (à chauffer), le module :
-
-1. Calcule le **point Pinch** : température critique où ΔT est minimal
-2. Génère les **courbes composites** : visualisation graphique
-3. Propose un **réseau d'échangeurs** optimal (HEN)
-
-Données d'entrée
-----------------
-
-DataFrame avec les colonnes :
-
-* ``Ti`` : Température initiale [°C]
-* ``To`` : Température finale [°C]
-* ``mCp`` : Débit de capacité thermique [kW/K]
-* ``dTmin2`` : ΔTmin/2 pour chaque flux [K]
-* ``integration`` : True/False (flux à intégrer ou non)
+   # DataFrame requis
+   df = pd.DataFrame({
+       'Ti': [200, 125, 50, 45],      # Température initiale [°C]
+       'To': [50, 45, 250, 195],      # Température finale [°C]
+       'mCp': [3.0, 2.5, 2.0, 4.0],   # Débit capacité [kW/K]
+       'dTmin2': [5, 5, 5, 5],        # ΔTmin/2 [K]
+       'integration': [True, True, True, True]
+   })
+   
+   pinch = PinchAnalysis.Object(df)
+   
+   # Visualisations
+   pinch.plot_composites_curves()
+   pinch.plot_GCC()
+   pinch.graphical_hen_design()

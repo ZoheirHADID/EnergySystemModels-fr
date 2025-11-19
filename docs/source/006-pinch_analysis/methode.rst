@@ -1,95 +1,36 @@
-Utilisation du module
-=====================
+Méthodes disponibles
+====================
 
-Création de l'objet PinchAnalysis
-----------------------------------
-
-.. code-block:: python
-
-   import pandas as pd
-   from PinchAnalysis import PinchAnalysis
-
-   # Données des flux
-   data = {
-       'Ti': [200, 125, 50, 45],      # Température initiale [°C]
-       'To': [50, 45, 250, 195],      # Température finale [°C]
-       'mCp': [3.0, 2.5, 2.0, 4.0],   # Débit capacité [kW/K]
-       'dTmin2': [5, 5, 5, 5],        # ΔTmin/2 [K]
-       'integration': [True, True, True, True]
-   }
-   
-   df = pd.DataFrame(data)
-   
-   # Créer l'objet PinchAnalysis
-   pinch = PinchAnalysis.Object(df)
-
-Méthodes de visualisation
---------------------------
-
-Courbes composites
-~~~~~~~~~~~~~~~~~~
+Visualisations
+--------------
 
 .. code-block:: python
 
-   pinch.plot_composites_curves()
+   pinch.plot_composites_curves()           # Courbes composites
+   pinch.plot_GCC()                          # Grande courbe composite
+   pinch.plot_streams_and_temperature_intervals()  # Flux et intervalles
+   pinch.graphical_hen_design()              # Réseau d'échangeurs
 
-Affiche les courbes composites chaude et froide.
-
-Grande courbe composite (GCC)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-.. code-block:: python
-
-   pinch.plot_GCC()
-
-Affiche le profil énergétique du procédé.
-
-Flux et intervalles de température
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+DataFrames de résultats
+-----------------------
 
 .. code-block:: python
 
-   pinch.plot_streams_and_temperature_intervals()
+   pinch.stream_list                         # Flux avec températures décalées
+   pinch.df_intervals                        # Intervalles de température
+   pinch.df_decomposition_flux               # Décomposition par intervalle
+   pinch.df_surplus_deficit                  # Surplus/déficit énergétique
+   pinch.df_composite_curve                  # Données courbes composites
+   pinch.df_heat_exchange_combinations       # Combinaisons d'échange
 
-Affiche les flux et les intervalles de température décalés.
-
-Réseau d'échangeurs (HEN)
---------------------------
-
-Conception graphique
-~~~~~~~~~~~~~~~~~~~~
-
-.. code-block:: python
-
-   pinch.graphical_hen_design()
-
-Génère une proposition de réseau d'échangeurs de chaleur.
-
-Résultats disponibles
----------------------
-
-DataFrames générés
-~~~~~~~~~~~~~~~~~~
+Attributs calculés
+------------------
 
 .. code-block:: python
 
-   # Flux intégrés avec températures décalées
-   print(pinch.stream_list)
-   
-   # Intervalles de température
-   print(pinch.df_intervals)
-   
-   # Décomposition des flux par intervalle
-   print(pinch.df_decomposition_flux)
-   
-   # Surplus/déficit énergétique
-   print(pinch.df_surplus_deficit)
-   
-   # Courbes composites
-   print(pinch.df_composite_curve)
-   
-   # Combinaisons d'échange possibles
-   print(pinch.df_heat_exchange_combinations)
+   print(f"Point Pinch: {pinch.T_pinch}°C")
+   print(f"Utilité chaude min: {pinch.Qh_min} kW")
+   print(f"Utilité froide min: {pinch.Qc_min} kW")
      - 195
      - 50
      - 200
