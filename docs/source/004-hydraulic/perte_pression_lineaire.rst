@@ -1,19 +1,18 @@
 .. _straight_pipe:
 
-4.1. de la perte de charge linéaire d'un conduit d'eau
-========================================================
+Perte de charge linéaire d'un conduit d'eau
+============================================
 
-4.1.1. Exemple d'utilisation de "StraightPipe"
---------------------------------------------
-
-L'image ci-dessous montre un exemple de tube avec la source et le puits :
+Schéma
+------
 
 .. image:: ../images/004_hydraulic_straight_pipe.png
    :alt: Straight Pipe
    :width: 800px
    :align: center
 
-Le code suivant montre comment utiliser la classe "StraightPipe" pour calculer la perte de charge linéaire d'un conduit d'eau :
+Exemple de code
+---------------
 
 .. code-block:: python
 
@@ -22,244 +21,161 @@ Le code suivant montre comment utiliser la classe "StraightPipe" pour calculer l
     from ThermodynamicCycles.Sink import Sink
     from ThermodynamicCycles.Connect import Fluid_connect
 
+    # Source
     SOURCE = Source.Object()
-    STRAIGHT_PIPE = StraightPipe.Object()
-    STRAIGHT_PIPE2 = StraightPipe.Object()
-    SINK = Sink.Object()
-
     SOURCE.fluid = "water"
     SOURCE.Ti_degC = 25
     SOURCE.Pi_bar = 2
     SOURCE.F_m3h = 8
     SOURCE.calculate()
 
+    # Tuyau droit
+    STRAIGHT_PIPE = StraightPipe.Object()
     STRAIGHT_PIPE.d_hyd = 0.050
     STRAIGHT_PIPE.L = 500
     STRAIGHT_PIPE.K = 0.00002
-
     Fluid_connect(STRAIGHT_PIPE.Inlet, SOURCE.Outlet)
     STRAIGHT_PIPE.calculate()
+
+    # Puits
+    SINK = Sink.Object()
     Fluid_connect(SINK.Inlet, STRAIGHT_PIPE.Outlet)
     SINK.calculate()
 
+    # Affichage
     print(SOURCE.df)
     print(STRAIGHT_PIPE.df)
     print(SINK.df)
 
+Résultats de simulation
+------------------------
 
+**Source** :
 
-Résultats :
------------
+- Fluide : water
+- T_entrée : 25°C
+- P_entrée : 2 bar (200000 Pa)
+- Débit : 8 m³/h = 2.216 kg/s
 
-Source
-------
-.. list-table::
-   :header-rows: 1
+**StraightPipe** :
 
-   * - Timestamp
-     - 2025-02-23 17:32:30
-   * - fluid
-     - water
-   * - Ti_degC
-     - 25.0
-   * - Pi_bar
-     - 2
-   * - F_Sm3h
-     - 8.0
-   * - F_Nm3h
-     - None
-   * - F_m3h
-     - 8.0
-   * - F_kgh
-     - 7976.737
-   * - F_kgs
-     - 2.216
-   * - F_m3s
-     - 0.002
-   * - F_Sm3s
-     - 0.002
+- Diamètre hydraulique : 0.050 m
+- Longueur : 500 m
+- Rugosité : 0.00002 m
+- Section : 0.002 m²
+- Vitesse : 1.132 m/s
+- Reynolds : 63397 (turbulent)
+- **Perte de pression : 136627 Pa** (1.37 bar)
 
-StraightPipe
-------------
-.. list-table::
-   :header-rows: 1
+**Sink** :
 
-   * - Timestamp
-     - None
-   * - fluid
-     - water
-   * - Ti_degC
-     - 25.0
-   * - Inlet.F (kg/s)
-     - 2.216
-   * - Inlet.h (j/kg)
-     - 105011.0
-   * - Outlet.h (j/kg)
-     - 105011.0
-   * - A (m2)
-     - 0.002
-   * - V (m/s)
-     - 1.132
-   * - Re
-     - 63397.0
-   * - delta_P(Pa)
-     - 136626.9
+- P_sortie : 63373 Pa (0.63 bar)
+- Densité : 997.2 kg/m³
+- Qualité fluide : liquide
 
-Sink
-----
-.. list-table::
-   :header-rows: 1
+Paramètres possibles
+--------------------
 
-   * - Timestamp
-     - 2025-02-23 17:32:30
-   * - fluid
-     - water
-   * - F_kgs
-     - 2.216
-   * - Inlet.P(Pa)
-     - 336626.9
-   * - Inlet.h(J/kg)
-     - 105011.0
-   * - H(W)
-     - 232680.0
-   * - fluid_quality
-     - liquid
-   * - Q
-     - -0.220011
-   * - D (kg/m3)
-     - 997.2
-   * - F_Sm3h
-     - 8.0
-   * - F_m3h
-     - 8.0
-   * - F_kgh
-     - 7977.0
+**Source.Object()** :
+
+- ``fluid`` : Nom du fluide (ex: "water", "air", voir CoolProp)
+- ``Ti_degC`` : Température d'entrée [°C]
+- ``Pi_bar`` : Pression d'entrée [bar]
+- Débits possibles :
+  
+  - ``F_m3h`` : Débit volumique [m³/h]
+  - ``F_m3s`` : Débit volumique [m³/s]
+  - ``F_Sm3h`` : Débit volumique standard [Sm³/h]
+  - ``F_Sm3s`` : Débit volumique standard [Sm³/s]
+  - ``F_kgh`` : Débit massique [kg/h]
+  - ``F`` : Débit massique [kg/s]
+
+**StraightPipe.Object()** :
+
+- ``d_hyd`` : Diamètre hydraulique [m]
+- ``L`` : Longueur du tuyau [m]
+- ``K`` : Rugosité absolue [m]
+  
+  - Acier commercial : 0.000045 m
+  - Acier galvanisé : 0.00015 m
+  - Fonte : 0.00026 m
+  - PVC/Plastique : 0.0000015 m
+  - Cuivre : 0.0000015 m
+
+- ``alpha`` : Angle d'inclinaison [rad] (optionnel, défaut: 0)
+- ``Inlet`` : Connecté via ``Fluid_connect()``
+
+**Sink.Object()** :
+
+- ``Inlet`` : Connecté via ``Fluid_connect()``
+- Calcule automatiquement les propriétés de sortie
+
+Explication du modèle
+----------------------
+
+Ce modèle calcule la perte de charge (perte de pression) due aux frottements dans un tuyau droit cylindrique.
+
+**Équations utilisées** :
+
+1. **Nombre de Reynolds** :
+   
+   .. math::
+      Re = \frac{\rho \cdot V \cdot d_{hyd}}{\mu}
+
+2. **Facteur de friction** (Colebrook-White pour écoulement turbulent) :
+   
+   .. math::
+      \frac{1}{\sqrt{f}} = -2 \log_{10}\left(\frac{K/d_{hyd}}{3.7} + \frac{2.51}{Re\sqrt{f}}\right)
+
+3. **Perte de pression** (Darcy-Weisbach) :
+   
+   .. math::
+      \Delta P = f \cdot \frac{L}{d_{hyd}} \cdot \frac{\rho \cdot V^2}{2}
+
+**Types d'écoulement** :
+
+- **Laminaire** (Re < 2300) : f = 64/Re
+- **Turbulent** (Re > 4000) : Équation de Colebrook-White
+- **Transition** (2300 < Re < 4000) : Zone instable
+
+Le modèle prend en compte :
+
+- Les propriétés thermodynamiques du fluide via CoolProp
+- La rugosité de la paroi interne du tuyau
+- La géométrie (diamètre, longueur)
+- L'effet de l'inclinaison (optionnel)
 
 Nomenclature
 ------------
-.. list-table::
-   :header-rows: 1
 
-   * - Parameter
-     - Description
-     - Unité
-   * - Ti_degC
-     - Température d'entrée en degrés Celsius
-     - °C
-   * - Pi_bar
-     - Pression d'entrée en bars
-     - bar
-   * - F_Sm3h
-     - Débit volumétrique standard en mètres cubes par heure
-     - m³/h
-   * - F_Nm3h
-     - Débit volumétrique normal en mètres cubes par heure
-     - m³/h
-   * - F_m3h
-     - Débit volumétrique en mètres cubes par heure
-     - m³/h
-   * - F_kgh
-     - Débit massique en kilogrammes par heure
-     - kg/h
-   * - F_kgs
-     - Débit massique en kilogrammes par seconde
-     - kg/s
-   * - F_m3s
-     - Débit volumétrique en mètres cubes par seconde
-     - m³/s
-   * - F_Sm3s
-     - Débit volumétrique standard en mètres cubes par seconde
-     - m³/s
-   * - Inlet.F
-     - Débit massique à l'entrée en kilogrammes par seconde
-     - kg/s
-   * - Inlet.h
-     - Enthalpie à l'entrée en joules par kilogramme
-     - J/kg
-   * - Outlet.h
-     - Enthalpie à la sortie en joules par kilogramme
-     - J/kg
-   * - A
-     - Section du tube en mètres carrés
-     - m²
-   * - V
-     - Vitesse d'écoulement en mètres par seconde
-     - m/s
-   * - Re
-     - Nombre de Reynolds
-     - -
-   * - delta_P
-     - Perte de pression en pascals
-     - Pa
-   * - Inlet.P
-     - Pression à l'entrée en pascals
-     - Pa
-   * - H
-     - Puissance en watts
-     - W
-   * - fluid_quality
-     - Qualité du fluide
-     - -
-   * - Q
-     - Débit thermique
-     - -
-   * - D
-     - Densité en kilogrammes par mètre cube
-     - kg/m³
-   * - Ti
-     - Température d'entrée en Kelvin
-     - K
-   * - To
-     - Température de sortie en Kelvin
-     - K
-   * - roughness
-     - Rugosité de la surface
-     - m
-   * - d_hyd
-     - Diamètre hydraulique en mètres
-     - m
-   * - L
-     - Longueur en mètres
-     - m
-   * - K
-     - Rugosité en mètres
-     - m
-   * - alpha
-     - Angle d'inclinaison du tube en radians
-     - rad
-   * - delta_Z
-     - Hauteur du tuyau en mètres
-     - m
-   * - delta_H
-     - Perte de pression en mètres
-     - m
-   * - eta
-     - Viscosité dynamique du fluide
-     - Pa·s
-   * - rho
-     - Densité du fluide
-     - kg/m³
-   * - delta_P
-     - Perte de pression due aux frottements
-     - Pa
-   * - diff_P
-     - Différence de pression entre l'entrée et la sortie
-     - Pa
-   * - m_flow
-     - Débit massique en kilogrammes par seconde
-     - kg/s
-   * - perimeter
-     - Périmètre
-     - m
-   * - A
-     - Section du tube en mètres carrés
-     - m²
-   * - V
-     - Vitesse d'écoulement en mètres par seconde
-     - m/s
-   * - Re
-     - Nombre de Reynolds
-     - -
-   * - h
-     - Enthalpie en joules par kilogramme
-     - J/kg
+**Paramètres d'entrée** :
+
+- ``fluid`` : Nom du fluide
+- ``Ti_degC`` : Température d'entrée [°C]
+- ``Pi_bar`` : Pression d'entrée [bar]
+- ``F_m3h`` : Débit volumique [m³/h]
+- ``d_hyd`` : Diamètre hydraulique [m]
+- ``L`` : Longueur [m]
+- ``K`` : Rugosité absolue [m]
+- ``alpha`` : Angle d'inclinaison [rad]
+
+**Résultats calculés** :
+
+- ``A`` : Section du tube [m²]
+- ``V`` : Vitesse d'écoulement [m/s]
+- ``Re`` : Nombre de Reynolds [-]
+- ``f`` : Facteur de friction [-]
+- ``delta_P`` : Perte de pression [Pa]
+- ``rho`` : Densité [kg/m³]
+- ``mu`` (η) : Viscosité dynamique [Pa·s]
+- ``h`` : Enthalpie [J/kg]
+- ``F`` : Débit massique [kg/s]
+
+**Unités de débit** :
+
+- ``F_kgs`` : Débit massique [kg/s]
+- ``F_kgh`` : Débit massique [kg/h]
+- ``F_m3s`` : Débit volumique [m³/s]
+- ``F_m3h`` : Débit volumique [m³/h]
+- ``F_Sm3s`` : Débit volumique standard [Sm³/s]
+- ``F_Sm3h`` : Débit volumique standard [Sm³/h]
