@@ -1,5 +1,5 @@
-Transfert de chaleur - Mur composite
-=====================================
+Mur composite
+=============
 
 Utilisation
 -----------

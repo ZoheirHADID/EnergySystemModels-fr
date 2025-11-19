@@ -1,5 +1,5 @@
-Transfert de chaleur - Corps parallélépipédique
-===============================================
+Corps parallélépipédique
+========================
 
 Utilisation
 -----------
