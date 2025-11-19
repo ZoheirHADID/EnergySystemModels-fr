@@ -65,12 +65,9 @@ Résultats :
      - ~2.26
 
 Paramètres possibles
---------------------------------------
+--------------------
 
-Les vannes d'équilibrage **TA** (Tour & Andersson / IMI Hydronic Engineering) sont des composants essentiels dans les systèmes CVC. Elles permettent l'équilibrage hydraulique des circuits pour garantir les débits nominaux et optimiser la performance énergétique des installations.
-
-4.2.2. Types de vannes TA disponibles
---------------------------------------
+**Types de vannes TA disponibles**
 
 La classe ``TA_Valve`` supporte **plus de 120 références** de vannes d'équilibrage IMI TA :
 
