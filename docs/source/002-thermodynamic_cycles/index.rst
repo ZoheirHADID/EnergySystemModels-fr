@@ -1,11 +1,11 @@
 .. _thermodynamic_cycles:
 
-2. Thermodynamic Cycles Package
-===============================
+2. Cycles thermodynamiques
+===========================
 
 .. toctree::
    :maxdepth: 2
-   :caption: Thermodynamic Cycles:
+   :caption: Cycles thermodynamiques:
 
    nomenclature
    fluid_source
