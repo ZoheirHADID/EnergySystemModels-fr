@@ -1,84 +1,25 @@
-Introduction aux CEE
-====================
+Introduction au Module CEE
+==========================
 
-Les **Certificats d'Économies d'Énergie (CEE)** sont un dispositif français créé par la loi POPE (Programme fixant les Orientations de la Politique Énergétique) de 2005.
+Le module CEE permet de calculer les certificats d'économies d'énergie.
 
-Principe
---------
-
-Le dispositif CEE oblige les fournisseurs d'énergie (électricité, gaz, fioul, carburants...) appelés "obligés" à réaliser des économies d'énergie. Ils peuvent :
-
-1. Inciter leurs clients à réaliser des travaux d'efficacité énergétique
-2. Acheter des certificats à d'autres acteurs
-3. Payer une pénalité libératoire (rare)
-
-Acteurs
+Exemple
 -------
 
-Obligés
-~~~~~~~
+.. code-block:: python
 
-Fournisseurs d'énergie soumis à l'obligation :
+   from CEE.CEE import calcul_CEE
 
-* EDF, Engie, TotalEnergies
-* Distributeurs de carburants
-* Distributeurs de gaz, fioul
+   # Isolation combles
+   kWh_cumac = calcul_CEE(
+       fiche="BAR-EN-101",
+       surface=100,
+       zone="H1",
+       energie_chauffage="electrique"
+   )
 
-Éligibles
-~~~~~~~~~
-
-Entités pouvant obtenir des CEE :
-
-* Collectivités territoriales
-* Bailleurs sociaux
-* ANAH (Agence Nationale de l'Habitat)
-* SEM, SPL
-
-Bénéficiaires
-~~~~~~~~~~~~~
-
-Ceux qui réalisent les travaux :
-
-* Particuliers (résidentiel)
-* Copropriétés
-* Entreprises (tertiaire, industrie)
-* Collectivités
-
-Périodes d'obligation
-----------------------
-
-Le dispositif fonctionne par périodes pluriannuelles :
-
-* **1ère période** : 2006-2009
-* **2ème période** : 2011-2014
-* **3ème période** : 2015-2017
-* **4ème période** : 2018-2021 (objectif : 1 600 TWh cumac)
-* **5ème période** : 2022-2025 (objectif : 2 500 TWh cumac + 730 TWh précarité énergétique)
-
-Unité : le kWh cumac
---------------------
-
-Les économies d'énergie sont comptabilisées en **kWh cumac** (cumulés actualisés) :
-
-* **Cumulés** : économies sur toute la durée de vie du projet
-* **Actualisés** : application d'un taux d'actualisation de 4%/an
-
-Exemple :
-
-* Remplacement chaudière fioul par PAC
-* Économies annuelles : 10 000 kWh/an
-* Durée de vie : 15 ans
-* kWh cumac ≈ 10 000 × 11,5 (coefficient d'actualisation) = **115 000 kWh cumac**
-
-Fiches standardisées
---------------------
-
-Le dispositif propose plus de 200 **fiches d'opérations standardisées** définissant :
-
-* Les critères d'éligibilité
-* Les montants forfaitaires de CEE (en kWh cumac)
-* Les preuves à fournir
-* La durée de vie conventionnelle
+   prime = kWh_cumac * 9.0 / 1000  # Prix marché: 9€/MWh
+   print(f"Prime CEE : {prime:.0f} €")
 
 Exemples de fiches :
 
