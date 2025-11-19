@@ -5,7 +5,7 @@ CTA d'air neuf
 
 L'image ci-dessous montre le schéma de la CTA :
 
-.. image:: ../images/AHUFreshAir.png
+.. image:: ../images/003_ahu_fresh_air.png
    :alt: AHU Fresh Air
    :width: 600px
    :align: center

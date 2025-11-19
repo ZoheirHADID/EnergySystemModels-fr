@@ -1,7 +1,7 @@
 Transfert de chaleur - Mur composite
 =====================================
 
-.. image:: ../images/CompositeWall.png
+.. image:: ../images/001_heat_transfer_composite_wall.png
    :alt: Composite Wall
    :width: 500px
    :align: center

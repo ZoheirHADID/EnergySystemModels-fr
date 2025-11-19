@@ -1,7 +1,7 @@
 Isolation des tuyaux
 ====================
 
-.. image:: ../images/PipeInsulationAnalysis.png
+.. image:: ../images/001_heat_transfer_pipe_insulation.png
    :alt: Pipe Insulation Analysis
    :width: 600px
    :align: center
