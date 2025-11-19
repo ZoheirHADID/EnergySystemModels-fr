@@ -1,6 +1,11 @@
 Transfert de chaleur - Corps parallélépipédique
 ===============================================
 
+.. image:: ../images/PlateHeatTransfer.png
+   :alt: Plate Heat Transfer
+   :width: 400px
+   :align: center
+
 .. code-block:: python
 
   from HeatTransfer import ParallelepipedicBody
