@@ -1,10 +1,10 @@
 .. _pinch_analysis:
 
-6. Analyse Pinch
-================
+6. Analyse de pincement
+========================
 
 .. toctree::
    :maxdepth: 2
-   :caption: Analyse Pinch:
+   :caption: Analyse de pincement:
 
    exemples
