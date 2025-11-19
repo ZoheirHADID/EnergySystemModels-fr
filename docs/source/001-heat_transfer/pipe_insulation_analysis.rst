@@ -1,16 +1,13 @@
 Isolation des tuyaux
 ====================
 
-Schéma
-------
+Utilisation
+-----------
 
 .. image:: ../images/001_heat_transfer_pipe_insulation.png
    :alt: Pipe Insulation Analysis
    :width: 600px
    :align: center
-
-Exemple de code
----------------
 
 .. code-block:: python
 
@@ -36,9 +33,6 @@ Exemple de code
     print(f"Déperditions totales: {pipe.q_total:.2f} W")
     print(f"Température de surface: {pipe.Tc:.2f} °C")
     print(pipe.df)
-
-Résultats de simulation
-------------------------
 
 Le calcul retourne :
 
