@@ -1,13 +1,13 @@
 Transfert de chaleur - Corps parallélépipédique
 ===============================================
 
-Utilisation
------------
-
 .. code-block:: python
 
   from HeatTransfer import ParallelepipedicBody
 
+  # Définir la configuration thermique de chaque face
+  # Tp : température de paroi [°C]
+  # isolated : True si la face est isolée
   thermal_measurements = {
       'top': {'Tp': 60.0, 'isolated': False},
       'bottom': {'Tp': 60.0, 'isolated': False},
@@ -17,28 +17,18 @@ Utilisation
       'right': {'Tp': 60.0, 'isolated': False}
   }
 
+  # Créer l'objet avec dimensions et température ambiante
   objet = ParallelepipedicBody.Object(
-      L=0.6,  # Longueur (m)
-      W=0.8,  # Largeur (m)
-      H=1.5,  # Hauteur (m)
-      Ta=25,  # Température ambiante (°C)
+      L=0.6,  # Longueur [m]
+      W=0.8,  # Largeur [m]
+      H=1.5,  # Hauteur [m]
+      Ta=25,  # Température ambiante [°C]
       faces_config=thermal_measurements
   )
+  
+  # Calculer les transferts de chaleur (convection + rayonnement)
   objet.calculate()
 
-  # Résultats
+  # Accéder aux résultats
   print(f"Transfert total: {objet.get_total_heat_transfer():.2f} W")
-  print(objet.df)
-
-Exemple : Isolation d'une face
--------------------------------
-
-.. math::
-
-  q_{rad} = \sigma \cdot W \cdot L \cdot e \cdot \left((Tp + 273.15)^4 - (Ta + 273.15)^4\right)
-
-### Transfert de chaleur total (q_total)
-
-.. math::
-
-  q_{total} = q_{conv} + q_{rad}
+  print(objet.df)  # DataFrame avec détail par face
