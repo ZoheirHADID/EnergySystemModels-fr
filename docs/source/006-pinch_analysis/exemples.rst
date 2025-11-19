@@ -1,14 +1,12 @@
-Exemples
-=========
-
-Exemple 1 : Cas simple
-----------------------
+Exemple d'utilisation
+=====================
 
 .. code-block:: python
 
    import pandas as pd
    from PinchAnalysis import PinchAnalysis
 
+   # Définition des flux (chauds et froids)
    df = pd.DataFrame({
        'Ti': [200, 125, 50, 45],      
        'To': [50, 45, 250, 195],      
@@ -17,105 +15,18 @@ Exemple 1 : Cas simple
        'integration': [True, True, True, True]
    })
 
+   # Analyse
    pinch = PinchAnalysis.Object(df)
    
+   # Résultats
    print(f"Utilité chaude min: {pinch.Qh_min} kW")
    print(f"Utilité froide min: {pinch.Qc_min} kW")
-   
-   pinch.plot_composites_curves()
-   pinch.graphical_hen_design()
-
-Exemple 2 : Procédé avec 6 flux
---------------------------------
-
-.. code-block:: python
-
-   df = pd.DataFrame({
-       'Ti': [180, 150, 120, 40, 60, 85],
-       'To': [60, 50, 75, 180, 140, 130],
-       'mCp': [4.5, 3.0, 2.5, 3.5, 2.8, 4.0],
-       'dTmin2': [5, 5, 5, 5, 5, 5],
-       'integration': [True, True, True, True, True, True]
-   })
-
-   pinch = PinchAnalysis.Object(df)
    print(pinch.df_surplus_deficit)
-   pinch.plot_GCC()
-
-Exemple 3 : Exclusion de flux
-------------------------------
-
-.. code-block:: python
-
-   df = pd.DataFrame({
-       'Ti': [200, 150, 50, 40],
-       'To': [50, 60, 220, 180],
-       'mCp': [3.0, 2.0, 2.5, 3.5],
-       'dTmin2': [5, 5, 5, 5],
-       'integration': [True, False, True, True]  # Flux 2 exclu
-   })
-
-   pinch = PinchAnalysis.Object(df)
+   
+   # Visualisations
    pinch.plot_composites_curves()
-
-Exemple 4 : Analyse de sensibilité au ΔTmin
---------------------------------------------
-
-.. code-block:: python
-
-   import numpy as np
-   import matplotlib.pyplot as plt
-
-   dTmin_values = np.arange(5, 30, 2.5)
-   Qh_values, Qc_values = [], []
-
-   df_base = pd.DataFrame({
-       'Ti': [200, 125, 50, 45],
-       'To': [50, 45, 250, 195],
-       'mCp': [3.0, 2.5, 2.0, 4.0],
-       'integration': [True, True, True, True]
-   })
-
-   for dTmin in dTmin_values:
-       df_test = df_base.copy()
-       df_test['dTmin2'] = dTmin / 2
-       pinch = PinchAnalysis.Object(df_test)
-       Qh_values.append(pinch.Qh_min)
-       Qc_values.append(pinch.Qc_min)
-
-   plt.plot(dTmin_values, Qh_values, 'ro-', label='Utilité chaude')
-   plt.plot(dTmin_values, Qc_values, 'bo-', label='Utilité froide')
-   plt.xlabel('ΔTmin [°C]')
-   plt.ylabel('Utilités [kW]')
-   plt.legend()
-   plt.show()
-
-Exemple 5 : Export des résultats
----------------------------------
-
-.. code-block:: python
-
-   # Export Excel
-   with pd.ExcelWriter('resultats_pinch.xlsx') as writer:
-       pinch.stream_list.to_excel(writer, sheet_name='Flux')
-       pinch.df_intervals.to_excel(writer, sheet_name='Intervalles')
-       pinch.df_surplus_deficit.to_excel(writer, sheet_name='Bilan')
-   
-   # Export PDF des graphiques
-   from matplotlib.backends.backend_pdf import PdfPages
-   
-   with PdfPages('rapport_pinch.pdf') as pdf:
-       pinch.plot_composites_curves()
-       pdf.savefig()
-       plt.close()
-       
-       pinch.plot_GCC()
-       pdf.savefig()
-       plt.close()
-       
-       pinch.graphical_hen_design()
-       pdf.savefig()
-       plt.close()
+   pinch.plot_GCC()
+   pinch.graphical_hen_design()
    print("\nRéseau d'échangeurs de chaleur :")
    print(hen.df_matches)
 
