@@ -3,77 +3,43 @@
 Fluid Source
 ============
 
-2.1. Modèle Physique et paramètre d'entrée
-------------------------------------------
+Exemple de code
+---------------
 
-Le modèle Fluid Source calcule le débit massique en fonction de diverses conditions d'entrée et des propriétés du fluide. Le modèle utilise la bibliothèque CoolProp pour déterminer les propriétés du fluide et effectue les calculs suivants :
+.. code-block:: python
 
-1. Convertir les débits volumiques en débits massiques en utilisant la densité du fluide.
-2. Calculer l'enthalpie de sortie et déterminer la qualité du fluide (liquide, vapeur, diphasique ou supercritique).
-3. Mettre à jour les propriétés de sortie et générer un DataFrame avec les résultats.
+    from ThermodynamicCycles.Source import Source
 
-Les principales équations utilisées dans le modèle sont :
+    # Créer un objet Source
+    SOURCE = Source.Object()
 
-- Débit massique à partir de mètres cubes standards par heure (Sm³/h) :
+    # Paramètres d'entrée
+    SOURCE.Pi_bar = 1.01325
+    SOURCE.fluid = "air"
+    SOURCE.F = 1
 
-  .. math::
-    \dot{m} = \frac{F_{Sm3h}}{3600} \cdot \rho(P_{std}, T_{std})
+    # Calcul
+    SOURCE.calculate()
 
-- Débit massique à partir de mètres cubes normaux par heure (Nm³/h) :
+    # Résultats
+    print(SOURCE.df)
 
-  .. math::
-    \dot{m} = \frac{F_{Nm3h}}{3600} \cdot \rho(P_{std}, T_{norm})
+Résultats de simulation
+------------------------
 
-- Débit massique à partir de mètres cubes par seconde (m³/s) :
+Le calcul retourne un DataFrame avec :
 
-  .. math::
-    \dot{m} = F_{m3s} \cdot \rho(P_{in}, T_{in})
+- Débit massique [kg/s]
+- Pression d'entrée et de sortie [bar]
+- Température d'entrée [°C]
+- Enthalpie de sortie [J/kg]
+- Qualité du fluide (état : liquide, vapeur, diphasique, supercritique)
+- Propriétés thermodynamiques calculées
 
-- Enthalpie de sortie :
+Paramètres possibles
+--------------------
 
-  .. math::
-    h_{out} = \text{PropsSI}('H', 'P', P_{out}, 'T', T_{in}, \text{fluid})
-
-- Qualité du fluide :
-
-  .. math::
-    Q = 1 - \frac{H_v - h_{out}}{H_v - H_l}
-
-où :
-- :math:`\rho` est la densité du fluide,
-- :math:`P_{std}` et :math:`T_{std}` sont la pression et la température standards,
-- :math:`P_{norm}` et :math:`T_{norm}` sont la pression et la température normales,
-- :math:`P_{in}` et :math:`T_{in}` sont la pression et la température d'entrée,
-- :math:`H_v` et :math:`H_l` sont les enthalpies de la vapeur et du liquide à la pression d'entrée.
-
-Les paramètres d'entrée du modèle sont les suivants :
-
-.. list-table:: 
-   :header-rows: 1
-
-   * - Symbole
-     - Description
-     - Unités SI
-     - Unités utilisées
-   * - Ti_degC
-     - Température d'entrée
-     - K
-     - °C
-   * - fluid
-     - Nom du fluide/frigorigène
-     - String
-     - "air","ammoniac", "R134a",...
-   * - F, F_Sm3s, F_m3s, F_Sm3h, F_m3h, F_kgh
-     - Débit d'entrée
-     - kg/s
-     - kg/s, Sm3/s, m3/s, Sm3/h, m3/h, kg/h
-   * - Pi_bar
-     - Pression d'entrée
-     - Pa
-     - bara
-
-Fluides disponibles dans CoolProp
-----------------------------------
+**Fluides disponibles dans CoolProp**
 
 **Fluides purs courants :**
 
@@ -120,12 +86,8 @@ Fluides disponibles dans CoolProp
 .. note::
    Pour la liste complète des fluides disponibles, consultez la documentation officielle de CoolProp : http://www.coolprop.org/fluid_properties/PurePseudoPure.html
 
-Nomenclature des paramètres
-----------------------------
+**Types de débits disponibles** :
 
-- ``Ti_degC`` : Température d'entrée [°C]
-- ``fluid`` : Nom du fluide/frigorigène (voir liste ci-dessus)
-- ``Pi_bar`` : Pression d'entrée [bara]
 - ``F`` : Débit massique [kg/s]
 - ``F_Sm3s`` : Débit volumique standard [Sm³/s]
 - ``F_m3s`` : Débit volumique [m³/s]
@@ -133,23 +95,73 @@ Nomenclature des paramètres
 - ``F_m3h`` : Débit volumique [m³/h]
 - ``F_kgh`` : Débit massique [kg/h]
 
-2.2. Exemple d'utilisation de "Fluide Source"
----------------------------------------------
+Explication du modèle
+----------------------
 
-.. code-block:: python
+Le modèle Fluid Source calcule le débit massique en fonction de diverses conditions d'entrée et des propriétés du fluide. Le modèle utilise la bibliothèque CoolProp pour déterminer les propriétés du fluide et effectue les calculs suivants :
 
-    from ThermodynamicCycles.Source import Source
+1. Convertir les débits volumiques en débits massiques en utilisant la densité du fluide.
+2. Calculer l'enthalpie de sortie et déterminer la qualité du fluide (liquide, vapeur, diphasique ou supercritique).
+3. Mettre à jour les propriétés de sortie et générer un DataFrame avec les résultats.
 
-    # Créer un objet Source
-    SOURCE = Source.Object()
+Les principales équations utilisées dans le modèle sont :
 
-    # Paramètres d'entrée
-    SOURCE.Pi_bar = 1.01325
-    SOURCE.fluid = "air"
-    SOURCE.F = 1
+- Débit massique à partir de mètres cubes standards par heure (Sm³/h) :
 
-    # Calcul
-    SOURCE.calculate()
+  .. math::
+    \dot{m} = \frac{F_{Sm3h}}{3600} \cdot \rho(P_{std}, T_{std})
 
-    # Résultats
-    print(SOURCE.df)
+- Débit massique à partir de mètres cubes normaux par heure (Nm³/h) :
+
+  .. math::
+    \dot{m} = \frac{F_{Nm3h}}{3600} \cdot \rho(P_{std}, T_{norm})
+
+- Débit massique à partir de mètres cubes par seconde (m³/s) :
+
+  .. math::
+    \dot{m} = F_{m3s} \cdot \rho(P_{in}, T_{in})
+
+- Enthalpie de sortie :
+
+  .. math::
+    h_{out} = \text{PropsSI}('H', 'P', P_{out}, 'T', T_{in}, \text{fluid})
+
+- Qualité du fluide :
+
+  .. math::
+    Q = 1 - \frac{H_v - h_{out}}{H_v - H_l}
+
+où :
+
+- :math:`\rho` est la densité du fluide,
+- :math:`P_{std}` et :math:`T_{std}` sont la pression et la température standards,
+- :math:`P_{norm}` et :math:`T_{norm}` sont la pression et la température normales,
+- :math:`P_{in}` et :math:`T_{in}` sont la pression et la température d'entrée,
+- :math:`H_v` et :math:`H_l` sont les enthalpies de la vapeur et du liquide à la pression d'entrée.
+
+Nomenclature
+------------
+
+.. list-table:: 
+   :header-rows: 1
+
+   * - Symbole
+     - Description
+     - Unités SI
+     - Unités utilisées
+   * - Ti_degC
+     - Température d'entrée
+     - K
+     - °C
+   * - fluid
+     - Nom du fluide/frigorigène
+     - String
+     - "air","ammoniac", "R134a",...
+   * - F, F_Sm3s, F_m3s, F_Sm3h, F_m3h, F_kgh
+     - Débit d'entrée
+     - kg/s
+     - kg/s, Sm3/s, m3/s, Sm3/h, m3/h, kg/h
+   * - Pi_bar
+     - Pression d'entrée
+     - Pa
+     - bara
