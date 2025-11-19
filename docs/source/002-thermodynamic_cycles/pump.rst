@@ -89,15 +89,98 @@ Exemple complet
    # Tracer la courbe caractéristique
    PUMP.plot_pump_curve()
 
-Calculs
--------
+
+Résultats disponibles
+~~~~~~~~~~~~~~~~~~~~~
+
+Après calcul, le module fournit :
+
+.. code-block:: python
+
+   print("Débit volumique     :", PUMP.F_m3h, "m³/h")
+   print("Hauteur manométrique:", PUMP.hmt, "m")
+   print("Différence pression :", PUMP.delta_p, "Pa")
+   print("Rendement           :", PUMP.eta)
+   print("Puissance électrique:", PUMP.Q_pump/1000, "kW")
+
+Le DataFrame ``PUMP.df`` contient toutes les informations :
+
+* ``pump_fluid`` : Fluide utilisé
+* ``pump_F_kgs`` : Débit massique [kg/s]
+* ``pump_F_m3h`` : Débit volumique [m³/h]
+* ``hmt(m)`` : Hauteur manométrique [m]
+* ``delta_p (Pa)`` : Différence de pression [Pa]
+* ``Qpump(KW)`` : Puissance électrique [kW]
+* ``self.eta`` : Rendement [-]
+
+Visualisation de la courbe
+---------------------------
+
+Méthode plot_pump_curve()
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Le module génère automatiquement la courbe caractéristique de la pompe avec :
+
+* Courbe H(Q) en orange (axe gauche)
+* Courbe η(Q) en bleu (axe droite)
+* Point de fonctionnement en rouge
+* Conversion automatique hauteur ↔ pression (bar)
+
+.. code-block:: python
+
+   PUMP.plot_pump_curve(figsize=(10, 6))
+
+Le graphique affiche :
+
+* Degré du polynôme utilisé
+* RMSE (Root Mean Square Error)
+* R² (coefficient de détermination)
+* Point de fonctionnement avec lignes de référence
+
+Calculs internes
+----------------
+
+Régression polynomiale
+~~~~~~~~~~~~~~~~~~~~~~
+
+Le module utilise ``scikit-learn`` pour générer les modèles :
+
+.. code-block:: python
+
+   from sklearn.preprocessing import PolynomialFeatures
+   from sklearn.linear_model import LinearRegression
+
+   # Degré automatique : nb_points - 1
+   nb_degree = len(X_F) - 1
+   polynomial_features = PolynomialFeatures(degree=nb_degree)
+   
+   # Modèle hauteur manométrique
+   model_hmt = LinearRegression()
+   model_hmt.fit(X_transformed, Y_hmt)
+   
+   # Modèle rendement
+   model_eta = LinearRegression()
+   model_eta.fit(X_transformed, Y_eta)
+
+Puissance électrique
+~~~~~~~~~~~~~~~~~~~~
+
+.. math::
+
+   P_{électrique} = \\frac{Q \\cdot \\Delta P}{\\eta}
+
+où :
+
+* Q : débit volumique [m³/s]
+* ΔP : différence de pression [Pa]
+* η : rendement [-]
 
 Hauteur manométrique
 ~~~~~~~~~~~~~~~~~~~~
 
 .. math::
 
-   H = \\frac{\\Delta P}{\\rho \\cdot g}
+   H_{mt} = \\frac{\\Delta P}{\\rho \\cdot g}
 
 où :
 
@@ -105,90 +188,121 @@ où :
 * ρ : masse volumique du fluide [kg/m³]
 * g : accélération de la pesanteur (9.81 m/s²)
 
-Puissance hydraulique
-~~~~~~~~~~~~~~~~~~~~~
+Applications
+------------
 
-.. math::
+Exemple avec pression imposée
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-   P_{hydraulique} = \\rho \\cdot g \\cdot Q \\cdot H
+Calcul automatique du débit pour atteindre une pression de refoulement :
 
-où Q est le débit volumique [m³/s].
+.. code-block:: python
 
-Puissance électrique
-~~~~~~~~~~~~~~~~~~~~
+   # Configuration source
+   SOURCE.Ti_degC = 15
+   SOURCE.Pi_bar = 1.5
+   SOURCE.fluid = "water"
+   # Ne pas spécifier F_m3h pour la source
+   SOURCE.calculate()
 
-.. math::
+   # Pompe avec pression imposée
+   PUMP.Pdischarge_bar = 4.0  # Objectif : 4 bar refoulement
+   PUMP.X_F = [5, 20, 35, 50]
+   PUMP.Y_hmt = [50, 45, 35, 20]
+   PUMP.Y_eta = [0.5, 0.75, 0.7, 0.5]
+   
+   Fluid_connect(PUMP.Inlet, SOURCE.Outlet)
+   PUMP.calculate()
+   
+   print(f"Débit calculé : {PUMP.F_m3h:.2f} m³/h")
+   print(f"Point de fonctionnement trouvé")
 
-   P_{électrique} = \\frac{P_{hydraulique}}{\\eta}
+La méthode ``calculate_flow_rate()`` utilise une minimisation numérique pour trouver le débit correspondant.
 
-Sélection de pompe
-------------------
+Optimisation énergétique
+-------------------------
 
-Point de fonctionnement
-~~~~~~~~~~~~~~~~~~~~~~~~
+Sélection du meilleur point de fonctionnement
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Le point de fonctionnement d'une pompe est déterminé par l'intersection entre :
+Pour minimiser la consommation, choisir un débit proche du rendement maximal :
 
-1. **Courbe de la pompe** H(Q)
-2. **Courbe du réseau** (pertes de charge)
+.. code-block:: python
+
+   # Analyse de la courbe pour trouver le débit optimal
+   import numpy as np
+   
+   # Créer des points de test
+   debits_test = np.linspace(PUMP.x_new_min, PUMP.x_new_max, 100)
+   
+   # Évaluer le rendement pour chaque débit
+   rendements = []
+   for debit in debits_test:
+       F_array = np.array([[debit]])
+       F_transformed = PUMP.polynomial_features.transform(F_array)
+       eta = PUMP.model_eta.predict(F_transformed)[0][0]
+       rendements.append(eta)
+   
+   # Trouver le débit optimal
+   idx_optimal = np.argmax(rendements)
+   debit_optimal = debits_test[idx_optimal]
+   eta_max = rendements[idx_optimal]
+   
+   print(f"Débit optimal     : {debit_optimal:.1f} m³/h")
+   print(f"Rendement maximal : {eta_max*100:.1f}%")
 
 Variateur de vitesse
 ~~~~~~~~~~~~~~~~~~~~
 
-L'utilisation d'un variateur de vitesse permet d'adapter le point de fonctionnement selon les besoins :
-
-* Réduction de la vitesse → débit et hauteur réduits
-* Économies d'énergie proportionnelles au cube de la vitesse
+La loi de similitude des pompes permet d'estimer les performances à vitesse réduite :
 
 .. math::
 
-   P_{nouvelle} = P_{nominale} \\cdot \\left(\\frac{N_{nouvelle}}{N_{nominale}}\\right)^3
+   \\frac{Q_2}{Q_1} = \\frac{N_2}{N_1}
 
-Application avec variateur
----------------------------
+   \\frac{H_2}{H_1} = \\left(\\frac{N_2}{N_1}\\right)^2
 
-Économies d'énergie
-~~~~~~~~~~~~~~~~~~~
+   \\frac{P_2}{P_1} = \\left(\\frac{N_2}{N_1}\\right)^3
 
-.. code-block:: python
+où :
 
-   # Pompe à vitesse nominale
-   PUMP_nominal = Pump.Object()
-   PUMP_nominal.head = 30
-   PUMP_nominal.eta = 0.75
-   SOURCE.F_m3h = 50
-   SOURCE.calculate()
-   Fluid_connect(PUMP_nominal.Inlet, SOURCE.Outlet)
-   PUMP_nominal.calculate()
-   P_nominal = PUMP_nominal.P_electrique
+* N : vitesse de rotation
+* Q : débit
+* H : hauteur manométrique  
+* P : puissance
 
-   # Pompe avec variateur (70% de la vitesse)
-   speed_ratio = 0.70
-   PUMP_reduced = Pump.Object()
-   PUMP_reduced.head = 30 * speed_ratio**2  # Loi de similitude
-   PUMP_reduced.eta = 0.73  # Rendement légèrement réduit
-   SOURCE.F_m3h = 50 * speed_ratio
-   SOURCE.calculate()
-   Fluid_connect(PUMP_reduced.Inlet, SOURCE.Outlet)
-   PUMP_reduced.calculate()
-   P_reduced = PUMP_reduced.P_electrique
+Limites et précautions
+----------------------
 
-   # Économies
-   savings_W = P_nominal - P_reduced
-   savings_percent = (savings_W / P_nominal) * 100
+Plage de validité
+~~~~~~~~~~~~~~~~~
 
-   print(f"Puissance nominale : {P_nominal/1000:.2f} kW")
-   print(f"Puissance réduite : {P_reduced/1000:.2f} kW")
-   print(f"Économies : {savings_W/1000:.2f} kW ({savings_percent:.1f}%)")
+La corrélation polynomiale n'est valable que dans la plage définie par ``X_F`` :
 
-Résultat typique :
+* En dehors de cette plage, l'extrapolation peut être imprécise
+* Le module calcule jusqu'à 105% du débit maximum fourni
+* Pour une meilleure précision, fournir des points sur toute la plage d'utilisation
 
-* Réduction vitesse de 30% (70% vitesse nominale)
-* Économies d'environ 65% de puissance (loi du cube)
+Qualité du modèle
+~~~~~~~~~~~~~~~~~
+
+Le coefficient R² indique la qualité de l'ajustement :
+
+* R² > 0.95 : excellent
+* R² > 0.90 : bon
+* R² < 0.90 : vérifier les points caractéristiques
+
+Cavitation
+~~~~~~~~~~
+
+Attention à la NPSH (Net Positive Suction Head) disponible :
+
+* Si pression aspiration trop faible → cavitation
+* Vérifier : NPSH disponible > NPSH requise
 
 Références
 ----------
 
 * Norme ISO 9906 : Pompes rotodynamiques - Essais de performance
-* Lois de similitude des pompes
-* Catalogs constructeurs (Grundfos, Wilo, KSB)
+* Catalogues constructeurs (Grundfos, Wilo, KSB)
+* Documentation scikit-learn pour la régression polynomiale
