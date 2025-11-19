@@ -34,6 +34,52 @@ Utilisation
     print(f"Température de surface: {pipe.Tc:.2f} °C")
     print(pipe.df)
 
+Résultats ::
+
+  Déperditions totales: 8050.03 W
+  Température de surface: 28.87 °C
+                                                           0
+  Fluid                                                water
+  Regime                                           turbulent
+  T_fluid (°C)                                            70
+  v (m/s)                                           1.080789
+  F_m3h (m3/h)                                            20
+  DN                                                    80.0
+  di (m)                                              0.0809
+  de (m)                                              0.0889
+  L_tube (m)                                             500
+  Material                                             Acier
+  Insulation                                  laine minérale
+  Insulation Thickness (m)                              0.04
+  Emissivity                                            0.01
+  Tamb (°C)                                               20
+  Humidity (%)                                            40
+  Flow Regime                                      turbulent
+  Tc (°C)                                          28.868999
+  Tf (°C)                                          24.434499
+  Outer Diameter with Insulation (m)                  0.1689
+  Prandtl Number (Pr)                               2.562899
+  External Surface Area (m²)                      265.307276
+  Rayleigh Number                             4226671.100079
+  Nusselt Number                                   21.942496
+  Average Heat Transfer Coefficient (W/m².K)        3.361376
+  Convective Heat Transfer (W)                   7909.350594
+  Radiative Heat Transfer (W)                      140.67688
+  Total Heat Transfer (W)                        8050.027474
+  Convective Resistance (K/W)                       0.001121
+  Radiative Resistance (K/W)                        0.063045
+  Equivalent Resistance (K/W)                       0.001102
+  Internal Surface Area (m²)                      127.077315
+  Reynolds Number (Re_fluid)                   211849.962282
+  velocity (m/s)                                    1.080789
+  Nusselt Number (self.Nu_fluid)                  611.002747
+  Heat Transfer Coefficient (self.h_fluid)       4982.869046
+  Internal Convective Resistance (K/W)              0.000002
+  Internal Wall Temperature (°C)                   69.987287
+  External Wall Temperature (°C)                   69.982454
+  Insulation Temperature (°C)                      28.868999
+  Conductive Resistance of Bare Tube (K/W)          0.000001
+
 Le calcul retourne :
 
 - **Déperditions thermiques totales** (``q_total``) [W]
