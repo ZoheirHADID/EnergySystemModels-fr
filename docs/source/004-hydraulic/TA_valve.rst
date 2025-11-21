@@ -53,10 +53,10 @@ Résultats ::
   Débit (m3/h)                      40.0
   Nombre de tours                    3.8
   Diamètre nominal (DN)       STAF-DN100
-  Kv                               65.37
-  Pression d'entrée (Pa)        300000.0
-  Perte de charge (Pa)      37516.234589
-  Pression de sortie (Pa)  262483.765411
+  Kv                                55.4
+  Pression d'entrée (Pa)   252131.527845
+  Perte de charge (Pa)      52131.527845
+  Pression de sortie (Pa)       200000.0
 
 **Courbe de réseau de la vanne :**
 
