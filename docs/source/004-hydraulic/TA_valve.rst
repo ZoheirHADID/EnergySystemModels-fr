@@ -19,6 +19,7 @@ Utilisation
 
     from ThermodynamicCycles.Hydraulic import TA_Valve
     from ThermodynamicCycles.Source import Source
+    from ThermodynamicCycles.Sink import Sink
     from ThermodynamicCycles.Connect import Fluid_connect
 
     # Configuration de la source d'eau
@@ -26,34 +27,36 @@ Utilisation
     SOURCE.Ti_degC = 25           # Température d'entrée : 25°C
     SOURCE.Pi_bar = 3.0           # Pression d'entrée : 3 bar
     SOURCE.fluid = "Water"        # Fluide : eau
-    SOURCE.F_m3h = 70             # Débit : 70 m³/h
+    SOURCE.F_m3h = 40             # Débit : 40 m³/h
     SOURCE.calculate()
 
     # Configuration de la vanne STAF-DN100
-    vanne = TA_Valve.Object()
-    vanne.dn = "STAF-DN100"       # Type : STAF-DN100 (bride fonte, PN 16/25)
-    vanne.nb_tours = 4.3          # Ouverture : 4.3 tours (interpolation auto)
-    Fluid_connect(vanne.Inlet, SOURCE.Outlet) 
-    vanne.calculate()
+    VALVE = TA_Valve.Object()
+    VALVE.dn = "STAF-DN100"       # Type : STAF-DN100 (bride fonte, PN 16/25)
+    VALVE.nb_tours = 3.8          # Ouverture : 3.8 tours (interpolation auto)
+    Fluid_connect(VALVE.Inlet, SOURCE.Outlet)
+    VALVE.calculate()
+
+    # Configuration du puits (sink)
+    SINK = Sink.Object()
+    Fluid_connect(VALVE.Outlet, SINK.Inlet)
+    SINK.Po_bar = 2.0
+    SINK.calculate()
 
     # Affichage des résultats
-    print(vanne.df)
-    print(f"Pression sortie: {vanne.Outlet.P:.2f} Pa")
-    print(f"Perte de charge: {vanne.delta_P:.2f} Pa")
+    print(VALVE.df)
+    VALVE.Plot()
 
 Résultats ::
 
                              
-  Débit (m3/h)                      70.0
-  Nombre de tours                    4.3
+  Débit (m3/h)                      40.0
+  Nombre de tours                    3.8
   Diamètre nominal (DN)       STAF-DN100
-  Kv                               81.42
+  Kv                               65.37
   Pression d'entrée (Pa)        300000.0
-  Perte de charge (Pa)      73915.221715
-  Pression de sortie (Pa)  226084.778285
-  
-  Pression sortie: 226084.78 Pa
-  Perte de charge: 73915.22 Pa
+  Perte de charge (Pa)      37516.234589
+  Pression de sortie (Pa)  262483.765411
 
 Paramètres possibles
 --------------------
