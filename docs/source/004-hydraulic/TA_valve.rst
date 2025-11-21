@@ -58,6 +58,13 @@ Résultats ::
   Perte de charge (Pa)      37516.234589
   Pression de sortie (Pa)  262483.765411
 
+**Courbe de réseau de la vanne :**
+
+.. image:: ../images/004_TA_valve-courbe-reseau.png
+   :alt: Courbe de réseau vanne TA
+   :width: 800px
+   :align: center
+
 Paramètres possibles
 --------------------
 
