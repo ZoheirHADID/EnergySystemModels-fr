@@ -47,6 +47,12 @@ Utilisation
     print(VALVE.df)
     VALVE.Plot()
 
+.. note::
+   Le **Puits (Sink)** impose sa pression de sortie (2.0 bar = 200000 Pa) à la vanne. 
+   La pression d'entrée de la vanne est donc **recalculée automatiquement** en fonction de la perte de charge :
+   
+   P_entrée = P_sortie + ΔP = 200000 Pa + 52131.53 Pa = 252131.53 Pa
+
 Résultats ::
 
                              
