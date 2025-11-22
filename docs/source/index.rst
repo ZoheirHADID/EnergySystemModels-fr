@@ -3,6 +3,8 @@
 
 Bienvenue dans la documentation de la bibliothèque EnergySystemModels !
 
+**Développée par Zoheir HADID**
+
 Objectif et approche
 --------------------
 
