@@ -44,6 +44,9 @@ Utilisation
     print(STRAIGHT_PIPE.df)
     print(SINK.df)
 
+    # Tracer la courbe de réseau avec le point de fonctionnement
+    STRAIGHT_PIPE.Plot()
+
 **Source** :
 
 - Fluide : water
@@ -66,6 +69,13 @@ Utilisation
 - P_sortie : 63373 Pa (0.63 bar)
 - Densité : 997.2 kg/m³
 - Qualité fluide : liquide
+
+**Courbe de réseau :**
+
+.. image:: ../images/004_hydraulic_straight_pipe_courbe_reseau.png
+   :alt: Courbe de réseau du tuyau droit
+   :width: 800px
+   :align: center
 
 Paramètres possibles
 --------------------
