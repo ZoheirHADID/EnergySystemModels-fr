@@ -10,6 +10,146 @@ Import du module
 
    from AHU.air_humide import air_humide
 
+
+Équations ASHRAE utilisées
+---------------------------
+
+Équation de la pression de vapeur saturée (Hyland et Wexler, 1983)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Le module utilise les équations ASHRAE Handbook—Fundamentals (2013), Chapitre 1 - Psychrometrics, équations (5) et (6), basées sur les travaux de Hyland et Wexler (1983).
+
+**Pour les températures inférieures à 0°C** (valable entre -100°C et 0°C) :
+
+.. math::
+
+   P_{v,sat} = \exp\left(\frac{C_1}{T_k} + C_2 + C_3 \cdot T_k + C_4 \cdot T_k^2 + C_5 \cdot T_k^3 + C_6 \cdot T_k^4 + C_7 \cdot \ln(T_k)\right)
+
+**Pour les températures supérieures ou égales à 0°C** (valable entre 0°C et 200°C) :
+
+.. math::
+
+   P_{v,sat} = \exp\left(\frac{C_8}{T_k} + C_9 + C_{10} \cdot T_k + C_{11} \cdot T_k^2 + C_{12} \cdot T_k^3 + C_{13} \cdot \ln(T_k)\right)
+
+Où :
+
+- :math:`P_{v,sat}` = pression de vapeur saturée (Pa)
+- :math:`T_k` = température absolue (K) = °C + 273.15
+
+**Constantes pour T < 0°C :**
+
+- :math:`C_1 = -5.6745359 \times 10^3`
+- :math:`C_2 = 6.3925247 \times 10^0`
+- :math:`C_3 = -9.677843 \times 10^{-3}`
+- :math:`C_4 = 6.2215701 \times 10^{-7}`
+- :math:`C_5 = 2.0747825 \times 10^{-9}`
+- :math:`C_6 = -9.484024 \times 10^{-13}`
+- :math:`C_7 = 4.1635019 \times 10^0`
+
+**Constantes pour T ≥ 0°C :**
+
+- :math:`C_8 = -5.8002206 \times 10^3`
+- :math:`C_9 = 1.3914993 \times 10^0`
+- :math:`C_{10} = -4.8640239 \times 10^{-2}`
+- :math:`C_{11} = 4.1764768 \times 10^{-5}`
+- :math:`C_{12} = -1.4452093 \times 10^{-8}`
+- :math:`C_{13} = 6.5459673 \times 10^0`
+
+**Implémentation dans le code :**
+
+.. code-block:: python
+
+   def Air_Pv_sat(T_db):
+       # Constantes pour T < 0°C
+       C1 = -5.6745359 * 10 ** 3
+       C2 = 6.3925247 * 10 ** 0
+       C3 = -9.677843 * 10 ** (-3)
+       C4 = 6.2215701 * 10 ** (-7)
+       C5 = 2.0747825 * 10 ** (-9)
+       C6 = -9.484024 * 10 ** (-13)
+       C7 = 4.1635019 * 10 ** (0)
+       
+       # Constantes pour T ≥ 0°C
+       C8 = -5.8002206 * 10 ** (3)
+       C9 = 1.3914993 * 10 ** (0)
+       C10 = -4.8640239 * 10 ** (-2)
+       C11 = 4.1764768 * 10 ** (-5)
+       C12 = -1.4452093 * 10 ** (-8)
+       C13 = 6.5459673 * 10 ** (0)
+
+       Tk = T_db + 273.15
+
+       if T_db < 0:  # valable entre -100 et 0 °C
+           Pv_sat = exp(C1 / Tk + C2 + C3 * Tk + C4 * Tk ** 2 + 
+                       C5 * Tk ** 3 + C6 * Tk ** 4 + C7 * log(Tk))
+       else:  # valable entre 0 et 200 °C
+           Pv_sat = exp(C8 / Tk + C9 + C10 * Tk + C11 * Tk ** 2 + 
+                       C12 * Tk ** 3 + C13 * log(Tk))
+
+       return Pv_sat
+
+
+Autres équations fondamentales
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+**Humidité absolue (rapport de mélange) :**
+
+.. math::
+
+   w = 0.62198 \cdot \frac{P_v}{P - P_v} \cdot 1000
+
+Où :
+
+- :math:`w` = humidité absolue (g/kg d'air sec)
+- :math:`P_v` = pression partielle de vapeur d'eau (Pa)
+- :math:`P` = pression atmosphérique totale (Pa, par défaut 101325 Pa)
+
+**Pression partielle de vapeur d'eau :**
+
+.. math::
+
+   P_v = P_{v,sat} \cdot \frac{RH}{100}
+
+Où :math:`RH` = humidité relative (%)
+
+**Enthalpie de l'air humide :**
+
+.. math::
+
+   h = 1.006 \cdot T_{db} + \frac{w}{1000} \cdot (2501 + 1.0805 \cdot T_{db})
+
+Où :
+
+- :math:`h` = enthalpie (kJ/kg d'air sec)
+- :math:`T_{db}` = température de bulbe sec (°C)
+- :math:`w` = humidité absolue (g/kg d'air sec)
+
+**Masse volumique de l'air humide :**
+
+.. math::
+
+   \rho_{humide} = \frac{(\rho_a \cdot R_a + \rho_v \cdot R_v)}{R_{ah}}
+
+Où :
+
+.. math::
+
+   R_{ah} = \frac{R_a}{1 - \frac{RH}{100} \cdot \frac{P_{v,sat}}{P} \cdot (1 - \frac{R_a}{R_v})}
+
+Avec :
+
+- :math:`R_a = 287.66` J/(kg·K) = constante des gaz pour l'air sec
+- :math:`R_v = 461` J/(kg·K) = constante des gaz pour la vapeur d'eau
+- :math:`\rho_a = \frac{P - P_v}{R_a \cdot T_k}` = masse volumique de l'air sec
+- :math:`\rho_v = \frac{P_v}{R_v \cdot T_k}` = masse volumique de la vapeur d'eau
+
+**Volume spécifique :**
+
+.. math::
+
+   v = \frac{1}{\rho}
+
+
 Fonctions disponibles
 ---------------------
 
