@@ -10,4 +10,5 @@
 
    air_humide
    cta_air_neuf
+   generic_ahu
    nomenclature
