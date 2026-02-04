@@ -1,12 +1,22 @@
 .. _quickstart:
 
+=============================
 Guide de Démarrage Rapide
-==========================
+=============================
 
-Ce guide vous permet de commencer à utiliser EnergySystemModels en quelques minutes.
+Ce guide vous permet de commencer à utiliser **EnergySystemModels** en quelques minutes.
+
+.. contents:: Sommaire
+   :local:
+   :depth: 2
+
+----
 
 Installation
-------------
+============
+
+Méthode standard
+----------------
 
 Installez la bibliothèque via pip :
 
@@ -14,28 +24,52 @@ Installez la bibliothèque via pip :
 
    pip install energysystemmodels
 
-Ou dans un environnement virtuel :
+Environnement virtuel (recommandé)
+-----------------------------------
 
 .. code-block:: console
 
-   (.venv) $ pip install energysystemmodels
+   # Créer un environnement virtuel
+   python -m venv .venv
+   
+   # Activer l'environnement (Windows)
+   .venv\Scripts\activate
+   
+   # Activer l'environnement (Linux/Mac)
+   source .venv/bin/activate
+   
+   # Installer la bibliothèque
+   pip install energysystemmodels
+
+.. tip::
+   L'utilisation d'un environnement virtuel est recommandée pour éviter les conflits de dépendances.
+
+----
 
 Principe d'utilisation
-----------------------
+======================
 
-EnergySystemModels suit un modèle de programmation orienté objet simple et cohérent :
+EnergySystemModels suit un modèle de programmation **orienté objet** simple et cohérent.
 
-1. **Créer un objet** représentant un composant énergétique
-2. **Définir les paramètres d'entrée** (températures, pressions, débits, etc.)
-3. **Appeler la méthode calculate()** pour effectuer les calculs
-4. **Accéder aux résultats** via les attributs de l'objet ou le DataFrame
+Workflow en 4 étapes
+---------------------
+
+.. admonition:: Workflow standard
+   :class: note
+
+   1. **Créer un objet** représentant un composant énergétique
+   2. **Définir les paramètres d'entrée** (températures, pressions, débits, etc.)
+   3. **Appeler la méthode calculate()** pour effectuer les calculs
+   4. **Accéder aux résultats** via les attributs de l'objet ou le DataFrame
 
 Exemple simple
-~~~~~~~~~~~~~~
+--------------
 
 Voici un exemple minimal pour illustrer le principe :
 
 .. code-block:: python
+   :linenos:
+   :emphasize-lines: 4,7-9,12,15-17
 
    from HeatTransfer import CompositeWall
 
@@ -55,87 +89,212 @@ Voici un exemple minimal pour illustrer le principe :
    print(f"Flux thermique : {wall.Q:.2f} W")
    print(wall.df)  # DataFrame avec tous les résultats
 
+.. seealso::
+   Pour plus d'exemples, consultez :doc:`usage`
+
+----
+
 Modules disponibles
--------------------
+===================
 
 La bibliothèque est organisée en modules thématiques :
 
-**Transfert de chaleur**
-  Calculs thermiques pour murs, tuyauteries, échangeurs
+Transfert thermique
+-------------------
 
-**Cycles thermodynamiques**
-  Modélisation de cycles frigorifiques, pompes à chaleur, compresseurs
+.. list-table::
+   :widths: 30 70
+   :header-rows: 0
 
-**Centrales de traitement d'air (CTA)**
-  Simulation complète de CTA avec batteries, humidification, récupération
+   * - **Transfert de chaleur**
+     - Calculs thermiques pour murs, tuyauteries, échangeurs
 
-**Hydraulique**
-  Calculs de pertes de charge, dimensionnement de pompes et vannes
+Systèmes thermodynamiques
+--------------------------
 
-**Analyse énergétique**
-  Analyse Pinch, IPMVP, optimisation d'intégration thermique
+.. list-table::
+   :widths: 30 70
+   :header-rows: 0
 
-**Données météo**
-  Récupération de données climatiques en temps réel ou historiques
+   * - **Cycles thermodynamiques**
+     - Modélisation de cycles frigorifiques, pompes à chaleur, compresseurs
 
-**Production solaire**
-  Simulation de production photovoltaïque
+Systèmes HVAC
+-------------
 
-**Facturation**
-  Calcul du TURPE, certificats d'économies d'énergie (CEE)
+.. list-table::
+   :widths: 30 70
+   :header-rows: 0
+
+   * - **Centrales de traitement d'air (CTA)**
+     - Simulation complète de CTA avec batteries, humidification, récupération
+   * - **Hydraulique**
+     - Calculs de pertes de charge, dimensionnement de pompes et vannes
+
+Optimisation énergétique
+-------------------------
+
+.. list-table::
+   :widths: 30 70
+   :header-rows: 0
+
+   * - **Analyse énergétique**
+     - Analyse Pinch, IPMVP, optimisation d'intégration thermique
+
+Données et production
+----------------------
+
+.. list-table::
+   :widths: 30 70
+   :header-rows: 0
+
+   * - **Données météo**
+     - Récupération de données climatiques en temps réel ou historiques
+   * - **Production solaire**
+     - Simulation de production photovoltaïque
+
+Facturation et certificats
+---------------------------
+
+.. list-table::
+   :widths: 30 70
+   :header-rows: 0
+
+   * - **Facturation**
+     - Calcul du TURPE, certificats d'économies d'énergie (CEE)
+
+----
 
 Unités et conventions
----------------------
+=====================
 
-Les unités par défaut sont :
+.. important::
+   Toutes les entrées et sorties utilisent le Système International (SI) avec ces unités par défaut :
 
-- **Température** : °C
-- **Pression** : bar
-- **Débit massique** : kg/s
-- **Débit volumique** : m³/h
-- **Puissance** : kW
-- **Énergie** : kWh
+.. list-table::
+   :widths: 40 30 30
+   :header-rows: 1
+   :class: striped
+
+   * - Grandeur physique
+     - Unité
+     - Symbole
+   * - Température
+     - Degré Celsius
+     - °C
+   * - Pression
+     - Bar
+     - bar
+   * - Débit massique
+     - Kilogramme par seconde
+     - kg/s
+   * - Débit volumique
+     - Mètre cube par heure
+     - m³/h
+   * - Puissance
+     - Kilowatt
+     - kW
+   * - Énergie
+     - Kilowatt-heure
+     - kWh
+
+.. warning::
+   Ne mélangez pas les unités (par exemple °C et K, ou bar et Pa) dans les calculs.
+
+----
 
 Structure des résultats
------------------------
+========================
 
-Les résultats sont accessibles de deux manières :
+Les résultats sont accessibles de **deux manières** :
 
-**Via les attributs de l'objet :**
+Méthode 1 : Attributs de l'objet
+----------------------------------
+
+Accès direct aux propriétés calculées :
 
 .. code-block:: python
 
+   from ThermodynamicCycles.Source import Source
+   
    source = Source.Object()
    source.Pi_bar = 5.0
    source.fluid = "R134a"
    source.calculate()
    
-   print(source.h_outlet)  # Accès direct à l'enthalpie
-   print(source.T_outlet)  # Accès direct à la température
+   # Accès direct
+   print(source.h_outlet)  # Enthalpie
+   print(source.T_outlet)  # Température
 
-**Via un DataFrame pandas :**
+Méthode 2 : DataFrame pandas
+-----------------------------
+
+Accès tabulaire pour analyse et export :
 
 .. code-block:: python
 
-   print(source.df)  # Tableau complet des résultats
-   print(source.df['h[J/kg]'])  # Accès à une colonne spécifique
+   # Tableau complet des résultats
+   print(source.df)
+   
+   # Accès à une colonne spécifique
+   print(source.df['h[J/kg]'])
+   
+   # Export vers Excel
+   source.df.to_excel('resultats.xlsx', index=False)
+
+.. tip::
+   Les DataFrames pandas permettent une manipulation et analyse facile des résultats.
+
+----
 
 Pour aller plus loin
---------------------
+====================
 
-Consultez les sections détaillées de la documentation :
+Documentation détaillée
+-----------------------
 
-- :doc:`usage` - Guide d'utilisation complet avec exemples
-- :doc:`api` - Référence API détaillée de tous les modules
-- :doc:`001-heat_transfer/index` - Transfert de chaleur
-- :doc:`002-thermodynamic_cycles/index` - Cycles thermodynamiques
-- :doc:`003-ahu_modules/index` - Centrales de traitement d'air
-- :doc:`006-pinch_analysis/index` - Analyse Pinch
+Consultez les sections spécialisées :
 
-Ressources
-----------
+.. hlist::
+   :columns: 2
 
-- **Documentation en ligne** : https://energysystemmodels-fr.readthedocs.io/
-- **Code source** : https://github.com/ZoheirHADID/EnergySystemModels
-- **PyPI** : https://pypi.org/project/energysystemmodels/
-- **Support** : https://github.com/ZoheirHADID/EnergySystemModels/issues
+   * :doc:`usage` - Guide d'utilisation complet
+   * :doc:`api` - Référence API détaillée
+   * :doc:`001-heat_transfer/index` - Transfert de chaleur
+   * :doc:`002-thermodynamic_cycles/index` - Cycles thermodynamiques
+   * :doc:`003-ahu_modules/index` - Centrales de traitement d'air
+   * :doc:`006-pinch_analysis/index` - Analyse Pinch
+
+----
+
+Ressources et support
+=====================
+
+Liens utiles
+------------
+
+.. list-table::
+   :widths: 30 70
+   :header-rows: 1
+
+   * - Ressource
+     - Lien
+   * - 📚 Documentation en ligne
+     - https://energysystemmodels-fr.readthedocs.io/
+   * - 💻 Code source
+     - https://github.com/ZoheirHADID/EnergySystemModels
+   * - 📦 PyPI
+     - https://pypi.org/project/energysystemmodels/
+   * - 🐛 Issues et support
+     - https://github.com/ZoheirHADID/EnergySystemModels/issues
+
+Besoin d'aide ?
+---------------
+
+.. admonition:: Comment obtenir de l'aide
+   :class: tip
+
+   1. Consultez la :doc:`api` pour la référence complète
+   2. Parcourez les exemples dans :doc:`usage`
+   3. Vérifiez les `Issues GitHub <https://github.com/ZoheirHADID/EnergySystemModels/issues>`_
+   4. Créez une nouvelle issue avec un exemple minimal reproductible
