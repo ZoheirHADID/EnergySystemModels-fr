@@ -39,26 +39,23 @@ Calcul des pertes thermiques à travers un mur composite :
 
 .. code-block:: python
 
-   from HeatTransfer.CompositeWall import CompositeWall
+   from HeatTransfer import CompositeWall
 
-   # Définir les couches du mur (de l'intérieur vers l'extérieur)
-   wall = CompositeWall.Object()
-   wall.add_layer(thickness=0.02, conductivity=0.25)  # Plâtre
-   wall.add_layer(thickness=0.20, conductivity=0.04)  # Laine de verre
-   wall.add_layer(thickness=0.10, conductivity=0.80)  # Béton
+   # Créer un mur composite
+   wall = CompositeWall.Object(he=23, hi=8, Ti=20, Te=-10, A=10)
    
-   # Conditions limites
-   wall.T_interior = 20  # °C
-   wall.T_exterior = -5  # °C
-   wall.h_interior = 8   # W/m².K
-   wall.h_exterior = 25  # W/m².K
+   # Ajouter des couches (de l'extérieur vers l'intérieur)
+   wall.add_layer(thickness=0.20, material='Parpaings creux')
+   wall.add_layer(thickness=0.05, material='Polystyrène')
+   wall.add_layer(thickness=0.02, material='Plâtre')
    
-   # Calculer
+   # Calculer le transfert
    wall.calculate()
    
-   # Résultats
-   print(f"Coefficient U : {wall.U:.3f} W/m².K")
-   print(f"Flux thermique : {wall.heat_flux:.2f} W/m²")
+   # Afficher les résultats
+   print(f"Résistance totale: {wall.R_total:.3f} m².K/W")
+   print(f"Flux thermique: {wall.Q:.2f} W")
+   print(wall.df)
 
 Deuxième exemple : Cycle thermodynamique
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -69,20 +66,20 @@ Créer une source de fluide frigorigène :
 
    from ThermodynamicCycles.Source import Source
 
-   # Créer une source de R134a
-   source = Source.Object()
-   source.Pi_bar = 5.0
-   source.fluid = "R134a"
-   source.Ti_C = 20
-   source.F = 0.5  # kg/s
+   # Créer un objet Source
+   SOURCE = Source.Object()
    
-   # Calculer les propriétés
-   source.calculate()
+   # Données d'entrée
+   SOURCE.Ti_degC = 25
+   SOURCE.Pi_bar = 1.01325
+   SOURCE.fluid = "air"
+   SOURCE.F_Sm3h = 3600  # Débit volumique standard [Sm³/h]
    
-   # Afficher les résultats
-   print(source.df)
-   print(f"Enthalpie : {source.h_outlet:.2f} J/kg")
-   print(f"État : {source.quality}")
+   # Calculer l'objet
+   SOURCE.calculate()
+   
+   # Affichage des résultats
+   print(SOURCE.df)
 
 Troisième exemple : Analyse Pinch
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -142,23 +139,25 @@ Simuler une CTA avec air neuf :
 .. code-block:: python
 
    from AHU.FreshAir import FreshAir
-   from AHU.HeatingCoil import HeatingCoil
+   from AHU.Connect import Air_connect
 
-   # Définir l'air neuf
-   fresh_air = FreshAir.Object()
-   fresh_air.T_C = -5      # Température extérieure [°C]
-   fresh_air.RH = 0.80     # Humidité relative
-   fresh_air.F_dry = 1.0   # Débit d'air sec [kg/s]
-   fresh_air.calculate()
+   # Création de la première instance FA
+   FA = FreshAir.Object()
+   FA.RH = 50  # Humidité relative [%]
+   FA.T = 20   # Température [°C]
+   FA.F_m3h = 3000  # Débit volumique [m³/h]
    
-   # Batterie de chauffage
-   heating = HeatingCoil.Object()
-   heating.inlet_air = fresh_air
-   heating.outlet_T_C = 18  # Température de consigne
-   heating.calculate()
+   # Effectuer les calculs pour FA
+   FA.calculate()
+   print(f"FA calculé: {FA.df}")
    
-   print(f"Puissance chauffage : {heating.Q_th:.2f} kW")
-   print(f"Température sortie : {heating.outlet_T_C}°C")
+   # Création de la deuxième instance FA2
+   FA2 = FreshAir.Object()
+   # Connecter l'Inlet de FA2 à l'Outlet de FA
+   Air_connect(FA2.Inlet, FA.Outlet)
+   # Effectuer les calculs pour FA2
+   FA2.calculate()
+   print(f"FA2 calculé: {FA2.df}")
 
 Imports principaux
 ------------------
