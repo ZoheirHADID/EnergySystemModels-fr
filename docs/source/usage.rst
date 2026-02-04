@@ -344,6 +344,520 @@ Optimisation d'intégration thermique :
 
 ----
 
+.. _hydraulic:
+
+3. Hydraulique
+==============
+
+3.1. Pertes de pression linéaires
+----------------------------------
+
+Calcul selon Darcy-Weisbach avec courbe réseau :
+
+.. image:: images/004_hydraulic_straight_pipe.png
+   :alt: Straight Pipe
+   :width: 500px
+   :align: center
+
+.. code-block:: python
+   :linenos:
+
+   from Hydraulic import StraightPipe
+
+   # Créer la tuyauterie
+   pipe = StraightPipe.Object()
+   pipe.L = 100  # Longueur [m]
+   pipe.DN = 50  # Diamètre nominal [mm]
+   pipe.material = 'Acier'
+   pipe.F_m3h = 10  # Débit [m³/h]
+   
+   # Calculer
+   pipe.calculate()
+   
+   # Résultats
+   print(f"Perte de pression : {pipe.dP_Pa:.1f} Pa")
+   print(f"Vitesse : {pipe.v:.2f} m/s")
+   print(f"Coefficient de friction : {pipe.f:.4f}")
+   
+   # Tracer la courbe réseau
+   pipe.plot_network_curve(F_min=0, F_max=20, points=50)
+
+**Courbe réseau** :
+
+.. image:: images/004_hydraulic_straight_pipe_courbe_reseau.png
+   :alt: Network Curve
+   :width: 600px
+   :align: center
+
+.. seealso::
+   Pour plus de détails, voir :doc:`004-hydraulic/perte_pression_lineaire`
+
+3.2. Vannes d'équilibrage IMI TA
+---------------------------------
+
+Calcul avec interpolation Kv pour 120+ références :
+
+.. image:: images/004_TA_valve.png
+   :alt: TA Valve
+   :width: 500px
+   :align: center
+
+.. code-block:: python
+   :linenos:
+
+   from Hydraulic.TA_Valve import TA_Valve
+
+   # Créer la vanne
+   valve = TA_Valve.Object()
+   valve.reference = "TA-FUSION-C DN32"
+   valve.opening = 3.5  # Tours d'ouverture
+   valve.F_m3h = 5  # Débit [m³/h]
+   valve.rho = 1000  # Masse volumique [kg/m³]
+   
+   # Calculer
+   valve.calculate()
+   
+   # Résultats
+   print(f"Kv interpolé : {valve.Kv:.2f}")
+   print(f"Perte de pression : {valve.dP_kPa:.1f} kPa")
+   print(f"Autorité : {valve.authority:.2f}")
+   
+   # Tracer la courbe réseau
+   valve.plot_network_curve()
+
+**Courbe réseau de la vanne** :
+
+.. image:: images/004_TA_valve-courbe-reseau.png
+   :alt: TA Valve Network Curve
+   :width: 600px
+   :align: center
+
+.. seealso::
+   Pour plus de détails, voir :doc:`004-hydraulic/TA_valve`
+
+----
+
+.. _meteo:
+
+4. Données météorologiques
+===========================
+
+4.1. OpenWeatherMap
+-------------------
+
+Récupération de données météo en temps réel via API :
+
+.. code-block:: python
+   :linenos:
+
+   from OpenWeatherMap.OpenWeatherMap import WeatherData
+
+   # Initialiser avec votre clé API
+   weather = WeatherData(api_key="VOTRE_CLE_API")
+   
+   # Obtenir les données pour une ville
+   data = weather.get_current_weather(city="Paris")
+   
+   print(f"Température : {data['temperature']}°C")
+   print(f"Humidité : {data['humidity']}%")
+   print(f"Description : {data['description']}")
+   print(f"Vitesse du vent : {data['wind_speed']} m/s")
+   print(f"Pression : {data['pressure']} hPa")
+
+**Historique météo** :
+
+.. code-block:: python
+   :linenos:
+
+   # Données historiques
+   hist_data = weather.get_historical_weather(
+       city="Paris",
+       start_date="2023-01-01",
+       end_date="2023-01-31"
+   )
+   
+   # Sauvegarder en DataFrame
+   import pandas as pd
+   df = pd.DataFrame(hist_data)
+   df.to_excel("meteo_historique_paris.xlsx")
+
+.. seealso::
+   Pour plus de détails, voir :doc:`008-meteo/openweathermap`
+
+4.2. MeteoCiel
+--------------
+
+Scraping de données historiques avec calcul automatique des degrés-jours :
+
+.. code-block:: python
+   :linenos:
+
+   from MeteoCiel.MeteoCiel import MeteoCiel_histoScraping
+   from datetime import datetime
+
+   # Code station (exemple : Orly 07149001)
+   code2 = "07149001"
+   
+   # Période
+   date_debut = datetime(2022, 1, 1)
+   date_fin = datetime(2022, 12, 31)
+   
+   # Scraping avec calcul des DJU
+   df_histo, df_day, df_month, df_year = MeteoCiel_histoScraping(
+       code2, 
+       date_debut, 
+       date_fin,
+       base_chauffage=18,
+       base_refroidissement=23
+   )
+   
+   # Sauvegarder les résultats
+   df_histo.to_excel(f"Meteociel_horaire_{date_debut.date()}_to_{date_fin.date()}.xlsx")
+   df_day.to_excel(f"Meteociel_journalier_{date_debut.date()}_to_{date_fin.date()}.xlsx")
+   df_month.to_excel(f"Meteociel_mensuel_{date_debut.date()}_to_{date_fin.date()}.xlsx")
+   df_year.to_excel(f"Meteociel_annuel_{date_debut.date()}_to_{date_fin.date()}.xlsx")
+   
+   # Afficher les DJU mensuels
+   print(df_month[['Mois', 'DJU_chaud', 'DJU_froid', 'T_moy']])
+
+**Résultats** ::
+
+        Mois  DJU_chaud  DJU_froid   T_moy
+   0  2022-01     385.2        0.0     5.2
+   1  2022-02     320.5        0.0     7.1
+   2  2022-03     245.8        0.0    10.5
+   ...
+
+.. seealso::
+   Pour plus de détails, voir :doc:`008-meteo/meteociel`
+
+----
+
+.. _ipmvp:
+
+5. IPMVP (Mesure et Vérification)
+==================================
+
+Protocole International de Mesure et Vérification de la Performance
+--------------------------------------------------------------------
+
+L'IPMVP permet de quantifier les économies d'énergie réalisées par des projets d'efficacité énergétique.
+
+.. code-block:: python
+   :linenos:
+
+   from IPMVP.IPMVP import Mathematical_Models
+   import pandas as pd
+   from datetime import datetime
+
+   # Charger les données
+   df = pd.read_excel("Input-Data.xlsx")
+   df['Timestamp'] = pd.to_datetime(df['Timestamp'])
+   df = df.set_index('Timestamp')
+   
+   # Définir les périodes
+   start_baseline_period = datetime(2018, 1, 1)
+   end_baseline_period = datetime(2021, 12, 31)
+   start_reporting_period = datetime(2022, 1, 1)
+   end_reporting_period = datetime(2023, 3, 1)
+   
+   # Agréger par jour
+   df_daily = df.resample('D').sum()
+   X = df_daily[["x1", "x2", "x3", "x4", "x5", "x6"]]  # Variables indépendantes
+   y = df_daily["y"]  # Consommation d'énergie
+   
+   # Modèle IPMVP journalier avec régression polynomiale
+   day_model = Mathematical_Models(
+       y, X,
+       start_baseline_period, end_baseline_period,
+       start_reporting_period, end_reporting_period,
+       degree=3,  # Degré du polynôme
+       print_report=True,
+       seuil_z_scores=3  # Détection d'outliers
+   )
+   
+   # Résultats
+   print(f"Économies d'énergie : {day_model.savings_kWh:.0f} kWh")
+   print(f"Économies relatives : {day_model.savings_percent:.1f}%")
+   print(f"R² du modèle : {day_model.r2:.3f}")
+   print(f"RMSE : {day_model.rmse:.2f}")
+   print(f"Incertitude (95%) : {day_model.uncertainty_percent:.1f}%")
+
+**Modèle hebdomadaire** :
+
+.. code-block:: python
+   :linenos:
+
+   # Agréger par semaine
+   weekly_X = X.resample('W').sum()
+   weekly_y = y.resample('W').sum()
+   
+   week_model = Mathematical_Models(
+       weekly_y, weekly_X,
+       start_baseline_period, end_baseline_period,
+       start_reporting_period, end_reporting_period
+   )
+   
+   print(f"Économies hebdomadaires : {week_model.savings_kWh:.0f} kWh")
+
+**Modèle mensuel** :
+
+.. code-block:: python
+   :linenos:
+
+   # Agréger par mois
+   monthly_X = X.resample('M').sum()
+   monthly_y = y.resample('M').sum()
+   
+   month_model = Mathematical_Models(
+       monthly_y, monthly_X,
+       start_baseline_period, end_baseline_period,
+       start_reporting_period, end_reporting_period
+   )
+   
+   print(f"Économies mensuelles : {month_model.savings_kWh:.0f} kWh")
+
+.. seealso::
+   Pour plus de détails, voir :doc:`007-ipmvp/index`
+
+----
+
+.. _pv:
+
+6. Production solaire photovoltaïque
+=====================================
+
+Simulation de production PV avec pvlib
+---------------------------------------
+
+.. code-block:: python
+   :linenos:
+
+   from PV.ProductionElectriquePV import SolarSystem
+
+   # Créer le système solaire
+   system = SolarSystem(
+       latitude=48.8566,
+       longitude=2.3522,
+       location_name='Paris',
+       tilt=34,  # Inclinaison [°]
+       timezone='Etc/GMT-1',
+       azimuth=180.0,  # Orientation plein Sud
+       system_capacity=48.9  # Puissance crête [kWp]
+   )
+   
+   # Récupérer les données de modules et onduleurs
+   system.retrieve_module_inverter_data()
+   
+   # Récupérer les données météo (PVGIS ou fichier local)
+   system.retrieve_weather_data()
+   
+   # Calculer les paramètres solaires
+   system.calculate_solar_parameters()
+   
+   # Visualiser la production annuelle
+   system.plot_annual_energy()
+   
+   # Résultats
+   print(f"Production annuelle : {system.annual_energy:.0f} kWh")
+   print(f"Productible spécifique : {system.specific_yield:.0f} kWh/kWp")
+   print(f"Facteur de performance : {system.performance_ratio:.2f}")
+   print(f"Taux d'utilisation : {system.capacity_factor:.2f}%")
+
+**Production mensuelle** :
+
+.. code-block:: python
+   :linenos:
+
+   # Production par mois
+   monthly_production = system.get_monthly_production()
+   print(monthly_production)
+   
+   # Graphique de production mensuelle
+   system.plot_monthly_production()
+
+**Production horaire** :
+
+.. code-block:: python
+   :linenos:
+
+   # Profil de production horaire pour une journée type
+   system.plot_daily_profile(month=6, day=21)  # 21 juin (solstice d'été)
+
+.. seealso::
+   Pour plus de détails, voir :doc:`009-pv-solaire/index`
+
+----
+
+.. _turpe:
+
+7. Calcul du TURPE
+==================
+
+Tarif d'Utilisation des Réseaux Publics d'Électricité
+------------------------------------------------------
+
+Le TURPE couvre les coûts d'acheminement de l'électricité sur les réseaux publics de transport et de distribution.
+
+.. code-block:: python
+   :linenos:
+
+   from Facture.TURPE import input_Contrat, TurpeCalculator, input_Facture, input_Tarif
+
+   # Données de facture (période et consommations)
+   facture = input_Facture(
+       start="2022-09-01",
+       end="2022-09-30",
+       heures_depassement=0,
+       depassement_PS_HPB=64,
+       kWh_pointe=0,
+       kWh_HPH=0,
+       kWh_HCH=0,
+       kWh_HPB=26635,  # Heures Pleines Basses
+       kWh_HCB=12846   # Heures Creuses Basses
+   )
+   
+   # Données de contrat
+   contrat = input_Contrat(
+       domaine_tension="BT > 36 kVA",  # Basse Tension
+       PS_pointe=129,   # Puissance souscrite Pointe [kVA]
+       PS_HPH=129,      # Puissance souscrite HPH [kVA]
+       PS_HCH=129,      # Puissance souscrite HCH [kVA]
+       PS_HPB=129,      # Puissance souscrite HPB [kVA]
+       PS_HCB=250,      # Puissance souscrite HCB [kVA]
+       version_utilisation="LU",  # Longue Utilisation
+       pourcentage_ENR=100  # % énergies renouvelables
+   )
+   
+   # Données tarifaires (prix de l'énergie)
+   tarif = input_Tarif(
+       c_euro_kWh_pointe=0.2,
+       c_euro_kWh_HPH=0.18,
+       c_euro_kWh_HCH=0.12,
+       c_euro_kWh_HPB=0.15,
+       c_euro_kWh_HCB=0.10
+   )
+   
+   # Calculer le TURPE
+   calculator = TurpeCalculator(facture, contrat, tarif)
+   results = calculator.calculate()
+   
+   # Résultats détaillés
+   print(f"Composante de gestion annuelle : {results['CG_annuelle']:.2f} €")
+   print(f"Composante de comptage annuelle : {results['CC_annuelle']:.2f} €")
+   print(f"Composante de soutirage : {results['CS_totale']:.2f} €")
+   print(f"Total TURPE mensuel : {results['TURPE_mensuel']:.2f} €")
+   print(f"Total TURPE annuel : {results['TURPE_annuel']:.2f} €")
+
+**Calcul pour HTA (Haute Tension)** :
+
+.. code-block:: python
+   :linenos:
+
+   # Contrat HTA
+   contrat_hta = input_Contrat(
+       domaine_tension="HTA",
+       PS_pointe=500,
+       PS_HPH=500,
+       PS_HCH=500,
+       PS_HPB=500,
+       PS_HCB=800,
+       version_utilisation="MU"  # Moyenne Utilisation
+   )
+   
+   calculator_hta = TurpeCalculator(facture, contrat_hta, tarif)
+   results_hta = calculator_hta.calculate()
+
+.. seealso::
+   Pour plus de détails, voir :doc:`010-achat-energie/index`
+
+----
+
+.. _cee:
+
+8. Certificats d'Économies d'Énergie (CEE)
+===========================================
+
+Calcul des CEE pour différentes fiches standardisées
+-----------------------------------------------------
+
+Les CEE sont un dispositif qui oblige les fournisseurs d'énergie à réaliser des économies d'énergie.
+
+.. code-block:: python
+   :linenos:
+
+   from CEE import CEECertificate
+
+   # Créer un certificat CEE
+   cee = CEECertificate()
+   
+   # Fiche BAT-TH-116 : Isolation de combles ou de toitures
+   cee.fiche = "BAT-TH-116"
+   cee.surface = 150  # Surface isolée [m²]
+   cee.zone_climatique = "H1"  # Zone climatique
+   cee.resistance_thermique = 7.0  # Résistance thermique [m².K/W]
+   cee.type_batiment = "Maison individuelle"
+   
+   # Calculer
+   cee.calculate()
+   
+   # Résultats
+   print(f"Économies d'énergie : {cee.economie_kWh_an:.0f} kWh/an")
+   print(f"Montant CEE : {cee.montant_cee:.0f} kWh cumac")
+   print(f"Durée de vie : {cee.duree_vie} ans")
+   print(f"Valeur financière estimée : {cee.valeur_euro:.2f} €")
+
+**Fiche BAT-TH-104 : Chaudière à condensation** :
+
+.. code-block:: python
+   :linenos:
+
+   cee_chaudiere = CEECertificate()
+   cee_chaudiere.fiche = "BAT-TH-104"
+   cee_chaudiere.puissance_nominale = 24  # Puissance [kW]
+   cee_chaudiere.zone_climatique = "H1"
+   cee_chaudiere.type_batiment = "Résidentiel collectif"
+   cee_chaudiere.efficacite_energetique_saisonniere = 92  # ETAS [%]
+   
+   cee_chaudiere.calculate()
+   
+   print(f"CEE chaudière : {cee_chaudiere.montant_cee:.0f} kWh cumac")
+
+**Fiche IND-UT-117 : Système de variation électronique de vitesse** :
+
+.. code-block:: python
+   :linenos:
+
+   cee_variateur = CEECertificate()
+   cee_variateur.fiche = "IND-UT-117"
+   cee_variateur.puissance_moteur = 15  # Puissance [kW]
+   cee_variateur.duree_fonctionnement = 4000  # Heures/an
+   cee_variateur.taux_charge_moyen = 75  # %
+   
+   cee_variateur.calculate()
+   
+   print(f"CEE variateur : {cee_variateur.montant_cee:.0f} kWh cumac")
+
+**Prix du marché CEE** :
+
+.. code-block:: python
+   :linenos:
+
+   # Valorisation financière
+   prix_cee_classique = 0.006  # €/kWh cumac (variable selon marché)
+   prix_cee_precarite = 0.012  # €/kWh cumac (précarité énergétique)
+   
+   valorisation_classique = cee.montant_cee * prix_cee_classique
+   valorisation_precarite = cee.montant_cee * prix_cee_precarite
+   
+   print(f"Valorisation classique : {valorisation_classique:.2f} €")
+   print(f"Valorisation précarité : {valorisation_precarite:.2f} €")
+
+.. seealso::
+   Pour plus de détails, voir :doc:`011-cee/index`
+
+----
+
 Modules détaillés avec illustrations
 =====================================
 
