@@ -27,6 +27,7 @@ Table des matières
    :caption: Sommaire:
 
    usage
+   quickstart
    001-heat_transfer/index
    002-thermodynamic_cycles/index
    003-ahu_modules/index
@@ -38,5 +39,6 @@ Table des matières
    009-pv-solaire/index
    010-achat-energie/index
    011-cee/index
+   gui_tools
    nomenclature
    api
