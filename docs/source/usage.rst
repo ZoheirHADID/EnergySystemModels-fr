@@ -52,25 +52,171 @@ Pour mettre à jour EnergySystemModels vers la dernière version :
 
 ----
 
-.. _quick_start:
+.. _thermodynamiccycles:
 
-Démarrage rapide
-================
+1. Cycles Thermodynamiques
+===========================
 
-Principe général
+Le package **ThermodynamicCycles** fournit des composants pour modéliser des cycles thermodynamiques complets : sources, puits, compresseurs, évaporateurs, condenseurs, vannes de détente, pompes, échangeurs de chaleur, etc.
+
+1.1. Source de fluide
+----------------------
+
+La classe ``Source`` représente une source de fluide avec des propriétés thermodynamiques définies.
+
+.. code-block:: python
+   :linenos:
+
+   from ThermodynamicCycles.Source import Source
+
+   # Créer un objet Source
+   SOURCE = Source.Object()
+   
+   # Données d'entrée
+   SOURCE.Ti_degC = 25
+   SOURCE.Pi_bar = 1.01325
+   SOURCE.fluid = "air"
+   SOURCE.F_Sm3h = 3600  # Débit volumique standard [Sm³/h]
+   
+   # Calculer l'objet
+   SOURCE.calculate()
+   
+   # Affichage des résultats
+   print(SOURCE.df)
+
+**Résultats** ::
+
+      F[Sm³/h]  F[kg/s]    T[°C]  P[bar]     h[J/kg]        s[J/(kg·K)]   ρ[kg/m³]
+  0   3600.0     1.184     25.0   1.013    298150.0       6870.3          1.184
+
+.. seealso::
+   Pour plus de détails, voir :doc:`002-thermodynamic_cycles/fluid_source`
+
+1.2. Puits (Sink)
+-----------------
+
+La classe ``Sink`` représente un puits de fluide (sortie du système).
+
+.. code-block:: python
+   :linenos:
+
+   from ThermodynamicCycles.Sink import Sink
+   from ThermodynamicCycles.Connect import Fluid_connect
+
+   # Créer le puits
+   SINK = Sink.Object()
+   
+   # Connecter au composant précédent
+   Fluid_connect(SINK.Inlet, SOURCE.Outlet)
+   
+   # Calculer
+   SINK.calculate()
+   print(SINK.df)
+
+.. seealso::
+   Pour plus de détails, voir :doc:`002-thermodynamic_cycles/sink`
+
+1.3. Compresseur
 ----------------
 
-EnergySystemModels suit un modèle de programmation orienté objet simple et cohérent :
+La classe ``Compressor`` modélise un compresseur avec différents modèles (isentropique, volumétrique).
 
-1. **Créer un objet** représentant un composant énergétique
-2. **Définir les paramètres d'entrée** (températures, pressions, débits, etc.)
-3. **Appeler la méthode calculate()** pour effectuer les calculs
-4. **Accéder aux résultats** via les attributs de l'objet ou le DataFrame
+.. code-block:: python
+   :linenos:
 
-Premier exemple : Transfert de chaleur
----------------------------------------
+   from ThermodynamicCycles.Compressor import Compressor
+   from ThermodynamicCycles.Connect import Fluid_connect
 
-Calcul des pertes thermiques à travers un mur composite :
+   # Créer le compresseur
+   COMP = Compressor.Object()
+   COMP.Po_bar = 8.0  # Pression de sortie [bar]
+   COMP.eta_is = 0.75  # Rendement isentropique
+   
+   # Connecter au composant précédent
+   Fluid_connect(COMP.Inlet, SOURCE.Outlet)
+   
+   # Calculer
+   COMP.calculate()
+   
+   # Résultats
+   print(f"Puissance consommée : {COMP.W_kW:.2f} kW")
+   print(f"Température de sortie : {COMP.To_degC:.1f} °C")
+   print(COMP.df)
+
+.. seealso::
+   Pour plus de détails, voir :doc:`002-thermodynamic_cycles/compressor`
+
+----
+
+.. _heattransfer:
+
+2. Transfert de chaleur
+========================
+
+Transfert de chaleur convectif et radiatif
+-------------------------------------------
+
+L'image ci-dessous montre un exemple de transfert de chaleur convectif et radiatif à travers un échangeur de chaleur à plaques non isolé dont la température de la paroi est de 60°C et la température ambiante est de 25°C :
+
+.. image:: images/PlateHeatTransfer.png
+   :alt: Plate Heat Transfer
+   :width: 300px
+   :align: center
+
+.. code-block:: python
+   :linenos:
+
+   from HeatTransfer import PlateHeatTransfer
+
+   # Température de la paroi en °C
+   Tp = 60
+   # Température ambiante en °C
+   Ta = 25
+   # Dimensions en mètres
+   L = 0.6
+   W = 0.8
+   H = 1.5
+
+   # Calcul du transfert de chaleur pour la paroi horizontale supérieure
+   haut = PlateHeatTransfer.Object(
+       orientation='horizontal_up',
+       Tp=Tp, Ta=Ta, W=W, L=L
+   ).calculate()
+
+   # Calcul du transfert de chaleur pour la paroi horizontale inférieure
+   bas = PlateHeatTransfer.Object(
+       orientation='horizontal_down',
+       Tp=Tp, Ta=Ta, W=W, L=L
+   ).calculate()
+
+   # Calcul du transfert de chaleur pour les parois verticales
+   vertical1 = PlateHeatTransfer.Object(
+       orientation='vertical',
+       Tp=Tp, Ta=Ta, W=W, H=H
+   ).calculate() * 2
+
+   vertical2 = PlateHeatTransfer.Object(
+       orientation='vertical',
+       Tp=Tp, Ta=Ta, W=L, H=H
+   ).calculate() * 2
+
+   # Calcul du transfert de chaleur total
+   total = haut + bas + vertical1 + vertical2
+   print(f"{round(total, 0)} W = {round(haut, 0)} W + {round(bas, 0)} W + {round(vertical1, 0)} W + {round(vertical2, 0)} W")
+
+**Résultat** ::
+
+   1957.0 W = 191.0 W + 190.0 W + 900.0 W + 675.0 W
+
+2.1. Mur composite
+------------------
+
+Calcul des pertes thermiques à travers un mur composite multicouche :
+
+.. image:: images/001_heat_transfer_composite_wall.png
+   :alt: Composite Wall
+   :width: 500px
+   :align: center
 
 .. code-block:: python
    :linenos:
@@ -79,11 +225,6 @@ Calcul des pertes thermiques à travers un mur composite :
 
    # Créer un mur composite
    wall = CompositeWall.Object(he=23, hi=8, Ti=20, Te=-10, A=10)
-   
-   # Ajouter des couches (de l'extérieur vers l'intérieur)
-   wall.add_layer(thickness=0.20, material='Parpaings creux')
-   wall.add_layer(thickness=0.05, material='Polystyrène')
-   wall.add_layer(thickness=0.02, material='Plâtre')
    
    # Calculer le transfert
    wall.calculate()
