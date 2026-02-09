@@ -10,7 +10,7 @@ Section 4 : Distribution de l'énergie
 
 Le module CompositeWall permet de calculer les transferts thermiques à travers des parois multicouches.
 
-.. image:: _static/001_heat_transfer_composite_wall.png
+.. image:: ../_static/001_heat_transfer_composite_wall.png
    :alt: Schéma d'une paroi composite
    :align: center
    :width: 600px
@@ -64,7 +64,7 @@ Le module CompositeWall permet de calculer les transferts thermiques à travers 
 4.1.2. PlateHeatTransfer - Échangeur à plaques
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-.. image:: _static/PlateHeatTransfer.png
+.. image:: ../_static/PlateHeatTransfer.png
    :alt: Échangeur à plaques
    :align: center
    :width: 500px
@@ -185,7 +185,7 @@ Exemple : Optimisation de l'épaisseur d'isolation
 4.2.1. StraightPipe - Tuyauterie droite et pertes de charge
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-.. image:: _static/004_hydraulic_straight_pipe.png
+.. image:: ../_static/004_hydraulic_straight_pipe.png
    :alt: Schéma tuyauterie droite
    :align: center
    :width: 500px
@@ -221,7 +221,7 @@ Exemple : Optimisation de l'épaisseur d'isolation
 Courbe de réseau
 ~~~~~~~~~~~~~~~~
 
-.. image:: _static/004_hydraulic_straight_pipe_courbe_reseau.png
+.. image:: ../_static/004_hydraulic_straight_pipe_courbe_reseau.png
    :alt: Courbe de réseau hydraulique
    :align: center
    :width: 600px
@@ -259,7 +259,7 @@ Courbe de réseau
 4.2.2. TA_Valve - Vanne d'équilibrage hydraulique
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-.. image:: _static/004_TA_valve.png
+.. image:: ../_static/004_TA_valve.png
    :alt: Vanne TA
    :align: center
    :width: 400px
@@ -298,7 +298,7 @@ Courbe de réseau
 Courbe caractéristique de la vanne
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-.. image:: _static/004_TA_valve-courbe-reseau.png
+.. image:: ../_static/004_TA_valve-courbe-reseau.png
    :alt: Courbe caractéristique vanne TA
    :align: center
    :width: 600px
