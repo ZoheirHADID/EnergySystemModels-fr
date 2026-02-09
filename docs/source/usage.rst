@@ -34,6 +34,4 @@ Cette documentation est organisée selon la **chaîne de valeur énergétique**,
    usage/section-3-transformation
    usage/section-4-distribution
    usage/section-5-usages-finaux
-   usage/section-6-modules-detailles
-   usage/section-8-imports-dependances
-   usage/conclusion
+   usage/section-6-autres
