@@ -24,21 +24,53 @@ Table des matières
 
 .. toctree::
    :maxdepth: 2
-   :caption: Sommaire:
+   :caption: Sommaire général:
 
    usage
    quickstart
-   001-heat_transfer/index
-   002-thermodynamic_cycles/index
-   003-ahu_modules/index
-   004-hydraulic/index
-   005-aeraulic/index
-   006-pinch_analysis/index
-   007-ipmvp/index
-   008-meteo/index
-   009-pv-solaire/index
+
+.. toctree::
+   :maxdepth: 2
+   :caption: 1. Achat et fourniture d'énergie
+
    010-achat-energie/index
    011-cee/index
+
+.. toctree::
+   :maxdepth: 2
+   :caption: 2. Production d'utilités et d'énergie
+
+   002-thermodynamic_cycles/index
+   009-pv-solaire/index
+
+.. toctree::
+   :maxdepth: 2
+   :caption: 3. Transport des utilités
+
+   001-heat_transfer/index
+   transfert_chaleur
+   004-hydraulic/index
+   005-aeraulic/index
+
+.. toctree::
+   :maxdepth: 2
+   :caption: 4. Usages énergétiques
+
+   003-ahu_modules/index
+   006-pinch_analysis/index
+   007-ipmvp/index
+
+.. toctree::
+   :maxdepth: 2
+   :caption: 5. Chaleur fatale et rejets
+
+   012-chaleur-fatale/index
+
+.. toctree::
+   :maxdepth: 2
+   :caption: 6. Autres
+
+   008-meteo/index
    gui_tools
    nomenclature
    api
