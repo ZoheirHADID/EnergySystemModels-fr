@@ -1,8 +1,8 @@
 ================================================================================
-Section 6 : Autres
+Section 7 : Autres
 ================================================================================
 
-6.1. Modules détaillés - Référence complète
+7.1. Modules détaillés - Référence complète
 --------------------------------------------
 
 Pour une documentation détaillée de chaque module, consultez les pages suivantes :
@@ -24,7 +24,7 @@ Pour une documentation détaillée de chaque module, consultez les pages suivant
    modules/ipmvp
    modules/building_model
 
-6.2. Imports et dépendances
+7.2. Imports et dépendances
 ----------------------------
 
 Imports essentiels
@@ -124,7 +124,7 @@ Installation pour des modules spécifiques :
    $ pip install EnergySystemModels[hvac]      # CVC uniquement
    $ pip install EnergySystemModels[analysis]  # Analyse uniquement
 
-6.3. Conclusion
+7.3. Conclusion
 ---------------
 
 Cette documentation couvre l'ensemble des fonctionnalités d'EnergySystemModels selon la chaîne de valeur énergétique :

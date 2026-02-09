@@ -34,7 +34,6 @@ Table des matières
    :caption: 1. Achat et fourniture d'énergie
 
    010-achat-energie/index
-   011-cee/index
 
 .. toctree::
    :maxdepth: 2
@@ -68,7 +67,13 @@ Table des matières
 
 .. toctree::
    :maxdepth: 2
-   :caption: 6. Autres
+   :caption: 6. Financement et subvention
+
+   011-cee/index
+
+.. toctree::
+   :maxdepth: 2
+   :caption: 7. Autres
 
    008-meteo/index
    gui_tools
