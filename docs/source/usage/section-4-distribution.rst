@@ -61,6 +61,23 @@ Le module CompositeWall permet de calculer les transferts thermiques à travers 
    print(f"Flux thermique : {flux_thermique:.2f} W")
    print(f"Déperditions : {flux_thermique/1000:.2f} kW")
 
+Exemple issu des tests : CompositeWall
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code-block:: python
+
+    from HeatTransfer import CompositeWall
+
+    wall = CompositeWall.Object(he=23, hi=8, Ti=20, Te=-10, A=10)
+    wall.add_layer(thickness=0.20, material='Parpaings creux')
+    wall.add_layer(thickness=0.05, material='Polystyrène')
+    wall.add_layer(thickness=0.02, material='Plâtre')
+    wall.calculate()
+
+    print(f"Résistance totale: {wall.R_total:.3f} m².K/W")
+    print(f"Flux thermique: {wall.Q:.2f} W")
+    print(wall.df)
+
 4.1.2. PlateHeatTransfer - Échangeur à plaques
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -106,6 +123,23 @@ Le module CompositeWall permet de calculer les transferts thermiques à travers 
    print(f"Pertes de charge circuit chaud : {resultats['delta_P_hot_Pa']:.0f} Pa")
    print(f"Pertes de charge circuit froid : {resultats['delta_P_cold_Pa']:.0f} Pa")
 
+Exemple issu des tests : PlateHeatTransfer
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code-block:: python
+
+   from HeatTransfer import PlateHeatTransfer
+
+   plate1 = PlateHeatTransfer.Object(
+       orientation='horizontal_down',
+       Tp=60,
+       Ta=25,
+       W=1.0,
+       L=1.0
+   )
+   heat_transfer1 = plate1.calculate()
+   print(f"Heat transfer for horizontal plate facing down: {heat_transfer1} W")
+
 4.1.3. PipeInsulation - Isolation de tuyauteries
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -135,6 +169,21 @@ Le module CompositeWall permet de calculer les transferts thermiques à travers 
    # Température de surface extérieure
    T_surface = tuyau.temperature_surface_exterieure()
    print(f"Température surface extérieure : {T_surface:.1f}°C")
+
+Exemple issu des tests : PipeInsulationAnalysis
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code-block:: python
+
+   from HeatTransfer import PipeInsulationAnalysis
+
+   pipe = PipeInsulationAnalysis.Object(
+       fluid='water', T_fluid=70, F_m3h=20, DN=80, L_tube=500,
+       material='Acier', insulation='laine minérale',
+       insulation_thickness=0.04, Tamb=20
+   )
+   pipe.calculate()
+   print(pipe.df)
 
 Exemple : Optimisation de l'épaisseur d'isolation
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -217,6 +266,38 @@ Exemple : Optimisation de l'épaisseur d'isolation
    print(f"Régime : {resultats['regime']}")
    print(f"Pertes de charge linéaires : {resultats['pertes_lineaires_Pa']:.1f} Pa")
    print(f"Pertes de charge linéaires : {resultats['pertes_lineaires_Pa']/100:.1f} mCE")
+
+Exemple issu des tests : StraightPipe (réseau hydraulique)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code-block:: python
+
+    from ThermodynamicCycles.Hydraulic import StraightPipe
+    from ThermodynamicCycles.Source import Source
+    from ThermodynamicCycles.Sink import Sink
+    from ThermodynamicCycles.Connect import Fluid_connect
+
+    SOURCE = Source.Object()
+    SOURCE.fluid = "water"
+    SOURCE.Ti_degC = 25
+    SOURCE.Pi_bar = 2
+    SOURCE.F_m3h = 8
+    SOURCE.calculate()
+
+    STRAIGHT_PIPE = StraightPipe.Object()
+    STRAIGHT_PIPE.d_hyd = 0.050
+    STRAIGHT_PIPE.L = 500
+    STRAIGHT_PIPE.K = 0.00002
+    Fluid_connect(STRAIGHT_PIPE.Inlet, SOURCE.Outlet)
+    STRAIGHT_PIPE.calculate()
+
+    SINK = Sink.Object()
+    Fluid_connect(SINK.Inlet, STRAIGHT_PIPE.Outlet)
+    SINK.calculate()
+
+    print(SOURCE.df)
+    print(STRAIGHT_PIPE.df)
+    print(SINK.df)
 
 Courbe de réseau
 ~~~~~~~~~~~~~~~~

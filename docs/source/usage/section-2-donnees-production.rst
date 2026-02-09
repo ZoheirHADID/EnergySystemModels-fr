@@ -140,6 +140,27 @@ Exemple : Analyse mensuelle des DJU
    
    print(f"\nDJU annuel : {dju_mensuels.sum():.0f}")
 
+Exemple issu des tests : Scraping MeteoCiel
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code-block:: python
+
+   from datetime import datetime
+   from MeteoCiel.MeteoCiel_Scraping import MeteoCiel_histoScraping
+
+   code2 = 480  # station météo
+   date_debut = datetime(2023, 10, 1)
+   date_fin = datetime.now()
+
+   df_histo, df_day, df_month, df_year = MeteoCiel_histoScraping(
+       code2, date_debut, date_fin, base_chauffage=18, base_refroidissement=23
+   )
+
+   df_month.to_excel(
+       "month_Meteociel.fr_station_" + str(date_debut.date()) +
+       "_to_" + str(date_fin.date()) + ".xlsx"
+   )
+
 2.2. Production solaire photovoltaïque
 ---------------------------------------
 
@@ -357,3 +378,46 @@ Exemple : Dimensionnement d'une installation PV
        print(f"{puissance} kWc ({surface:.1f} m²) -> "
              f"Production: {production:.0f} kWh/an, "
              f"Couverture: {taux_couverture*100:.1f}%")
+
+Exemples issus des tests PV
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code-block:: python
+
+   from PV.ProductionElectriquePV import SolarSystem
+
+   system = SolarSystem(48.8566, 2.3522, 'Paris', 34, 'Etc/GMT-1', 170, 38)
+   system.retrieve_module_inverter_data()
+   system.retrieve_weather_data()
+   system.calculate_solar_parameters()
+   system.plot_annual_energy()
+
+.. code-block:: python
+
+   from PV.ProductionElectriquePV import SolarSystem
+   import numpy as np
+   from scipy.optimize import minimize
+
+   def objective(x, latitude, longitude, altitude, timezone):
+       azimut, inclinaison = x
+       system = SolarSystem(latitude, longitude, 'Optimized', altitude, timezone, azimut, inclinaison)
+       system.retrieve_module_inverter_data()
+       system.retrieve_weather_data()
+       system.calculate_solar_parameters()
+       return system.annual_energy
+
+   x0 = np.array([169.10944664521642, 38.12087673517409])
+   bounds = [(0, 360), (0, 90)]
+
+   result = minimize(
+       objective, x0, bounds=bounds,
+       args=(48.8566, 2.3522, 34, 'Etc/GMT-1'),
+       method='trust-constr',
+       options={'maxiter': 50, 'xtol': 1e-0, 'gtol': 1e-0}
+   )
+
+   if result.success:
+       optimized_azimut, optimized_inclinaison = result.x
+       print("Optimal orientation:", optimized_azimut)
+       print("Optimal inclination:", optimized_inclinaison)
+       print("Maximal annual energy:", -result.fun)

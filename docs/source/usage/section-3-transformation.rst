@@ -159,3 +159,56 @@ Exemple : Pompe à chaleur air-eau
        perf = pac.calculate_performance()
        print(f"  {t_ext:3.0f}°C : COP = {perf['COP']:.2f}, "
              f"Puissance = {perf['heating_capacity_kW']:.2f} kW")
+
+Exemple issu des tests : Chiller complet
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code-block:: python
+
+   import CoolProp.CoolProp as CP
+   from ThermodynamicCycles.Evaporator import Evaporator
+   from ThermodynamicCycles.Compressor import Compressor
+   from ThermodynamicCycles.Desuperheater import Desuperheater
+   from ThermodynamicCycles.Expansion_Valve import Expansion_Valve
+   from ThermodynamicCycles.Condenser import Condenser
+   from ThermodynamicCycles.Connect import Fluid_connect
+
+   EVAP = Evaporator.Object()
+   COMP = Compressor.Object()
+   DESURCH = Desuperheater.Object()
+   COND = Condenser.Object()
+   DET = Expansion_Valve.Object()
+
+   fluid = "R134a"
+   EVAP.fluid = fluid
+   EVAP.Inlet.F = 1
+   EVAP.LP_bar = 2.930154
+   EVAP.surchauff = 2
+   EVAP.Inlet.h = CP.PropsSI('H', 'P', 1 * 1e5, 'T', 40 + 273.15, fluid)
+
+   COMP.Tcond_degC = 40
+   COMP.eta_is = 0.8
+   COMP.Tdischarge_target = 80
+
+   COND.subcooling = 2
+
+   EVAP.calculate()
+   Fluid_connect(COMP.Inlet, EVAP.Outlet)
+   COMP.calculate()
+   Fluid_connect(DESURCH.Inlet, COMP.Outlet)
+   DESURCH.calculate()
+   Fluid_connect(COND.Inlet, DESURCH.Outlet)
+   COND.calculate()
+   Fluid_connect(DET.Inlet, COND.Outlet)
+   Fluid_connect(DET.Outlet, EVAP.Inlet)
+   DET.calculate()
+   Fluid_connect(EVAP.Inlet, DET.Outlet)
+   EVAP.calculate()
+
+   EER = EVAP.Q_evap / COMP.Q_comp
+   Q_condTot = COND.Q_cond + DESURCH.Qdesurch
+   COP = Q_condTot / COMP.Q_comp
+
+   print("EER=" + str(round(EER, 1)))
+   print("Q_condTot=" + str(round(Q_condTot / 1000, 1)) + " kW")
+   print("COP=" + str(round(COP, 1)))

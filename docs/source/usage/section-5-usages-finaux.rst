@@ -265,6 +265,24 @@ Exemple complet : CTA complète
                        puissance_ventilateur)
    print(f"Puissance totale CTA : {puissance_totale:.2f} kW")
 
+Exemple issu des tests : GenericAHU (Recycling)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code-block:: python
+
+   from AHU.GenericAHU import GenericAHU
+
+   ahu = GenericAHU()
+   results = ahu.run_simulation(
+       file_path='test/AHU/data/config_recycling.xlsx',
+       sheet_name='1. Air Recycling AHU Input',
+       output_file='test/AHU/data/results_recycling.xlsx'
+   )
+
+   print("Nombre de points simulés:", len(results))
+   print("Colonnes de sortie:", results.shape[1])
+   print("Puissance Chauffage moyenne:", results['HC_Q_th[kW]'].mean())
+
 5.2. Module PinchAnalysis - Analyse Pinch
 ------------------------------------------
 
@@ -370,6 +388,29 @@ Exemple complet : Optimisation d'un procédé industriel
    fig = pinch_optimal.plot_composite_curves()
    plt.show()
 
+Exemple issu des tests : PinchAnalysis sur données réelles
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code-block:: python
+
+   from PinchAnalysis import PinchAnalysis
+   import pandas as pd
+
+   data = {
+       'id': [1, 2, 3, 4],
+       'name': ['C1', 'H1', 'C2', 'H2'],
+       'mCp': [2.0, 3.0, 4.0, 1.5],
+       'Ti': [20, 170, 80, 150],
+       'To': [135, 60, 140, 30],
+       'dTmin2': [5, 5, 5, 5],
+   }
+
+   liste_flux = pd.DataFrame(data)
+   Pinch_study = PinchAnalysis.Object(liste_flux)
+   print(Pinch_study.Pinch_Temperature)
+   print(Pinch_study.Heating_duty)
+   print(Pinch_study.Cooling_duty)
+
 5.3. Module IPMVP - International Performance Measurement and Verification Protocol
 ------------------------------------------------------------------------------------
 
@@ -405,6 +446,38 @@ Le module IPMVP permet de mesurer et vérifier les économies d'énergie selon l
    
    print(f"R² du modèle : {model.r_squared:.3f}")
    print(f"RMSE : {model.rmse:.2f} kWh")
+
+Exemple issu des tests : IPMVP avec Excel
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code-block:: python
+
+   from IPMVP.IPMVP import Mathematical_Models
+   import os
+   from datetime import datetime
+   import pandas as pd
+
+   directory = os.getcwd()
+   directory = directory + "\src\IPMVP\" + "IPMVP_input.xlsx"
+   df = pd.read_excel(directory)
+   df['Mois'] = pd.to_datetime(df['Mois'])
+   df = df.set_index(df['Mois'])
+
+   start_baseline_period = datetime(2016, 9, 1, hour=0)
+   end_baseline_period = datetime(2021, 5, 1, hour=0)
+   start_reporting_period = datetime(2021, 10, 1, hour=0)
+   end_reporting_period = datetime(2022, 10, 1, hour=0)
+
+   X = df[["DJU"]]
+   y = df["Consommation (kWh) - Relevé"]
+
+   result = Mathematical_Models(
+       y, X,
+       start_baseline_period, end_baseline_period,
+       start_reporting_period, end_reporting_period,
+       degree=3, print_report=True, seuil_z_scores=3, site="exemple_site"
+   )
+   print(result)
 
 Calcul des économies
 ~~~~~~~~~~~~~~~~~~~~~

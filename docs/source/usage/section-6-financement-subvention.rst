@@ -170,3 +170,13 @@ Exemple complet : Projet de rénovation énergétique
    
    print("-" * 70)
    print(f"{'TOTAL':25s} : {total_kwh_cumac:>12,.0f} kWh cumac = {total_montant:>10,.2f} €")
+
+Exemple issu des tests : calcul CEE (transport)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code-block:: python
+
+    from CEE import CEE
+
+    CEE.euro_MWhcumac = 6
+    print(CEE.TRA_EQ_107("Bateau DEK (1 000 t)", "Seine", 50000))
