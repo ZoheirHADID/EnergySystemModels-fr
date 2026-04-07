@@ -103,6 +103,225 @@ L’ATRT (Accès des Tiers au Réseau de Transport) correspond au coût d’ache
 
 L’addition de ces composantes donne le coût total du transport (ATRT) sur la période.
 
+.. _stations-meteo-zi:
+
+**Stations météo disponibles pour le calcul de Zi**
+
+Le coefficient Zi est une constante réglementaire publiée par la CRE, stockée dans le fichier ``coefficients_gaz_ATRT.json``.
+Il est indexé par une table à double entrée : **station météo** × **profil de consommation**.
+
+36 stations météo sont disponibles, réparties sur 3 zones climatiques (H1, H2, H3) :
+
+.. list-table::
+   :header-rows: 1
+   :widths: 10 30 15 45
+
+   * - Zone
+     - Station (valeur du paramètre)
+     - Code
+     - Région
+   * - H1
+     - ``PARIS-MONTSOURIS``
+     - 75114001
+     - Île-de-France
+   * - H1
+     - ``LILLE-LESQUIN``
+     - 59343001
+     - Hauts-de-France
+   * - H1
+     - ``REIMS-PRUNAY``
+     - 51449002
+     - Grand Est
+   * - H1
+     - ``METZ-FRESCATY``
+     - 57039001
+     - Grand Est
+   * - H1
+     - ``ENTZHEIM``
+     - 67124001
+     - Grand Est (Strasbourg)
+   * - H1
+     - ``COLMAR-MEYENHEIM``
+     - 68205001
+     - Grand Est
+   * - H1
+     - ``BALE-MULHOUSE``
+     - 68297001
+     - Grand Est
+   * - H1
+     - ``ROUEN-BOOS``
+     - 76116001
+     - Normandie
+   * - H1
+     - ``CHARTRES``
+     - 28070001
+     - Centre-Val de Loire
+   * - H1
+     - ``AUXERRE-PERRIGNY``
+     - 89295001
+     - Bourgogne
+   * - H1
+     - ``DIJON-LONGVIC``
+     - 21473001
+     - Bourgogne
+   * - H1
+     - ``BESANCON``
+     - 25056001
+     - Franche-Comté
+   * - H1
+     - ``LUXEUIL``
+     - 70473001
+     - Franche-Comté
+   * - H1
+     - ``LYON-BRON``
+     - 69029001
+     - Auvergne-Rhône-Alpes
+   * - H1
+     - ``ST-ETIENNE-BOUTHEON``
+     - 42005001
+     - Auvergne-Rhône-Alpes
+   * - H1
+     - ``CLERMONT-FERRAND``
+     - 63113001
+     - Auvergne-Rhône-Alpes
+   * - H1
+     - ``GRENOBLE-ST-GEOIRS``
+     - 38384001
+     - Auvergne-Rhône-Alpes
+   * - H1
+     - ``CHAMBERY-AIX``
+     - 73329001
+     - Savoie
+   * - H1
+     - ``BONNEVILLE``
+     - 74042003
+     - Haute-Savoie
+   * - H2
+     - ``BREST-GUIPAVAS``
+     - 29075001
+     - Bretagne
+   * - H2
+     - ``DINARD-LE-PLEURTUIT``
+     - 35228001
+     - Bretagne
+   * - H2
+     - ``NANTES-BOUGUENAIS``
+     - 44020001
+     - Pays de la Loire
+   * - H2
+     - ``TOURS``
+     - 37179001
+     - Centre-Val de Loire
+   * - H2
+     - ``BOURGES``
+     - 18033001
+     - Centre-Val de Loire
+   * - H2
+     - ``COGNAC``
+     - 16089001
+     - Nouvelle-Aquitaine
+   * - H2
+     - ``BORDEAUX MERIGNAC``
+     - 33281001
+     - Nouvelle-Aquitaine
+   * - H2
+     - ``AGEN``
+     - 47091001
+     - Nouvelle-Aquitaine
+   * - H2
+     - ``BIARRITZ-ANGLET``
+     - 64024001
+     - Nouvelle-Aquitaine
+   * - H2
+     - ``PAU-UZEIN``
+     - 64549001
+     - Nouvelle-Aquitaine
+   * - H2
+     - ``TOULOUSE-BLAGNAC``
+     - 31069001
+     - Occitanie
+   * - H2
+     - ``MONTELIMAR``
+     - 26198001
+     - Drôme
+   * - H3
+     - ``NICE``
+     - 06088001
+     - PACA
+   * - H3
+     - ``MARIGNANE``
+     - 13054001
+     - PACA (Marseille)
+   * - H3
+     - ``NIMES-COURBESSAC``
+     - 30189001
+     - Occitanie
+   * - H3
+     - ``PERPIGNAN``
+     - 66136001
+     - Occitanie
+
+Les zones climatiques (H1/H2/H3) correspondent à la réglementation thermique française.
+H1 = climat froid (Zi plus élevé pour les profils chauffage), H3 = climat doux (Zi plus bas).
+
+**Profils de consommation (P011 à P019)**
+
+Le profil caractérise la thermo-sensibilité du site :
+
+.. list-table::
+   :header-rows: 1
+   :widths: 20 80
+
+   * - Profil
+     - Description
+   * - ``P011``
+     - Faible thermo-sensibilité (usage industriel continu, peu de chauffage)
+   * - ``P012``
+     - Thermo-sensibilité légère
+   * - ``P013 à P015``
+     - Thermo-sensibilité modérée
+   * - ``P016``
+     - Thermo-sensibilité standard (valeur par défaut dans le modèle)
+   * - ``P017 à P018``
+     - Forte thermo-sensibilité (chauffage prédominant)
+   * - ``P019``
+     - Thermo-sensibilité maximale (chauffage très prédominant)
+
+Plus le numéro de profil est élevé, plus le Zi est grand, ce qui augmente la CJN et donc les coûts d'acheminement.
+
+.. _coefficient-A:
+
+**Coefficient A par réseau de transport**
+
+Le coefficient A dépend du gestionnaire du réseau de transport et de la période tarifaire ATRT :
+
+.. list-table::
+   :header-rows: 1
+   :widths: 35 25 25
+
+   * - Période ATRT
+     - A (GRTgaz)
+     - A (Teréga)
+   * - 2023-04 → 2024-03
+     - 1.073
+     - 1.203
+   * - 2024-04 → 2025-03
+     - 1.181
+     - 1.305
+   * - 2025-04 → 2026-03
+     - 1.168
+     - 1.277
+
+Ces valeurs sont publiées par la CRE et stockées dans ``coefficients_gaz_ATRT.json``.
+
+**Clarification sur la CJA (Capacité Journalière Annualisée)**
+
+Le paramètre ``CJA_MWh_j`` est la capacité de soutirage journalier souscrite auprès du gestionnaire de réseau de distribution (GRDF).
+Il est déclaré dans ``input_Contrat`` mais **n'est pas utilisé dans le calcul actuel**.
+Toutes les formules (ATRD souscription capacité, ATRT, CTA, modulation hivernale) reposent sur la **CJN** (Capacité Journalière Normalisée).
+La CJA pourrait servir à un usage futur (détection de dépassements, pénalités CJA < CJN).
+
+
 ------------------------------------------------------------
 2. Taxes et contributions
 ------------------------------------------------------------
@@ -239,7 +458,7 @@ Les paramètres à renseigner dans `input_Contrat`, `input_Facture` et `input_Ta
      - Valeurs possibles / Plage
      - Description
    * - type_tarif_acheminement
-     - "T1", "T2", "T3", "T4"
+     - "T1", "T2", "T3", "T4", "TP"
      - Classe de consommation (T1 : <6 MWh/an, T2 : 6-300 MWh/an, T3 : 300-5000 MWh/an, T4 : >5000 MWh/an)
    * - CJA_MWh_j
      - ≥ 0
@@ -256,9 +475,18 @@ Les paramètres à renseigner dans `input_Contrat`, `input_Facture` et `input_Ta
    * - reseau_transport
      - "GRTgaz", "Téréga"
      - Gestionnaire du réseau de transport
+   * - CJN_MWh_j
+     - ≥ 0 ou None
+     - Capacité Journalière Normalisée (MWh/j). Si renseigné, utilisé tel quel. Sinon, recalculé via CAR × Zi × A.
+   * - modulation_MWh_j
+     - ≥ 0 ou None
+     - Modulation hivernale (MWh/j). Si renseigné, utilisé tel quel. Sinon, recalculé via CJN - (CAR / 365).
    * - niv_tarif_region
      - 0 à 10
      - Niveau tarifaire régional
+   * - distance
+     - ≥ 0 ou None
+     - Distance en km (uniquement pour le tarif TP)
 
 ***Déclarer une facture gaz***
 
