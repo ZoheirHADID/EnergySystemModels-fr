@@ -79,11 +79,11 @@ L’ATRT (Accès des Tiers au Réseau de Transport) correspond au coût d’ache
    * - **CAR**
      - Consommation Annuelle de Référence (en MWh/an), fournie dans le contrat
    * - **Zi**
-     - Coefficient climatique selon la station météo et le profil de consommation
+     - Coefficient climatique, déterminé par lookup dans une table publiée par la CRE à double entrée : **station météo** (36 stations) × **profil de consommation** (P011 à P019). Plus le profil est élevé, plus la consommation est thermo-sensible (chauffage), donc plus Zi est grand. Voir la section *Stations météo et coefficients Zi* ci-dessous.
    * - **A**
-     - Coefficient réseau (dépend de GRTgaz ou Téréga)
+     - Coefficient réseau, déterminé par lookup selon le **gestionnaire de réseau de transport** (GRTgaz ou Teréga) et la **période tarifaire ATRT**. Publié par la CRE. Voir la section *Coefficient A par réseau* ci-dessous.
    * - **CJN**
-     - Capacité Journalière Normalisée (en MWh/j) : ``CJN = CAR × Zi × A``
+     - Capacité Journalière Normalisée (en MWh/j) : ``CJN = CAR × Zi × A``. Si ``CJN_MWh_j`` est renseigné dans le contrat, il est utilisé tel quel sans recalcul.
    * - **Modulation_hivernale**
      - Variation saisonnière de la consommation : ``Modulation = CJN - (CAR / 365)``
    * - **TCS**
