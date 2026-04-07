@@ -595,11 +595,11 @@ Ces valeurs sont publiees par la CRE et stockees dans ``coefficients_gaz_ATRT.js
 5. Modele de calcul et exemple Python
 ------------------------------------------------------------
 
-5.1 Exemple : facture gaz T4 - BASE AERIENNE 107
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+5.1 Exemple : facture gaz T4 - Site industriel Ile-de-France
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Cet exemple reproduit une facture reelle EDF (n 10247742806, fevrier 2026) pour un site
-militaire (BASE AERIENNE 107, Velizy-Villacoublay) avec un contrat T4.
+Cet exemple reproduit une facture reelle EDF (fevrier 2026) pour un site industriel
+en Ile-de-France avec un contrat T4.
 
 .. code-block:: python
 
