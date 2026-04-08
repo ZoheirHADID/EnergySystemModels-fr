@@ -435,22 +435,80 @@ La CTA comporte **deux parts distinctes** avec des assiettes separees :
 
    Accise = Consommation totale (kWh) x taux accise (euro/kWh)
 
-Historique des taux :
+Evolution historique des taux de l'accise gaz (ex-TICGN) :
 
-.. list-table::
+.. list-table:: Accise sur les gaz naturels -- historique complet (source : coefficients_gaz_TICGN.json)
    :header-rows: 1
-   :widths: 40 30
+   :widths: 25 25 20 30
 
-   * - Periode
-     - Taux (euro/kWh)
-   * - 2024-01-01 au 2024-12-31
-     - 0,01637
-   * - 2025-01-01 au 2025-07-31
-     - 0,01716
-   * - 2025-08-01 au 2026-01-31
+   * - Date debut
+     - Date fin
+     - Taux (EUR/kWh)
+     - Taux (EUR/MWh)
+   * - 01/04/2014
+     - 31/12/2014
+     - 0,00141
+     - 1,41
+   * - 01/01/2015
+     - 31/12/2015
+     - 0,00264
+     - 2,64
+   * - 01/01/2016
+     - 31/12/2016
+     - 0,00434
+     - 4,34
+   * - 01/01/2017
+     - 31/12/2017
+     - 0,00588
+     - 5,88
+   * - 01/01/2018
+     - 31/12/2018
+     - 0,00845
+     - 8,45
+   * - 01/01/2019
+     - 31/12/2019
+     - 0,00845
+     - 8,45
+   * - 01/01/2020
+     - 31/12/2020
+     - 0,00845
+     - 8,45
+   * - 01/01/2021
+     - 31/12/2021
+     - 0,00843
+     - 8,43
+   * - 01/01/2022
+     - 31/12/2022
+     - 0,00841
+     - 8,41
+   * - 01/01/2023
+     - 31/12/2023
+     - 0,00837
+     - 8,37
+   * - 01/01/2024
+     - 31/12/2024
+     - **0,01637**
+     - **16,37**
+   * - 01/01/2025
+     - 31/07/2025
+     - **0,01716**
+     - **17,16**
+   * - 01/08/2025
+     - 31/01/2026
      - 0,01543
-   * - 2026-02-01 au 2026-12-31
+     - 15,43
+   * - 01/02/2026
+     - 31/12/2026
      - 0,01639
+     - 16,39
+
+.. note::
+
+   La TICGN a ete renommee **accise sur les gaz naturels** depuis 2022.
+   Le taux a presque double entre 2023 (8,37 EUR/MWh) et 2024 (16,37 EUR/MWh),
+   suite a la fin du bouclier tarifaire. Les taux sont integres dans le fichier
+   ``coefficients_gaz_TICGN.json`` de la bibliotheque EnergySystemModels et
+   selectionnes automatiquement en fonction de la periode de facturation.
 
 3.3 Fourniture
 ^^^^^^^^^^^^^^^
