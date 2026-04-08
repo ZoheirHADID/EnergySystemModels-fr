@@ -717,13 +717,14 @@ en Ile-de-France avec un contrat T4.
    atr = ATR_calculation(contrat, facture, tarif)
    atr.calculate()
 
-   # Resultats detailles
-   print(atr.df)                    # Resume general
+   # Resultats detailles (v20260408002)
+   print(atr.df_results)            # Resume general complet (toutes sections)
+   print(atr.df_contrat)            # Parametres contrat + coefficients CRE
+   print(atr.df_fourniture)         # Molecule gaz (fournisseur)
    print(atr.df_transport)          # Detail ATRT (TCS, TCR, TCL, stockage)
    print(atr.df_distribution)       # Detail ATRD (fixe, souscription, variable)
-   print(atr.df_taxes_contributions) # CTA distribution + CTA transport + Accise
-   print(atr.df_molecule)           # Prix molecule gaz
-   print(atr.df_euro_MWh)           # Couts unitaires en euro/MWh
+   print(atr.df_taxes)              # CTA distribution + CTA transport + Accise
+   print(atr.df_totaux)             # Totaux HT/TTC + couts unitaires EUR/MWh
 
    # Graphiques
    atr.plot()                       # Repartition globale

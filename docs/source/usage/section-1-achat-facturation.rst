@@ -271,13 +271,13 @@ ATR - Transport & Distribution (GRTgaz)
 
    atr = ATR_calculation(contrat, facture, tarif)
    atr.calculate()
-   print(atr.df)
-   print(atr.df_transport)
-   print(atr.df_distribution)
-   print(atr.df_taxes_contributions)
-   print(atr.df_molecule)
-   print(atr.df_annuel)
-   print(atr.df_euro_MWh)
+   print(atr.df_results)            # Resume general complet
+   print(atr.df_contrat)            # Parametres contrat + coefficients CRE
+   print(atr.df_fourniture)         # Molecule gaz (fournisseur)
+   print(atr.df_transport)          # Detail ATRT (TCS, TCR, TCL, stockage)
+   print(atr.df_distribution)       # Detail ATRD (fixe, capacite, variable)
+   print(atr.df_taxes)              # CTA + Accise gaz
+   print(atr.df_totaux)             # Totaux HT/TTC + couts EUR/MWh
 
 1.2.2. Algérie
 ~~~~~~~~~~~~~~
