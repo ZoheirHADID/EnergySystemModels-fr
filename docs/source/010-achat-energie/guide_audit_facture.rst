@@ -14,6 +14,61 @@ de gaz, que ce soit en France (TURPE, ATR) ou en Algerie (Sonalgaz).
    les coefficients et le resultat. L'objectif est de pouvoir controler chaque
    composante d'une facture.
 
+Structure universelle d'une facture d'energie
+-----------------------------------------------
+
+.. code-block:: text
+
+   +---------------------------------------------------------------+
+   |                    FACTURE D'ENERGIE                          |
+   +---------------------------------------------------------------+
+   |                                                               |
+   |  1. FOURNITURE (molecule)              = kWh x prix/kWh      |
+   |     - Electricite : par poste horaire (Pointe, HPH, HCH...)  |
+   |     - Gaz : prix fixe ou indexe (molecule)                    |
+   |     + Certificats de capacite, ARENH, ENR                     |
+   |                                                               |
+   |  2. ACHEMINEMENT (reseau)              = composantes fixes    |
+   |                                          + variables          |
+   |     - Electricite : TURPE (CG+CC+CS+CMDPS+CACS)              |
+   |     - Gaz : ATRD (distribution) + ATRT (transport)            |
+   |                                                               |
+   |  3. TAXES ET CONTRIBUTIONS                                    |
+   |     - CTA (contribution tarifaire acheminement)               |
+   |     - TICFE/CSPE (electricite) ou Accise/TICGN (gaz)          |
+   |     - TVA : 5,5% sur fixe + 20% sur variable (France)        |
+   |             ou 19% (Algerie)                                  |
+   |                                                               |
+   +---------------------------------------------------------------+
+   |  TOTAL HTVA = Fourniture + Acheminement + Taxes               |
+   |  TOTAL TTC  = HTVA + TVA                                     |
+   +---------------------------------------------------------------+
+
+
+Conversion d'unites
+---------------------
+
+.. list-table::
+   :header-rows: 1
+   :widths: 30 30 40
+
+   * - Unite
+     - Conversion
+     - Usage
+   * - 1 thermie (th)
+     - = 1,163 kWh = 0,001163 MWh
+     - Gaz naturel en Algerie (Sonalgaz)
+   * - 1 MWh
+     - = 1 000 kWh
+     - Standard international
+   * - 1 m3(n) gaz
+     - x PCS (~11,5 kWh/m3) = kWh
+     - Conversion volume → energie (France)
+   * - cDA/kWh
+     - = centimes de Dinar par kWh
+     - Tarif Sonalgaz (diviser par 100 pour DA/kWh)
+
+
 Principe general
 -----------------
 
@@ -113,10 +168,42 @@ Colonnes standard de chaque DataFrame :
    calc.plot()          # Donut : Fourniture / TURPE / Taxes
    calc.plot_detail()   # Cascades detaillees
 
-**Resultat attendu :**
+**Resultat reel (df_acheminement)** :
 
-Chaque DataFrame affiche les formules, coefficients et calculs intermediaires.
-Par exemple, le ``df_acheminement`` montre :
+.. code-block:: text
+
+                        Ligne                                   Formule       Entree(s)                Coefficient  Resultat   Annuel
+   Composante de Gestion (CG)                            CG_annuel / 12   361.20 EUR/an                   31 jours     30.10    361.2
+  Composante de Comptage (CC)                            CC_annuel / 12   306.00 EUR/an                   31 jours     25.50    306.0
+               CS Fixe Pointe                            b0 x PS_Pointe          250 kW 6.4400 EUR/kW/an (TURPE 5)   1610.00
+           CS Fixe HPH-Pointe                 b1 x (PS_HPH - PS_Pointe)           50 kW 6.4400 EUR/kW/an (TURPE 5)    322.00
+        = CS Fixe (proratise)                 CS_annuel x nb_jour / 365 1,932.00 EUR/an                   31 jours    164.09   1932.0
+           CS Variable Pointe                     c_Pointe x kWh_Pointe       2,500 kWh  0.03690 EUR/kWh (TURPE 5)     92.25
+              CS Variable HPH                           c_HPH x kWh_HPH      55,000 kWh  0.03690 EUR/kWh (TURPE 5)   2029.50
+              CS Variable HCH                           c_HCH x kWh_HCH      35,000 kWh  0.03690 EUR/kWh (TURPE 5)   1291.50
+          = CS Variable total                             Somme c x kWh                                              3413.25
+       Depassement PS (CMDPS)                             CMDPS mensuel                                                 0.00
+ = TOTAL TURPE (acheminement) CG + CC + CS_fixe + CS_var + CMDPS + CACS                                              3634.00  43558.2
+
+**Resultat reel (df_totaux)** :
+
+.. code-block:: text
+
+                       Ligne                    Formule Entree(s) Coefficient  Resultat
+                  Fourniture                                                  10037.50
+        Acheminement (TURPE)                                                   3634.00
+      Taxes et contributions                                                     94.43
+                = Total HTVA Fourniture + TURPE + Taxes                       13765.93
+                     TVA 20%           Total_HTVA x 20%                        2753.19
+                 = Total TTC                 HTVA + TVA                       16519.12
+         Cout HTVA (EUR/MWh)           Total_HTVA / MWh 92.50 MWh              148.82
+   Cout fourniture (EUR/MWh)           Fourniture / MWh                         108.51
+ Cout distribution (EUR/MWh)                TURPE / MWh                          39.29
+        Cout taxes (EUR/MWh)                Taxes / MWh                           1.02
+
+**Lecture du tableau** :
+
+Chaque ligne du ``df_acheminement`` montre :
 
 - Les coefficients **b** (part puissance) avec la version TURPE utilisee
 - Les coefficients **c** (part energie) par poste horaire
