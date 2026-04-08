@@ -40,4 +40,5 @@ Une facture d’énergie rémunère toujours une énergie livrée, un réseau mo
 
    contrat_electricite
    contrat_gaz
+   guide_audit_facture
 

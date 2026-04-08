@@ -46,3 +46,11 @@
     turpe_calculator = TurpeCalculator(contrat, tarif, facture)
     turpe_calculator.calculate_turpe()
     print(f"Acheminement (€) : {turpe_calculator.euro_TURPE}")
+
+   # Nouveaute v20260408001 : DataFrames auditables
+   print(turpe_calculator.df_contrat.to_string(index=False))
+   print(turpe_calculator.df_fourniture_detail.to_string(index=False))
+   print(turpe_calculator.df_acheminement.to_string(index=False))
+   print(turpe_calculator.df_taxes.to_string(index=False))
+   print(turpe_calculator.df_totaux.to_string(index=False))
+   turpe_calculator.plot()
