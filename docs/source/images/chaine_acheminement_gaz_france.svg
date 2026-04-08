@@ -1,201 +1,177 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 730" font-family="Arial, Helvetica, sans-serif">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 650" font-family="Arial, Helvetica, sans-serif">
   <defs>
-    <marker id="arr" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
-      <polygon points="0 0, 8 3, 0 6" fill="#666"/>
+    <marker id="a" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0,8 3,0 6" fill="#666"/>
     </marker>
-    <marker id="arr-b" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
-      <polygon points="0 0, 8 3, 0 6" fill="#1565C0"/>
+    <marker id="ab" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0,8 3,0 6" fill="#1565C0"/>
+    </marker>
+    <marker id="ag" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0,8 3,0 6" fill="#2E7D32"/>
     </marker>
   </defs>
 
-  <!-- Background -->
-  <rect width="1200" height="700" fill="#fff" rx="4"/>
+  <rect width="1200" height="650" fill="#fff"/>
 
-  <!-- Title -->
-  <text x="600" y="32" text-anchor="middle" font-size="20" font-weight="bold" fill="#333">Chaine de l'acheminement du gaz</text>
+  <!-- ======== TITRE ======== -->
+  <text x="600" y="30" text-anchor="middle" font-size="20" font-weight="bold" fill="#333">Chaine de l'acheminement du gaz</text>
 
-  <!-- ================================================================ -->
-  <!-- LEFT SIDE : Interconnexions terrestres -->
-  <!-- ================================================================ -->
-  <rect x="15" y="55" width="250" height="160" rx="6" fill="#E3F2FD" stroke="#90CAF9"/>
-  <text x="140" y="75" text-anchor="middle" font-size="13" font-weight="bold" fill="#1565C0">Interconnexions terrestres</text>
-  <text x="30" y="96" font-size="11" fill="#333">Dunkerque</text>
-  <text x="30" y="111" font-size="11" fill="#333">Virtualys</text>
-  <text x="30" y="126" font-size="11" fill="#333">Taisnieres</text>
-  <text x="30" y="141" font-size="11" fill="#333">Obergailbach</text>
-  <text x="30" y="156" font-size="11" fill="#333">Oltingue -- Pirineos</text>
-  <rect x="30" y="165" width="220" height="22" rx="3" fill="#1565C0"/>
-  <text x="140" y="181" text-anchor="middle" font-size="12" font-weight="bold" fill="#fff">2 385 GWh/j</text>
-  <text x="140" y="207" text-anchor="middle" font-size="10" fill="#888">Sortie vers voisins : 799 GWh/j</text>
+  <!-- ======== LIGNE 1 : ENTREES (gauche) + TRANSPORT (centre) + ENTREES (droite) ======== -->
 
-  <!-- RIGHT SIDE : Terminaux methaniers -->
-  <rect x="935" y="55" width="250" height="160" rx="6" fill="#E3F2FD" stroke="#90CAF9"/>
-  <text x="1060" y="75" text-anchor="middle" font-size="13" font-weight="bold" fill="#1565C0">Terminaux methaniers</text>
-  <text x="950" y="100" font-size="11" fill="#333">Dunkerque</text>
-  <text x="950" y="117" font-size="11" fill="#333">Montoir-de-Bretagne</text>
-  <text x="950" y="134" font-size="11" fill="#333">Fos-sur-Mer (Tonkin + Cavaou)</text>
-  <rect x="950" y="155" width="220" height="22" rx="3" fill="#1565C0"/>
-  <text x="1060" y="171" text-anchor="middle" font-size="12" font-weight="bold" fill="#fff">1 440 GWh/j</text>
-  <text x="1060" y="207" text-anchor="middle" font-size="10" fill="#888">+ FSRU Le Havre : 150 GWh/j (2023)</text>
+  <!-- Interconnexions terrestres (gauche) -->
+  <rect x="15" y="50" width="220" height="165" rx="5" fill="#E3F2FD" stroke="#90CAF9"/>
+  <text x="125" y="70" text-anchor="middle" font-size="12" font-weight="bold" fill="#1565C0">Interconnexions terrestres</text>
+  <text x="25" y="90" font-size="10" fill="#333">Dunkerque</text>
+  <text x="25" y="104" font-size="10" fill="#333">Virtualys</text>
+  <text x="25" y="118" font-size="10" fill="#333">Taisnieres</text>
+  <text x="25" y="132" font-size="10" fill="#333">Obergailbach</text>
+  <text x="25" y="146" font-size="10" fill="#333">Oltingue</text>
+  <text x="25" y="160" font-size="10" fill="#333">Pirineos</text>
+  <rect x="25" y="175" width="200" height="20" rx="3" fill="#1565C0"/>
+  <text x="125" y="189" text-anchor="middle" font-size="11" font-weight="bold" fill="#fff">2 385 GWh/j</text>
+  <text x="125" y="210" text-anchor="middle" font-size="9" fill="#777">Sortie : 799 GWh/j</text>
 
-  <!-- ================================================================ -->
-  <!-- CENTRE : TRANSPORT -->
-  <!-- ================================================================ -->
-  <!-- Arrows from interconnexions to transport -->
-  <line x1="265" y1="135" x2="310" y2="135" stroke="#1565C0" stroke-width="3" marker-end="url(#arr-b)"/>
-  <line x1="935" y1="135" x2="890" y2="135" stroke="#1565C0" stroke-width="3" marker-end="url(#arr-b)"/>
+  <!-- Fleche gauche → centre -->
+  <line x1="235" y1="130" x2="275" y2="130" stroke="#1565C0" stroke-width="3" marker-end="url(#ab)"/>
 
-  <!-- Transport box -->
-  <rect x="310" y="55" width="580" height="190" rx="8" fill="#fff" stroke="#1565C0" stroke-width="2"/>
-  <rect x="310" y="55" width="580" height="32" rx="8" fill="#1565C0"/>
-  <rect x="310" y="72" width="580" height="15" fill="#1565C0"/>
-  <text x="600" y="78" text-anchor="middle" font-size="15" font-weight="bold" fill="#fff">Gestionnaires du Reseau de Transport de Gaz Naturel</text>
-  <text x="600" y="108" text-anchor="middle" font-size="11" fill="#555">Construction, entretien et developpement du reseau de Transport du Gaz Naturel a haute pression</text>
+  <!-- Terminaux methaniers (droite) -->
+  <rect x="965" y="50" width="220" height="145" rx="5" fill="#E3F2FD" stroke="#90CAF9"/>
+  <text x="1075" y="70" text-anchor="middle" font-size="12" font-weight="bold" fill="#1565C0">Terminaux methaniers</text>
+  <text x="975" y="92" font-size="10" fill="#333">Dunkerque</text>
+  <text x="975" y="108" font-size="10" fill="#333">Montoir-de-Bretagne</text>
+  <text x="975" y="124" font-size="10" fill="#333">Fos-sur-Mer</text>
+  <rect x="975" y="140" width="200" height="20" rx="3" fill="#1565C0"/>
+  <text x="1075" y="154" text-anchor="middle" font-size="11" font-weight="bold" fill="#fff">1 440 GWh/j</text>
+  <text x="1075" y="190" text-anchor="middle" font-size="9" fill="#777">+ FSRU Le Havre : 150 GWh/j</text>
+
+  <!-- Fleche droite → centre -->
+  <line x1="965" y1="130" x2="925" y2="130" stroke="#1565C0" stroke-width="3" marker-end="url(#ab)"/>
+
+  <!-- ======== BLOC CENTRAL : GESTIONNAIRES TRANSPORT ======== -->
+  <rect x="280" y="50" width="640" height="170" rx="6" fill="#fff" stroke="#1565C0" stroke-width="2"/>
+  <rect x="280" y="50" width="640" height="28" rx="6" fill="#1565C0"/>
+  <rect x="280" y="65" width="640" height="13" fill="#1565C0"/>
+  <text x="600" y="72" text-anchor="middle" font-size="13" font-weight="bold" fill="#fff">Gestionnaires (Construction, entretien et developpement) du reseau de Transport du Gaz Naturel</text>
+  <text x="600" y="96" text-anchor="middle" font-size="11" fill="#555">a haute pression</text>
 
   <!-- GRTgaz -->
-  <rect x="330" y="120" width="260" height="110" rx="5" fill="#F5F5F5" stroke="#1565C0" stroke-width="1.5"/>
-  <text x="460" y="142" text-anchor="middle" font-size="16" font-weight="bold" fill="#1565C0">GRTgaz</text>
-  <text x="460" y="162" text-anchor="middle" font-size="12" fill="#333">85% du reseau</text>
-  <text x="460" y="180" text-anchor="middle" font-size="11" fill="#555">32 440 km de canalisations</text>
-  <text x="460" y="196" text-anchor="middle" font-size="11" fill="#555">26 stations de compression</text>
-  <text x="460" y="212" text-anchor="middle" font-size="10" fill="#888">359 TWh consommes (2023)</text>
+  <rect x="300" y="108" width="290" height="100" rx="4" fill="#F8F9FA" stroke="#1565C0" stroke-width="1.5"/>
+  <text x="445" y="130" text-anchor="middle" font-size="18" font-weight="bold" fill="#1565C0">GRTgaz</text>
+  <text x="445" y="150" text-anchor="middle" font-size="12" fill="#333">= 85% du reseau</text>
+  <text x="445" y="168" text-anchor="middle" font-size="10" fill="#555">32 440 km -- 26 stations de compression</text>
+  <text x="445" y="183" text-anchor="middle" font-size="10" fill="#555">359 TWh (zone GRTgaz, 2023)</text>
+  <text x="445" y="200" text-anchor="middle" font-size="9" fill="#888">-10% vs 2022</text>
 
   <!-- Terega -->
-  <rect x="610" y="120" width="260" height="110" rx="5" fill="#F5F5F5" stroke="#0D47A1" stroke-width="1.5"/>
-  <text x="740" y="142" text-anchor="middle" font-size="16" font-weight="bold" fill="#0D47A1">Terega</text>
-  <text x="740" y="162" text-anchor="middle" font-size="12" fill="#333">15% du reseau</text>
-  <text x="740" y="180" text-anchor="middle" font-size="11" fill="#555">5 083 km de canalisations</text>
-  <text x="740" y="196" text-anchor="middle" font-size="11" fill="#555">5 stations de compression</text>
-  <text x="740" y="212" text-anchor="middle" font-size="10" fill="#888">22 TWh consommes (2022)</text>
+  <rect x="610" y="108" width="290" height="100" rx="4" fill="#F8F9FA" stroke="#0D47A1" stroke-width="1.5"/>
+  <text x="755" y="130" text-anchor="middle" font-size="18" font-weight="bold" fill="#0D47A1">Terega</text>
+  <text x="755" y="150" text-anchor="middle" font-size="12" fill="#333">= 15% du reseau</text>
+  <text x="755" y="168" text-anchor="middle" font-size="10" fill="#555">5 083 km -- 5 stations de compression</text>
+  <text x="755" y="183" text-anchor="middle" font-size="10" fill="#555">22 TWh (zone Terega, 2022)</text>
+  <text x="755" y="200" text-anchor="middle" font-size="9" fill="#888">-8% vs 2021</text>
 
-  <!-- ================================================================ -->
-  <!-- STOCKAGE (lateral droit) -->
-  <!-- ================================================================ -->
-  <rect x="935" y="260" width="250" height="130" rx="6" fill="#FFF3E0" stroke="#FB8C00"/>
-  <text x="1060" y="282" text-anchor="middle" font-size="13" font-weight="bold" fill="#E65100">Stockage souterrain</text>
-  <text x="1060" y="302" text-anchor="middle" font-size="12" fill="#333">138 TWh (volume utile)</text>
-  <text x="1060" y="320" text-anchor="middle" font-size="11" fill="#555">Soutirage : 2 376 GWh/j</text>
-  <text x="950" y="340" font-size="10" fill="#444">Storengy : 9 sites (102,1 TWh - 74%)</text>
-  <text x="950" y="356" font-size="10" fill="#444">Terega : 1 site (33,1 TWh - 24%)</text>
-  <text x="950" y="372" font-size="10" fill="#444">Geomethane : 1 site (3,3 TWh - 2%)</text>
-  <text x="1060" y="388" text-anchor="middle" font-size="9" fill="#888">Remplissage min. 85% au 1er nov.</text>
+  <!-- ======== STOCKAGE (a droite du transport) ======== -->
+  <rect x="965" y="220" width="220" height="115" rx="5" fill="#FFF3E0" stroke="#FB8C00"/>
+  <text x="1075" y="240" text-anchor="middle" font-size="12" font-weight="bold" fill="#E65100">Stockages souterrains</text>
+  <text x="1075" y="258" text-anchor="middle" font-size="13" font-weight="bold" fill="#333">(138 TWh)</text>
+  <text x="975" y="278" font-size="10" fill="#444">74% Storengy (9 sites)</text>
+  <text x="975" y="294" font-size="10" fill="#444">24% Terega (1 site)</text>
+  <text x="975" y="310" font-size="10" fill="#444">2% Geomethane (1 site)</text>
+  <text x="1075" y="330" text-anchor="middle" font-size="9" fill="#888">Soutirage : 2 376 GWh/j</text>
 
-  <!-- Arrow bidirectional stockage <-> transport -->
-  <line x1="935" y1="300" x2="895" y2="260" stroke="#FB8C00" stroke-width="2" marker-end="url(#arr)"/>
-  <line x1="895" y1="330" x2="935" y2="370" stroke="#FB8C00" stroke-width="2" marker-end="url(#arr)"/>
-  <text x="895" y="290" text-anchor="end" font-size="9" fill="#E65100">injection ete</text>
-  <text x="895" y="355" text-anchor="end" font-size="9" fill="#E65100">soutirage hiver</text>
+  <!-- Fleches bidirectionnelles stockage <-> transport -->
+  <path d="M960,260 L930,240" stroke="#FB8C00" stroke-width="1.5" fill="none" marker-end="url(#a)"/>
+  <path d="M930,300 L960,320" stroke="#FB8C00" stroke-width="1.5" fill="none" marker-end="url(#a)"/>
+  <text x="935" y="252" text-anchor="end" font-size="8" fill="#E65100">ete</text>
+  <text x="935" y="312" text-anchor="end" font-size="8" fill="#E65100">hiver</text>
 
-  <!-- ================================================================ -->
-  <!-- Arrows transport -> consumers -->
-  <!-- ================================================================ -->
-  <!-- Grandes industries (direct from transport) -->
-  <line x1="380" y1="245" x2="380" y2="290" stroke="#666" stroke-width="1.5" marker-end="url(#arr)"/>
-  <rect x="290" y="290" width="180" height="50" rx="5" fill="#fff" stroke="#E65100" stroke-width="1.5"/>
-  <text x="380" y="310" text-anchor="middle" font-size="11" font-weight="bold" fill="#E65100">Grandes industries francaises</text>
-  <text x="380" y="326" text-anchor="middle" font-size="10" fill="#555">Raccordees en transport (TP)</text>
+  <!-- ======== LIGNE 2 : FLECHES VERS LE BAS ======== -->
 
-  <!-- Centrales electriques (direct from transport) -->
-  <line x1="530" y1="245" x2="530" y2="290" stroke="#666" stroke-width="1.5" marker-end="url(#arr)"/>
-  <rect x="480" y="290" width="180" height="50" rx="5" fill="#fff" stroke="#1565C0" stroke-width="1.5"/>
-  <text x="570" y="310" text-anchor="middle" font-size="11" font-weight="bold" fill="#1565C0">Centrales de production</text>
-  <text x="570" y="326" text-anchor="middle" font-size="10" fill="#555">d'electricite</text>
+  <!-- Fleche transport → Grandes industries (directe) -->
+  <line x1="370" y1="220" x2="370" y2="265" stroke="#666" stroke-width="1.5" marker-end="url(#a)"/>
+  <rect x="280" y="265" width="180" height="45" rx="4" fill="#fff" stroke="#E65100" stroke-width="1.5"/>
+  <text x="370" y="284" text-anchor="middle" font-size="11" font-weight="bold" fill="#E65100">Grandes industries</text>
+  <text x="370" y="300" text-anchor="middle" font-size="10" fill="#555">francaises</text>
 
-  <!-- Arrow transport -> distribution (centre) -->
-  <line x1="700" y1="245" x2="700" y2="290" stroke="#666" stroke-width="3" marker-end="url(#arr)"/>
-  <text x="720" y="275" font-size="9" fill="#555">PITD</text>
+  <!-- Fleche transport → Centrales elec (directe) -->
+  <line x1="520" y1="220" x2="520" y2="265" stroke="#666" stroke-width="1.5" marker-end="url(#a)"/>
+  <rect x="460" y="265" width="180" height="45" rx="4" fill="#fff" stroke="#1565C0" stroke-width="1.5"/>
+  <text x="550" y="284" text-anchor="middle" font-size="11" font-weight="bold" fill="#1565C0">Centrales de production</text>
+  <text x="550" y="300" text-anchor="middle" font-size="10" fill="#555">d'electricite</text>
 
-  <!-- ================================================================ -->
-  <!-- DISTRIBUTION -->
-  <!-- ================================================================ -->
-  <rect x="290" y="370" width="600" height="130" rx="8" fill="#fff" stroke="#2E7D32" stroke-width="2"/>
-  <rect x="290" y="370" width="600" height="30" rx="8" fill="#2E7D32"/>
-  <rect x="290" y="385" width="600" height="15" fill="#2E7D32"/>
-  <text x="590" y="392" text-anchor="middle" font-size="14" font-weight="bold" fill="#fff">Reseau de Distribution</text>
+  <!-- Fleche transport → Distribution (grosse) -->
+  <line x1="720" y1="220" x2="720" y2="265" stroke="#2E7D32" stroke-width="4" marker-end="url(#ag)"/>
+  <text x="738" y="252" font-size="9" fill="#555">PITD</text>
+
+  <!-- ======== LIGNE 3 : DISTRIBUTION ======== -->
+  <rect x="280" y="340" width="640" height="120" rx="6" fill="#fff" stroke="#2E7D32" stroke-width="2"/>
+  <rect x="280" y="340" width="640" height="26" rx="6" fill="#2E7D32"/>
+  <rect x="280" y="353" width="640" height="13" fill="#2E7D32"/>
+  <text x="600" y="360" text-anchor="middle" font-size="13" font-weight="bold" fill="#fff">Reseau de Distribution</text>
 
   <!-- GRDF -->
-  <rect x="310" y="410" width="270" height="80" rx="4" fill="#F5F5F5" stroke="#2E7D32" stroke-width="1.5"/>
-  <text x="445" y="432" text-anchor="middle" font-size="14" font-weight="bold" fill="#2E7D32">GRDF</text>
-  <text x="445" y="450" text-anchor="middle" font-size="11" fill="#333">96% des volumes distribues</text>
-  <text x="445" y="466" text-anchor="middle" font-size="11" fill="#555">~200 000 km -- 10,8 M clients</text>
-  <text x="445" y="480" text-anchor="middle" font-size="10" fill="#888">Tarifs ATRD : T1, T2, T3, T4</text>
+  <rect x="300" y="374" width="290" height="74" rx="4" fill="#F8F9FA" stroke="#2E7D32" stroke-width="1.5"/>
+  <text x="445" y="396" text-anchor="middle" font-size="15" font-weight="bold" fill="#2E7D32">GRDF</text>
+  <text x="445" y="414" text-anchor="middle" font-size="11" fill="#333">96% des volumes distribues</text>
+  <text x="445" y="430" text-anchor="middle" font-size="10" fill="#555">~200 000 km -- 10,8 M clients</text>
+  <text x="445" y="444" text-anchor="middle" font-size="9" fill="#888">Tarifs ATRD : T1, T2, T3, T4</text>
 
   <!-- ELD -->
-  <rect x="600" y="410" width="270" height="80" rx="4" fill="#F5F5F5" stroke="#558B2F" stroke-width="1.5"/>
-  <text x="735" y="432" text-anchor="middle" font-size="14" font-weight="bold" fill="#558B2F">ELD (4%)</text>
-  <text x="735" y="450" text-anchor="middle" font-size="11" fill="#333">Regaz-Bordeaux (1,5%)</text>
-  <text x="735" y="466" text-anchor="middle" font-size="11" fill="#333">R-GDS (1,5%)</text>
-  <text x="735" y="480" text-anchor="middle" font-size="10" fill="#888">Autres Entreprises Locales de Distribution</text>
+  <rect x="610" y="374" width="290" height="74" rx="4" fill="#F8F9FA" stroke="#558B2F" stroke-width="1.5"/>
+  <text x="755" y="396" text-anchor="middle" font-size="13" font-weight="bold" fill="#558B2F">Entreprises Locales de Distribution</text>
+  <text x="755" y="414" text-anchor="middle" font-size="11" fill="#333">Regaz-Bordeaux (1,5%) -- R-GDS (1,5%)</text>
+  <text x="755" y="430" text-anchor="middle" font-size="10" fill="#555">Autres ELD (~1%)</text>
 
-  <!-- Arrow distribution -> line down -->
-  <line x1="590" y1="500" x2="590" y2="535" stroke="#666" stroke-width="2" marker-end="url(#arr)"/>
+  <!-- Fleche distribution → consommateurs -->
+  <line x1="600" y1="460" x2="600" y2="490" stroke="#666" stroke-width="2" marker-end="url(#a)"/>
 
-  <!-- ================================================================ -->
-  <!-- CONSOMMATEURS FINALS -->
-  <!-- ================================================================ -->
-  <rect x="15" y="535" width="900" height="70" rx="6" fill="#FFF8E1" stroke="#FFD54F"/>
-  <text x="25" y="555" font-size="13" font-weight="bold" fill="#F57F17">Consommateurs finals</text>
+  <!-- ======== LIGNE 4 : CONSOMMATEURS FINALS ======== -->
+  <rect x="15" y="490" width="930" height="50" rx="5" fill="#FFF8E1" stroke="#FFD54F"/>
+  <text x="25" y="510" font-size="12" font-weight="bold" fill="#F57F17">Consommateurs finals</text>
 
-  <rect x="30" y="565" width="165" height="30" rx="4" fill="#fff" stroke="#F57F17" stroke-width="1"/>
-  <text x="112" y="585" text-anchor="middle" font-size="10" fill="#333">Residentiels (T1)</text>
+  <rect x="215" y="502" width="120" height="28" rx="3" fill="#fff" stroke="#F57F17"/>
+  <text x="275" y="520" text-anchor="middle" font-size="9" fill="#333">Residentiels (T1)</text>
 
-  <rect x="210" y="565" width="165" height="30" rx="4" fill="#fff" stroke="#FF9800" stroke-width="1"/>
-  <text x="292" y="585" text-anchor="middle" font-size="10" fill="#333">PME / Commerces (T2)</text>
+  <rect x="345" y="502" width="140" height="28" rx="3" fill="#fff" stroke="#FF9800"/>
+  <text x="415" y="520" text-anchor="middle" font-size="9" fill="#333">PME / Commerces (T2)</text>
 
-  <rect x="390" y="565" width="165" height="30" rx="4" fill="#fff" stroke="#EF6C00" stroke-width="1"/>
-  <text x="472" y="585" text-anchor="middle" font-size="10" fill="#333">Industries moy. (T3)</text>
+  <rect x="495" y="502" width="140" height="28" rx="3" fill="#fff" stroke="#EF6C00"/>
+  <text x="565" y="520" text-anchor="middle" font-size="9" fill="#333">Industries moy. (T3)</text>
 
-  <rect x="570" y="565" width="165" height="30" rx="4" fill="#fff" stroke="#E65100" stroke-width="1"/>
-  <text x="652" y="585" text-anchor="middle" font-size="10" fill="#333">Grands indus. (T4)</text>
+  <rect x="645" y="502" width="140" height="28" rx="3" fill="#fff" stroke="#E65100"/>
+  <text x="715" y="520" text-anchor="middle" font-size="9" fill="#333">Grands indus. (T4)</text>
 
-  <rect x="750" y="565" width="150" height="30" rx="4" fill="#fff" stroke="#BF360C" stroke-width="1"/>
-  <text x="825" y="585" text-anchor="middle" font-size="10" fill="#333">Chaufferies coll.</text>
+  <rect x="795" y="502" width="140" height="28" rx="3" fill="#fff" stroke="#BF360C"/>
+  <text x="865" y="520" text-anchor="middle" font-size="9" fill="#333">Chaufferies coll.</text>
 
-  <!-- ================================================================ -->
-  <!-- TAXES (bottom) -->
-  <!-- ================================================================ -->
-  <rect x="15" y="620" width="1170" height="70" rx="6" fill="#F3E5F5" stroke="#CE93D8"/>
-  <text x="30" y="642" font-size="13" font-weight="bold" fill="#6A1B9A">Composantes de la facture gaz (consommateur final)</text>
+  <!-- ======== LIGNE 5 : COMPOSANTES FACTURE ======== -->
+  <rect x="15" y="555" width="1170" height="52" rx="5" fill="#F3E5F5" stroke="#CE93D8"/>
+  <text x="25" y="575" font-size="11" font-weight="bold" fill="#6A1B9A">Composantes de la facture gaz :</text>
 
-  <rect x="30" y="653" width="150" height="26" rx="4" fill="#fff" stroke="#7B1FA2" stroke-width="1"/>
-  <text x="105" y="670" text-anchor="middle" font-size="10" fill="#7B1FA2">Molecule (fournisseur)</text>
+  <rect x="250" y="567" width="110" height="22" rx="3" fill="#fff" stroke="#7B1FA2"/>
+  <text x="305" y="582" text-anchor="middle" font-size="9" fill="#7B1FA2">Molecule</text>
+  <text x="370" y="582" font-size="12" fill="#aaa">+</text>
+  <rect x="382" y="567" width="90" height="22" rx="3" fill="#fff" stroke="#7B1FA2"/>
+  <text x="427" y="582" text-anchor="middle" font-size="9" fill="#7B1FA2">ATRT</text>
+  <text x="482" y="582" font-size="12" fill="#aaa">+</text>
+  <rect x="494" y="567" width="90" height="22" rx="3" fill="#fff" stroke="#7B1FA2"/>
+  <text x="539" y="582" text-anchor="middle" font-size="9" fill="#7B1FA2">ATRD</text>
+  <text x="594" y="582" font-size="12" fill="#aaa">+</text>
+  <rect x="606" y="567" width="130" height="22" rx="3" fill="#fff" stroke="#7B1FA2"/>
+  <text x="671" y="582" text-anchor="middle" font-size="9" fill="#7B1FA2">CTA (20,80%+4,71%)</text>
+  <text x="746" y="582" font-size="12" fill="#aaa">+</text>
+  <rect x="758" y="567" width="120" height="22" rx="3" fill="#fff" stroke="#7B1FA2"/>
+  <text x="818" y="582" text-anchor="middle" font-size="9" fill="#7B1FA2">Accise (ex-TICGN)</text>
+  <text x="888" y="582" font-size="12" fill="#aaa">+</text>
+  <rect x="900" y="567" width="100" height="22" rx="3" fill="#fff" stroke="#7B1FA2"/>
+  <text x="950" y="582" text-anchor="middle" font-size="9" fill="#7B1FA2">TVA 5,5%/20%</text>
+  <text x="1010" y="582" font-size="12" fill="#aaa">=</text>
+  <rect x="1022" y="567" width="100" height="22" rx="3" fill="#7B1FA2"/>
+  <text x="1072" y="583" text-anchor="middle" font-size="10" font-weight="bold" fill="#fff">Facture TTC</text>
 
-  <text x="192" y="670" font-size="14" fill="#888">+</text>
-
-  <rect x="205" y="653" width="130" height="26" rx="4" fill="#fff" stroke="#7B1FA2" stroke-width="1"/>
-  <text x="270" y="670" text-anchor="middle" font-size="10" fill="#7B1FA2">ATRT (transport)</text>
-
-  <text x="347" y="670" font-size="14" fill="#888">+</text>
-
-  <rect x="360" y="653" width="140" height="26" rx="4" fill="#fff" stroke="#7B1FA2" stroke-width="1"/>
-  <text x="430" y="670" text-anchor="middle" font-size="10" fill="#7B1FA2">ATRD (distribution)</text>
-
-  <text x="512" y="670" font-size="14" fill="#888">+</text>
-
-  <rect x="525" y="653" width="160" height="26" rx="4" fill="#fff" stroke="#7B1FA2" stroke-width="1"/>
-  <text x="605" y="670" text-anchor="middle" font-size="10" fill="#7B1FA2">CTA (20,80% + 4,71%)</text>
-
-  <text x="697" y="670" font-size="14" fill="#888">+</text>
-
-  <rect x="710" y="653" width="160" height="26" rx="4" fill="#fff" stroke="#7B1FA2" stroke-width="1"/>
-  <text x="790" y="670" text-anchor="middle" font-size="10" fill="#7B1FA2">Accise gaz (ex-TICGN)</text>
-
-  <text x="882" y="670" font-size="14" fill="#888">+</text>
-
-  <rect x="895" y="653" width="130" height="26" rx="4" fill="#fff" stroke="#7B1FA2" stroke-width="1"/>
-  <text x="960" y="670" text-anchor="middle" font-size="10" fill="#7B1FA2">TVA 5,5% / 20%</text>
-
-  <text x="1037" y="670" font-size="14" fill="#888">=</text>
-
-  <rect x="1050" y="653" width="120" height="26" rx="4" fill="#7B1FA2" stroke="#7B1FA2"/>
-  <text x="1110" y="671" text-anchor="middle" font-size="11" font-weight="bold" fill="#fff">Facture TTC</text>
-
-  <!-- ================================================================ -->
-  <!-- Source -->
-  <!-- ================================================================ -->
-  <!-- References -->
-  <text x="15" y="698" font-size="8" fill="#999">Sources : [1] CRE - Presentation de la chaine d'acheminement (cre.fr/gaz/reseaux-de-gaz-naturel/presentation.html)</text>
-  <text x="15" y="710" font-size="8" fill="#999">[2] CRE - Points d'entree terrestres et terminaux methaniers (cre.fr/gaz/reseaux-de-gaz-naturel/interconnexions.html)</text>
-  <text x="15" y="722" font-size="8" fill="#999">[3] CRE - Rapport annuel DG ENER 2024, p.123-124 (cre.fr/fileadmin/Documents/Rapports_et_etudes/2024/Rapport_annuel_DG_ENER_2024_CRE.pdf)</text>
+  <!-- ======== REFERENCES ======== -->
+  <text x="15" y="625" font-size="8" fill="#999">[1] CRE -- Presentation de la chaine d'acheminement : cre.fr/gaz/reseaux-de-gaz-naturel/presentation.html</text>
+  <text x="15" y="636" font-size="8" fill="#999">[2] CRE -- Points d'entree terrestres et terminaux methaniers : cre.fr/gaz/reseaux-de-gaz-naturel/interconnexions.html</text>
+  <text x="15" y="647" font-size="8" fill="#999">[3] CRE -- Rapport annuel DG ENER 2024, p.123-124 : cre.fr/fileadmin/Documents/Rapports_et_etudes/2024/Rapport_annuel_DG_ENER_2024_CRE.pdf</text>
 
 </svg>
