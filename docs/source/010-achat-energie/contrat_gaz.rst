@@ -3,6 +3,91 @@
 10.2. Approvisionnement en Gaz Naturel - France
 ============================================================
 
+Vue d'ensemble de la chaine d'acheminement
+------------------------------------------------------------
+
+.. figure:: /images/chaine_acheminement_gaz_france.svg
+   :width: 100%
+   :alt: Chaine d'acheminement du gaz naturel en France
+
+   Chaine d'acheminement du gaz naturel en France (Source : CRE, Rapport annuel DG ENER 2024).
+
+**Chiffres cles (2023)** :
+
+- **Approvisionnement** : 2 385 GWh/j par gazoducs (Norvege, Belgique, Allemagne, Espagne) + 1 309 GWh/j par 4 terminaux methaniers (Dunkerque, Montoir, Fos Tonkin, Fos Cavaou) + FSRU Le Havre (150 GWh/j)
+- **Transport** : GRTgaz (85%, 32 440 km) + Terega (15%, 5 083 km) -- Pression 25 a 67,5 bar
+- **Stockage souterrain** : 138,5 TWh utile, soutirage 2 376 GWh/j -- 3 operateurs (Storengy 102,1 TWh / Terega 33,1 TWh / Geomethane 3,3 TWh) sur 11 sites
+- **Distribution** : GRDF (96%, ~200 000 km, 10,8 M clients) + 22 ELD (4%)
+- **Consommation 2023** : 359 TWh (zone GRTgaz) + 22 TWh (zone Terega)
+- **Flux inverse** (depuis automne 2022) : 100 GWh/j France vers Allemagne
+
+.. list-table:: Sites de stockage souterrain (Source : CRE 2024, p.124)
+   :header-rows: 1
+   :widths: 30 20 15 20 15
+
+   * - Site
+     - Operateur
+     - Mise en service
+     - Type
+     - Capacite (TWh)
+   * - Beynes
+     - Storengy
+     - 1956
+     - Aquifere
+     -
+   * - Chemery
+     - Storengy
+     - 1968
+     - Aquifere
+     -
+   * - Cerville-Velaine
+     - Storengy
+     - 1970
+     - Aquifere
+     -
+   * - Tersanne/Hauterives
+     - Storengy
+     - 1970
+     - Salin
+     -
+   * - Gournay
+     - Storengy
+     - 1976
+     - Aquifere
+     -
+   * - Etrez
+     - Storengy
+     - 1980
+     - Salin
+     -
+   * - Germigny-sous-Coulomb
+     - Storengy
+     - 1982
+     - Aquifere
+     -
+   * - Cere-la-Ronde
+     - Storengy
+     - 1993
+     - Aquifere
+     -
+   * - Saint-Illiers-la-Ville
+     - Storengy
+     - 1965
+     - Aquifere
+     -
+   * - Lussagnet/Izaute
+     - Terega
+     - 1957
+     - Aquifere
+     - 33,1
+   * - Manosque
+     - Geomethane
+     - 1993
+     - Salin
+     - 3,3
+
+Obligation de remplissage : minimum 85% au 1er novembre (art. L.421-7 du code de l'energie).
+
 1. Reseau Gaz Naturel en France - Tarifs et Niveaux de pressions
 ------------------------------------------------------------
 
