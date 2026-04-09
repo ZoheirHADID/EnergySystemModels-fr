@@ -390,52 +390,92 @@ meme raccorde au reseau de distribution, car le gaz transite d'abord par le tran
 
 **Historique complet des coefficients ATRT (source : coefficients_gaz_ATRT.json) :**
 
-.. list-table:: Grille ATRT — Coefficients unitaires (euro/MWh/j/an)
+*TCS — Terme de Capacite de Sortie (reseau principal, euro/MWh/j/an) :*
+
+.. list-table:: Historique TCS
    :header-rows: 1
-   :widths: 10 18 10 12 12 12 12 14
+   :widths: 15 30 25 25
 
    * - Tarif
      - Periode
-     - TCS
-     - TCR GRTgaz
-     - TCR Terega
-     - TCL GRTgaz
-     - TCL Terega
-     - Stockage
+     - TCS (euro/MWh/j/an)
+     - Evolution
    * - ATRT7
      - 04/2022 -- 03/2023
      - 93,25
-     - 82,62
-     - 82,52
-     - 48,54
-     - 54,04
-     - 139,07
+     - --
    * - ATRT7
      - 04/2023 -- 03/2024
      - 95,20
-     - 84,29
-     - 84,79
-     - 49,52
-     - 55,52
-     - 186,70
+     - +2,1%
    * - ATRT8
      - 04/2024 -- 03/2025
      - 124,42
-     - 96,38
-     - 102,60
-     - 56,62
-     - 67,18
-     - 139,07
+     - +30,7%
    * - **ATRT8**
      - **04/2025 -- 03/2026**
      - **123,58**
+     - **-0,7%**
+
+*TCR — Terme de Capacite Regionale (euro/MWh/j/an), pondere par NTR :*
+
+.. list-table:: Historique TCR par reseau de transport
+   :header-rows: 1
+   :widths: 15 30 20 20
+
+   * - Tarif
+     - Periode
+     - TCR naTran (ex-GRTgaz)
+     - TCR Terega
+   * - ATRT7
+     - 04/2022 -- 03/2023
+     - 82,62
+     - 82,52
+   * - ATRT7
+     - 04/2023 -- 03/2024
+     - 84,29
+     - 84,79
+   * - ATRT8
+     - 04/2024 -- 03/2025
+     - 96,38
+     - 102,60
+   * - **ATRT8**
+     - **04/2025 -- 03/2026**
      - **95,85**
      - **100,71**
-     - **65,94**
-     - **65,94**
-     - **331,44**
 
-**Terme tarifaire de stockage (TTS / compensation stockage) :**
+*TCL — Terme de Capacite de Livraison au PITD (euro/MWh/j/an) :*
+
+.. list-table:: Historique TCL par reseau de transport
+   :header-rows: 1
+   :widths: 15 30 20 20
+
+   * - Tarif
+     - Periode
+     - TCL naTran (ex-GRTgaz)
+     - TCL Terega
+   * - ATRT7
+     - 04/2022 -- 03/2023
+     - 48,54
+     - 54,04
+   * - ATRT7
+     - 04/2023 -- 03/2024
+     - 49,52
+     - 55,52
+   * - ATRT8
+     - 04/2024 -- 03/2025
+     - 56,62
+     - 67,18
+   * - **ATRT8**
+     - **04/2025 -- 03/2026**
+     - **65,94**
+     - **65,94**
+
+.. note::
+
+   En 2025-2026, les TCL naTran et Terega sont alignes pour la premiere fois (65,94 euro/MWh/j/an).
+
+*TTS — Terme Tarifaire de Stockage (compensation hivernale, euro/MWh/j) :*
 
 Le terme tarifaire de stockage est publie par la CRE et resulte des encheres de stockage.
 Il compense le cout de modulation hivernale lie a la variabilite saisonniere de la demande.
@@ -445,7 +485,7 @@ Il compense le cout de modulation hivernale lie a la variabilite saisonniere de 
    Compensation_stockage = Modulation_hivernale x coef_stockage
    Modulation_hivernale  = CJN - (CAR / 365)
 
-.. list-table:: Historique du terme tarifaire de stockage (source : coefficients_gaz_ATRT.json)
+.. list-table:: Historique du terme tarifaire de stockage
    :header-rows: 1
    :widths: 15 25 25 35
 
@@ -473,10 +513,8 @@ Il compense le cout de modulation hivernale lie a la variabilite saisonniere de 
 .. note::
 
    Le coefficient de stockage est tres volatile car il depend directement du resultat
-   des encheres de capacite de stockage. La hausse de +138% en 2025-2026 reflete
-   les tensions sur les capacites de stockage souterrain en France.
-   Ce coefficient s'applique uniquement a la part de **modulation hivernale**
-   (ecart entre CJN et consommation moyenne journaliere), pas a la CJN totale.
+   des encheres de capacite de stockage souterrain. Ce coefficient s'applique uniquement
+   a la part de **modulation hivernale** (ecart entre CJN et consommation moyenne journaliere).
 
 **Cout unitaire annuel ATRT (GRTgaz, NTR=2) :**
 
