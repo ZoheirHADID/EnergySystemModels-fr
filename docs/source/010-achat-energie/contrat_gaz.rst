@@ -146,6 +146,121 @@ reseau de distribution (GRDF ou regie locale).
    ATRD = ATRD_fixe + (CJA x tarif_capacite x nb_jour)
           + (distance_km x tarif_distance / 365 x nb_jour)
 
+**Souscription de capacite distribution (T4 et TP uniquement) :**
+
+Pour les tarifs **T4** et **TP**, l'ATRD comprend un **terme de souscription de capacite**
+qui depend de la CJA (Capacite Journaliere Annuelle) souscrite dans le contrat.
+Ce terme remunere GRDF pour la reservation de capacite sur le reseau de distribution.
+
+*Tarif T4 :*
+
+Le tarif de souscription depend du seuil de 500 MWh/j (500 000 kWh/j). Un tarif
+degressif s'applique au-dela de ce seuil :
+
+.. code-block:: text
+
+   Si CJA <= 500 MWh/j :
+       Souscription = CJA x 1000 x tarif_capacite_inf500  (EUR/an)
+   Sinon :
+       Souscription = CJA x 1000 x tarif_capacite_supp500  (EUR/an)
+
+   ATRD_fixe_total = ATRD_fixe + Souscription
+   ATRD_fixe_mensuel = ATRD_fixe_total / 12
+
+**Exemple (T4, CJA = 109 MWh/j, ATRD7 2025-2026) :**
+
+.. code-block:: text
+
+   CJA = 109 MWh/j = 109 000 kWh/j (< 500 000 kWh/j)
+   Souscription = 109 000 x 0,28800 = 31 392,00 EUR/an
+   ATRD_fixe = 21 705,72 EUR/an
+   ATRD_fixe_total = 21 705,72 + 31 392,00 = 53 097,72 EUR/an = 4 424,81 EUR/mois
+
+.. list-table:: Historique des tarifs de souscription de capacite T4
+   :header-rows: 1
+   :widths: 12 22 22 22 22
+
+   * - Tarif
+     - Periode
+     - Capacite <= 500 MWh/j (EUR/kWh/j/an)
+     - Capacite > 500 MWh/j (EUR/kWh/j/an)
+     - Ratio degressivite
+   * - ATRD5
+     - 01/2018 -- 06/2019
+     - 0,21300
+     - 0,10644
+     - 50%
+   * - ATRD6
+     - 07/2019 -- 06/2023
+     - 0,23640
+     - 0,10644
+     - 45%
+   * - ATRD6
+     - 07/2023 -- 06/2024
+     - 0,21300
+     - 0,10644
+     - 50%
+   * - ATRD7
+     - 07/2024 -- 06/2025
+     - 0,27156
+     - 0,13572
+     - 50%
+   * - **ATRD7**
+     - **07/2025 -- 06/2026**
+     - **0,28800**
+     - **0,14394**
+     - **50%**
+
+*Tarif TP (Proximite) :*
+
+Le tarif TP ajoute un **terme de distance** en plus de la souscription de capacite :
+
+.. code-block:: text
+
+   Souscription = CJA x tarif_capacite x nb_jour  (EUR)
+   Terme_distance = distance_km x tarif_distance / 365 x nb_jour  (EUR)
+
+.. list-table:: Historique des tarifs TP (capacite + distance)
+   :header-rows: 1
+   :widths: 12 22 22 22 22
+
+   * - Tarif
+     - Periode
+     - Capacite (EUR/kWh/j)
+     - Distance (EUR/m/an)
+     - Fixe (EUR/an)
+   * - ATRD5
+     - 01/2018 -- 06/2019
+     - 0,07992
+     - 62,64
+     - 32 407,20
+   * - ATRD6
+     - 07/2019 -- 06/2023
+     - 0,07992
+     - 62,64
+     - 32 407,20
+   * - ATRD6
+     - 07/2023 -- 06/2024
+     - 0,10620
+     - 69,72
+     - 38 164,56
+   * - ATRD7
+     - 07/2024 -- 06/2025
+     - 0,13548
+     - 88,92
+     - 48 770,64
+   * - **ATRD7**
+     - **07/2025 -- 06/2026**
+     - **0,13548**
+     - **88,92**
+     - **48 770,64**
+
+.. note::
+
+   L'ATRD fixe total (abonnement + souscription capacite) constitue la base de calcul
+   de la CTA (distribution et transport). C'est ce montant mensuel qui apparait sur
+   la facture comme "Abonnement distribution".
+
 **Historique complet des coefficients ATRD (source : coefficients_gaz_ATRD.json) :**
 
 *Tarif T1 — Menages, petits usages (CAR <= 6 MWh/an) :*
