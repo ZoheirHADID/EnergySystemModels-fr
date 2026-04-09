@@ -422,6 +422,49 @@ meme raccorde au reseau de distribution, car le gaz transite d'abord par le tran
      - **65,94**
      - **331,44**
 
+**Terme tarifaire de stockage (TTS / compensation stockage) :**
+
+Le terme tarifaire de stockage est publie par la CRE et resulte des encheres de stockage.
+Il compense le cout de modulation hivernale lie a la variabilite saisonniere de la demande.
+
+.. code-block:: text
+
+   Compensation_stockage = Modulation_hivernale x coef_stockage
+   Modulation_hivernale  = CJN - (CAR / 365)
+
+.. list-table:: Historique du terme tarifaire de stockage (source : coefficients_gaz_ATRT.json)
+   :header-rows: 1
+   :widths: 15 25 25 35
+
+   * - Tarif
+     - Periode
+     - Coefficient (euro/MWh/j)
+     - Evolution
+   * - ATRT7
+     - 04/2022 -- 03/2023
+     - 139,07
+     - --
+   * - ATRT7
+     - 04/2023 -- 03/2024
+     - 186,70
+     - +34,3% (crise energetique, tensions stockage)
+   * - ATRT8
+     - 04/2024 -- 03/2025
+     - 139,07
+     - -25,5% (retour au niveau pre-crise)
+   * - **ATRT8**
+     - **04/2025 -- 03/2026**
+     - **331,44**
+     - **+138,3%** (encheres stockage en forte hausse)
+
+.. note::
+
+   Le coefficient de stockage est tres volatile car il depend directement du resultat
+   des encheres de capacite de stockage. La hausse de +138% en 2025-2026 reflete
+   les tensions sur les capacites de stockage souterrain en France.
+   Ce coefficient s'applique uniquement a la part de **modulation hivernale**
+   (ecart entre CJN et consommation moyenne journaliere), pas a la CJN totale.
+
 **Cout unitaire annuel ATRT (GRTgaz, NTR=2) :**
 
 .. list-table:: Evolution du cout unitaire ATRT = TCS + TCR x 2 + TCL (GRTgaz)
