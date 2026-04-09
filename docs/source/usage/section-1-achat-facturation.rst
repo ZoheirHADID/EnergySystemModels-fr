@@ -249,7 +249,7 @@ SONELGAZ - Électricité (tarifs 41/42/43/44)
 1.2.1. France
 ~~~~~~~~~~~~~~
 
-ATR - Transport & Distribution (GRTgaz)
+ATR - Transport & Distribution (naTran (ex-GRTgaz))
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. code-block:: python
@@ -263,7 +263,7 @@ ATR - Transport & Distribution (GRTgaz)
        CAR_MWh=8920.959,
        profil="P019",
        station_meteo="PARIS-MONTSOURIS",
-       reseau_transport="GRTgaz",
+       reseau_transport="naTran",
        niv_tarif_region=2
    )
    facture = input_Facture(start="2024-01-01", end="2024-01-31", kWh_total=1358713)

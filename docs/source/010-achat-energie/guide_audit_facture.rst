@@ -231,7 +231,7 @@ a la grille TURPE en vigueur (publiee par la CRE).
        CJA_MWh_j=93,              # Capacite Journaliere Annualisee (MWh/j)
        station_meteo="PARIS-MONTSOURIS",
        profil="P016",
-       reseau_transport="GRTgaz",
+       reseau_transport="naTran",
        niv_tarif_region=2,
    )
    facture = input_Facture(
@@ -271,7 +271,7 @@ a la grille TURPE en vigueur (publiee par la CRE).
 **Points cles a verifier :**
 
 - **CJN** : calculee automatiquement depuis CAR x Zi x A (coefficients meteo et reseau)
-- **ATRT** : Transport = TCS + TCR x NTR + TCL (coefficients annuels GRTgaz/Terega)
+- **ATRT** : Transport = TCS + TCR x NTR + TCL (coefficients annuels naTran (ex-GRTgaz)/Terega)
 - **ATRD** : Distribution = fixe + capacite + variable (coefficients GRDF)
 - **TVA** : 5,5% sur fixe+CTA, 20% sur variable+molecule+accise
 

@@ -3,97 +3,12 @@
 10.2. Approvisionnement en Gaz Naturel - France
 ============================================================
 
-Vue d'ensemble de la chaine d'acheminement
-------------------------------------------------------------
-
-.. figure:: /images/chaine_acheminement_gaz_france.svg
-   :width: 100%
-   :alt: Chaine d'acheminement du gaz naturel en France
-
-   Chaine d'acheminement du gaz naturel en France (Source : CRE, Rapport annuel DG ENER 2024).
-
-**Chiffres cles (2023)** :
-
-- **Approvisionnement** : 2 385 GWh/j par gazoducs (Norvege, Belgique, Allemagne, Espagne) + 1 309 GWh/j par 4 terminaux methaniers (Dunkerque, Montoir, Fos Tonkin, Fos Cavaou) + FSRU Le Havre (150 GWh/j)
-- **Transport** : GRTgaz (85%, 32 440 km) + Terega (15%, 5 083 km) -- Pression 25 a 67,5 bar
-- **Stockage souterrain** : 138,5 TWh utile, soutirage 2 376 GWh/j -- 3 operateurs (Storengy 102,1 TWh / Terega 33,1 TWh / Geomethane 3,3 TWh) sur 11 sites
-- **Distribution** : GRDF (96%, ~200 000 km, 10,8 M clients) + 22 ELD (4%)
-- **Consommation 2023** : 359 TWh (zone GRTgaz) + 22 TWh (zone Terega)
-- **Flux inverse** (depuis automne 2022) : 100 GWh/j France vers Allemagne
-
-.. list-table:: Sites de stockage souterrain (Source : CRE 2024, p.124)
-   :header-rows: 1
-   :widths: 30 20 15 20 15
-
-   * - Site
-     - Operateur
-     - Mise en service
-     - Type
-     - Capacite (TWh)
-   * - Beynes
-     - Storengy
-     - 1956
-     - Aquifere
-     -
-   * - Chemery
-     - Storengy
-     - 1968
-     - Aquifere
-     -
-   * - Cerville-Velaine
-     - Storengy
-     - 1970
-     - Aquifere
-     -
-   * - Tersanne/Hauterives
-     - Storengy
-     - 1970
-     - Salin
-     -
-   * - Gournay
-     - Storengy
-     - 1976
-     - Aquifere
-     -
-   * - Etrez
-     - Storengy
-     - 1980
-     - Salin
-     -
-   * - Germigny-sous-Coulomb
-     - Storengy
-     - 1982
-     - Aquifere
-     -
-   * - Cere-la-Ronde
-     - Storengy
-     - 1993
-     - Aquifere
-     -
-   * - Saint-Illiers-la-Ville
-     - Storengy
-     - 1965
-     - Aquifere
-     -
-   * - Lussagnet/Izaute
-     - Terega
-     - 1957
-     - Aquifere
-     - 33,1
-   * - Manosque
-     - Geomethane
-     - 1993
-     - Salin
-     - 3,3
-
-Obligation de remplissage : minimum 85% au 1er novembre (art. L.421-7 du code de l'energie).
-
 1. Reseau Gaz Naturel en France - Tarifs et Niveaux de pressions
 ------------------------------------------------------------
 
 De la production et/ou importation (regazeification de GNL, pipe) le gaz est achemine comme suit :
 
-1.1 Reseau de Transport (GRTgaz / Terega)
+1.1 Reseau de Transport (naTran (ex-GRTgaz) / Terega)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 **Tarifs applicables : TP**
@@ -238,7 +153,7 @@ du **T1** (menages) au **TP** (grands consommateurs raccordes au transport) :
 
    **TP (Tarif de Proximite)** : dedie aux grands consommateurs raccordes au reseau
    de distribution mais eligibles a un raccordement direct au reseau de transport
-   (GRTgaz / Terega). Le TP reste une option tarifaire de l'ATRD (distribution).
+   (naTran (ex-GRTgaz) / Terega). Le TP reste une option tarifaire de l'ATRD (distribution).
 
 **Exemple pratique** : Un site avec une CAR de 15 466,8 MWh/an :
 
@@ -250,7 +165,7 @@ du **T1** (menages) au **TP** (grands consommateurs raccordes au transport) :
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 La **CJA (Capacite Journaliere Annuelle)** est la capacite journaliere **choisie et souscrite
-contractuellement** par le client aupres du gestionnaire de reseau (GRDF / GRTgaz / Terega).
+contractuellement** par le client aupres du gestionnaire de reseau (GRDF / naTran (ex-GRTgaz) / Terega).
 C'est un **engagement contractuel** du client sur sa capacite maximale de soutirage journalier,
 exprimee en **MWh/jour**.
 
@@ -269,7 +184,7 @@ La **CJN** est la capacite journaliere **calculee** a partir des parametres clim
 Ou :
 
 - **Zi** : coefficient climatique (station meteo x profil de consommation)
-- **A** : coefficient reseau (GRTgaz ou Terega)
+- **A** : coefficient reseau (naTran (ex-GRTgaz) ou Terega)
 
 **Priorite dans le modele** : ``CJN explicite > CJA souscrite > CAR x Zi x A``
 
@@ -290,7 +205,7 @@ La facture de gaz naturel se compose de trois grandes parties :
 Le prix paye pour l'utilisation du reseau comprend deux volets :
 
 - **ATRD** : Acces des Tiers au Reseau de Distribution (GRDF ou regie locale)
-- **ATRT** : Acces des Tiers au Reseau de Transport (GRTgaz ou Terega)
+- **ATRT** : Acces des Tiers au Reseau de Transport (naTran (ex-GRTgaz) ou Terega)
 
 .. code-block:: text
 
@@ -377,7 +292,7 @@ d'abord par le reseau de transport avant d'etre injecte dans le reseau de distri
    :widths: 30 25 25
 
    * - Composante
-     - GRTgaz (euro/MWh/j/an)
+     - naTran (ex-GRTgaz) (euro/MWh/j/an)
      - Terega (euro/MWh/j/an)
    * - TCS
      - 123,58
@@ -405,7 +320,7 @@ d'abord par le reseau de transport avant d'etre injecte dans le reseau de distri
    * - **Zi**
      - Coefficient climatique (station meteo x profil). Voir section :ref:`stations-meteo-zi`
    * - **A**
-     - Coefficient reseau (GRTgaz ou Terega). Voir section :ref:`coefficient-A`
+     - Coefficient reseau (naTran (ex-GRTgaz) ou Terega). Voir section :ref:`coefficient-A`
    * - **CJN**
      - Capacite Journaliere Normalisee : ``CJN = CAR x Zi x A``
    * - **Modulation_hivernale**
@@ -719,7 +634,7 @@ Plus le profil est eleve, plus Zi est grand, ce qui augmente la CJN et les couts
    :widths: 35 25 25
 
    * - Periode ATRT
-     - A (GRTgaz)
+     - A (naTran (ex-GRTgaz))
      - A (Terega)
    * - 2023-04 au 2024-03
      - 1.073
@@ -756,7 +671,7 @@ en Ile-de-France avec un contrat T4.
        CAR_MWh=15466.800,           # CAR : 15 466 800 kWh/an
        profil="P016",               # Profil de consommation
        station_meteo="PARIS-MONTSOURIS",
-       reseau_transport="GRTgaz",
+       reseau_transport="naTran",
        niv_tarif_region=2,
        CJA_MWh_j=109,               # CJA souscrite : 109 000 kWh/j = 109 MWh/j
    )
@@ -856,7 +771,7 @@ en Ile-de-France avec un contrat T4.
      - Voir table section 4.1
      - Station meteo de reference (36 stations)
    * - reseau_transport
-     - "GRTgaz", "Terega"
+     - "naTran", "GRTgaz" (legacy), "Terega"
      - Gestionnaire du reseau de transport
    * - niv_tarif_region
      - 0 a 10
