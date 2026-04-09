@@ -3,124 +3,16 @@
 10.2. Approvisionnement en Gaz Naturel - France
 ============================================================
 
-1. Reseau Gaz Naturel en France - Tarifs et Niveaux de pressions
+1. Les elements d'un contrat de fourniture de Gaz Naturel
 ------------------------------------------------------------
 
-De la production et/ou importation (regazeification de GNL, pipe) le gaz est achemine comme suit :
-
-1.1 Reseau de Transport (naTran (ex-GRTgaz) / Terega)
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-**Tarifs applicables : TP**
-
-.. list-table::
-   :header-rows: 1
-   :widths: 30 70
-
-   * - Caracteristique
-     - Detail
-   * - **Tres Haute Pression (THP)**
-     - > 67,5 bar
-   * - **Haute Pression (HP)**
-     - 25 a 67,5 bar
-   * - **Clients relies directement**
-     - Grands consommateurs
-
-1.2 Reseau de Distribution (GRDF / Entreprises Locales de Distribution)
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-**Tarifs applicables : T1, T2, T3, T4**
-
-.. list-table::
-   :header-rows: 1
-   :widths: 20 10 20 10 40
-
-   * - Niveau de Pression
-     - Abrev.
-     - Plage
-     - Tarif
-     - Clients
-   * - Pression de Livraison Elevee
-     - **PLE**
-     - 4 a 25 bar
-     - T4
-     - Grands industriels
-   * - Pression de Livraison Moyenne
-     - **PLM**
-     - 400 mbar a 4 bar
-     - T3, T4
-     - Industriels moyens
-   * - Moyenne Pression
-     - **MP**
-     - 50 a 400 mbar
-     - T2, T3
-     - PME, commerces
-   * - Basse Pression
-     - **BP**
-     - 20 a 25 mbar
-     - T1, T2
-     - Particuliers
-
-**Postes de detente correspondants** *(reduction de pression)*
-
-.. list-table::
-   :header-rows: 1
-   :widths: 25 25 25 25
-
-   * - Type de Poste
-     - Pression Entree (Amont)
-     - Pression Sortie (Aval)
-     - Reseau Aval
-   * - **Poste de Detente Regional (PDR)**
-     - 25 a 67,5 bar (HP)
-     - 4 a 25 bar (PLE)
-     - Distribution PLE
-   * - **Poste de Detente Principal (PDP)**
-     - 4 a 25 bar (PLE)
-     - 400 mbar a 4 bar (PLM)
-     - Distribution PLM
-   * - **Poste de Detente Intermediaire (PDI)**
-     - 400 mbar a 4 bar (PLM)
-     - 50 a 400 mbar (MP)
-     - Distribution MP
-   * - **Poste de Detente Urbain (PDU)**
-     - 50 a 400 mbar (MP)
-     - 20 a 25 mbar (BP)
-     - Distribution BP
-
-1.3 Compteurs clients
-^^^^^^^^^^^^^^^^^^^^^
-
-.. list-table::
-   :header-rows: 1
-   :widths: 20 80
-
-   * - Tarif
-     - Type de Compteur
-   * - **T1 / T2**
-     - Compteur gaz classique (G4, G6, G10...)
-   * - **T3 / T4**
-     - Compteur volumetrique + correcteur
-   * - **TP**
-     - Comptage horaire haute precision
-
-.. note::
-
-   La pression de livraison est definie contractuellement et peut varier
-   selon la localisation et les infrastructures disponibles.
-
-------------------------------------------------------------
-
-2. Les elements d'un contrat de fourniture de Gaz Naturel
-------------------------------------------------------------
-
-2.1 Consommation Annuelle de Reference (CAR)
+1.1 Consommation Annuelle de Reference (CAR)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 La **CAR** represente une estimation de la consommation annuelle de gaz naturel pour un
 **Point de Comptage et d'Estimation (PCE)**. Elle est fournie dans le contrat et exprimee en MWh/an.
 
-2.2 Le Tarif d'Acheminement
+1.2 Le Tarif d'Acheminement
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Il existe **5 options tarifaires** liees a l'acheminement du gaz naturel,
@@ -161,7 +53,7 @@ du **T1** (menages) au **TP** (grands consommateurs raccordes au transport) :
 - Option tarifaire **T4** (reseau de distribution)
 - Ou option tarifaire **TP** (si eligible au raccordement transport)
 
-2.3 Capacite Journaliere Annuelle souscrite (CJA)
+1.3 Capacite Journaliere Annuelle souscrite (CJA)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 La **CJA (Capacite Journaliere Annuelle)** est la capacite journaliere **choisie et souscrite
@@ -172,7 +64,7 @@ exprimee en **MWh/jour**.
 La CJA est utilisee comme base de calcul pour la souscription de capacite ATRD (tarifs T4 et TP).
 Si la CJA n'est pas fournie, le modele recalcule la capacite via ``CAR x Zi x A`` (CJN).
 
-2.4 Capacite Journaliere Normalisee (CJN)
+1.4 Capacite Journaliere Normalisee (CJN)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 La **CJN** est la capacite journaliere **calculee** a partir des parametres climatiques et reseau :
@@ -190,7 +82,7 @@ Ou :
 
 ------------------------------------------------------------
 
-3. Composantes d'une facture de gaz naturel
+2. Composantes d'une facture de gaz naturel
 ------------------------------------------------------------
 
 La facture de gaz naturel se compose de trois grandes parties :
@@ -199,7 +91,7 @@ La facture de gaz naturel se compose de trois grandes parties :
 - **La part taxes et contributions** : Accise gaz (ex-TICGN) + CTA
 - **La part fourniture** : consommation x prix unitaire negocie
 
-3.1 Acheminement Distribution — ATRD
+2.1 Acheminement Distribution — ATRD
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 L'**ATRD (Acces des Tiers au Reseau de Distribution)** est le tarif d'utilisation du
@@ -422,7 +314,7 @@ au reseau de distribution.
    Le tarif applicable est selectionne automatiquement en fonction de la date de debut de la facture
    et du type de tarif d'acheminement du contrat.
 
-3.2 Acheminement Transport — ATRT
+2.2 Acheminement Transport — ATRT
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 L'**ATRT (Acces des Tiers au Reseau de Transport)** est le tarif d'utilisation du
@@ -559,7 +451,7 @@ meme raccorde au reseau de distribution, car le gaz transite d'abord par le tran
    principalement sur le TCS (+30,7%). La compensation stockage a ete multipliee par 2,4
    en 2025-2026 (331,44 vs 139,07 euro/MWh/j).
 
-3.3 Taxes et contributions
+2.3 Taxes et contributions
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 **CTA (Contribution Tarifaire d'Acheminement)**
@@ -654,7 +546,7 @@ Evolution historique des taux de l'accise gaz (ex-TICGN) :
    ``coefficients_gaz_TICGN.json`` de la bibliotheque EnergySystemModels et
    selectionnes automatiquement en fonction de la periode de facturation.
 
-3.4 TVA applicable
+2.4 TVA applicable
 ^^^^^^^^^^^^^^^^^^^^
 
 La TVA sur le gaz naturel en France comporte historiquement **deux taux distincts** :
@@ -711,7 +603,7 @@ La TVA sur le gaz naturel en France comporte historiquement **deux taux distinct
    et gere automatiquement la **proratisation** si la facture chevauche un changement
    de taux (ex. facture juillet-aout 2025).
 
-3.5 Fourniture
+2.5 Fourniture
 ^^^^^^^^^^^^^^^
 
 La part fourniture correspond a la consommation de gaz facturee par le fournisseur.
@@ -724,12 +616,12 @@ Le prix unitaire est negocie dans le contrat de fourniture.
 
 ------------------------------------------------------------
 
-4. Coefficients Zi et A
+3. Coefficients Zi et A
 ------------------------------------------------------------
 
 .. _stations-meteo-zi:
 
-4.1 Stations meteo disponibles pour le calcul de Zi
+3.1 Stations meteo disponibles pour le calcul de Zi
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Le coefficient Zi est une constante reglementaire publiee par la CRE, stockee dans
@@ -912,7 +804,7 @@ Plus le profil est eleve, plus Zi est grand, ce qui augmente la CJN et les couts
 
 .. _coefficient-A:
 
-4.2 Coefficient A par reseau de transport
+3.2 Coefficient A par reseau de transport
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. list-table::
@@ -936,10 +828,10 @@ Ces valeurs sont publiees par la CRE et stockees dans ``coefficients_gaz_ATRT.js
 
 ------------------------------------------------------------
 
-5. Modele de calcul et exemple Python
+4. Modele de calcul et exemple Python
 ------------------------------------------------------------
 
-5.1 Exemple : facture gaz T4 - Site industriel Ile-de-France
+4.1 Exemple : facture gaz T4 - Site industriel Ile-de-France
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Cet exemple reproduit une facture reelle EDF (fevrier 2026) pour un site industriel
@@ -1023,7 +915,7 @@ en Ile-de-France avec un contrat T4.
    et les abonnements fixes (transport, distribution) apparaissent. L'ATRD fixe et l'ATRT
    peuvent etre factures par GRDF separement selon le type de contrat.
 
-5.2 Parametres d'entree
+4.2 Parametres d'entree
 ^^^^^^^^^^^^^^^^^^^^^^^^
 
 **Declarer un contrat gaz** (``input_Contrat``) :
