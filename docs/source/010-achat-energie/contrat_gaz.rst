@@ -91,16 +91,23 @@ La facture de gaz naturel se compose de trois grandes parties :
 - **La part taxes et contributions** : Accise gaz (ex-TICGN) + CTA
 - **La part fourniture** : consommation x prix unitaire negocie
 
-2.1 Acheminement Distribution — ATRD
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Le prix paye pour l'utilisation du reseau comprend deux volets :
 
-L'**ATRD (Acces des Tiers au Reseau de Distribution)** est le tarif d'utilisation du
-reseau de distribution (GRDF ou regie locale). Il est paye par tout client raccorde
-au reseau de distribution.
+- **ATRD** : Acces des Tiers au Reseau de Distribution (GRDF ou regie locale)
+- **ATRT** : Acces des Tiers au Reseau de Transport (naTran (ex-GRTgaz) ou Terega)
 
 .. code-block:: text
 
    Cout_acheminement_gaz = ATRD + ATRT
+
+**Tout client raccorde au reseau de distribution paie ATRD + ATRT**, car le gaz transite
+d'abord par le reseau de transport avant d'etre injecte dans le reseau de distribution.
+
+2.1 Acheminement Distribution — ATRD
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+L'**ATRD (Acces des Tiers au Reseau de Distribution)** est le tarif d'utilisation du
+reseau de distribution (GRDF ou regie locale).
 
 **Structure de l'ATRD par option tarifaire :**
 
