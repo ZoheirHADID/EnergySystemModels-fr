@@ -686,14 +686,89 @@ Voir :ref:`calcul-modulation` pour le detail du calcul de la modulation.
 
 **CTA (Contribution Tarifaire d'Acheminement)**
 
-La CTA comporte **deux parts distinctes** avec des assiettes separees :
+La CTA est une taxe assise sur les **termes fixes d'acheminement**. Elle comporte
+**deux parts distinctes** calculees a partir de l'abonnement distribution (ATRD fixe) :
 
 .. code-block:: text
 
    CTA = CTA_distribution + CTA_transport
 
-   CTA_distribution = ATRD_fixe_mensuel x 20,80 %
-   CTA_transport    = ATRT_hors_stockage_mensuel x 4,71 %
+   CTA_distribution = ATRD_fixe_mensuel x taux_distribution
+   CTA_transport    = Assiette_transport x taux_transport
+
+   Assiette_transport = ATRD_fixe_mensuel x coefficient_proportionnalite
+
+Ou :
+
+- ``taux_distribution`` = **20,80 %** (constant)
+- ``taux_transport`` = **4,71 %** (constant)
+- ``coefficient_proportionnalite`` = coefficient CRE representant la **quote-part transport**
+  incluse indirectement dans l'abonnement de distribution. Ce coefficient est publie
+  par la CRE dans chaque deliberation ATRD.
+
+**Exemple (facture T4, ATRD7 2025-2026) :**
+
+.. code-block:: text
+
+   ATRD_fixe_mensuel = 4 424,81 EUR
+
+   CTA_distribution = 4 424,81 x 20,80% = 920,36 EUR
+   Assiette_transport = 4 424,81 x 0,8321 = 3 681,88 EUR
+   CTA_transport = 3 681,88 x 4,71% = 173,42 EUR
+
+   CTA totale = 920,36 + 173,42 = 1 093,78 EUR
+
+.. note::
+
+   L'assiette CTA transport (3 681,88 EUR dans l'exemple) est visible sur la facture EDF.
+   Elle n'est **pas** l'abonnement transport reel (ATRT = 4 176,67 EUR) mais un montant
+   calcule a partir de l'ATRD fixe via le coefficient de proportionnalite CRE.
+   Ce mecanisme simplifie le calcul de la CTA : au lieu de dependre de l'ATRT reel
+   (qui varie selon la modulation hivernale et le stockage), la CTA est toujours
+   calculee sur la base de l'ATRD fixe, qui est un montant stable et previsible.
+
+**Historique du coefficient de proportionnalite CTA (source : coefficients_gaz_ATRD.json) :**
+
+.. list-table:: Coefficient de proportionnalite CTA -- historique
+   :header-rows: 1
+   :widths: 15 25 20 20 20
+
+   * - Tarif
+     - Periode
+     - Coef. proportionnalite
+     - Taux distribution
+     - Taux transport
+   * - ATRD5
+     - 01/2018 -- 06/2019
+     - 0,8321
+     - 20,80%
+     - 4,71%
+   * - ATRD6
+     - 07/2019 -- 06/2023
+     - 0,8321
+     - 20,80%
+     - 4,71%
+   * - ATRD6
+     - 07/2023 -- 06/2024
+     - 0,8351
+     - 20,80%
+     - 4,71%
+   * - ATRD7
+     - 07/2024 -- 06/2025
+     - 0,8357
+     - 20,80%
+     - 4,71%
+   * - **ATRD7**
+     - **07/2025 -- 06/2026**
+     - **0,8321**
+     - **20,80%**
+     - **4,71%**
+
+.. note::
+
+   Les taux de CTA (20,80% et 4,71%) sont restes constants depuis 2018.
+   Seul le coefficient de proportionnalite varie legerement entre les periodes ATRD
+   (de 0,8321 a 0,8357). Il est retourne a 0,8321 en ATRD7 2025-2026.
 
 **Accise sur les gaz naturels (ex-TICGN)**
 
