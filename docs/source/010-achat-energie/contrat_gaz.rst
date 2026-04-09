@@ -406,18 +406,29 @@ par le GRT a partir de la CAR, du profil de consommation et de la station meteo 
 
 *Clients "a souscription" (T4, TP) :*
 
-Le fournisseur reserve librement la capacite journaliere souhaitee. La CJN correspond
-a la **CJA (Capacite Journaliere Annuelle) souscrite** dans le contrat :
+Le fournisseur reserve aupres du GRT la capacite de transport souhaitee pour son portefeuille
+de clients. La **CJA (Capacite Journaliere Annuelle)** souscrite dans le contrat de distribution
+est utilisee comme base de calcul pour la souscription de capacite ATRD.
+
+Pour le calcul de l'ATRT, la capacite de livraison normalisee au PITD est allouee
+automatiquement par le GRT. Elle est egale a la somme des :
+
+- capacites souscrites pour les PDL "a souscription" en aval du PITD
+- capacites calculees (``CAR x Zi x A``) pour les PDL "profiles" en aval du PITD
+
+Pour un client T4 individuel, la capacite transport est generalement proche de la CJA souscrite.
+Dans le modele Python, si la CJN n'est pas fournie explicitement, on utilise la CJA :
 
 .. code-block:: text
 
-   CJN = CJA (souscrite dans le contrat)
+   CJN = CJA (si CJN non fourni explicitement)
 
 .. note::
 
    La CJA est visible sur la facture : "Capacite journaliere annuelle souscrite (kWh) : 109 000".
-   Pour un contrat T4, c'est cette valeur qui sert de base au calcul ATRT,
-   et non la formule ``CAR x Zi x A`` (qui peut donner un resultat tres different).
+   La CJN exacte utilisee par le GRT pour le transport peut differer legerement de la CJA.
+   Si l'abonnement transport figure sur la facture, utiliser ``atrt_mensuel_facture`` dans
+   le modele pour un calcul exact (reverse-engineering de la modulation).
 
 .. _calcul-modulation:
 
