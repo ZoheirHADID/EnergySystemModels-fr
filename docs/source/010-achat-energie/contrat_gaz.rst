@@ -141,90 +141,96 @@ au reseau de distribution.
 
 **Historique complet des coefficients ATRD (source : coefficients_gaz_ATRD.json) :**
 
-*Tarifs T1 a T3 — Abonnement fixe et terme proportionnel :*
+*Tarif T1 — Menages, petits usages (CAR <= 6 MWh/an) :*
 
-.. list-table:: Grille ATRD — T1, T2, T3 (historique complet)
+.. list-table:: Grille ATRD — T1 (historique complet)
    :header-rows: 1
-   :widths: 12 20 8 18 18
+   :widths: 15 30 25 25
 
    * - Tarif
      - Periode
-     - Type
      - Fixe (euro/an)
      - Proportionnel (euro/kWh)
    * - ATRD5
      - 01/2018 -- 06/2019
-     - T1
      - 45,12
      - 0,03323
+   * - ATRD6
+     - 07/2019 -- 06/2023
+     - 46,80
+     - 0,03323
+   * - ATRD6
+     - 07/2023 -- 06/2024
+     - 33,48
+     - 0,03323
+   * - ATRD7
+     - 07/2024 -- 06/2025
+     - 51,96
+     - 0,03323
+   * - **ATRD7**
+     - **07/2025 -- 06/2026**
+     - **54,72**
+     - **0,04494**
+
+*Tarif T2 — PME, commerces (6 < CAR <= 300 MWh/an) :*
+
+.. list-table:: Grille ATRD — T2 (historique complet)
+   :header-rows: 1
+   :widths: 15 30 25 25
+
+   * - Tarif
+     - Periode
+     - Fixe (euro/an)
+     - Proportionnel (euro/kWh)
    * - ATRD5
      - 01/2018 -- 06/2019
-     - T2
      - 177,96
      - 0,00893
+   * - ATRD6
+     - 07/2019 -- 06/2023
+     - 163,68
+     - 0,00893
+   * - ATRD6
+     - 07/2023 -- 06/2024
+     - 130,68
+     - 0,00893
+   * - ATRD7
+     - 07/2024 -- 06/2025
+     - 175,92
+     - 0,00893
+   * - **ATRD7**
+     - **07/2025 -- 06/2026**
+     - **186,12**
+     - **0,01208**
+
+*Tarif T3 — Industries moyennes (300 < CAR <= 5 000 MWh/an) :*
+
+.. list-table:: Grille ATRD — T3 (historique complet)
+   :header-rows: 1
+   :widths: 15 30 25 25
+
+   * - Tarif
+     - Periode
+     - Fixe (euro/an)
+     - Proportionnel (euro/kWh)
    * - ATRD5
      - 01/2018 -- 06/2019
-     - T3
      - 804,12
      - 0,00642
    * - ATRD6
      - 07/2019 -- 06/2023
-     - T1
-     - 46,80
-     - 0,03323
-   * - ATRD6
-     - 07/2019 -- 06/2023
-     - T2
-     - 163,68
-     - 0,00893
-   * - ATRD6
-     - 07/2019 -- 06/2023
-     - T3
      - 1 100,00
      - 0,00642
    * - ATRD6
      - 07/2023 -- 06/2024
-     - T1
-     - 33,48
-     - 0,03323
-   * - ATRD6
-     - 07/2023 -- 06/2024
-     - T2
-     - 130,68
-     - 0,00893
-   * - ATRD6
-     - 07/2023 -- 06/2024
-     - T3
      - 982,92
      - 0,00642
    * - ATRD7
      - 07/2024 -- 06/2025
-     - T1
-     - 51,96
-     - 0,03323
-   * - ATRD7
-     - 07/2024 -- 06/2025
-     - T2
-     - 175,92
-     - 0,00893
-   * - ATRD7
-     - 07/2024 -- 06/2025
-     - T3
      - 1 231,08
      - 0,00642
    * - **ATRD7**
      - **07/2025 -- 06/2026**
-     - **T1**
-     - **54,72**
-     - **0,04494**
-   * - **ATRD7**
-     - **07/2025 -- 06/2026**
-     - **T2**
-     - **186,12**
-     - **0,01208**
-   * - **ATRD7**
-     - **07/2025 -- 06/2026**
-     - **T3**
      - **1 301,40**
      - **0,00869**
 
