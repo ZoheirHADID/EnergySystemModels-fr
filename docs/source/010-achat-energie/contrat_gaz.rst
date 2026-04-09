@@ -515,10 +515,14 @@ Avec :
      - Periode
      - TCS (euro/MWh/j/an)
      - Evolution
+   * - ATRT6
+     - 04/2017 -- 03/2022
+     - 89,44
+     - --
    * - ATRT7
      - 04/2022 -- 03/2023
      - 93,25
-     - --
+     - +4,3%
    * - ATRT7
      - 04/2023 -- 03/2024
      - 95,20
@@ -542,6 +546,10 @@ Avec :
      - Periode
      - TCR naTran (ex-GRTgaz)
      - TCR Terega
+   * - ATRT6
+     - 04/2017 -- 03/2022
+     - 74,30
+     - 71,84
    * - ATRT7
      - 04/2022 -- 03/2023
      - 82,62
@@ -567,8 +575,12 @@ Avec :
 
    * - Tarif
      - Periode
-     - TCL naTran (ex-GRTgaz)
-     - TCL Terega
+     - TCL naTran (ex-GRTgaz) PITD
+     - TCL Terega PITD
+   * - ATRT6
+     - 04/2017 -- 03/2022
+     - 43,65
+     - 47,04
    * - ATRT7
      - 04/2022 -- 03/2023
      - 48,54
@@ -583,22 +595,24 @@ Avec :
      - 67,18
    * - **ATRT8**
      - **04/2025 -- 03/2026**
-     - **65,94**
+     - **56,31**
      - **65,94**
 
 .. note::
 
-   En 2025-2026, les TCL naTran et Terega sont alignes pour la premiere fois (65,94 euro/MWh/j/an).
+   Le TCL depend du type de point de livraison. Les valeurs ci-dessus sont pour les PITD
+   (Point d'Interface Transport Distribution), qui concerne la majorite des clients
+   raccordes au reseau de distribution. Source : deliberation CRE 2025-35, page 33.
 
 *TTS — Terme Tarifaire de Stockage (compensation hivernale, euro/MWh/j) :*
 
 Le terme tarifaire de stockage est publie par la CRE et resulte des encheres de stockage.
 Il compense le cout de modulation hivernale lie a la variabilite saisonniere de la demande.
+Voir :ref:`calcul-modulation` pour le detail du calcul de la modulation.
 
 .. code-block:: text
 
    Compensation_stockage = Modulation_hivernale x coef_stockage
-   Modulation_hivernale  = CJN - (CAR / 365)
 
 .. list-table:: Historique du terme tarifaire de stockage
    :header-rows: 1
@@ -608,6 +622,10 @@ Il compense le cout de modulation hivernale lie a la variabilite saisonniere de 
      - Periode
      - Coefficient (euro/MWh/j)
      - Evolution
+   * - ATRT6
+     - 04/2017 -- 03/2022
+     - 0
+     - (non disponible dans le modele)
    * - ATRT7
      - 04/2022 -- 03/2023
      - 139,07
@@ -629,20 +647,23 @@ Il compense le cout de modulation hivernale lie a la variabilite saisonniere de 
 
    Le coefficient de stockage est tres volatile car il depend directement du resultat
    des encheres de capacite de stockage souterrain. Ce coefficient s'applique uniquement
-   a la part de **modulation hivernale** (ecart entre CJN et consommation moyenne journaliere).
+   a la part de **modulation hivernale**. Voir :ref:`calcul-modulation` pour le detail.
 
-**Cout unitaire annuel ATRT (GRTgaz, NTR=2) :**
+**Cout unitaire annuel ATRT hors stockage (naTran/GRTgaz PITD, NTR=2) :**
 
-.. list-table:: Evolution du cout unitaire ATRT = TCS + TCR x 2 + TCL (GRTgaz)
+.. list-table:: Evolution du cout unitaire ATRT = TCS + TCR x 2 + TCL (naTran PITD)
    :header-rows: 1
    :widths: 30 25 20
 
    * - Periode
      - Cout (euro/MWh/j/an)
      - Evolution
+   * - 04/2017 -- 03/2022
+     - 281,69
+     - --
    * - 04/2022 -- 03/2023
      - 307,03
-     - --
+     - +9,0%
    * - 04/2023 -- 03/2024
      - 313,30
      - +2,0%
@@ -650,8 +671,8 @@ Il compense le cout de modulation hivernale lie a la variabilite saisonniere de 
      - 373,80
      - +19,3%
    * - 04/2025 -- 03/2026
-     - 381,22
-     - +2,0%
+     - 371,59
+     - -0,6%
 
 .. note::
 
@@ -1023,17 +1044,25 @@ Plus le profil est eleve, plus Zi est grand, ce qui augmente la CJN et les couts
    * - Periode ATRT
      - A (naTran (ex-GRTgaz))
      - A (Terega)
-   * - 2023-04 au 2024-03
+   * - ATRT6 (2017-04 au 2022-03)
+     - 1.000
+     - 1.000
+   * - ATRT7 (2022-04 au 2023-03)
+     - *(non disponible)*
+     - *(non disponible)*
+   * - ATRT7 (2023-04 au 2024-03)
      - 1.073
      - 1.203
-   * - 2024-04 au 2025-03
+   * - ATRT8 (2024-04 au 2025-03)
      - 1.181
      - 1.305
-   * - 2025-04 au 2026-03
-     - 1.168
-     - 1.277
+   * - **ATRT8 (2025-04 au 2026-03)**
+     - **1.168**
+     - **1.277**
 
 Ces valeurs sont publiees par la CRE et stockees dans ``coefficients_gaz_ATRT.json``.
+Le coefficient A pour ATRT6 est fixe a 1.0 par defaut (valeurs exactes par GRD
+disponibles dans les deliberations annuelles ATRT6).
 
 ------------------------------------------------------------
 
