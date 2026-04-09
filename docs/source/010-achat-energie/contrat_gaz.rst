@@ -380,13 +380,117 @@ meme raccorde au reseau de distribution, car le gaz transite d'abord par le tran
    * - **A**
      - Coefficient reseau (naTran (ex-GRTgaz) ou Terega). Voir section :ref:`coefficient-A`
    * - **CJN**
-     - Capacite Journaliere Normalisee : ``CJN = CAR x Zi x A``
+     - Capacite Journaliere Normalisee. Voir :ref:`calcul-cjn` ci-dessous.
    * - **Modulation_hivernale**
-     - ``CJN - (CAR / 365)``
+     - Ecart entre la consommation de pointe hivernale et la consommation moyenne. Voir :ref:`calcul-modulation` ci-dessous.
    * - **NTR**
      - Niveau Tarifaire Regional (0 a 10) selon la localisation du site
    * - **coef_stockage**
-     - Coefficient unitaire de stockage (euro/MWh), ex : 331,44 pour 2025-2026
+     - Coefficient unitaire de stockage (euro/MWh/j), ex : 331,44 pour 2025-2026
+
+.. _calcul-cjn:
+
+**Calcul de la CJN (Capacite Journaliere Normalisee) :**
+
+La CJN est calculee differemment selon le type de client
+(deliberation CRE 2025-35, section 4.2.2.2) :
+
+*Clients "profiles" (T1, T2, T3) :*
+
+Ces clients n'ont pas de souscription de capacite. La CJN est calculee automatiquement
+par le GRT a partir de la CAR, du profil de consommation et de la station meteo :
+
+.. code-block:: text
+
+   CJN = A x Zi x CAR
+
+*Clients "a souscription" (T4, TP) :*
+
+Le fournisseur reserve librement la capacite journaliere souhaitee. La CJN correspond
+a la **CJA (Capacite Journaliere Annuelle) souscrite** dans le contrat :
+
+.. code-block:: text
+
+   CJN = CJA (souscrite dans le contrat)
+
+.. note::
+
+   La CJA est visible sur la facture : "Capacite journaliere annuelle souscrite (kWh) : 109 000".
+   Pour un contrat T4, c'est cette valeur qui sert de base au calcul ATRT,
+   et non la formule ``CAR x Zi x A`` (qui peut donner un resultat tres different).
+
+.. _calcul-modulation:
+
+**Calcul de la modulation hivernale :**
+
+La modulation hivernale mesure l'ecart entre la consommation de pointe en hiver
+et la consommation moyenne annuelle. Elle sert de base au calcul du **terme tarifaire
+de stockage (TS)**.
+
+*Clients "profiles" (T1, T2, T3) :*
+
+.. code-block:: text
+
+   Modulation = Max(0 ; CJN - CAR/365 - Int)
+
+Ou ``Int`` est la somme des capacites interruptibles contractualisees (0 par defaut).
+
+*Clients "a souscription" (T4, TP) — Formule CRE officielle :*
+
+La modulation est calculee a partir des **consommations hiver reelles** des 4 dernieres annees
+(deliberation CRE 2025-35, section 4.2.2.2, page 35) :
+
+.. code-block:: text
+
+   Modulation au 1er avril N = Max(0 ; M_fav4 - Int)
+
+Ou :
+
+- ``M_fav4`` = moyenne des **2 modulations annuelles les plus basses** parmi les 4 annees precedentes (N-4 a N-1)
+- Pour chaque annee :
+
+.. code-block:: text
+
+   Modulation annuelle N = Max(0 ; Conso_hiver / 151 - Conso_annuelle / 365)
+
+Avec :
+
+- **Conso_hiver** : consommation du site du 1er novembre N-1 au 31 mars N (**151 jours**)
+- **Conso_annuelle** : consommation du site du 1er novembre N-1 au 31 octobre N (**365 jours**)
+
+.. note::
+
+   La modulation hivernale **n'apparait pas sur la facture**. Seul le montant
+   mensuel "Abonnement transport" est visible. Pour retrouver la modulation,
+   le modele Python peut la **reverse-engineer** a partir du montant ATRT facture :
+
+   .. code-block:: python
+
+      # Methode 1 : reverse-engineering depuis la facture
+      contrat = input_Contrat(
+          type_tarif_acheminement='T4',
+          CJA_MWh_j=109,
+          atrt_mensuel_facture=4176.67,  # lu sur la facture
+          ...
+      )
+      atr = ATR_calculation(contrat, facture, tarif)
+      atr.calculate()
+      print(atr.modulation_hivernale)  # -> 29.015 MWh/j
+
+      # Methode 2 : reutiliser la modulation calculee pour les autres factures
+      contrat = input_Contrat(
+          type_tarif_acheminement='T4',
+          CJA_MWh_j=109,
+          modulation_MWh_j=29.015,  # valeur calculee precedemment
+          ...
+      )
+
+   **Priorite du calcul dans le modele :**
+
+   1. ``modulation_MWh_j`` fourni explicitement
+   2. ``consommations_hiver_MWh`` + ``consommations_annuelles_MWh`` (formule CRE M_fav4)
+   3. ``atrt_mensuel_facture`` (reverse-engineering depuis la facture)
+   4. Estimation par defaut : ``CJN - CAR/365`` (approximation haute)
 
 **Historique complet des coefficients ATRT (source : coefficients_gaz_ATRT.json) :**
 
