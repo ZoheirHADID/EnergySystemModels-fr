@@ -199,20 +199,16 @@ La facture de gaz naturel se compose de trois grandes parties :
 - **La part taxes et contributions** : Accise gaz (ex-TICGN) + CTA
 - **La part fourniture** : consommation x prix unitaire negocie
 
-3.1 Acheminement (ATRD & ATRT)
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+3.1 Acheminement Distribution — ATRD
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Le prix paye pour l'utilisation du reseau comprend deux volets :
-
-- **ATRD** : Acces des Tiers au Reseau de Distribution (GRDF ou regie locale)
-- **ATRT** : Acces des Tiers au Reseau de Transport (naTran (ex-GRTgaz) ou Terega)
+L'**ATRD (Acces des Tiers au Reseau de Distribution)** est le tarif d'utilisation du
+reseau de distribution (GRDF ou regie locale). Il est paye par tout client raccorde
+au reseau de distribution.
 
 .. code-block:: text
 
    Cout_acheminement_gaz = ATRD + ATRT
-
-**Tout client raccorde au reseau de distribution paie ATRD + ATRT**, car le gaz transite
-d'abord par le reseau de transport avant d'etre injecte dans le reseau de distribution.
 
 **Structure de l'ATRD par option tarifaire :**
 
@@ -233,32 +229,211 @@ d'abord par le reseau de transport avant d'etre injecte dans le reseau de distri
      - Trinome + distance
      - Abonnement fixe + souscription capacite + terme de distance (euro/m/an) + terme proportionnel
 
-**Grille ATRD7 GRDF (au 1er juillet 2025, deliberation CRE 2025-122) :**
+**Formules de calcul ATRD :**
 
-.. list-table::
+.. code-block:: text
+
+   # T1 / T2 / T3 (binome simple)
+   ATRD = ATRD_fixe + (kWh_total x prix_proportionnel)
+
+   # T4 (trinome avec souscription capacite)
+   Si CJA <= 500 MWh/j :
+       souscription = CJA x 1000 x tarif_capacite_inf500
+   Sinon :
+       souscription = CJA x 1000 x tarif_capacite_supp500
+   ATRD = ATRD_fixe + souscription + (kWh_total x prix_proportionnel)
+
+   # TP (trinome + terme distance)
+   ATRD = ATRD_fixe + (CJA x tarif_capacite x nb_jour)
+          + (distance_km x tarif_distance / 365 x nb_jour)
+
+**Historique complet des coefficients ATRD (source : coefficients_gaz_ATRD.json) :**
+
+*Tarifs T1 a T3 — Abonnement fixe et terme proportionnel :*
+
+.. list-table:: Grille ATRD — T1, T2, T3 (historique complet)
    :header-rows: 1
-   :widths: 10 20 20 50
+   :widths: 12 20 8 18 18
 
-   * - Option
+   * - Tarif
+     - Periode
+     - Type
      - Fixe (euro/an)
      - Proportionnel (euro/kWh)
-     - Souscription capacite
-   * - T1
-     - 54,72
-     - 0,04494
-     - --
-   * - T2
-     - 186,12
-     - 0,01208
-     - --
-   * - T3
-     - 1 301,40
-     - 0,00869
-     - --
-   * - T4
-     - 21 705,72
-     - 0,00118
-     - 0,28800 euro/kWh/j (CJA <= 500) / 0,14394 euro/kWh/j (CJA > 500)
+   * - ATRD5
+     - 01/2018 -- 06/2019
+     - T1
+     - 45,12
+     - 0,03323
+   * - ATRD5
+     - 01/2018 -- 06/2019
+     - T2
+     - 177,96
+     - 0,00893
+   * - ATRD5
+     - 01/2018 -- 06/2019
+     - T3
+     - 804,12
+     - 0,00642
+   * - ATRD6
+     - 07/2019 -- 06/2023
+     - T1
+     - 46,80
+     - 0,03323
+   * - ATRD6
+     - 07/2019 -- 06/2023
+     - T2
+     - 163,68
+     - 0,00893
+   * - ATRD6
+     - 07/2019 -- 06/2023
+     - T3
+     - 1 100,00
+     - 0,00642
+   * - ATRD6
+     - 07/2023 -- 06/2024
+     - T1
+     - 33,48
+     - 0,03323
+   * - ATRD6
+     - 07/2023 -- 06/2024
+     - T2
+     - 130,68
+     - 0,00893
+   * - ATRD6
+     - 07/2023 -- 06/2024
+     - T3
+     - 982,92
+     - 0,00642
+   * - ATRD7
+     - 07/2024 -- 06/2025
+     - T1
+     - 51,96
+     - 0,03323
+   * - ATRD7
+     - 07/2024 -- 06/2025
+     - T2
+     - 175,92
+     - 0,00893
+   * - ATRD7
+     - 07/2024 -- 06/2025
+     - T3
+     - 1 231,08
+     - 0,00642
+   * - **ATRD7**
+     - **07/2025 -- 06/2026**
+     - **T1**
+     - **54,72**
+     - **0,04494**
+   * - **ATRD7**
+     - **07/2025 -- 06/2026**
+     - **T2**
+     - **186,12**
+     - **0,01208**
+   * - **ATRD7**
+     - **07/2025 -- 06/2026**
+     - **T3**
+     - **1 301,40**
+     - **0,00869**
+
+*Tarif T4 — Avec souscription de capacite :*
+
+.. list-table:: Grille ATRD — T4 (historique complet)
+   :header-rows: 1
+   :widths: 10 18 16 18 18 20
+
+   * - Tarif
+     - Periode
+     - Fixe (euro/an)
+     - Proportionnel (euro/kWh)
+     - Capacite <=500 (euro/kWh/j)
+     - Capacite >500 (euro/kWh/j)
+   * - ATRD5
+     - 01/2018 -- 06/2019
+     - 15 104,76
+     - 0,00087
+     - 0,21300
+     - 0,10644
+   * - ATRD6
+     - 07/2019 -- 06/2023
+     - 15 405,24
+     - 0,00087
+     - 0,23640
+     - 0,10644
+   * - ATRD6
+     - 07/2023 -- 06/2024
+     - 16 069,56
+     - 0,00087
+     - 0,21300
+     - 0,10644
+   * - ATRD7
+     - 07/2024 -- 06/2025
+     - 20 469,60
+     - 0,00087
+     - 0,27156
+     - 0,13572
+   * - **ATRD7**
+     - **07/2025 -- 06/2026**
+     - **21 705,72**
+     - **0,00118**
+     - **0,28800**
+     - **0,14394**
+
+*Tarif TP — Proximite (capacite + distance) :*
+
+.. list-table:: Grille ATRD — TP (historique complet)
+   :header-rows: 1
+   :widths: 12 20 18 20 20
+
+   * - Tarif
+     - Periode
+     - Fixe (euro/an)
+     - Capacite (euro/kWh/j)
+     - Distance (euro/m/an)
+   * - ATRD5
+     - 01/2018 -- 06/2019
+     - 32 407,20
+     - 0,07992
+     - 62,64
+   * - ATRD6
+     - 07/2019 -- 06/2023
+     - 32 407,20
+     - 0,07992
+     - 62,64
+   * - ATRD6
+     - 07/2023 -- 06/2024
+     - 38 164,56
+     - 0,10620
+     - 69,72
+   * - ATRD7
+     - 07/2024 -- 06/2025
+     - 48 770,64
+     - 0,13548
+     - 88,92
+   * - **ATRD7**
+     - **07/2025 -- 06/2026**
+     - **48 770,64**
+     - **0,13548**
+     - **88,92**
+
+.. note::
+
+   Les coefficients ATRD sont publies par la CRE et stockes dans ``coefficients_gaz_ATRD.json``.
+   Le tarif applicable est selectionne automatiquement en fonction de la date de debut de la facture
+   et du type de tarif d'acheminement du contrat.
+
+3.2 Acheminement Transport — ATRT
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+L'**ATRT (Acces des Tiers au Reseau de Transport)** est le tarif d'utilisation du
+reseau de transport (naTran (ex-GRTgaz) ou Terega). Il est paye par tout consommateur,
+meme raccorde au reseau de distribution, car le gaz transite d'abord par le transport.
+
+**Formule de calcul ATRT :**
+
+.. code-block:: text
+
+   ATRT = CJN x (TCS + TCR x NTR + TCL) + TS
 
 **Composantes du tarif ATRT :**
 
@@ -285,28 +460,6 @@ d'abord par le reseau de transport avant d'etre injecte dans le reseau de distri
      - ``CJN x (TCS + TCR x NTR + TCL) + TS``
      - Somme de toutes les composantes
 
-**Grille ATRT8 (au 1er avril 2025, deliberation CRE 2025-35) :**
-
-.. list-table::
-   :header-rows: 1
-   :widths: 30 25 25
-
-   * - Composante
-     - naTran (ex-GRTgaz) (euro/MWh/j/an)
-     - Terega (euro/MWh/j/an)
-   * - TCS
-     - 123,58
-     - 123,58
-   * - TCR
-     - 95,85
-     - 100,71
-   * - TCL (PITD)
-     - 65,94
-     - 65,94
-   * - TTS (stockage)
-     - 331,44
-     - 331,44
-
 **Definitions des termes :**
 
 .. list-table::
@@ -330,7 +483,83 @@ d'abord par le reseau de transport avant d'etre injecte dans le reseau de distri
    * - **coef_stockage**
      - Coefficient unitaire de stockage (euro/MWh), ex : 331,44 pour 2025-2026
 
-3.2 Taxes et contributions
+**Historique complet des coefficients ATRT (source : coefficients_gaz_ATRT.json) :**
+
+.. list-table:: Grille ATRT — Coefficients unitaires (euro/MWh/j/an)
+   :header-rows: 1
+   :widths: 10 18 10 12 12 12 12 14
+
+   * - Tarif
+     - Periode
+     - TCS
+     - TCR GRTgaz
+     - TCR Terega
+     - TCL GRTgaz
+     - TCL Terega
+     - Stockage
+   * - ATRT7
+     - 04/2022 -- 03/2023
+     - 93,25
+     - 82,62
+     - 82,52
+     - 48,54
+     - 54,04
+     - 139,07
+   * - ATRT7
+     - 04/2023 -- 03/2024
+     - 95,20
+     - 84,29
+     - 84,79
+     - 49,52
+     - 55,52
+     - 186,70
+   * - ATRT8
+     - 04/2024 -- 03/2025
+     - 124,42
+     - 96,38
+     - 102,60
+     - 56,62
+     - 67,18
+     - 139,07
+   * - **ATRT8**
+     - **04/2025 -- 03/2026**
+     - **123,58**
+     - **95,85**
+     - **100,71**
+     - **65,94**
+     - **65,94**
+     - **331,44**
+
+**Cout unitaire annuel ATRT (GRTgaz, NTR=2) :**
+
+.. list-table:: Evolution du cout unitaire ATRT = TCS + TCR x 2 + TCL (GRTgaz)
+   :header-rows: 1
+   :widths: 30 25 20
+
+   * - Periode
+     - Cout (euro/MWh/j/an)
+     - Evolution
+   * - 04/2022 -- 03/2023
+     - 307,03
+     - --
+   * - 04/2023 -- 03/2024
+     - 313,30
+     - +2,0%
+   * - 04/2024 -- 03/2025
+     - 373,80
+     - +19,3%
+   * - 04/2025 -- 03/2026
+     - 381,22
+     - +2,0%
+
+.. note::
+
+   Les coefficients ATRT sont publies par la CRE et stockes dans ``coefficients_gaz_ATRT.json``.
+   La transition ATRT7 vers ATRT8 (avril 2024) a marque une hausse significative (+19,3%)
+   principalement sur le TCS (+30,7%). La compensation stockage a ete multipliee par 2,4
+   en 2025-2026 (331,44 vs 139,07 euro/MWh/j).
+
+3.3 Taxes et contributions
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 **CTA (Contribution Tarifaire d'Acheminement)**
@@ -425,7 +654,64 @@ Evolution historique des taux de l'accise gaz (ex-TICGN) :
    ``coefficients_gaz_TICGN.json`` de la bibliotheque EnergySystemModels et
    selectionnes automatiquement en fonction de la periode de facturation.
 
-3.3 Fourniture
+3.4 TVA applicable
+^^^^^^^^^^^^^^^^^^^^
+
+La TVA sur le gaz naturel en France comporte historiquement **deux taux distincts** :
+
+- **Taux reduit** : applique a l'abonnement (parts fixes) et a la CTA
+- **Taux normal** : applique a la consommation (parts variables), a la molecule et a l'accise
+
+.. list-table:: Historique des taux de TVA gaz naturel en France (source : coefficients_gaz_TVA.json)
+   :header-rows: 1
+   :widths: 25 25 20 20
+
+   * - Periode
+     - Evenement
+     - TVA abonnement
+     - TVA consommation
+   * - Avant 01/01/2014
+     - Taux historiques
+     - 5,5%
+     - 19,6%
+   * - 01/01/2014 -- 31/07/2025
+     - Loi de finances 2014 (taux normal 19,6% -> 20%)
+     - 5,5%
+     - 20,0%
+   * - **Depuis 01/08/2025**
+     - **Loi n°2025-127 art. 20** (suppression taux reduit, directive UE)
+     - **20,0%**
+     - **20,0%**
+
+**Assiettes TVA :**
+
+.. code-block:: text
+
+   # Assiette TVA abonnement (taux reduit ou normal selon la date)
+   Assiette_abonnement = ATRT (TCS + TCR + TCL + stockage)
+                       + ATRD fixe + ATRD souscription capacite
+                       + CTA
+
+   # Assiette TVA consommation (taux normal, toujours 20%)
+   Assiette_consommation = ATRD variable
+                         + Molecule gaz
+                         + Accise (ex-TICGN)
+
+   TVA = Assiette_abonnement x taux_abonnement
+       + Assiette_consommation x taux_consommation
+
+.. note::
+
+   Depuis le **1er aout 2025**, le taux reduit de 5,5% sur l'abonnement est supprime.
+   La TVA est desormais de **20% sur l'ensemble de la facture**. Cette modification
+   fait suite a une directive europeenne interdisant l'application de taux differents
+   sur des elements indissociables d'un meme service.
+
+   Le modele EnergySystemModels charge les taux depuis ``coefficients_gaz_TVA.json``
+   et gere automatiquement la **proratisation** si la facture chevauche un changement
+   de taux (ex. facture juillet-aout 2025).
+
+3.5 Fourniture
 ^^^^^^^^^^^^^^^
 
 La part fourniture correspond a la consommation de gaz facturee par le fournisseur.
