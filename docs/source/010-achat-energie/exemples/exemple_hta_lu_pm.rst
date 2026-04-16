@@ -45,18 +45,7 @@ sont plus faibles que la version CU.
    calc = TurpeCalculator(contrat, tarif, facture)
    calc.calculate_turpe()
 
-   print(f"Fourniture       : {calc.euro_fourniture:>10.2f} EUR")
-   print(f"Acheminement     : {calc.euro_TURPE:>10.2f} EUR")
-   print(f"Total HTVA       : {calc.euro_total:>10.2f} EUR")
-   print(f"Cout EUR/MWh     : {calc.euro_total / (calc.kWh_Total / 1000):>10.2f} EUR/MWh")
-
-   # DataFrames auditables — comparer les coefficients b et c
-   # avec la grille TURPE publiee par la CRE
-   print("\n--- Acheminement TURPE (coefficients b et c visibles) ---")
-   print(calc.df_acheminement.to_string(index=False))
-
-   print("\n--- Totaux ---")
-   print(calc.df_totaux.to_string(index=False))
+   print(calc.df_totaux)
 
    calc.plot()
    calc.plot_detail()

@@ -48,20 +48,7 @@ consommation hivernale typique. Facturation de fevrier 2025.
    calc.calculate_turpe()
 
    # Resultats
-   print(f"Fourniture       : {calc.euro_fourniture:>10.2f} EUR")
-   print(f"Acheminement     : {calc.euro_TURPE:>10.2f} EUR")
-   print(f"Taxes            : {calc.euro_taxes_contrib:>10.2f} EUR")
-   print(f"Total HTVA       : {calc.euro_total:>10.2f} EUR")
-
-   # DataFrames auditables (detail des calculs avec formules)
-   print("\n--- Fourniture ---")
-   print(calc.df_fourniture_detail.to_string(index=False))
-
-   print("\n--- Acheminement TURPE ---")
-   print(calc.df_acheminement.to_string(index=False))
-
-   print("\n--- Totaux ---")
-   print(calc.df_totaux.to_string(index=False))
+   print(calc.df_totaux)
 
    calc.plot()
    calc.plot_detail()

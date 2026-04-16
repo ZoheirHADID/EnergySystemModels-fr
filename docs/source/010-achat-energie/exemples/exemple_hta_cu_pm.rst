@@ -39,12 +39,6 @@ et ete equilibree. Facturation de mars 2025.
    calc = TurpeCalculator(contrat, tarif, facture)
    calc.calculate_turpe()
 
-   print(f"Fourniture       : {calc.euro_fourniture:>10.2f} EUR")
-   print(f"Acheminement     : {calc.euro_TURPE:>10.2f} EUR")
-   print(f"Total HTVA       : {calc.euro_total:>10.2f} EUR")
-
-   # DataFrames auditables
-   print(calc.df_acheminement.to_string(index=False))
-   print(calc.df_totaux.to_string(index=False))
+   print(calc.df_totaux)
 
    calc.plot()

@@ -39,17 +39,7 @@ puissance souscrite de 80 kW. Facturation mensuelle de janvier 2025.
    calc.calculate_turpe()
 
    # Resultats
-   print(f"Fourniture      : {calc.euro_fourniture:.2f} EUR")
-   print(f"Acheminement    : {calc.euro_TURPE:.2f} EUR")
-   print(f"Taxes           : {calc.euro_taxes_contrib:.2f} EUR")
-   print(f"Total HTVA      : {calc.euro_total:.2f} EUR")
-
-   # DataFrames auditables
-   print("\n--- Acheminement TURPE ---")
-   print(calc.df_acheminement.to_string(index=False))
-
-   print("\n--- Totaux ---")
-   print(calc.df_totaux.to_string(index=False))
+   print(calc.df_totaux)
 
    calc.plot()
    calc.plot_detail()

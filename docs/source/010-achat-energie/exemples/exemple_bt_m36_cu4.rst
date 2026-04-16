@@ -41,28 +41,7 @@ puissance souscrite de 12 kW. Facturation mensuelle de fevrier 2025.
    calc.calculate_turpe()
 
    # Resultats synthetiques
-   print(f"Fourniture      : {calc.euro_fourniture:.2f} EUR")
-   print(f"Acheminement    : {calc.euro_TURPE:.2f} EUR")
-   print(f"Taxes           : {calc.euro_taxes_contrib:.2f} EUR")
-   print(f"Total HTVA      : {calc.euro_total:.2f} EUR")
-   print(f"Cout EUR/MWh    : {calc.euro_total / (calc.kWh_Total / 1000):.2f} EUR/MWh")
-
-   # DataFrames auditables (v20260408001)
-   # Chaque tableau montre la formule, les entrees, les coefficients et le resultat
-   print("\n--- Contrat ---")
-   print(calc.df_contrat.to_string(index=False))
-
-   print("\n--- Fourniture (detail par poste) ---")
-   print(calc.df_fourniture_detail.to_string(index=False))
-
-   print("\n--- Acheminement TURPE (detail CG, CC, CS) ---")
-   print(calc.df_acheminement.to_string(index=False))
-
-   print("\n--- Taxes et contributions ---")
-   print(calc.df_taxes.to_string(index=False))
-
-   print("\n--- Totaux et couts unitaires ---")
-   print(calc.df_totaux.to_string(index=False))
+   print(calc.df_totaux)
 
    # Graphiques
    calc.plot()           # Repartition Fourniture / TURPE / Taxes

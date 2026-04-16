@@ -105,8 +105,7 @@ La formule générale du TURPE est donc :
       turpe_calculator.calculate_turpe()
 
       # Affichage des résultats
-      print(f"Acheminement (€) : {turpe_calculator.euro_TURPE}")
-      # print(f"Taxes et Contributions (€) : {turpe_calculator.euro_taxes_contrib}")
+      print(turpe_calculator.df_totaux)
 
    Les paramètres à renseigner dans `input_Contrat`, `input_Tarif` et `input_Facture` sont détaillés dans les tableaux ci-dessous. Adaptez-les selon votre profil de consommation, votre contrat et les tarifs en vigueur.
 
