@@ -12,4 +12,7 @@
    sink
    compressor
    turbine
+   chiller
+   ng_heating_value
+   ng_boiler_efficiency
    straight_pipe

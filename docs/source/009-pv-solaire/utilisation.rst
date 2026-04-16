@@ -1,78 +1,98 @@
 Utilisation du Module PV
 ========================
 
-Exemple de base
+Exemple complet
 ---------------
 
 .. code-block:: python
 
    from PV.ProductionElectriquePV import SolarSystem
 
-   # Créer un système solaire
-   system = SolarSystem(
-       latitude=48.8566,          # Latitude (Paris)
-       longitude=2.3522,          # Longitude
-       location_name='Paris',
-       tilt=34,                   # Inclinaison optimale pour Paris
-       timezone='Etc/GMT-1',
-       azimuth=180.0,             # Plein sud
-       system_capacity=48.9       # Puissance crête (kWp)
+   pv = SolarSystem(
+       latitude=45.764, longitude=4.8357,
+       name='Usine Lyon', altitude=200,
+       timezone='Europe/Paris',
+       azimut=180,       # 0=Nord, 90=Est, 180=Sud, 270=Ouest
+       inclinaison=20    # degres par rapport a l'horizontale
    )
 
-   # Récupérer les données de modules et onduleurs
-   system.retrieve_module_inverter_data()
+   pv.retrieve_module_inverter_data(
+       module_name='Canadian_Solar_CS5P_220M___2009_',
+       inverter_name='ABB__MICRO_0_25_I_OUTD_US_208__208V_',
+       temperature_model='open_rack_glass_glass'
+   )
 
-   # Récupérer les données météorologiques
-   system.retrieve_weather_data()
+   pv.calculate_solar_parameters()  # telecharge meteo PVGIS automatiquement
+   print(pv.df)
 
-   # Calculer la production
-   system.calculate_solar_parameters()
+Sortie ``pv.df`` :
 
-   # Afficher les resultats
-   print(system.df)
+.. code-block:: text
 
-   # Visualiser
-   system.plot_annual_energy()
+                                SolarSystem
+   Site                          Usine Lyon
+   Module    Canadian_Solar_CS5P_220M___2009_
+   Surface module (m2)                 1.701
+   Puissance STC (Wc)                  219.7
+   Onduleur  ABB__MICRO_0_25_I_OUTD_US_208__208V_
+   Production / module (kWh/an)        306.9
+   Productivite (kWh/kWc/an)            1397
 
 Paramètres
 ----------
 
-* **latitude/longitude** : Coordonnées GPS
-* **tilt** : Inclinaison (0°=horizontal, latitude-10° optimal)
-* **azimuth** : Orientation (180°=Sud, 90°=Est, 270°=Ouest)
-* **system_capacity** : Puissance crête (kWc)
-* **timezone** : Format 'Etc/GMT±X'
+* **latitude/longitude** : Coordonnées GPS du site
+* **altitude** : Altitude en mètres
+* **azimut** : Orientation (0°=Nord, 180°=Sud)
+* **inclinaison** : Angle par rapport à l'horizontale
+* **module_name** : Nom du module PV (base Sandia, 500+ modules)
+* **inverter_name** : Nom de l'onduleur (base CEC, 1000+ onduleurs)
+* **temperature_model** : Modèle thermique (open_rack_glass_glass, close_mount_glass_glass, etc.)
 
-Résultats disponibles
----------------------
+Synthèse technique et économique
+---------------------------------
 
 .. code-block:: python
 
-   # Production mensuelle
-   monthly_prod = system.monthly_production  # kWh/mois
+   print(pv.summary(
+       nb_modules=455, module_wc=220,
+       capex_eur_m2=155,
+       opex_eur_m2=2,
+       tarif_elec_eur_mwh=120,
+       duree_vie=25
+   ))
 
-   # Production annuelle
-   annual_prod = system.annual_production  # kWh/an
+Graphique production
+--------------------
 
-   # Production horaire
-   hourly_prod = system.hourly_production  # kWh/h
+.. code-block:: python
 
-   # Facteur de capacité
-   capacity_factor = system.capacity_factor  # %
+   pv.plot(nb_modules=455)
 
 Export Excel
 ------------
 
 .. code-block:: python
 
-   import pandas as pd
+   pv.to_excel('production_lyon.xlsx', nb_modules=455)
 
-   # Créer un DataFrame
-   df_prod = pd.DataFrame({
-       'Mois': ['Jan', 'Fév', 'Mar', 'Avr', 'Mai', 'Juin',
-                'Juil', 'Août', 'Sep', 'Oct', 'Nov', 'Déc'],
-       'Production_kWh': system.monthly_production
-   })
+3 onglets : Horaire (8760 lignes), Mensuel (12 lignes), Synthèse.
 
-   # Exporter
-   df_prod.to_excel('production_pv.xlsx', index=False)
+Étude paramétrique d'orientation
+---------------------------------
+
+.. code-block:: python
+
+   scenarios = [
+       {'nom': 'Sud 35', 'azimut': 180, 'inclinaison': 35},
+       {'nom': 'Sud 10', 'azimut': 180, 'inclinaison': 10},
+       {'nom': 'Est 85', 'azimut': 90, 'inclinaison': 85},
+   ]
+
+   df, df_monthly = SolarSystem.orientation_study(
+       latitude=45.764, longitude=4.8357,
+       name='Lyon', altitude=200, timezone='Europe/Paris',
+       scenarios=scenarios
+   )
+   print(df)
+   SolarSystem.plot_orientation_study(df, df_monthly, name='Lyon')
