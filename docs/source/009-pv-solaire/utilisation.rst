@@ -28,6 +28,9 @@ Exemple de base
    # Calculer la production
    system.calculate_solar_parameters()
 
+   # Afficher les resultats
+   print(system.df)
+
    # Visualiser
    system.plot_annual_energy()
 

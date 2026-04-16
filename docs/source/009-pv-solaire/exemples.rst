@@ -29,6 +29,9 @@ Production Photovoltaïque
    # Calculer la production
    system.calculate_solar_parameters()
 
+   # Afficher les resultats
+   print(system.df)
+
    # Accéder aux résultats
    annual_prod = system.annual_production       # Production annuelle [kWh]
    specific_yield = annual_prod / 6.0           # Productible [kWh/kWc/an]

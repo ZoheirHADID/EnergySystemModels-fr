@@ -65,6 +65,11 @@ Les déperditions de chaleur à travers les parois de l'échangeur de chaleur à
     total = haut + bas + vertical1 + vertical2
     print(f"{round(total, 0)} W = {round(haut, 0)} W + {round(bas, 0)} W + {round(vertical1, 0)} W + {round(vertical2, 0)} W")
 
+    # Acces au DataFrame de resultats (conserver la reference)
+    plate = PlateHeatTransfer.Object(orientation='horizontal_up', Tp=Tp, Ta=Ta, W=W, L=L)
+    plate.calculate()
+    print(plate.df)
+
 Résultat : 
 1957.0 W = 191.0 W + 190.0 W + 900.0 W + 675.0 W
 
