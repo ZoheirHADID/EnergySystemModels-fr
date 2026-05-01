@@ -1,7 +1,7 @@
 Introduction au Module PV
 =========================
 
-Le module PV permet de simuler la production photovoltaïque en utilisant pvlib.
+Le module ``SolarSystem`` simule la production photovoltaïque en utilisant pvlib-python et les données météo PVGIS.
 
 Exemple rapide
 --------------
@@ -10,18 +10,25 @@ Exemple rapide
 
    from PV.ProductionElectriquePV import SolarSystem
 
-   system = SolarSystem(
-       latitude=48.8566,
-       longitude=2.3522,
-       location_name='Paris',
-       tilt=34,
-       timezone='Etc/GMT-1',
-       azimuth=180.0,
-       system_capacity=10.0  # kWc
+   pv = SolarSystem(
+       latitude=48.8566, longitude=2.3522,
+       name='Paris', altitude=35,
+       timezone='Europe/Paris',
+       azimut=180, inclinaison=34
    )
+   pv.retrieve_module_inverter_data(
+       module_name='Canadian_Solar_CS5P_220M___2009_',
+       inverter_name='ABB__MICRO_0_25_I_OUTD_US_208__208V_',
+       temperature_model='open_rack_glass_glass'
+   )
+   pv.calculate_solar_parameters()
+   print(pv.df)
 
-   system.retrieve_module_inverter_data()
-   system.retrieve_weather_data()
-   system.calculate_solar_parameters()
-   
-   print(f"Production : {system.annual_production:.0f} kWh/an")
+Fonctionnalités
+---------------
+
+* ``pv.df`` — Synthèse système (module, surface, production, productivité)
+* ``pv.summary()`` — Synthèse technique + économique (Payback, ROI, TRI)
+* ``pv.plot()`` — Production horaire + profil mensuel
+* ``pv.to_excel()`` — Export Excel (horaire, mensuel, synthèse)
+* ``SolarSystem.orientation_study()`` — Comparaison orientations/inclinaisons

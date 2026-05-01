@@ -1,55 +1,61 @@
-Production Photovoltaïque
-==========================
+Production Photovoltaïque — Exemples
+======================================
+
+Exemple 1 : Simulation site industriel
+----------------------------------------
 
 .. code-block:: python
 
    from PV.ProductionElectriquePV import SolarSystem
 
-   # Créer un système PV avec paramètres géographiques
-   # latitude/longitude : coordonnées GPS
-   # tilt : inclinaison des panneaux [degrés]
-   # azimuth : orientation (180=Sud, 90=Est, 270=Ouest)
-   # system_capacity : puissance crête [kWc]
-   system = SolarSystem(
-       latitude=45.75,          # Lyon
-       longitude=4.85,
-       location_name='Lyon',
-       tilt=35,                 # Inclinaison optimale ~latitude
-       timezone='Etc/GMT-1',    # Fuseau horaire
-       azimuth=180.0,           # Plein Sud
-       system_capacity=6.0      # 6 kWc
+   pv = SolarSystem(
+       latitude=45.75, longitude=4.85,
+       name='Lyon', altitude=200,
+       timezone='Europe/Paris',
+       azimut=180, inclinaison=35
    )
 
-   # Récupérer les données modules/onduleurs depuis PVGIS
-   system.retrieve_module_inverter_data()
-   
-   # Récupérer les données météo annuelles
-   system.retrieve_weather_data()
-   
-   # Calculer la production
-   system.calculate_solar_parameters()
+   pv.retrieve_module_inverter_data(
+       module_name='Canadian_Solar_CS5P_220M___2009_',
+       inverter_name='ABB__MICRO_0_25_I_OUTD_US_208__208V_',
+       temperature_model='open_rack_glass_glass'
+   )
 
-   # Afficher les resultats
-   print(system.df)
+   pv.calculate_solar_parameters()
+   print(pv.df)
 
-   # Accéder aux résultats
-   annual_prod = system.annual_production       # Production annuelle [kWh]
-   specific_yield = annual_prod / 6.0           # Productible [kWh/kWc/an]
+   # Synthese economique
+   print(pv.summary(
+       nb_modules=455, module_wc=220,
+       capex_eur_m2=155, opex_eur_m2=2,
+       tarif_elec_eur_mwh=120, duree_vie=25
+   ))
 
-   print(f"Production annuelle : {annual_prod:.0f} kWh/an")
-   print(f"Productible spécifique : {specific_yield:.0f} kWh/kWc/an")
-   print(system.df_results)  # DataFrame avec production horaire
+   # Graphique production horaire + mensuelle
+   pv.plot(nb_modules=455)
 
-   # Calcul économique (exemple autoconsommation 40%)
-   autoconso_rate = 0.40
-   energy_selfconsumed = annual_prod * autoconso_rate      # Énergie autoconsommée
-   energy_injected = annual_prod * (1 - autoconso_rate)    # Énergie injectée
+   # Export Excel
+   pv.to_excel('Lyon_production.xlsx', nb_modules=455)
 
-   prix_elec = 0.18      # Prix électricité [€/kWh]
-   prix_injection = 0.10 # Prix revente [€/kWh]
+Exemple 2 : Étude paramétrique d'orientation
+----------------------------------------------
 
-   gain_autoconso = energy_selfconsumed * prix_elec
-   gain_injection = energy_injected * prix_injection
-   gain_total = gain_autoconso + gain_injection
+.. code-block:: python
 
-   print(f"Économies annuelles : {gain_total:.0f} €/an")
+   scenarios = [
+       {'nom': 'Sud 35', 'azimut': 180, 'inclinaison': 35},
+       {'nom': 'Sud 10', 'azimut': 180, 'inclinaison': 10},
+       {'nom': 'Sud 55', 'azimut': 180, 'inclinaison': 55},
+       {'nom': 'SE 30', 'azimut': 135, 'inclinaison': 30},
+       {'nom': 'Est 85', 'azimut': 90, 'inclinaison': 85},
+   ]
+
+   df, df_monthly = SolarSystem.orientation_study(
+       latitude=45.75, longitude=4.85,
+       name='Lyon', altitude=200, timezone='Europe/Paris',
+       scenarios=scenarios
+   )
+   print(df)
+
+   # Graphique mensuel par orientation
+   SolarSystem.plot_orientation_study(df, df_monthly, name='Lyon')
