@@ -7,4 +7,6 @@
    :maxdepth: 2
    :caption: PV Solaire:
 
+   introduction
+   utilisation
    exemples

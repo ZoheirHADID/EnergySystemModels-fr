@@ -1,70 +1,102 @@
 Certificats d'Économies d'Énergie
 ===================================
 
+Cette page présente des exemples directement compatibles avec les fiches
+actuellement disponibles dans le module ``CEE``.
+
+Lister les fiches disponibles
+-----------------------------
+
+.. code-block:: python
+
+   from CEE.CEE import list_fiches
+
+   print(list_fiches())
+
+Résultat attendu :
+
+.. code-block:: text
+
+   ['IND-UT-103', 'IND-UT-130', 'IND-UT-131', 'IND-UT-134',
+    'IND-UT-135', 'IND-UT-136', 'TRA-EQ-101', 'TRA-EQ-107', 'TRA-EQ-108']
+
+Exemple 1 : isolation thermique industrielle
+--------------------------------------------
+
 .. code-block:: python
 
    from CEE.CEE import calcul_CEE
 
-   # Calcul CEE pour une opération d'isolation
-   # Fiche BAR-EN-101 : Isolation de combles ou de toitures
-   kWh_cumac = calcul_CEE(
-       fiche="BAR-EN-101",         # Code fiche standardisée
-       surface=100,                # Surface isolée [m²]
-       zone="H1",                  # Zone climatique (H1/H2/H3)
-       energie_chauffage="electrique"  # Type énergie (electrique/combustible/reseau_chaleur)
+   # IND-UT-131 : isolation thermique de parois industrielles.
+   kwh_cumac = calcul_CEE(
+       fiche="IND-UT-131",
+       fonctionnement="3*8h_sansArrWE",
+       Temperature=180,
+       Geometry="plan",
+       S=120,
    )
 
-   # Valorisation financière
-   prix_MWh_cumac = 9.0  # Prix marché actuel [€/MWh cumac]
-   prime_CEE = kWh_cumac * prix_MWh_cumac / 1000
+   prix_mwh_cumac = 9.0
+   prime_cee = kwh_cumac * prix_mwh_cumac / 1000
 
-   print(f"Économies : {kWh_cumac:.0f} kWh cumac")
-   print(f"Prime CEE : {prime_CEE:.0f} €")
+   print(f"Volume : {kwh_cumac:.0f} kWh cumac")
+   print(f"Prime : {prime_cee:.0f} EUR")
 
-Fiches principales
-------------------
+Exemple 2 : système moto-régulé
+-------------------------------
 
-**Résidentiel (BAR)**
-
-.. code-block:: python
-
-   # Pompe à chaleur air/eau
-   calcul_CEE(fiche="BAR-TH-104", puissance=12, zone="H1", type_pac="air/eau")
-   
-   # Chaudière haute performance
-   calcul_CEE(fiche="BAR-TH-106", puissance=25, zone="H2")
-   
-   # Isolation combles
-   calcul_CEE(fiche="BAR-EN-101", surface=100, zone="H1", energie="gaz")
-   
-   # Isolation murs
-   calcul_CEE(fiche="BAR-EN-102", surface=80, zone="H2", energie="electrique")
-   
-   # Fenêtres double vitrage
-   calcul_CEE(fiche="BAR-EN-103", surface=15, zone="H1", energie="gaz")
-
-**Tertiaire (BAT)**
+Un utilisateur qui souhaite estimer l'intérêt d'un variateur ou d'un système
+moto-régulé sur un ventilateur peut utiliser ``IND-UT-136``.
 
 .. code-block:: python
 
-   # PAC collective tertiaire
-   calcul_CEE(fiche="BAT-TH-104", puissance=150, zone="H1")
-   
-   # Gestion Technique du Bâtiment (GTB)
-   calcul_CEE(fiche="BAT-TH-113", surface_gtb=3000, zone="H1")
-   
-   # Éclairage LED
-   calcul_CEE(fiche="BAT-EQ-127", nb_luminaires=200, puissance_unitaire=40)
+   from CEE.CEE import calcul_CEE
 
-**Industrie (IND)**
+   details = calcul_CEE(
+       fiche="IND-UT-136",
+       return_details=True,
+       fonctionnement="2*8h",
+       Equipement_type="fan",
+       puissance_nominale=55,
+   )
+
+   print(details["titre"])
+   print(f"{details['MWh_cumac']:.1f} MWh cumac")
+   print(f"{details['euro']:.0f} EUR avec le prix interne du module")
+
+Exemple 3 : récupération de chaleur sur compresseur d'air
+---------------------------------------------------------
 
 .. code-block:: python
 
-   # Variateurs de vitesse
-   calcul_CEE(fiche="IND-UT-102", puissance_moteur=55, heures_fonctionnement=6000)
-   
-   # Récupération chaleur fatale
-   calcul_CEE(fiche="IND-UT-103", puissance_recuperee=500, heures_fonctionnement=5000)
+   from CEE.CEE import calcul_CEE
+
+   kwh_cumac = calcul_CEE(
+       fiche="IND-UT-103",
+       fonctionnement="3*8h_ArrWE",
+       Department=59,
+       Heat_Use="procédé industriel",
+       puissance_nominale=75,
+   )
+
+   print(f"CEE récupération compresseur : {kwh_cumac/1000:.1f} MWh cumac")
+
+Exemple 4 : transport intermodal
+--------------------------------
+
+.. code-block:: python
+
+   from CEE.CEE import calcul_CEE
+
+   details = calcul_CEE(
+       fiche="TRA-EQ-107",
+       return_details=True,
+       type_bateau="Bateau Grand Rhénan (2 500 t)",
+       bassin_navigation="Rhin/Moselle",
+       nb_voyage_uti=220,
+   )
+
+   print(details)
 
 Projet multi-opérations
 ------------------------
@@ -74,32 +106,53 @@ Projet multi-opérations
    from CEE.CEE import calcul_CEE
    import pandas as pd
 
-   # Liste des opérations du projet
    operations = [
-       {"fiche": "BAT-EN-101", "surface": 500, "zone": "H1", "energie": "gaz"},
-       {"fiche": "BAT-TH-104", "puissance": 150, "zone": "H1"},
-       {"fiche": "BAT-EQ-127", "nb_luminaires": 200, "puissance_unitaire": 40},
-       {"fiche": "BAT-TH-113", "surface_gtb": 3000}
+       {
+           "fiche": "IND-UT-131",
+           "fonctionnement": "3*8h_sansArrWE",
+           "Temperature": 180,
+           "Geometry": "plan",
+           "S": 120,
+       },
+       {
+           "fiche": "IND-UT-136",
+           "fonctionnement": "2*8h",
+           "Equipement_type": "fan",
+           "puissance_nominale": 55,
+       },
+       {
+           "fiche": "IND-UT-134",
+           "fonctionnement": "2*8h",
+           "duree_contrat": 3.0,
+           "puissance_nominale": 800,
+       },
    ]
 
-   # Calcul pour chaque opération
-   total_kWh_cumac = 0
+   total_kwh_cumac = 0
    details = []
 
    for op in operations:
-       kWh_cumac = calcul_CEE(**op)
-       total_kWh_cumac += kWh_cumac
+       kwh_cumac = calcul_CEE(**op)
+       total_kwh_cumac += kwh_cumac
        details.append({
            "Fiche": op["fiche"],
-           "kWh_cumac": kWh_cumac,
-           "Prime_€": kWh_cumac * 9.0 / 1000
+           "kWh_cumac": kwh_cumac,
+           "Prime_EUR": kwh_cumac * 9.0 / 1000,
        })
 
-   # Affichage
    df_rapport = pd.DataFrame(details)
    print(df_rapport)
-   print(f"\nTotal : {total_kWh_cumac:.0f} kWh cumac")
-   print(f"Prime totale : {total_kWh_cumac * 9.0 / 1000:.0f} €")
-   
-   # Export Excel
+   print(f"Total : {total_kwh_cumac:.0f} kWh cumac")
+   print(f"Prime totale : {total_kwh_cumac * 9.0 / 1000:.0f} EUR")
+
    df_rapport.to_excel("rapport_CEE.xlsx", index=False)
+
+Conseils d'utilisation
+----------------------
+
+* Utiliser les noms exacts des paramètres attendus par chaque fiche.
+* Lancer ``calcul_CEE(..., return_details=True)`` pour obtenir un dictionnaire
+  exploitable dans un rapport.
+* Conserver l'hypothèse de prix du MWh cumac dans les exports.
+* Vérifier l'éligibilité réglementaire sur les fiches officielles avant toute
+  décision d'investissement.

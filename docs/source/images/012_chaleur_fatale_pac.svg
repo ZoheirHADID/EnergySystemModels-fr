@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="816" height="297" viewBox="0 0 816 297" role="img" aria-labelledby="title desc">
+  <title id="title">Source basse température avec pompe à chaleur</title>
+  <desc id="desc">Schéma de comparaison entre source basse température, PAC et usage à 60 degC.</desc>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#4b5563"/>
+    </marker>
+    <style>
+      .diagram-title { font: 700 18px Arial, sans-serif; fill: #111827; }
+      .node-title { font: 700 13px Arial, sans-serif; fill: #111827; }
+      .node-subtitle { font: 11px Arial, sans-serif; fill: #374151; }
+      .edge-label { font: 11px Arial, sans-serif; fill: #374151; }
+    </style>
+  </defs>
+  <rect width="100%" height="100%" fill="#ffffff"/>
+  <text x="38" y="26" class="diagram-title">Source basse température avec pompe à chaleur</text>
+  <path d="M 208 143.0 C 265.5 143.0, 265.5 83.0, 323 83.0" fill="none" stroke="#4b5563" stroke-width="1.7" marker-end="url(#arrow)"/>
+<text x="265.5" y="105.0" text-anchor="middle" class="edge-label">chaleur basse T</text>
+<path d="M 493 204.0 C 535 204.0, 535 83.0, 323 83.0" fill="none" stroke="#4b5563" stroke-width="1.7" marker-end="url(#arrow)"/>
+<text x="535" y="135.5" text-anchor="middle" class="edge-label">MWh elec</text>
+<path d="M 493 83.0 C 550.5 83.0, 550.5 83.0, 608 83.0" fill="none" stroke="#4b5563" stroke-width="1.7" marker-end="url(#arrow)"/>
+<text x="550.5" y="75.0" text-anchor="middle" class="edge-label">chaleur utile</text>
+<path d="M 778 83.0 C 820 83.0, 820 204.0, 608 204.0" fill="none" stroke="#4b5563" stroke-width="1.7" marker-end="url(#arrow)"/>
+<text x="820" y="135.5" text-anchor="middle" class="edge-label">économie</text>
+  <rect x="38" y="110" width="170" height="66" rx="8" fill="#fff4de" stroke="#b46a00" stroke-width="1.6"/>
+<text x="123.0" y="136" text-anchor="middle" class="node-title">Source 35 degC</text>
+<text x="123.0" y="162" text-anchor="middle" class="node-subtitle">gisement disponible</text>
+<rect x="323" y="50" width="170" height="66" rx="8" fill="#f0ecff" stroke="#6554b8" stroke-width="1.6"/>
+<text x="408.0" y="76" text-anchor="middle" class="node-title">Pompe à chaleur</text>
+<text x="408.0" y="102" text-anchor="middle" class="node-subtitle">COP = 4</text>
+<rect x="323" y="171" width="170" height="66" rx="8" fill="#eaf4ff" stroke="#2670a8" stroke-width="1.6"/>
+<text x="408.0" y="197" text-anchor="middle" class="node-title">Électricité</text>
+<text x="408.0" y="223" text-anchor="middle" class="node-subtitle">appoint moteur</text>
+<rect x="608" y="50" width="170" height="66" rx="8" fill="#fff0f0" stroke="#b33a3a" stroke-width="1.6"/>
+<text x="693.0" y="76" text-anchor="middle" class="node-title">Usage 60 degC</text>
+<text x="693.0" y="102" text-anchor="middle" class="node-subtitle">chaleur livrée</text>
+<rect x="608" y="171" width="170" height="66" rx="8" fill="#eefaf7" stroke="#13866f" stroke-width="1.6"/>
+<text x="693.0" y="197" text-anchor="middle" class="node-title">Gaz évité</text>
+<text x="693.0" y="223" text-anchor="middle" class="node-subtitle">référence</text>
+</svg>

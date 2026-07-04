@@ -1,0 +1,63 @@
+{
+  "title": "Préparer une analyse Pinch",
+  "description": "Schéma des flux chauds et froids alimentant une analyse Pinch.",
+  "nodes": [
+    {
+      "id": "flux_chauds",
+      "label": "Flux chauds",
+      "subtitle": "H1, H2",
+      "kind": "source",
+      "column": 0
+    },
+    {
+      "id": "flux_froids",
+      "label": "Flux froids",
+      "subtitle": "C1, C2",
+      "kind": "sink",
+      "column": 0
+    },
+    {
+      "id": "pinch",
+      "label": "PinchAnalysis",
+      "subtitle": "courbes et GCC",
+      "kind": "process",
+      "column": 1
+    },
+    {
+      "id": "hen",
+      "label": "Réseau HEN",
+      "subtitle": "échangeurs proposés",
+      "kind": "exchange",
+      "column": 2
+    },
+    {
+      "id": "utilites",
+      "label": "Utilités minimales",
+      "subtitle": "Qh_min / Qc_min",
+      "kind": "utility",
+      "column": 2
+    }
+  ],
+  "edges": [
+    {
+      "from": "flux_chauds",
+      "to": "pinch",
+      "label": "Ti, To, mCp"
+    },
+    {
+      "from": "flux_froids",
+      "to": "pinch",
+      "label": "Ti, To, mCp"
+    },
+    {
+      "from": "pinch",
+      "to": "hen",
+      "label": "matches"
+    },
+    {
+      "from": "pinch",
+      "to": "utilites",
+      "label": "bilan"
+    }
+  ]
+}

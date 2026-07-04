@@ -1,0 +1,51 @@
+{
+  "title": "Récupération sur eau de refroidissement",
+  "description": "Schéma de principe d'une source basse température valorisée via un échangeur.",
+  "nodes": [
+    {
+      "id": "source",
+      "label": "Boucle procédé",
+      "subtitle": "38 -> 28 degC",
+      "kind": "source",
+      "column": 0
+    },
+    {
+      "id": "hex",
+      "label": "Échangeur",
+      "subtitle": "récupération",
+      "kind": "exchange",
+      "column": 1
+    },
+    {
+      "id": "usage",
+      "label": "Usage basse température",
+      "subtitle": "préchauffage ou PAC",
+      "kind": "sink",
+      "column": 2
+    },
+    {
+      "id": "retour",
+      "label": "Retour procédé",
+      "subtitle": "eau refroidie",
+      "kind": "loss",
+      "column": 2
+    }
+  ],
+  "edges": [
+    {
+      "from": "source",
+      "to": "hex",
+      "label": "22 m3/h"
+    },
+    {
+      "from": "hex",
+      "to": "usage",
+      "label": "chaleur utile"
+    },
+    {
+      "from": "hex",
+      "to": "retour",
+      "label": "source refroidie"
+    }
+  ]
+}

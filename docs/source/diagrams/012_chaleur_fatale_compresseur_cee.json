@@ -1,0 +1,51 @@
+{
+  "title": "Compresseur d'air et valorisation CEE",
+  "description": "Schéma de récupération thermique sur compresseur avec valorisation CEE.",
+  "nodes": [
+    {
+      "id": "compresseur",
+      "label": "Compresseur d'air",
+      "subtitle": "chaleur fatale",
+      "kind": "source",
+      "column": 0
+    },
+    {
+      "id": "recuperateur",
+      "label": "Récupérateur",
+      "subtitle": "air/eau ou air/air",
+      "kind": "exchange",
+      "column": 1
+    },
+    {
+      "id": "usage",
+      "label": "Chauffage utile",
+      "subtitle": "locaux, ECS, procédé",
+      "kind": "sink",
+      "column": 2
+    },
+    {
+      "id": "cee",
+      "label": "Fiche IND-UT-103",
+      "subtitle": "MWh cumac",
+      "kind": "finance",
+      "column": 2
+    }
+  ],
+  "edges": [
+    {
+      "from": "compresseur",
+      "to": "recuperateur",
+      "label": "70 degC env."
+    },
+    {
+      "from": "recuperateur",
+      "to": "usage",
+      "label": "chaleur valorisée"
+    },
+    {
+      "from": "recuperateur",
+      "to": "cee",
+      "label": "calcul_CEE"
+    }
+  ]
+}

@@ -7,4 +7,6 @@
    :maxdepth: 2
    :caption: Analyse de pincement:
 
+   introduction
+   methode
    exemples

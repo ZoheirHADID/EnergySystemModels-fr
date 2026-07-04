@@ -1,0 +1,63 @@
+{
+  "title": "Source basse température avec pompe à chaleur",
+  "description": "Schéma de comparaison entre source basse température, PAC et usage à 60 degC.",
+  "nodes": [
+    {
+      "id": "source",
+      "label": "Source 35 degC",
+      "subtitle": "gisement disponible",
+      "kind": "source",
+      "column": 0
+    },
+    {
+      "id": "pac",
+      "label": "Pompe à chaleur",
+      "subtitle": "COP = 4",
+      "kind": "utility",
+      "column": 1
+    },
+    {
+      "id": "electricite",
+      "label": "Électricité",
+      "subtitle": "appoint moteur",
+      "kind": "process",
+      "column": 1
+    },
+    {
+      "id": "usage",
+      "label": "Usage 60 degC",
+      "subtitle": "chaleur livrée",
+      "kind": "sink",
+      "column": 2
+    },
+    {
+      "id": "gaz",
+      "label": "Gaz évité",
+      "subtitle": "référence",
+      "kind": "finance",
+      "column": 2
+    }
+  ],
+  "edges": [
+    {
+      "from": "source",
+      "to": "pac",
+      "label": "chaleur basse T"
+    },
+    {
+      "from": "electricite",
+      "to": "pac",
+      "label": "MWh elec"
+    },
+    {
+      "from": "pac",
+      "to": "usage",
+      "label": "chaleur utile"
+    },
+    {
+      "from": "usage",
+      "to": "gaz",
+      "label": "économie"
+    }
+  ]
+}
