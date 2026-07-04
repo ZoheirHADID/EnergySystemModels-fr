@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1671" height="297" viewBox="0 0 1671 297" role="img" aria-labelledby="title desc">
+  <title id="title">Architecture PyqtSimulator</title>
+  <desc id="desc">Organisation generale entre l&#x27;interface PyQt, le moteur NodeEditor et les modeles EnergySystemModels.</desc>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#4b5563"/>
+    </marker>
+    <style>
+      .diagram-title { font: 700 18px Arial, sans-serif; fill: #111827; }
+      .node-title { font: 700 13px Arial, sans-serif; fill: #111827; }
+      .node-subtitle { font: 11px Arial, sans-serif; fill: #374151; }
+      .edge-label { font: 11px Arial, sans-serif; fill: #374151; }
+    </style>
+  </defs>
+  <rect width="100%" height="100%" fill="#ffffff"/>
+  <text x="38" y="26" class="diagram-title">Architecture PyqtSimulator</text>
+  <path d="M 208 143.0 C 265.5 143.0, 265.5 143.0, 323 143.0" fill="none" stroke="#4b5563" stroke-width="1.7" marker-end="url(#arrow)"/>
+<text x="265.5" y="135.0" text-anchor="middle" class="edge-label">interface</text>
+<path d="M 493 143.0 C 550.5 143.0, 550.5 83.0, 608 83.0" fill="none" stroke="#4b5563" stroke-width="1.7" marker-end="url(#arrow)"/>
+<text x="550.5" y="105.0" text-anchor="middle" class="edge-label">document</text>
+<path d="M 778 204.0 C 835.5 204.0, 835.5 143.0, 893 143.0" fill="none" stroke="#4b5563" stroke-width="1.7" marker-end="url(#arrow)"/>
+<text x="835.5" y="165.5" text-anchor="middle" class="edge-label">classe</text>
+<path d="M 778 83.0 C 835.5 83.0, 835.5 143.0, 893 143.0" fill="none" stroke="#4b5563" stroke-width="1.7" marker-end="url(#arrow)"/>
+<text x="835.5" y="105.0" text-anchor="middle" class="edge-label">graphe</text>
+<path d="M 1063 143.0 C 1120.5 143.0, 1120.5 143.0, 1178 143.0" fill="none" stroke="#4b5563" stroke-width="1.7" marker-end="url(#arrow)"/>
+<text x="1120.5" y="135.0" text-anchor="middle" class="edge-label">ports</text>
+<path d="M 1348 143.0 C 1405.5 143.0, 1405.5 143.0, 1463 143.0" fill="none" stroke="#4b5563" stroke-width="1.7" marker-end="url(#arrow)"/>
+<text x="1405.5" y="135.0" text-anchor="middle" class="edge-label">resultats</text>
+  <rect x="38" y="110" width="170" height="66" rx="8" fill="#fff4de" stroke="#b46a00" stroke-width="1.6"/>
+<text x="123.0" y="136" text-anchor="middle" class="node-title">Utilisateur</text>
+<text x="123.0" y="162" text-anchor="middle" class="node-subtitle">glisser, connecter, evaluer</text>
+<rect x="323" y="110" width="170" height="66" rx="8" fill="#eaf4ff" stroke="#2670a8" stroke-width="1.6"/>
+<text x="408.0" y="136" text-anchor="middle" class="node-title">CalculatorWindow</text>
+<text x="408.0" y="162" text-anchor="middle" class="node-subtitle">fenetre principale PyQt</text>
+<rect x="608" y="50" width="170" height="66" rx="8" fill="#eaf4ff" stroke="#2670a8" stroke-width="1.6"/>
+<text x="693.0" y="76" text-anchor="middle" class="node-title">CalculatorSubWindow</text>
+<text x="693.0" y="102" text-anchor="middle" class="node-subtitle">scene NodeEditor</text>
+<rect x="608" y="171" width="170" height="66" rx="8" fill="#f0ecff" stroke="#6554b8" stroke-width="1.6"/>
+<text x="693.0" y="197" text-anchor="middle" class="node-title">CALC_NODES</text>
+<text x="693.0" y="223" text-anchor="middle" class="node-subtitle">@register_node</text>
+<rect x="893" y="110" width="170" height="66" rx="8" fill="#e9f8ef" stroke="#2d7d46" stroke-width="1.6"/>
+<text x="978.0" y="136" text-anchor="middle" class="node-title">Noeud ESMNode</text>
+<text x="978.0" y="162" text-anchor="middle" class="node-subtitle">champs, ports, resultats</text>
+<rect x="1178" y="110" width="170" height="66" rx="8" fill="#e9f8ef" stroke="#2d7d46" stroke-width="1.6"/>
+<text x="1263.0" y="136" text-anchor="middle" class="node-title">Modele ESM</text>
+<text x="1263.0" y="162" text-anchor="middle" class="node-subtitle">calculate(), plot()</text>
+<rect x="1463" y="110" width="170" height="66" rx="8" fill="#fff0f0" stroke="#b33a3a" stroke-width="1.6"/>
+<text x="1548.0" y="136" text-anchor="middle" class="node-title">Sortie</text>
+<text x="1548.0" y="162" text-anchor="middle" class="node-subtitle">valeurs et fichiers .json</text>
+</svg>

@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1671" height="176" viewBox="0 0 1671 176" role="img" aria-labelledby="title desc">
+  <title id="title">Cycle d&#x27;evaluation d&#x27;un graphe</title>
+  <desc id="desc">Propagation des calculs depuis les noeuds amont jusqu&#x27;aux noeuds de sortie.</desc>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#4b5563"/>
+    </marker>
+    <style>
+      .diagram-title { font: 700 18px Arial, sans-serif; fill: #111827; }
+      .node-title { font: 700 13px Arial, sans-serif; fill: #111827; }
+      .node-subtitle { font: 11px Arial, sans-serif; fill: #374151; }
+      .edge-label { font: 11px Arial, sans-serif; fill: #374151; }
+    </style>
+  </defs>
+  <rect width="100%" height="100%" fill="#ffffff"/>
+  <text x="38" y="26" class="diagram-title">Cycle d&#x27;evaluation d&#x27;un graphe</text>
+  <path d="M 208 83.0 C 265.5 83.0, 265.5 83.0, 323 83.0" fill="none" stroke="#4b5563" stroke-width="1.7" marker-end="url(#arrow)"/>
+<text x="265.5" y="75.0" text-anchor="middle" class="edge-label">signal</text>
+<path d="M 493 83.0 C 550.5 83.0, 550.5 83.0, 608 83.0" fill="none" stroke="#4b5563" stroke-width="1.7" marker-end="url(#arrow)"/>
+<text x="550.5" y="75.0" text-anchor="middle" class="edge-label">calcul</text>
+<path d="M 778 83.0 C 835.5 83.0, 835.5 83.0, 893 83.0" fill="none" stroke="#4b5563" stroke-width="1.7" marker-end="url(#arrow)"/>
+<text x="835.5" y="75.0" text-anchor="middle" class="edge-label">entrees</text>
+<path d="M 1063 83.0 C 1120.5 83.0, 1120.5 83.0, 1178 83.0" fill="none" stroke="#4b5563" stroke-width="1.7" marker-end="url(#arrow)"/>
+<text x="1120.5" y="75.0" text-anchor="middle" class="edge-label">valeurs</text>
+<path d="M 1348 83.0 C 1405.5 83.0, 1405.5 83.0, 1463 83.0" fill="none" stroke="#4b5563" stroke-width="1.7" marker-end="url(#arrow)"/>
+<text x="1405.5" y="75.0" text-anchor="middle" class="edge-label">affichage</text>
+  <rect x="38" y="50" width="170" height="66" rx="8" fill="#fff4de" stroke="#b46a00" stroke-width="1.6"/>
+<text x="123.0" y="76" text-anchor="middle" class="node-title">Modification</text>
+<text x="123.0" y="102" text-anchor="middle" class="node-subtitle">champ ou connexion</text>
+<rect x="323" y="50" width="170" height="66" rx="8" fill="#f0ecff" stroke="#6554b8" stroke-width="1.6"/>
+<text x="408.0" y="76" text-anchor="middle" class="node-title">markDirty</text>
+<text x="408.0" y="102" text-anchor="middle" class="node-subtitle">descendants a recalculer</text>
+<rect x="608" y="50" width="170" height="66" rx="8" fill="#eaf4ff" stroke="#2670a8" stroke-width="1.6"/>
+<text x="693.0" y="76" text-anchor="middle" class="node-title">eval()</text>
+<text x="693.0" y="102" text-anchor="middle" class="node-subtitle">noeud demande</text>
+<rect x="893" y="50" width="170" height="66" rx="8" fill="#eaf4ff" stroke="#2670a8" stroke-width="1.6"/>
+<text x="978.0" y="76" text-anchor="middle" class="node-title">eval amont</text>
+<text x="978.0" y="102" text-anchor="middle" class="node-subtitle">getInputWithSocketIndex</text>
+<rect x="1178" y="50" width="170" height="66" rx="8" fill="#e9f8ef" stroke="#2d7d46" stroke-width="1.6"/>
+<text x="1263.0" y="76" text-anchor="middle" class="node-title">evalOperation</text>
+<text x="1263.0" y="102" text-anchor="middle" class="node-subtitle">modele physique</text>
+<rect x="1463" y="50" width="170" height="66" rx="8" fill="#fff0f0" stroke="#b33a3a" stroke-width="1.6"/>
+<text x="1548.0" y="76" text-anchor="middle" class="node-title">Resultats</text>
+<text x="1548.0" y="102" text-anchor="middle" class="node-subtitle">labels et valeur de sortie</text>
+</svg>

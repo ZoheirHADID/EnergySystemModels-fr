@@ -1,0 +1,87 @@
+{
+  "title": "Architecture PyqtSimulator",
+  "description": "Organisation generale entre l'interface PyQt, le moteur NodeEditor et les modeles EnergySystemModels.",
+  "nodes": [
+    {
+      "id": "user",
+      "label": "Utilisateur",
+      "subtitle": "glisser, connecter, evaluer",
+      "kind": "source",
+      "column": 0
+    },
+    {
+      "id": "window",
+      "label": "CalculatorWindow",
+      "subtitle": "fenetre principale PyQt",
+      "kind": "process",
+      "column": 1
+    },
+    {
+      "id": "scene",
+      "label": "CalculatorSubWindow",
+      "subtitle": "scene NodeEditor",
+      "kind": "process",
+      "column": 2
+    },
+    {
+      "id": "registry",
+      "label": "CALC_NODES",
+      "subtitle": "@register_node",
+      "kind": "utility",
+      "column": 2
+    },
+    {
+      "id": "node",
+      "label": "Noeud ESMNode",
+      "subtitle": "champs, ports, resultats",
+      "kind": "exchange",
+      "column": 3
+    },
+    {
+      "id": "model",
+      "label": "Modele ESM",
+      "subtitle": "calculate(), plot()",
+      "kind": "exchange",
+      "column": 4
+    },
+    {
+      "id": "output",
+      "label": "Sortie",
+      "subtitle": "valeurs et fichiers .json",
+      "kind": "sink",
+      "column": 5
+    }
+  ],
+  "edges": [
+    {
+      "from": "user",
+      "to": "window",
+      "label": "interface"
+    },
+    {
+      "from": "window",
+      "to": "scene",
+      "label": "document"
+    },
+    {
+      "from": "registry",
+      "to": "node",
+      "label": "classe"
+    },
+    {
+      "from": "scene",
+      "to": "node",
+      "label": "graphe"
+    },
+    {
+      "from": "node",
+      "to": "model",
+      "label": "ports"
+    },
+    {
+      "from": "model",
+      "to": "output",
+      "label": "resultats"
+    }
+  ]
+}

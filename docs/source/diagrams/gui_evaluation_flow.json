@@ -1,0 +1,75 @@
+{
+  "title": "Cycle d'evaluation d'un graphe",
+  "description": "Propagation des calculs depuis les noeuds amont jusqu'aux noeuds de sortie.",
+  "nodes": [
+    {
+      "id": "edit",
+      "label": "Modification",
+      "subtitle": "champ ou connexion",
+      "kind": "source",
+      "column": 0
+    },
+    {
+      "id": "dirty",
+      "label": "markDirty",
+      "subtitle": "descendants a recalculer",
+      "kind": "utility",
+      "column": 1
+    },
+    {
+      "id": "eval",
+      "label": "eval()",
+      "subtitle": "noeud demande",
+      "kind": "process",
+      "column": 2
+    },
+    {
+      "id": "upstream",
+      "label": "eval amont",
+      "subtitle": "getInputWithSocketIndex",
+      "kind": "process",
+      "column": 3
+    },
+    {
+      "id": "operation",
+      "label": "evalOperation",
+      "subtitle": "modele physique",
+      "kind": "exchange",
+      "column": 4
+    },
+    {
+      "id": "results",
+      "label": "Resultats",
+      "subtitle": "labels et valeur de sortie",
+      "kind": "sink",
+      "column": 5
+    }
+  ],
+  "edges": [
+    {
+      "from": "edit",
+      "to": "dirty",
+      "label": "signal"
+    },
+    {
+      "from": "dirty",
+      "to": "eval",
+      "label": "calcul"
+    },
+    {
+      "from": "eval",
+      "to": "upstream",
+      "label": "entrees"
+    },
+    {
+      "from": "upstream",
+      "to": "operation",
+      "label": "valeurs"
+    },
+    {
+      "from": "operation",
+      "to": "results",
+      "label": "affichage"
+    }
+  ]
+}

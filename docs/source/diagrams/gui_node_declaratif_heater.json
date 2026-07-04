@@ -1,0 +1,63 @@
+{
+  "title": "Exemple de noeud declaratif : Rechauffeur",
+  "description": "Flux de donnees entre une source fluide, le noeud Heater et le noeud Output.",
+  "nodes": [
+    {
+      "id": "source",
+      "label": "Source",
+      "subtitle": "[fluide, F, P, h]",
+      "kind": "source",
+      "column": 0
+    },
+    {
+      "id": "helper_in",
+      "label": "make_fluid_port",
+      "subtitle": "tableau vers FluidPort",
+      "kind": "utility",
+      "column": 1
+    },
+    {
+      "id": "heater",
+      "label": "Heater.Object",
+      "subtitle": "q_nom, u, calculate()",
+      "kind": "process",
+      "column": 2
+    },
+    {
+      "id": "helper_out",
+      "label": "fluid_out",
+      "subtitle": "FluidPort vers tableau",
+      "kind": "utility",
+      "column": 3
+    },
+    {
+      "id": "output",
+      "label": "Output",
+      "subtitle": "T, P, h, debit",
+      "kind": "sink",
+      "column": 4
+    }
+  ],
+  "edges": [
+    {
+      "from": "source",
+      "to": "helper_in",
+      "label": "entree"
+    },
+    {
+      "from": "helper_in",
+      "to": "heater",
+      "label": "Inlet"
+    },
+    {
+      "from": "heater",
+      "to": "helper_out",
+      "label": "Outlet"
+    },
+    {
+      "from": "helper_out",
+      "to": "output",
+      "label": "sortie"
+    }
+  ]
+}
