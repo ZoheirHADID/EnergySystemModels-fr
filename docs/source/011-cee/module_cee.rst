@@ -1,8 +1,10 @@
 Certificats d'Économies d'Énergie
 ===================================
 
-Cette page présente des exemples directement compatibles avec les fiches
-actuellement disponibles dans le module ``CEE``.
+Cette page présente un exemple par **fiche d'opération standardisée** réellement
+supportée par le module ``CEE``, rangé par secteur. Seules les fiches **en
+vigueur** au catalogue officiel sont documentées (voir la note sur les fiches
+obsolètes en fin de page).
 
 Lister les fiches disponibles
 -----------------------------
@@ -13,188 +15,177 @@ Lister les fiches disponibles
 
    print(list_fiches())
 
-Résultat attendu :
+Résultat réel :
 
 .. code-block:: text
 
    ['IND-UT-103', 'IND-UT-130', 'IND-UT-131', 'IND-UT-134',
-    'IND-UT-135', 'IND-UT-136', 'TRA-EQ-101', 'TRA-EQ-107', 'TRA-EQ-108']
+    'IND-UT-135', 'TRA-EQ-101', 'TRA-EQ-107']
 
-Exemple 1 : isolation thermique industrielle
---------------------------------------------
+Le prix interne du MWh cumac (``euro_MWhcumac``, **5 €/MWh cumac** par défaut) est
+utilisé pour la valorisation ; il est modifiable (``CEE.euro_MWhcumac = 9``).
+``calcul_CEE(..., return_details=True)`` renvoie un dictionnaire
+(``kWh_cumac``, ``MWh_cumac``, ``euro``, ``titre``).
 
-.. figure:: ../images/011_cee_isolation_industrielle.svg
-   :alt: Schéma CEE pour isolation thermique industrielle
-   :align: center
+Secteur Industrie
+=================
 
-   Le calcul part de la paroi isolée, applique la fiche ``IND-UT-131`` et
-   transforme les kWh cumac en prime estimée.
-
-.. code-block:: python
-
-   from CEE.CEE import calcul_CEE
-
-   # IND-UT-131 : isolation thermique de parois industrielles.
-   kwh_cumac = calcul_CEE(
-       fiche="IND-UT-131",
-       fonctionnement="3*8h_sansArrWE",
-       Temperature=180,
-       Geometry="plan",
-       S=120,
-   )
-
-   prix_mwh_cumac = 9.0
-   prime_cee = kwh_cumac * prix_mwh_cumac / 1000
-
-   print(f"Volume : {kwh_cumac:.0f} kWh cumac")
-   print(f"Prime : {prime_cee:.0f} EUR")
-
-Résultat attendu :
-
-.. list-table::
-   :widths: 45 30 25
-   :header-rows: 1
-
-   * - Indicateur
-     - Valeur
-     - Unité
-   * - Volume CEE
-     - 246 960
-     - kWh cumac
-   * - Prime avec 9 EUR/MWh cumac
-     - 2 223
-     - EUR
-
-Exemple 2 : système moto-régulé
--------------------------------
-
-Un utilisateur qui souhaite estimer l'intérêt d'un variateur ou d'un système
-moto-régulé sur un ventilateur peut utiliser ``IND-UT-136``.
-
-.. figure:: ../images/011_cee_moto_regule.svg
-   :alt: Schéma CEE pour système moto-régulé
-   :align: center
-
-   Le nœud équipement fournit la puissance nominale, la fiche calcule ensuite
-   le volume cumac.
-
-.. code-block:: python
-
-   from CEE.CEE import calcul_CEE
-
-   details = calcul_CEE(
-       fiche="IND-UT-136",
-       return_details=True,
-       fonctionnement="2*8h",
-       Equipement_type="fan",
-       puissance_nominale=55,
-   )
-
-   print(details["titre"])
-   print(f"{details['MWh_cumac']:.1f} MWh cumac")
-   print(f"{details['euro']:.0f} EUR avec le prix interne du module")
-
-Résultat attendu :
-
-.. list-table::
-   :widths: 45 30 25
-   :header-rows: 1
-
-   * - Indicateur
-     - Valeur
-     - Unité
-   * - Volume CEE
-     - 940,5
-     - MWh cumac
-   * - Valorisation interne du module
-     - 4 703
-     - EUR
-
-Exemple 3 : récupération de chaleur sur compresseur d'air
----------------------------------------------------------
+IND-UT-103 — Récupération de chaleur sur un compresseur d'air
+------------------------------------------------------------
 
 .. figure:: ../images/012_chaleur_fatale_compresseur_cee.svg
-   :alt: Schéma CEE pour récupération de chaleur sur compresseur d'air
+   :alt: Récupération de chaleur sur compresseur d'air (IND-UT-103)
    :align: center
 
-   La récupération thermique du compresseur alimente un usage et peut être
-   valorisée via ``IND-UT-103``.
+   La chaleur du compresseur est récupérée pour un usage (chauffage, ECS ou
+   procédé) et valorisée en CEE.
 
 .. code-block:: python
 
    from CEE.CEE import calcul_CEE
 
-   kwh_cumac = calcul_CEE(
+   d = calcul_CEE(
        fiche="IND-UT-103",
-       fonctionnement="3*8h_ArrWE",
-       Department=59,
-       Heat_Use="procédé industriel",
-       puissance_nominale=75,
+       return_details=True,
+       fonctionnement="2*8h",
+       Department=69,                  # zone climatique H1
+       Heat_Use="procédé industriel",  # ou "chauffage de locaux" / "ECS"
+       puissance_nominale=90,          # kW
    )
+   print(f"{d['MWh_cumac']:.0f} MWh cumac — {d['euro']:.0f} EUR")
 
-   print(f"CEE récupération compresseur : {kwh_cumac/1000:.1f} MWh cumac")
+Résultat réel : **2 304 MWh cumac** — 11 520 EUR (à 5 €/MWh cumac).
 
-Résultat attendu :
+IND-UT-130 — Condenseur sur les effluents gazeux d'une chaudière vapeur
+-----------------------------------------------------------------------
 
-.. list-table::
-   :widths: 45 30 25
-   :header-rows: 1
+.. code-block:: python
 
-   * - Indicateur
-     - Valeur
-     - Unité
-   * - Volume CEE
-     - 2 385,0
-     - MWh cumac
-   * - Prime avec 9 EUR/MWh cumac
-     - 21 465
-     - EUR
+   from CEE.CEE import calcul_CEE
 
-Exemple 4 : transport intermodal
---------------------------------
+   d = calcul_CEE(
+       fiche="IND-UT-130",
+       return_details=True,
+       fonctionnement="3*8h_sansArrWE",
+       puissance_nominale=1500,        # kW (<= 20 000)
+   )
+   print(f"{d['MWh_cumac']:.0f} MWh cumac — {d['euro']:.0f} EUR")
+
+Résultat réel : **2 100 MWh cumac** — 10 500 EUR.
+
+IND-UT-131 — Isolation thermique de parois industrielles
+--------------------------------------------------------
+
+.. figure:: ../images/011_cee_isolation_industrielle.svg
+   :alt: Isolation thermique de parois industrielles (IND-UT-131)
+   :align: center
+
+   La fiche s'applique à une paroi plane (surface ``S``) ou cylindrique
+   (diamètre ``D``, longueur ``L``) selon sa température de service.
+
+.. code-block:: python
+
+   from CEE.CEE import calcul_CEE
+
+   d = calcul_CEE(
+       fiche="IND-UT-131",
+       return_details=True,
+       fonctionnement="3*8h_sansArrWE",
+       Temperature=180,     # °C
+       Geometry="plan",     # "plan" (S) ou "cylindre" (D, L)
+       S=120,               # m²
+   )
+   print(f"{d['MWh_cumac']:.2f} MWh cumac — {d['euro']:.2f} EUR")
+
+Résultat réel : **246,96 MWh cumac** — 1 234,80 EUR.
+
+IND-UT-134 — Système de mesurage d'indicateurs de performance énergétique
+-------------------------------------------------------------------------
+
+.. code-block:: python
+
+   from CEE.CEE import calcul_CEE
+
+   d = calcul_CEE(
+       fiche="IND-UT-134",
+       return_details=True,
+       fonctionnement="2*8h",
+       duree_contrat=3.0,          # années
+       puissance_nominale=800,     # kW
+   )
+   print(f"{d['MWh_cumac']:.2f} MWh cumac — {d['euro']:.2f} EUR")
+
+Résultat réel : **149,54 MWh cumac** — 747,70 EUR.
+
+IND-UT-135 — Freecooling par eau de refroidissement (substitution groupe froid)
+-------------------------------------------------------------------------------
+
+.. code-block:: python
+
+   from CEE.CEE import calcul_CEE
+
+   d = calcul_CEE(
+       fiche="IND-UT-135",
+       return_details=True,
+       fonctionnement="2*8h",
+       Department=69,              # zone climatique H1
+       Supply_Temperature=16,      # °C (12 <= T <= 21)
+       puissance_nominale=200,     # kW
+   )
+   print(f"{d['MWh_cumac']:.0f} MWh cumac — {d['euro']:.0f} EUR")
+
+Résultat réel : **4 356 MWh cumac** — 21 780 EUR.
+
+Secteur Transport
+=================
+
+TRA-EQ-101 — Unité de transport intermodal rail-route
+-----------------------------------------------------
 
 .. figure:: ../images/011_cee_transport_intermodal.svg
-   :alt: Schéma CEE pour transport intermodal fluvial-route
+   :alt: Transport intermodal (TRA-EQ-101 / TRA-EQ-107)
    :align: center
 
-   Le nombre de voyages et le type de bateau alimentent la fiche
-   ``TRA-EQ-107``.
+   Le volume CEE dépend du nombre d'unités de transport et de voyages annuels.
 
 .. code-block:: python
 
    from CEE.CEE import calcul_CEE
 
-   details = calcul_CEE(
+   d = calcul_CEE(
+       fiche="TRA-EQ-101",
+       return_details=True,
+       longueur_uti="UTIsup9",     # "UTIinf9" ou "UTIsup9"
+       nb_voyage_an=200,
+       nb_uti=10,
+   )
+   print(f"{d['MWh_cumac']:.0f} MWh cumac — {d['euro']:.0f} EUR")
+
+Résultat réel : **37 000 MWh cumac** — 185 000 EUR.
+
+TRA-EQ-107 — Unité de transport intermodal fluvial-route
+--------------------------------------------------------
+
+.. code-block:: python
+
+   from CEE.CEE import calcul_CEE
+
+   d = calcul_CEE(
        fiche="TRA-EQ-107",
        return_details=True,
        type_bateau="Bateau Grand Rhénan (2 500 t)",
        bassin_navigation="Rhin/Moselle",
        nb_voyage_uti=220,
    )
+   print(f"{d['MWh_cumac']:.0f} MWh cumac — {d['euro']:.0f} EUR")
 
-   print(details)
-
-Résultat attendu :
-
-.. list-table::
-   :widths: 45 30 25
-   :header-rows: 1
-
-   * - Indicateur
-     - Valeur
-     - Unité
-   * - Volume CEE
-     - 902,0
-     - MWh cumac
-   * - Valorisation interne du module
-     - 4 510
-     - EUR
+Résultat réel : **902 MWh cumac** — 4 510 EUR.
 
 Projet multi-opérations
-------------------------
+=======================
 
 .. figure:: ../images/011_cee_projet_multi_operations.svg
-   :alt: Schéma CEE pour projet multi-opérations
+   :alt: Projet CEE multi-opérations
    :align: center
 
    Chaque opération produit une ligne de résultat ; le rapport agrège ensuite
@@ -206,47 +197,27 @@ Projet multi-opérations
    import pandas as pd
 
    operations = [
-       {
-           "fiche": "IND-UT-131",
-           "fonctionnement": "3*8h_sansArrWE",
-           "Temperature": 180,
-           "Geometry": "plan",
-           "S": 120,
-       },
-       {
-           "fiche": "IND-UT-136",
-           "fonctionnement": "2*8h",
-           "Equipement_type": "fan",
-           "puissance_nominale": 55,
-       },
-       {
-           "fiche": "IND-UT-134",
-           "fonctionnement": "2*8h",
-           "duree_contrat": 3.0,
-           "puissance_nominale": 800,
-       },
+       {"fiche": "IND-UT-131", "fonctionnement": "3*8h_sansArrWE",
+        "Temperature": 180, "Geometry": "plan", "S": 120},
+       {"fiche": "IND-UT-134", "fonctionnement": "2*8h",
+        "duree_contrat": 3.0, "puissance_nominale": 800},
+       {"fiche": "IND-UT-130", "fonctionnement": "3*8h_sansArrWE",
+        "puissance_nominale": 1500},
    ]
 
-   total_kwh_cumac = 0
-   details = []
-
+   prix_mwh = 9.0                      # hypothèse de prix externe
+   lignes, total_kwh = [], 0
    for op in operations:
-       kwh_cumac = calcul_CEE(**op)
-       total_kwh_cumac += kwh_cumac
-       details.append({
-           "Fiche": op["fiche"],
-           "kWh_cumac": kwh_cumac,
-           "Prime_EUR": kwh_cumac * 9.0 / 1000,
-       })
+       kwh = calcul_CEE(**op)          # sans return_details -> kWh cumac
+       total_kwh += kwh
+       lignes.append({"Fiche": op["fiche"], "kWh_cumac": kwh,
+                      "Prime_EUR": kwh * prix_mwh / 1000})
 
-   df_rapport = pd.DataFrame(details)
-   print(df_rapport)
-   print(f"Total : {total_kwh_cumac:.0f} kWh cumac")
-   print(f"Prime totale : {total_kwh_cumac * 9.0 / 1000:.0f} EUR")
+   df = pd.DataFrame(lignes)
+   print(df)
+   print(f"Total : {total_kwh:.0f} kWh cumac — {total_kwh * prix_mwh / 1000:.0f} EUR")
 
-   df_rapport.to_excel("rapport_CEE.xlsx", index=False)
-
-Résultat attendu :
+Résultat réel (prime à 9 €/MWh cumac) :
 
 .. list-table::
    :widths: 25 30 30
@@ -254,26 +225,42 @@ Résultat attendu :
 
    * - Fiche
      - kWh cumac
-     - Prime à 9 EUR/MWh
+     - Prime à 9 €/MWh
    * - IND-UT-131
      - 246 960
      - 2 222,64 EUR
-   * - IND-UT-136
-     - 940 500
-     - 8 464,50 EUR
    * - IND-UT-134
      - 149 540
      - 1 345,86 EUR
+   * - IND-UT-130
+     - 2 100 000
+     - 18 900,00 EUR
    * - **Total**
-     - **1 337 000**
-     - **12 033,00 EUR**
+     - **2 496 500**
+     - **22 468,50 EUR**
+
+Fiches obsolètes (non éligibles)
+================================
+
+Certaines fiches restent dans le registre du code pour l'historique mais sont
+**exclues de** ``list_fiches()`` et refusées par ``calcul_CEE`` (``ValueError``) :
+
+* **IND-UT-136** — Systèmes moto-régulés : **abrogée** par arrêté du 18/08/2025.
+* **TRA-EQ-108** — Wagon d'autoroute ferroviaire : opération **close au 31/03/2020**.
+
+.. code-block:: python
+
+   from CEE.CEE import list_fiches
+   print(list_fiches(include_deprecated=True))
+   # {'available': [... 7 fiches ...],
+   #  'deprecated': ['IND-UT-136', 'TRA-EQ-108']}
 
 Conseils d'utilisation
-----------------------
+======================
 
 * Utiliser les noms exacts des paramètres attendus par chaque fiche.
-* Lancer ``calcul_CEE(..., return_details=True)`` pour obtenir un dictionnaire
-  exploitable dans un rapport.
-* Conserver l'hypothèse de prix du MWh cumac dans les exports.
+* Lancer ``calcul_CEE(..., return_details=True)`` pour un dictionnaire
+  exploitable dans un rapport (``kWh_cumac``, ``MWh_cumac``, ``euro``, ``titre``).
+* Ajuster ``CEE.euro_MWhcumac`` (défaut 5) ou appliquer un prix externe.
 * Vérifier l'éligibilité réglementaire sur les fiches officielles avant toute
-  décision d'investissement.
+  décision d'investissement (catalogue ADEME/ATEE).

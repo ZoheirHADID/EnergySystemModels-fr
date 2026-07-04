@@ -15,17 +15,27 @@ Le module expose une fonction principale :
 
    print(list_fiches())
 
-Les fiches actuellement pilotées par le dispatcher sont :
+Les fiches **en vigueur** pilotées par le dispatcher (un exemple chacune dans
+:doc:`module_cee`), rangées par secteur :
 
-* ``TRA-EQ-101`` : unité de transport intermodal rail-route.
-* ``TRA-EQ-107`` : unité de transport intermodal fluvial-route.
-* ``TRA-EQ-108`` : wagon d'autoroute ferroviaire.
+**Industrie**
+
 * ``IND-UT-103`` : récupération de chaleur sur compresseur d'air.
 * ``IND-UT-130`` : condenseur sur effluents gazeux de chaudière vapeur.
 * ``IND-UT-131`` : isolation de parois planes ou cylindriques industrielles.
 * ``IND-UT-134`` : système de mesurage d'indicateurs de performance énergétique.
 * ``IND-UT-135`` : freecooling par eau de refroidissement.
-* ``IND-UT-136`` : systèmes moto-régulés.
+
+**Transport**
+
+* ``TRA-EQ-101`` : unité de transport intermodal rail-route.
+* ``TRA-EQ-107`` : unité de transport intermodal fluvial-route.
+
+.. note::
+   Les fiches ``IND-UT-136`` (systèmes moto-régulés, **abrogée** le 18/08/2025)
+   et ``TRA-EQ-108`` (wagon d'autoroute ferroviaire, opération **close** au
+   31/03/2020) sont supprimées : elles n'apparaissent plus dans ``list_fiches()``
+   et ``calcul_CEE`` les refuse (``ValueError``).
 
 Exemple rapide : isolation industrielle
 ---------------------------------------
@@ -61,11 +71,12 @@ MWh cumac, les kWh cumac et la valorisation interne.
 .. code-block:: python
 
    details = calcul_CEE(
-       fiche="IND-UT-136",
+       fiche="IND-UT-135",
        return_details=True,
        fonctionnement="2*8h",
-       Equipement_type="fan",
-       puissance_nominale=55,
+       Department=69,
+       Supply_Temperature=16,
+       puissance_nominale=200,
    )
 
    for cle, valeur in details.items():
