@@ -18,19 +18,19 @@ DataFrames de résultats
 
    pinch.stream_list                         # Flux avec températures décalées
    pinch.df_intervals                        # Intervalles de température
-   pinch.df_decomposition_flux               # Décomposition par intervalle
    pinch.df_surplus_deficit                  # Surplus/déficit énergétique
-   pinch.df_composite_curve                  # Données courbes composites
-   pinch.df_heat_exchange_combinations       # Combinaisons d'échange
+   pinch.df_hcc                              # Courbe composite chaude (hot)
+   pinch.df_ccc                              # Courbe composite froide (cold)
+   pinch.df_combined                         # Combinaisons d'échange possibles
 
 Attributs calculés
 ------------------
 
 .. code-block:: python
 
-   print(f"Point Pinch: {pinch.T_pinch}°C")
-   print(f"Utilité chaude min: {pinch.Qh_min} kW")
-   print(f"Utilité froide min: {pinch.Qc_min} kW")
+   print(f"Point Pinch: {pinch.Pinch_Temperature}°C")
+   print(f"Utilité chaude min: {pinch.Heating_duty} kW")
+   print(f"Utilité froide min: {pinch.Cooling_duty} kW")
      - 195
      - 50
      - 200

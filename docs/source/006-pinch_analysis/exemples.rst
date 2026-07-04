@@ -161,7 +161,7 @@ Résultats à afficher :
      - ``pinch_dist.Cooling_duty``
      - kW
    * - Flux compatibles
-     - ``pinch_dist.df_heat_exchange_combinations``
+     - ``pinch_dist.df_combined``
      - tableau
 
 Plot prévu par l'exemple :
