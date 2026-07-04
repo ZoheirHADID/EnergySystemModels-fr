@@ -1,0 +1,18 @@
+{
+  "title": "Chiller - Cycle frigorifique",
+  "description": "Schéma de principe du cycle évaporateur, compresseur, désurchauffeur, condenseur et détendeur.",
+  "nodes": [
+    {"id": "evap", "label": "Évaporateur", "subtitle": "Q_evap", "kind": "source", "column": 0},
+    {"id": "comp", "label": "Compresseur", "subtitle": "W_comp", "kind": "process", "column": 1},
+    {"id": "desurch", "label": "Désurchauffeur", "subtitle": "Q_desurch", "kind": "exchange", "column": 2},
+    {"id": "cond", "label": "Condenseur", "subtitle": "Q_cond", "kind": "sink", "column": 3},
+    {"id": "det", "label": "Détendeur", "subtitle": "basse pression", "kind": "utility", "column": 1}
+  ],
+  "edges": [
+    {"from": "evap", "to": "comp", "label": "vapeur BP"},
+    {"from": "comp", "to": "desurch", "label": "vapeur HP"},
+    {"from": "desurch", "to": "cond", "label": "désurchauffe"},
+    {"from": "cond", "to": "det", "label": "liquide HP"},
+    {"from": "det", "to": "evap", "label": "mélange BP"}
+  ]
+}
