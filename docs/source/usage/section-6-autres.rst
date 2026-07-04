@@ -5,24 +5,21 @@ Section 7 : Autres
 7.1. Modules détaillés - Référence complète
 --------------------------------------------
 
-Pour une documentation détaillée de chaque module, consultez les pages suivantes :
+Pour une documentation détaillée de chaque module, consultez les sections
+correspondantes du sommaire général :
 
-.. toctree::
-   :maxdepth: 2
-   :caption: Modules disponibles
-   
-   modules/turpe
-   modules/cee
-   modules/openweathermap
-   modules/meteociel
-   modules/pv
-   modules/thermodynamic_cycles
-   modules/heat_transfer
-   modules/hydraulic
-   modules/ahu
-   modules/pinch_analysis
-   modules/ipmvp
-   modules/building_model
+- **TURPE / achat d'énergie** : :doc:`../010-achat-energie/index`
+- **CEE** : :doc:`../011-cee/index`
+- **Météorologie (OpenWeatherMap, MeteoCiel, DJU)** : :doc:`../008-meteo/index`
+- **Photovoltaïque** : :doc:`../009-pv-solaire/index`
+- **Cycles thermodynamiques** : :doc:`../002-thermodynamic_cycles/index`
+- **Transfert de chaleur** : :doc:`../001-heat_transfer/index`
+- **Hydraulique** : :doc:`../004-hydraulic/index`
+- **Aéraulique** : :doc:`../005-aeraulic/index`
+- **CTA / traitement d'air** : :doc:`../003-ahu_modules/index`
+- **Analyse Pinch** : :doc:`../006-pinch_analysis/index`
+- **IPMVP** : :doc:`../007-ipmvp/index`
+- **Chaleur fatale** : :doc:`../012-chaleur-fatale/index`
 
 7.2. Imports et dépendances
 ----------------------------

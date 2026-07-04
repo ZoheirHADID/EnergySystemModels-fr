@@ -10,7 +10,7 @@ Le module AHU permet de modéliser les centrales de traitement d'air avec leurs 
 5.1.1. FreshAir - Mélange d'air neuf et air recyclé
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-.. image:: ../_static/003_ahu_fresh_air.png
+.. image:: ../images/003_ahu_fresh_air.png
    :alt: Schéma mélange air neuf
    :align: center
    :width: 600px
@@ -40,7 +40,7 @@ Le module AHU permet de modéliser les centrales de traitement d'air avec leurs 
 Diagramme psychrométrique
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-.. image:: ../_static/003_ahu_fresh_air_figure1.png
+.. image:: ../images/003_ahu_fresh_air_figure1.png
    :alt: Diagramme psychrométrique
    :align: center
    :width: 700px

@@ -495,9 +495,9 @@ meme raccorde au reseau de distribution, car le gaz transite d'abord par le tran
    * - **A**
      - Coefficient reseau (naTran (ex-GRTgaz) ou Terega). Voir section :ref:`coefficient-A`
    * - **CJN**
-     - Capacite Journaliere Normalisee. Voir :ref:`calcul-cjn` ci-dessous.
+     - Capacite Journaliere Normalisee. Voir :ref:`calcul de la CJN <calcul-cjn>` ci-dessous.
    * - **Modulation_hivernale**
-     - Ecart entre la consommation de pointe hivernale et la consommation moyenne. Voir :ref:`calcul-modulation` ci-dessous.
+     - Ecart entre la consommation de pointe hivernale et la consommation moyenne. Voir :ref:`calcul de la modulation <calcul-modulation>` ci-dessous.
    * - **NTR**
      - Niveau Tarifaire Regional (0 a 10) selon la localisation du site
    * - **coef_stockage**
@@ -723,7 +723,7 @@ Avec :
 
 Le terme tarifaire de stockage est publie par la CRE et resulte des encheres de stockage.
 Il compense le cout de modulation hivernale lie a la variabilite saisonniere de la demande.
-Voir :ref:`calcul-modulation` pour le detail du calcul de la modulation.
+Voir :ref:`calcul de la modulation <calcul-modulation>` pour le detail du calcul de la modulation.
 
 .. code-block:: text
 
@@ -762,7 +762,7 @@ Voir :ref:`calcul-modulation` pour le detail du calcul de la modulation.
 
    Le coefficient de stockage est tres volatile car il depend directement du resultat
    des encheres de capacite de stockage souterrain. Ce coefficient s'applique uniquement
-   a la part de **modulation hivernale**. Voir :ref:`calcul-modulation` pour le detail.
+   a la part de **modulation hivernale**. Voir :ref:`calcul de la modulation <calcul-modulation>` pour le detail.
 
 **Cout unitaire annuel ATRT hors stockage (naTran/GRTgaz PITD, NTR=2) :**
 

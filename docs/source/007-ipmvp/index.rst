@@ -7,4 +7,7 @@
    :maxdepth: 2
    :caption: IPMVP:
 
+   introduction
+   protocole
+   modeles_mathematiques
    exemples

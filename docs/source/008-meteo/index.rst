@@ -9,3 +9,4 @@
 
    meteociel
    openweathermap
+   degres_jours

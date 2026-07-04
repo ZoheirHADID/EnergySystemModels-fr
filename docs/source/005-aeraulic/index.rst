@@ -8,6 +8,3 @@
    :caption: Modèles Aerauliques:
 
    perte_pression_lineaire
-   modelisation_tube
-   perte_charge_lineaire
-   autorite_vanne

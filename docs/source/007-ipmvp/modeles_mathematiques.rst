@@ -190,7 +190,7 @@ Le module IPMVP utilise la méthode du **z-score** :
 
    z_i = \frac{y_i - \bar{y}}{\sigma_y}
 
-Les points avec |z| > seuil (typiquement 3) sont considérés comme aberrants et exclus du modèle.
+Les points avec :math:`|z|` > seuil (typiquement 3) sont considérés comme aberrants et exclus du modèle.
 
 Analyse des résidus
 ~~~~~~~~~~~~~~~~~~~

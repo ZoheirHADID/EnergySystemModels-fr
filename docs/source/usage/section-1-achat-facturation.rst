@@ -250,7 +250,7 @@ SONELGAZ - Électricité (tarifs 41/42/43/44)
 ~~~~~~~~~~~~~~
 
 ATR - Transport & Distribution (naTran (ex-GRTgaz))
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. code-block:: python
 

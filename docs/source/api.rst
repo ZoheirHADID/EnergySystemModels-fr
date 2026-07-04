@@ -567,8 +567,3 @@ Analyse temporelle
    print(f"Consommation totale : {df_results['Q_heating'].sum():.2f} kWh")
 
 Pour plus d'exemples, consultez les sections thématiques de la documentation.
-
-.. autosummary::
-   :toctree: generated
-
-   energysystemmodels

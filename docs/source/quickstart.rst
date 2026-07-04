@@ -27,7 +27,7 @@ Installez la bibliothèque via pip :
 Environnement virtuel (recommandé)
 -----------------------------------
 
-.. code-block:: console
+.. code-block:: bash
 
    # Créer un environnement virtuel
    python -m venv .venv
