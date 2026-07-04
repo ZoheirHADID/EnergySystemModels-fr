@@ -301,7 +301,7 @@ Documenter le comportement
    méthode ``plot()`` existe.
 
 Résultats et figures dans la documentation
------------------------------------------
+------------------------------------------
 
 La documentation doit distinguer trois types de visuels :
 
