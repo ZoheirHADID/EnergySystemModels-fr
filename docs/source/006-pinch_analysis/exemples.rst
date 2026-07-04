@@ -19,29 +19,31 @@ Analyse Pinch
    # mCp : débit de capacité thermique [kW/K]
    # dTmin2 : ΔTmin/2 pour chaque flux [K]
    # integration : inclure le flux dans l'analyse
+   # Les colonnes 'id' et 'name' sont requises par PinchAnalysis.Object
    df = pd.DataFrame({
-       'Ti': [200, 125, 50, 45],      # 2 flux chauds, 2 flux froids
-       'To': [50, 45, 250, 195],      
-       'mCp': [3.0, 2.5, 2.0, 4.0],   
-       'dTmin2': [5, 5, 5, 5],        
+       'id': [1, 2, 3, 4],
+       'name': ['H1', 'H2', 'C1', 'C2'],  # 2 flux chauds, 2 flux froids
+       'Ti': [200, 125, 50, 45],
+       'To': [50, 45, 250, 195],
+       'mCp': [3.0, 2.5, 2.0, 4.0],
+       'dTmin2': [5, 5, 5, 5],
        'integration': [True, True, True, True]
    })
 
    # Créer l'objet d'analyse
    pinch = PinchAnalysis.Object(df)
-   
-   # Accéder aux résultats
-   print(f"Point Pinch: {pinch.T_pinch}°C")
-   print(f"Utilité chaude minimale: {pinch.Qh_min} kW")
-   print(f"Utilité froide minimale: {pinch.Qc_min} kW")
-   
+
+   # Accéder aux résultats (valeurs réelles pour ce jeu de flux)
+   print(f"Température de pincement : {pinch.Pinch_Temperature} °C")  # 55
+   print(f"Utilité chaude minimale : {pinch.Heating_duty} kW")        # 397.5
+   print(f"Utilité froide minimale : {pinch.Cooling_duty} kW")        # 47.5
+   print(f"Chaleur récupérée : {pinch.heat_recovery} kW")            # 602.5
+
    # DataFrames de résultats
    print(pinch.stream_list)                    # Flux avec températures décalées
    print(pinch.df_intervals)                   # Intervalles de température
    print(pinch.df_surplus_deficit)             # Bilan énergétique
-   print(pinch.df_composite_curve)             # Données courbes composites
-   print(pinch.df_heat_exchange_combinations)  # Combinaisons d'échange
-   
+
    # Générer les visualisations
    pinch.plot_composites_curves()              # Courbes composites
    pinch.plot_GCC()                            # Grande courbe composite
@@ -57,20 +59,20 @@ Résultats à afficher :
    * - Résultat
      - Objet ou attribut
      - Unité
-   * - Point de pincement
-     - ``pinch.T_pinch``
+   * - Température de pincement
+     - ``pinch.Pinch_Temperature`` (= 55)
      - degC
    * - Utilité chaude minimale
-     - ``pinch.Qh_min``
+     - ``pinch.Heating_duty`` (= 397,5)
      - kW
    * - Utilité froide minimale
-     - ``pinch.Qc_min``
+     - ``pinch.Cooling_duty`` (= 47,5)
+     - kW
+   * - Chaleur récupérée
+     - ``pinch.heat_recovery`` (= 602,5)
      - kW
    * - Intervalles de température
      - ``pinch.df_intervals``
-     - tableau
-   * - Combinaisons d'échange
-     - ``pinch.df_heat_exchange_combinations``
      - tableau
 
 Plots prévus par l'exemple :
@@ -81,11 +83,13 @@ Plots prévus par l'exemple :
 * ``pinch.graphical_hen_design()`` : réseau d'échangeurs proposé.
 
 .. figure:: ../images/006_pinch_plot_composites.svg
-   :alt: Aperçu des courbes composites Pinch
+   :alt: Courbes composites réelles du cycle Pinch
    :align: center
 
-   Aperçu de la lecture attendue : les courbes composites permettent de
-   visualiser le pincement et le potentiel de récupération.
+   Sortie réelle de ``pinch.plot_composites_curves()`` pour les flux ci-dessus
+   (générée en exécutant la bibliothèque) : composite chaude (bleu) et froide
+   (orange) en températures décalées ; le recouvrement horizontal correspond à
+   la chaleur récupérable (602,5 kW), le décalage vertical au pincement (55 °C).
 
 Le réseau d'échangeurs optimal pourrait ressembler à :
 
@@ -131,11 +135,11 @@ Données
    })
 
    # Analyse Pinch
-   pinch_dist = PinchAnalysis(df_distillation)
+   pinch_dist = PinchAnalysis.Object(df_distillation)
 
    # Résultats
-   print(f"Utilité chaude minimale : {pinch_dist.Qh_min:.1f} kW")
-   print(f"Utilité froide minimale : {pinch_dist.Qc_min:.1f} kW")
+   print(f"Utilité chaude minimale : {pinch_dist.Heating_duty:.1f} kW")
+   print(f"Utilité froide minimale : {pinch_dist.Cooling_duty:.1f} kW")
 
    # Visualisation
    pinch_dist.plot_composites_curves()
@@ -151,10 +155,10 @@ Résultats à afficher :
      - Attribut
      - Unité
    * - Utilité chaude minimale
-     - ``pinch_dist.Qh_min``
+     - ``pinch_dist.Heating_duty``
      - kW
    * - Utilité froide minimale
-     - ``pinch_dist.Qc_min``
+     - ``pinch_dist.Cooling_duty``
      - kW
    * - Flux compatibles
      - ``pinch_dist.df_heat_exchange_combinations``
@@ -265,10 +269,10 @@ Exemple 4 : Analyse de flexibilité
    for dTmin in dTmin_values:
        df_test = df_base.copy()
        df_test['dTmin2'] = dTmin / 2
-       
-       pinch_test = PinchAnalysis(df_test)
-       Qh_values.append(pinch_test.Qh_min)
-       Qc_values.append(pinch_test.Qc_min)
+
+       pinch_test = PinchAnalysis.Object(df_test)
+       Qh_values.append(pinch_test.Heating_duty)
+       Qc_values.append(pinch_test.Cooling_duty)
 
    # Tracer l'évolution
    plt.figure(figsize=(10, 6))
@@ -305,11 +309,13 @@ Plot prévu par l'exemple :
 * le graphique Matplotlib compare l'évolution des utilités avec ``ΔTmin``.
 
 .. figure:: ../images/006_pinch_plot_sensibilite.svg
-   :alt: Aperçu du plot de sensibilité Pinch au ΔTmin
+   :alt: Plot réel de sensibilité Pinch au ΔTmin
    :align: center
 
-   Aperçu de la tendance attendue : plus ``ΔTmin`` augmente, plus les utilités
-   minimales ont tendance à augmenter.
+   Sortie réelle du balayage (générée en exécutant la bibliothèque) : de
+   ``ΔTmin`` = 5 °C à 27,5 °C, l'utilité chaude passe de 370 à 494 kW et
+   l'utilité froide de 20 à 144 kW — les deux croissent linéairement avec
+   ``ΔTmin`` (à ``ΔTmin`` = 10 °C : 397,5 et 47,5 kW).
 
 Interprétation économique
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -338,8 +344,8 @@ Sauvegarde des données
        # Résumé
        df_summary = pd.DataFrame({
            'Paramètre': ['T Pinch', 'Qh min', 'Qc min', 'Q récupéré', 'ΔTmin'],
-           'Valeur': [pinch.T_pinch, pinch.Qh_min, pinch.Qc_min, 
-                      pinch.Q_recovered, df['dTmin2'].iloc[0]*2],
+           'Valeur': [pinch.Pinch_Temperature, pinch.Heating_duty, pinch.Cooling_duty,
+                      pinch.heat_recovery, df['dTmin2'].iloc[0]*2],
            'Unité': ['°C', 'kW', 'kW', 'kW', '°C']
        })
        df_summary.to_excel(writer, sheet_name='Résumé', index=False)
