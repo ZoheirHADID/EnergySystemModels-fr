@@ -56,13 +56,13 @@ Table des matières
    :caption: 4. Usages énergétiques
 
    003-ahu_modules/index
-   006-pinch_analysis/index
    007-ipmvp/index
 
 .. toctree::
    :maxdepth: 2
-   :caption: 5. Chaleur fatale et rejets
+   :caption: 5. Récupération de chaleur et chaleur fatale
 
+   006-pinch_analysis/index
    012-chaleur-fatale/index
 
 .. toctree::

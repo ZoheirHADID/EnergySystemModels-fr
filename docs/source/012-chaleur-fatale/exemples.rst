@@ -52,62 +52,15 @@ Lecture pour l'utilisateur :
 * il peut alimenter un préchauffage ou l'évaporateur d'une pompe à chaleur ;
 * la valeur dépend fortement de la simultanéité avec le besoin.
 
-Exemple 2 : récupération sur compresseur d'air et CEE
------------------------------------------------------
+.. note:: **Valorisation en CEE**
 
-La chaleur d'un compresseur peut être récupérée pour le chauffage de locaux,
-l'eau chaude sanitaire ou un procédé. Le module ``CEE`` permet d'estimer un
-volume de CEE pour une fiche industrielle supportée.
+   La récupération de chaleur sur un compresseur d'air (ou tout autre rejet
+   thermique) peut être valorisée en Certificats d'Économies d'Énergie via la
+   fiche ``IND-UT-103``. Le calcul CEE est traité dans le chapitre dédié :
+   voir :doc:`../011-cee/module_cee` (« Exemple 3 : récupération de chaleur sur
+   compresseur d'air »).
 
-.. figure:: ../images/012_chaleur_fatale_compresseur_cee.svg
-   :alt: Schéma de récupération sur compresseur d'air avec CEE
-   :align: center
-
-   Le récupérateur transforme un rejet thermique en chaleur utile et en volume
-   CEE estimable.
-
-.. code-block:: python
-
-   from CEE.CEE import calcul_CEE
-
-   details = calcul_CEE(
-       fiche="IND-UT-103",
-       return_details=True,
-       fonctionnement="2*8h",
-       Department=69,
-       Heat_Use="chauffage de locaux",
-       puissance_nominale=90,
-   )
-
-   print(details["titre"])
-   print(f"{details['MWh_cumac']:.1f} MWh cumac")
-
-Résultat attendu :
-
-.. list-table::
-   :widths: 45 30 25
-   :header-rows: 1
-
-   * - Indicateur
-     - Valeur
-     - Unité
-   * - Fiche utilisée
-     - IND-UT-103
-     - -
-   * - Volume CEE
-     - 1 431,0
-     - MWh cumac
-   * - Valorisation interne du module
-     - 7 155
-     - EUR
-
-À expliquer dans le rapport :
-
-* la puissance nominale représente le gisement pris en compte par la fiche ;
-* le département influence la zone climatique pour les usages bâtiment ;
-* le résultat CEE ne remplace pas la validation réglementaire du dossier.
-
-Exemple 3 : comparer récupération directe et pompe à chaleur
+Exemple 2 : comparer récupération directe et pompe à chaleur
 ------------------------------------------------------------
 
 Une source à ``35 degC`` ne peut pas alimenter directement un usage à
@@ -173,7 +126,7 @@ Interprétation :
 * si le gaz évité est cher ou carboné, l'intérêt augmente ;
 * le COP réel doit être recalculé avec les températures source et usage.
 
-Exemple 4 : préparer une analyse Pinch
+Exemple 3 : préparer une analyse Pinch
 --------------------------------------
 
 Lorsque plusieurs flux chauds et froids existent, l'analyse Pinch permet
@@ -192,7 +145,10 @@ d'identifier la récupération maximale théorique avant de dessiner les
    import pandas as pd
    from PinchAnalysis import PinchAnalysis
 
+   # Les colonnes 'id' et 'name' sont requises par PinchAnalysis.Object
    df = pd.DataFrame({
+       "id": [1, 2, 3, 4],
+       "name": ["H1", "H2", "C1", "C2"],
        "Ti": [180, 95, 25, 45],
        "To": [70, 45, 120, 140],
        "mCp": [2.4, 3.1, 2.0, 1.8],
@@ -202,36 +158,55 @@ d'identifier la récupération maximale théorique avant de dessiner les
 
    pinch = PinchAnalysis.Object(df)
 
-   print(f"Pinch : {pinch.T_pinch} degC")
-   print(f"Utilité chaude minimale : {pinch.Qh_min:.1f} kW")
-   print(f"Utilité froide minimale : {pinch.Qc_min:.1f} kW")
+   print(f"Pincement : {pinch.Pinch_Temperature} degC")       # 175
+   print(f"Utilité chaude minimale : {pinch.Heating_duty} kW")  # 0
+   print(f"Utilité froide minimale : {pinch.Cooling_duty} kW")  # 58.0
+   print(f"Chaleur récupérée : {pinch.heat_recovery} kW")      # 361.0
 
    pinch.plot_composites_curves()
    pinch.plot_GCC()
 
-Résultats à afficher :
+Résultats réels :
 
 .. list-table::
    :widths: 40 40 20
    :header-rows: 1
 
    * - Indicateur
-     - Attribut
+     - Attribut (valeur)
      - Unité
    * - Point de pincement
-     - ``pinch.T_pinch``
+     - ``pinch.Pinch_Temperature`` (= 175)
      - degC
    * - Utilité chaude minimale
-     - ``pinch.Qh_min``
+     - ``pinch.Heating_duty`` (= 0)
      - kW
    * - Utilité froide minimale
-     - ``pinch.Qc_min``
+     - ``pinch.Cooling_duty`` (= 58,0)
+     - kW
+   * - Chaleur récupérée
+     - ``pinch.heat_recovery`` (= 361,0)
      - kW
 
-Plots prévus par l'exemple :
+Ici l'utilité chaude minimale est **nulle** : les flux chauds fournissent, par
+intégration, la totalité du besoin de chauffe ; seule une utilité froide de
+58 kW reste nécessaire, pour 361 kW récupérés.
 
-* ``pinch.plot_composites_curves()`` affiche les courbes composites.
-* ``pinch.plot_GCC()`` affiche la grande courbe composite.
+Plots générés par l'exemple (sorties réelles) :
+
+.. figure:: ../images/012_chaleur_fatale_pinch_composites.svg
+   :alt: Courbes composites réelles (chaleur fatale)
+   :align: center
+
+   ``pinch.plot_composites_curves()`` : composites chaude et froide en
+   températures décalées ; le recouvrement = 361 kW récupérables.
+
+.. figure:: ../images/012_chaleur_fatale_pinch_gcc.svg
+   :alt: Grande courbe composite réelle (chaleur fatale)
+   :align: center
+
+   ``pinch.plot_GCC()`` : la grande courbe composite touche l'axe au pincement
+   (175 °C) et montre l'utilité froide résiduelle (58 kW) en bas.
 
 Ce cas est à utiliser quand l'utilisateur veut passer d'un simple inventaire à
 une stratégie d'intégration thermique complète.
