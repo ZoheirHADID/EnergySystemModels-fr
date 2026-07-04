@@ -5,6 +5,13 @@ Chiller (Groupe froid / PAC)
 
 Le module ``Chiller`` modélise un cycle frigorifique complet : évaporateur, compresseur, désurchauffeur, condenseur, détendeur. En mode PAC, la chaleur au condenseur est valorisée.
 
+.. figure:: ../images/002_chiller_cycle.svg
+   :alt: Schéma du cycle frigorifique Chiller
+   :align: center
+
+   Le fluide frigorigène traverse successivement l'évaporateur, le
+   compresseur, le désurchauffeur, le condenseur et le détendeur.
+
 Paramètres
 ----------
 
@@ -42,26 +49,132 @@ Exemple
     )
     ch.calculate_cycle()
     print(ch.df)
+    ch.plot()
 
 Sortie ``ch.df`` :
 
-.. code-block:: text
+.. list-table::
+   :widths: 45 30 25
+   :header-rows: 1
 
-                                   Chiller
-    Fluid                           R134a
-    T_evap (C)                        5.0
-    T_cond (C)                       40.0
-    Lift (K)                         35.0
-    EER                              3.52
-    COP                              4.52
-    COP_Carnot                       8.95
-    Eta_Carnot (%)                   50.5
-    Q_comp (kW)                     ~28.4
-    Q_evap (kW)                    ~100.0
-    Q_condTot (kW)                 ~128.4
-    T_refoulement (C)               ~65.0
-    P_evap (bar)                     3.50
-    P_cond (bar)                    10.17
+   * - Indicateur
+     - Valeur typique
+     - Unité
+   * - Fluide
+     - R134a
+     - -
+   * - Température évaporation
+     - 5,0
+     - degC
+   * - Température condensation
+     - 40,0
+     - degC
+   * - Lift thermique
+     - 35,0
+     - K
+   * - EER
+     - 3,52
+     - -
+   * - COP chauffage
+     - 4,52
+     - -
+   * - COP Carnot
+     - 8,95
+     - -
+   * - Efficacité Carnot
+     - 50,5
+     - %
+   * - Puissance compresseur
+     - environ 28,4
+     - kW
+   * - Puissance évaporateur
+     - environ 100,0
+     - kW
+   * - Puissance condenseur totale
+     - environ 128,4
+     - kW
+   * - Température refoulement
+     - environ 65,0
+     - degC
+   * - Pression évaporation
+     - 3,50
+     - bar
+   * - Pression condensation
+     - 10,17
+     - bar
+
+Plot prévu par l'exemple
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+La méthode ``ch.plot()`` affiche le diagramme température-entropie du cycle.
+Elle utilise les points calculés pendant ``ch.calculate_cycle()`` et trace les
+transformations principales du fluide frigorigène.
+
+.. figure:: ../images/002_chiller_plot_ts.svg
+   :alt: Aperçu du diagramme T-S du cycle Chiller
+   :align: center
+
+   Aperçu du plot attendu : le cycle relie l'évaporation, la compression, la
+   désurchauffe, la condensation, la détente et le retour à l'évaporateur.
+
+Étude paramétrique
+------------------
+
+Le module fournit aussi ``Chiller.parametric_study(...)`` pour comparer le COP
+selon la température source et la température cible.
+
+.. code-block:: python
+
+    from ThermodynamicCycles.Chiller import Object as Chiller
+
+    df_study = Chiller.parametric_study(
+        fluid="R134a",
+        T_source_range=[0, 5, 10],
+        T_cible_range=[35, 40, 45, 50],
+        superheat=5,
+        subcool=3,
+        eta_is=0.78,
+        save_fig="chiller_parametric.svg",
+    )
+
+    print(df_study)
+
+Résultats à afficher :
+
+.. list-table::
+   :widths: 35 45 20
+   :header-rows: 1
+
+   * - Résultat
+     - Colonne du DataFrame
+     - Unité
+   * - Température source
+     - ``T_source (degC)``
+     - degC
+   * - Température cible
+     - ``T_cible (degC)``
+     - degC
+   * - Lift thermique
+     - ``Lift (K)``
+     - K
+   * - COP chauffage
+     - ``COP``
+     - -
+   * - Puissance compresseur
+     - ``W_comp (kW)``
+     - kW
+   * - Puissance condenseur
+     - ``Q_cond (kW)``
+     - kW
+
+Plot prévu par l'étude paramétrique :
+
+.. figure:: ../images/002_chiller_plot_parametric.svg
+   :alt: Aperçu du plot paramétrique COP Chiller
+   :align: center
+
+   Le plot sauvegardé compare le COP au lift thermique et la puissance
+   compresseur à la température cible.
 
 Méthodes
 --------
@@ -70,4 +183,5 @@ Méthodes
 * ``ch.df`` — DataFrame de synthèse (EER, COP, puissances, pressions)
 * ``ch.print_results()`` — Affiche le df de chaque composant
 * ``ch.plot()`` — Diagramme T-S du cycle
-* ``ch.summary(nb_modules, ...)`` — Synthèse technique avec analyse économique optionnelle
+* ``ch.summary()`` — Synthèse technique du cycle
+* ``Chiller.parametric_study(...)`` — Étude paramétrique COP, EER, lift et puissance compresseur
