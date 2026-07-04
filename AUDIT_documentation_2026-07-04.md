@@ -8,6 +8,57 @@
 > Déjà traité avant cet audit (2026-07-04, matin) : `002/chiller.rst` et `006-pinch/*` (+ 2 bugs source
 > `Chiller.py` et `PinchAnalysis`). Ce document couvre **le reste**.
 
+---
+
+## ✅ Avancement au 2026-07-05 (fin de soirée)
+
+**Sprint 0 — bugs source : FAIT** (commit `579f858`). B1 `air_humide.Air_Pv_sat` (fsolve→scalaire),
+B2 `Aeraulic/StraightPipe` (`Outlet.h`), B3 `IPMVP` (`get_feature_names_out`).
+
+**Sprint 1 — exemples qui plantaient : FAIT (100 %)** — chaque page = exemple exécutable + résultats réels
+(+ plot réel si la classe en a un) :
+- 002 : `compressor`, `turbine` (motif `Source`+`Fluid_connect`), `fluid_source` (+`Ti_degC`), `sink`, `ng_boiler_efficiency` (sortie complète).
+- 001 : `transfert_chaleur` (import `HeatTransfer`, `###`→RST), `pipe_insulation` (plot régénéré).
+- 005 : `aeraulic` (section Résultats).
+- 012 : `Ex4 Pinch` (valeurs réelles + 2 plots).
+- 008 : `meteociel` (colonnes réelles), `openweathermap` (`T(°C)`, `call_city` retiré), `degres_jours` (méthode COSTIC + exemple exécutable).
+- 010 : `contrat_electricite` + `exemple_hta_lu_pf` (`c_euro_kwh_CSPE_TICFE`).
+
+**Sprint 2 — valeurs affichées : FAIT en grande partie** — `guide_audit_facture` §10.3.1 (df régénérés),
+les **6 exemples HTA/BT** (`df_totaux` réels ; bt_m36 151,30 ; **+ plots réels TURPE** ajoutés par la session
+parallèle via `docs/generate_model_plots.py`), `ng_boiler`, `degres_jours`. **Reste** : PV (`pv.df` tronqué,
+tableau orientation 4→5) — bloqué par pvlib+réseau PVGIS.
+
+**Réorganisations demandées : FAIT** — 006-Pinch déplacé en « Récupération de chaleur et chaleur fatale » ;
+CEE sorti de chaleur-fatale (renvoi `:doc:`). CEE `011/module_cee.rst` réécrit **par secteur** (1 exemple/fiche)
++ fix code : `IND-UT-136`/`TRA-EQ-108` supprimées → `DEPRECATED_FICHES`, `list_fiches()` filtré.
+
+**⚠️ Travail concurrent en cours (session parallèle)** : (a) **+26 fiches CEE** ajoutées au code
+(commit `60cf54b`, **33 fiches actives** désormais) ; (b) **génération des vrais plots TURPE** (`010_turpe_*.svg`).
+→ Ne pas éditer `CEE.py` ni les images `010_turpe_*` en parallèle.
+
+## 🗓️ Plan ordonné pour demain
+
+1. **CEE — étendre la doc aux 33 fiches** (suite du +26 concurrent) : ranger par secteur
+   (IND-UT / IND-BA / IND-EN / TRA), **un exemple exécutable par fiche active** avec valeurs réelles.
+   Récupérer les params depuis `CEE.py` (`FICHE_REGISTRY`) ; attention versions (IND-UT-127=A25-2,
+   IND-UT-137 param `version`). *Coordonner avec la session parallèle avant d'éditer `module_cee.rst`.*
+2. **Sprint 3 — pages 100 % spéculatives à réécrire** sur l'API réelle :
+   - `003/generic_ahu.rst` → `AHU.GenericAHU.AirRecyclingAHU.Object(config, data).calculate() → .df` (effort L).
+   - `007/modeles_mathematiques.rst` + `007/exemples.rst` → `IPMVP.Mathematical_Models()` (tuple 9), plots via `print_report=True` (effort M×2).
+   - `api.rst` → chemins/attributs réels (effort L).
+3. **Sprint 4 — guide `usage/` + `gui_tools.rst`** : reconstruire le narratif sur l'API réelle
+   (supprimer `energysystemmodels.utils/.visualization/.exceptions`, `RefrigerationCycle`, `Layer`, `Stream`,
+   `RC_Model`, GUIs fictives) ou réduire à des renvois vers les pages module (effort L).
+4. **Sprint 5 — finitions prose** : URL/contacts réels (`github.com/ZoheirHADID/...`), retirer extras pip
+   `[all]/[pv]/[gui]` inexistants, `alpha` défaut π/2, libellés colonnes.
+5. **PV (009)** dès accès réseau : régénérer `009_pv_plot_*` via `pv.plot()`/`plot_orientation_study()`
+   (pvlib + PVGIS), compléter `pv.df` (11 lignes) et le tableau orientation (Sud 55).
+
+**Invariant à chaque page** : exemple exécutable → **résultats réels affichés** → **plot réel si la méthode existe**.
+Build de contrôle : `cd docs && python -m sphinx -b html -q source _build/x` (viser **0 warning**).
+Recette d'exécution : `cd EnergySystemModels && PYTHONUTF8=1 PYTHONPATH=src python <script>` (matplotlib Agg).
+
 ## 0. Constat structurant
 
 Deux régimes cohabitent dans la doc :
