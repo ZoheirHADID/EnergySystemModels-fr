@@ -6,57 +6,46 @@ Configuration
 
 1. Créer un compte sur https://openweathermap.org
 2. Récupérer la clé API (plan gratuit : 1000 appels/jour)
+3. Renseigner la clé dans le fichier ``config.ini`` lu par le module
+   (fonction ``get_weather.get_api_key()``).
 
-Utilisation
------------
-
-Par coordonnées GPS
-~~~~~~~~~~~~~~~~~~~
+Utilisation (par coordonnées GPS)
+---------------------------------
 
 .. code-block:: python
 
    from OpenWeatherMap import OpenWeatherMap_call_location
 
-   # Paris (Tour Eiffel)
+   # Paris (Tour Eiffel) — latitude et longitude en chaînes de caractères
    latitude = "48.858370"
    longitude = "2.294481"
 
-   # Appel API
+   # Appel API : renvoie un DataFrame d'une ligne
    df = OpenWeatherMap_call_location.API_call_location(latitude, longitude)
 
-   # Affichage
    print(df)
 
-DataFrames retournés
-~~~~~~~~~~~~~~~~~~~~
+DataFrame retourné (colonnes) :
 
-* **Timestamp** : Date/heure
-* **T(degC)** : Température
-* **RH(%)** : Humidité relative
+* **Timestamp** : date/heure de la mesure ;
+* **T(°C)** : température ;
+* **RH(%)** : humidité relative.
 
-Par nom de ville
-~~~~~~~~~~~~~~~~
+.. note::
+   ``API_call_location`` effectue un appel réseau vers l'API OpenWeatherMap et
+   nécessite une clé valide dans ``config.ini``. Le module n'expose **que**
+   l'appel par coordonnées (il n'existe pas d'appel par nom de ville).
 
-.. code-block:: python
-
-   from OpenWeatherMap import OpenWeatherMap_call_city
-   
-   # Récupération pour une ville
-   df = OpenWeatherMap_call_city.API_call_city("Paris", "FR")
-   
-   print(f"Température : {df['T(degC)'].values[0]}°C")
-   print(f"Humidité : {df['RH(%)'].values[0]}%")
-
-Exemple : Acquisition périodique
----------------------------------
+Exemple : acquisition périodique
+--------------------------------
 
 .. code-block:: python
 
    import time
    import pandas as pd
    from datetime import datetime
+   from OpenWeatherMap import OpenWeatherMap_call_location
 
-   # Liste pour stocker les données
    data_history = []
 
    # Boucle d'acquisition toutes les heures
@@ -64,24 +53,23 @@ Exemple : Acquisition périodique
        try:
            df = OpenWeatherMap_call_location.API_call_location("48.858370", "2.294481")
            data_history.append(df)
-           
-           print(f"[{datetime.now()}] Données récupérées : T={df['T(degC)'].values[0]}°C")
-           
-           # Sauvegarder périodiquement
-           if len(data_history) % 24 == 0:  # Toutes les 24 heures
-               df_combined = pd.concat(data_history, ignore_index=True)
-               df_combined.to_excel('historique_meteo.xlsx', index=False)
-           
-           # Attendre 1 heure (3600 secondes)
-           time.sleep(3600)
-           
+
+           print(f"[{datetime.now()}] T = {df['T(°C)'].values[0]} °C")
+
+           # Sauvegarder toutes les 24 mesures
+           if len(data_history) % 24 == 0:
+               pd.concat(data_history, ignore_index=True).to_excel(
+                   'historique_meteo.xlsx', index=False)
+
+           time.sleep(3600)   # 1 heure
+
        except Exception as e:
-           print(f"Erreur: {e}")
+           print(f"Erreur : {e}")
            time.sleep(300)
 
 Limites
 -------
 
-* **1000 appels/jour** (plan gratuit)
-* Ne pas interroger plus d'une fois toutes les 10-15 minutes
-* Utiliser MeteoCiel pour données historiques
+* **1000 appels/jour** (plan gratuit) ;
+* ne pas interroger plus d'une fois toutes les 10-15 minutes ;
+* pour les données historiques, utiliser :doc:`meteociel`.
