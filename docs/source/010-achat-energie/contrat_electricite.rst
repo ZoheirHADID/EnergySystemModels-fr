@@ -107,6 +107,22 @@ La formule générale du TURPE est donc :
       # Affichage des résultats
       print(turpe_calculator.df_totaux)
 
+   Sortie réelle (``df_totaux``, pour ce contrat BT < 36 kVA / CU4 et 40 kWh
+   consommés en février 2025) :
+
+   .. code-block:: text
+
+                            Ligne  Résultat Annuel
+                       Fourniture             0.00
+             Acheminement (TURPE)            12.27
+           Taxes et contributions             2.43
+                     = Total HTVA            15.58
+                          TVA 20%             3.12
+                      = Total TTC            18.70
+              Coût HTVA (EUR/MWh)           389.50
+      Coût distribution (EUR/MWh)           306.75
+             Coût taxes (EUR/MWh)            60.75
+
    Les paramètres à renseigner dans `input_Contrat`, `input_Tarif` et `input_Facture` sont détaillés dans les tableaux ci-dessous. Adaptez-les selon votre profil de consommation, votre contrat et les tarifs en vigueur.
 
 **Tableau des paramètres d'entrée pour le calcul TURPE**
