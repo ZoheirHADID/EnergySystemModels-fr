@@ -69,11 +69,15 @@ def bar_plot(filename, title, labels, values, xlabel, ylabel):
 
 def main():
     IMAGES.mkdir(parents=True, exist_ok=True)
-    # NB : les plots du Chiller (002_chiller_plot_ts.svg et
-    # 002_chiller_plot_parametric.svg) NE sont PAS des aperçus dessinés à la main.
-    # Ce sont les VRAIES sorties de ch.plot() et Chiller.parametric_study(),
-    # générées en exécutant la bibliothèque energysystemmodels puis committées.
+    # NB : les plots du Chiller (002_chiller_plot_*) et du Pinch (006_pinch_plot_*)
+    # NE sont PAS des aperçus dessinés à la main : ce sont les VRAIES sorties de
+    # ch.plot()/Chiller.parametric_study() et pinch.plot_composites_curves()/
+    # balayage ΔTmin, générées en exécutant la bibliothèque puis committées.
     # Ne pas les régénérer ici (cela les remplacerait par des maquettes).
+    #
+    # TODO : les plots PV (009_pv_plot_*) sont encore des maquettes ci-dessous.
+    # Les remplacer par les vraies sorties de pv.plot()/plot_orientation_study()
+    # (nécessite pvlib + accès réseau PVGIS pour la météo).
     hours = range(24)
     pv_day = [max(0, math.sin((h - 6) / 12 * math.pi)) * 82 for h in hours]
     line_plot(
@@ -90,20 +94,6 @@ def main():
         [1397, 1320, 1340, 1285, 970],
         "Configuration",
         "kWh/kWc/an",
-    )
-    line_plot(
-        "006_pinch_plot_composites.svg",
-        "Aperçu des courbes composites",
-        {"Composite chaude": [210, 180, 150, 120, 85, 50], "Composite froide": [45, 80, 115, 150, 195, 250]},
-        "Enthalpie cumulée",
-        "Température",
-    )
-    line_plot(
-        "006_pinch_plot_sensibilite.svg",
-        "Aperçu sensibilité au ΔTmin",
-        {"Qh_min": [120, 145, 170, 205, 240, 280], "Qc_min": [80, 105, 132, 165, 198, 235]},
-        "ΔTmin",
-        "kW",
     )
     print("generated example plot previews")
 
