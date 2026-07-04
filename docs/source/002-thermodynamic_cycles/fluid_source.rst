@@ -15,8 +15,9 @@ Utilisation
 
     # Paramètres d'entrée
     SOURCE.Pi_bar = 1.01325
+    SOURCE.Ti_degC = 25          # température d'entrée obligatoire
     SOURCE.fluid = "air"
-    SOURCE.F = 1
+    SOURCE.F = 1                 # débit massique [kg/s]
 
     # Calcul
     SOURCE.calculate()
@@ -24,14 +25,31 @@ Utilisation
     # Résultats
     print(SOURCE.df)
 
-Le calcul retourne un DataFrame avec :
+Sortie réelle (``SOURCE.df``) :
 
-- Débit massique [kg/s]
-- Pression d'entrée et de sortie [bar]
-- Température d'entrée [°C]
-- Enthalpie de sortie [J/kg]
-- Qualité du fluide (état : liquide, vapeur, diphasique, supercritique)
-- Propriétés thermodynamiques calculées
+.. code-block:: text
+
+                                Source
+    Timestamp      2026-07-04 23:33:33
+    fluid                          air
+    Ti_degC                       25.0
+    Pi_bar                        1.01
+    F_Sm3h                      2937.5
+    F_Nm3h                 2784.081453
+    F_m3h                       3039.7
+    F_kgh                         3600
+    F_kgs                            1
+    F_m3s                        0.844
+    F_Sm3s                       0.816
+    self.Outlet.h        424436.043917
+
+Le DataFrame contient : la température d'entrée ``Ti_degC`` [°C], la pression
+``Pi_bar`` [bar], les débits déclinés en Sm³/h, Nm³/h, m³/h, kg/h, kg/s, m³/s,
+Sm³/s, et l'enthalpie de sortie ``Outlet.h`` [J/kg].
+
+.. note::
+   ``SOURCE.Ti_degC`` est **obligatoire** : sans elle, ``calculate()`` lève une
+   ``TypeError`` (température à ``None``).
 
 Paramètres possibles
 --------------------
@@ -86,11 +104,10 @@ Paramètres possibles
 **Types de débits disponibles** :
 
 - ``F`` : Débit massique [kg/s]
-- ``F_Sm3s`` : Débit volumique standard [Sm³/s]
-- ``F_m3s`` : Débit volumique [m³/s]
-- ``F_Sm3h`` : Débit volumique standard [Sm³/h]
-- ``F_m3h`` : Débit volumique [m³/h]
 - ``F_kgh`` : Débit massique [kg/h]
+- ``F_Sm3s`` / ``F_Sm3h`` : Débit volumique standard [Sm³/s] / [Sm³/h]
+- ``F_Nm3s`` / ``F_Nm3h`` : Débit volumique normal [Nm³/s] / [Nm³/h]
+- ``F_m3s`` / ``F_m3h`` : Débit volumique aux conditions d'entrée [m³/s] / [m³/h]
 
 Explication du modèle
 ----------------------

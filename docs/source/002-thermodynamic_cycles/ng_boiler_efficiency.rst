@@ -81,6 +81,7 @@ Sortie :
 .. code-block:: text
 
                                      Value
+    Parameter
     --- INPUTS ---
     NG flow (Nm3/h)                   2000
     LHV (kWh/Nm3)                  10.2127
@@ -96,6 +97,12 @@ Sortie :
     --- HEAT BALANCE (LHV) ---
     NG heat input (kW)             20425.5
     Flue gas loss (kW)              1519.2
+    CO loss (kW)                       0.0
+    Radiation loss (kW)              12.38
+    Condensation recovery (kW)         0.0
+    Total losses (kW)               1531.6
+    Heat credits (kW)                  0.0
+    Useful heat (kW)               18893.9
     Efficiency LHV (%)                92.5
     --- HEAT BALANCE (HHV) ---
     Efficiency HHV (%)               82.65
