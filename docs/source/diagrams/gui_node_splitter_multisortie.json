@@ -1,0 +1,51 @@
+{
+  "title": "Noeud multi-sorties : Diviseur",
+  "description": "Exemple de routage d'une entree fluide vers deux sorties distinctes.",
+  "nodes": [
+    {
+      "id": "source",
+      "label": "Source",
+      "subtitle": "[fluide, F, P, h]",
+      "kind": "source",
+      "column": 0
+    },
+    {
+      "id": "splitter",
+      "label": "Diviseur",
+      "subtitle": "Ratio vers sortie 1",
+      "kind": "process",
+      "column": 1
+    },
+    {
+      "id": "out1",
+      "label": "Output 1",
+      "subtitle": "F_b = Ratio x F",
+      "kind": "sink",
+      "column": 2
+    },
+    {
+      "id": "out2",
+      "label": "Output 2",
+      "subtitle": "F_c = (1-Ratio) x F",
+      "kind": "sink",
+      "column": 2
+    }
+  ],
+  "edges": [
+    {
+      "from": "source",
+      "to": "splitter",
+      "label": "entree"
+    },
+    {
+      "from": "splitter",
+      "to": "out1",
+      "label": "sortie 1"
+    },
+    {
+      "from": "splitter",
+      "to": "out2",
+      "label": "sortie 2"
+    }
+  ]
+}

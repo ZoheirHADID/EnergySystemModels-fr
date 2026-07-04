@@ -145,6 +145,51 @@ Résultat attendu : ``Output`` affiche l'état de sortie, tandis que le nœud
 ``Réchauffeur`` affiche directement la puissance transférée et la température
 de sortie.
 
+Graphes avec plusieurs sorties
+------------------------------
+
+Certains composants possèdent plusieurs sorties physiques. C'est le cas du
+``Diviseur``, du ``Séparateur liq/vap`` et du ``Ballon de flash``. Dans ces
+cas, le nœud renvoie une liste de valeurs, une par socket de sortie.
+
+.. figure:: images/gui_node_splitter_multisortie.svg
+   :alt: Exemple de nœud Diviseur avec deux sorties
+   :align: center
+
+   Le ``Diviseur`` conserve le même fluide, la même pression et la même
+   enthalpie sur les deux branches. Seul le débit est réparti entre les deux
+   sorties selon le ratio saisi.
+
+Exemple d'utilisation du ``Diviseur`` :
+
+1. Ajouter une ``Source`` avec un débit de ``1.0 kg/s``.
+2. Ajouter un nœud ``Diviseur``.
+3. Régler ``Fraction vers sortie 1`` à ``0.30``.
+4. Ajouter deux nœuds ``Output``.
+5. Relier la première sortie du ``Diviseur`` vers ``Output 1``.
+6. Relier la deuxième sortie du ``Diviseur`` vers ``Output 2``.
+7. Évaluer les deux sorties.
+
+Résultat attendu :
+
+.. list-table::
+   :header-rows: 1
+
+   * - Branche
+     - Débit attendu
+     - Commentaire
+   * - Sortie 1
+     - ``0.30 kg/s``
+     - Fraction ``Ratio`` du débit d'entrée
+   * - Sortie 2
+     - ``0.70 kg/s``
+     - Fraction ``1 - Ratio`` du débit d'entrée
+
+Le routage est assuré par ``CalcNode.getOutputValue(index)``. Pour un nœud à
+une seule sortie, la valeur est directement ``[fluid, F, P, h]``. Pour un nœud
+multi-sorties, la valeur devient ``[[fluid, F1, P, h], [fluid, F2, P, h]]`` et
+l'index du socket permet de choisir la bonne branche.
+
 Cycle d'évaluation
 ------------------
 
@@ -191,6 +236,19 @@ Un nœud déclaratif contient :
 
 ``INPUTS`` et ``OUTPUTS``
    Sockets d'entrée et de sortie.
+
+   Pour un composant simple, ``OUTPUTS = [1]`` suffit. Pour un composant à
+   deux sorties, utiliser ``OUTPUTS = [1, 1]`` et retourner une liste de deux
+   ports dans le même ordre que les sockets.
+
+   .. code-block:: python
+
+      OUTPUTS = [1, 1]
+
+      def evalOperation(self, input1, input2):
+          ...
+          self.value = [fluid_out(model.Outlet_b), fluid_out(model.Outlet_c)]
+          return self.value
 
 ``FIELDS``
    Champs numériques affichés sous forme de ``QLineEdit``.
