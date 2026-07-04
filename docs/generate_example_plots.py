@@ -69,27 +69,11 @@ def bar_plot(filename, title, labels, values, xlabel, ylabel):
 
 def main():
     IMAGES.mkdir(parents=True, exist_ok=True)
-    line_plot(
-        "002_chiller_plot_ts.svg",
-        "Aperçu du diagramme T-S du cycle",
-        {
-            "Cycle R134a": [5, 10, 66, 48, 40, 37, 5, 5],
-            "Saturation": [-5, 8, 28, 48, 68, 82, 90, 96],
-        },
-        "Entropie spécifique",
-        "Température (degC)",
-    )
-    line_plot(
-        "002_chiller_plot_parametric.svg",
-        "Aperçu étude paramétrique - COP vs lift",
-        {
-            "T_source=0 degC": [6.2, 5.1, 4.3, 3.6, 3.1],
-            "T_source=5 degC": [7.4, 6.0, 5.0, 4.2, 3.6],
-            "T_source=10 degC": [9.0, 7.1, 5.8, 4.8, 4.0],
-        },
-        "Lift thermique (K)",
-        "COP chauffage",
-    )
+    # NB : les plots du Chiller (002_chiller_plot_ts.svg et
+    # 002_chiller_plot_parametric.svg) NE sont PAS des aperçus dessinés à la main.
+    # Ce sont les VRAIES sorties de ch.plot() et Chiller.parametric_study(),
+    # générées en exécutant la bibliothèque energysystemmodels puis committées.
+    # Ne pas les régénérer ici (cela les remplacerait par des maquettes).
     hours = range(24)
     pv_day = [max(0, math.sin((h - 6) / 12 * math.pi)) * 82 for h in hours]
     line_plot(

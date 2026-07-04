@@ -49,73 +49,84 @@ Exemple
     )
     ch.calculate_cycle()
     print(ch.df)
-    ch.plot()
 
-Sortie ``ch.df`` :
+    # Diagramme température-entropie du cycle (dôme de saturation + isobares + cycle)
+    ch.plot()                 # figsize=(10, 6) par défaut
+    # ch.plot(figsize=(12, 7))  # taille personnalisée
+    # ch.plot_TS_diagram()      # alias de ch.plot()
+
+Sortie ``ch.df`` (valeurs réelles pour l'exemple ci-dessus, R134a) :
 
 .. list-table::
-   :widths: 45 30 25
+   :widths: 40 30 30
    :header-rows: 1
 
-   * - Indicateur
-     - Valeur typique
+   * - Index (``ch.df``)
+     - Valeur
      - Unité
-   * - Fluide
+   * - ``Fluid``
      - R134a
      - -
-   * - Température évaporation
-     - 5,0
+   * - ``T_evap (C)``
+     - 5
      - degC
-   * - Température condensation
-     - 40,0
+   * - ``T_cond (C)``
+     - 40
      - degC
-   * - Lift thermique
-     - 35,0
+   * - ``Lift (K)``
+     - 35
      - K
-   * - EER
-     - 3,52
+   * - ``EER``
+     - 5,072
      - -
-   * - COP chauffage
-     - 4,52
+   * - ``COP``
+     - 6,072
      - -
-   * - COP Carnot
+   * - ``COP_Carnot``
      - 8,95
      - -
-   * - Efficacité Carnot
-     - 50,5
+   * - ``Eta_Carnot (%)``
+     - 67,9
      - %
-   * - Puissance compresseur
-     - environ 28,4
+   * - ``Q_comp (kW)``
+     - 30,39
      - kW
-   * - Puissance évaporateur
-     - environ 100,0
+   * - ``Q_losses (kW)``
+     - 0,0
      - kW
-   * - Puissance condenseur totale
-     - environ 128,4
+   * - ``Q_evap (kW)``
+     - 154,13
      - kW
-   * - Température refoulement
-     - environ 65,0
+   * - ``Q_condTot (kW)``
+     - 184,51
+     - kW
+   * - ``T_refoulement (C)``
+     - 55,5
      - degC
-   * - Pression évaporation
+   * - ``P_evap (bar)``
      - 3,50
      - bar
-   * - Pression condensation
+   * - ``P_cond (bar)``
      - 10,17
      - bar
 
-Plot prévu par l'exemple
-~~~~~~~~~~~~~~~~~~~~~~~~
+Diagramme T-S généré par ``ch.plot()``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-La méthode ``ch.plot()`` affiche le diagramme température-entropie du cycle.
-Elle utilise les points calculés pendant ``ch.calculate_cycle()`` et trace les
-transformations principales du fluide frigorigène.
+La méthode ``ch.plot()`` (alias ``ch.plot_TS_diagram()``) construit un diagramme
+température-entropie via ``Temperature_Entropy_Chart`` : dôme de saturation du
+fluide (courbe liquide en bleu, vapeur en rouge), isobares en pointillés
+étiquetées en bar, et les huit points du cycle (``ch.points``) reliés par des
+flèches — évaporation, surchauffe, compression, désurchauffe, condensation,
+sous-refroidissement, détente et retour à l'évaporateur.
 
 .. figure:: ../images/002_chiller_plot_ts.svg
-   :alt: Aperçu du diagramme T-S du cycle Chiller
+   :alt: Diagramme T-S réel du cycle Chiller R134a
    :align: center
 
-   Aperçu du plot attendu : le cycle relie l'évaporation, la compression, la
-   désurchauffe, la condensation, la détente et le retour à l'évaporateur.
+   Sortie réelle de ``ch.plot()`` pour le cycle R134a de l'exemple (générée en
+   exécutant la bibliothèque). Les points rouges parcourent le cycle
+   frigorifique dans le sens horaire.
 
 Étude paramétrique
 ------------------
@@ -139,7 +150,7 @@ selon la température source et la température cible.
 
     print(df_study)
 
-Résultats à afficher :
+Colonnes du DataFrame ``df_study`` retourné :
 
 .. list-table::
    :widths: 35 45 20
@@ -160,6 +171,15 @@ Résultats à afficher :
    * - COP chauffage
      - ``COP``
      - -
+   * - EER froid
+     - ``EER``
+     - -
+   * - COP de Carnot
+     - ``COP Carnot``
+     - -
+   * - Efficacité de Carnot
+     - ``Eta Carnot (%)``
+     - %
    * - Puissance compresseur
      - ``W_comp (kW)``
      - kW
@@ -167,14 +187,50 @@ Résultats à afficher :
      - ``Q_cond (kW)``
      - kW
 
-Plot prévu par l'étude paramétrique :
+Extrait de ``df_study`` (R134a) — une ligne par couple (source, cible) valide :
+
+.. list-table::
+   :widths: 16 16 12 12 14 15 15
+   :header-rows: 1
+
+   * - T_source
+     - T_cible
+     - Lift
+     - COP
+     - W_comp
+     - Q_cond
+     - Eta Carnot
+   * - 5
+     - 40
+     - 35
+     - 6,28
+     - 29,2
+     - 183,3
+     - 70,1 %
+   * - 10
+     - 40
+     - 30
+     - 7,40
+     - 24,5
+     - 181,6
+     - 70,9 %
+   * - 0
+     - 50
+     - 50
+     - 4,30
+     - 41,3
+     - 177,4
+     - 66,5 %
+
+Plot sauvegardé par l'étude paramétrique (argument ``save_fig``) :
 
 .. figure:: ../images/002_chiller_plot_parametric.svg
-   :alt: Aperçu du plot paramétrique COP Chiller
+   :alt: Plot paramétrique réel COP et puissance compresseur Chiller
    :align: center
 
-   Le plot sauvegardé compare le COP au lift thermique et la puissance
-   compresseur à la température cible.
+   Sortie réelle : figure à deux panneaux — à gauche le COP chauffage en
+   fonction du lift thermique, à droite la puissance compresseur en fonction de
+   la température cible, avec une courbe par température source.
 
 Méthodes
 --------
