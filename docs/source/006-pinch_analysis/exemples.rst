@@ -1,6 +1,14 @@
 Analyse Pinch
 =============
 
+.. figure:: ../images/006_pinch_base.svg
+   :alt: Schéma d'une analyse Pinch de base
+   :align: center
+
+   Les flux chauds et froids sont structurés dans un DataFrame, puis
+   l'analyse produit les courbes, les utilités minimales et les appariements
+   d'échange.
+
 .. code-block:: python
 
    import pandas as pd
@@ -39,12 +47,45 @@ Analyse Pinch
    pinch.plot_GCC()                            # Grande courbe composite
    pinch.plot_streams_and_temperature_intervals()  # Flux et intervalles
    pinch.graphical_hen_design()                # Réseau d'échangeurs
-   print("\nRéseau d'échangeurs de chaleur :")
-   print(hen.df_matches)
 
-   # Visualisation graphique du HEN
-   pinch.graphical_hen_design()
-   plt.show()
+Résultats à afficher :
+
+.. list-table::
+   :widths: 35 45 20
+   :header-rows: 1
+
+   * - Résultat
+     - Objet ou attribut
+     - Unité
+   * - Point de pincement
+     - ``pinch.T_pinch``
+     - degC
+   * - Utilité chaude minimale
+     - ``pinch.Qh_min``
+     - kW
+   * - Utilité froide minimale
+     - ``pinch.Qc_min``
+     - kW
+   * - Intervalles de température
+     - ``pinch.df_intervals``
+     - tableau
+   * - Combinaisons d'échange
+     - ``pinch.df_heat_exchange_combinations``
+     - tableau
+
+Plots prévus par l'exemple :
+
+* ``pinch.plot_composites_curves()`` : courbes composites chaude et froide.
+* ``pinch.plot_GCC()`` : grande courbe composite.
+* ``pinch.plot_streams_and_temperature_intervals()`` : flux et intervalles.
+* ``pinch.graphical_hen_design()`` : réseau d'échangeurs proposé.
+
+.. figure:: ../images/006_pinch_plot_composites.svg
+   :alt: Aperçu des courbes composites Pinch
+   :align: center
+
+   Aperçu de la lecture attendue : les courbes composites permettent de
+   visualiser le pincement et le potentiel de récupération.
 
 Le réseau d'échangeurs optimal pourrait ressembler à :
 
@@ -59,6 +100,13 @@ Exemple 2 : Optimisation d'une unité de distillation
 
 Contexte industriel
 ~~~~~~~~~~~~~~~~~~~
+
+.. figure:: ../images/006_pinch_distillation.svg
+   :alt: Schéma Pinch pour une unité de distillation
+   :align: center
+
+   Les flux de condenseur, rebouilleur et procédé sont réunis dans la même
+   analyse pour identifier les échanges récupérables.
 
 Une unité de distillation comporte :
 
@@ -93,6 +141,36 @@ Données
    pinch_dist.plot_composites_curves()
    plt.show()
 
+Résultats à afficher :
+
+.. list-table::
+   :widths: 40 40 20
+   :header-rows: 1
+
+   * - Indicateur
+     - Attribut
+     - Unité
+   * - Utilité chaude minimale
+     - ``pinch_dist.Qh_min``
+     - kW
+   * - Utilité froide minimale
+     - ``pinch_dist.Qc_min``
+     - kW
+   * - Flux compatibles
+     - ``pinch_dist.df_heat_exchange_combinations``
+     - tableau
+
+Plot prévu par l'exemple :
+
+* ``pinch_dist.plot_composites_curves()`` affiche le potentiel de récupération
+  entre les flux de l'unité.
+
+.. figure:: ../images/006_pinch_plot_composites.svg
+   :alt: Aperçu des courbes composites pour distillation
+   :align: center
+
+   Même type de plot, appliqué cette fois aux flux de distillation.
+
 Interprétation
 ~~~~~~~~~~~~~~
 
@@ -119,6 +197,13 @@ Exemple 3 : Intégration avec sources d'énergie multiples
 Contexte
 ~~~~~~~~
 
+.. figure:: ../images/006_pinch_base.svg
+   :alt: Schéma d'intégration Pinch avec utilités multiples
+   :align: center
+
+   La grande courbe composite sert à positionner les niveaux de vapeur et de
+   refroidissement.
+
 Dans un procédé complexe, on dispose de plusieurs niveaux d'utilités :
 
 * **Vapeur HP** : 250°C, coût élevé
@@ -144,12 +229,20 @@ La GCC permet de déterminer :
 
 * Quelle vapeur utiliser à quel niveau de température
 * Les économies potentielles en remplaçant la vapeur HP par de la vapeur BP quand possible
+* Le plot prévu est ``pinch.plot_GCC()`` enrichi par les lignes horizontales
+  des utilités disponibles.
 
 Exemple 4 : Analyse de flexibilité
 -----------------------------------
 
 Étude de sensibilité au ΔTmin
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. figure:: ../images/006_pinch_sensibilite.svg
+   :alt: Schéma d'analyse de sensibilité au ΔTmin
+   :align: center
+
+   Le même jeu de flux est recalculé pour plusieurs valeurs de ``ΔTmin``.
 
 .. code-block:: python
 
@@ -187,6 +280,36 @@ Exemple 4 : Analyse de flexibilité
    plt.legend()
    plt.grid(True)
    plt.show()
+
+Résultats à afficher :
+
+.. list-table::
+   :widths: 30 35 35
+   :header-rows: 1
+
+   * - Variable
+     - Description
+     - Usage
+   * - ``dTmin_values``
+     - valeurs testées de ``ΔTmin``
+     - abscisse du plot
+   * - ``Qh_values``
+     - utilité chaude minimale
+     - courbe rouge
+   * - ``Qc_values``
+     - utilité froide minimale
+     - courbe bleue
+
+Plot prévu par l'exemple :
+
+* le graphique Matplotlib compare l'évolution des utilités avec ``ΔTmin``.
+
+.. figure:: ../images/006_pinch_plot_sensibilite.svg
+   :alt: Aperçu du plot de sensibilité Pinch au ΔTmin
+   :align: center
+
+   Aperçu de la tendance attendue : plus ``ΔTmin`` augmente, plus les utilités
+   minimales ont tendance à augmenter.
 
 Interprétation économique
 ~~~~~~~~~~~~~~~~~~~~~~~~~~

@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="360" viewBox="0 0 760 360">
+<rect width="100%" height="100%" fill="#fff"/>
+<text x="30" y="30" font-family="Arial" font-size="18" font-weight="700">Aperçu du plot d'orientation - production spécifique</text>
+<line x1="72" y1="288" x2="692" y2="288" stroke="#111827"/>
+<line x1="72" y1="58" x2="72" y2="288" stroke="#111827"/>
+<text x="382.0" y="338" font-family="Arial" font-size="12" text-anchor="middle">Configuration</text>
+<text x="18" y="173.0" font-family="Arial" font-size="12" text-anchor="middle" transform="rotate(-90 18,173.0)">kWh/kWc/an</text>
+<rect x="94.3" y="58.0" width="79.4" height="230.0" fill="#f59e0b"/>
+<text x="134.0" y="306" font-family="Arial" font-size="11" text-anchor="middle">Sud35</text>
+<rect x="218.3" y="70.7" width="79.4" height="217.3" fill="#f59e0b"/>
+<text x="258.0" y="306" font-family="Arial" font-size="11" text-anchor="middle">Sud10</text>
+<rect x="342.3" y="67.4" width="79.4" height="220.6" fill="#f59e0b"/>
+<text x="382.0" y="306" font-family="Arial" font-size="11" text-anchor="middle">Sud55</text>
+<rect x="466.3" y="76.4" width="79.4" height="211.6" fill="#f59e0b"/>
+<text x="506.0" y="306" font-family="Arial" font-size="11" text-anchor="middle">SE30</text>
+<rect x="590.3" y="128.3" width="79.4" height="159.7" fill="#f59e0b"/>
+<text x="630.0" y="306" font-family="Arial" font-size="11" text-anchor="middle">Est85</text>
+</svg>

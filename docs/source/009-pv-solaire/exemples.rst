@@ -72,6 +72,13 @@ Plots prévus par l'exemple :
   mensuel.
 * ``pv.to_excel(...)`` exporte les données horaires, mensuelles et la synthèse.
 
+.. figure:: ../images/009_pv_plot_production.svg
+   :alt: Aperçu du plot de production photovoltaïque
+   :align: center
+
+   Aperçu de la forme attendue : puissance AC nulle la nuit, maximum autour du
+   milieu de journée, puis cumul mensuel dans le plot généré par ``pv.plot``.
+
 Exemple 2 : Étude paramétrique d'orientation
 ----------------------------------------------
 
@@ -133,3 +140,10 @@ Plot prévu par l'exemple :
 
 * ``SolarSystem.plot_orientation_study(...)`` affiche les profils mensuels par
   scénario, avec la production annuelle dans la légende.
+
+.. figure:: ../images/009_pv_plot_orientation.svg
+   :alt: Aperçu du plot de comparaison des orientations photovoltaïques
+   :align: center
+
+   Aperçu de comparaison : le tableau ``df`` donne le classement annuel et le
+   plot mensuel montre la saisonnalité de chaque orientation.

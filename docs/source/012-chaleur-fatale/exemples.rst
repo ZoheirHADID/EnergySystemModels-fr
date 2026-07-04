@@ -30,6 +30,22 @@ Une boucle d'eau sort d'un procédé à ``38 degC`` et peut être refroidie jusq
    print(f"Puissance récupérable : {puissance_kw:.1f} kW")
    print(f"Energie annuelle : {energie_mwh:.0f} MWh/an")
 
+Résultat attendu :
+
+.. list-table::
+   :widths: 45 30 25
+   :header-rows: 1
+
+   * - Indicateur
+     - Valeur
+     - Unité
+   * - Puissance récupérable
+     - 255,4
+     - kW
+   * - Énergie annuelle récupérable
+     - 1 660
+     - MWh/an
+
 Lecture pour l'utilisateur :
 
 * le gisement est basse température ;
@@ -65,6 +81,25 @@ volume de CEE pour une fiche industrielle supportée.
 
    print(details["titre"])
    print(f"{details['MWh_cumac']:.1f} MWh cumac")
+
+Résultat attendu :
+
+.. list-table::
+   :widths: 45 30 25
+   :header-rows: 1
+
+   * - Indicateur
+     - Valeur
+     - Unité
+   * - Fiche utilisée
+     - IND-UT-103
+     - -
+   * - Volume CEE
+     - 1 431,0
+     - MWh cumac
+   * - Valorisation interne du module
+     - 7 155
+     - EUR
 
 À expliquer dans le rapport :
 
@@ -105,6 +140,31 @@ température avec une pompe à chaleur.
    print(f"Chaleur livrée : {chaleur_livree_mwh:.0f} MWh/an")
    print(f"Electricité PAC : {electricite_pac_mwh:.0f} MWh/an")
    print(f"Gain net énergie : {gain_net:.0f} EUR/an")
+
+Résultat attendu :
+
+.. list-table::
+   :widths: 45 30 25
+   :header-rows: 1
+
+   * - Indicateur
+     - Valeur
+     - Unité
+   * - Chaleur livrée
+     - 900
+     - MWh/an
+   * - Électricité PAC
+     - 225
+     - MWh/an
+   * - Coût électrique
+     - 27 000
+     - EUR/an
+   * - Gaz évité
+     - 49 500
+     - EUR/an
+   * - Gain net énergie
+     - 22 500
+     - EUR/an
 
 Interprétation :
 
@@ -148,6 +208,30 @@ d'identifier la récupération maximale théorique avant de dessiner les
 
    pinch.plot_composites_curves()
    pinch.plot_GCC()
+
+Résultats à afficher :
+
+.. list-table::
+   :widths: 40 40 20
+   :header-rows: 1
+
+   * - Indicateur
+     - Attribut
+     - Unité
+   * - Point de pincement
+     - ``pinch.T_pinch``
+     - degC
+   * - Utilité chaude minimale
+     - ``pinch.Qh_min``
+     - kW
+   * - Utilité froide minimale
+     - ``pinch.Qc_min``
+     - kW
+
+Plots prévus par l'exemple :
+
+* ``pinch.plot_composites_curves()`` affiche les courbes composites.
+* ``pinch.plot_GCC()`` affiche la grande courbe composite.
 
 Ce cas est à utiliser quand l'utilisateur veut passer d'un simple inventaire à
 une stratégie d'intégration thermique complète.
