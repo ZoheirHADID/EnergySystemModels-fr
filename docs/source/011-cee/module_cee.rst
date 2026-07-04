@@ -23,6 +23,13 @@ Résultat attendu :
 Exemple 1 : isolation thermique industrielle
 --------------------------------------------
 
+.. figure:: ../images/011_cee_isolation_industrielle.svg
+   :alt: Schéma CEE pour isolation thermique industrielle
+   :align: center
+
+   Le calcul part de la paroi isolée, applique la fiche ``IND-UT-131`` et
+   transforme les kWh cumac en prime estimée.
+
 .. code-block:: python
 
    from CEE.CEE import calcul_CEE
@@ -42,11 +49,34 @@ Exemple 1 : isolation thermique industrielle
    print(f"Volume : {kwh_cumac:.0f} kWh cumac")
    print(f"Prime : {prime_cee:.0f} EUR")
 
+Résultat attendu :
+
+.. list-table::
+   :widths: 45 30 25
+   :header-rows: 1
+
+   * - Indicateur
+     - Valeur
+     - Unité
+   * - Volume CEE
+     - 246 960
+     - kWh cumac
+   * - Prime avec 9 EUR/MWh cumac
+     - 2 223
+     - EUR
+
 Exemple 2 : système moto-régulé
 -------------------------------
 
 Un utilisateur qui souhaite estimer l'intérêt d'un variateur ou d'un système
 moto-régulé sur un ventilateur peut utiliser ``IND-UT-136``.
+
+.. figure:: ../images/011_cee_moto_regule.svg
+   :alt: Schéma CEE pour système moto-régulé
+   :align: center
+
+   Le nœud équipement fournit la puissance nominale, la fiche calcule ensuite
+   le volume cumac.
 
 .. code-block:: python
 
@@ -64,8 +94,31 @@ moto-régulé sur un ventilateur peut utiliser ``IND-UT-136``.
    print(f"{details['MWh_cumac']:.1f} MWh cumac")
    print(f"{details['euro']:.0f} EUR avec le prix interne du module")
 
+Résultat attendu :
+
+.. list-table::
+   :widths: 45 30 25
+   :header-rows: 1
+
+   * - Indicateur
+     - Valeur
+     - Unité
+   * - Volume CEE
+     - 940,5
+     - MWh cumac
+   * - Valorisation interne du module
+     - 4 703
+     - EUR
+
 Exemple 3 : récupération de chaleur sur compresseur d'air
 ---------------------------------------------------------
+
+.. figure:: ../images/012_chaleur_fatale_compresseur_cee.svg
+   :alt: Schéma CEE pour récupération de chaleur sur compresseur d'air
+   :align: center
+
+   La récupération thermique du compresseur alimente un usage et peut être
+   valorisée via ``IND-UT-103``.
 
 .. code-block:: python
 
@@ -81,8 +134,31 @@ Exemple 3 : récupération de chaleur sur compresseur d'air
 
    print(f"CEE récupération compresseur : {kwh_cumac/1000:.1f} MWh cumac")
 
+Résultat attendu :
+
+.. list-table::
+   :widths: 45 30 25
+   :header-rows: 1
+
+   * - Indicateur
+     - Valeur
+     - Unité
+   * - Volume CEE
+     - 2 385,0
+     - MWh cumac
+   * - Prime avec 9 EUR/MWh cumac
+     - 21 465
+     - EUR
+
 Exemple 4 : transport intermodal
 --------------------------------
+
+.. figure:: ../images/011_cee_transport_intermodal.svg
+   :alt: Schéma CEE pour transport intermodal fluvial-route
+   :align: center
+
+   Le nombre de voyages et le type de bateau alimentent la fiche
+   ``TRA-EQ-107``.
 
 .. code-block:: python
 
@@ -98,8 +174,31 @@ Exemple 4 : transport intermodal
 
    print(details)
 
+Résultat attendu :
+
+.. list-table::
+   :widths: 45 30 25
+   :header-rows: 1
+
+   * - Indicateur
+     - Valeur
+     - Unité
+   * - Volume CEE
+     - 902,0
+     - MWh cumac
+   * - Valorisation interne du module
+     - 4 510
+     - EUR
+
 Projet multi-opérations
 ------------------------
+
+.. figure:: ../images/011_cee_projet_multi_operations.svg
+   :alt: Schéma CEE pour projet multi-opérations
+   :align: center
+
+   Chaque opération produit une ligne de résultat ; le rapport agrège ensuite
+   les volumes et les primes.
 
 .. code-block:: python
 
@@ -146,6 +245,28 @@ Projet multi-opérations
    print(f"Prime totale : {total_kwh_cumac * 9.0 / 1000:.0f} EUR")
 
    df_rapport.to_excel("rapport_CEE.xlsx", index=False)
+
+Résultat attendu :
+
+.. list-table::
+   :widths: 25 30 30
+   :header-rows: 1
+
+   * - Fiche
+     - kWh cumac
+     - Prime à 9 EUR/MWh
+   * - IND-UT-131
+     - 246 960
+     - 2 222,64 EUR
+   * - IND-UT-136
+     - 940 500
+     - 8 464,50 EUR
+   * - IND-UT-134
+     - 149 540
+     - 1 345,86 EUR
+   * - **Total**
+     - **1 337 000**
+     - **12 033,00 EUR**
 
 Conseils d'utilisation
 ----------------------

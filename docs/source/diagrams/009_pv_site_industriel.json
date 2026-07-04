@@ -1,0 +1,17 @@
+{
+  "title": "PV - Simulation d'un site industriel",
+  "description": "Chaîne de calcul d'une production photovoltaïque avec pvlib et PVGIS.",
+  "nodes": [
+    {"id": "site", "label": "Site", "subtitle": "Lyon", "kind": "source", "column": 0},
+    {"id": "meteo", "label": "Météo PVGIS", "subtitle": "TMY horaire", "kind": "process", "column": 1},
+    {"id": "systeme", "label": "Module + onduleur", "subtitle": "orientation", "kind": "exchange", "column": 2},
+    {"id": "prod", "label": "Production AC", "subtitle": "horaire + annuel", "kind": "sink", "column": 3},
+    {"id": "eco", "label": "Synthèse éco", "subtitle": "payback, ROI, TRI", "kind": "finance", "column": 3}
+  ],
+  "edges": [
+    {"from": "site", "to": "meteo", "label": "latitude/longitude"},
+    {"from": "meteo", "to": "systeme", "label": "irradiance"},
+    {"from": "systeme", "to": "prod", "label": "pv.calculate"},
+    {"from": "prod", "to": "eco", "label": "pv.summary"}
+  ]
+}

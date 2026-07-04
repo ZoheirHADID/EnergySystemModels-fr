@@ -1,0 +1,15 @@
+{
+  "title": "PV - Étude d'orientation",
+  "description": "Comparaison de plusieurs scénarios d'azimut et d'inclinaison.",
+  "nodes": [
+    {"id": "scenarios", "label": "Scénarios", "subtitle": "azimut + inclinaison", "kind": "source", "column": 0},
+    {"id": "simulation", "label": "orientation_study", "subtitle": "boucle PV", "kind": "process", "column": 1},
+    {"id": "df", "label": "Tableau annuel", "subtitle": "kWh/kWc/an", "kind": "sink", "column": 2},
+    {"id": "plot", "label": "Plot mensuel", "subtitle": "profils comparés", "kind": "utility", "column": 2}
+  ],
+  "edges": [
+    {"from": "scenarios", "to": "simulation", "label": "liste dict"},
+    {"from": "simulation", "to": "df", "label": "df"},
+    {"from": "simulation", "to": "plot", "label": "df_monthly"}
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "title": "Pinch - Unité de distillation",
+  "description": "Intégration thermique entre condenseur, rebouilleur et flux procédé.",
+  "nodes": [
+    {"id": "cond", "label": "Condenseur", "subtitle": "flux chaud", "kind": "source", "column": 0},
+    {"id": "reb", "label": "Rebouilleur", "subtitle": "flux froid", "kind": "sink", "column": 0},
+    {"id": "process", "label": "Flux procédé", "subtitle": "charge + hydrocarbure", "kind": "process", "column": 1},
+    {"id": "pinch", "label": "Analyse Pinch", "subtitle": "Qh_min / Qc_min", "kind": "process", "column": 2},
+    {"id": "solution", "label": "Échangeurs", "subtitle": "récupération", "kind": "exchange", "column": 3}
+  ],
+  "edges": [
+    {"from": "cond", "to": "pinch", "label": "chaleur"},
+    {"from": "reb", "to": "pinch", "label": "besoin"},
+    {"from": "process", "to": "pinch", "label": "mCp"},
+    {"from": "pinch", "to": "solution", "label": "appariements"}
+  ]
+}

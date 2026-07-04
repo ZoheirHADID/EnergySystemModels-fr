@@ -1,0 +1,13 @@
+{
+  "title": "CEE - Transport intermodal fluvial-route",
+  "description": "Schéma de calcul CEE pour un bateau Grand Rhénan en bassin Rhin/Moselle.",
+  "nodes": [
+    {"id": "flux", "label": "Voyages UTI", "subtitle": "220 voyages", "kind": "process", "column": 0},
+    {"id": "bateau", "label": "Grand Rhénan", "subtitle": "Rhin/Moselle", "kind": "source", "column": 1},
+    {"id": "fiche", "label": "TRA-EQ-107", "subtitle": "MWh cumac", "kind": "finance", "column": 2}
+  ],
+  "edges": [
+    {"from": "flux", "to": "bateau", "label": "activité"},
+    {"from": "bateau", "to": "fiche", "label": "calcul_CEE"}
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "title": "Pinch - Analyse de base",
+  "description": "Flux chauds et froids convertis en courbes composites, GCC et réseau HEN.",
+  "nodes": [
+    {"id": "hot", "label": "Flux chauds", "subtitle": "Ti > To", "kind": "source", "column": 0},
+    {"id": "cold", "label": "Flux froids", "subtitle": "Ti < To", "kind": "sink", "column": 0},
+    {"id": "data", "label": "DataFrame", "subtitle": "Ti, To, mCp, dTmin", "kind": "process", "column": 1},
+    {"id": "pinch", "label": "PinchAnalysis", "subtitle": "cascade énergétique", "kind": "process", "column": 2},
+    {"id": "plots", "label": "Plots", "subtitle": "CCC, CCF, GCC", "kind": "utility", "column": 3},
+    {"id": "hen", "label": "Réseau HEN", "subtitle": "échangeurs", "kind": "exchange", "column": 3}
+  ],
+  "edges": [
+    {"from": "hot", "to": "data", "label": "sources"},
+    {"from": "cold", "to": "data", "label": "besoins"},
+    {"from": "data", "to": "pinch", "label": "Object(df)"},
+    {"from": "pinch", "to": "plots", "label": "visualisations"},
+    {"from": "pinch", "to": "hen", "label": "matches"}
+  ]
+}

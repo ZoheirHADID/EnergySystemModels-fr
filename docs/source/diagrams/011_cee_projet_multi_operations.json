@@ -1,0 +1,17 @@
+{
+  "title": "CEE - Projet multi-opérations",
+  "description": "Agrégation de plusieurs fiches CEE dans un rapport projet.",
+  "nodes": [
+    {"id": "op1", "label": "Isolation", "subtitle": "IND-UT-131", "kind": "exchange", "column": 0},
+    {"id": "op2", "label": "Moto-régulé", "subtitle": "IND-UT-136", "kind": "exchange", "column": 0},
+    {"id": "op3", "label": "Mesurage IPE", "subtitle": "IND-UT-134", "kind": "exchange", "column": 0},
+    {"id": "rapport", "label": "Rapport CEE", "subtitle": "DataFrame", "kind": "process", "column": 1},
+    {"id": "total", "label": "Total projet", "subtitle": "kWh cumac + prime", "kind": "finance", "column": 2}
+  ],
+  "edges": [
+    {"from": "op1", "to": "rapport", "label": "résultat"},
+    {"from": "op2", "to": "rapport", "label": "résultat"},
+    {"from": "op3", "to": "rapport", "label": "résultat"},
+    {"from": "rapport", "to": "total", "label": "somme"}
+  ]
+}

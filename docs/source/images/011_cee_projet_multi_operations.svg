@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="816" height="418" viewBox="0 0 816 418" role="img" aria-labelledby="title desc">
+  <title id="title">CEE - Projet multi-opérations</title>
+  <desc id="desc">Agrégation de plusieurs fiches CEE dans un rapport projet.</desc>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#4b5563"/>
+    </marker>
+    <style>
+      .diagram-title { font: 700 18px Arial, sans-serif; fill: #111827; }
+      .node-title { font: 700 13px Arial, sans-serif; fill: #111827; }
+      .node-subtitle { font: 11px Arial, sans-serif; fill: #374151; }
+      .edge-label { font: 11px Arial, sans-serif; fill: #374151; }
+    </style>
+  </defs>
+  <rect width="100%" height="100%" fill="#ffffff"/>
+  <text x="38" y="26" class="diagram-title">CEE - Projet multi-opérations</text>
+  <path d="M 208 83.0 C 265.5 83.0, 265.5 204.0, 323 204.0" fill="none" stroke="#4b5563" stroke-width="1.7" marker-end="url(#arrow)"/>
+<text x="265.5" y="135.5" text-anchor="middle" class="edge-label">résultat</text>
+<path d="M 208 204.0 C 265.5 204.0, 265.5 204.0, 323 204.0" fill="none" stroke="#4b5563" stroke-width="1.7" marker-end="url(#arrow)"/>
+<text x="265.5" y="196.0" text-anchor="middle" class="edge-label">résultat</text>
+<path d="M 208 325.0 C 265.5 325.0, 265.5 204.0, 323 204.0" fill="none" stroke="#4b5563" stroke-width="1.7" marker-end="url(#arrow)"/>
+<text x="265.5" y="256.5" text-anchor="middle" class="edge-label">résultat</text>
+<path d="M 493 204.0 C 550.5 204.0, 550.5 204.0, 608 204.0" fill="none" stroke="#4b5563" stroke-width="1.7" marker-end="url(#arrow)"/>
+<text x="550.5" y="196.0" text-anchor="middle" class="edge-label">somme</text>
+  <rect x="38" y="50" width="170" height="66" rx="8" fill="#e9f8ef" stroke="#2d7d46" stroke-width="1.6"/>
+<text x="123.0" y="76" text-anchor="middle" class="node-title">Isolation</text>
+<text x="123.0" y="102" text-anchor="middle" class="node-subtitle">IND-UT-131</text>
+<rect x="38" y="171" width="170" height="66" rx="8" fill="#e9f8ef" stroke="#2d7d46" stroke-width="1.6"/>
+<text x="123.0" y="197" text-anchor="middle" class="node-title">Moto-régulé</text>
+<text x="123.0" y="223" text-anchor="middle" class="node-subtitle">IND-UT-136</text>
+<rect x="38" y="292" width="170" height="66" rx="8" fill="#e9f8ef" stroke="#2d7d46" stroke-width="1.6"/>
+<text x="123.0" y="318" text-anchor="middle" class="node-title">Mesurage IPE</text>
+<text x="123.0" y="344" text-anchor="middle" class="node-subtitle">IND-UT-134</text>
+<rect x="323" y="171" width="170" height="66" rx="8" fill="#eaf4ff" stroke="#2670a8" stroke-width="1.6"/>
+<text x="408.0" y="197" text-anchor="middle" class="node-title">Rapport CEE</text>
+<text x="408.0" y="223" text-anchor="middle" class="node-subtitle">DataFrame</text>
+<rect x="608" y="171" width="170" height="66" rx="8" fill="#eefaf7" stroke="#13866f" stroke-width="1.6"/>
+<text x="693.0" y="197" text-anchor="middle" class="node-title">Total projet</text>
+<text x="693.0" y="223" text-anchor="middle" class="node-subtitle">kWh cumac + prime</text>
+</svg>

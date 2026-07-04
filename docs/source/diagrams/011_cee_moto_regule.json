@@ -1,0 +1,13 @@
+{
+  "title": "CEE - Système moto-régulé",
+  "description": "Schéma de calcul CEE pour un ventilateur équipé d'un système moto-régulé.",
+  "nodes": [
+    {"id": "ventilateur", "label": "Ventilateur", "subtitle": "55 kW", "kind": "process", "column": 0},
+    {"id": "variation", "label": "Système moto-régulé", "subtitle": "2x8 h", "kind": "exchange", "column": 1},
+    {"id": "fiche", "label": "IND-UT-136", "subtitle": "MWh cumac", "kind": "finance", "column": 2}
+  ],
+  "edges": [
+    {"from": "ventilateur", "to": "variation", "label": "puissance nominale"},
+    {"from": "variation", "to": "fiche", "label": "calcul_CEE"}
+  ]
+}

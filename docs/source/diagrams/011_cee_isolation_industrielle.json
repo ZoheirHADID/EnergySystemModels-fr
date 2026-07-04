@@ -1,0 +1,15 @@
+{
+  "title": "CEE - Isolation thermique industrielle",
+  "description": "Schéma de calcul CEE pour une isolation de paroi industrielle.",
+  "nodes": [
+    {"id": "paroi", "label": "Paroi chaude", "subtitle": "180 degC", "kind": "source", "column": 0},
+    {"id": "isolation", "label": "Isolation", "subtitle": "120 m2", "kind": "exchange", "column": 1},
+    {"id": "fiche", "label": "IND-UT-131", "subtitle": "kWh cumac", "kind": "finance", "column": 2},
+    {"id": "prime", "label": "Prime estimée", "subtitle": "prix MWh cumac", "kind": "finance", "column": 3}
+  ],
+  "edges": [
+    {"from": "paroi", "to": "isolation", "label": "pertes réduites"},
+    {"from": "isolation", "to": "fiche", "label": "calcul_CEE"},
+    {"from": "fiche", "to": "prime", "label": "x 9 EUR/MWh"}
+  ]
+}

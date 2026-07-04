@@ -1,0 +1,15 @@
+{
+  "title": "Pinch - Sensibilité au ΔTmin",
+  "description": "Balayage du ΔTmin pour comparer utilités et coût énergétique.",
+  "nodes": [
+    {"id": "base", "label": "Jeu de flux", "subtitle": "données fixes", "kind": "source", "column": 0},
+    {"id": "sweep", "label": "Balayage ΔTmin", "subtitle": "5 à 30 degC", "kind": "process", "column": 1},
+    {"id": "results", "label": "Qh / Qc", "subtitle": "par scénario", "kind": "sink", "column": 2},
+    {"id": "plot", "label": "Courbe sensibilité", "subtitle": "matplotlib", "kind": "utility", "column": 3}
+  ],
+  "edges": [
+    {"from": "base", "to": "sweep", "label": "copy df"},
+    {"from": "sweep", "to": "results", "label": "Object(df_test)"},
+    {"from": "results", "to": "plot", "label": "plt.plot"}
+  ]
+}

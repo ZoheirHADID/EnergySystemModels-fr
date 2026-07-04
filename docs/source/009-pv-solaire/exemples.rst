@@ -4,6 +4,13 @@ Production Photovoltaïque — Exemples
 Exemple 1 : Simulation site industriel
 ----------------------------------------
 
+.. figure:: ../images/009_pv_site_industriel.svg
+   :alt: Schéma de simulation photovoltaïque d'un site industriel
+   :align: center
+
+   Le site fournit la localisation, PVGIS fournit la météo, puis pvlib calcule
+   la production horaire et la synthèse économique.
+
 .. code-block:: python
 
    from PV.ProductionElectriquePV import SolarSystem
@@ -37,8 +44,43 @@ Exemple 1 : Simulation site industriel
    # Export Excel
    pv.to_excel('Lyon_production.xlsx', nb_modules=455)
 
+Résultats à afficher dans le rapport :
+
+.. list-table::
+   :widths: 45 35 20
+   :header-rows: 1
+
+   * - Indicateur
+     - Exemple de valeur
+     - Unité
+   * - Puissance installée
+     - 100
+     - kWc
+   * - Surface capteurs
+     - environ 774
+     - m2
+   * - Production spécifique
+     - environ 1 397
+     - kWh/kWc/an
+   * - Production annuelle
+     - environ 140
+     - MWh/an
+
+Plots prévus par l'exemple :
+
+* ``pv.plot(nb_modules=455)`` affiche la production horaire AC et le profil
+  mensuel.
+* ``pv.to_excel(...)`` exporte les données horaires, mensuelles et la synthèse.
+
 Exemple 2 : Étude paramétrique d'orientation
 ----------------------------------------------
+
+.. figure:: ../images/009_pv_orientation.svg
+   :alt: Schéma d'étude paramétrique d'orientation photovoltaïque
+   :align: center
+
+   Chaque scénario d'orientation est simulé, puis comparé dans un tableau
+   annuel et un graphe mensuel.
 
 .. code-block:: python
 
@@ -59,3 +101,35 @@ Exemple 2 : Étude paramétrique d'orientation
 
    # Graphique mensuel par orientation
    SolarSystem.plot_orientation_study(df, df_monthly, name='Lyon')
+
+Résultat attendu :
+
+.. list-table::
+   :widths: 35 20 20 25
+   :header-rows: 1
+
+   * - Configuration
+     - Azimut
+     - Inclinaison
+     - Résultat affiché
+   * - Sud 35
+     - 180 deg
+     - 35 deg
+     - scénario de référence
+   * - Sud 10
+     - 180 deg
+     - 10 deg
+     - comparaison toiture faible pente
+   * - SE 30
+     - 135 deg
+     - 30 deg
+     - perte liée à l'orientation
+   * - Est 85
+     - 90 deg
+     - 85 deg
+     - profil plus matinal
+
+Plot prévu par l'exemple :
+
+* ``SolarSystem.plot_orientation_study(...)`` affiche les profils mensuels par
+  scénario, avec la production annuelle dans la légende.
