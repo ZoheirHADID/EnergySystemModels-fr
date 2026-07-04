@@ -51,13 +51,16 @@ puissance souscrite de 12 kW. Facturation mensuelle de fevrier 2025.
 
 .. code-block:: text
 
-               Ligne                    Formule   Entree(s) Coefficient Resultat Annuel
-          Fourniture                                                      152.10
-  Acheminement (TURPE)                                                     xx.xx
-  Taxes et contributions                                                    x.xx
-          = Total HTVA Fourniture + TURPE + Taxes                         xxx.xx
-             TVA 20%           Total_HTVA x 20%                            xx.xx
-           = Total TTC                 HTVA + TVA                         xxx.xx
-   Cout HTVA (EUR/MWh)           Total_HTVA / MWh  0.95 MWh              xxx.xx
+                        Ligne                    Formule Entrée(s) Coefficient  Résultat
+                   Fourniture                                                    151.30
+         Acheminement (TURPE)                                                     65.54
+       Taxes et contributions                                                      3.23
+                 = Total HTVA Fourniture + TURPE + Taxes                          220.07
+                      TVA 20%           Total_HTVA x 20%                           44.01
+                  = Total TTC                 HTVA + TVA                          264.08
+          Coût HTVA (EUR/MWh)           Total_HTVA / MWh  0.95 MWh                231.65
+    Coût fourniture (EUR/MWh)           Fourniture / MWh                          159.26
+  Coût distribution (EUR/MWh)                TURPE / MWh                           68.99
+         Coût taxes (EUR/MWh)                Taxes / MWh                            3.40
 
-Les valeurs exactes dependent de la grille TURPE en vigueur pour la periode facturee.
+Les valeurs dépendent de la grille TURPE en vigueur pour la période facturée.

@@ -39,3 +39,22 @@
    # Graphiques
    turpe_calculator.plot()          # Repartition Fourniture / TURPE / Taxes
    turpe_calculator.plot_detail()   # Cascades detaillees par composante
+
+**Sortie réelle (df_totaux)** :
+
+.. code-block:: text
+
+                        Ligne                    Formule Entrée(s) Coefficient  Résultat
+                   Fourniture                                                       6.32
+         Acheminement (TURPE)                                                    1388.23
+       Taxes et contributions                                                     305.12
+                 = Total HTVA Fourniture + TURPE + Taxes                         1700.55
+                      TVA 20%           Total_HTVA x 20%                          340.11
+                  = Total TTC                 HTVA + TVA                        2040.66
+          Coût HTVA (EUR/MWh)           Total_HTVA / MWh  0.04 MWh              42513.75
+
+.. note::
+   Les consommations de cet exemple sont volontairement minimes (10 kWh par
+   poste) : la part fixe (abonnement/TURPE) domine, d'où un coût unitaire
+   ``EUR/MWh`` très élevé. Pour un site HTA réaliste, utiliser des consommations
+   de l'ordre de plusieurs dizaines de MWh/mois (cf. :doc:`exemple_hta_lu_pm`).

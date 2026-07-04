@@ -43,3 +43,19 @@ puissance souscrite de 80 kW. Facturation mensuelle de janvier 2025.
 
    calc.plot()
    calc.plot_detail()
+
+**Sortie réelle (df_totaux)** :
+
+.. code-block:: text
+
+                        Ligne                    Formule Entrée(s) Coefficient  Résultat
+                   Fourniture                                                   2081.00
+         Acheminement (TURPE)                                                    935.07
+       Taxes et contributions                                                     40.49
+                 = Total HTVA Fourniture + TURPE + Taxes                        3056.56
+                      TVA 20%           Total_HTVA x 20%                         611.31
+                  = Total TTC                 HTVA + TVA                        3667.87
+          Coût HTVA (EUR/MWh)           Total_HTVA / MWh 14.70 MWh               207.93
+    Coût fourniture (EUR/MWh)           Fourniture / MWh                         141.56
+  Coût distribution (EUR/MWh)                TURPE / MWh                          63.61
+         Coût taxes (EUR/MWh)                Taxes / MWh                           2.75

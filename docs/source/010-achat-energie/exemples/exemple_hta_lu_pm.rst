@@ -49,3 +49,19 @@ sont plus faibles que la version CU.
 
    calc.plot()
    calc.plot_detail()
+
+**Sortie réelle (df_totaux)** :
+
+.. code-block:: text
+
+                        Ligne                    Formule  Entrée(s) Coefficient  Résultat
+                   Fourniture                                                    52600.00
+         Acheminement (TURPE)                                                     6989.96
+       Taxes et contributions                                                      505.25
+                 = Total HTVA Fourniture + TURPE + Taxes                         60095.21
+                      TVA 20%           Total_HTVA x 20%                         12019.04
+                  = Total TTC                 HTVA + TVA                         72114.25
+          Coût HTVA (EUR/MWh)           Total_HTVA / MWh 350.00 MWh                171.70
+    Coût fourniture (EUR/MWh)           Fourniture / MWh                           150.29
+  Coût distribution (EUR/MWh)                TURPE / MWh                            19.97
+         Coût taxes (EUR/MWh)                Taxes / MWh                             1.44

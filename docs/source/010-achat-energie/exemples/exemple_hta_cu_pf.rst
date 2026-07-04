@@ -52,3 +52,19 @@ consommation hivernale typique. Facturation de fevrier 2025.
 
    calc.plot()
    calc.plot_detail()
+
+**Sortie réelle (df_totaux)** :
+
+.. code-block:: text
+
+                        Ligne                    Formule  Entrée(s) Coefficient  Résultat
+                   Fourniture                                                    40450.00
+         Acheminement (TURPE)                                                     7714.22
+       Taxes et contributions                                                     5758.92
+                 = Total HTVA Fourniture + TURPE + Taxes                         53923.14
+                      TVA 20%           Total_HTVA x 20%                         10784.63
+                  = Total TTC                 HTVA + TVA                         64707.77
+          Coût HTVA (EUR/MWh)           Total_HTVA / MWh 250.00 MWh                215.69
+    Coût fourniture (EUR/MWh)           Fourniture / MWh                           161.80
+  Coût distribution (EUR/MWh)                TURPE / MWh                            30.86
+         Coût taxes (EUR/MWh)                Taxes / MWh                            23.04

@@ -168,38 +168,43 @@ Colonnes standard de chaque DataFrame :
    calc.plot()          # Donut : Fourniture / TURPE / Taxes
    calc.plot_detail()   # Cascades detaillees
 
-**Resultat reel (df_acheminement)** :
+**Résultat réel (df_acheminement)** :
 
 .. code-block:: text
 
-                        Ligne                                   Formule       Entree(s)                Coefficient  Resultat   Annuel
-   Composante de Gestion (CG)                            CG_annuel / 12   361.20 EUR/an                   31 jours     30.10    361.2
-  Composante de Comptage (CC)                            CC_annuel / 12   306.00 EUR/an                   31 jours     25.50    306.0
-               CS Fixe Pointe                            b0 x PS_Pointe          250 kW 6.4400 EUR/kW/an (TURPE 5)   1610.00
-           CS Fixe HPH-Pointe                 b1 x (PS_HPH - PS_Pointe)           50 kW 6.4400 EUR/kW/an (TURPE 5)    322.00
-        = CS Fixe (proratise)                 CS_annuel x nb_jour / 365 1,932.00 EUR/an                   31 jours    164.09   1932.0
-           CS Variable Pointe                     c_Pointe x kWh_Pointe       2,500 kWh  0.03690 EUR/kWh (TURPE 5)     92.25
-              CS Variable HPH                           c_HPH x kWh_HPH      55,000 kWh  0.03690 EUR/kWh (TURPE 5)   2029.50
-              CS Variable HCH                           c_HCH x kWh_HCH      35,000 kWh  0.03690 EUR/kWh (TURPE 5)   1291.50
-          = CS Variable total                             Somme c x kWh                                              3413.25
-       Depassement PS (CMDPS)                             CMDPS mensuel                                                 0.00
- = TOTAL TURPE (acheminement) CG + CC + CS_fixe + CS_var + CMDPS + CACS                                              3634.00  43558.2
+                         Ligne                                   Formule       Entrée(s)                Coefficient  Résultat   Annuel
+    Composante de Gestion (CG)                            CG_annuel / 12   361.20 EUR/an                   31 jours     30.10    361.2
+   Composante de Comptage (CC)                            CC_annuel / 12   306.00 EUR/an                   31 jours     25.50    306.0
+                CS Fixe Pointe                            b0 x PS_Pointe          100 kW 6.4400 EUR/kW/an (TURPE 5)    644.00
+            CS Fixe HPH-Pointe                 b1 x (PS_HPH - PS_Pointe)          100 kW 6.4400 EUR/kW/an (TURPE 5)    644.00
+               CS Fixe HCH-HPH                    b2 x (PS_HCH - PS_HPH)            0 kW 6.4400 EUR/kW/an (TURPE 5)      0.00
+               CS Fixe HPB-HCH                    b3 x (PS_HPB - PS_HCH)            0 kW 6.4400 EUR/kW/an (TURPE 5)      0.00
+               CS Fixe HCB-HPB                    b4 x (PS_HCB - PS_HPB)            0 kW 6.4400 EUR/kW/an (TURPE 5)      0.00
+         = CS Fixe (proratisé)                 CS_annuel x nb_jour / 365 1,288.00 EUR/an                   31 jours    109.39   1288.0
+            CS Variable Pointe                     c_Pointe x kWh_Pointe       5,000 kWh  0.03690 EUR/kWh (TURPE 5)    184.50
+               CS Variable HPH                           c_HPH x kWh_HPH      30,000 kWh  0.03690 EUR/kWh (TURPE 5)   1107.00
+               CS Variable HCH                           c_HCH x kWh_HCH      20,000 kWh  0.03690 EUR/kWh (TURPE 5)    738.00
+               CS Variable HPB                           c_HPB x kWh_HPB      25,000 kWh  0.03690 EUR/kWh (TURPE 5)    922.50
+               CS Variable HCB                           c_HCB x kWh_HCB      15,000 kWh  0.03690 EUR/kWh (TURPE 5)    553.50
+           = CS Variable total                             Somme c x kWh                                              3505.50
+        Dépassement PS (CMDPS)                             CMDPS mensuel                                                 0.00
+  = TOTAL TURPE (acheminement) CG + CC + CS_fixe + CS_var + CMDPS + CACS                                              3671.56  44021.2
 
-**Resultat reel (df_totaux)** :
+**Résultat réel (df_totaux)** :
 
 .. code-block:: text
 
-                       Ligne                    Formule Entree(s) Coefficient  Resultat
-                  Fourniture                                                  10037.50
-        Acheminement (TURPE)                                                   3634.00
-      Taxes et contributions                                                     94.43
-                = Total HTVA Fourniture + TURPE + Taxes                       13765.93
-                     TVA 20%           Total_HTVA x 20%                        2753.19
-                 = Total TTC                 HTVA + TVA                       16519.12
-         Cout HTVA (EUR/MWh)           Total_HTVA / MWh 92.50 MWh              148.82
-   Cout fourniture (EUR/MWh)           Fourniture / MWh                         108.51
- Cout distribution (EUR/MWh)                TURPE / MWh                          39.29
-        Cout taxes (EUR/MWh)                Taxes / MWh                           1.02
+                        Ligne                    Formule Entrée(s) Coefficient  Résultat
+                   Fourniture                                                    6950.00
+         Acheminement (TURPE)                                                    3671.56
+       Taxes et contributions                                                      83.68
+                 = Total HTVA Fourniture + TURPE + Taxes                        10705.24
+                      TVA 20%           Total_HTVA x 20%                         2141.05
+                  = Total TTC                 HTVA + TVA                        12846.29
+          Coût HTVA (EUR/MWh)           Total_HTVA / MWh 95.00 MWh                112.69
+    Coût fourniture (EUR/MWh)           Fourniture / MWh                           73.16
+  Coût distribution (EUR/MWh)                TURPE / MWh                           38.65
+         Coût taxes (EUR/MWh)                Taxes / MWh                            0.88
 
 **Lecture du tableau** :
 

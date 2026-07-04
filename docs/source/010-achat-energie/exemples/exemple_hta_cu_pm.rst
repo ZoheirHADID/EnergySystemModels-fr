@@ -42,3 +42,19 @@ et ete equilibree. Facturation de mars 2025.
    print(calc.df_totaux)
 
    calc.plot()
+
+**Sortie réelle (df_totaux)** :
+
+.. code-block:: text
+
+                        Ligne                    Formule  Entrée(s) Coefficient  Résultat
+                   Fourniture                                                    15850.00
+         Acheminement (TURPE)                                                     4772.55
+       Taxes et contributions                                                      166.52
+                 = Total HTVA Fourniture + TURPE + Taxes                         20789.07
+                      TVA 20%           Total_HTVA x 20%                          4157.81
+                  = Total TTC                 HTVA + TVA                         24946.88
+          Coût HTVA (EUR/MWh)           Total_HTVA / MWh 145.00 MWh                143.37
+    Coût fourniture (EUR/MWh)           Fourniture / MWh                           109.31
+  Coût distribution (EUR/MWh)                TURPE / MWh                            32.91
+         Coût taxes (EUR/MWh)                Taxes / MWh                             1.15
