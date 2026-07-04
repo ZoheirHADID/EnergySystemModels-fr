@@ -12,7 +12,7 @@ Les déperditions de chaleur à travers les parois de l'échangeur de chaleur à
 
 .. code-block:: python
 
-    from EnergySystemModels.TransfertChaleur import PlateHeatTransfer
+    from HeatTransfer import PlateHeatTransfer
 
     # Température de la paroi en °C
     Tp = 60
@@ -164,19 +164,22 @@ Plaque verticale
 
   Nu = \left(0.825 + \frac{0.387 \cdot Ra^{1/6}}{\left(1 + \left(\frac{0.492}{Pr}\right)^{9/16}\right)^{8/27}}\right)^2 \quad \text{si} \quad Ra \geq 10^9
 
-### Transfert de chaleur convectif (q_conv)
+Transfert de chaleur convectif (q_conv)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. math::
 
   q_{conv} = h \cdot W \cdot L \cdot (Tp - Ta)
 
-### Transfert de chaleur radiatif (q_rad)
+Transfert de chaleur radiatif (q_rad)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. math::
 
   q_{rad} = \sigma \cdot W \cdot L \cdot e \cdot \left((Tp + 273.15)^4 - (Ta + 273.15)^4\right)
 
-### Transfert de chaleur total (q_total)
+Transfert de chaleur total (q_total)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. math::
 
