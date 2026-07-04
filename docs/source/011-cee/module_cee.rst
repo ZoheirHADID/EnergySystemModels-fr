@@ -31,7 +31,7 @@ Secteur Industrie
 =================
 
 IND-UT-103 — Récupération de chaleur sur un compresseur d'air
-------------------------------------------------------------
+-------------------------------------------------------------
 
 .. figure:: ../images/012_chaleur_fatale_compresseur_cee.svg
    :alt: Récupération de chaleur sur compresseur d'air (IND-UT-103)
