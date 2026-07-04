@@ -58,3 +58,21 @@ et ete equilibree. Facturation de mars 2025.
     Coût fourniture (EUR/MWh)           Fourniture / MWh                           109.31
   Coût distribution (EUR/MWh)                TURPE / MWh                            32.91
          Coût taxes (EUR/MWh)                Taxes / MWh                             1.15
+
+Plots générés par l'exemple
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Les figures ci-dessous sont les sorties réelles de ``calc.plot()`` et
+``calc.plot_detail()`` pour les données de l'exemple.
+
+.. figure:: ../../images/010_turpe_hta_cu_pm_plot.svg
+   :alt: Répartition Fourniture TURPE Taxes pour l'exemple HTA CU pointe mobile
+   :align: center
+
+   Répartition HTVA entre fourniture, acheminement TURPE et taxes.
+
+.. figure:: ../../images/010_turpe_hta_cu_pm_plot_detail.svg
+   :alt: Détail des composantes de facture pour l'exemple HTA CU pointe mobile
+   :align: center
+
+   Cascades détaillées par composante de fourniture, distribution et taxes.

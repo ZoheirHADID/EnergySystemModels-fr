@@ -58,3 +58,21 @@
    poste) : la part fixe (abonnement/TURPE) domine, d'où un coût unitaire
    ``EUR/MWh`` très élevé. Pour un site HTA réaliste, utiliser des consommations
    de l'ordre de plusieurs dizaines de MWh/mois (cf. :doc:`exemple_hta_lu_pm`).
+
+Plots générés par l'exemple
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Les figures ci-dessous sont les sorties réelles de ``turpe_calculator.plot()``
+et ``turpe_calculator.plot_detail()`` pour les données de l'exemple.
+
+.. figure:: ../../images/010_turpe_hta_lu_pf_plot.svg
+   :alt: Répartition Fourniture TURPE Taxes pour l'exemple HTA LU pointe fixe
+   :align: center
+
+   Répartition HTVA entre fourniture, acheminement TURPE et taxes.
+
+.. figure:: ../../images/010_turpe_hta_lu_pf_plot_detail.svg
+   :alt: Détail des composantes de facture pour l'exemple HTA LU pointe fixe
+   :align: center
+
+   Cascades détaillées par composante de fourniture, distribution et taxes.

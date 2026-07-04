@@ -68,3 +68,21 @@ consommation hivernale typique. Facturation de fevrier 2025.
     Coût fourniture (EUR/MWh)           Fourniture / MWh                           161.80
   Coût distribution (EUR/MWh)                TURPE / MWh                            30.86
          Coût taxes (EUR/MWh)                Taxes / MWh                            23.04
+
+Plots générés par l'exemple
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Les figures ci-dessous sont les sorties réelles de ``calc.plot()`` et
+``calc.plot_detail()`` pour les données de l'exemple.
+
+.. figure:: ../../images/010_turpe_hta_cu_pf_plot.svg
+   :alt: Répartition Fourniture TURPE Taxes pour l'exemple HTA CU pointe fixe
+   :align: center
+
+   Répartition HTVA entre fourniture, acheminement TURPE et taxes.
+
+.. figure:: ../../images/010_turpe_hta_cu_pf_plot_detail.svg
+   :alt: Détail des composantes de facture pour l'exemple HTA CU pointe fixe
+   :align: center
+
+   Cascades détaillées par composante de fourniture, distribution et taxes.

@@ -59,3 +59,21 @@ puissance souscrite de 80 kW. Facturation mensuelle de janvier 2025.
     Coût fourniture (EUR/MWh)           Fourniture / MWh                         141.56
   Coût distribution (EUR/MWh)                TURPE / MWh                          63.61
          Coût taxes (EUR/MWh)                Taxes / MWh                           2.75
+
+Plots générés par l'exemple
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Les figures ci-dessous sont les sorties réelles de ``calc.plot()`` et
+``calc.plot_detail()`` pour les données de l'exemple.
+
+.. figure:: ../../images/010_turpe_bt_p36_cu_plot.svg
+   :alt: Répartition Fourniture TURPE Taxes pour l'exemple BT supérieur à 36 kVA
+   :align: center
+
+   Répartition HTVA entre fourniture, acheminement TURPE et taxes.
+
+.. figure:: ../../images/010_turpe_bt_p36_cu_plot_detail.svg
+   :alt: Détail des composantes de facture pour l'exemple BT supérieur à 36 kVA
+   :align: center
+
+   Cascades détaillées par composante de fourniture, distribution et taxes.
