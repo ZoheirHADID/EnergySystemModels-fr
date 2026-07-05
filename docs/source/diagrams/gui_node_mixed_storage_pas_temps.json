@@ -1,0 +1,51 @@
+{
+  "title": "Noeud pas-a-pas : Ballon de stockage",
+  "description": "Exemple d'utilisation du ballon melange pour evaluer un pas de temps thermique.",
+  "nodes": [
+    {
+      "id": "source",
+      "label": "Source chaude/froide",
+      "subtitle": "fluide, debit, P, h",
+      "kind": "source",
+      "column": 0
+    },
+    {
+      "id": "storage",
+      "label": "Ballon de stockage",
+      "subtitle": "V, Tinit, Tamb, U, S, dt",
+      "kind": "process",
+      "column": 1
+    },
+    {
+      "id": "output",
+      "label": "Output",
+      "subtitle": "etat apres un pas",
+      "kind": "sink",
+      "column": 2
+    },
+    {
+      "id": "results",
+      "label": "Resultats locaux",
+      "subtitle": "T ballon, Q stockage",
+      "kind": "utility",
+      "column": 2
+    }
+  ],
+  "edges": [
+    {
+      "from": "source",
+      "to": "storage",
+      "label": "entree"
+    },
+    {
+      "from": "storage",
+      "to": "output",
+      "label": "sortie"
+    },
+    {
+      "from": "storage",
+      "to": "results",
+      "label": "labels"
+    }
+  ]
+}

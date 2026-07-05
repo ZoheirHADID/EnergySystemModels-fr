@@ -190,6 +190,74 @@ une seule sortie, la valeur est directement ``[fluid, F, P, h]``. Pour un nœud
 multi-sorties, la valeur devient ``[[fluid, F1, P, h], [fluid, F2, P, h]]`` et
 l'index du socket permet de choisir la bonne branche.
 
+Stockage et calcul pas-à-pas
+----------------------------
+
+Le nœud ``Ballon de stockage`` expose le modèle ``MixedStorage``. Il estime la
+température d'un ballon mélangé après un pas de temps, à partir de la
+température initiale, du volume, du débit entrant et des pertes vers
+l'ambiance.
+
+.. figure:: images/gui_node_mixed_storage_pas_temps.svg
+   :alt: Exemple de ballon de stockage dans PyqtSimulator
+   :align: center
+
+   Le nœud reçoit un flux entrant, calcule l'état du ballon après ``dt`` puis
+   renvoie un flux de sortie dont l'enthalpie correspond à la température du
+   ballon.
+
+Paramètres principaux :
+
+.. list-table::
+   :header-rows: 1
+
+   * - Paramètre
+     - Signification
+     - Unité
+   * - ``Volume``
+     - Volume d'eau ou de fluide dans le ballon
+     - m³
+   * - ``T° initiale``
+     - Température du ballon au début du pas de temps
+     - °C
+   * - ``T° ambiante``
+     - Température extérieure pour le calcul des pertes
+     - °C
+   * - ``Coeff U pertes``
+     - Coefficient global de pertes thermiques
+     - W/m²/K
+   * - ``Surface pertes``
+     - Surface d'échange vers l'ambiance
+     - m²
+   * - ``Pas de temps``
+     - Durée du calcul élémentaire
+     - s
+
+Exemple d'utilisation :
+
+1. Créer une ``Source`` avec un fluide compatible CoolProp, par exemple
+   ``Water``.
+2. Définir une température d'entrée supérieure à la température initiale du
+   ballon pour simuler une charge, ou inférieure pour simuler une décharge.
+3. Ajouter ``Ballon de stockage``.
+4. Renseigner ``Volume``, ``T° initiale``, ``T° ambiante`` et ``Pas de temps``.
+5. Ajouter ``Output`` en sortie.
+6. Évaluer le graphe.
+
+Résultats affichés localement :
+
+``T° ballon``
+   Température du volume mélangé après le pas de temps.
+
+``Puissance stockage``
+   Puissance moyenne stockée ou restituée pendant le pas de temps.
+
+Limite importante : dans l'interface actuelle, le nœud crée une nouvelle
+instance du modèle à chaque évaluation. Il représente donc un pas de temps
+isolé depuis ``T° initiale``. Pour simuler une série temporelle complète, il
+faut mettre à jour ``T° initiale`` entre les pas ou utiliser un script Python
+qui conserve l'objet ``MixedStorage`` entre deux appels à ``calculate()``.
+
 Cycle d'évaluation
 ------------------
 
