@@ -1,58 +1,96 @@
-IPMVP - Mesure et Vérification
-===============================
+IPMVP — Exemple de Mesure et Vérification (Option C)
+====================================================
+
+La fonction ``Mathematical_Models`` ajuste un modèle de régression sur une
+**période de référence** (baseline) puis quantifie les économies sur une
+**période de suivi** (reporting). Elle **retourne un tuple de 9 éléments**
+(il n'existe pas d'objet ``model`` avec des attributs ``.r2`` / ``.plot_*``).
+
+Signature et valeurs de retour
+------------------------------
 
 .. code-block:: python
 
-   from IPMVP.IPMVP import Mathematical_Models
-   from MeteoCiel.MeteoCiel_Scraping import MeteoCiel_histoScraping
+   y_pred, df, conformite, table_incertitude, \
+   y_pred_report, df_report, conformite_report, table_incertitude_report, \
+   df_savings = Mathematical_Models(
+       y, X,
+       start_baseline_period, end_baseline_period,
+       start_reporting_period, end_reporting_period,
+       print_report=False,      # True -> génère un rapport .docx (via docx_report)
+       seuil_z_scores=8,        # seuil d'exclusion des points aberrants (défaut 8)
+       degree=1,                # degré du modèle polynomial
+       site="****",
+   )
+
+Les 9 éléments : ``y_pred`` (prédiction baseline), ``df`` (données + prédiction),
+``conformite`` (indicateurs IPMVP + verdict), ``table_incertitude`` (incertitude
+baseline), les 4 équivalents pour la période de reporting, et ``df_savings``
+(économies ANTE-POST / POST-ANTE).
+
+Exemple complet
+---------------
+
+.. code-block:: python
+
    import pandas as pd
    from datetime import datetime
+   from IPMVP.IPMVP import Mathematical_Models
 
-   # 1. Récupérer les données météo historiques
-   # 10637 : code station MeteoCiel
-   # Retourne DJU chauffage et refroidissement
-   df_histo, df_day, df_month, df_year = MeteoCiel_histoScraping(
-       10637, 
-       datetime(2020, 1, 1), 
-       datetime(2023, 12, 31),
-       base_chauffage=18,           # Base de calcul DJU chauffage
-       base_refroidissement=23      # Base de calcul DJU refroidissement
-   )
+   # Données mensuelles livrées avec le paquet : consommation + DJU
+   df = pd.read_excel("src/IPMVP/IPMVP_input.xlsx")
+   df["Mois"] = pd.to_datetime(df["Mois"])
+   df = df.set_index("Mois")
 
-   # 2. Fusionner avec vos données de consommation
-   df = df_month.copy()
-   df['consommation_kWh'] = [12500, 11800, ...]  # Vos factures mensuelles
+   X = df[["DJU"]]                              # variable(s) explicative(s)
+   y = df["Consommation (kWh) - Relevé"]        # consommation mesurée
 
-   # 3. Définir les variables explicatives et la consommation
-   X = df[['DJU_chaud', 'DJU_froid']]  # Variables indépendantes
-   y = df['consommation_kWh']          # Variable dépendante
-
-   # 4. Créer le modèle IPMVP Option C
-   # Période de référence (baseline) : 2020-2021
-   # Période de reporting (post-travaux) : 2022-2023
-   # degree=2 : modèle polynomial de degré 2
-   model = Mathematical_Models(
+   res = Mathematical_Models(
        y, X,
-       datetime(2020, 1, 1), datetime(2021, 12, 31),  # Baseline
-       datetime(2022, 1, 1), datetime(2023, 12, 31),  # Reporting
-       degree=2, 
-       print_report=True  # Afficher le rapport détaillé
+       datetime(2016, 9, 1), datetime(2021, 5, 1),    # baseline
+       datetime(2021, 10, 1), datetime(2022, 10, 1),  # reporting
+       degree=1, seuil_z_scores=3, site="exemple_site",
    )
+   y_pred, df_bl, conformite, table_inc, *_rep, df_savings = res
 
-   # 5. Accéder aux résultats
-   print(f"R² (qualité du modèle): {model.r2:.3f}")
-   print(f"CV(RMSE): {model.cv_rmse:.1f}%")
-   print(f"Économies totales: {model.total_savings:.0f} kWh")
-   print(f"Réduction: {model.savings_percentage:.1f}%")
-   
-   # DataFrames de résultats
-   print(model.df_baseline)           # Données période baseline
-   print(model.df_reporting)          # Données période reporting
-   print(model.baseline_adjusted)     # Baseline ajustée au climat
-   print(model.consumption_measured)  # Consommation mesurée
-   print(model.monthly_savings)       # Économies mensuelles
+   print(conformite)
+   print(df_savings)
 
-   # 6. Générer les graphiques
-   model.plot_baseline_fit()          # Ajustement du modèle baseline
-   model.plot_monthly_comparison()    # Comparaison mensuelle
-   model.plot_cumulative_savings()    # Économies cumulées
+Sortie réelle
+-------------
+
+**Conformité du modèle baseline** (``conformite``) :
+
+.. code-block:: text
+
+                  valeur  conformité IPMVP
+   r2               0.81              True
+   cv_remse         0.53             False
+   stat_t_const    -4.80             False
+   stat_t_DJU      13.60              True
+
+Le modèle explique 81 % de la variance (``r2`` = 0,81) et la variable DJU est
+significative (``stat_t_DJU``), mais le ``cv_remse`` (0,53) dépasse le seuil
+IPMVP — indiquant une dispersion résiduelle à améliorer (variables explicatives
+supplémentaires, granularité, etc.).
+
+**Économies** (``df_savings``) :
+
+.. code-block:: text
+
+                              ANTE-POST    POST-ANTE
+   Relevé de consommation    3914387.73  19655625.79
+   Prédiction                4624795.55  16156026.80
+   pourcentage d'économie>0       18.15        17.80
+
+L'approche **ANTE-POST** (référence ajustée − mesuré) donne **18,15 %**
+d'économie sur la période de suivi.
+
+**Incertitude** (``table_incertitude``) : ``precision_relative`` ≈ 0,69,
+``Erreur type (rmse)`` ≈ 236 260, pour un niveau de confiance de 80 %.
+
+.. note::
+   Pour un rapport détaillé (graphiques d'ajustement, résidus, économies
+   cumulées), appeler avec ``print_report=True`` : un document **.docx** est
+   généré via ``docx_report`` (dépend de ``python-docx``). Il n'y a pas de
+   méthodes ``plot_*`` sur un objet modèle.

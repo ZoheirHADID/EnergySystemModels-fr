@@ -1,415 +1,120 @@
 Utilisation du module IPMVP
 ===========================
 
-Le module IPMVP d'EnergySystemModels permet de créer des modèles de baseline et de calculer les économies d'énergie selon l'Option C.
+Le module ``IPMVP`` construit un modèle de **baseline** (régression) et calcule
+les économies d'énergie selon l'**Option C** (mesure au niveau du site). La
+fonction principale ``Mathematical_Models`` **retourne un tuple de 9 éléments** ;
+il n'existe pas d'objet ``model`` avec des attributs ``.r2`` ou des méthodes
+``plot_*`` (voir :doc:`exemples` pour un exemple exécutable complet).
 
-Exemple de base
----------------
+Signature
+---------
 
 .. code-block:: python
 
    from IPMVP.IPMVP import Mathematical_Models
-   import pandas as pd
-   from datetime import datetime
 
-   # Charger les données
-   df = pd.read_excel("consommations.xlsx")
-   df['Timestamp'] = pd.to_datetime(df['Timestamp'])
-   df = df.set_index('Timestamp')
-
-   # Définir les périodes
-   start_baseline = datetime(2020, 1, 1)
-   end_baseline = datetime(2021, 12, 31)
-   start_reporting = datetime(2022, 1, 1)
-   end_reporting = datetime(2023, 12, 31)
-
-   # Préparer les variables
-   X = df[['DJU_chaud', 'DJU_froid']]  # Variables indépendantes
-   y = df['consommation_kWh']  # Variable dépendante
-
-   # Créer le modèle IPMVP
-   model = Mathematical_Models(
+   res = Mathematical_Models(
        y, X,
-       start_baseline, end_baseline,
-       start_reporting, end_reporting,
-       degree=2,
-       print_report=True
+       start_baseline_period, end_baseline_period,
+       start_reporting_period, end_reporting_period,
+       print_report=False,
+       seuil_z_scores=8,
+       degree=1,
+       site="****",
    )
-
-   # Résultats
-   print(f"R² : {model.r2:.3f}")
-   print(f"CV(RMSE) : {model.cv_rmse:.1f}%")
-   print(f"Économies totales : {model.total_savings:.0f} kWh")
+   (y_pred, df, conformite, table_incertitude,
+    y_pred_report, df_report, conformite_report,
+    table_incertitude_report, df_savings) = res
 
 Paramètres
 ----------
 
-* **y** : Consommation énergétique (série temporelle)
-* **X** : Variables indépendantes (DataFrame)
-* **start_baseline_period** / **end_baseline_period** : Période de référence
-* **start_reporting_period** / **end_reporting_period** : Période de rapport
-* **degree** : Degré du polynôme (1=linéaire, 2=quadratique, 3=cubique)
-* **print_report** : Afficher le rapport de régression
-* **seuil_z_scores** : Détection des valeurs aberrantes (défaut: 3)
+* **y** : consommation énergétique (``Series`` indexée par le temps) ;
+* **X** : variable(s) explicative(s) (``DataFrame``, ex. ``[["DJU"]]``) ;
+* **start/end_baseline_period** : période de référence (``datetime``) ;
+* **start/end_reporting_period** : période de suivi (``datetime``) ;
+* **degree** : degré du polynôme (1=linéaire, 2=quadratique, 3=cubique) ;
+* **print_report** : si ``True``, génère un rapport ``.docx`` (via ``docx_report``) ;
+* **seuil_z_scores** : seuil d'exclusion des points aberrants (**défaut 8**).
 
-Attributs disponibles
----------------------
+Valeurs de retour
+-----------------
 
-Après création du modèle, les attributs suivants sont disponibles :
+* ``y_pred`` : consommation prédite sur la baseline ;
+* ``df`` : données baseline + colonne de prédiction (colonne ``"ANTE-POST"``) ;
+* ``conformite`` : ``DataFrame`` des indicateurs (``r2``, ``cv_remse``,
+  ``stat_t_*``) avec la colonne ``conformité IPMVP`` (booléens) ;
+* ``table_incertitude`` : incertitude baseline (``precision_relative``, ``rmse``…) ;
+* ``y_pred_report``, ``df_report``, ``conformite_report``,
+  ``table_incertitude_report`` : équivalents pour la période de suivi ;
+* ``df_savings`` : économies **ANTE-POST** / **POST-ANTE** (relevé, prédiction,
+  pourcentage d'économie).
 
-* ``model.r2`` : Coefficient de détermination R²
-* ``model.cv_rmse`` : Coefficient de variation du RMSE (%)
-* ``model.total_savings`` : Économies totales (kWh)
-* ``model.savings_percentage`` : Réduction (%)
-* ``model.monthly_savings`` : Économies mensuelles
-* ``model.cumulative_savings`` : Économies cumulées
-* ``model.baseline_adjusted`` : Baseline ajustée
-* ``model.consumption_measured`` : Consommation mesurée
+Critères de validation (ASHRAE Guideline 14)
+--------------------------------------------
 
-Méthodes de visualisation
---------------------------
-
-.. code-block:: python
-
-   # Qualité du modèle baseline
-   model.plot_baseline_fit()
-   
-   # Comparaison mensuelle
-   model.plot_monthly_comparison()
-   
-   # Économies cumulées
-   model.plot_cumulative_savings()
-   
-   # Analyse des résidus
-   model.plot_residuals()
-
-Critères de validation
------------------------
-
-Pour un modèle valide :
-
-* **R² ≥ 0.75**
-* **CV(RMSE) ≤ 15%** (données mensuelles)
-* **CV(RMSE) ≤ 30%** (données horaires)
-
-Calcul des Degrés Jours Unifiés (DJU)
---------------------------------------
-
-Les DJU sont essentiels pour les modèles de baseline thermiquement sensibles.
-
-DJU Chauffage
-~~~~~~~~~~~~~
+**R² (coefficient de détermination)** :
 
 .. math::
 
-   \text{DJU}_{\text{chaud}} = \max(T_{\text{base}} - T_{\text{ext}}, 0)
+   R^2 = 1 - \frac{\sum (y_i - \hat{y}_i)^2}{\sum (y_i - \bar{y}_i)^2}
+   \qquad\text{seuil usuel } R^2 \ge 0.75
 
-Exemple : base 18°C
-
-* Si T_ext = 5°C → DJU = 18 - 5 = **13 DJU**
-* Si T_ext = 22°C → DJU = **0 DJU**
-
-DJU Refroidissement (ou Degrés Jours Climatisation - DJC)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+**CV(RMSE)** — coefficient de variation du RMSE :
 
 .. math::
 
-   \text{DJU}_{\text{froid}} = \max(T_{\text{ext}} - T_{\text{base}}, 0)
+   \text{CV(RMSE)} = \frac{1}{\bar{y}} \sqrt{\frac{\sum (y_i - \hat{y}_i)^2}{n - p}}
 
-Exemple : base 21°C
+Seuils de référence ASHRAE : ≤ 15 % (mensuel) / ≤ 30 % (horaire).
 
-* Si T_ext = 28°C → DJU = 28 - 21 = **7 DJU**
-* Si T_ext = 18°C → DJU = **0 DJU**
+.. note::
+   Ces indicateurs sont fournis dans le ``DataFrame`` ``conformite`` retourné,
+   avec le verdict ``conformité IPMVP``. Le seuil ``cv_remse`` **codé dans le
+   module** est unique (0,2 = 20 %), sans distinction mensuel/horaire.
 
-Calcul avec pandas
-~~~~~~~~~~~~~~~~~~
+Détection des valeurs aberrantes
+--------------------------------
 
-.. code-block:: python
-
-   import pandas as pd
-
-   # Températures extérieures horaires
-   df['T_ext'] = ...  # Données météo
-
-   # Calcul des DJU journaliers
-   df_daily = df.resample('D').mean()
-   
-   # DJU chauffage base 18
-   df_daily['DJU_chaud'] = (18 - df_daily['T_ext']).clip(lower=0)
-   
-   # DJU refroidissement base 21
-   df_daily['DJU_froid'] = (df_daily['T_ext'] - 21).clip(lower=0)
-
-Sources de données météo
-~~~~~~~~~~~~~~~~~~~~~~~~~
-
-* **MeteoCiel** : Module du package EnergySystemModels (voir chapitre Météo)
-* **OpenWeatherMap** : API temps réel et historique
-* **Météo-France** : Données officielles (SYNOP)
-* **NOAA** : Données internationales
-
-Validation du modèle
----------------------
-
-Critères ASHRAE Guideline 14
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-**CV(RMSE)** - Coefficient of Variation of Root Mean Squared Error :
-
-.. math::
-
-   \text{CV(RMSE)} = \frac{1}{\bar{y}} \sqrt{\frac{\sum (y_i - \hat{y}_i)^2}{n - p}} \times 100\%
-
-où :
-
-* y_i = consommation mesurée
-* ŷ_i = consommation prédite par le modèle
-* ȳ = consommation moyenne
-* n = nombre d'observations
-* p = nombre de paramètres du modèle
-
-**Seuils d'acceptation** :
-
-* Données mensuelles : CV(RMSE) ≤ **15%**
-* Données horaires : CV(RMSE) ≤ **30%**
-
-**R² (Coefficient de détermination)** :
-
-.. math::
-
-   R^2 = 1 - \frac{\sum (y_i - \hat{y}_i)^2}{\sum (y_i - \bar{y})^2}
-
-**Seuil d'acceptation** : R² ≥ **0.75**
-
-Détection des valeurs aberrantes (outliers)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-Le module IPMVP utilise la méthode du **z-score** :
+Le module utilise la méthode du **z-score** :
 
 .. math::
 
    z_i = \frac{y_i - \bar{y}}{\sigma_y}
 
-Les points avec :math:`|z|` > seuil (typiquement 3) sont considérés comme aberrants et exclus du modèle.
+Les points avec :math:`|z|` > ``seuil_z_scores`` (**défaut 8**) sont exclus.
 
-Analyse des résidus
-~~~~~~~~~~~~~~~~~~~
+Variables explicatives (X)
+--------------------------
 
-.. code-block:: python
-
-   import matplotlib.pyplot as plt
-
-   # Visualiser les résidus
-   residuals = model.y_baseline - model.y_baseline_predicted
-   
-   plt.figure(figsize=(12, 4))
-   
-   plt.subplot(1, 2, 1)
-   plt.scatter(model.y_baseline_predicted, residuals)
-   plt.axhline(y=0, color='r', linestyle='--')
-   plt.xlabel('Consommation prédite [kWh]')
-   plt.ylabel('Résidus [kWh]')
-   plt.title('Résidus vs Prédictions')
-   
-   plt.subplot(1, 2, 2)
-   plt.hist(residuals, bins=20, edgecolor='black')
-   plt.xlabel('Résidu [kWh]')
-   plt.ylabel('Fréquence')
-   plt.title('Distribution des résidus')
-   
-   plt.tight_layout()
-   plt.show()
-
-**Critères de validation des résidus** :
-
-* Distribution normale (test de Shapiro-Wilk)
-* Moyenne proche de 0
-* Pas de tendance visible (homoscédasticité)
-
-Calcul des économies
---------------------
-
-Économies mensuelles
-~~~~~~~~~~~~~~~~~~~~
-
-.. math::
-
-   \text{Économies}_{\text{mois}} = E_{\text{baseline,ajustée}} - E_{\text{mesurée}}
-
-où E_baseline,ajustée est calculée en appliquant le modèle de baseline aux conditions réelles de la période de rapport.
-
-Économies cumulées
-~~~~~~~~~~~~~~~~~~
-
-.. math::
-
-   \text{Économies}_{\text{totales}} = \sum_{\text{mois}} \text{Économies}_{\text{mois}}
-
-Taux de réalisation
-~~~~~~~~~~~~~~~~~~~
-
-.. math::
-
-   \text{Taux réalisation} = \frac{\text{Économies mesurées}}{\text{Économies garanties}} \times 100\%
-
-Exemple de résultat
-~~~~~~~~~~~~~~~~~~~
+Le plus souvent, ``X`` contient les **degrés-jours unifiés (DJU)**. Le module
+calcule les DJU par la méthode COSTIC (voir :doc:`../008-meteo/degres_jours`) ;
+on peut aussi ajouter d'autres variables selon le contexte :
 
 .. code-block:: python
 
-   # Accéder aux résultats
-   print(f"Économies annuelles : {model.total_savings:.0f} kWh")
-   print(f"Économies moyennes mensuelles : {model.monthly_avg_savings:.0f} kWh/mois")
-   print(f"Réduction relative : {model.savings_percentage:.1f}%")
+   # Bâtiment thermiquement sensible
+   X = df[["DJU"]]
+   # Site industriel : ajouter des inducteurs de production
+   X = df[["DJU", "tonnes_produites", "heures_fonctionnement"]]
 
-   # Visualisation
-   model.plot_monthly_savings()
-   plt.show()
+Granularité temporelle
+----------------------
 
-Incertitude et intervalle de confiance
----------------------------------------
-
-Calcul de l'erreur standard
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-.. math::
-
-   \text{SE}(\text{économies}) = \sqrt{\text{Var}(E_{\text{baseline}}) + \text{Var}(E_{\text{mesurée}})}
-
-Intervalle de confiance à 90%
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-.. math::
-
-   \text{IC}_{90\%} = \text{Économies} \pm 1.645 \times \text{SE}
-
-Intervalle de confiance à 95%
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-.. math::
-
-   \text{IC}_{95\%} = \text{Économies} \pm 1.96 \times \text{SE}
-
-Exemple
-~~~~~~~
+``Mathematical_Models`` s'applique à des données horaires, journalières ou
+mensuelles. Les données **mensuelles** offrent le meilleur compromis
+précision/simplicité pour la plupart des projets M&V.
 
 .. code-block:: python
 
-   # Calcul de l'incertitude
-   se = model.standard_error
-   ic_90 = 1.645 * se
-   ic_95 = 1.96 * se
-
-   print(f"Économies : {model.total_savings:.0f} kWh")
-   print(f"Intervalle de confiance 90% : ± {ic_90:.0f} kWh")
-   print(f"Intervalle de confiance 95% : ± {ic_95:.0f} kWh")
-
-   # Reporting
-   print(f"\nRésultat : {model.total_savings:.0f} ± {ic_95:.0f} kWh (IC 95%)")
-
-Granularités temporelles
--------------------------
-
-Le module supporte différentes granularités :
-
-Modèle horaire
-~~~~~~~~~~~~~~
-
-.. code-block:: python
-
-   # Données horaires
-   df_hourly = df  # Pas de resampling
-   X_hourly = df_hourly[variables]
-   y_hourly = df_hourly['consommation_kWh']
-
-   model_hourly = Mathematical_Models(y_hourly, X_hourly, ...)
-
-Modèle journalier
-~~~~~~~~~~~~~~~~~
-
-.. code-block:: python
-
-   # Agréger par jour
-   df_daily = df.resample('D').sum()
-   X_daily = df_daily[variables]
-   y_daily = df_daily['consommation_kWh']
-
-   model_daily = Mathematical_Models(y_daily, X_daily, ...)
-
-Modèle mensuel
-~~~~~~~~~~~~~~
-
-.. code-block:: python
-
-   # Agréger par mois
-   df_monthly = df.resample('M').sum()
-   X_monthly = df_monthly[variables]
-   y_monthly = df_monthly['consommation_kWh']
-
-   model_monthly = Mathematical_Models(y_monthly, X_monthly, ...)
-
-**Recommandation** : Utiliser des données mensuelles pour la plupart des projets (équilibre précision/simplicité).
-
-Cas particuliers
-----------------
-
-Changement d'usage du bâtiment
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-Si l'usage change significativement (ex : augmentation de la surface occupée), ajouter une variable :
-
-.. code-block:: python
-
-   X = df[['DJU_chaud', 'DJU_froid', 'surface_occupee']]
-
-Production industrielle variable
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-Pour les sites industriels :
-
-.. code-block:: python
-
-   X = df[['DJU_chaud', 'tonnes_produites', 'heures_fonctionnement']]
-
-Bâtiments multi-usages
-~~~~~~~~~~~~~~~~~~~~~~
-
-Séparer par usage si possible, sinon utiliser un modèle composite :
-
-.. code-block:: python
-
-   X = df[['DJU_chaud', 'DJU_froid', 'occupation_bureaux', 'occupation_commercial']]
-
-Export et reporting
--------------------
-
-Export des résultats
-~~~~~~~~~~~~~~~~~~~~
-
-.. code-block:: python
-
-   # Exporter vers Excel
-   with pd.ExcelWriter('rapport_IPMVP.xlsx') as writer:
-       model.df_baseline.to_excel(writer, sheet_name='Baseline')
-       model.df_reporting.to_excel(writer, sheet_name='Reporting')
-       model.df_savings.to_excel(writer, sheet_name='Economies')
-       model.df_summary.to_excel(writer, sheet_name='Resume')
-
-Visualisations automatiques
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-.. code-block:: python
-
-   # Graphiques intégrés
-   model.plot_baseline_fit()  # Qualité de l'ajustement
-   model.plot_monthly_comparison()  # Baseline vs mesures
-   model.plot_cumulative_savings()  # Économies cumulées
-   model.plot_residuals()  # Analyse des résidus
+   df_monthly = df.resample("MS").sum()   # agrégation mensuelle
+   X = df_monthly[["DJU"]]
+   y = df_monthly["consommation_kWh"]
 
 Références
 ----------
 
-* IPMVP Volume I (2012), Efficiency Valuation Organization
-* ASHRAE Guideline 14-2014: Measurement of Energy, Demand, and Water Savings
-* ISO 50015:2014: Energy management systems — Measurement and verification
-* Efficiency Valuation Organization (EVO): https://evo-world.org
+* IPMVP Volume I (2012), Efficiency Valuation Organization (EVO) ;
+* ASHRAE Guideline 14 : Measurement of Energy, Demand, and Water Savings ;
+* ISO 50015 : Systèmes de management de l'énergie — Mesure et vérification.
