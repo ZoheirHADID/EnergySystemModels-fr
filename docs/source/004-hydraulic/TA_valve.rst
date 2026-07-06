@@ -39,7 +39,7 @@ Utilisation
 
     # Configuration du puits (sink)
     SINK = Sink.Object()
-    Fluid_connect(VALVE.Outlet, SINK.Inlet)
+    Fluid_connect(SINK.Inlet, VALVE.Outlet)
     SINK.Po_bar = 2.0
     SINK.calculate()
 
@@ -76,7 +76,7 @@ Paramètres possibles
 
 **Types de vannes TA disponibles**
 
-La classe ``TA_Valve`` supporte **plus de 120 références** de vannes d'équilibrage IMI TA :
+La classe ``TA_Valve`` supporte **plus de 100 références** de vannes d'équilibrage IMI TA :
 
 .. list-table:: **Types de vannes TA et références disponibles**
    :header-rows: 1
