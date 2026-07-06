@@ -45,8 +45,7 @@ Hydraulique et aéraulique
 
 .. code-block:: python
 
-   from ThermodynamicCycles.Hydraulic.StraightPipe import StraightPipe
-   from ThermodynamicCycles.Hydraulic.TA_Valve import TA_Valve
+   from ThermodynamicCycles.Hydraulic import StraightPipe, TA_Valve
    from ThermodynamicCycles.Aeraulic import StraightPipe as AirDuct
 
 Détails : :doc:`004-hydraulic/index` et :doc:`005-aeraulic/index`.
