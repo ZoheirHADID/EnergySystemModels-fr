@@ -37,7 +37,19 @@ CEE sorti de chaleur-fatale (renvoi `:doc:`). CEE `011/module_cee.rst` réécrit
 (commit `60cf54b`, **33 fiches actives** désormais) ; (b) **génération des vrais plots TURPE** (`010_turpe_*.svg`).
 → Ne pas éditer `CEE.py` ni les images `010_turpe_*` en parallèle.
 
-## 🗓️ Plan ordonné pour demain
+**Sprint 3 — pages spéculatives : FAIT** (2026-07-06) :
+- `003/generic_ahu.rst` réécrit sur `AHU.GenericAHU.AirRecyclingAHU`/`AirRecoveryAHU`
+  (`Object(config, data).calculate() → .df`) + sortie réelle.
+- `007/exemples.rst` + `modeles_mathematiques.rst` réécrits sur `IPMVP.Mathematical_Models`
+  (tuple 9) avec sorties réelles (r² 0,81 ; économie 18,15 % ; précision 0,69).
+- `api.rst` remplacé par un index concis des **vrais** chemins d'import (tous vérifiés).
+- **+3 bugs source IPMVP** corrigés (pandas 2.x `timedelta64[h]`, sklearn `squared=`,
+  `.mean()[0]`→`.mean().iloc[0]`).
+- `gui_tools.rst` : **déjà réécrit par la session parallèle** sur la vraie API PyqtSimulator (RAS).
+
+**Reste (Sprint 4/5 + CEE + PV)** — voir plan ci-dessous.
+
+## 🗓️ Plan ordonné (mise à jour 2026-07-06)
 
 1. **CEE — étendre la doc aux 33 fiches** (suite du +26 concurrent) : ranger par secteur
    (IND-UT / IND-BA / IND-EN / TRA), **un exemple exécutable par fiche active** avec valeurs réelles.
