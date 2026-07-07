@@ -101,25 +101,16 @@ Le package EnergySystemModels nécessite les dépendances suivantes :
    requests>=2.26.0
    psychrolib>=2.5.0
 
-Installation complète avec toutes les dépendances :
-
-.. code-block:: console
-
-   $ pip install EnergySystemModels[all]
-
-Installation minimale :
+Installation :
 
 .. code-block:: console
 
    $ pip install EnergySystemModels
 
-Installation pour des modules spécifiques :
-
-.. code-block:: console
-
-   $ pip install EnergySystemModels[pv]        # Photovoltaïque uniquement
-   $ pip install EnergySystemModels[hvac]      # CVC uniquement
-   $ pip install EnergySystemModels[analysis]  # Analyse uniquement
+Le paquet installe l'ensemble des dépendances ; il n'existe pas d'« extras »
+optionnels (``[pv]``, ``[hvac]``…). Certaines fonctions restent tributaires de
+dépendances lourdes ou d'un accès réseau (``pvlib`` + PVGIS pour le PV,
+``beautifulsoup4`` pour le scraping MeteoCiel).
 
 7.3. Conclusion
 ---------------
@@ -134,19 +125,8 @@ Cette documentation couvre l'ensemble des fonctionnalités d'EnergySystemModels 
 
 Pour plus d'informations, consultez :
 
-- Documentation complète : https://energysystemmodels.readthedocs.io
-- Code source : https://github.com/your-repo/EnergySystemModels
-- Exemples : https://github.com/your-repo/EnergySystemModels/tree/main/examples
-- Issues : https://github.com/your-repo/EnergySystemModels/issues
-
-Support et contribution
-~~~~~~~~~~~~~~~~~~~~~~~~
-
-Pour toute question ou contribution :
-
-- Email : support@energysystemmodels.com
-- Forum : https://forum.energysystemmodels.com
-- Slack : https://energysystemmodels.slack.com
+- Code source : https://github.com/ZoheirHADID/EnergySystemModels
+- Issues : https://github.com/ZoheirHADID/EnergySystemModels/issues
 
 Licence
 ~~~~~~~
