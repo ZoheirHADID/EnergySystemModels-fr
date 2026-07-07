@@ -15,21 +15,18 @@ Le module expose une fonction principale :
 
    print(list_fiches())
 
-Les fiches **en vigueur** pilotées par le dispatcher (un exemple chacune dans
-:doc:`module_cee`), rangées par secteur :
+Le dispatcher pilote **33 fiches en vigueur**, réparties par secteur — un
+exemple exécutable de chacune figure dans :doc:`module_cee` :
 
-**Industrie**
+* **Industrie – Utilités (IND-UT)** : 25 fiches (moteurs & variation, chaudières
+  & fours, froid, air comprimé, presse à injecter, chaleur fatale, isolation,
+  mesurage) — ex. ``IND-UT-103``, ``IND-UT-131``, ``IND-UT-135``, ``IND-UT-137``.
+* **Industrie – Bâtiment (IND-BA)** : 4 fiches — ``IND-BA-110/113/114/117``.
+* **Industrie – Enveloppe outre-mer (IND-EN)** : 2 fiches — ``IND-EN-101/102``.
+* **Transport (TRA-EQ)** : 2 fiches — ``TRA-EQ-101`` (rail-route), ``TRA-EQ-107``
+  (fluvial-route).
 
-* ``IND-UT-103`` : récupération de chaleur sur compresseur d'air.
-* ``IND-UT-130`` : condenseur sur effluents gazeux de chaudière vapeur.
-* ``IND-UT-131`` : isolation de parois planes ou cylindriques industrielles.
-* ``IND-UT-134`` : système de mesurage d'indicateurs de performance énergétique.
-* ``IND-UT-135`` : freecooling par eau de refroidissement.
-
-**Transport**
-
-* ``TRA-EQ-101`` : unité de transport intermodal rail-route.
-* ``TRA-EQ-107`` : unité de transport intermodal fluvial-route.
+La liste exacte s'obtient par ``list_fiches()``.
 
 .. note::
    Les fiches ``IND-UT-136`` (systèmes moto-régulés, **abrogée** le 18/08/2025)
