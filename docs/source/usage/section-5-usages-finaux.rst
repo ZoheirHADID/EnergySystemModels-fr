@@ -414,179 +414,41 @@ Exemple issu des tests : PinchAnalysis sur données réelles
 5.3. Module IPMVP - International Performance Measurement and Verification Protocol
 ------------------------------------------------------------------------------------
 
-Le module IPMVP permet de mesurer et vérifier les économies d'énergie selon le protocole international.
-
-5.3.1. Modèle de régression journalière
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Le module IPMVP mesure et vérifie les économies d'énergie (Option C). La
+fonction ``Mathematical_Models`` ajuste un modèle de baseline puis quantifie les
+économies ; elle **retourne un tuple de 9 éléments** (il n'existe pas de classe
+``IPMVPModel`` ni ``IPMVPReport``).
 
 .. code-block:: python
 
-   from energysystemmodels.IPMVP import IPMVPModel
    import pandas as pd
-   import numpy as np
-   
-   # Générer des données de référence (baseline)
-   dates_baseline = pd.date_range('2023-01-01', '2023-12-31', freq='D')
-   temperatures = 15 + 10 * np.sin(2 * np.pi * np.arange(len(dates_baseline)) / 365)
-   
-   # Consommation corrélée à la température
-   consommation_baseline = 1000 + 50 * (20 - temperatures) * (temperatures < 20)
-   
-   df_baseline = pd.DataFrame({
-       'date': dates_baseline,
-       'temperature': temperatures,
-       'consommation_kWh': consommation_baseline
-   })
-   
-   # Créer le modèle IPMVP
-   model = IPMVPModel(periode_baseline=df_baseline)
-   
-   # Entraîner le modèle
-   model.fit(variable_independante='temperature', variable_dependante='consommation_kWh')
-   
-   print(f"R² du modèle : {model.r_squared:.3f}")
-   print(f"RMSE : {model.rmse:.2f} kWh")
-
-Exemple issu des tests : IPMVP avec Excel
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-.. code-block:: python
-
-   from IPMVP.IPMVP import Mathematical_Models
-   import os
    from datetime import datetime
-   import pandas as pd
+   from IPMVP.IPMVP import Mathematical_Models, incertitude_savings
 
-   directory = os.getcwd()
-   directory = directory + "\src\IPMVP\" + "IPMVP_input.xlsx"
-   df = pd.read_excel(directory)
-   df['Mois'] = pd.to_datetime(df['Mois'])
-   df = df.set_index(df['Mois'])
+   df = pd.read_excel("src/IPMVP/IPMVP_input.xlsx")
+   df["Mois"] = pd.to_datetime(df["Mois"])
+   df = df.set_index("Mois")
+   col_conso = [c for c in df.columns if c.lower().startswith("consommation")][0]
+   X, y = df[["DJU"]], df[col_conso]
 
-   start_baseline_period = datetime(2016, 9, 1, hour=0)
-   end_baseline_period = datetime(2021, 5, 1, hour=0)
-   start_reporting_period = datetime(2021, 10, 1, hour=0)
-   end_reporting_period = datetime(2022, 10, 1, hour=0)
-
-   X = df[["DJU"]]
-   y = df["Consommation (kWh) - Relevé"]
-
-   result = Mathematical_Models(
+   (y_pred, df_bl, conformite, table_inc,
+    y_pred_report, df_report, conformite_report, table_inc_report,
+    df_savings) = Mathematical_Models(
        y, X,
-       start_baseline_period, end_baseline_period,
-       start_reporting_period, end_reporting_period,
-       degree=3, print_report=True, seuil_z_scores=3, site="exemple_site"
+       datetime(2016, 9, 1), datetime(2021, 5, 1),    # période de référence
+       datetime(2021, 10, 1), datetime(2022, 10, 1),  # période de suivi
+       degree=1, seuil_z_scores=3, site="exemple_site",
+       print_report=True,   # rapport .docx + figures matplotlib
    )
-   print(result)
 
-Calcul des économies
-~~~~~~~~~~~~~~~~~~~~~
+   print(df_bl)          # coefficients + indicateurs (r2, rmse, cv_rmse, stat_t…)
+   print(conformite)     # verdict de conformité IPMVP
+   print(df_savings)     # économies ANTE-POST / POST-ANTE
 
-.. code-block:: python
+Sortie réelle (extrait) : ``r2`` = 0,81, économie **ANTE-POST = 18,15 %**.
 
-   # Données de la période de reporting (après travaux)
-   dates_reporting = pd.date_range('2024-01-01', '2024-12-31', freq='D')
-   temperatures_reporting = 15 + 10 * np.sin(2 * np.pi * np.arange(len(dates_reporting)) / 365)
-   
-   # Consommation réelle après travaux (réduction de 20%)
-   consommation_reporting = (1000 + 50 * (20 - temperatures_reporting) * 
-                              (temperatures_reporting < 20)) * 0.80
-   
-   df_reporting = pd.DataFrame({
-       'date': dates_reporting,
-       'temperature': temperatures_reporting,
-       'consommation_kWh': consommation_reporting
-   })
-   
-   # Calculer les économies
-   economies = model.calculer_economies(df_reporting)
-   
-   print(f"\n=== RÉSULTATS IPMVP ===")
-   print(f"Consommation baseline ajustée : {economies['baseline_ajustee_kWh']:.0f} kWh")
-   print(f"Consommation réelle : {economies['consommation_reelle_kWh']:.0f} kWh")
-   print(f"Économies réalisées : {economies['economies_kWh']:.0f} kWh")
-   print(f"Taux d'économie : {economies['taux_economie_pct']:.1f}%")
-   print(f"Incertitude : ±{economies['incertitude_pct']:.1f}%")
-
-5.3.2. Modèle hebdomadaire
-~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-.. code-block:: python
-
-   from energysystemmodels.IPMVP import IPMVPModel
-   import pandas as pd
-   
-   # Données hebdomadaires
-   dates_hebdo = pd.date_range('2023-01-01', '2023-12-31', freq='W')
-   
-   df_hebdo_baseline = pd.DataFrame({
-       'semaine': range(len(dates_hebdo)),
-       'temperature_moy': 15 + 8 * np.sin(2 * np.pi * np.arange(len(dates_hebdo)) / 52),
-       'production_unite': 1000 + 200 * np.random.random(len(dates_hebdo)),
-       'consommation_kWh': 7000 + np.random.normal(0, 500, len(dates_hebdo))
-   })
-   
-   # Modèle multi-variables
-   model_hebdo = IPMVPModel(periode_baseline=df_hebdo_baseline)
-   model_hebdo.fit(
-       variables_independantes=['temperature_moy', 'production_unite'],
-       variable_dependante='consommation_kWh'
-   )
-   
-   print(f"R² du modèle hebdomadaire : {model_hebdo.r_squared:.3f}")
-
-5.3.3. Modèle mensuel
-~~~~~~~~~~~~~~~~~~~~~~
-
-.. code-block:: python
-
-   from energysystemmodels.IPMVP import IPMVPModel
-   import pandas as pd
-   
-   # Données mensuelles de consommation
-   mois = ['Jan', 'Fév', 'Mar', 'Avr', 'Mai', 'Jun', 
-           'Jul', 'Aoû', 'Sep', 'Oct', 'Nov', 'Déc']
-   
-   df_mensuel = pd.DataFrame({
-       'mois': mois,
-       'dju_chauffage': [450, 380, 310, 180, 80, 20, 0, 0, 50, 150, 280, 400],
-       'consommation_gaz_kWh': [45000, 38000, 31000, 18000, 8000, 2000, 
-                                 0, 0, 5000, 15000, 28000, 40000]
-   })
-   
-   # Modèle mensuel
-   model_mensuel = IPMVPModel(periode_baseline=df_mensuel)
-   model_mensuel.fit(
-       variable_independante='dju_chauffage',
-       variable_dependante='consommation_gaz_kWh'
-   )
-   
-   print(f"\nModèle mensuel :")
-   print(f"R² : {model_mensuel.r_squared:.3f}")
-   print(f"Coefficient DJU : {model_mensuel.coefficients['dju_chauffage']:.2f} kWh/DJU")
-
-Rapport IPMVP complet
-~~~~~~~~~~~~~~~~~~~~~~
-
-.. code-block:: python
-
-   from energysystemmodels.IPMVP import IPMVPReport
-   
-   # Générer un rapport complet
-   rapport = IPMVPReport(
-       model=model,
-       periode_baseline=df_baseline,
-       periode_reporting=df_reporting,
-       description_projet="Isolation de l'enveloppe et optimisation CVC",
-       cout_travaux=150000,
-       cout_energie=0.10  # €/kWh
-   )
-   
-   # Générer le rapport
-   rapport.generer_rapport(fichier='rapport_ipmvp.pdf')
-   
-   # Afficher le résumé
-   print(rapport.get_summary())
+Chapitre détaillé : exemple complet, mesure des économies, incertitude propagée
+(``incertitude_savings``), paramètres et théorie dans :doc:`../007-ipmvp/index`.
 
 5.4. Modèle RC de bâtiment
 ---------------------------
