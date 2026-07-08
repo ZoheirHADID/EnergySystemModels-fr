@@ -126,6 +126,38 @@ précision/simplicité pour la plupart des projets M&V.
    X = df_monthly[["DJU"]]
    y = df_monthly["consommation_kWh"]
 
+Incertitude propagée des économies
+----------------------------------
+
+La fonction ``incertitude_savings`` propage l'erreur-type du modèle de
+référence (``rmse``, ``ddof``, moyenne de consommation) sur une durée de
+contrat et une période de reporting, selon le protocole IPMVP :
+
+.. code-block:: python
+
+   from IPMVP.IPMVP import incertitude_savings
+
+   inc = incertitude_savings(
+       rmse, ddof, moyenne,
+       gain_pct=0.18,            # économie mensuelle attendue
+       duree_contrat_mois=60,
+       duree_reporting_mois=12,
+       niveau_confiance=0.8,     # défaut 0,8
+   )
+
+Formule (identique au calcul Excel M&V) :
+
+.. math::
+
+   t = t_{\text{Student}}\!\left(\tfrac{1+\text{conf}}{2},\; ddof\right)
+   \qquad
+   \text{prec}_{\text{abs}}(m) = t \cdot rmse \cdot \sqrt{m}
+
+où :math:`m` est le nombre de mois. La fonction est **pure** (aucun effet de
+bord) et retourne un ``dict`` contenant les clés ``contrat`` et ``reporting``
+(chacune : ``mois``, ``economie_kwh``, ``precision_absolue_kwh``,
+``precision_relative``). Voir :doc:`exemples` pour une sortie réelle.
+
 Références
 ----------
 
