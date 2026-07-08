@@ -1,7 +1,7 @@
 .. _ipmvp:
 
-7. IPMVP - Mesure et Vérification
-==================================
+IPMVP - Mesure et Vérification
+==============================
 
 .. toctree::
    :maxdepth: 2

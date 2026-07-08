@@ -56,7 +56,6 @@ Table des matières
    :caption: 4. Usages énergétiques
 
    003-ahu_modules/index
-   007-ipmvp/index
 
 .. toctree::
    :maxdepth: 2
@@ -75,6 +74,7 @@ Table des matières
    :maxdepth: 2
    :caption: 7. Autres
 
+   007-ipmvp/index
    008-meteo/index
    gui_tools
    nomenclature
