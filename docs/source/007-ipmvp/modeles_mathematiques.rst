@@ -22,6 +22,8 @@ Signature
        seuil_z_scores=8,
        degree=1,
        site="****",
+       imposed_intercept=None,
+       niveau_confiance=0.8,
    )
    (y_pred, df, conformite, table_incertitude,
     y_pred_report, df_report, conformite_report,
@@ -36,7 +38,14 @@ Paramètres
 * **start/end_reporting_period** : période de suivi (``datetime``) ;
 * **degree** : degré du polynôme (1=linéaire, 2=quadratique, 3=cubique) ;
 * **print_report** : si ``True``, génère un rapport ``.docx`` (via ``docx_report``) ;
-* **seuil_z_scores** : seuil d'exclusion des points aberrants (**défaut 8**).
+* **seuil_z_scores** : seuil d'exclusion des points aberrants (**défaut 8**) ;
+* **imposed_intercept** : impose la constante du modèle. ``None`` (défaut) =
+  constante estimée librement ; ``0`` = régression par l'origine ; toute autre
+  valeur = « talon » de consommation imposé. Les pentes sont alors ajustées sur
+  le résidu :math:`y - b_0`, puis l'ordonnée est fixée à :math:`b_0` ;
+* **niveau_confiance** : niveau de confiance du calcul d'incertitude
+  (**défaut 0,8**). Pilote la statistique de Student et donc la
+  ``precision_absolue`` / ``precision_relative`` de ``table_incertitude``.
 
 Valeurs de retour
 -----------------
