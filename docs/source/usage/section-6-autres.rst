@@ -33,57 +33,47 @@ Imports essentiels
    import numpy as np
    import pandas as pd
    import matplotlib.pyplot as plt
-   
-   # Modules EnergySystemModels par domaine
-   
+
+   # Modules EnergySystemModels : ce sont des packages top-level
+   # (il n'existe PAS de package « energysystemmodels » à préfixer).
+
    # Facturation et finance
-   from energysystemmodels.Facture.TURPE import TURPEProfil, TURPECalculateur
-   from energysystemmodels.CEE import *
-   
+   from Facture.TURPE import TurpeCalculator, input_Contrat, input_Tarif, input_Facture
+   from CEE.CEE import calcul_CEE, list_fiches
+
    # Données météorologiques
-   from energysystemmodels.OpenWeatherMap import OpenWeatherMapClient
-   from energysystemmodels.MeteoCiel import MeteoCielClient, DJUCalculator
-   
-   # Production énergétique
-   from energysystemmodels.PV import PVSystem, ShadingProfile
-   
-   # Thermodynamique
-   from energysystemmodels.ThermodynamicCycles import (
-       RefrigerationCycle, HeatPump, Source, Sink,
-       Compressor, Evaporator, Condenser, ExpansionValve
-   )
-   
+   from OpenWeatherMap import OpenWeatherMap_call_location
+   from MeteoCiel.DJU_costic import DJU_costic
+   from MeteoCiel.MeteoCiel_Scraping import MeteoCiel_histoScraping
+
+   # Production photovoltaïque
+   from PV.ProductionElectriquePV import SolarSystem
+
+   # Thermodynamique — un sous-module par composant ; la classe s'appelle Object
+   # (usage : src = Source.Object() ; cmp = Compressor.Object() ; ...)
+   from ThermodynamicCycles.Source import Source
+   from ThermodynamicCycles.Sink import Sink
+   from ThermodynamicCycles.Compressor import Compressor
+   from ThermodynamicCycles.Condenser import Condenser
+   from ThermodynamicCycles.Evaporator import Evaporator
+   from ThermodynamicCycles.Expansion_Valve import Expansion_Valve
+   from ThermodynamicCycles.Chiller import Object as Chiller
+   from ThermodynamicCycles.Connect import Fluid_connect
+
    # Transfert de chaleur
-   from energysystemmodels.HeatTransfer import (
-       CompositeWall, Layer, PlateHeatExchanger, PipeInsulation
-   )
-   
-   # Hydraulique et aéraulique
-   from energysystemmodels.Hydraulic import (
-       StraightPipe, TA_Valve, AirDuct, Singularity
-   )
-   
-   # CTA et traitement d'air
-   from energysystemmodels.AHU import (
-       FreshAir, HeatingCoil, CoolingCoil, Humidifier, Fan
-   )
-   
-   # Analyse et optimisation
-   from energysystemmodels.PinchAnalysis import PinchAnalysis, Stream
+   from HeatTransfer import CompositeWall, ParallelepipedicBody
+   from HeatTransfer import PipeInsulationAnalysis, PlateHeatTransfer
+
+   # Hydraulique (sous-package de ThermodynamicCycles)
+   from ThermodynamicCycles.Hydraulic import StraightPipe, TA_Valve
+
+   # CTA et traitement d'air humide
+   from AHU import FreshAir, HeatingCoil, CoolingCoil_Sensible, Humidifier
+   from AHU.air_humide import air_humide
+
+   # Analyse Pinch et mesure & vérification (IPMVP)
+   from PinchAnalysis import PinchAnalysis
    from IPMVP.IPMVP import Mathematical_Models, incertitude_savings
-   
-   # Modélisation bâtiment
-   from energysystemmodels.BuildingModel import RC_Model, RC_Model_Advanced
-   
-   # Utilitaires
-   from energysystemmodels.utils import (
-       APIConnector, ParallelCalculator
-   )
-   from energysystemmodels.visualization import EnergyPlotter
-   from energysystemmodels.exceptions import (
-       EnergySystemError, ConfigurationError, 
-       CalculationError, DataError
-   )
 
 Dépendances externes
 ~~~~~~~~~~~~~~~~~~~~
