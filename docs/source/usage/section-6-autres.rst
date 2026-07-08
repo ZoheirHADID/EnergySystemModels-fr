@@ -70,7 +70,7 @@ Imports essentiels
    
    # Analyse et optimisation
    from energysystemmodels.PinchAnalysis import PinchAnalysis, Stream
-   from energysystemmodels.IPMVP import IPMVPModel, IPMVPReport
+   from IPMVP.IPMVP import Mathematical_Models, incertitude_savings
    
    # Modélisation bâtiment
    from energysystemmodels.BuildingModel import RC_Model, RC_Model_Advanced
