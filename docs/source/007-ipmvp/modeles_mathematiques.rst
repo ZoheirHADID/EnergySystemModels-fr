@@ -50,13 +50,18 @@ Paramètres
 Valeurs de retour
 -----------------
 
-* ``y_pred`` : consommation prédite sur la baseline ;
-* ``df`` : données baseline + colonne de prédiction (colonne ``"ANTE-POST"``) ;
+* ``y_pred`` : consommation prédite sur la baseline (``DataFrame``) ;
+* ``df`` : coefficients et indicateurs du modèle baseline, en colonne
+  ``"ANTE-POST"`` (lignes ``coef_const``, ``coef_DJU``…, ``r2``, ``rmse``,
+  ``cv_rmse``, ``ddof``, ``serr_*``, ``stat_t_*``) ;
 * ``conformite`` : ``DataFrame`` des indicateurs (``r2``, ``cv_remse``,
   ``stat_t_*``) avec la colonne ``conformité IPMVP`` (booléens) ;
-* ``table_incertitude`` : incertitude baseline (``precision_relative``, ``rmse``…) ;
+* ``table_incertitude`` : incertitude baseline (``gamma``, ``niveau_confiance``,
+  ``stat_t_normale``, ``Erreur type (rmse)``, ``precision_absolue +/-``,
+  ``precision_relative``) ;
 * ``y_pred_report``, ``df_report``, ``conformite_report``,
-  ``table_incertitude_report`` : équivalents pour la période de suivi ;
+  ``table_incertitude_report`` : équivalents pour la période de suivi
+  (colonne ``"POST-ANTE"``) ;
 * ``df_savings`` : économies **ANTE-POST** / **POST-ANTE** (relevé, prédiction,
   pourcentage d'économie).
 
