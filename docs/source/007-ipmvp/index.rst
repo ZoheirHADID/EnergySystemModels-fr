@@ -8,5 +8,6 @@
    :caption: IPMVP:
 
    exemples
+   mesure_economies
    modeles_mathematiques
    contexte
