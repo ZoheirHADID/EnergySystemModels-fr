@@ -203,7 +203,8 @@ protocole IPMVP (fonction pure, sans effet de bord) :
 
    rmse    = float(df_bl.loc["rmse"].iloc[0])
    ddof    = float(df_bl.loc["ddof"].iloc[0])
-   moyenne = float(y.loc[datetime(2016, 9, 1):datetime(2021, 5, 1)].mean())
+   mask    = (y.index >= datetime(2016, 9, 1)) & (y.index <= datetime(2021, 5, 1))
+   moyenne = float(y[mask].mean())   # moyenne de conso sur la période de référence
 
    inc = incertitude_savings(
        rmse=rmse, ddof=ddof, moyenne=moyenne,
