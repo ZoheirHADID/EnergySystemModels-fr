@@ -31,9 +31,6 @@ Attributs calculés
    print(f"Point Pinch: {pinch.Pinch_Temperature}°C")
    print(f"Utilité chaude min: {pinch.Heating_duty} kW")
    print(f"Utilité froide min: {pinch.Cooling_duty} kW")
-     - 195
-     - 50
-     - 200
 
 Intervalles de température
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
