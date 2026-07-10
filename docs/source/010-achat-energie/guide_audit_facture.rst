@@ -168,7 +168,7 @@ Colonnes standard de chaque DataFrame :
    calc.plot()          # Donut : Fourniture / TURPE / Taxes
    calc.plot_detail()   # Cascades detaillees
 
-**Résultat réel (df_acheminement)** :
+**Sortie réelle (df_acheminement)** :
 
 .. code-block:: text
 
@@ -190,7 +190,7 @@ Colonnes standard de chaque DataFrame :
         Dépassement PS (CMDPS)                             CMDPS mensuel                                                 0.00
   = TOTAL TURPE (acheminement) CG + CC + CS_fixe + CS_var + CMDPS + CACS                                              3671.56  44021.2
 
-**Résultat réel (df_totaux)** :
+**Sortie réelle (df_totaux)** :
 
 .. code-block:: text
 
