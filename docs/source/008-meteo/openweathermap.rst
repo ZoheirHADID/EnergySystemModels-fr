@@ -36,37 +36,6 @@ DataFrame retourné (colonnes) :
    nécessite une clé valide dans ``config.ini``. Le module n'expose **que**
    l'appel par coordonnées (il n'existe pas d'appel par nom de ville).
 
-Exemple : acquisition périodique
---------------------------------
-
-.. code-block:: python
-
-   import time
-   import pandas as pd
-   from datetime import datetime
-   from OpenWeatherMap import OpenWeatherMap_call_location
-
-   data_history = []
-
-   # Boucle d'acquisition toutes les heures
-   while True:
-       try:
-           df = OpenWeatherMap_call_location.API_call_location("48.858370", "2.294481")
-           data_history.append(df)
-
-           print(f"[{datetime.now()}] T = {df['T(°C)'].values[0]} °C")
-
-           # Sauvegarder toutes les 24 mesures
-           if len(data_history) % 24 == 0:
-               pd.concat(data_history, ignore_index=True).to_excel(
-                   'historique_meteo.xlsx', index=False)
-
-           time.sleep(3600)   # 1 heure
-
-       except Exception as e:
-           print(f"Erreur : {e}")
-           time.sleep(300)
-
 Limites
 -------
 
