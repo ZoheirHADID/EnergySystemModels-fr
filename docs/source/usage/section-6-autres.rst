@@ -19,7 +19,6 @@ correspondantes du sommaire général :
 - **CTA / traitement d'air** : :doc:`../003-ahu_modules/index`
 - **Analyse Pinch** : :doc:`../006-pinch_analysis/index`
 - **IPMVP** : :doc:`../007-ipmvp/index`
-- **Chaleur fatale** : :doc:`../012-chaleur-fatale/index`
 
 7.2. Imports et dépendances
 ----------------------------
