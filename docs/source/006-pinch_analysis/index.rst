@@ -99,9 +99,9 @@ Le code
    print(pinch.df_surplus_deficit)   # cascade énergétique par intervalle
 
    # Figures
-   pinch.plot_composites_curves()    # courbes composites chaude / froide
-   pinch.plot_GCC()                  # grande courbe composite
-   pinch.graphical_hen_design()      # réseau d'échangeurs proposé
+   pinch.plot_composites_curves()        # courbes composites chaude / froide
+   pinch.plot_GCC()                      # grande courbe composite
+   pinch.graphical_hen_design(plot=True) # réseau d'échangeurs proposé
 
 Les résultats
 -------------
@@ -185,6 +185,18 @@ L'échangeur principal **H1 → C2** récupère 420 kW au-dessus du pincement,
 récupération en dessous. Chaque ligne fournit le ``ΔT`` logarithmique et le
 produit ``UA`` (avec ``U = 1000`` W/m²·K par défaut) pour dimensionner
 l'échangeur.
+
+L'appel ``pinch.graphical_hen_design(plot=True)`` trace directement le réseau
+correspondant :
+
+.. figure:: ../images/006_pinch_plot_hen.svg
+   :alt: Réseau d'échangeurs de chaleur (sortie réelle)
+   :align: center
+
+   Sortie réelle de ``graphical_hen_design(plot=True)``. Chaque flux chaud (H1,
+   H2) chemine à travers ses échangeurs vers les flux froids (C1, C2), avec les
+   températures d'entrée/sortie à chaque nœud et la puissance échangée par
+   appariement.
 
 Les explications
 ----------------
