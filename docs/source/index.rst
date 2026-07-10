@@ -59,10 +59,9 @@ Table des matières
 
 .. toctree::
    :maxdepth: 2
-   :caption: 5. Récupération de chaleur et chaleur fatale
+   :caption: 5. Récupération de chaleur
 
    006-pinch_analysis/index
-   012-chaleur-fatale/index
 
 .. toctree::
    :maxdepth: 2
