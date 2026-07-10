@@ -3,133 +3,114 @@
 
 La chaleur fatale, ce sont les rejets thermiques d'un site (fumées, air
 extrait, eau de refroidissement, condensats, compresseurs…) qu'on peut
-récupérer au lieu de les perdre. Quand plusieurs flux chauds et froids
-coexistent, l'analyse Pinch identifie la **récupération maximale théorique** et
-les utilités qui restent réellement nécessaires. Cette page déroule **un seul
-cas de bout en bout** avec le module ``PinchAnalysis`` : le code, ses sorties
-réelles, puis leur interprétation.
+récupérer au lieu de les perdre. Ce chapitre traite l'amont **qualitatif et
+économique** : comment identifier, quantifier et hiérarchiser ces gisements.
+Dès que plusieurs flux chauds et froids coexistent et qu'on cherche la
+récupération *maximale* et le réseau d'échangeurs, on passe à l'analyse de
+pincement — voir :doc:`../006-pinch_analysis/index`, qui déroule un exemple
+complet avec la bibliothèque.
 
-Le problème
------------
+1. Identifier et qualifier les sources
+--------------------------------------
 
-.. figure:: ../images/012_chaleur_fatale_pinch.svg
-   :alt: Schéma de préparation d'une analyse Pinch
+.. figure:: ../images/012_chaleur_fatale_eau_refroidissement.svg
+   :alt: Schéma de récupération sur un rejet thermique
    :align: center
 
-   Les flux chauds (rejets à valoriser) et froids (besoins à couvrir)
-   alimentent l'analyse, qui fournit les utilités minimales et les appariements
-   d'échange.
+   Une source de chaleur fatale est séparée de son usage par un échangeur ; sa
+   valeur dépend du niveau de température, de la simultanéité avec le besoin et
+   de la distance.
 
-On considère deux rejets chauds (H1, H2) et deux besoins froids (C1, C2), avec
-``ΔTmin = 10 °C`` (soit ``dTmin2 = 5 K``) :
+Pour chaque rejet, collectez au minimum le fluide, la température disponible, le
+débit (ou la puissance thermique), les heures de fonctionnement et les
+contraintes (corrosion, encrassement, pression, distance) :
 
 .. list-table::
-   :widths: 12 12 14 14 14 34
+   :widths: 25 20 20 20 15
    :header-rows: 1
 
-   * - Flux
-     - Type
-     - Ti [°C]
-     - To [°C]
-     - mCp [kW/K]
-     - Rôle
-   * - H1
-     - chaud
-     - 180
-     - 70
-     - 2,4
-     - rejet chaud à refroidir
-   * - H2
-     - chaud
-     - 95
-     - 45
-     - 3,1
-     - rejet chaud à refroidir
-   * - C1
-     - froid
-     - 25
-     - 120
-     - 2,0
-     - besoin à chauffer
-   * - C2
-     - froid
-     - 45
-     - 140
-     - 1,8
-     - besoin à chauffer
+   * - Source
+     - Température
+     - Débit
+     - Disponibilité
+     - Remarque
+   * - Fumées chaudière
+     - 180 °C
+     - 4 000 Nm³/h
+     - 6 000 h/an
+     - condensation possible
+   * - Compresseur air
+     - 70 °C
+     - 120 kW thermiques
+     - 4 500 h/an
+     - local technique proche
+   * - Eau de refroidissement
+     - 35 °C
+     - 18 m³/h
+     - 7 000 h/an
+     - basse température
 
-Le code
--------
+2. Quantifier la puissance disponible
+--------------------------------------
 
-.. code-block:: python
+Pour un fluide monophasique, l'ordre de grandeur de la puissance récupérable
+s'obtient avec :
 
-   import pandas as pd
-   from PinchAnalysis import PinchAnalysis
+.. math::
 
-   # id, name requis ; Ti/To en °C ; mCp en kW/K ; dTmin2 = ΔTmin/2
-   df = pd.DataFrame({
-       "id": [1, 2, 3, 4],
-       "name": ["H1", "H2", "C1", "C2"],
-       "Ti": [180, 95, 25, 45],
-       "To": [70, 45, 120, 140],
-       "mCp": [2.4, 3.1, 2.0, 1.8],
-       "dTmin2": [5, 5, 5, 5],
-       "integration": [True, True, True, True],
-   })
+   Q = \dot{m} \times C_p \times (T_{source} - T_{retour})
 
-   pinch = PinchAnalysis.Object(df)
+avec ``Q`` la puissance thermique [kW], ``ṁ`` le débit massique [kg/s], ``Cp``
+la capacité thermique [kJ/kg·K] et ``T_source − T_retour`` l'écart de
+température exploitable [K]. L'énergie annuelle s'en déduit en multipliant par le
+nombre d'heures de fonctionnement.
 
-   print(f"Pincement                : {pinch.Pinch_Temperature} °C")
-   print(f"Utilité chaude minimale  : {pinch.Heating_duty} kW")
-   print(f"Utilité froide minimale  : {pinch.Cooling_duty} kW")
-   print(f"Chaleur récupérable      : {pinch.heat_recovery} kW")
+3. Vérifier la compatibilité et hiérarchiser
+--------------------------------------------
 
-   pinch.plot_composites_curves()
-   pinch.plot_GCC()
+Une source n'est valorisable que si elle correspond à un besoin réel, sur trois
+axes : **température** (assez chaude, ou relevée par une pompe à chaleur),
+**temps** (source et besoin simultanés, sauf stockage) et **distance** (les
+pertes et le coût réseau croissent avec l'éloignement).
 
-Les résultats
--------------
+Repères d'usage par niveau de température :
 
-**Indicateurs de synthèse** (sortie console) :
+.. list-table::
+   :widths: 35 65
+   :header-rows: 1
 
-.. code-block:: text
+   * - Niveau de température
+     - Usages possibles
+   * - 25 à 45 °C
+     - préchauffage, pompe à chaleur, basse température
+   * - 45 à 80 °C
+     - eau chaude, air neuf, chauffage, procédé basse température
+   * - 80 à 150 °C
+     - procédé, eau surchauffée, préchauffage combustion
+   * - > 150 °C
+     - vapeur, ORC, récupération haute valeur, procédés thermiques
 
-   Pincement                : 175 °C
-   Utilité chaude minimale  : 0 kW
-   Utilité froide minimale  : 58.0 kW
-   Chaleur récupérable      : 361.0 kW
+Ordre de priorité des solutions :
 
-**Courbes composites** — ``pinch.plot_composites_curves()`` :
+#. récupération directe, sans changement de niveau de température ;
+#. échangeur simple entre source et besoin proches ;
+#. stockage thermique si source et besoin sont décalés dans le temps ;
+#. pompe à chaleur si la température de la source est trop basse ;
+#. conversion électrique (ORC) uniquement pour les gisements chauds, stables et
+   importants.
 
-.. figure:: ../images/012_chaleur_fatale_pinch_composites.svg
-   :alt: Courbes composites réelles (chaleur fatale)
-   :align: center
+Un rapport d'avant-projet doit au minimum fournir : puissance récupérable [kW],
+énergie annuelle [MWh/an], économie d'énergie ou de combustible, réduction
+d'émissions, investissement estimatif, temps de retour simple et risques
+techniques.
 
-   Composites chaude et froide en températures décalées ; le recouvrement
-   horizontal correspond aux 361 kW récupérables.
+.. note:: **Aller plus loin — intégration thermique**
 
-**Grande courbe composite (GCC)** — ``pinch.plot_GCC()`` :
-
-.. figure:: ../images/012_chaleur_fatale_pinch_gcc.svg
-   :alt: Grande courbe composite réelle (chaleur fatale)
-   :align: center
-
-   La GCC ne s'ouvre que vers le bas : l'utilité chaude est nulle et il ne reste
-   qu'une utilité froide résiduelle de 58 kW.
-
-Les explications
-----------------
-
-Ici l'**utilité chaude minimale est nulle** : par intégration, les rejets
-chauds fournissent la totalité du besoin de chauffe des flux froids. Il ne reste
-qu'une utilité froide de **58 kW** à évacuer, pour **361 kW récupérés** entre les
-flux. Autrement dit, aucun appoint de vapeur ou de gaz n'est nécessaire pour
-chauffer C1 et C2 — seul un refroidissement d'appoint subsiste.
-
-Ce cas est typique d'un site où la chaleur fatale est *sur-abondante* par
-rapport aux besoins : la priorité n'est plus de trouver une source de chaleur,
-mais d'utiliser au mieux le surplus (préchauffage, réseau de chaleur, ou pompe à
-chaleur si les niveaux de température ne coïncident pas).
+   Quand plusieurs flux chauds et froids sont en jeu, la simple somme des
+   gisements ne suffit plus : il faut déterminer la récupération *maximale*
+   compatible avec les niveaux de température. C'est l'objet de l'analyse de
+   pincement (:doc:`../006-pinch_analysis/index`), qui fournit les utilités
+   minimales et le réseau d'échangeurs à partir de la même liste de flux.
 
 .. note:: **Valorisation en CEE**
 
