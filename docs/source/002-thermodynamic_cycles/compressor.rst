@@ -94,6 +94,24 @@ et pression de refoulement ``Outlet.P`` = 8 bar.
    viennent du port ``Inlet`` connecté à l'amont. Sans ``Fluid_connect`` ni
    consigne ``HP_bar``/``Tcond_degC``, ``calculate()`` lève une erreur.
 
+Exemple graphique avec PyqtSimulator
+------------------------------------
+
+Le même modèle peut être utilisé dans l'interface graphique PyqtSimulator. Le
+lancement du module se fait simplement avec l'import suivant :
+
+.. code-block:: python
+
+   from PyqtSimulator import main
+
+En pratique, cet import lance l'application et ouvre l'éditeur de schéma où
+vous pouvez placer une ``Source``, connecter un ``Compresseur`` puis visualiser
+les résultats dans la fenêtre de configuration.
+
+.. note::
+  Insérez ici la capture de la simulation PyqtSimulator lorsque l'image sera
+  fournie. La page sera mise à jour avec la figure correspondante.
+
 Source (entrée du compresseur)
 ------------------------------
 
