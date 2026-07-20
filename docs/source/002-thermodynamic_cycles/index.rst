@@ -5,8 +5,6 @@
    :caption: Cycles thermodynamiques:
 
    nomenclature
-   fluid_source
-   sink
    compressor
    turbine
    chiller
