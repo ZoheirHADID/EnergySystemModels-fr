@@ -8,6 +8,12 @@ n'est pas saisi directement sur le compresseur : il provient d'un composant amon
 (``Source``, échangeur…) **connecté via** ``Fluid_connect(COMP.Inlet, amont.Outlet)``.
 La consigne haute pression est donnée par ``HP_bar`` (ou ``Tcond_degC``).
 
+Dans ce chapitre, les explications ``Source`` et ``Sink`` sont intégrées
+directement avec les sections :
+
+- **Source (entrée du compresseur)**
+- **Puits (sortie du compresseur)**
+
 Paramètres
 ----------
 
@@ -88,8 +94,8 @@ et pression de refoulement ``Outlet.P`` = 8 bar.
    viennent du port ``Inlet`` connecté à l'amont. Sans ``Fluid_connect`` ni
    consigne ``HP_bar``/``Tcond_degC``, ``calculate()`` lève une erreur.
 
-Préparer l'entrée du compresseur (logique Source)
--------------------------------------------------
+Source (entrée du compresseur)
+------------------------------
 
 En pratique, l'entrée du compresseur est fournie par un composant amont. Le cas
 le plus courant est une ``Source`` qui calcule un état thermodynamique cohérent
@@ -231,8 +237,8 @@ avec : :math:`\rho` densité, :math:`P_{std}/T_{std}` conditions standards,
 :math:`P_{norm}/T_{norm}` conditions normales, et :math:`P_{in}/T_{in}`
 conditions d'entrée.
 
-Exploiter la sortie du compresseur (logique Sink)
--------------------------------------------------
+Puits (sortie du compresseur)
+-----------------------------
 
 En aval du compresseur, un ``Sink`` termine la ligne de fluide. Il reçoit
 l'état de sortie du compresseur via ``Fluid_connect`` et calcule les grandeurs
