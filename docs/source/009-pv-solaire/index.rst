@@ -1,15 +1,12 @@
 .. _pv_solaire:
 
-9. Production photovoltaïque
-============================
-
 Le module ``PV.ProductionElectriquePV.SolarSystem`` simule la production
 photovoltaïque d'un site à partir de sa localisation, en s'appuyant sur
 ``pvlib-python`` et la météo horaire PVGIS. Chaque fonctionnalité de la classe
 est illustrée ci-dessous par un exemple.
 
 Créer un système et calculer la production
-------------------------------------------
+==========================================
 
 .. code-block:: python
 
@@ -54,7 +51,7 @@ Sortie ``pv.df`` (météo PVGIS, un module) :
   ``close_mount_glass_glass``…).
 
 Synthèse technique et économique — ``pv.summary()``
----------------------------------------------------
+===================================================
 
 .. code-block:: python
 
@@ -71,7 +68,7 @@ production annuelle, puis les indicateurs économiques (CAPEX, OPEX, temps de
 retour, ROI, TRI) calculés à partir des hypothèses passées en argument.
 
 Graphique de production — ``pv.plot()``
----------------------------------------
+=======================================
 
 .. code-block:: python
 
@@ -81,7 +78,7 @@ Affiche la production AC horaire (nulle la nuit, maximale en milieu de journée)
 et le profil mensuel du champ.
 
 Export Excel — ``pv.to_excel()``
---------------------------------
+================================
 
 .. code-block:: python
 
@@ -91,7 +88,7 @@ Génère un classeur à trois onglets : **Horaire** (8760 lignes), **Mensuel**
 (12 lignes) et **Synthèse**.
 
 Étude d'orientation — ``SolarSystem.orientation_study()``
----------------------------------------------------------------
+===============================================================
 
 Méthode de classe qui simule et compare plusieurs orientations / inclinaisons
 pour un même site :

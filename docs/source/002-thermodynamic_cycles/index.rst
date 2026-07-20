@@ -1,8 +1,5 @@
 .. _thermodynamic_cycles:
 
-2. Cycles thermodynamiques
-===========================
-
 .. toctree::
    :maxdepth: 2
    :caption: Cycles thermodynamiques:
