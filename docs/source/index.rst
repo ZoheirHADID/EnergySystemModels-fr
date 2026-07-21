@@ -8,16 +8,28 @@ Bienvenue dans la documentation de la bibliothèque EnergySystemModels !
 Objectif et approche
 --------------------
 
-Cette documentation présente la bibliothèque Python EnergySystemModels, conçue pour faciliter les calculs et analyses liés à l'efficacité énergétique. En proposant des modèles écrits en Python, vous pouvez facilement mettre en pratique les concepts d'efficacité énergétique. Les outils de calcul peuvent également faciliter la compréhension et l'analyse de données complexes liées à l'efficacité énergétique.
+Cette documentation présente la bibliothèque Python EnergySystemModels,
+conçue pour faciliter les calculs et analyses liés à l'efficacité
+énergétique. Elle combine des explications métier, des exemples exécutables
+et des pages de référence pour passer rapidement d'un concept à son
+implémentation Python.
 
-This documentation presents the EnergySystemModels Python library, designed to facilitate calculations and analyses related to energy efficiency. By providing Python-written models, you can easily put energy efficiency concepts into practice. The calculation tools can also facilitate understanding and analysis of complex data related to energy efficiency.
+Accès rapide
+------------
+
+Pour démarrer selon votre besoin :
+
+1. :doc:`quickstart` pour une prise en main rapide.
+2. :doc:`usage` pour le parcours fonctionnel complet.
+3. :doc:`gui_tools` pour l'interface graphique ``PyqtSimulator``.
+4. :doc:`api` pour les imports et points d'entrée réels.
 
 Prérequis
 ---------
 
-Afin de mieux comprendre les modèles d'efficacité énergétique présentés dans ce document et les outils de calcul en Python qui les accompagnent, il est nécessaire d'avoir des connaissances préalables en programmation, en particulier dans le langage Python. Cependant, les modèles sont présentés étape par étape, de manière simple et accessible, afin de faciliter leur appropriation par un large public.
-
-In order to better understand the energy efficiency models presented in this document and the accompanying Python calculation tools, prior knowledge of programming is necessary, particularly in the Python language. However, the models are presented step by step, in a simple and accessible manner, to facilitate their adoption by a wide audience.
+Afin d'exploiter au mieux les modèles, il est recommandé d'avoir des bases en
+Python et en thermique/énergétique. Les exemples restent structurés de façon
+progressive pour être utilisables aussi en apprentissage.
 
 Table des matières
 ------------------
