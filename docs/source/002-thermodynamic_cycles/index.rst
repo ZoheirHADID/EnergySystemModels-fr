@@ -4,6 +4,8 @@
    :maxdepth: 2
    :caption: Cycles thermodynamiques:
 
+   fluid_source
+   sink
    nomenclature
    compressor
    turbine
