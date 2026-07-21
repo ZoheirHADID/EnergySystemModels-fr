@@ -59,6 +59,35 @@ Le script crée une ``QApplication``, applique le style ``Fusion`` puis ouvre
 ``CalculatorWindow``. La fenêtre contient une zone MDI et une palette de nœuds.
 Chaque élément de la palette vient du registre ``CALC_NODES``.
 
+Dépannage rapide
+----------------
+
+Si le simulateur ne démarre pas, vérifier dans cet ordre :
+
+1. ``PyQt5`` est installé dans l'environnement actif.
+2. Le ``PYTHONPATH`` pointe bien vers ``...\\EnergySystemModels\\src``.
+3. Le lancement se fait depuis le dépôt ``EnergySystemModels`` et pas depuis
+    le dépôt documentaire.
+
+Commandes de vérification (Windows PowerShell) :
+
+.. code-block:: powershell
+
+    cd A:\OneDrive\_Github_\EnergySystemModels
+    python -c "import PyQt5; print('PyQt5 OK')"
+    $env:PYTHONPATH = "$PWD\src"
+    python -c "import PyqtSimulator; print('PyqtSimulator OK')"
+
+Symptômes fréquents et causes probables :
+
+.. csv-table::
+   :header: "Symptôme", "Cause probable", "Correctif"
+   :widths: 36, 26, 38
+
+   "``ModuleNotFoundError: No module named 'PyQt5'``", "Dépendance GUI absente", "Installer ``PyQt5`` dans le bon environnement Python"
+   "``ModuleNotFoundError: No module named 'PyqtSimulator'``", "``src`` non exposé au Python courant", "Exporter ``PYTHONPATH`` vers ``...\\EnergySystemModels\\src``"
+   "Fenêtre qui s'ouvre puis se ferme immédiatement", "Environnement Python incohérent", "Réactiver le venv puis relancer la commande standard"
+
 Interface PyqtSimulator
 -----------------------
 

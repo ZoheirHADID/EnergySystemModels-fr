@@ -40,6 +40,7 @@ Table des matières
 
    usage
    quickstart
+   contributing
 
 .. toctree::
    :maxdepth: 2
