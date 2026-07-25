@@ -10,4 +10,5 @@
    perte_pression_lineaire
    TA_valve
    valve_3_voies
+   coudes_tes_singularites
    propagation_pression

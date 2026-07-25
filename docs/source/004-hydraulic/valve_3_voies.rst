@@ -79,10 +79,33 @@ L'utilisateur ne saisit **pas** de :math:`K_v` : il choisit un **DN**, et le
 :math:`K_{vs}` de la voie directe en est déduit (``resolve_kvs``). Table
 générique par défaut :
 
-============ ===== ===== ===== ===== ===== ===== ===== ===== ===== ===== =====
-DN            08    10    15    20    25    32    40    50    65    80    100
-:math:`K_{vs}` 0.6  1.5   3     5     8     12    20    30    50    80    130
-============ ===== ===== ===== ===== ===== ===== ===== ===== ===== ===== =====
+.. list-table::
+   :header-rows: 1
+
+   * - DN
+     - 08
+     - 10
+     - 15
+     - 20
+     - 25
+     - 32
+     - 40
+     - 50
+     - 65
+     - 80
+     - 100
+   * - Kvs (m³/h)
+     - 0,6
+     - 1,5
+     - 3
+     - 5
+     - 8
+     - 12
+     - 20
+     - 30
+     - 50
+     - 80
+     - 130
 
 Un couple **DN + type de produit** pourra plus tard pointer vers une base de
 données de vannes du commerce (hook ``PRODUCT_DB``).
