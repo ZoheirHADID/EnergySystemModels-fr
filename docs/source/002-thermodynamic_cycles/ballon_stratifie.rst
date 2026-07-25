@@ -134,9 +134,9 @@ Utilisation
     print("Profil (°C) :", [round(t, 1) for t in ballon.T_degC])
     print("Énergie stockée cumulée :", round(ballon.cumul_Qstr_kWh, 2), "kWh")
 
-.. warning::
-   **Cohérence de** ``Delta_u`` : l'énergie stockée absolue est actuellement
-   pondérée par :math:`V/N` (moyenne uniforme) alors que la grille est non
-   uniforme, d'où un écart d'environ **13 %** par rapport à l'énergie réellement
-   stockée. Pour un bilan cohérent, se référer à ``cumul_Qstr_kWh`` (pondéré par
-   les volumes réels des couches).
+.. note::
+   **Cohérence énergétique** : l'énergie stockée absolue ``Delta_u_kWh`` est
+   pondérée par les **volumes réels** des couches (:math:`V_i`), et non plus par
+   la moyenne :math:`V/N`. Elle est donc désormais **cohérente avec**
+   ``cumul_Qstr_kWh`` (intégrale de la puissance échangée) — les deux donnent la
+   même variation d'énergie stockée sur la grille non uniforme.
