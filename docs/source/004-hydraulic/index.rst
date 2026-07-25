@@ -9,3 +9,5 @@
 
    perte_pression_lineaire
    TA_valve
+   valve_3_voies
+   propagation_pression
