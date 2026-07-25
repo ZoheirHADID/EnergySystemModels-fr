@@ -10,5 +10,7 @@
 
    air_humide
    cta_air_neuf
+   batteries
+   composants_cta
    generic_ahu
    nomenclature

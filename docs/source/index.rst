@@ -63,6 +63,7 @@ Table des matières
    transfert_chaleur
    004-hydraulic/index
    005-aeraulic/index
+   012-electrical/index
 
 .. toctree::
    :maxdepth: 2

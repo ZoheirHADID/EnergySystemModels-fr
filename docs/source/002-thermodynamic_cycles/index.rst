@@ -24,6 +24,7 @@
    melangeur_flash_stockage
    raccords_fittings
    dessalement_evaporation
+   distillation
    geothermie_solaire
    ng_heating_value
    ng_boiler_efficiency
