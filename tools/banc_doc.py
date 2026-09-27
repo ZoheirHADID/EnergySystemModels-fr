@@ -109,6 +109,12 @@ RE_LITTERAL = re.compile(r"^(\s*)(?!\.\.\s)(.*\S)??\s*::\s*$")
 RE_OPTION = re.compile(r"^:[\w-]+:")
 RE_CAPTION_SORTIE = re.compile(r"sortie|résultat|resultat|affich|valeurs réelles|\bdf\b", re.IGNORECASE)
 
+# Un bloc annoncé comme un **extrait** du code de la bibliothèque n'est pas un
+# exemple : il montre comment un modèle ou un nœud est écrit, il ne se copie pas
+# dans un script. La page doit le dire — « (extrait de `nodes/…`) » — et le banc
+# ne l'exécute pas. C'est le cas de `gui_tools.rst`, qui documente l'IHM.
+RE_EXTRAIT = re.compile(r"extrait|squelette|signature|à titre d'illustration", re.IGNORECASE)
+
 
 def _corps(lignes: list[str], depart: int, indent_directive: int) -> tuple[str, int]:
     """Lit le corps indenté qui suit la ligne ``depart``, désindenté du minimum commun.
@@ -459,6 +465,13 @@ def mesurer(page: Path, statique_seulement: bool = False, origines: dict[str, st
         "motif": "",
     }
 
+    # Un bloc annoncé comme extrait n'est pas exécuté ; seules ses lignes
+    # d'import le sont, car un extrait a le droit d'être incomplet, jamais de
+    # citer un module qui n'existe pas.
+    extraits = [b for b in python if RE_EXTRAIT.search(b["contexte"])]
+    exemples = [b for b in python if b not in extraits]
+    entree["extraits"] = len(extraits) or None
+
     if not python:
         entree.update(cran=0, motif="page de prose ou d'index")
         return entree
@@ -472,9 +485,25 @@ def mesurer(page: Path, statique_seulement: bool = False, origines: dict[str, st
         entree.update(cran=None, motif="non exécutée (passe statique)")
         return entree
 
-    resultat = _executer(python)
+    a_executer = list(exemples)
+    for bloc in extraits:
+        imports = "\n".join(
+            l for l in bloc["code"].splitlines()
+            if re.match(r"^\s*(import|from)\s+\w", l)
+        )
+        if imports:
+            a_executer.append({**bloc, "code": imports})
+
+    resultat = _executer(a_executer)
     if not resultat["ok"]:
         entree.update(cran=1, motif=resultat["motif"], blocage=resultat["blocage"])
+        return entree
+
+    if not exemples:
+        # Page de développement : elle montre comment le code est écrit, pas
+        # comment on s'en sert. Hors échelle, comme une page de prose — mais ses
+        # imports viennent d'être vérifiés.
+        entree.update(cran=0, motif=f"page de développement : {len(extraits)} extraits, imports vérifiés")
         return entree
 
     cran, motif = 2, ""
@@ -570,7 +599,14 @@ def cle(page: Path) -> str:
 
 
 def fusionner(etat: dict, page: Path, entree: dict) -> bool:
-    """Range une mesure dans l'état. Renvoie True si la page a reculé."""
+    """Range une mesure dans l'état. Renvoie True si la page a reculé.
+
+    Le cran 0 est **hors échelle** : il dit « cette page n'a pas d'exemple », pas
+    « elle en a de moins bons ». Retirer d'une page ses exemples faux (cran 1)
+    pour en faire une page de prose ou de renvois est un **progrès** : le plus
+    haut cran atteint retombe alors à 0. En revanche, une page qui avait des
+    exemples qui tournaient (cran ≥ 2) et qui les perd a bel et bien reculé.
+    """
     k = cle(page)
     ancien = etat["pages"].get(k, {})
     haut = ancien.get("cran_max")
@@ -580,8 +616,12 @@ def fusionner(etat: dict, page: Path, entree: dict) -> bool:
         entree["motif"] = entree["motif"] if ancien.get("cran") is None else ancien.get("motif", "")
         mesure = entree["cran"]
     entree["nom"] = CRANS.get(entree["cran"], "non mesuré") if entree["cran"] is not None else "non mesuré"
-    entree["cran_max"] = max([v for v in (haut, mesure) if v is not None], default=None)
-    recul = mesure is not None and haut is not None and mesure < haut
+
+    if mesure == 0 and (haut is None or haut <= 1):
+        recul, entree["cran_max"] = False, 0
+    else:
+        entree["cran_max"] = max([v for v in (haut, mesure) if v is not None], default=None)
+        recul = mesure is not None and haut is not None and mesure < haut
     entree["recul"] = recul or None
     etat["pages"][k] = entree
     return recul

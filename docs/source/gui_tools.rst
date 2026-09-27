@@ -38,22 +38,17 @@ Le principe d'utilisation est toujours le même :
 Installation et lancement
 -------------------------
 
-Les interfaces nécessitent ``PyQt5``. Dans un environnement de développement,
-installer aussi la bibliothèque en mode éditable ou ajouter le dossier ``src``
-au ``PYTHONPATH``.
+L'interface est **livrée avec la bibliothèque** : la distribution publiée sur
+PyPI contient ``PyqtSimulator`` et ses schémas d'exemple. Aucun clone du dépôt
+source n'est nécessaire pour s'en servir.
 
 .. code-block:: console
 
-   pip install -e .
-   pip install PyQt5
+   pip install energysystemmodels
+   python -m PyqtSimulator
 
-Depuis le dépôt source :
-
-.. code-block:: powershell
-
-   cd A:\OneDrive\_Github_\EnergySystemModels
-   $env:PYTHONPATH = "$PWD\src"
-   python -m PyqtSimulator.main
+La forme ``python -m PyqtSimulator.main`` fonctionne également. ``PyQt5`` est
+nécessaire ; s'il manque, l'installer explicitement (``pip install PyQt5``).
 
 Le script crée une ``QApplication``, applique le style ``Fusion`` puis ouvre
 ``CalculatorWindow``. La fenêtre contient une zone MDI et une palette de nœuds.
@@ -65,18 +60,16 @@ Dépannage rapide
 Si le simulateur ne démarre pas, vérifier dans cet ordre :
 
 1. ``PyQt5`` est installé dans l'environnement actif.
-2. Le ``PYTHONPATH`` pointe bien vers ``...\\EnergySystemModels\\src``.
-3. Le lancement se fait depuis le dépôt ``EnergySystemModels`` et pas depuis
-    le dépôt documentaire.
+2. Le paquet ``energysystemmodels`` est installé dans **cet** environnement
+   (``pip show energysystemmodels``) — pas dans un autre interpréteur.
+3. L'environnement virtuel est bien activé.
 
-Commandes de vérification (Windows PowerShell) :
+Commandes de vérification :
 
-.. code-block:: powershell
+.. code-block:: console
 
-    cd A:\OneDrive\_Github_\EnergySystemModels
-    python -c "import PyQt5; print('PyQt5 OK')"
-    $env:PYTHONPATH = "$PWD\src"
-    python -c "import PyqtSimulator; print('PyqtSimulator OK')"
+   python -c "import PyQt5; print('PyQt5 OK')"
+   python -c "import PyqtSimulator; print('PyqtSimulator OK')"
 
 Symptômes fréquents et causes probables :
 
@@ -85,7 +78,7 @@ Symptômes fréquents et causes probables :
    :widths: 36, 26, 38
 
    "``ModuleNotFoundError: No module named 'PyQt5'``", "Dépendance GUI absente", "Installer ``PyQt5`` dans le bon environnement Python"
-   "``ModuleNotFoundError: No module named 'PyqtSimulator'``", "``src`` non exposé au Python courant", "Exporter ``PYTHONPATH`` vers ``...\\EnergySystemModels\\src``"
+   "``ModuleNotFoundError: No module named 'PyqtSimulator'``", "paquet absent de l'environnement actif", "``pip install energysystemmodels``"
    "Fenêtre qui s'ouvre puis se ferme immédiatement", "Environnement Python incohérent", "Réactiver le venv puis relancer la commande standard"
 
 Interface PyqtSimulator
@@ -491,15 +484,16 @@ Depuis le dépôt ``EnergySystemModels-fr`` :
 
 .. code-block:: powershell
 
-   cd A:\OneDrive\_Github_\EnergySystemModels-fr
+   cd EnergySystemModels-fr
    python docs\generate_diagrams.py
 
-Pour les plots réellement exposés par les modèles :
+Pour les plots réellement exposés par les modèles (les deux dépôts sont côte à
+côte) :
 
 .. code-block:: powershell
 
-   cd A:\OneDrive\_Github_\EnergySystemModels-fr
-   $env:PYTHONPATH = "A:\OneDrive\_Github_\EnergySystemModels\src"
+   pip install energysystemmodels
+   cd EnergySystemModels-fr
    $env:PYTHONIOENCODING = "utf-8"
    python docs\generate_model_plots.py
 
@@ -514,7 +508,7 @@ Construire la documentation
 
 .. code-block:: powershell
 
-   cd A:\OneDrive\_Github_\EnergySystemModels-fr
+   cd EnergySystemModels-fr
    python -m sphinx -b html docs\source docs\_build\html
 
 Ouvrir ensuite ``docs\_build\html\gui_tools.html`` pour vérifier la mise en
@@ -529,8 +523,8 @@ Dépannage
 ---------
 
 ``ModuleNotFoundError: PyqtSimulator``
-   Ajouter ``EnergySystemModels/src`` au ``PYTHONPATH`` ou installer le paquet
-   en mode éditable.
+   Installer le paquet dans l'environnement actif : ``pip install
+   energysystemmodels``.
 
 ``QApplication`` ou ``PyQt5`` introuvable
    Installer ``PyQt5`` dans l'environnement actif.

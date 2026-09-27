@@ -68,18 +68,16 @@ Environnement virtuel (recommandé)
    L'environnement virtuel évite les conflits de dépendances : la bibliothèque
    s'appuie sur CoolProp, pandas, matplotlib, scikit-learn et pvlib.
 
-Depuis les sources
-------------------
+Vérifier l'installation
+-----------------------
 
-Utile pour suivre le développement ou lire le code des modèles :
+.. code-block:: console
 
-.. code-block:: powershell
+   python -c "from ThermodynamicCycles.Source import Source; print('Import OK')"
 
-   git clone https://github.com/ZoheirHADID/EnergySystemModels.git
-   cd EnergySystemModels
-   $env:PYTHONPATH = "$PWD\src"
-
-Les exemples de ce guide s'exécutent à l'identique dans les deux cas.
+Les modules s'importent **sans préfixe** : le nom d'import est celui du
+sous-paquet (``ThermodynamicCycles``, ``AHU``, ``HeatTransfer``, ``Facture``…),
+pas ``energysystemmodels.``. La liste complète est dans :doc:`api`.
 
 Lancer l'interface graphique
 ----------------------------
@@ -414,22 +412,6 @@ Modules disponibles
 
 ----
 
-Construire la documentation en local
-====================================
-
-Pour prévisualiser ce guide depuis un clone de ``EnergySystemModels-fr`` :
-
-.. code-block:: powershell
-
-   cd EnergySystemModels-fr\docs
-   pip install -r requirements.txt
-   python -m sphinx -b html source _build\html
-
-Ouvrez ensuite ``_build\html\index.html``. Le build doit passer **sans aucun
-avertissement** : c'est la règle de ce dépôt.
-
-----
-
 Pour aller plus loin
 ====================
 
@@ -454,12 +436,8 @@ Ressources
      - Lien
    * - Documentation en ligne
      - https://energysystemmodels-fr.readthedocs.io/
-   * - Code source
-     - https://github.com/ZoheirHADID/EnergySystemModels
-   * - PyPI
+   * - Paquet et versions publiées
      - https://pypi.org/project/energysystemmodels/
-   * - Signaler un problème
-     - https://github.com/ZoheirHADID/EnergySystemModels/issues
 
 .. admonition:: Comment obtenir de l'aide
    :class: tip
@@ -468,4 +446,5 @@ Ressources
       exemple exécutable et sa sortie réelle.
    2. Vérifiez les imports dans :doc:`api` : les modules sont de **premier
       niveau** (``from ThermodynamicCycles.Source import Source``).
-   3. Ouvrez une issue avec un exemple minimal reproductible.
+   3. Rassemblez un exemple minimal reproductible — la version du paquet
+      (``pip show energysystemmodels``), le code, et le message d'erreur complet.

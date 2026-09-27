@@ -139,10 +139,18 @@ def translate_file(input_path, output_path):
         print(f"Erreur lors de la traduction de {input_path}: {e}")
 
 def main():
-    """Fonction principale pour traduire tous les fichiers RST."""
-    base_path_fr = r"A:\OneDrive\_Github_\EnergySystemModels-fr\docs\source"
-    base_path_en = r"A:\OneDrive\_Github_\EnergySystemModels-en\docs\source"
-    
+    """Fonction principale pour traduire tous les fichiers RST.
+
+    Les chemins sont déduits de l'emplacement de ce script : la source est le
+    dossier ``docs/source`` du dépôt courant, la cible celui du dépôt anglais
+    placé à côté. Les deux se redéfinissent par variables d'environnement
+    (``ESM_DOCS_FR`` / ``ESM_DOCS_EN``) — aucun chemin de machine en dur.
+    """
+    racine = os.path.dirname(os.path.abspath(__file__))
+    voisin = os.path.join(os.path.dirname(racine), "EnergySystemModels-en")
+    base_path_fr = os.environ.get("ESM_DOCS_FR", os.path.join(racine, "docs", "source"))
+    base_path_en = os.environ.get("ESM_DOCS_EN", os.path.join(voisin, "docs", "source"))
+
     # Liste des répertoires à traduire
     directories = [
         "001-heat_transfer",

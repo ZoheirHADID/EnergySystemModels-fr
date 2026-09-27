@@ -8,26 +8,21 @@ Consultez la documentation complète ici :
 
 https://energysystemmodels-fr.readthedocs.io/
 
-Lancer PyqtSimulator (depuis les sources)
-------------------------------------------
+Lancer PyqtSimulator
+--------------------
 
-PyqtSimulator fait partie du dépôt source ``EnergySystemModels``.
-Depuis une installation de développement, le lancement recommandé est :
-
-.. code-block:: powershell
-
-   cd A:\OneDrive\_Github_\EnergySystemModels
-   $env:PYTHONPATH = "$PWD\src"
-   python -m PyqtSimulator.main
-
-Alternative (script de test du dépôt source) :
+``PyqtSimulator`` est livré **avec la bibliothèque** : la distribution publiée
+sur PyPI contient l'interface graphique et ses schémas d'exemple.
 
 .. code-block:: powershell
 
-   python A:\OneDrive\_Github_\EnergySystemModels\test\PyqtSimulator\_PyqtSimulator.py
+   pip install energysystemmodels
+   python -m PyqtSimulator
+
+La forme ``python -m PyqtSimulator.main`` fonctionne également.
 
 Voir aussi la page dédiée : ``docs/source/gui_tools.rst`` (section
 "Installation et lancement").
 
 .. note::
-   Documentation mise à jour le 18 novembre 2025.
+   Documentation mise à jour le 27 septembre 2026.

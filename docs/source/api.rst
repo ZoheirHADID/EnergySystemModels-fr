@@ -1,15 +1,15 @@
 API Reference
 =============
 
-Cette page récapitule les **points d'entrée réels** de la bibliothèque
-(chemins d'import valides avec ``PYTHONPATH=src``) et renvoie vers le chapitre
-détaillé de chaque module, où figurent des exemples exécutables avec leurs
-sorties réelles.
+Cette page récapitule les **points d'entrée réels** de la bibliothèque — les
+chemins d'import valides après ``pip install energysystemmodels`` — et renvoie
+vers le chapitre détaillé de chaque module, où figurent des exemples exécutables
+avec leurs sorties réelles.
 
 .. note::
-   En local (dépôt), les modules s'importent **sans** préfixe
-   ``energysystemmodels.`` : le nom d'import est celui du sous-paquet, par
-   exemple ``from ThermodynamicCycles.Compressor import Compressor``.
+   Les modules s'importent **sans** préfixe ``energysystemmodels.`` : le nom
+   d'import est celui du sous-paquet, par exemple
+   ``from ThermodynamicCycles.Compressor import Compressor``.
 
 Transfert de chaleur — ``HeatTransfer``
 ---------------------------------------
@@ -33,7 +33,8 @@ Cycles thermodynamiques — ``ThermodynamicCycles``
    from ThermodynamicCycles.Compressor import Compressor
    from ThermodynamicCycles.Turbine import Turbine
    from ThermodynamicCycles.Chiller import Object as Chiller
-   from ThermodynamicCycles.HEX import NUT_HEX, DTLM_HEX
+   from ThermodynamicCycles.HEX import TwoStreamEffectivenessNTUHEX
+   from ThermodynamicCycles.HEX import TwoStreamLMTDInverseDesignHEX
    from ThermodynamicCycles.Combustion import NG_Heating_Value
    from ThermodynamicCycles.Connect import Fluid_connect
 
@@ -66,6 +67,8 @@ Détails : :doc:`003-ahu_modules/index`.
 
 Analyse Pinch — ``PinchAnalysis``
 ---------------------------------
+
+Signature d'appel — ``df`` est votre tableau de flux, à construire avant :
 
 .. code-block:: python
 

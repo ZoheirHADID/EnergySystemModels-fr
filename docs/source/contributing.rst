@@ -9,8 +9,8 @@ Objectif qualite
 
 Pour chaque modification documentaire :
 
-1. Les imports Python montres existent reellement dans le code source.
-2. Les exemples sont executables avec le depot source local.
+1. Les imports Python montres existent reellement dans la bibliotheque publiee.
+2. Les exemples sont executables apres ``pip install energysystemmodels``.
 3. La compilation Sphinx passe sans erreur.
 4. Les changements de structure (toctree) n'introduisent pas de page orpheline.
 
@@ -27,15 +27,14 @@ Commandes utiles (PowerShell)
 
 .. code-block:: powershell
 
-   cd A:\OneDrive\_Github_\EnergySystemModels-fr\docs
-   python -m sphinx -b html source build\html
+   cd EnergySystemModels-fr\docs
+   python -m sphinx -b html source _build\html
 
-Verification d'import depuis le depot source :
+Verification d'import de la bibliotheque installee :
 
 .. code-block:: powershell
 
-   cd A:\OneDrive\_Github_\EnergySystemModels
-   $env:PYTHONPATH = "$PWD\src"
+   pip install energysystemmodels
    python -c "from ThermodynamicCycles.Source import Source; print('Import OK')"
 
 Regles editoriales

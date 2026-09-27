@@ -1,309 +1,110 @@
-================================================================================
-Section 1 : Achat et Facturation de l'énergie
-================================================================================
+.. _usage-achat-facturation:
 
-1.1. Électricité
-----------------
+=============================================
+Section 1 : Achat et facturation de l'énergie
+=============================================
 
-1.1.1. France
-~~~~~~~~~~~~~~
+Cette page est un **point de départ** : elle vous dit quelle question relève de
+quel modèle, et vous renvoie à la page qui contient l'exemple exécutable. Les
+codes et leurs résultats réels vivent dans le chapitre
+:doc:`../010-achat-energie/index`.
 
-Module TURPE - Tarif d'Utilisation des Réseaux Publics d'Électricité
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.. note::
+   Tous les modules s'importent **sans préfixe** :
+   ``from Facture.TURPE import TurpeCalculator``. Si vous trouvez encore un
+   ``from energysystemmodels...`` quelque part dans ces pages, c'est une erreur :
+   ce paquet n'existe pas.
 
-Le module TURPE permet de calculer les coûts de transport et de distribution de l'électricité selon les tarifs réglementés français.
+Par quoi commencer, selon votre question
+========================================
 
-Classes principales
-~~~~~~~~~~~~~~~~~~~
+.. list-table::
+   :widths: 46 54
+   :header-rows: 1
 
-**TURPEProfil**
+   * - Votre question
+     - Où aller
+   * - « Ma facture d'électricité est-elle juste ? »
+     - :doc:`../010-achat-energie/guide_audit_facture` § 10.3.1 — audit ligne à
+       ligne du TURPE, chaque composante confrontée au relevé
+   * - « Combien me coûte le réseau, et pourquoi ? »
+     - :doc:`../010-achat-energie/contrat_electricite` — les composantes CG, CC,
+       CS, CMDPS, CACS et la formule d'ensemble
+   * - « Quel tarif et quelle puissance souscrire ? »
+     - les six exemples chiffrés de
+       :doc:`../010-achat-energie/contrat_electricite` (BT < 36 kVA, BT > 36 kVA,
+       HTA en CU ou LU, à pointe fixe ou mobile)
+   * - « Et pour le gaz naturel en France ? »
+     - :doc:`../010-achat-energie/contrat_gaz` — CAR, CJA, CJN, options T1 à TP,
+       puis :doc:`../010-achat-energie/guide_audit_facture` § 10.3.2 pour l'audit
+       ATRD/ATRT
+   * - « Et en Algérie ? »
+     - :doc:`../010-achat-energie/guide_audit_facture` § 10.3.3 (électricité
+       Sonalgaz) et § 10.3.4 (gaz Sonalgaz, en thermies)
+   * - « Comment justifier mes calculs devant le fournisseur ? »
+     - chaque calculateur produit des ``DataFrame`` auditables — formule, entrées,
+       coefficient, résultat — décrits en § 10.3 et outillés par
+       ``Facture.df_utils``
+   * - « Quelles aides financent mes travaux ? »
+     - :doc:`section-6-financement-subvention`, puis :doc:`../011-cee/index`
 
-Représente un profil tarifaire TURPE avec ses caractéristiques :
+Les modèles disponibles
+=======================
 
-.. code-block:: python
+Quatre calculateurs couvrent l'achat d'énergie. Ils vivent tous dans le paquet
+``Facture`` et sont vérifiés présents dans la version installée :
 
-   from energysystemmodels.Facture.TURPE import TURPEProfil
-   
-   profil = TURPEProfil(
-       nom="HTA5",
-       puissance_souscrite_kW=250,
-       type_comptage="C5",
-       option_tarifaire="LU"
-   )
+.. list-table::
+   :widths: 26 32 42
+   :header-rows: 1
 
-**TURPECalculateur**
+   * - Domaine
+     - Modèle
+     - Ce qu'il calcule
+   * - Électricité France
+     - ``Facture.TURPE.TurpeCalculator``
+     - Coût d'utilisation des réseaux publics : gestion, comptage, soutirage,
+       dépassements de puissance, énergie réactive. Entrées décrites par
+       ``input_Contrat``, ``input_Tarif`` et ``input_Facture``.
+   * - Gaz France
+     - ``Facture.ATR_Transport_Distribution.ATR_calculation``
+     - Acheminement du gaz : ATRD (distribution) et ATRT (transport), modulation
+       CRE, TICGN, TVA, prix de la molécule.
+   * - Électricité Algérie
+     - ``Facture.SONALGAZ_Elec.Sonalgaz_Elec``
+     - Tarifs Sonalgaz par niveau de tension, avec prime fixe et tranches.
+   * - Gaz Algérie
+     - ``Facture.SONALGAZ_gaz.Sonalgaz_Gaz``
+     - Facturation du gaz en thermies, selon les tranches Sonalgaz.
 
-Effectue les calculs de facturation TURPE :
+.. tip::
+   Le nom du paquet s'écrit **SONALGAZ** dans le code (``SONALGAZ_Elec``,
+   ``Sonalgaz_Elec``). L'orthographe « Sonelgaz » ne donne aucun import valide.
 
-.. code-block:: python
+Ce qui est commun à toute facture d'énergie
+===========================================
 
-   from energysystemmodels.Facture.TURPE import TURPECalculateur
-   import pandas as pd
-   
-   # Préparer les données de consommation
-   dates = pd.date_range('2024-01-01', periods=8760, freq='H')
-   consommation = pd.Series([100.0] * 8760, index=dates)
-   
-   calculateur = TURPECalculateur(profil)
-   cout_total = calculateur.calculer_cout_annuel(consommation)
-   print(f"Coût TURPE annuel : {cout_total:.2f} €")
+Quel que soit le pays et quelle que soit l'énergie, une facture rémunère toujours
+les mêmes choses — c'est ce qui permet d'auditer un contrat algérien avec la même
+méthode qu'un contrat français :
 
-Exemple complet : Analyse tarifaire HTA
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+1. **l'énergie livrée**, mesurée au compteur puis convertie dans l'unité de
+   facturation (kWh, thermie, MWh PCS) ;
+2. **l'accès au réseau**, qui finance exploitation, maintenance et sécurité, qu'il
+   soit détaillé ou fondu dans le prix ;
+3. **la capacité souscrite**, part fixe payée pour le droit de soutirer une
+   puissance ou un débit maximal ;
+4. **les taxes et contributions publiques**, propres à chaque pays.
 
-.. code-block:: python
+Le détail de ce cadre commun est développé en tête du chapitre
+:doc:`../010-achat-energie/index`.
 
-   from energysystemmodels.Facture.TURPE import TURPEProfil, TURPECalculateur
-   import pandas as pd
-   import numpy as np
-   
-   # Définir le profil HTA5
-   profil_hta5 = TURPEProfil(
-       nom="HTA5",
-       puissance_souscrite_kW=250,
-       type_comptage="C5",
-       option_tarifaire="LU"
-   )
-   
-   # Générer un profil de charge réaliste
-   dates = pd.date_range('2024-01-01', periods=8760, freq='H')
-   base_load = 150.0
-   variation = 50.0 * np.sin(2 * np.pi * np.arange(8760) / 24)
-   consommation = pd.Series(base_load + variation, index=dates)
-   
-   # Calculer les coûts
-   calculateur = TURPECalculateur(profil_hta5)
-   
-   # Coût annuel total
-   cout_total = calculateur.calculer_cout_annuel(consommation)
-   
-   # Décomposition par composante
-   details = calculateur.decomposition_couts(consommation)
-   
-   print(f"Coût annuel total : {cout_total:.2f} €")
-   print("\nDécomposition :")
-   for composante, montant in details.items():
-       print(f"  {composante}: {montant:.2f} €")
+Pour aller plus loin
+====================
 
-Exemple : Comparaison de profils tarifaires
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-.. code-block:: python
-
-   from energysystemmodels.Facture.TURPE import TURPEProfil, TURPECalculateur
-   import pandas as pd
-   
-   # Profils à comparer
-   profils = [
-       TURPEProfil("HTA5", 250, "C5", "LU"),
-       TURPEProfil("HTA5", 250, "C5", "MU"),
-       TURPEProfil("BT>36", 100, "C5", "LU")
-   ]
-   
-   # Même profil de consommation
-   dates = pd.date_range('2024-01-01', periods=8760, freq='H')
-   consommation = pd.Series([100.0] * 8760, index=dates)
-   
-   # Comparer les coûts
-   resultats = {}
-   for profil in profils:
-       calculateur = TURPECalculateur(profil)
-       cout = calculateur.calculer_cout_annuel(consommation)
-       resultats[profil.nom] = cout
-   
-   print("Comparaison des coûts annuels :")
-   for nom, cout in resultats.items():
-       print(f"  {nom}: {cout:.2f} €")
-
-Exemple : Optimisation de la puissance souscrite
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-.. code-block:: python
-
-   from energysystemmodels.Facture.TURPE import TURPEProfil, TURPECalculateur
-   import pandas as pd
-   import numpy as np
-   
-   # Profil de charge avec des pointes
-   dates = pd.date_range('2024-01-01', periods=8760, freq='H')
-   consommation = pd.Series(100 + 50 * np.random.random(8760), index=dates)
-   
-   # Puissance de pointe réelle
-   puissance_pointe = consommation.max()
-   print(f"Puissance de pointe : {puissance_pointe:.1f} kW")
-   
-   # Tester différentes puissances souscrites
-   puissances_test = np.arange(
-       puissance_pointe * 0.9, 
-       puissance_pointe * 1.3, 
-       10
-   )
-   
-   resultats_optimisation = []
-   for ps in puissances_test:
-       profil = TURPEProfil("HTA5", ps, "C5", "LU")
-       calculateur = TURPECalculateur(profil)
-       cout = calculateur.calculer_cout_annuel(consommation)
-       depassements = calculateur.calculer_depassements(consommation)
-       
-       resultats_optimisation.append({
-           'puissance_souscrite': ps,
-           'cout_total': cout,
-           'nb_depassements': depassements
-       })
-   
-   # Trouver l'optimum
-   df_optim = pd.DataFrame(resultats_optimisation)
-   optimum = df_optim.loc[df_optim['cout_total'].idxmin()]
-   
-   print(f"\nPuissance souscrite optimale : {optimum['puissance_souscrite']:.1f} kW")
-   print(f"Coût annuel optimal : {optimum['cout_total']:.2f} €")
-
-Exemples de tests (France)
-^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-.. code-block:: python
-
-   from Facture.TURPE import input_Contrat, TurpeCalculator, input_Facture, input_Tarif
-
-   facture = input_Facture(
-       start="2022-09-01", end="2022-09-30",
-       heures_depassement=0, depassement_PS_HPB=64,
-       kWh_pointe=0, kWh_HPH=0, kWh_HCH=0, kWh_HPB=26635, kWh_HCB=12846
-   )
-   contrat = input_Contrat(
-       domaine_tension="BT > 36 kVA",
-       PS_pointe=129, PS_HPH=129, PS_HCH=129, PS_HPB=129, PS_HCB=250,
-       version_utilisation="LU", pourcentage_ENR=100
-   )
-   tarif = input_Tarif(
-       c_euro_kWh_pointe=0.2, c_euro_kWh_HPB=0.15, c_euro_kWh_HCB=0.12,
-       c_euro_kWh_HPH=0.18, c_euro_kWh_HCH=0.16, c_euro_kwh_CSPE_TICFE=0.05,
-       c_euro_kWh_certif_capacite_pointe=0.0, c_euro_kWh_certif_capacite_HPH=0.0,
-       c_euro_kWh_certif_capacite_HCH=0.0, c_euro_kWh_certif_capacite_HPB=0.0,
-       c_euro_kWh_certif_capacite_HCB=0.0, c_euro_kWh_ENR=0.1, c_euro_kWh_ARENH=0.09
-   )
-   turpe_calculator = TurpeCalculator(contrat, tarif, facture)
-   turpe_calculator.calculate_turpe()
-   print(f"Acheminement (€) : {turpe_calculator.euro_TURPE}")
-   print(f"Taxes et Contributions (€) : {turpe_calculator.euro_taxes_contrib}")
-
-1.1.2. Algérie
-~~~~~~~~~~~~~~
-
-SONELGAZ - Électricité (tarifs 41/42/43/44)
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-.. code-block:: python
-
-   from Facture.SONALGAZ_Elec import input_Contrat, input_Facture, Sonalgaz_Elec
-
-   contrat = input_Contrat(
-       code_tarif="41",  # Code 41,42,43,44 => HTA automatiquement
-       PMD_kW=1000
-   )
-
-   facture = input_Facture(
-       start="2025-03-01",
-       end="2025-03-31",
-       kWh_pointe=20585.00,
-       kWh_pleine=63963.00,
-       kWh_nuit=40091.00,
-       PMA_kW=367,
-       kvarh_reactif=50827.00
-   )
-
-   calc = Sonalgaz_Elec(contrat, facture)
-   calc.calculate()
-   print(calc.df)
-   calc.plot()
-   calc.plot_detail()
-
-.. code-block:: python
-
-   from Facture.SONALGAZ_Elec import input_Contrat, input_Facture, Sonalgaz_Elec
-
-   contrat = input_Contrat(
-       code_tarif="42",
-       PMD_kW=80
-   )
-
-   facture = input_Facture(
-       start="2025-01-01",
-       end="2025-01-31",
-       kWh_pointe=3174.90,
-       kWh_hors_pointe=10215.24,
-       PMA_kW=37,
-       kvarh_reactif=11784.40
-   )
-
-   calc = Sonalgaz_Elec(contrat, facture)
-   calc.calculate()
-   print(calc.df)
-   calc.plot()
-   calc.plot_detail()
-
-1.2. Gaz
----------
-
-1.2.1. France
-~~~~~~~~~~~~~~
-
-ATR - Transport & Distribution (naTran (ex-GRTgaz))
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-.. code-block:: python
-
-   from Facture.ATR_Transport_Distribution import input_Contrat, input_Facture, input_Tarif, ATR_calculation
-
-   contrat = input_Contrat(
-       type_tarif_acheminement='T4',
-       CJN_MWh_j=93,
-       modulation_MWh_j=20.891,
-       CAR_MWh=8920.959,
-       profil="P019",
-       station_meteo="PARIS-MONTSOURIS",
-       reseau_transport="naTran",
-       niv_tarif_region=2
-   )
-   facture = input_Facture(start="2024-01-01", end="2024-01-31", kWh_total=1358713)
-   tarif = input_Tarif(prix_kWh=0.03171 + 0.00571)
-
-   atr = ATR_calculation(contrat, facture, tarif)
-   atr.calculate()
-   print(atr.df_results)            # Resume general complet
-   print(atr.df_contrat)            # Parametres contrat + coefficients CRE
-   print(atr.df_fourniture)         # Molecule gaz (fournisseur)
-   print(atr.df_transport)          # Detail ATRT (TCS, TCR, TCL, stockage)
-   print(atr.df_distribution)       # Detail ATRD (fixe, capacite, variable)
-   print(atr.df_taxes)              # CTA + Accise gaz
-   print(atr.df_totaux)             # Totaux HT/TTC + couts EUR/MWh
-
-1.2.2. Algérie
-~~~~~~~~~~~~~~
-
-SONELGAZ - Gaz (thermies)
-^^^^^^^^^^^^^^^^^^^^^^^^^
-
-.. code-block:: python
-
-   from Facture.SONALGAZ_gaz import input_Contrat, input_Facture, Sonalgaz_Gaz
-
-   contrat = input_Contrat(
-       code_tarif="11",
-       DMD_thermie_h=40000
-   )
-
-   facture = input_Facture(
-       start="2025-01-01",
-       end="2025-01-31",
-       thermies=23177817.83,
-       DMA_thermie_h=37079
-   )
-
-   calc = Sonalgaz_Gaz(contrat, facture)
-   calc.calculate()
-   print(calc.df)
-   calc.plot()
-   calc.plot_detail()
-
+* :doc:`../010-achat-energie/index` — le chapitre complet, avec les exemples
+  exécutables et leurs sorties réelles.
+* :doc:`../quickstart` — installer la bibliothèque et exécuter un premier calcul.
+* :doc:`../api` — la liste des imports réels, module par module.
+* :doc:`section-2-donnees-production` — la suite du parcours : données de
+  consommation et de production.

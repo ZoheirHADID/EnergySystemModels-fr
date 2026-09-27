@@ -94,7 +94,7 @@ Installation :
 
 .. code-block:: console
 
-   $ pip install EnergySystemModels
+   $ pip install energysystemmodels
 
 Le paquet installe l'ensemble des dépendances ; il n'existe pas d'« extras »
 optionnels (``[pv]``, ``[hvac]``…). Certaines fonctions restent tributaires de
@@ -124,4 +124,4 @@ EnergySystemModels est distribué sous licence MIT.
 
 Copyright (c) 2024 EnergySystemModels Contributors
 
-Pour les détails complets de la licence, voir le fichier LICENSE dans le dépôt source.
+Le texte complet de la licence est livré avec le paquet installé.

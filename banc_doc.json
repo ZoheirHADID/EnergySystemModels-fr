@@ -863,20 +863,21 @@
   },
   "docs/source/api.rst": {
    "blocs": 10,
-   "empreinte": "ec10bac2c7052fef",
-   "mesure": "2026-09-27T18:10",
+   "empreinte": "83288b1d9d8a3115",
+   "mesure": "2026-09-27T19:57",
    "figures": [],
    "blocage": null,
-   "motif": "non exécutée (passe statique)",
-   "cran": null,
-   "nom": "non mesuré",
-   "cran_max": null,
+   "motif": "manque : table de personnalisation et variante exécutée",
+   "extraits": 1,
+   "cran": 4,
+   "nom": "figure réelle",
+   "cran_max": 4,
    "recul": null
   },
   "docs/source/contributing.rst": {
    "blocs": 0,
-   "empreinte": "abad9415fdec5593",
-   "mesure": "2026-09-27T18:10",
+   "empreinte": "a6d16a5b07a45198",
+   "mesure": "2026-09-27T19:48",
    "figures": [],
    "blocage": null,
    "motif": "page de prose ou d'index",
@@ -899,8 +900,8 @@
   },
   "docs/source/gui_tools.rst": {
    "blocs": 3,
-   "empreinte": "887f427d82e1adb8",
-   "mesure": "2026-09-27T18:10",
+   "empreinte": "0c73305a566af6d6",
+   "mesure": "2026-09-27T19:49",
    "figures": [
     "images/gui_pyqtsimulator_architecture.svg",
     "images/gui_node_declaratif_heater.svg",
@@ -909,10 +910,10 @@
     "images/gui_evaluation_flow.svg"
    ],
    "blocage": null,
-   "motif": "non exécutée (passe statique)",
-   "cran": null,
-   "nom": "non mesuré",
-   "cran_max": null,
+   "motif": "bloc 2 : ModuleNotFoundError: No module named 'ThermodynamicCycles.Components'",
+   "cran": 1,
+   "nom": "plante",
+   "cran_max": 1,
    "recul": null
   },
   "docs/source/index.rst": {
@@ -941,8 +942,8 @@
   },
   "docs/source/quickstart.rst": {
    "blocs": 4,
-   "empreinte": "db8893bb0c99f9fd",
-   "mesure": "2026-09-27T18:37",
+   "empreinte": "584ed26c0c5d0bb1",
+   "mesure": "2026-09-27T19:47",
    "figures": [],
    "blocage": null,
    "motif": "",
@@ -967,8 +968,8 @@
   },
   "docs/source/usage.rst": {
    "blocs": 0,
-   "empreinte": "d4542af97e3ee66a",
-   "mesure": "2026-09-27T18:10",
+   "empreinte": "da39a3ee5e6b4b0d",
+   "mesure": "2026-09-27T19:30",
    "figures": [],
    "blocage": null,
    "motif": "page de prose ou d'index",
@@ -978,15 +979,15 @@
    "recul": null
   },
   "docs/source/usage/section-1-achat-facturation.rst": {
-   "blocs": 10,
-   "empreinte": "98e7d34079703889",
-   "mesure": "2026-09-27T18:10",
+   "blocs": 0,
+   "empreinte": "af81323cf2f0ccc3",
+   "mesure": "2026-09-27T19:30",
    "figures": [],
    "blocage": null,
-   "motif": "API inexistante : energysystemmodels.",
-   "cran": 1,
-   "nom": "plante",
-   "cran_max": 1,
+   "motif": "page de prose ou d'index",
+   "cran": 0,
+   "nom": "sans exemple",
+   "cran_max": 0,
    "recul": null
   },
   "docs/source/usage/section-2-donnees-production.rst": {
@@ -1049,14 +1050,14 @@
   },
   "docs/source/usage/section-6-autres.rst": {
    "blocs": 1,
-   "empreinte": "aab2e6326f764e81",
-   "mesure": "2026-09-27T18:10",
+   "empreinte": "cbcc0bcb80391f1d",
+   "mesure": "2026-09-27T19:48",
    "figures": [],
    "blocage": null,
-   "motif": "non exécutée (passe statique)",
-   "cran": null,
-   "nom": "non mesuré",
-   "cran_max": null,
+   "motif": "manque : table de personnalisation et variante exécutée",
+   "cran": 4,
+   "nom": "figure réelle",
+   "cran_max": 4,
    "recul": null
   },
   "docs/source/usage/section-6-financement-subvention.rst": {
