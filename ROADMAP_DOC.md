@@ -26,16 +26,16 @@
 | Blocs `python` | 217 |
 | Pages référençant au moins une figure | 19 |
 | Pages mesurées par exécution | 8 |
-| Cran 5 (`personnalisable`) | **0** |
+| Cran 5 (`personnalisable`) | **1** — `quickstart.rst` |
 | Cran 4 (`figure réelle`) | 6 |
 | Cran 2 (`exécuté`) | 1 |
-| Cran 1 (`plante`) | 7 |
+| Cran 1 (`plante`) | 6 (les 6 pages `usage/`) |
 | Pages non encore mesurées | 54 |
 | Build Sphinx | **0 warning, 0 error** |
 
-Aucune page n'atteint encore le cran 5 : **personne n'a de table de
-personnalisation ni de variante exécutée.** C'est le principal manque du guide
-au regard de sa mission n° 2.
+**`quickstart.rst` est la page de référence pour la forme** : à quoi ça sert →
+exemple copiable → sortie réelle → table de personnalisation → **variante
+exécutée** → pièges nommés → renvois. Les autres pages s'alignent sur elle.
 
 ## A. Assainir ce qui est faux
 
@@ -48,18 +48,26 @@ au regard de sa mission n° 2.
   Traitement retenu : ces pages deviennent un **parcours de lecture** (prose
   courte + renvois `:doc:`), pas un second guide d'API — cf. §C.
   `section-6-autres.rst` est déjà propre.
-- `en cours` **A2 — `quickstart.rst` plante** (cran 1). Le bloc « Méthode 1 :
-  Attributs de l'objet » construit un `Source.Object()` sans `Ti_degC` →
-  `TypeError` dans `Source.py:156`, et lit `source.h_outlet` / `source.T_outlet`
-  qui ne sont pas des attributs de l'objet. C'est la page d'entrée du guide :
-  priorité haute. Voir `BUGS_LIB.md` pour le volet bibliothèque.
-- `à faire` **A3 — chemins propres à une machine** (`A:\OneDrive\_Github_\…`) dans
-  `README.rst`, `docs/source/quickstart.rst`, `contributing.rst`,
-  `gui_tools.rst`. À remplacer par un chemin relatif au clone.
-- `à faire` **A4 — `pip install energysystemmodels`** annoncé par `quickstart.rst`
-  alors que le guide documente un usage depuis les sources (`PYTHONPATH=src`).
-  Vérifier ce que publie réellement PyPI avant d'écrire une consigne
-  d'installation.
+- `fait` **A2 — `quickstart.rst`** : cran 1 → **cran 5** (2026-09-27). Page
+  réécrite sur l'API réelle, 4 blocs exécutés, sorties réelles publiées, table
+  de personnalisation des 8 entrées du mur composite, variante exécutée
+  (isolant 5 → 12 cm : −53,6 % de flux), deux pièges d'attributs nommés, unités
+  entrées/ports distinguées, chemins de machine retirés.
+- `en cours` **A3 — chemins propres à une machine** (`A:\OneDrive\_Github_\…`).
+  Retirés de `quickstart.rst` (A2). Restent : `README.rst`, `contributing.rst`,
+  `gui_tools.rst`.
+- `fait` **A4 — ce que publie PyPI** (mesuré le 2026-09-27) : le paquet
+  `energysystemmodels` existe, versionnement **calendaire**, dernière version
+  `20260924003`. La roue (1,73 Mo) contient **tous** les paquets de premier niveau
+  — `AHU`, `CEE`, `Distillation`, `Electrical`, `Facture`, `HeatTransfer`,
+  `IPMVP`, `MeteoCiel`, `NodeEditor`, `OpenWeatherMap`, `PV`, `PinchAnalysis`,
+  `PyqtSimulator`, `Separation`, `ThermodynamicCycles`, `TkinterGUI`,
+  `energysystemmodels` — **y compris l'IHM et ses 35 scènes**. Donc
+  `pip install energysystemmodels` puis `python -m PyqtSimulator` suffit : la
+  consigne « PyqtSimulator est fourni par le dépôt source » est fausse et doit
+  disparaître partout où elle traîne (`README.rst`, `gui_tools.rst`).
+  Reste à vérifier : `conf.py` annonce `version = 0.1.23 / release = post9`, sans
+  rapport avec le versionnement calendaire publié.
 
 **Corrigé au passage dans l'audit de 2026-07-04, à ne pas rouvrir :**
 
@@ -92,6 +100,16 @@ réelle si le modèle en a une.
 - `à faire` **B6 — `001-heat_transfer` (4)**, `005-aeraulic` (2),
   `012-electrical` (1), `006-pinch_analysis` (1), `007-ipmvp` (5),
   `008-meteo` (4), `009-pv-solaire` (1).
+
+### Comportements à dire au lecteur (vérifiés)
+
+- **Les débits alternatifs sont des entrées.** `Source.calculate()` remet
+  `F_kgh`, `F_m3h`, `F_Sm3h`, `F_m3s`… à `None` après avoir rempli `df`
+  (`Source.py`, « réinitialiser les débits ») : on peut saisir le débit dans
+  l'unité qu'on veut, mais après calcul ces valeurs se lisent dans `df`, pas sur
+  l'objet. Ce n'est pas un bug, c'est à écrire dans chaque page concernée.
+- **Entrées en unités usuelles, ports en SI** : `Pi_bar = 5.0` bar donne
+  `Outlet.P = 500000` Pa et `Outlet.h` en J/kg. Mesuré.
 
 ## C. Le parcours de lecture
 
@@ -153,8 +171,6 @@ dans `$LIB/test/` — un test donne un exemple déjà validé.
   `name = "EnergySystemModels-en"` alors que c'est le dépôt **français**.
 - **Stratégie de traduction** : `translate_docs.py` (dictionnaire figé) et le
   dépôt anglais — quelle est la source, quelle est la cible ?
-- **Installation publiée** : que vaut réellement `pip install energysystemmodels`
-  aujourd'hui ? La réponse conditionne A4 et le `quickstart`.
 - **Sort des 6 pages `usage/`** : parcours de renvois (choix retenu, hérité de
   `$LIB/docs/LOOP_ESM_INSTRUCTIONS.md`) ou suppression pure.
 - **Accès réseau** : PVGIS (009-PV) et les API météo (008) sont nécessaires pour

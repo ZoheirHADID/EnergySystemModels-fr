@@ -940,15 +940,15 @@
    "recul": null
   },
   "docs/source/quickstart.rst": {
-   "blocs": 3,
-   "empreinte": "504ccd9db1fd0cb0",
-   "mesure": "2026-09-27T18:17",
+   "blocs": 4,
+   "empreinte": "db8893bb0c99f9fd",
+   "mesure": "2026-09-27T18:37",
    "figures": [],
    "blocage": null,
-   "motif": "bloc 2 : TypeError: unsupported operand type(s) for +: 'NoneType' and 'float'",
-   "cran": 1,
-   "nom": "plante",
-   "cran_max": 1,
+   "motif": "",
+   "cran": 5,
+   "nom": "personnalisable",
+   "cran_max": 5,
    "recul": null
   },
   "docs/source/transfert_chaleur.rst": {

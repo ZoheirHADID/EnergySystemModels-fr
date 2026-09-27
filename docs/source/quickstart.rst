@@ -4,7 +4,8 @@
 Guide de Démarrage Rapide
 =============================
 
-Ce guide vous permet de commencer à utiliser **EnergySystemModels** en quelques minutes.
+Ce guide vous fait installer **EnergySystemModels**, calculer un premier cas
+réel, puis l'adapter au vôtre. Comptez dix minutes.
 
 .. contents:: Sommaire
    :local:
@@ -12,17 +13,39 @@ Ce guide vous permet de commencer à utiliser **EnergySystemModels** en quelques
 
 ----
 
+À quoi sert la bibliothèque
+===========================
+
+EnergySystemModels calcule les **systèmes énergétiques d'un site industriel ou
+tertiaire** : parois et tuyauteries, cycles frigorifiques et thermodynamiques,
+centrales de traitement d'air, réseaux hydrauliques et aérauliques, récupération
+de chaleur, production solaire, facture d'énergie et certificats d'économies.
+
+Elle s'utilise de deux façons, au choix :
+
+- **en Python**, un composant par objet — c'est l'objet de ce guide ;
+- **à la souris**, en assemblant un schéma dans l'interface ``PyqtSimulator``
+  (voir :doc:`gui_tools`).
+
+Elle ne remplace pas un simulateur de procédés chimiques : elle vise les
+utilités et les usages énergétiques d'un site, là où les données constructeur et
+la réglementation française comptent autant que la thermodynamique.
+
+----
+
 Installation
 ============
 
-Méthode standard
-----------------
-
-Installez la bibliothèque via pip :
+Depuis PyPI
+-----------
 
 .. code-block:: console
 
    pip install energysystemmodels
+
+Le versionnement est **calendaire** : la version publiée au 2026-09-27 est
+``20260924003``. La distribution contient l'ensemble des modules Python **et**
+l'interface graphique ``PyqtSimulator`` avec ses 35 schémas d'exemple.
 
 Environnement virtuel (recommandé)
 -----------------------------------
@@ -31,158 +54,275 @@ Environnement virtuel (recommandé)
 
    # Créer un environnement virtuel
    python -m venv .venv
-   
+
    # Activer l'environnement (Windows)
    .venv\Scripts\activate
-   
+
    # Activer l'environnement (Linux/Mac)
    source .venv/bin/activate
-   
+
    # Installer la bibliothèque
    pip install energysystemmodels
 
 .. tip::
-   L'utilisation d'un environnement virtuel est recommandée pour éviter les conflits de dépendances.
+   L'environnement virtuel évite les conflits de dépendances : la bibliothèque
+   s'appuie sur CoolProp, pandas, matplotlib, scikit-learn et pvlib.
 
-Lancer l'interface PyqtSimulator (développement)
-------------------------------------------------
+Depuis les sources
+------------------
 
-``PyqtSimulator`` est fourni par le dépôt source ``EnergySystemModels``.
-Depuis un clone local, vous pouvez le lancer ainsi :
+Utile pour suivre le développement ou lire le code des modèles :
 
 .. code-block:: powershell
 
-   cd A:\OneDrive\_Github_\EnergySystemModels
+   git clone https://github.com/ZoheirHADID/EnergySystemModels.git
+   cd EnergySystemModels
    $env:PYTHONPATH = "$PWD\src"
-   python -m PyqtSimulator.main
 
-Alternative :
+Les exemples de ce guide s'exécutent à l'identique dans les deux cas.
 
-.. code-block:: powershell
+Lancer l'interface graphique
+----------------------------
 
-   python A:\OneDrive\_Github_\EnergySystemModels\test\PyqtSimulator\_PyqtSimulator.py
+.. code-block:: console
+
+   python -m PyqtSimulator
+
+La forme ``python -m PyqtSimulator.main`` fonctionne aussi. La fenêtre
+« Calcul des systèmes énergétiques » s'ouvre avec une palette de **140 éléments**
+et une zone de travail où glisser les composants.
 
 .. seealso::
-   Guide détaillé interface graphique : :doc:`gui_tools`
+   Guide détaillé de l'interface : :doc:`gui_tools`
 
 ----
 
 Principe d'utilisation
 ======================
 
-EnergySystemModels suit un modèle de programmation **orienté objet** simple et cohérent.
+Tous les composants suivent le même enchaînement.
 
-Workflow en 4 étapes
----------------------
-
-.. admonition:: Workflow standard
+.. admonition:: Les 4 étapes
    :class: note
 
    1. **Créer un objet** représentant un composant énergétique
-   2. **Définir les paramètres d'entrée** (températures, pressions, débits, etc.)
-   3. **Appeler la méthode calculate()** pour effectuer les calculs
-   4. **Accéder aux résultats** via les attributs de l'objet ou le DataFrame
+   2. **Renseigner ses entrées** (températures, pressions, débits, géométrie)
+   3. **Appeler ``calculate()``**
+   4. **Lire les résultats** : attributs de l'objet, ou ``DataFrame`` ``.df``
 
-Exemple simple
---------------
+Premier exemple : un mur composite
+----------------------------------
 
-Voici un exemple minimal pour illustrer le principe :
+Combien de chaleur perd un mur de 10 m² isolé de 5 cm, par −10 °C dehors et
+20 °C dedans ?
 
 .. code-block:: python
-   :linenos:
-   :emphasize-lines: 4,7-9,12,15-17
 
    from HeatTransfer import CompositeWall
 
-   # 1. Créer l'objet
-   wall = CompositeWall.Object(he=23, hi=8, Ti=20, Te=-10, A=10)
-   
-   # 2. Définir la structure (ajouter des couches)
-   wall.add_layer(thickness=0.20, material='Parpaings creux')
-   wall.add_layer(thickness=0.05, material='Polystyrène')
-   wall.add_layer(thickness=0.02, material='Plâtre')
-   
-   # 3. Calculer
-   wall.calculate()
-   
-   # 4. Accéder aux résultats
-   print(f"Résistance thermique : {wall.R_total:.3f} m².K/W")
-   print(f"Flux thermique : {wall.Q:.2f} W")
-   print(wall.df)  # DataFrame avec tous les résultats
+   # 1. Créer l'objet : coefficients d'échange et conditions aux limites
+   mur = CompositeWall.Object(he=23, hi=8, Ti=20, Te=-10, A=10)
 
-.. seealso::
-   Pour plus d'exemples, consultez :doc:`usage`
+   # 2. Décrire la paroi, de l'extérieur vers l'intérieur
+   mur.add_layer(thickness=0.20, material="Parpaings creux")   # m
+   mur.add_layer(thickness=0.05, material="Polystyrène")
+   mur.add_layer(thickness=0.02, material="Plâtre")
+
+   # 3. Calculer
+   mur.calculate()
+
+   # 4. Lire les résultats
+   print(f"Résistance totale : {mur.R_total:.3f} m².K/W")
+   print(f"Flux sur {mur.A} m² : {mur.Q:.2f} W")
+   print(mur.df[["Matériau", "Résistance (m².°C/W)", "Température sortie (°C)"]])
+
+Sortie réelle :
+
+.. code-block:: text
+
+   Résistance totale : 2.018 m².K/W
+   Flux sur 10 m² : 148.66 W
+             Matériau  Résistance (m².°C/W)  Température sortie (°C)
+   0    Air extérieur              0.043478                -9.353644
+   1  Parpaings creux              0.142857                -7.229903
+   2      Polystyrène              1.666667                17.547079
+   3           Plâtre              0.040000                18.141726
+   4    Air intérieur              0.125000                20.000000
+
+Le tableau se lit de l'extérieur vers l'intérieur : la colonne
+« Température sortie » donne la température à la sortie de chaque couche, ce qui
+situe le **point de rosée** potentiel dans la paroi. Ici l'isolant porte à lui
+seul 1,667 des 2,018 m².K/W, soit 83 % de la résistance.
 
 ----
 
-Modules disponibles
-===================
+Ce qu'on personnalise
+=====================
 
-La bibliothèque est organisée en modules thématiques :
-
-Transfert thermique
--------------------
+Les six entrées de l'exemple ci-dessus, et l'effet de chacune :
 
 .. list-table::
-   :widths: 30 70
-   :header-rows: 0
+   :widths: 18 42 22 18
+   :header-rows: 1
 
-   * - **Transfert de chaleur**
-     - Calculs thermiques pour murs, tuyauteries, échangeurs
+   * - Entrée
+     - Effet
+     - Plage usuelle
+     - Unité
+   * - ``Te``
+     - Température extérieure : fixe l'écart moteur du flux
+     - −15 à 15 (température de base du site)
+     - °C
+   * - ``Ti``
+     - Température intérieure de consigne
+     - 19 à 24 (tertiaire), 16 à 18 (entrepôt)
+     - °C
+   * - ``he``
+     - Coefficient d'échange extérieur — vent
+     - 16 à 25
+     - W/m².K
+   * - ``hi``
+     - Coefficient d'échange intérieur — convection naturelle
+     - 7 à 10
+     - W/m².K
+   * - ``A``
+     - Surface de paroi considérée
+     - selon le relevé
+     - m²
+   * - ``thickness``
+     - Épaisseur d'une couche ; c'est le levier principal sur l'isolant
+     - 0,04 à 0,20 pour un isolant
+     - m
+   * - ``material``
+     - Matériau de la couche, pris au catalogue ``mur.MATERIALS``
+     - voir ci-dessous
+     - —
+   * - ``mur.MATERIALS``
+     - Catalogue des conductivités disponibles
+     - 13 matériaux (+ leurs noms anglais)
+     - W/m.K
 
-Systèmes thermodynamiques
---------------------------
+Matériaux disponibles : ``Laine de verre``, ``Liège expansé pur``,
+``Liège expansé aggloméré au brai``, ``Parpaings creux``,
+``Pierre calcaire dure (marbre)``, ``Pierre calcaire tendre``,
+``Pierre granit``, ``Polystyrène``, ``Polystyrène expansé``,
+``Polystyrène extrudé``, ``Mousse de polyuréthane``, ``Plâtre``, ``Verre`` —
+chacun également accessible sous son nom anglais.
 
-.. list-table::
-   :widths: 30 70
-   :header-rows: 0
+Variante : passer l'isolant de 5 à 12 cm
+----------------------------------------
 
-   * - **Cycles thermodynamiques**
-     - Modélisation de cycles frigorifiques, pompes à chaleur, compresseurs
+.. code-block:: python
 
-Systèmes HVAC
--------------
+   # variante : 12 cm d'isolant au lieu de 5 cm, tout le reste identique
+   mur_isole = CompositeWall.Object(he=23, hi=8, Ti=20, Te=-10, A=10)
+   mur_isole.add_layer(thickness=0.20, material="Parpaings creux")
+   mur_isole.add_layer(thickness=0.12, material="Polystyrène")
+   mur_isole.add_layer(thickness=0.02, material="Plâtre")
+   mur_isole.calculate()
 
-.. list-table::
-   :widths: 30 70
-   :header-rows: 0
+   print(f"R total : {mur.R_total:.3f} -> {mur_isole.R_total:.3f} m².K/W")
+   print(f"Flux    : {mur.Q:.2f} -> {mur_isole.Q:.2f} W")
+   print(f"Réduction du flux : {100 * (mur.Q - mur_isole.Q) / mur.Q:.1f} %")
 
-   * - **Centrales de traitement d'air (CTA)**
-     - Simulation complète de CTA avec batteries, humidification, récupération
-   * - **Hydraulique**
-     - Calculs de pertes de charge, dimensionnement de pompes et vannes
+Sortie réelle :
 
-Optimisation énergétique
--------------------------
+.. code-block:: text
 
-.. list-table::
-   :widths: 30 70
-   :header-rows: 0
+   R total : 2.018 -> 4.351 m².K/W
+   Flux    : 148.66 -> 68.94 W
+   Réduction du flux : 53.6 %
 
-   * - **Analyse énergétique**
-     - Analyse Pinch, IPMVP, optimisation d'intégration thermique
+**Sept centimètres d'isolant en plus suppriment 53,6 % de la déperdition** de
+cette paroi, soit 80 W sur 10 m² dans ces conditions. C'est le calcul à refaire
+avec vos propres ``Te``, surfaces et épaisseurs avant de chiffrer un projet
+d'isolation.
 
-Données et production
-----------------------
+.. note::
+   Le modèle est **stationnaire et unidimensionnel** : il ignore l'inertie de la
+   paroi, les ponts thermiques et la migration de vapeur. Il répond à « combien
+   de watts en régime établi », pas à « quelle température demain matin ».
 
-.. list-table::
-   :widths: 30 70
-   :header-rows: 0
+----
 
-   * - **Données météo**
-     - Récupération de données climatiques en temps réel ou historiques
-   * - **Production solaire**
-     - Simulation de production photovoltaïque
+Structure des résultats
+========================
 
-Facturation et certificats
----------------------------
+Les résultats se lisent de **deux manières**, illustrées ici sur une source de
+fluide frigorigène.
 
-.. list-table::
-   :widths: 30 70
-   :header-rows: 0
+Méthode 1 : attributs de l'objet
+----------------------------------
 
-   * - **Facturation**
-     - Calcul du TURPE, certificats d'économies d'énergie (CEE)
+.. code-block:: python
+
+   from ThermodynamicCycles.Source import Source
+
+   source = Source.Object()
+   source.fluid = "R134a"
+   source.Pi_bar = 5.0     # bar
+   source.Ti_degC = 20     # °C — obligatoire
+   source.F = 0.5          # kg/s
+   source.calculate()
+
+   print(f"Enthalpie de sortie : {source.Outlet.h:.0f} J/kg")
+   print(f"Pression de sortie  : {source.Outlet.P:.0f} Pa")
+   print(f"Débit massique      : {source.F:.3f} kg/s")
+
+Sortie réelle :
+
+.. code-block:: text
+
+   Enthalpie de sortie : 411606 J/kg
+   Pression de sortie  : 500000 Pa
+   Débit massique      : 0.500 kg/s
+
+.. warning::
+   **Deux pièges d'attributs, vérifiés sur le code.**
+
+   1. ``Ti_degC`` n'a pas de valeur par défaut. Sans elle, ``calculate()``
+      s'arrête sur ``TypeError: unsupported operand type(s) for +: 'NoneType'
+      and 'float'``. Renseignez toujours fluide, pression, température et débit.
+   2. Les débits en unités dérivées (``F_kgh``, ``F_m3h``, ``F_Sm3h``…) servent
+      d'**entrées alternatives** : on peut saisir le débit dans l'une ou l'autre.
+      ``calculate()`` les remet donc à ``None`` après avoir rempli ``df``. Après
+      calcul, lisez-les dans ``df`` (méthode 2), pas sur l'objet.
+
+Méthode 2 : le DataFrame ``.df``
+---------------------------------
+
+.. code-block:: python
+
+   # suite de l'exemple ci-dessus
+   print(source.df)
+
+   # Une valeur précise : débit horaire et débit en m³/h aux conditions du site
+   print("Débit horaire :", source.df.loc["F_kgh", "Source"], "kg/h")
+   print("Débit volumique :", source.df.loc["F_m3h", "Source"], "m³/h")
+
+Sortie réelle (l'horodatage est celui de votre exécution) :
+
+.. code-block:: text
+
+                                      Source
+   Timestamp      2026-09-27 18:34:52.254730
+   fluid                               R134a
+   Ti_degC                              20.0
+   Pi_bar                                5.0
+   F_Sm3h                              407.4
+   F_Nm3h                         384.101162
+   F_m3h                                75.8
+   F_kgh                              1800.0
+   F_kgs                                 0.5
+   F_m3s                               0.021
+   F_Sm3s                              0.113
+   self.Outlet.h               411606.040717
+   Débit horaire : 1800.0 kg/h
+   Débit volumique : 75.8 m³/h
+
+Le ``df`` est la forme à retenir : il se concatène, s'exporte
+(``source.df.to_excel("resultats.xlsx")``) et sert de trace de calcul dans un
+rapport.
 
 ----
 
@@ -190,123 +330,121 @@ Unités et conventions
 =====================
 
 .. important::
-   Toutes les entrées et sorties utilisent le Système International (SI) avec ces unités par défaut :
+   Les **entrées** sont dans les unités usuelles de l'ingénierie énergétique ;
+   les **ports internes** (``Inlet``, ``Outlet``) sont en unités SI. Dans
+   l'exemple ci-dessus, ``Pi_bar = 5.0`` bar donne ``Outlet.P = 500000`` Pa.
 
 .. list-table::
-   :widths: 40 30 30
+   :widths: 34 26 20 20
    :header-rows: 1
-   :class: striped
 
-   * - Grandeur physique
+   * - Grandeur
+     - Entrée de l'objet
      - Unité
-     - Symbole
+     - Sur les ports
    * - Température
-     - Degré Celsius
+     - ``Ti_degC``, ``Ti``, ``Te``
      - °C
+     - K
    * - Pression
-     - Bar
+     - ``Pi_bar``, ``HP_bar``
      - bar
+     - Pa
    * - Débit massique
-     - Kilogramme par seconde
+     - ``F``
+     - kg/s
      - kg/s
    * - Débit volumique
-     - Mètre cube par heure
+     - ``F_m3h``, ``F_Sm3h``
      - m³/h
+     - —
+   * - Enthalpie
+     - —
+     - —
+     - J/kg
    * - Puissance
-     - Kilowatt
-     - kW
-   * - Énergie
-     - Kilowatt-heure
-     - kWh
+     - —
+     - kW dans les ``df``
+     - W ou kW selon le modèle
+   * - Longueur, épaisseur
+     - ``thickness``, ``L``, ``DN``
+     - m (mm pour les diamètres normalisés)
+     - m
 
 .. warning::
-   Ne mélangez pas les unités (par exemple °C et K, ou bar et Pa) dans les calculs.
+   Le suffixe du nom porte l'unité : ``Q_comp(KW)`` est en kilowatts,
+   ``Outlet.h`` en joules par kilogramme. Vérifiez le suffixe avant de
+   convertir — la :doc:`nomenclature` les recense.
 
 ----
 
-Structure des résultats
-========================
+Modules disponibles
+===================
 
-Les résultats sont accessibles de **deux manières** :
+.. list-table::
+   :widths: 34 66
+   :header-rows: 1
 
-Méthode 1 : Attributs de l'objet
-----------------------------------
-
-Accès direct aux propriétés calculées :
-
-.. code-block:: python
-
-   from ThermodynamicCycles.Source import Source
-   
-   source = Source.Object()
-   source.Pi_bar = 5.0
-   source.fluid = "R134a"
-   source.calculate()
-   
-   # Accès direct
-   print(source.h_outlet)  # Enthalpie
-   print(source.T_outlet)  # Température
-
-Méthode 2 : DataFrame pandas
------------------------------
-
-Accès tabulaire pour analyse et export :
-
-.. code-block:: python
-
-   # Tableau complet des résultats
-   print(source.df)
-   
-   # Accès à une colonne spécifique
-   print(source.df['h[J/kg]'])
-   
-   # Export vers Excel
-   source.df.to_excel('resultats.xlsx', index=False)
-
-.. tip::
-   Les DataFrames pandas permettent une manipulation et analyse facile des résultats.
+   * - Domaine
+     - Ce qu'on y trouve
+   * - :doc:`001-heat_transfer/index`
+     - Parois composites, corps parallélépipédiques, isolation de tuyauteries
+   * - :doc:`002-thermodynamic_cycles/index`
+     - Compresseurs, turbines, échangeurs, groupes froid, détente, distillation
+   * - :doc:`003-ahu_modules/index`
+     - Centrales de traitement d'air : batteries, humidification, récupération
+   * - :doc:`004-hydraulic/index`
+     - Pertes de charge, vannes d'équilibrage, singularités, réseaux maillés
+   * - :doc:`005-aeraulic/index`
+     - Réseaux de gaines et pertes de charge aérauliques
+   * - :doc:`006-pinch_analysis/index`
+     - Analyse Pinch et intégration de la chaleur fatale
+   * - :doc:`007-ipmvp/index`
+     - Mesure et vérification des économies (protocole IPMVP)
+   * - :doc:`008-meteo/index`
+     - Données climatiques, degrés-jours unifiés (COSTIC)
+   * - :doc:`009-pv-solaire/index`
+     - Production photovoltaïque (via ``pvlib``)
+   * - :doc:`010-achat-energie/index`
+     - Contrats, TURPE, audit de facture électrique et gaz
+   * - :doc:`011-cee/index`
+     - Certificats d'économies d'énergie, fiches standardisées
+   * - :doc:`012-electrical/index`
+     - Calculs électriques et chaleur fatale associée
 
 ----
 
 Construire la documentation en local
 ====================================
 
-Pour prévisualiser la documentation ``EnergySystemModels-fr`` localement :
+Pour prévisualiser ce guide depuis un clone de ``EnergySystemModels-fr`` :
 
 .. code-block:: powershell
 
-   cd A:\OneDrive\_Github_\EnergySystemModels-fr\docs
-   python -m sphinx -b html source build\html
+   cd EnergySystemModels-fr\docs
+   pip install -r requirements.txt
+   python -m sphinx -b html source _build\html
 
-Ouvrez ensuite ``build\html\index.html`` dans votre navigateur.
+Ouvrez ensuite ``_build\html\index.html``. Le build doit passer **sans aucun
+avertissement** : c'est la règle de ce dépôt.
 
 ----
 
 Pour aller plus loin
 ====================
 
-Documentation détaillée
------------------------
-
-Consultez les sections spécialisées :
-
 .. hlist::
    :columns: 2
 
-   * :doc:`usage` - Guide d'utilisation complet
-   * :doc:`api` - Référence API détaillée
-   * :doc:`001-heat_transfer/index` - Transfert de chaleur
-   * :doc:`002-thermodynamic_cycles/index` - Cycles thermodynamiques
-   * :doc:`003-ahu_modules/index` - Centrales de traitement d'air
-   * :doc:`006-pinch_analysis/index` - Analyse Pinch
+   * :doc:`usage` — parcours par usage énergétique
+   * :doc:`api` — imports et points d'entrée réels
+   * :doc:`gui_tools` — interface graphique ``PyqtSimulator``
+   * :doc:`nomenclature` — symboles et unités
+   * :doc:`001-heat_transfer/composite_wall_heat_transfer` — le mur composite en détail
+   * :doc:`002-thermodynamic_cycles/index` — cycles thermodynamiques
 
-----
-
-Ressources et support
-=====================
-
-Liens utiles
-------------
+Ressources
+----------
 
 .. list-table::
    :widths: 30 70
@@ -314,22 +452,20 @@ Liens utiles
 
    * - Ressource
      - Lien
-   * - 📚 Documentation en ligne
+   * - Documentation en ligne
      - https://energysystemmodels-fr.readthedocs.io/
-   * - 💻 Code source
+   * - Code source
      - https://github.com/ZoheirHADID/EnergySystemModels
-   * - 📦 PyPI
+   * - PyPI
      - https://pypi.org/project/energysystemmodels/
-   * - 🐛 Issues et support
+   * - Signaler un problème
      - https://github.com/ZoheirHADID/EnergySystemModels/issues
-
-Besoin d'aide ?
----------------
 
 .. admonition:: Comment obtenir de l'aide
    :class: tip
 
-   1. Consultez la :doc:`api` pour la référence complète
-   2. Parcourez les exemples dans :doc:`usage`
-   3. Vérifiez les `Issues GitHub <https://github.com/ZoheirHADID/EnergySystemModels/issues>`_
-   4. Créez une nouvelle issue avec un exemple minimal reproductible
+   1. Cherchez la page du module dans la liste ci-dessus — chacune porte un
+      exemple exécutable et sa sortie réelle.
+   2. Vérifiez les imports dans :doc:`api` : les modules sont de **premier
+      niveau** (``from ThermodynamicCycles.Source import Source``).
+   3. Ouvrez une issue avec un exemple minimal reproductible.

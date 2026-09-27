@@ -52,3 +52,39 @@
   ajoutée en D2 : le futur générateur s'exécute depuis un répertoire temporaire.
 - Suivant : A2 — réparer `quickstart.rst` (page d'entrée du guide, seule page hors
   `usage/` au cran 1), puis en faire la première page au cran 5.
+
+## 2026-09-27 18:40 — `quickstart.rst` : de la page cassée à la page de référence
+
+- Unité : A2 — réparer `quickstart.rst`, page d'entrée du guide.
+- Fait : page réécrite sur l'API réelle et portée au **cran 5**, la première du
+  guide. Ce qu'elle contient désormais : « à quoi sert la bibliothèque » en
+  langage métier, installation vérifiée, exemple copiable du mur composite avec
+  sa sortie réelle et sa lecture (l'isolant porte 83 % de la résistance), table
+  de personnalisation des 8 entrées avec plages usuelles, **variante exécutée**
+  (isolant 5 → 12 cm), section unités entrées/ports, deux pièges d'attributs,
+  table des 12 chapitres en renvois `:doc:`.
+- Banc : `docs/source/quickstart.rst` cran **1 → 5** (4 blocs).
+- Exécution : 4 blocs + la variante, exécutés dans l'ordre et dans un même espace
+  de noms ; toutes les valeurs publiées viennent de cette exécution
+  (R 2,018 → 4,351 m².K/W ; flux 148,66 → 68,94 W ; −53,6 %).
+- Build : 0 warning.
+- Bug bibliothèque : aucun nouveau. Deux **comportements** mesurés et désormais
+  écrits dans la page (et en fin de section B de `ROADMAP_DOC.md`) :
+  1. `Source.calculate()` remet les débits en unités dérivées à `None` après
+     avoir rempli `df` — ce sont des entrées alternatives, pas des sorties ;
+     l'exemple fautif d'origine lisait `source.h_outlet` / `source.T_outlet`, qui
+     n'existent pas.
+  2. entrées en unités usuelles, ports en SI (`Pi_bar = 5` → `Outlet.P = 500000`).
+- Mesuré au passage (A4, clos) : PyPI publie `energysystemmodels` en versionnement
+  **calendaire** (`20260924003`), et la roue de 1,73 Mo contient **tous** les
+  paquets de premier niveau, **y compris `PyqtSimulator` et ses 35 scènes**. Donc
+  `pip install energysystemmodels` puis `python -m PyqtSimulator` suffit — la
+  phrase « PyqtSimulator est fourni par le dépôt source » est fausse et reste à
+  retirer de `README.rst` et `gui_tools.rst`. La fenêtre a été construite sans
+  écran pour vérifier : titre « Calcul des systèmes énergétiques », palette de
+  **140 éléments**.
+- Écarté : les chemins `A:\OneDrive\…` de `README.rst`, `contributing.rst` et
+  `gui_tools.rst` (A3, hors de cette page) ; la mesure des 54 pages restantes.
+- Suivant : A1/C1 — les 6 pages `usage/` au cran 1 (49 occurrences d'API
+  inexistante), à convertir en parcours de renvois ; ou B2 —
+  `perte_pression_lineaire.rst`, qui n'affiche aucune sortie.
