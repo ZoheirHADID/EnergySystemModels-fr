@@ -1,6 +1,6 @@
 # Journal de la boucle documentaire
 
-> Une entrée par tour de `/esm_doc_loop`, la plus récente en bas.
+> Une entrée par tour de `/ESM_fr_loop`, la plus récente en bas.
 > L'état déclaré est dans `ROADMAP_DOC.md`, l'état mesuré dans `banc_doc.json`.
 
 ## 2026-09-27 18:20 — Amorçage : banc documentaire et état de référence
@@ -246,4 +246,50 @@
 - Suivant : H1/H2 — « Ports et connexions », avec les cinq natures de matière en
   exemples exécutables, la section fumées, le schéma du double sens de
   `Fluid_connect`, et les deux conventions d'unités décrites telles quelles.
+
+## 2026-09-27 20:45 — Boucle renommée, et le modèle des gaz humides refuse ce qu'il ne sait pas
+
+- Unité : deux consignes de l'utilisateur — renommer la boucle en `/ESM_fr_loop`,
+  et **exceptionnellement** améliorer le modèle des gaz humides dans le dépôt
+  source, sans régression.
+- Fait :
+  1. **Boucle renommée** : `~/.claude/commands/esm_doc_loop.md` →
+     `ESM_fr_loop.md`, 5 auto-références mises à jour (dont le `prompt` du réveil
+     et la consigne d'arrêt `/ESM_fr_loop stop`) ; les 2 références du dépôt guide
+     suivent. La règle « le dépôt source est en lecture seule » **reste** : elle a
+     été levée une fois, explicitement, pour ce chantier.
+  2. **Correction dans `ThermodynamicCycles/FluidPort/FluidPort.py`** (commit
+     `23594e22` du dépôt source) : une espèce hors table ne reçoit plus des
+     propriétés inventées, elle lève `UnknownHumidGasSpeciesError`. Le refus tombe
+     **à la pose de la composition** (`set_humid_gas_mixture`) comme au calcul des
+     propriétés (`_humid_mix_constants`, `PropsHumidGasSI`), et le message nomme
+     les espèces refusées, les cinq admises et la voie de repli honnête
+     (`set_composition`, composition portée sans modèle de propriétés). Les quatre
+     tables de propriétés, qui étaient **dupliquées** entre la fonction de calcul
+     et deux méthodes statiques, sont désormais tenues à un seul endroit. L'écart
+     connu est écrit dans le code plutôt que masqué (invariant n°4) : ces cp,
+     lambda et mu sont des moyennes **constantes**, sans citation au registre des
+     sources et sans dépendance à la température — bonnes pour un bilan de fumées
+     entre 100 et 300 °C, pas pour un calcul fin.
+  3. **`test/ThermodynamicCycles/test_gaz_humide_especes.py`** : 7 tests. Le refus
+     à la pose, le refus par l'API de propriétés, le port laissé **intact** après
+     un refus, la permissivité conservée de `set_composition`, et la
+     non-régression du chemin nominal — dont une vérification **indépendante**
+     (`rho_Nm3 = M_mix / 22,414`, masse molaire recalculée dans le test).
+- Non-régression, mesurée avant et après sur `test/ThermodynamicCycles` +
+  `test/Core` : **9 échecs, 19 erreurs avant comme après**, 1207 → **1214** tests
+  passés, soit exactement les 7 ajoutés. Aucun appelant interne de
+  `set_humid_gas_mixture` n'existait dans `src/` : le refus ne casse aucun chemin
+  de la bibliothèque.
+- Banc du guide : inchangé. Build : 0 warning.
+- `BUGS_LIB.md` : l'entrée est **retirée** de la liste des défauts ouverts et
+  déplacée en « corrigés depuis, ne pas rouvrir », comme le veut le contrat du
+  fichier.
+- Écarté : les valeurs de cp / lambda / mu restent sans citation au registre
+  (invariant n°1) et constantes en température. C'est un chantier du dépôt source,
+  pas du guide : il demande des sources détenues (VDI Heat Atlas est justement
+  dans les manques critiques de `$LIB/CLAUDE.md`).
+- Suivant : retour au guide — H1/H2, la page « Ports et connexions », qui pourra
+  désormais documenter le domaine du modèle de fumées **tel qu'il est** : cinq
+  espèces, exception nommée au-delà, et `set_composition` pour le reste.
 

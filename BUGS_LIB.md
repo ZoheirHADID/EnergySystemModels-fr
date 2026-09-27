@@ -27,28 +27,15 @@
   réels au lieu de `source.h_outlet` / `source.T_outlet`) — entrée A2 de
   `ROADMAP_DOC.md`.
 
-## `FluidPort.set_humid_gas_mixture()` — une espèce hors table est acceptée en silence
+## Corrigés depuis, dans le dépôt source — ne pas rouvrir
 
-- **Page concernée** : la future page « Ports et connexions » (H1 de
-  `ROADMAP_DOC.md`), qui doit documenter le mode gaz humide / fumées.
-- **Reproduction** :
-  ```python
-  from ThermodynamicCycles.FluidPort.FluidPort import FluidPort
-  p = FluidPort()
-  p.set_humid_gas_mixture({'N2': 70.0, 'CO': 10.0, 'H2O': 20.0}, P=101325.0, T=400.0, F=1.0)
-  print(p.cp, p.composition)   # 1149.27 ... et 'CO' toujours présent
-  ```
-- **Mesure** : le modèle ne connaît que **cinq** espèces — `CO2`, `H2O`, `N2`,
-  `O2`, `Ar` (`FluidPort._humid_gas_molar_masses` / `_humid_gas_cp_fallback`).
-  Avec 10 % de `CO`, aucun avertissement n'est émis : la composition garde
-  l'espèce inconnue et les propriétés sont calculées **comme si elle n'existait
-  pas** (cp = 1149,27 J/kg·K). Un gaz pauvre, un syngas ou une fumée riche en CO
-  serait donc traité comme de l'azote humide, sans que rien ne le signale.
-- **Attendu d'après `$LIB/CLAUDE.md`, invariant n° 2** : un cas non implémenté
-  lève une exception explicite. Ici il faudrait refuser l'espèce hors table, ou au
-  minimum la nommer dans un avertissement.
-- **Traitement dans le guide** : la page des ports listera les **cinq espèces
-  admises** et dira que toute autre est ignorée sans message — le lecteur doit
-  vérifier sa composition lui-même. Pas de contournement possible côté
-  documentation.
+- **`FluidPort.set_humid_gas_mixture()` acceptait une espèce hors table en
+  silence** (relevé puis corrigé le 2026-09-27, sur autorisation explicite de
+  l'utilisateur de toucher au dépôt source). Une composition contenant du `CO`
+  recevait des propriétés inventées (M = 28 g/mol, cp = 1000 J/kg·K). Le modèle
+  lève désormais `UnknownHumidGasSpeciesError`, **à la pose de la composition**,
+  en nommant les espèces refusées, les cinq admises (`CO2`, `H2O`, `N2`, `O2`,
+  `Ar`) et la voie honnête pour transporter une espèce inconnue
+  (`set_composition`, composition comme donnée sans modèle de propriétés).
+  Verrouillé par `test/ThermodynamicCycles/test_gaz_humide_especes.py` (7 tests).
 

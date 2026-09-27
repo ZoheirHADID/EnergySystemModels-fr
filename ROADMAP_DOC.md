@@ -1,6 +1,6 @@
 # Feuille de route du guide — état déclaré
 
-> Source de vérité de la boucle `/esm_doc_loop`. L'état **mesuré** vit dans
+> Source de vérité de la boucle `/ESM_fr_loop`. L'état **mesuré** vit dans
 > `banc_doc.json` (`py -3.12 tools/banc_doc.py --resume`). **Quand les deux
 > divergent, le banc a raison.**
 >
@@ -292,8 +292,12 @@ re-vérifier par exécution avant rédaction.
     toute récupération par condensation. Le débit s'y donne indifféremment en
     `F` (kg/s) ou en `F_Nm3h`, le port convertissant par `rho_Nm3`. La
     composition est **normalisée** : on peut la donner en % ou en fractions.
-    ⚠️ Seules **cinq espèces** sont connues du modèle ; toute autre est acceptée
-    **en silence** (cf. `BUGS_LIB.md`) — à dire au lecteur ;
+    Seules **cinq espèces** sont connues du modèle (`CO2`, `H2O`, `N2`, `O2`,
+    `Ar`) ; toute autre lève désormais `UnknownHumidGasSpeciesError` dès la pose
+    de la composition — c'est le **domaine de validité** du modèle, à documenter
+    comme tel, avec la voie de repli qu'indique le message d'erreur
+    (`set_composition`, composition portée sans modèle de propriétés). C'est le
+    cas d'école pour l'item « éprouver le modèle » du squelette de page ;
   - ce qui se passe quand on oublie de connecter, et le piège d'état global
     documenté dans `$LIB/CLAUDE.md` (`Connect._hydraulic_nodes`, `reset_network()`).
 - `à faire` **H2 — page « Ports d'air humide »** (ou section de H1) : `AirPort`
