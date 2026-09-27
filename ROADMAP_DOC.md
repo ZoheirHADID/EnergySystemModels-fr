@@ -267,12 +267,33 @@ re-vérifier par exécution avant rédaction.
     descend vers l'aval, la **pression remonte vers l'amont**
     (`inlet.P` → `outlet.P`) — c'est ce qui permet la résolution hydraulique, et
     c'est ce qu'aucun lecteur ne devine. Schéma obligatoire (cf. G).
-  - les **quatre natures de matière**, avec un exemple exécutable chacune :
-    corps pur (`fluid='ammonia'`, CoolProp) · gaz humide
-    (`set_humid_gas_mixture`) · mélange réel (`set_mixture`, fractions
-    **molaires**, Peng-Robinson, `phase='auto'`) · solution aqueuse ou aliment
-    (`set_solution`, Choi-Okos) ; **eau glycolée et saumures** par les solutions
-    CoolProp, écrites `INCOMP::MEG[0.3]` ;
+  - les **cinq natures de matière**, avec un exemple exécutable chacune, et pour
+    chacune **quel modèle de propriétés est employé** — c'est ce qui décide de ce
+    qu'on a le droit d'en attendre :
+
+    | Nature | Entrée | Modèle de propriétés |
+    |---|---|---|
+    | corps pur | `fluid='ammonia'`, `'R134a'`, `'water'`… | **CoolProp** (`thermo_backend='coolprop'`) |
+    | eau glycolée, saumure | `fluid='INCOMP::MEG[0.3]'` | CoolProp, solutions incompressibles |
+    | **gaz humide / fumées** | `set_humid_gas_mixture({'N2':…, 'H2O':…, 'CO2':…, 'O2':…, 'Ar':…})` | **modèle interne, PAS CoolProp** : mélange de gaz parfaits, cp par espèce, `thermo_backend='humid_gas_mixture'` |
+    | mélange réel | `set_mixture(composition_mole, phase='auto')` | **Peng-Robinson** interne, fractions **molaires** |
+    | solution aqueuse, aliment | `set_solution(composition)` | **Choi-Okos** interne |
+
+    À quoi s'ajoute `set_composition(composition, basis='mass'|'mole')` : la
+    composition portée **comme donnée**, sans aucun modèle de propriétés — c'est
+    le mode des bilans matière, pour des espèces qu'aucune équation d'état
+    détenue ne connaît.
+
+  - **le cas des fumées de chaudière**, mesuré le 2026-09-27 et à documenter en
+    propre : fumées de gaz naturel (71 % N2, 14 % H2O, 9 % CO2, 3 % O2, 3 % Ar) à
+    120 °C et 5000 Nm³/h → `F` = 1,7679 kg/s, `cp` = 1067,17 J/kg·K,
+    `rho` = 0,8844 kg/m³, `rho_Nm3` = 1,2729 kg/Nm³, et surtout
+    **`T_condensation` = 52,84 °C**, le point de rosée acide-eau qui décide de
+    toute récupération par condensation. Le débit s'y donne indifféremment en
+    `F` (kg/s) ou en `F_Nm3h`, le port convertissant par `rho_Nm3`. La
+    composition est **normalisée** : on peut la donner en % ou en fractions.
+    ⚠️ Seules **cinq espèces** sont connues du modèle ; toute autre est acceptée
+    **en silence** (cf. `BUGS_LIB.md`) — à dire au lecteur ;
   - ce qui se passe quand on oublie de connecter, et le piège d'état global
     documenté dans `$LIB/CLAUDE.md` (`Connect._hydraulic_nodes`, `reset_network()`).
 - `à faire` **H2 — page « Ports d'air humide »** (ou section de H1) : `AirPort`

@@ -327,19 +327,30 @@ rapport.
 Unités et conventions
 =====================
 
-.. important::
-   Les **entrées** sont dans les unités usuelles de l'ingénierie énergétique ;
-   les **ports internes** (``Inlet``, ``Outlet``) sont en unités SI. Dans
-   l'exemple ci-dessus, ``Pi_bar = 5.0`` bar donne ``Outlet.P = 500000`` Pa.
+Les **entrées** se saisissent dans les unités usuelles de l'ingénierie
+énergétique — °C, bar, m³/h. Les **ports** (``Inlet``, ``Outlet``), eux, suivent
+deux conventions différentes selon la famille, et cette page les décrit telles que
+la bibliothèque les emploie.
+
+.. warning::
+   **Les ports d'air humide ne sont pas en unités SI.** Mesuré : un ``FluidPort``
+   porte ``h`` en **J/kg** (411 606 J/kg pour du R134a à 5 bar et 20 °C) et ``P``
+   en **Pa** ; un ``AirPort`` porte ``h`` en **kJ/kg d'air sec** (64,214) et ``w``
+   en **g/kg d'air sec** (13,311). Confondre les deux, c'est se tromper d'un
+   facteur 1000 sur un bilan d'enthalpie. Les libellés du ``DataFrame`` le disent :
+   ``Outlet.h (kJ/kg)`` et ``Outlet.w (g/kgdry)`` côté air humide.
+
+Fluides et gaz — ``FluidPort``
+-------------------------------
 
 .. list-table::
-   :widths: 34 26 20 20
+   :widths: 30 28 20 22
    :header-rows: 1
 
    * - Grandeur
      - Entrée de l'objet
-     - Unité
-     - Sur les ports
+     - Unité d'entrée
+     - Sur le port
    * - Température
      - ``Ti_degC``, ``Ti``, ``Te``
      - °C
@@ -356,7 +367,7 @@ Unités et conventions
      - ``F_m3h``, ``F_Sm3h``
      - m³/h
      - —
-   * - Enthalpie
+   * - Enthalpie massique
      - —
      - —
      - J/kg
@@ -369,10 +380,45 @@ Unités et conventions
      - m (mm pour les diamètres normalisés)
      - m
 
-.. warning::
+Air humide — ``AirPort``
+------------------------
+
+.. list-table::
+   :widths: 30 28 42
+   :header-rows: 1
+
+   * - Grandeur
+     - Attribut du port
+     - Unité **telle que codée**
+   * - Débit d'air humide
+     - ``F``
+     - kg/s
+   * - Débit d'air sec
+     - ``F_dry``
+     - kg/s
+   * - Pression
+     - ``P``
+     - Pa (défaut 101325)
+   * - Enthalpie massique
+     - ``h``
+     - **kJ/kg d'air sec** — pas J/kg
+   * - Humidité absolue
+     - ``w``
+     - **g/kg d'air sec** — pas kg/kg
+   * - Température sèche
+     - ``T``
+     - °C (calculée à la demande)
+   * - Humidité relative
+     - ``RH``
+     - % (calculée à la demande)
+   * - Pression de vapeur saturante
+     - ``Pv_sat``
+     - Pa (calculée à la demande)
+
+.. tip::
    Le suffixe du nom porte l'unité : ``Q_comp(KW)`` est en kilowatts,
-   ``Outlet.h`` en joules par kilogramme. Vérifiez le suffixe avant de
-   convertir — la :doc:`nomenclature` les recense.
+   ``Outlet.h (kJ/kg)`` en kilojoules par kilogramme d'air sec. Lisez le suffixe
+   du ``df`` plutôt que de supposer — la :doc:`nomenclature` les recense.
 
 ----
 
