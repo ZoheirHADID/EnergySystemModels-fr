@@ -202,3 +202,48 @@
   sens de `Fluid_connect`. Puis G1/G2 (générateur de schémas cotés, coude
   hydraulique) et le corpus modèle par modèle.
 
+## 2026-09-27 20:15 — Les unités se décrivent, elles ne se corrigent pas
+
+- Unité : consigne de l'utilisateur — « ne pas modifier les unités, expliquer les
+  classes telles qu'elles sont codées ; si ce n'est pas du SI, le dire » — puis sa
+  remarque sur les **fumées de chaudière**, qui passent par `FluidPort` sans
+  reposer sur CoolProp.
+- Fait :
+  1. **Règle non négociable ajoutée à la boucle** : le guide relève l'unité réelle
+     et la nomme ; il ne convertit pas, ne normalise pas, ne « corrige » pas. Une
+     unité ne s'écrit jamais de mémoire, elle se mesure ; en cas de désaccord entre
+     deux sources internes, la valeur mesurée tranche et le désaccord est signalé.
+     Toute envie de changer une unité ou une signature appartient au dépôt source :
+     elle va dans `BUGS_LIB.md`.
+  2. **`quickstart.rst` ne prétend plus que « les ports sont en SI »** : la section
+     des unités est scindée en deux tableaux, `FluidPort` (SI : J/kg, Pa, K) et
+     `AirPort` (**kJ/kg d'air sec**, **g/kg d'air sec**, Pa, kg/s, °C, %), avec un
+     avertissement sur le facteur 1000. Les deux conventions sont décrites telles
+     qu'elles sont codées.
+  3. **Le mode gaz humide / fumées est relevé et mesuré** (section H1 de
+     `ROADMAP_DOC.md`, étape 6.2 de la boucle) : `set_humid_gas_mixture` bascule le
+     port sur `thermo_backend='humid_gas_mixture'`, un **modèle interne de gaz
+     parfaits avec un cp par espèce — pas CoolProp**. Cinq natures de matière sont
+     désormais distinguées dans la feuille de route, chacune avec le modèle de
+     propriétés qui la sert : CoolProp (corps purs, `INCOMP::MEG[0.3]` pour l'eau
+     glycolée), modèle interne de gaz humide, Peng-Robinson (`set_mixture`,
+     fractions molaires), Choi-Okos (`set_solution`), plus `set_composition` qui
+     porte une composition **sans** modèle de propriétés.
+- Mesuré sur des fumées de gaz naturel (71 % N2, 14 % H2O, 9 % CO2, 3 % O2, 3 % Ar)
+  à 120 °C et 5000 Nm³/h : `F` = 1,7679 kg/s (converti par `rho_Nm3` = 1,2729
+  kg/Nm³), `cp` = 1067,17 J/kg·K, `rho` = 0,8844 kg/m³, et
+  **`T_condensation` = 52,84 °C** — le point de rosée qui décide de toute
+  récupération par condensation.
+- Banc : `quickstart.rst` reste à **5** (4 blocs). Build : 0 warning.
+- Bug bibliothèque : **1 nouveau**, trouvé en éprouvant le modèle comme la boucle
+  le prescrit désormais. `set_humid_gas_mixture` ne connaît que cinq espèces
+  (`CO2`, `H2O`, `N2`, `O2`, `Ar`) et **accepte les autres sans un mot** : 10 % de
+  `CO` traversent, restent dans la composition, et les propriétés sont calculées
+  comme si l'espèce n'existait pas. Contraire à l'invariant n° 2 de
+  `$LIB/CLAUDE.md`. Consigné dans `BUGS_LIB.md` ; la page des ports devra lister
+  les cinq espèces admises et prévenir.
+- Écarté : la rédaction de la page des ports elle-même — prochain tour.
+- Suivant : H1/H2 — « Ports et connexions », avec les cinq natures de matière en
+  exemples exécutables, la section fumées, le schéma du double sens de
+  `Fluid_connect`, et les deux conventions d'unités décrites telles quelles.
+
