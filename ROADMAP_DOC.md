@@ -37,6 +37,30 @@
 exemple copiable → sortie réelle → table de personnalisation → **variante
 exécutée** → pièges nommés → renvois. Les autres pages s'alignent sur elle.
 
+## Couverture réelle du corpus — mesurée le 2026-09-27
+
+`py -3.12 tools/inventaire_modeles.py` lit les classes de la bibliothèque par
+analyse syntaxique et confronte l'inventaire au guide :
+
+| Mesure | Valeur |
+|---|---|
+| Modèles (classes avec `calculate`) | **133** |
+| cités par au moins une page | 74 |
+| **sans aucune page** | **59** |
+| enveloppés par un nœud `PyqtSimulator` | 103 |
+| levant une exception nommée (domaine de validité à dire) | 69 |
+| exposant une méthode de tracé | 28 |
+
+Par paquet : `ThermodynamicCycles` 103 modèles dont **52 sans page**, `AHU` 18
+dont 4, `Separation` 3 dont 3, `HeatTransfer` 4, `Facture` 3 et `Electrical` 2
+couverts.
+
+**La méthode est désormais celle-ci, et elle est inscrite dans la boucle** : lire
+la classe (fiche de lecture, étape 6.0), documenter le modèle, proposer les
+exemples qui l'**éprouvent** — cas nominal, variante, et cas limite que le modèle
+refuse —, schématiser son paramétrage. Le corpus se traite modèle par modèle, pas
+page par page.
+
 ## A. Assainir ce qui est faux
 
 - `en cours` **A1 — API inexistante dans `docs/source/usage/`**. Traitement
@@ -214,11 +238,59 @@ dans `$LIB/test/` — un test donne un exemple déjà validé.
     extrait a le droit d'être incomplet, jamais de citer un module qui n'existe
     pas. Une page qui n'a que des extraits est une page de développement, hors
     échelle. Ne marque pas « extrait » un bloc qui devrait être un exemple.
-- `à faire` **F2 — `docs/generate_scene_figures.py`** (cf. D2).
+- `fait` **F2 — `tools/inventaire_modeles.py`** : inventaire mécanique des
+  modèles (analyse syntaxique, sans import donc sans CoolProp). Pour chaque
+  modèle : import réel, objet, entrées avec défaut et unité, sorties calculées,
+  index du `df`, exceptions levées, sources citées, méthode de tracé, nœud
+  `PyqtSimulator`, pages qui le citent. `--fiche`, `--sans-page`, `--paquet` ;
+  état dans `inventaire_modeles.json`. C'est **la première moitié de la fiche de
+  lecture** de l'étape 6.0 de la boucle.
+- `à faire` **F5 — `docs/generate_scene_figures.py`** (cf. D2).
 - `à faire` **F3 — cliquet** : un test qui interdit le retour de
   `energysystemmodels.` et des classes fictives dans `docs/source/`.
 - `à faire` **F4 — mesure complète** : un tour dédié à `--all` (54 pages non
   mesurées, ~1 min par page).
+
+## H. Les ports — la base, demandée par l'utilisateur (2026-09-27)
+
+Priorité **au-dessus** du reste du corpus : un lecteur qui n'a pas compris ce
+qu'un port transporte ne peut lire aucun exemple. Faits relevés dans le code, à
+re-vérifier par exécution avant rédaction.
+
+- `à faire` **H1 — page « Ports et connexions »** (nouveau chapitre de concepts,
+  placé avant les modèles) :
+  - ce que transporte `FluidPort` : `P` (Pa), `h` (J/kg), `F` (kg/s), `fluid`,
+    `T`, `S`, `composition` + `composition_basis` (`'mole'` ou `'mass'`,
+    **explicite, jamais devinée**), `thermo_backend` ; et ce qu'il **calcule** :
+    `rho`, `cp`, `lamda`, `mu`, `T_condensation`, `F_Nm3h` ;
+  - le **double sens** de `Fluid_connect(aval.Inlet, amont.Outlet)` : l'état
+    descend vers l'aval, la **pression remonte vers l'amont**
+    (`inlet.P` → `outlet.P`) — c'est ce qui permet la résolution hydraulique, et
+    c'est ce qu'aucun lecteur ne devine. Schéma obligatoire (cf. G).
+  - les **quatre natures de matière**, avec un exemple exécutable chacune :
+    corps pur (`fluid='ammonia'`, CoolProp) · gaz humide
+    (`set_humid_gas_mixture`) · mélange réel (`set_mixture`, fractions
+    **molaires**, Peng-Robinson, `phase='auto'`) · solution aqueuse ou aliment
+    (`set_solution`, Choi-Okos) ; **eau glycolée et saumures** par les solutions
+    CoolProp, écrites `INCOMP::MEG[0.3]` ;
+  - ce qui se passe quand on oublie de connecter, et le piège d'état global
+    documenté dans `$LIB/CLAUDE.md` (`Connect._hydraulic_nodes`, `reset_network()`).
+- `à faire` **H2 — page « Ports d'air humide »** (ou section de H1) : `AirPort`
+  transporte `F` (air humide, kg/s), `F_dry` (air sec, kg/s), `P` (Pa, défaut
+  101325), `h`, `w`, et **calcule** `T` (°C), `RH` (%), `Pv_sat` (Pa).
+  `Air_connect` recopie `w`, `P`, `h`, `F`, `F_dry` puis appelle
+  `update_properties()`.
+  **Unités tranchées par la mesure le 2026-09-27** (`FreshAir` à 30 °C / 50 % HR,
+  1000 m³/h) : `h` en **kJ/kg d'air sec** (64,214), `w` en **g/kg d'air sec**
+  (13,311), `P` en Pa (101325), `F` et `F_dry` en kg/s (0,320 et 0,316), `T` en °C,
+  `RH` en %, `Pv_sat` en Pa. Les libellés du `df` le confirment :
+  `Outlet.h (kJ/kg)`, `Outlet.w (g/kgdry)`.
+  **Conséquence à écrire en gras dans le guide** : le monde de l'air humide n'est
+  **pas** en SI, alors que `FluidPort` l'est (`h` en J/kg — 411606 pour du R134a à
+  5 bar / 20 °C, `P` en Pa). Deux familles de ports, deux conventions d'unités :
+  c'est la première cause d'erreur d'un facteur 1000 dans un bilan.
+- `à faire` **H3 — tableau des unités par port**, repris depuis `quickstart.rst`
+  (entrées en unités usuelles, ports en SI) et étendu à l'air humide.
 
 ## G. Schémas de paramétrage — demande de l'utilisateur (2026-09-27)
 

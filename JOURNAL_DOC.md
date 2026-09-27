@@ -145,3 +145,60 @@
 - Suivant : G1 + G2 — le générateur de schémas cotés et le coude hydraulique comme
   premier cas.
 
+## 2026-09-27 19:45 — La méthode change : partir des classes, pas des pages
+
+- Unité : F2 — l'inventaire mécanique des modèles, et l'inscription de la méthode
+  dans la boucle. Demande de l'utilisateur : « partir de la base, lire les classes,
+  documenter chaque modèle, proposer des exemples pour tester les modèles,
+  schématiser le paramétrage ».
+- Fait :
+  1. **`tools/inventaire_modeles.py`** : lit `EnergySystemModels/src` par analyse
+     syntaxique (aucun import, donc aucun coût CoolProp) et produit pour chaque
+     modèle sa fiche de lecture — import réel et appel, objet d'après la docstring,
+     **entrées** (attributs de `__init__` que `calculate()` ne réécrit pas, avec
+     défaut et unité relevée dans le commentaire), **sorties calculées** et index du
+     `df`, **exceptions levées**, sources citées, méthode de tracé, nœud
+     `PyqtSimulator` qui l'enveloppe, pages qui le citent. `--fiche`,
+     `--sans-page`, `--paquet` ; état dans `inventaire_modeles.json`.
+  2. **La boucle part maintenant des modèles** : étape 5 réordonnée (fondations,
+     puis le prochain modèle sans page, les modèles enveloppés par un nœud en
+     tête), nouvelle **étape 6.0 « lire la classe d'abord »** avec sa grille de
+     sept relevés, nouvelle **étape 6.2 sur les ports**, et un nouvel item du
+     squelette : **« éprouver le modèle »** — un bloc exécuté qui montre le cas
+     limite refusé et l'exception nommée qui tombe. Une page qui dit « environ »
+     ou « devrait » n'a pas été lue jusqu'au bout.
+- Mesuré, et c'est le vrai état du guide : **133 modèles** (classes avec
+  `calculate`), **74 cités par au moins une page**, **59 sans aucune page**.
+  103 sont enveloppés par un nœud `PyqtSimulator`, **69 lèvent une exception
+  nommée** (autant de domaines de validité à écrire), 28 exposent une méthode de
+  tracé. Par paquet : `ThermodynamicCycles` 103 dont 52 sans page, `AHU` 18 dont 4,
+  `Separation` 3 dont 3 ; `HeatTransfer`, `Facture` et `Electrical` couverts.
+- Ports, relevés dans le code puis **tranchés par la mesure** (nouvelle section H
+  de `ROADMAP_DOC.md`) :
+  - `FluidPort` transporte `P` (Pa), `h` (J/kg), `F` (kg/s), `fluid`, `T`, `S`,
+    `composition` + `composition_basis` (`'mole'`/`'mass'`, explicite, jamais
+    devinée) ; il calcule `rho`, `cp`, `lamda`, `mu`, `T_condensation`, `F_Nm3h`.
+  - `Fluid_connect(aval.Inlet, amont.Outlet)` fait descendre l'état vers l'aval
+    **et remonter la pression vers l'amont** (`inlet.P` → `outlet.P`) : c'est ce
+    double sens qui permet la résolution hydraulique, et rien ne le laisse deviner.
+  - Quatre natures de matière : corps pur (CoolProp), gaz humide
+    (`set_humid_gas_mixture`), mélange réel (`set_mixture`, fractions **molaires**,
+    Peng-Robinson), solution ou aliment (`set_solution`, Choi-Okos). **Eau glycolée
+    et saumures** : solutions CoolProp, écrites `INCOMP::MEG[0.3]`.
+  - **`AirPort` n'est pas en SI** : mesuré sur `FreshAir` à 30 °C / 50 % HR /
+    1000 m³/h, `h` = 64,214 **kJ/kg d'air sec**, `w` = 13,311 **g/kg d'air sec**,
+    `P` = 101325 Pa, `F` = 0,320 kg/s, `F_dry` = 0,316 kg/s ; les libellés du `df`
+    l'écrivent (`Outlet.h (kJ/kg)`, `Outlet.w (g/kgdry)`). Alors que `FluidPort`
+    est en J/kg. Deux conventions d'unités dans la même bibliothèque : première
+    cause d'erreur d'un facteur 1000 dans un bilan, à écrire en gras.
+- Banc : inchangé (aucune page modifiée ce tour). Build : 0 warning.
+- Bug bibliothèque : aucun. L'ambiguïté des commentaires d'unité de
+  `AirPort.__init__` est une imprécision de documentation interne, pas un défaut de
+  calcul : les valeurs sont cohérentes avec les libellés du `df`.
+- Écarté : la rédaction des pages elles-mêmes — ce tour a livré l'instrument et la
+  méthode.
+- Suivant : H1/H2 — la page « Ports et connexions », fondation de tout le reste,
+  avec ses quatre natures de matière en exemples exécutables et le schéma du double
+  sens de `Fluid_connect`. Puis G1/G2 (générateur de schémas cotés, coude
+  hydraulique) et le corpus modèle par modèle.
+
