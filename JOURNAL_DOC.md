@@ -1101,3 +1101,13 @@
   à régénérer sur les données de l'exemple.
 - Build : 0 warning.
 - Suivant : `007-ipmvp/exemples.rst` (même lecture de classeur).
+
+## 2026-09-28 16:25 — Arrêt de la boucle (demande de l'utilisateur : « finaliser »)
+- Boucle arrêtée ; aucun réveil programmé.
+- Bilan du jour : 18 pages au cran 5, 56 au cran 4 ; plus aucune page de cycles
+  thermodynamiques, d'hydraulique, d'aéraulique, de CTA ou de transfert de chaleur
+  sous le cran 4. Défauts de la bibliothèque inscrits dans `BUGS_LIB.md` (givre,
+  cantera non déclaré, turbine à gaz, base du % IPMVP…).
+- Laissé tel quel : le découpage CEE d'une autre session (`011-cee/*.rst`,
+  `tools/pages_cee.py`), non commité.
+- Reste à faire : section « État mesuré à l'arrêt de la boucle » de `ROADMAP_DOC.md`.

@@ -527,3 +527,23 @@ le code**.
   l'envoyer.
 - **Accès réseau** : PVGIS (009-PV) et les API météo (008) sont nécessaires pour
   mesurer ces pages.
+
+## État mesuré à l'arrêt de la boucle (2026-09-28)
+
+Banc (116 pages) : **18 au cran 5**, **56 au cran 4**, 2 au cran 2, 2 au cran 1,
+26 pages de prose (cran 0), 12 non mesurées.
+
+Reste à faire, par priorité (contenu d'abord, images en dernier) :
+
+1. **Cran 1** — `007-ipmvp/exemples.rst` : lit `src/IPMVP/IPMVP_input.xlsx`, non
+   livré par PyPI → rendre l'exemple autonome comme `mesure_economies.rst` ;
+   `008-meteo/meteociel.rst` : dépasse 600 s (accès réseau) → décision à prendre
+   (exemple hors ligne ou page marquée « nécessite le réseau »).
+2. **Cran 2** — `008-meteo/degres_jours.rst` (sortie publiée à remettre d'accord),
+   `008-meteo/openweathermap.rst` (sortie à publier ; accès réseau / clé API).
+3. **Non mesurées** — `009-pv-solaire/index.rst`, 10 pages `010-achat-energie`,
+   `011-cee/index.rst` (découpage en 7 pages en cours dans une autre session, non
+   commité), `012-electrical/index.rst`.
+4. **Cran 4 → 5** — 56 pages : table de personnalisation + variante exécutée.
+5. **Images (en dernier)** — K5 (schémas de principe) ; régénérer
+   `007_ipmvp_savings.png` sur les données de l'exemple.
