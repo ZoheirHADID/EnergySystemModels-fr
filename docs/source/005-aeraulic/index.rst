@@ -14,3 +14,4 @@ Modèles aérauliques
    registre_lames
    obstruction
    filtre
+   effet_systeme

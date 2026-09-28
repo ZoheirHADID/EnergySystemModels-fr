@@ -78,7 +78,7 @@ Ou :
 - **Zi** : coefficient climatique (station meteo x profil de consommation)
 - **A** : coefficient reseau (naTran (ex-GRTgaz) ou Terega)
 
-**Priorite dans le modele** : ``CJN explicite > CJA souscrite > CAR x Zi x A``
+**Priorité dans le modèle** : pour T4 et TP, ``CJN explicite > CJA souscrite > CAR x Zi x A`` ; pour T1 à T3, ``CJN explicite > CAR x Zi x A``.
 
 ------------------------------------------------------------
 
@@ -214,6 +214,11 @@ degressif s'applique au-dela de ce seuil :
 *Tarif TP (Proximite) :*
 
 Le tarif TP ajoute un **terme de distance** en plus de la souscription de capacite :
+
+.. warning::
+   Le calcul TP de la bibliothèque **ne s'exécute pas** : il lève
+   ``KeyError: 'prix_proportionnel_euro_kWh'`` (voir la section 4.4). Les formules
+   ci-dessous décrivent ce que le code prévoit, sans vérification possible.
 
 .. code-block:: text
 
@@ -584,39 +589,57 @@ Avec :
 - **Conso_hiver** : consommation du site du 1er novembre N-1 au 31 mars N (**151 jours**)
 - **Conso_annuelle** : consommation du site du 1er novembre N-1 au 31 octobre N (**365 jours**)
 
-.. note::
+La modulation hivernale **n'apparaît pas sur la facture** : seul le montant
+mensuel « Abonnement transport » y figure. Le modèle peut la retrouver à
+partir de ce montant (méthode 1), puis la réutiliser pour les factures
+suivantes (méthode 2). Exemple d'un site T4 de 109 MWh/j dont l'abonnement
+transport de février 2026 est de 4 176,67 EUR :
 
-   La modulation hivernale **n'apparait pas sur la facture**. Seul le montant
-   mensuel "Abonnement transport" est visible. Pour retrouver la modulation,
-   le modele Python peut la **reverse-engineer** a partir du montant ATRT facture :
+.. code-block:: python
 
-   .. code-block:: python
+   from Facture.ATR_Transport_Distribution import (
+       input_Contrat, input_Facture, input_Tarif, ATR_calculation
+   )
 
-      # Methode 1 : reverse-engineering depuis la facture
-      contrat = input_Contrat(
-          type_tarif_acheminement='T4',
-          CJA_MWh_j=109,
-          atrt_mensuel_facture=4176.67,  # lu sur la facture
-          ...
-      )
-      atr = ATR_calculation(contrat, facture, tarif)
-      atr.calculate()
-      print(atr.modulation_hivernale)  # -> 29.015 MWh/j
+   facture = input_Facture(start="2026-02-01", end="2026-02-28", kWh_total=2043755)
+   tarif = input_Tarif(prix_kWh=0.04580)
+   site = dict(type_tarif_acheminement="T4", CAR_MWh=15466.8, CJA_MWh_j=109,
+               profil="P016", station_meteo="PARIS-MONTSOURIS",
+               reseau_transport="naTran", niv_tarif_region=2)
 
-      # Methode 2 : reutiliser la modulation calculee pour les autres factures
-      contrat = input_Contrat(
-          type_tarif_acheminement='T4',
-          CJA_MWh_j=109,
-          modulation_MWh_j=29.015,  # valeur calculee precedemment
-          ...
-      )
+   # Méthode 1 : reconstitution depuis l'abonnement transport lu sur la facture
+   atr = ATR_calculation(input_Contrat(**site, atrt_mensuel_facture=4176.67), facture, tarif)
+   atr.calculate()
+   print(f"Modulation : {atr.modulation_hivernale:.3f} MWh/j ({atr.modulation_source})")
+   print(f"ATRT du mois : {atr.euro_total_ATRT:.2f} EUR")
 
-   **Priorite du calcul dans le modele :**
+   # Méthode 2 : modulation connue, fournie explicitement
+   atr2 = ATR_calculation(input_Contrat(**site, modulation_MWh_j=29.015), facture, tarif)
+   atr2.calculate()
+   print(f"Modulation : {atr2.modulation_hivernale:.3f} MWh/j ({atr2.modulation_source})")
 
-   1. ``modulation_MWh_j`` fourni explicitement
-   2. ``consommations_hiver_MWh`` + ``consommations_annuelles_MWh`` (formule CRE M_fav4)
-   3. ``atrt_mensuel_facture`` (reverse-engineering depuis la facture)
-   4. Estimation par defaut : ``CJN - CAR/365`` (approximation haute)
+   # Sans information : estimation par défaut CJN - CAR/365
+   atr3 = ATR_calculation(input_Contrat(**site), facture, tarif)
+   atr3.calculate()
+   print(f"Modulation : {atr3.modulation_hivernale:.3f} MWh/j ({atr3.modulation_source})")
+   print(f"ATRT du mois : {atr3.euro_total_ATRT:.2f} EUR")
+
+Sortie réelle :
+
+.. code-block:: text
+
+   Modulation : 29.015 MWh/j (reverse-engineering facture)
+   ATRT du mois : 4176.67 EUR
+   Modulation : 29.015 MWh/j (explicite)
+   Modulation : 66.625 MWh/j (estimation (CJN - CAR/365 - Int))
+   ATRT du mois : 5215.47 EUR
+
+**Priorité du calcul dans le modèle :**
+
+1. ``modulation_MWh_j`` fourni explicitement ;
+2. ``consommations_hiver_MWh`` + ``consommations_annuelles_MWh`` (formule CRE M_fav4) ;
+3. ``atrt_mensuel_facture`` (reconstitution depuis la facture) ;
+4. estimation par défaut : ``CJN - CAR/365`` (approximation haute).
 
 **Historique complet des coefficients ATRT (source : coefficients_gaz_ATRT.json) :**
 
@@ -1262,8 +1285,10 @@ disponibles dans les deliberations annuelles ATRT6).
 4.1 Exemple : facture gaz T4 - Site industriel Ile-de-France
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Cet exemple reproduit une facture reelle EDF (fevrier 2026) pour un site industriel
-en Ile-de-France avec un contrat T4.
+Cet exemple reconstitue une facture de fourniture de février 2026 pour un site
+industriel d'Île-de-France en contrat T4. Les montants « relevés » sont ceux
+de la facture fournie par l'auteur de l'exemple ; ils ne sont pas livrés avec
+la bibliothèque.
 
 .. code-block:: python
 
@@ -1271,150 +1296,177 @@ en Ile-de-France avec un contrat T4.
        input_Contrat, input_Facture, input_Tarif, ATR_calculation
    )
 
-   # Donnees du contrat (figurent sur la facture EDF)
+   # Données du contrat (figurent sur la facture)
    contrat = input_Contrat(
-       type_tarif_acheminement='T4',
+       type_tarif_acheminement="T4",
        CAR_MWh=15466.800,           # CAR : 15 466 800 kWh/an
-       profil="P016",               # Profil de consommation
+       profil="P016",               # profil de consommation
        station_meteo="PARIS-MONTSOURIS",
        reseau_transport="naTran",
        niv_tarif_region=2,
-       CJA_MWh_j=109,               # CJA souscrite : 109 000 kWh/j = 109 MWh/j
+       CJA_MWh_j=109,               # CJA souscrite : 109 000 kWh/j
    )
 
-   # Donnees de la facture (periode et consommation relevee)
-   facture = input_Facture(
-       start="2026-02-01",
-       end="2026-02-28",
-       kWh_total=2043755             # 2 043 755 kWh releves
-   )
+   # Période et consommation relevée
+   facture = input_Facture(start="2026-02-01", end="2026-02-28", kWh_total=2043755)
 
-   # Prix de la molecule negocie dans le contrat
+   # Prix de la molécule négocié dans le contrat
    tarif = input_Tarif(prix_kWh=0.04580)   # 4,580 c/kWh
 
-   # Calcul
    atr = ATR_calculation(contrat, facture, tarif)
    atr.calculate()
 
-   # Resultats detailles (v20260408002)
-   print(atr.df_results)            # Resume general complet (toutes sections)
-   print(atr.df_contrat)            # Parametres contrat + coefficients CRE
-   print(atr.df_fourniture)         # Molecule gaz (fournisseur)
-   print(atr.df_transport)          # Detail ATRT (TCS, TCR, TCL, stockage)
-   print(atr.df_distribution)       # Detail ATRD (fixe, souscription, variable)
-   print(atr.df_taxes)              # CTA distribution + CTA transport + Accise
-   print(atr.df_totaux)             # Totaux HT/TTC + couts unitaires EUR/MWh
+   # Postes de la facture du fournisseur, comparés aux montants relevés
+   releve = {"Molécule gaz": 93603.98, "ATRD variable": 2411.63,
+             "Accise gaz": 33497.14, "ATRD fixe total (mois)": 4424.81,
+             "CTA distribution": 920.36}
+   calcule = {"Molécule gaz": atr.euro_molecule_gaz, "ATRD variable": atr.euro_ATRD_variable,
+              "Accise gaz": atr.euro_TICGN, "ATRD fixe total (mois)": atr.euro_ATRD_fixe_total,
+              "CTA distribution": atr.euro_CTA_distribution}
+   for poste, montant in calcule.items():
+       print(f"{poste:24s} calculé {montant:10.2f}  relevé {releve[poste]:10.2f}  "
+             f"écart {montant - releve[poste]:+.2f} EUR")
+   part_fournisseur = atr.euro_molecule_gaz + atr.euro_ATRD_variable + atr.euro_TICGN
+   print(f"Molécule + ATRD variable + accise : {part_fournisseur:.2f} EUR HT")
+   print(f"Total HT, acheminement complet    : {atr.euro_total_HTVA:.2f} EUR HT")
 
-   # Graphiques
-   atr.plot()                       # Repartition globale
-   atr.plot_detail()                # Detail par composante
+   # Tableaux détaillés : atr.df_contrat, df_fourniture, df_transport,
+   # df_distribution, df_taxes, df_totaux (ou atr.df_results pour tout)
+   atr.plot()                       # répartition globale
+   atr.plot_detail()                # détail par composante
 
-**Sortie reelle (verifiee contre la facture EDF) :**
+Sortie réelle :
 
-.. list-table::
-   :header-rows: 1
-   :widths: 40 25 25
+.. code-block:: text
 
-   * - Composante
-     - Modele
-     - Facture EDF
-   * - Molecule gaz
-     - 93 603,98
-     - 93 603,98
-   * - ATRD variable (terme quantite distribution)
-     - 2 411,63
-     - 2 411,63
-   * - Accise gaz (ex-TICGN)
-     - 33 497,14
-     - 33 497,14
-   * - **Total HT (part EDF)**
-     - **129 512,75**
-     - **129 512,75**
-   * - ATRD fixe total / mois
-     - 4 424,81
-     - 4 424,81 (abonnement distribution)
-   * - CTA distribution (assiette x 20,80%)
-     - 920,36
-     - 920,36
+   Molécule gaz             calculé   93603.98  relevé   93603.98  écart +0.00 EUR
+   ATRD variable            calculé    2411.63  relevé    2411.63  écart +0.00 EUR
+   Accise gaz               calculé   33497.14  relevé   33497.14  écart +0.00 EUR
+   ATRD fixe total (mois)   calculé    4424.81  relevé    4424.81  écart +0.00 EUR
+   CTA distribution         calculé     920.36  relevé     920.36  écart +0.00 EUR
+   Molécule + ATRD variable + accise : 129512.75 EUR HT
+   Total HT, acheminement complet    : 140246.81 EUR HT
 
-.. note::
+Les cinq postes relevés sont reproduits au centime. La facture du fournisseur
+ne portait que la molécule, le terme variable de distribution et l'accise
+(129 512,75 EUR HT) ; le total HT du modèle ajoute l'abonnement transport,
+l'abonnement distribution et la CTA, qui peuvent être facturés à part.
 
-   Sur cette facture EDF, seules les composantes variables (molecule, ATRD variable, accise)
-   et les abonnements fixes (transport, distribution) apparaissent. L'ATRD fixe et l'ATRT
-   peuvent etre factures par GRDF separement selon le type de contrat.
+Sans ``atrt_mensuel_facture``, la modulation hivernale est **estimée**
+(66,6 MWh/j, approximation haute) et l'abonnement transport calculé
+(5 215,47 EUR) dépasse de 1 038,80 EUR celui de la facture (4 176,67 EUR) :
+renseignez-le dès qu'il figure sur une facture (voir la section 2.2).
 
-4.2 Parametres d'entree
-^^^^^^^^^^^^^^^^^^^^^^^^
+4.2 Paramètres à personnaliser
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-**Declarer un contrat gaz** (``input_Contrat``) :
+**Déclarer un contrat gaz** (``input_Contrat``) :
 
 .. list-table::
    :header-rows: 1
    :widths: 25 25 50
 
-   * - Parametre
+   * - Paramètre
      - Valeurs
      - Description
-   * - type_tarif_acheminement
-     - "T1", "T2", "T3", "T4", "TP"
+   * - ``type_tarif_acheminement``
+     - ``"T1"``, ``"T2"``, ``"T3"``, ``"T4"`` (``"TP"`` : voir les pièges)
      - Option tarifaire selon la CAR
-   * - CAR_MWh
-     - >= 0
-     - Consommation annuelle de reference (MWh)
-   * - CJA_MWh_j
-     - >= 0
-     - Capacite journaliere souscrite (MWh/j). Utilisee pour la souscription ATRD T4/TP.
-   * - CJN_MWh_j
-     - >= 0 ou None
-     - Si fourni, utilise tel quel. Sinon recalcule via CAR x Zi x A.
-   * - modulation_MWh_j
-     - >= 0 ou None
-     - Si fourni, utilise tel quel. Sinon recalcule via CJN - (CAR / 365).
-   * - profil
-     - "P011" a "P019"
-     - Profil de thermo-sensibilite (P016 par defaut)
-   * - station_meteo
-     - Voir table section 4.1
-     - Station meteo de reference (36 stations)
-   * - reseau_transport
-     - "naTran", "GRTgaz" (legacy), "Terega"
-     - Gestionnaire du reseau de transport
-   * - niv_tarif_region
-     - 0 a 10
-     - Niveau tarifaire regional
-   * - distance
-     - >= 0 ou None
-     - Distance en km (uniquement pour le tarif TP)
+   * - ``CAR_MWh``
+     - ≥ 0
+     - Consommation annuelle de référence (MWh/an)
+   * - ``CJA_MWh_j``
+     - ≥ 0
+     - Capacité journalière souscrite (MWh/j) ; base de la souscription ATRD et de l'ATRT en T4
+   * - ``CJN_MWh_j``
+     - ≥ 0 ou ``None``
+     - Si fourni, utilisé tel quel ; sinon CJA (T4) ou CAR × Zi × A (T1 à T3)
+   * - ``modulation_MWh_j``
+     - ≥ 0 ou ``None``
+     - Modulation hivernale imposée (priorité 1)
+   * - ``consommations_hiver_MWh``, ``consommations_annuelles_MWh``
+     - listes de même longueur, ou ``None``
+     - Quatre hivers (151 jours) et quatre années : formule CRE M_fav4 (priorité 2)
+   * - ``atrt_mensuel_facture``
+     - EUR/mois ou ``None``
+     - Abonnement transport lu sur la facture : reconstitue la modulation (priorité 3)
+   * - ``capacite_interruptible_MWh_j``
+     - ≥ 0, défaut 0
+     - Capacités interruptibles déduites de la modulation
+   * - ``profil``
+     - ``"P011"`` à ``"P019"``
+     - Profil de thermosensibilité (P016 par défaut)
+   * - ``station_meteo``
+     - voir la section 3.1
+     - Station météo de référence du coefficient Zi
+   * - ``reseau_transport``
+     - ``"naTran"``, ``"GRTgaz"`` (ancien nom), ``"Terega"``
+     - Gestionnaire du réseau de transport (TCR, TCL, A)
+   * - ``niv_tarif_region``
+     - 0 à 10
+     - Niveau tarifaire régional NTR
+   * - ``distance``
+     - km ou ``None``
+     - Réservé au tarif TP
 
-**Declarer une facture gaz** (``input_Facture``) :
+**Déclarer une facture gaz** (``input_Facture``) : ``start`` et ``end`` (date
+ou ``"AAAA-MM-JJ"``, bornes incluses), ``kWh_total`` (consommation de la
+période). Les grilles sont choisies d'après la **date de début** ; au-delà de
+35 jours, les termes fixes sont proratisés au jour, sinon comptés au douzième.
 
-.. list-table::
-   :header-rows: 1
-   :widths: 25 25 50
+**Déclarer les tarifs** (``input_Tarif``) : seul ``prix_kWh`` (EUR/kWh HT de la
+molécule) entre dans le calcul. ``abonnement_annuel_fournisseur``,
+``distribution_cta_rate`` et ``ticgn_rate`` sont acceptés mais **ignorés** : la
+CTA et l'accise viennent des fichiers de coefficients.
 
-   * - Parametre
-     - Valeurs
-     - Description
-   * - start, end
-     - Date (YYYY-MM-DD)
-     - Debut et fin de la periode de facturation
-   * - kWh_total
-     - >= 0
-     - Consommation totale sur la periode (kWh)
+4.3 Variante : réduire la capacité souscrite
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-**Declarer les tarifs** (``input_Tarif``) :
+La CJA pèse deux fois : souscription de capacité en distribution et termes de
+capacité en transport. Même site, même mois, 95 MWh/j au lieu de 109 :
 
-.. list-table::
-   :header-rows: 1
-   :widths: 25 25 50
+.. code-block:: python
 
-   * - Parametre
-     - Valeurs
-     - Description
-   * - prix_kWh
-     - >= 0 (euro/kWh)
-     - Tarif unitaire gaz negocie (hors taxes)
+   # variante : CJA de 95 MWh/j au lieu de 109, tout le reste identique
+   contrat_95 = input_Contrat(
+       type_tarif_acheminement="T4", CAR_MWh=15466.8, CJA_MWh_j=95,
+       profil="P016", station_meteo="PARIS-MONTSOURIS",
+       reseau_transport="naTran", niv_tarif_region=2,
+   )
+   atr_95 = ATR_calculation(contrat_95, facture, tarif)
+   atr_95.calculate()
 
-.. toctree::
-   :maxdepth: 1
-   :titlesonly:
+   for nom, a in (("CJA 109 MWh/j", atr), ("CJA  95 MWh/j", atr_95)):
+       print(f"{nom}: ATRD fixe {a.euro_ATRD_fixe_total:8.2f}  ATRT {a.euro_total_ATRT:8.2f}  "
+             f"CTA {a.euro_CTA:7.2f}  total HT {a.euro_total_HTVA:10.2f} EUR")
+
+Sortie réelle :
+
+.. code-block:: text
+
+   CJA 109 MWh/j: ATRD fixe  4424.81  ATRT  5215.47  CTA 1093.78  total HT  140246.81 EUR
+   CJA  95 MWh/j: ATRD fixe  4088.81  ATRT  4395.26  CTA 1010.72  total HT  139007.54 EUR
+
+Quatorze MWh/j de capacité en moins font 1 239,27 EUR HT de moins sur le
+mois (souscription de distribution, termes de transport et CTA).
+La baisse n'est acquise que si le site ne dépasse jamais 95 MWh/j : la CJA est
+un engagement de capacité, pas une estimation.
+
+4.4 Pièges
+^^^^^^^^^^
+
+1. **Grilles jusqu'en 2026.** Les coefficients ATRT s'arrêtent au
+   31 mars 2026, les coefficients ATRD au 30 juin 2026 : une facture
+   postérieure lève ``ValueError``.
+2. **Option TP inutilisable.** ``type_tarif_acheminement="TP"`` lève
+   ``KeyError: 'prix_proportionnel_euro_kWh'`` : le code attend des clés
+   (``tarif_capacite``, ``tarif_distance``, ``prix_proportionnel_euro_kWh``) que
+   la grille TP ne porte pas (défaut consigné dans ``BUGS_LIB.md``).
+3. **Libellés de TVA figés.** Depuis le 1er août 2025 la part fixe est taxée à
+   20 % et le calcul l'applique, mais ``df_totaux`` affiche toujours
+   « TVA 5,5% (fixe + CTA) ».
+4. **Seuils de proratisation différents.** Les termes ATRD et ATRT passent au
+   prorata au-delà de 35 jours, la CTA au-delà de 31 jours : une facture de
+   32 à 35 jours mélange les deux conventions.
+
+Voir aussi : :doc:`guide_audit_facture` (lecture des tableaux par section).

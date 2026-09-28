@@ -35,6 +35,17 @@ Le principe d'utilisation est toujours le même :
 6. Évaluer le graphe ou le nœud de sortie.
 7. Sauvegarder le projet au format ``.json``.
 
+Deux catalogues complètent cette page : les **scènes d'exemple** livrées avec
+l'interface (ce que chacune montre et ce qu'elle calcule réellement) et la liste
+**complète des nœuds** de la palette, avec le modèle Python que chacun enveloppe.
+
+.. toctree::
+   :maxdepth: 1
+   :titlesonly:
+
+   interface/scenes
+   interface/noeuds
+
 Installation et lancement
 -------------------------
 

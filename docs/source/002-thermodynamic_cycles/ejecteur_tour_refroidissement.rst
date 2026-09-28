@@ -195,6 +195,177 @@ Sortie ``ej.df`` (index) :
      - -
 
 
+Les trois étages, un par un
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+``Ejector`` enchaîne trois modèles qui s'utilisent aussi seuls :
+``ThermodynamicCycles.Ejector.Nozzle`` (tuyère),
+``ThermodynamicCycles.Ejector.Mixing_Chamber`` (chambre de mélange) et
+``ThermodynamicCycles.Ejector.Diffuser`` (diffuseur). Les prendre séparément
+sert à **lire ce que fait chaque étage** — quelle vitesse sort de la tuyère,
+combien le mélange la freine, combien de pression le diffuseur en récupère — ou
+à remplacer un étage par un modèle à soi.
+
+Le chaînage se fait **à la main** : ces trois modèles ne se relient pas par
+``Fluid_connect``, car la grandeur qui passe d'un étage à l'autre est une
+**vitesse** (``v_1`` puis ``v_3``), qu'aucun ``FluidPort`` ne transporte.
+
+.. code-block:: python
+
+    from CoolProp.CoolProp import PropsSI
+    from ThermodynamicCycles.Ejector.Nozzle import Object as Nozzle
+    from ThermodynamicCycles.Ejector.Mixing_Chamber import Object as Mixing_Chamber
+    from ThermodynamicCycles.Ejector.Diffuser import Object as Diffuser
+
+    fluide = "R134a"
+    P_cond, P_evap = 10e5, 3e5          # Pa : primaire HP, secondaire BP
+
+    # 1. Tuyère : liquide saturé à 10 bar, détendu jusqu'à 3 bar
+    tuyere = Nozzle()
+    tuyere.Inlet.fluid = fluide
+    tuyere.Inlet.P = P_cond
+    tuyere.Inlet.h = PropsSI("H", "P", P_cond, "Q", 0, fluide)
+    tuyere.Outlet.P = P_evap            # pression de sortie : À FOURNIR
+    tuyere.epsilon_s = 0.7
+    tuyere.A = 1e-5                     # m², col de 3,6 mm de diamètre
+    tuyere.calculate()
+
+    # 2. Chambre : le jet primaire entraîne 0,02 kg/s de vapeur saturée à 3 bar
+    chambre = Mixing_Chamber()
+    chambre.Inlet_primary.fluid = fluide
+    chambre.Inlet_primary.h = tuyere.Outlet.h
+    chambre.Inlet_primary.F = tuyere.Outlet.F
+    chambre.Inlet_secondary.fluid = fluide
+    chambre.Inlet_secondary.P = P_evap
+    chambre.Inlet_secondary.h = PropsSI("H", "P", P_evap, "Q", 1, fluide)
+    chambre.Inlet_secondary.F = 0.02
+    chambre.v_1 = tuyere.v_1            # la vitesse ne passe pas par le port
+    chambre.epsilon_m = 0.8
+    chambre.calculate()
+
+    # 3. Diffuseur : l'énergie cinétique du mélange devient de la pression
+    diffuseur = Diffuser()
+    diffuseur.Inlet.fluid = fluide
+    diffuseur.Inlet.P = chambre.Outlet.P
+    diffuseur.Inlet.h = chambre.Outlet.h
+    diffuseur.Inlet.F = chambre.Outlet.F
+    diffuseur.v_3 = chambre.v_3
+    diffuseur.epsilon_d = 0.7
+    diffuseur.calculate()
+
+    print(f"Tuyère    : v1 = {tuyere.v_1:.1f} m/s, débit primaire = {tuyere.m_flow:.4f} kg/s, titre = {tuyere.x:.3f}")
+    print(f"Chambre   : v2 = {chambre.v_2:.1f} m/s, débit total = {chambre.m_total:.4f} kg/s")
+    print(f"Diffuseur : P sortie = {diffuseur.P_out / 1e5:.3f} bar")
+    print(f"Entraînement = {chambre.Inlet_secondary.F / tuyere.m_flow:.3f} ; "
+          f"compression = {diffuseur.P_out / P_evap:.3f}")
+
+Sortie réelle :
+
+.. code-block:: text
+
+   Tuyère    : v1 = 76.0 m/s, débit primaire = 0.0416 kg/s, titre = 0.261
+   Chambre   : v2 = 41.1 m/s, débit total = 0.0616 kg/s
+   Diffuseur : P sortie = 3.176 bar
+   Entraînement = 0.480 ; compression = 1.059
+
+Le liquide saturé à 10 bar se vaporise à 26 % dans la tuyère et en sort à
+76 m/s. En entraînant 0,02 kg/s de vapeur, le jet ralentit à 41 m/s ; le
+diffuseur en tire 0,18 bar, soit un taux de compression de **1,059**. La section
+``A`` de 1e-5 m² fixe le débit primaire à 0,0416 kg/s : c'est une sortie du
+modèle, pas une donnée.
+
+Paramètres à personnaliser (éjecteur)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. list-table::
+   :header-rows: 1
+   :widths: 24 46 18 12
+
+   * - Entrée
+     - Effet
+     - Plage usuelle
+     - Unité
+   * - ``Nozzle.A``
+     - Section de sortie de la tuyère : fixe **le débit primaire** (le modèle
+       le calcule, il ne se donne pas)
+     - 1e-6 à 1e-3
+     - m²
+   * - ``Nozzle.Outlet.P``
+     - Pression de fin de détente = pression du secondaire (évaporateur)
+     - selon le cycle
+     - Pa
+   * - ``epsilon_s``
+     - Rendement isentropique de la tuyère
+     - 0,7 à 0,95
+     - —
+   * - ``Mixing_Chamber.Inlet_secondary.F``
+     - Débit aspiré : plus il est grand, plus le jet est freiné
+     - selon l'évaporateur
+     - kg/s
+   * - ``epsilon_m``
+     - Part de la quantité de mouvement primaire conservée au mélange
+     - 0,7 à 0,95
+     - —
+   * - ``epsilon_d``
+     - Rendement du diffuseur (énergie cinétique → pression)
+     - 0,7 à 0,9
+     - —
+
+Variante : aspirer deux fois plus de vapeur
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. code-block:: python
+
+    # variante : débit secondaire 0,02 -> 0,04 kg/s, tout le reste identique
+    chambre.Inlet_secondary.F = 0.04
+    chambre.calculate()
+    diffuseur.Inlet.h = chambre.Outlet.h
+    diffuseur.Inlet.F = chambre.Outlet.F
+    diffuseur.v_3 = chambre.v_3
+    diffuseur.calculate()
+    print(f"Chambre   : v2 = {chambre.v_2:.1f} m/s, débit total = {chambre.m_total:.4f} kg/s")
+    print(f"Diffuseur : P sortie = {diffuseur.P_out / 1e5:.3f} bar")
+    print(f"Entraînement = {chambre.Inlet_secondary.F / tuyere.m_flow:.3f} ; "
+          f"compression = {diffuseur.P_out / P_evap:.3f}")
+
+Sortie réelle :
+
+.. code-block:: text
+
+   Chambre   : v2 = 31.0 m/s, débit total = 0.0816 kg/s
+   Diffuseur : P sortie = 3.080 bar
+   Entraînement = 0.961 ; compression = 1.027
+
+**Doubler le débit aspiré double le taux d'entraînement (0,48 → 0,96) et
+divise le gain de pression par plus de deux** (+5,9 % → +2,7 %) : la même
+quantité de mouvement primaire se répartit sur un débit plus grand. C'est le
+compromis de tout éjecteur, entre débit aspiré et remontée de pression.
+
+Pièges (éjecteur)
+~~~~~~~~~~~~~~~~~
+
+- **La pression de sortie de la tuyère se fournit** : ``Nozzle`` lit
+  ``Outlet.P`` et ne le calcule pas ; laissé à ``None``, le calcul lève un ``TypeError``
+  brut de CoolProp (``PropsSI(): incompatible function arguments``), qui ne
+  nomme pas l'entrée manquante. Dans ``Ejector``, c'est ``Inlet_secondary.P`` qui la fixe.
+- **La vitesse ne voyage pas par le port** : ``Mixing_Chamber.v_1`` vaut 100 m/s
+  par défaut. Oublier ``chambre.v_1 = tuyere.v_1`` ne lève rien et donne un
+  mélange calculé avec une vitesse arbitraire. Même chose pour
+  ``Diffuser.v_3``.
+- **Les ports de sortie ne portent que P, h et F** : ``Outlet.T`` reste
+  ``None`` sur les trois étages (aucun appel de ``calculate_properties``).
+  La température se recalcule avec ``PropsSI("T", "P", …, "H", …)``.
+- **Pas d'onde de choc** : le modèle prend ``v_3 = v_2`` (sa docstring le dit),
+  les pertes du mélange sont toutes portées par ``epsilon_m``. Les taux de
+  compression obtenus sont donc ceux d'un éjecteur **subsonique** idéalisé,
+  modestes (quelques pour cent ici) ; ils ne se comparent pas à un catalogue
+  d'éjecteurs supersoniques.
+- **Repli silencieux du diffuseur** : si la recherche de ``P_out`` par
+  ``brentq`` échoue, une exception quelconque est avalée et ``P_out`` est
+  estimée par une formule incompressible
+  (:math:`P_a + \rho\,\varepsilon_d\,v_3^2/2`), sans avertissement.
+
+
 Tour de refroidissement (CoolingTower)
 --------------------------------------
 

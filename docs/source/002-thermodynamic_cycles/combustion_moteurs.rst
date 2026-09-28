@@ -8,7 +8,9 @@ combustion et aux machines thermiques à combustion interne :
 
 * ``Combustion.Combustor_cantera`` — combustion réelle par équilibre chimique (Cantera), pouvoirs calorifiques PCI/PCS ;
 * ``ReciprocatingEngine`` — moteur alternatif air-standard (cycles Otto / Diesel) ;
+* ``Combustion.Gaz_Boiler`` — ébauche de chaudière gaz (lit seulement l'air comburant) ;
 * ``GasTurbine`` — cycle de Brayton complet (compresseur + chambre + turbine) ;
+* ``GasTurbine.Combustor`` — chambre de combustion seule (apport du PCI, sans chimie) ;
 * ``OxyCombustion`` — oxy-combustion stœchiométrique avec recyclage de fumées et captage du CO2.
 
 Tous ces modules suivent le patron ``ThermodynamicCycles`` : instanciation de
@@ -312,6 +314,101 @@ Index du DataFrame ``COMB.df`` : ``comb_LHV (MJ/kg)``, ``comb_HHV (MJ/kg)``,
    ``NG_Boiler_Efficiency_EN1295X`` (rendement chaudière gaz selon EN 1295X).
 
 
+Chaudière gaz — Gaz_Boiler (ébauche)
+------------------------------------
+
+**Ce que fait réellement le modèle.** ``ThermodynamicCycles.Combustion.Gaz_Boiler``
+porte trois ports — ``air_Inlet`` (air comburant), ``Inlet`` et ``Outlet`` (eau)
+— mais son ``calculate()`` se limite à **lire la température et la pression de
+l'air comburant**. Il ne calcule ni combustion, ni puissance, ni rendement, et
+laisse ``Outlet`` vide. C'est une ébauche : pour une chaudière, utilisez
+:doc:`ng_boiler_efficiency` (rendement selon EN 1295X) et
+:doc:`ng_heating_value` (PCI/PCS du gaz). Aucun nœud ``PyqtSimulator`` ne
+l'expose.
+
+.. code-block:: python
+
+    import contextlib, io
+    from ThermodynamicCycles.Source import Source
+    from ThermodynamicCycles.Combustion import Gaz_Boiler
+    from ThermodynamicCycles.Connect import Fluid_connect
+
+    AIR_COMB = Source.Object()
+    AIR_COMB.fluid, AIR_COMB.Pi_bar, AIR_COMB.Ti_degC, AIR_COMB.F = "air", 1.01325, 15, 1.0
+    RETOUR = Source.Object()
+    RETOUR.fluid, RETOUR.Pi_bar, RETOUR.Ti_degC, RETOUR.F = "water", 3.0, 60, 2.0
+    with contextlib.redirect_stdout(io.StringIO()):
+        AIR_COMB.calculate()
+        RETOUR.calculate()
+
+    CHAUD = Gaz_Boiler.Object()
+    Fluid_connect(CHAUD.air_Inlet, AIR_COMB.Outlet)
+    Fluid_connect(CHAUD.Inlet, RETOUR.Outlet)
+    CHAUD.calculate()
+
+    print(CHAUD.df.drop("Timestamp"))
+    print("Eau en sortie : T =", CHAUD.Outlet.T, "/ F =", CHAUD.Outlet.F)
+
+Sortie réelle :
+
+.. code-block:: text
+
+                      Gaz_Boiler
+    Ti_air (C)              15.0
+    air_Inlet.P (bar)       1.01
+    Eau en sortie : T = None / F = None
+
+La sortie d'eau reste à ``None`` : brancher ce modèle dans une chaîne
+interromprait la propagation en aval.
+
+Personnaliser Gaz_Boiler
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+Le modèle n'a **aucun paramètre** propre ; seul l'état de l'air comburant
+change son résultat.
+
+.. list-table::
+   :header-rows: 1
+   :widths: 24 46 30
+
+   * - Entrée
+     - Effet
+     - Plage
+   * - ``air_Inlet`` (via ``Fluid_connect``)
+     - Température et pression de l'air comburant, recopiées dans ``df``
+     - −15 à 40 °C
+   * - ``Inlet`` (eau)
+     - **Sans effet** sur le calcul
+     - —
+
+.. code-block:: python
+
+    # variante : air comburant préchauffé à 45 °C (récupération sur les fumées)
+    AIR_CHAUD = Source.Object()
+    AIR_CHAUD.fluid, AIR_CHAUD.Pi_bar, AIR_CHAUD.Ti_degC, AIR_CHAUD.F = "air", 1.01325, 45, 1.0
+    with contextlib.redirect_stdout(io.StringIO()):
+        AIR_CHAUD.calculate()
+    CHAUD2 = Gaz_Boiler.Object()
+    Fluid_connect(CHAUD2.air_Inlet, AIR_CHAUD.Outlet)
+    CHAUD2.calculate()
+    print(f"Ti_air : {CHAUD.Ti_air - 273.15:.1f} -> {CHAUD2.Ti_air - 273.15:.1f} °C")
+    print("Puissance, rendement : non calculés (attributs absents :",
+          not hasattr(CHAUD2, "Q"), ")")
+
+Sortie réelle :
+
+.. code-block:: text
+
+    Ti_air : 15.0 -> 45.0 °C
+    Puissance, rendement : non calculés (attributs absents : True )
+
+.. warning::
+
+   Le module importe ``thermochem`` (``burcat``, ``combustion``) sans s'en
+   servir : l'import de ``Gaz_Boiler`` échoue si ce paquet n'est pas installé,
+   alors que le calcul n'en a pas besoin.
+
+
 ReciprocatingEngine (moteur alternatif)
 ---------------------------------------
 
@@ -548,6 +645,113 @@ Sortie réelle :
 Index du DataFrame ``gt.df`` : ``fluid``, ``m_air_kgs``, ``m_fuel_kgs``,
 ``T_combustor_degC``, ``P_compr_kW``, ``P_fuel_kW``, ``P_turbine_kW``,
 ``P_net_kW``, ``eta_thermal``.
+
+
+Chambre de combustion seule — Combustor
+---------------------------------------
+
+**À quoi ça sert.** ``ThermodynamicCycles.GasTurbine.Combustor`` est la chambre
+utilisée à l'intérieur de ``GasTurbine`` ; on peut l'employer seule pour
+connaître la **température de sortie d'une chambre** (turbine, four, brûleur de
+postcombustion) à partir du débit d'air, du débit de combustible et de son PCI.
+Il n'y a pas de chimie : le combustible apporte
+:math:`P_{fuel} = \dot m_{fuel}\,\mathrm{LHV}\,\eta_{comb}` et les gaz brûlés
+sont traités **comme de l'air** (même fluide CoolProp que l'entrée), à pression
+constante. Nœud IHM : « Combusteur ».
+
+.. code-block:: python
+
+    from ThermodynamicCycles.GasTurbine import Combustor
+
+    # Air sortant d'un compresseur : 8 bar, 300 °C, 3,5 kg/s
+    AIR_HP = Source.Object()
+    AIR_HP.fluid, AIR_HP.Pi_bar, AIR_HP.Ti_degC, AIR_HP.F = "air", 8, 300, 3.5
+    with contextlib.redirect_stdout(io.StringIO()):
+        AIR_HP.calculate()
+
+    CC = Combustor.Object()
+    Fluid_connect(CC.Inlet, AIR_HP.Outlet)
+    CC.m_fuel = 0.06          # kg/s de gaz naturel
+    CC.LHV = 43e6             # J/kg (défaut)
+    CC.calculate()
+
+    print(CC.df.drop("Timestamp"))
+    print(f"Pression de sortie : {CC.Outlet.P/1e5:.1f} bar (sans perte de charge)")
+
+Sortie réelle :
+
+.. code-block:: text
+
+                Combustor
+    fluid             air
+    m_air_kgs         3.5
+    m_fuel_kgs       0.06
+    m_out_kgs        3.56
+    Ti_degC         300.0
+    To_degC     948.21369
+    P_fuel_kW      2580.0
+    eta_comb          1.0
+    Pression de sortie : 8.0 bar (sans perte de charge)
+
+Avec 2,58 MW de combustible pour 3,5 kg/s d'air, les gaz atteignent 948 °C —
+l'ordre de grandeur d'une entrée de turbine industrielle ancienne. Le rapport
+air/combustible vaut 58, soit 3,4 fois l'air
+stœchiométrique du méthane (17,2 kg/kg).
+
+Personnaliser Combustor
+~~~~~~~~~~~~~~~~~~~~~~~
+
+.. list-table::
+   :header-rows: 1
+   :widths: 22 50 28
+
+   * - Attribut
+     - Effet
+     - Défaut / plage
+   * - ``m_fuel``
+     - Débit de combustible ; c'est le levier de la température de sortie
+     - 0 kg/s
+   * - ``LHV``
+     - PCI du combustible (J/kg) : gaz naturel ≈ 47e6 à 50e6, fioul ≈ 42,6e6
+     - 43e6
+   * - ``eta_combustion``
+     - Fraction du PCI réellement libérée (imbrûlés)
+     - 1,0 ; 0,98 à 0,995
+   * - ``Q_cooling``
+     - Chaleur retirée par le refroidissement des parois (W)
+     - 0
+
+.. code-block:: python
+
+    # variante : combustion imparfaite (98 %) et 50 kW évacués par les parois
+    CC2 = Combustor.Object()
+    Fluid_connect(CC2.Inlet, AIR_HP.Outlet)
+    CC2.m_fuel = 0.06
+    CC2.eta_combustion = 0.98
+    CC2.Q_cooling = 50e3
+    CC2.calculate()
+    print(f"Puissance combustible : {CC.P_fuel/1000:.0f} -> {CC2.P_fuel/1000:.0f} kW")
+    print(f"Température de sortie : {CC.To_degC:.1f} -> {CC2.To_degC:.1f} °C")
+
+Sortie réelle :
+
+.. code-block:: text
+
+    Puissance combustible : 2580 -> 2528 kW
+    Température de sortie : 948.2 -> 924.0 °C
+
+.. warning::
+
+   - **Aucune garde sur la richesse** : rien n'empêche d'injecter plus de
+     combustible que l'air ne peut en brûler. Le modèle ajoute l'énergie quand
+     même, jusqu'à sortir du domaine de CoolProp (c'est ce qui arrive avec les
+     défauts de ``GasTurbine``, voir plus haut). Vérifiez vous-même que
+     :math:`\dot m_{air}/\dot m_{fuel}` dépasse le rapport stœchiométrique
+     (≈ 17 pour le gaz naturel).
+   - Les gaz brûlés gardent les propriétés de l'**air** : la température est
+     légèrement surestimée par rapport à des fumées réelles (cp plus élevé).
+   - Un ``Inlet.F`` à ``None`` est compté comme un débit d'air **nul**, sans
+     exception.
 
 
 OxyCombustion (oxy-combustion + captage CO2)

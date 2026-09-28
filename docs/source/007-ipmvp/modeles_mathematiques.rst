@@ -109,7 +109,21 @@ Le module utilise la méthode du **z-score** :
 
    z_i = \frac{y_i - \bar{y}}{\sigma_y}
 
-Les points avec :math:`|z|` > ``seuil_z_scores`` (**défaut 8**) sont exclus.
+Les points avec :math:`z` ≥ ``seuil_z_scores`` (**défaut 8**) sont exclus
+(fonction ``drop_outliers``, appliquée à ``y`` seul, toutes périodes confondues ;
+le même index est retiré de ``X``).
+
+.. warning::
+   L'exclusion est **unilatérale** : seuls les relevés anormalement **hauts** sont
+   retirés. Mesuré : sur une série de 42 relevés, un relevé à 0 (z = −4,6) est
+   conservé quand un relevé à 200 (z = +4,4) est exclu au seuil 3. Un compteur
+   bloqué ou un mois non relevé doit donc être retiré à la main avant l'appel.
+   Défaut consigné dans ``BUGS_LIB.md``.
+
+Deux autres fonctions du module s'appellent seules : ``agreger_avec_duree``
+(agrégation d'un pas fin à une maille plus large, avec la durée comme variable
+explicative) et ``regression_model`` (régression sur une seule période) — voir
+les exemples exécutés de :doc:`exemples`.
 
 Variables explicatives (X)
 --------------------------
@@ -170,7 +184,7 @@ Formule (identique au calcul Excel M&V) :
 où :math:`m` est le nombre de mois. La fonction est **pure** (aucun effet de
 bord) et retourne un ``dict`` contenant les clés ``contrat`` et ``reporting``
 (chacune : ``mois``, ``economie_kwh``, ``precision_absolue_kwh``,
-``precision_relative``). Voir :doc:`exemples` pour une sortie réelle.
+``precision_relative``). Voir :doc:`mesure_economies` pour une sortie réelle.
 
 Références
 ----------

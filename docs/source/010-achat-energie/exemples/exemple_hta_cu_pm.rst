@@ -1,9 +1,9 @@
 Exemple HTA — CU à pointe mobile
 --------------------------------
 
-**Contexte** : Un centre logistique raccorde en HTA (20 kV), option Courte
-Utilisation pointe mobile. Puissance souscrite 300 kW, consommation hiver
-et ete equilibree. Facturation de mars 2025.
+**Contexte** : un centre logistique raccordé en HTA (20 kV), option **CU_pm**
+(courte utilisation, pointe mobile), puissance souscrite 300 kW. Facture de
+mars 2025, environ 145 MWh.
 
 .. code-block:: python
 
@@ -12,7 +12,7 @@ et ete equilibree. Facturation de mars 2025.
    # Contrat HTA CU_pm — centre logistique 300 kW
    contrat = input_Contrat(
        domaine_tension="HTA",
-       PS_pointe=300, PS_HPH=300, PS_HCH=300, PS_HPB=300, PS_HCB=300,
+       PS_pointe=300, PS_HPH=300, PS_HCH=300, PS_HPB=300, PS_HCB=300,   # kW
        version_utilisation="CU_pm",
        pourcentage_ENR=0,
    )
@@ -25,7 +25,7 @@ et ete equilibree. Facturation de mars 2025.
        c_euro_kWh_HCB=0.09,
    )
 
-   # Consommation realiste (~150 MWh/mois)
+   # Consommations du mois (kWh)
    facture = input_Facture(
        start="2025-03-01",
        end="2025-03-31",
@@ -39,30 +39,32 @@ et ete equilibree. Facturation de mars 2025.
    calc = TurpeCalculator(contrat, tarif, facture)
    calc.calculate_turpe()
 
-   print(calc.df_totaux)
+   print(calc.df_totaux.to_string(index=False))
 
    calc.plot()
+   calc.plot_detail()
 
-**Sortie réelle (df_totaux)** :
+Sortie réelle (étapes intermédiaires ``euro_…`` résumées par « … ») :
 
 .. code-block:: text
 
-                        Ligne                    Formule  Entrée(s) Coefficient  Résultat
-                   Fourniture                                                    15850.00
-         Acheminement (TURPE)                                                     4772.55
-       Taxes et contributions                                                      166.52
-                 = Total HTVA Fourniture + TURPE + Taxes                         20789.07
-                      TVA 20%           Total_HTVA x 20%                          4157.81
-                  = Total TTC                 HTVA + TVA                         24946.88
-          Coût HTVA (EUR/MWh)           Total_HTVA / MWh 145.00 MWh                143.37
-    Coût fourniture (EUR/MWh)           Fourniture / MWh                           109.31
-  Coût distribution (EUR/MWh)                TURPE / MWh                            32.91
-         Coût taxes (EUR/MWh)                Taxes / MWh                             1.15
+   …
+                         Ligne                    Formule  Entrée(s) Coefficient  Résultat Annuel
+                    Fourniture                                                    15850.00
+          Acheminement (TURPE)                                                     4772.55
+        Taxes et contributions                                                      166.52
+                  = Total HTVA Fourniture + TURPE + Taxes                         20789.07
+                       TVA 20%           Total_HTVA x 20%                          4157.81
+                   = Total TTC                 HTVA + TVA                         24946.88
+           Coût HTVA (EUR/MWh)           Total_HTVA / MWh 145.00 MWh                143.37
+     Coût fourniture (EUR/MWh)           Fourniture / MWh                           109.31
+   Coût distribution (EUR/MWh)                TURPE / MWh                            32.91
+          Coût taxes (EUR/MWh)                Taxes / MWh                             1.15
 
-Plots générés par l'exemple
-~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Figures produites par l'exemple
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Les figures ci-dessous sont les sorties réelles de ``calc.plot()`` et
+Les figures ci-dessous sont les tracés de ``calc.plot()`` et
 ``calc.plot_detail()`` pour les données de l'exemple.
 
 .. figure:: ../../images/010_turpe_hta_cu_pm_plot.svg
@@ -76,3 +78,76 @@ Les figures ci-dessous sont les sorties réelles de ``calc.plot()`` et
    :align: center
 
    Cascades détaillées par composante de fourniture, distribution et taxes.
+
+Paramètres à personnaliser
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. list-table::
+   :widths: 28 44 28
+   :header-rows: 1
+
+   * - Entrée
+     - Effet
+     - Plage usuelle
+   * - ``PS_pointe`` … ``PS_HCB``
+     - Puissances souscrites (kW) : levier principal de la part fixe
+     - 250 kW à 12 MW
+   * - ``depassement_PS_<poste>``
+     - Somme des carrés des dépassements 10 minutes (kW²) : pénalité CMDPS si la puissance est trop basse
+     - 0 si la souscription couvre l'appel
+   * - ``kWh_<poste>``
+     - Consommations relevées par poste
+     - selon la facture
+   * - ``start``, ``end``
+     - Période entière dans une grille CU_pm livrée
+     - 2017-08-01 à 2025-12-31
+
+Variante : réduire la puissance souscrite
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Si la courbe de charge montre que l'appel ne dépasse jamais 250 kW, on peut
+baisser la souscription. On compare la part fixe du TURPE.
+
+.. code-block:: python
+
+   # variante : 250 kW souscrits au lieu de 300 kW, consommations identiques
+   contrat_250 = input_Contrat(
+       domaine_tension="HTA",
+       PS_pointe=250, PS_HPH=250, PS_HCH=250, PS_HPB=250, PS_HCB=250,
+       version_utilisation="CU_pm",
+   )
+   calc_250 = TurpeCalculator(contrat_250, tarif, facture)
+   calc_250.calculate_turpe()
+
+   for nom, c in (("300 kW", calc), ("250 kW", calc_250)):
+       print(f"{nom}: CS fixe annuel {c.euro_an_CS_fixe:8.2f} EUR/an  "
+             f"TURPE du mois {c.euro_TURPE:8.2f} EUR")
+   gain = calc.euro_an_CS_fixe - calc_250.euro_an_CS_fixe
+   print(f"Économie sur la part fixe : {gain:.2f} EUR/an")
+
+Sortie réelle (étapes intermédiaires résumées par « … ») :
+
+.. code-block:: text
+
+   …
+   300 kW: CS fixe annuel  4239.00 EUR/an  TURPE du mois  4772.55 EUR
+   250 kW: CS fixe annuel  3532.50 EUR/an  TURPE du mois  4712.55 EUR
+   Économie sur la part fixe : 706.50 EUR/an
+
+La baisse ne vaut que si aucun dépassement n'apparaît ensuite : renseignez les
+``depassement_PS_<poste>`` mesurés pour chiffrer la pénalité CMDPS avant de
+décider.
+
+Pièges
+~~~~~~
+
+1. **Grille limitée à 2025.** La dernière grille CU_pm livrée s'arrête au
+   31 décembre 2025 ; une facture de 2026 lève ``AttributeError``.
+2. **Accise.** Sans ``c_euro_kwh_CSPE_TICFE``, le taux porté par la grille
+   s'applique (0,0005 EUR/kWh ici) : comparez-le à la ligne accise de votre
+   facture et saisissez le bon. Le total HTVA applique alors le taux saisi,
+   mais la ligne « Taxes et contributions » garde celui de la grille (défaut
+   consigné dans ``BUGS_LIB.md``).
+
+Voir aussi : :doc:`../contrat_electricite`, :doc:`exemple_hta_cu_pf`,
+:doc:`exemple_hta_lu_pm`.

@@ -34,6 +34,36 @@ Principe universel
 
 Une facture d’énergie rémunère toujours une énergie livrée, un réseau mobilisé et un cadre public régulé, indépendamment du pays ou de l’unité utilisée.
 
+Les calculateurs du paquet ``Facture``
+--------------------------------------
+
+.. list-table::
+   :header-rows: 1
+   :widths: 30 35 35
+
+   * - Module et classe
+     - Facture reconstituée
+     - Page
+   * - ``Facture.TURPE`` — ``TurpeCalculator``
+     - Électricité en France : fourniture, TURPE, CTA, accise
+     - :doc:`contrat_electricite` et ses six exemples
+   * - ``Facture.ATR_Transport_Distribution`` — ``ATR_calculation``
+     - Gaz en France : molécule, ATRD, ATRT, CTA, accise, TVA
+     - :doc:`contrat_gaz`
+   * - ``Facture.SONALGAZ_Elec`` — ``Sonalgaz_Elec``
+     - Électricité en Algérie (BT, HTA, HTB), simulation des tarifs HTA
+     - :doc:`guide_audit_facture`, section 10.3.3
+   * - ``Facture.SONALGAZ_gaz`` — ``Sonalgaz_Gaz``
+     - Gaz en Algérie (HP, MP, BP), comparaison relevé / calculé
+     - :doc:`guide_audit_facture`, section 10.3.4
+   * - ``Facture.df_utils``
+     - Mise en forme des tableaux auditables
+     - :doc:`guide_audit_facture`, section 10.3.5
+
+Chaque calculateur lit ses coefficients dans un fichier JSON livré avec le
+paquet : une facture dont la période n'est couverte par aucune grille ne se
+calcule pas. Les périodes couvertes sont données page par page.
+
 .. toctree::
    :maxdepth: 2
    :titlesonly:

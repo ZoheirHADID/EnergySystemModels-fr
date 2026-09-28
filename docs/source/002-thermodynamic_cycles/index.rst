@@ -15,8 +15,10 @@ Cycles thermodynamiques
    pompe
    detente_distributeurs
    echangeurs
+   aerorefrigerant
    chiller
    condenseur_evaporateur
+   givrage
    refrigeration
    froid_absorption
    ejecteur_tour_refroidissement
@@ -27,8 +29,10 @@ Cycles thermodynamiques
    raccords_fittings
    dessalement_evaporation
    distillation
+   separation
    geothermie_solaire
    ng_heating_value
    ng_boiler_efficiency
    outils_diagrammes
+   exergie
    nomenclature

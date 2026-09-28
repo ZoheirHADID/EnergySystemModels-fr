@@ -271,7 +271,9 @@ Paramètres
      - Bornes de saturation de la sortie.
    * - ``i_min`` / ``i_max``
      - ``-2.0`` / ``2.0``
-     - Bornes de saturation de l'intégrale (anti-windup).
+     - Bornes de la **contribution** intégrale :math:`K_i \int e\,dt`, dans
+       l'unité de la sortie (anti-emballement). Jusqu'au 24/09/2026 elles
+       bornaient l'intégrale brute.
    * - ``bias``
      - ``0.0``
      - Biais additif appliqué à la sortie.
@@ -282,7 +284,10 @@ Paramètres
 Après ``calculate()``, les résultats sont exposés dans ``error``, ``p_term``,
 ``i_term``, ``d_term``, ``output`` et le DataFrame ``df``. La méthode
 ``reset()`` réinitialise les états internes (``integral``, ``prev_error``,
-``prev_time``).
+``prev_time``) ; ``preset_output(u0)`` prépare un démarrage sans à-coup (la
+première commande vaut ``u0``, par exemple l'ouverture actuelle de la vanne).
+L'usage complet — boucle fermée, réglage des gains, nœud « PID » de l'IHM — est
+dans :doc:`../013-simulation-temporelle/regulation_pid`.
 
 Exemple
 ~~~~~~~
@@ -315,3 +320,59 @@ Sortie réelle :
    p             0.075
    i             0.015
    d             0.000
+
+Paramètres à personnaliser
+--------------------------
+
+.. list-table::
+   :header-rows: 1
+   :widths: 30 70
+
+   * - Paramètre
+     - Effet
+   * - ``Sensor.measurement_type``
+     - Grandeur rendue par ``value`` : une des huit clés ci-dessus
+       (``'Température'``, ``'Débit en m3/h'``, ``'Débit en Nm3/h'``…).
+   * - ``normal_temperature_K`` / ``normal_pressure_Pa``
+     - Conditions « normales » des Nm³/h : 273,15 K et 101 325 Pa par défaut ;
+       288,15 K pour des conditions standard gazières.
+   * - ``SignalLink(src_attr=…, tgt_attr=…)``
+     - Grandeur émise et attribut qui la reçoit ; tout attribut scalaire listé
+       par ``list_model_signals`` convient.
+   * - ``propagate(recompute=…)``
+     - ``True`` relance ``calculate()`` sur le récepteur après l'injection.
+   * - Gains du ``PIDController``
+     - ``Kp``, ``Ki``, ``Kd``, ``dt``, sens d'action : voir
+       :doc:`../013-simulation-temporelle/regulation_pid`.
+
+Variante : le même capteur lu en débit
+--------------------------------------
+
+.. code-block:: python
+
+   # variante : même port d'air, mesuré en m³/h puis en Nm³/h à 15 °C
+   SENSOR.measurement_type = "Débit en m3/h"
+   print(round(SENSOR.calculate(), 1), SENSOR.unit)
+
+   SENSOR.measurement_type = "Débit en Nm3/h"
+   SENSOR.normal_temperature_K = 288.15      # conditions standard 15 °C
+   print(round(SENSOR.calculate(), 1), SENSOR.unit)
+
+Sortie réelle :
+
+.. code-block:: text
+
+   3039.7 m³/h
+   2937.5 Nm³/h
+
+Le même kilogramme par seconde d'air à 25 °C occupe 3 040 m³/h réels, et
+2 938 Nm³/h ramenés à 15 °C (2 784 à 0 °C, sortie du premier exemple) : précisez
+toujours la référence d'un débit normalisé.
+
+Voir aussi
+----------
+
+- :doc:`../013-simulation-temporelle/regulation_pid` — le PID en boucle
+  fermée, en Python et dans l'IHM ;
+- :doc:`../013-simulation-temporelle/signaux_operations` — générateurs de
+  consignes, opérations et afficheur.

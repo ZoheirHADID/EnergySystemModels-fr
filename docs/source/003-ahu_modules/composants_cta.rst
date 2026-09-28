@@ -804,3 +804,136 @@ Sortie réelle :
 
    18.18538828587805 -162763.9071177696 -171.27880431530977
 
+
+.. _composants_cta_old:
+
+Anciennes versions — dossiers ``Old``
+-------------------------------------
+
+Les sources de la bibliothèque gardent trois modèles antérieurs, **hérités et
+remplacés** par ceux de cette page :
+
+.. list-table::
+   :header-rows: 1
+   :widths: 34 30 36
+
+   * - Module hérité
+     - Remplacé par
+     - Ce qui diffère
+   * - ``AHU.FreshAir.Old.FreshAir``
+     - ``AHU.FreshAir.FreshAir`` (:ref:`composants_cta_freshair`)
+     - Même calcul ; imprime deux traces à chaque appel, libellés du ``df``
+       préfixés par ``self.``, ports non rafraîchis (pas d'``update_properties``).
+   * - ``AHU.FreshAir.Old.AirMix``
+     - ``AHU.FreshAir.AirMix`` (:ref:`composants_cta_airmix`)
+     - **Mélange faux** : le débit d'air sec y est ``F/(1 + w)`` avec ``w`` en
+       g/kg, au lieu de ``F/(1 + w/1000)``. Pas de ``df`` ; attributs ``T``,
+       ``RH``, ``F`` sans effet sur le mélange.
+   * - ``AHU.Humidification.Old.Humidifier``
+     - ``AHU.Humidification.Humidifier`` (section *Humidificateur*
+       ci-dessus)
+     - Même calcul ; pas de ``df``, ``Outlet.F_dry`` non renseigné.
+
+Les deux lignes fautives de l'ancien mélangeur (extrait de
+``AHU/FreshAir/Old/AirMix.py``) :
+
+.. code-block:: python
+
+   self.F_dry1=self.Inlet1.F/(1+self.Inlet1.w)
+   self.F_dry2=self.Inlet2.F/(1+self.Inlet2.w)
+
+Avec ``w`` en g/kg, le dénominateur vaut 3 pour un air neuf d'hiver et 7 pour
+l'air repris : les deux flux sont pondérés à tort, et la température du
+mélange sort fausse de plusieurs degrés (mesuré sur l'exemple ``AirMix``
+ci-dessus : 6,5 °C au lieu de 12,0 °C).
+
+.. warning::
+   **Ces modules ne sont pas livrés par PyPI.** Les dossiers ``Old`` n'ont pas
+   de fichier ``__init__.py`` ; le paquet publié (vérifié sur la version
+   ``20260924003``) ne les contient pas, et ``from AHU.FreshAir.Old import
+   AirMix`` échoue après ``pip install energysystemmodels``. Aucun nœud de
+   l'interface ne les emploie. Utilisez les modules décrits plus haut.
+
+Paramètres à personnaliser
+--------------------------
+
+Les réglages des composants de cette page qui pilotent le traitement de l'air :
+
+.. list-table::
+   :header-rows: 1
+   :widths: 24 42 20 14
+
+   * - Paramètre
+     - Effet
+     - Plage usuelle
+     - Unité
+   * - ``T``, ``RH`` (``FreshAir``)
+     - État de l'air extérieur ou repris ; fixe ``w`` et ``h`` de tout l'aval
+     - −15 à 35 ; 20 à 95
+     - °C ; %
+   * - ``F_m3h`` (``FreshAir``)
+     - Débit d'air ; toutes les puissances lui sont proportionnelles
+     - selon la CTA
+     - m³/h
+   * - part d'air neuf (``AirMix``)
+     - Se règle par les débits des deux ``FreshAir`` ; plus d'air neuf, mélange
+       plus froid l'hiver
+     - 10 à 100
+     - %
+   * - ``T_efficiency`` (récupérateurs)
+     - Efficacité de température du récupérateur
+     - 50 à 85
+     - %
+   * - ``T_target`` (récupérateurs)
+     - Plafond de soufflage : l'efficacité est bridée pour ne pas le dépasser
+     - 14 à 20
+     - °C
+   * - ``HumidType``, ``wo_target`` (``Humidifier``)
+     - Technologie et consigne d'humidité ; rester sous la saturation
+     - 4 à 9
+     - g/kg as
+
+Variante : la part d'air neuf du mélange
+----------------------------------------
+
+Même CTA qu'à l'exemple ``AirMix`` (air neuf −5 °C / 80 %, air repris 20 °C /
+45 %, 10 000 m³/h au total), en faisant varier la part d'air neuf :
+
+.. code-block:: python
+
+   # variante : part d'air neuf de 10 à 100 % sur 10 000 m3/h
+   from AHU.FreshAir.AirMix import Object as AirMix
+   from AHU.FreshAir.FreshAir import Object as FreshAir
+
+   print("air neuf   T mélange   w mélange")
+   for part in (0.1, 0.3, 0.5, 1.0):
+       neuf = FreshAir(); neuf.T = -5; neuf.RH = 80; neuf.F_m3h = 10000 * part; neuf.calculate()
+       repris = FreshAir(); repris.T = 20; repris.RH = 45
+       repris.F_m3h = max(10000 * (1 - part), 1e-6); repris.calculate()
+       mx = AirMix(); mx.Inlet1 = neuf.Outlet; mx.Inlet2 = repris.Outlet
+       mx.calculate()
+       print(f"{100 * part:6.0f} %   {mx.Outlet.T:7.2f} °C   {mx.Outlet.w:6.3f} g/kg")
+
+Sortie réelle :
+
+.. code-block:: text
+
+   air neuf   T mélange   w mélange
+       10 %     17.29 °C    6.032 g/kg
+       30 %     12.03 °C    5.069 g/kg
+       50 %      6.95 °C    4.144 g/kg
+      100 %     -5.00 °C    1.979 g/kg
+
+À débit total constant, chaque tranche de 10 % d'air neuf refroidit le mélange
+d'environ 2,5 K par ce temps d'hiver : de 17,3 °C à 10 % d'air neuf à −5 °C en
+tout air neuf. C'est la batterie chaude en aval qui paie l'écart — d'où
+l'intérêt d'un récupérateur sur l'air extrait quand la part d'air neuf est
+imposée par l'hygiène.
+
+Voir aussi
+----------
+
+- :doc:`batteries` — batteries chaudes et froides ;
+- :doc:`cta_air_neuf` — chaîne complète air neuf → batterie → humidificateur ;
+- :doc:`generic_ahu` — CTA complètes sur série temporelle ;
+- :doc:`../interface/noeuds` — les nœuds *Chaîne d'air* de l'interface.

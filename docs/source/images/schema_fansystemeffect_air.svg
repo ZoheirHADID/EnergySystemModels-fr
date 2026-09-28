@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="470" viewBox="0 0 960 470" role="img" aria-label="Effet système au ventilateur">
+<title>Effet système au ventilateur</title>
+<defs><marker id="fleche" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-end"><path d="M 0 0 L 10 5 L 0 10 z" fill="#1f2933"/></marker><marker id="fleche_cote" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-end"><path d="M 0 0 L 10 5 L 0 10 z" fill="#b46a00"/></marker><marker id="fleche_flux" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-end"><path d="M 0 0 L 10 5 L 0 10 z" fill="#2670a8"/></marker></defs>
+<rect width="960" height="470" fill="#ffffff"/>
+<rect x="90.0" y="206.0" width="52.0" height="60.0" rx="0" fill="#e7f1f8" stroke="none" stroke-width="0"/>
+<path d="M 90.0 206.0 A 82.0 82.0 0 0 1 172.0 124.0 L 172.0 176.0 A 30.0 30.0 0 0 0 142.0 206.0 Z" fill="#e7f1f8" stroke="none"/>
+<rect x="172.0" y="124.0" width="252.0" height="52.0" rx="0" fill="#e7f1f8" stroke="none" stroke-width="0"/>
+<line x1="90.0" y1="206.0" x2="90.0" y2="266.0" stroke="#1f2933" stroke-width="2.2"/>
+<line x1="142.0" y1="206.0" x2="142.0" y2="266.0" stroke="#1f2933" stroke-width="2.2"/>
+<path d="M 90.0 206.0 A 82.0 82.0 0 0 1 172.0 124.0" fill="none" stroke="#1f2933" stroke-width="2.2"/>
+<path d="M 142.0 206.0 A 30.0 30.0 0 0 1 172.0 176.0" fill="none" stroke="#1f2933" stroke-width="2.2"/>
+<line x1="172.0" y1="124.0" x2="424.0" y2="124.0" stroke="#1f2933" stroke-width="2.2"/>
+<line x1="172.0" y1="176.0" x2="424.0" y2="176.0" stroke="#1f2933" stroke-width="2.2"/>
+<line x1="116.0" y1="262.0" x2="116.0" y2="216.0" stroke="#2670a8" stroke-width="2.0" marker-end="url(#fleche_flux)"/>
+<line x1="202.0" y1="150.0" x2="282.0" y2="150.0" stroke="#2670a8" stroke-width="2.0" marker-end="url(#fleche_flux)"/>
+<g transform="translate(424.00 104.00) scale(0.9200)"><g fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="50" cy="50" r="24" />
+    <line x1="40.4" y1="28.1" x2="31.1" y2="64.9" />
+    <line x1="59.6" y1="28.1" x2="68.9" y2="64.9" />
+    <line x1="50" y1="26" x2="50" y2="8" />
+    <line x1="50" y1="74" x2="50" y2="92" />
+    <line x1="26" y1="50" x2="8" y2="50" />
+  </g>
+  <g class="ports">
+    <circle class="port" cx="50" cy="8" r="2.0" fill="#000000" stroke="none" data-port="port-n" data-dir="n" data-role="process" />
+    <circle class="port" cx="50" cy="92" r="2.0" fill="#000000" stroke="none" data-port="port-s" data-dir="s" data-role="process" />
+    <circle class="port" cx="8" cy="50" r="2.0" fill="#000000" stroke="none" data-port="port-w" data-dir="w" data-role="process" />
+  </g>
+</g>
+<text x="470.0" y="90.0" fill="#7b8794" text-anchor="middle" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11">nœud de l'IHM « Effet de système (ventilateur) »</text>
+<line x1="172.0" y1="106.0" x2="424.0" y2="106.0" stroke="#b46a00" stroke-width="1.2" marker-start="url(#fleche_cote)" marker-end="url(#fleche_cote)"/>
+<text x="298.0" y="100.0" fill="#b46a00" text-anchor="middle" font-family="Consolas, Courier New, monospace" font-size="12">L  (longueur réelle, m)</text>
+<line x1="410.0" y1="124.0" x2="410.0" y2="176.0" stroke="#b46a00" stroke-width="1.2" marker-start="url(#fleche_cote)" marker-end="url(#fleche_cote)"/>
+<text x="410.0" y="150.0" fill="#b46a00" text-anchor="middle" font-family="Consolas, Courier New, monospace" font-size="12"></text>
+<text x="404.0" y="194.0" fill="#b46a00" text-anchor="middle" font-family="Consolas, Courier New, monospace" font-size="12">Do, Ao, Vo</text>
+<text x="168.0" y="202.0" fill="#b46a00" text-anchor="start" font-family="Consolas, Courier New, monospace" font-size="12">r</text>
+<line x1="172.0" y1="206.0" x2="150.8" y2="184.8" stroke="#b46a00" stroke-width="1.2"/>
+<text x="192.0" y="220.0" fill="#7b8794" text-anchor="start" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12">coude à l'aspiration</text>
+<text x="192.0" y="236.0" fill="#7b8794" text-anchor="start" font-family="Consolas, Courier New, monospace" font-size="12">(ED7-2 : r_over_Do, l_over_Do)</text>
+<line x1="640.0" y1="330.0" x2="910.0" y2="330.0" stroke="#1f2933" stroke-width="1.4" marker-end="url(#fleche)"/>
+<line x1="640.0" y1="330.0" x2="640.0" y2="110.0" stroke="#1f2933" stroke-width="1.4" marker-end="url(#fleche)"/>
+<text x="910.0" y="348.0" fill="#1f2933" text-anchor="end" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12">débit Qv</text>
+<text x="646.0" y="114.0" fill="#1f2933" text-anchor="start" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12">pression</text>
+<polyline points="640.00,141.90 646.41,141.97 652.83,142.17 659.24,142.51 665.65,142.99 672.06,143.60 678.48,144.35 684.89,145.24 691.30,146.26 697.71,147.41 704.12,148.71 710.54,150.14 716.95,151.70 723.36,153.40 729.77,155.24 736.19,157.21 742.60,159.32 749.01,161.57 755.42,163.95 761.84,166.47 768.25,169.12 774.66,171.92 781.08,174.84 787.49,177.91 793.90,181.10 800.31,184.44 806.73,187.91 813.14,191.52 819.55,195.26 825.96,199.14 832.38,203.16 838.79,207.31 845.20,211.60 851.61,216.02 858.02,220.58 864.44,225.28 870.85,230.11 877.26,235.08 883.67,240.18 890.09,245.42 896.50,250.80" fill="none" stroke="#1f2933" stroke-width="2.2" stroke-linejoin="round"/>
+<polyline points="640.00,151.40 646.41,151.49 652.83,151.76 659.24,152.19 665.65,152.81 672.06,153.60 678.48,154.57 684.89,155.71 691.30,157.03 697.71,158.52 704.12,160.19 710.54,162.04 716.95,164.06 723.36,166.25 729.77,168.63 736.19,171.17 742.60,173.90 749.01,176.80 755.42,179.87 761.84,183.12 768.25,186.55 774.66,190.15 781.08,193.93 787.49,197.88 793.90,202.01 800.31,206.32 806.73,210.80 813.14,215.46 819.55,220.29 825.96,225.30 832.38,230.48 838.79,235.84 845.20,241.38 851.61,247.09 858.02,252.97 864.44,259.04 870.85,265.27 877.26,271.69 883.67,278.28 890.09,285.04 896.50,291.98" fill="none" stroke="#b46a00" stroke-width="2.2" stroke-dasharray="6 4" stroke-linejoin="round"/>
+<polyline points="640.00,330.00 646.41,329.91 652.83,329.63 659.24,329.16 665.65,328.51 672.06,327.68 678.48,326.66 684.89,325.45 691.30,324.06 697.71,322.48 704.12,320.72 710.54,318.77 716.95,316.63 723.36,314.31 729.77,311.81 736.19,309.12 742.60,306.24 749.01,303.18 755.42,299.93 761.84,296.49 768.25,292.88 774.66,289.07 781.08,285.08 787.49,280.90 793.90,276.54 800.31,271.99 806.73,267.26 813.14,262.34 819.55,257.24 825.96,251.94 832.38,246.47 838.79,240.81 845.20,234.96 851.61,228.93 858.02,222.71 864.44,216.30 870.85,209.71 877.26,202.94 883.67,195.98 890.09,188.83 896.50,181.50" fill="none" stroke="#2670a8" stroke-width="2.0" stroke-linejoin="round"/>
+<text x="654.0" y="133.9" fill="#1f2933" text-anchor="start" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11">courbe constructeur</text>
+<text x="654.0" y="205.4" fill="#b46a00" text-anchor="start" font-family="Consolas, Courier New, monospace" font-size="11">− delta_P_system_effect</text>
+<text x="904.0" y="191.4" fill="#2670a8" text-anchor="end" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11">réseau</text>
+<text x="24.0" y="318.0" fill="#1f2933" text-anchor="start" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="13" font-weight="600">FanSystemEffect.Object()   # aucun port Inlet / Outlet</text>
+<text x="24.0" y="335.0" fill="#1f2933" text-anchor="start" font-family="Consolas, Courier New, monospace" font-size="12">ashrae_code = 'ED7-2'   # ED7-* aspiration, SR7-* refoulement</text>
+<text x="24.0" y="352.0" fill="#1f2933" text-anchor="start" font-family="Consolas, Courier New, monospace" font-size="12">Ao (m²), Vo (m/s), rho = 1.2 (kg/m³)</text>
+<text x="24.0" y="369.0" fill="#1f2933" text-anchor="start" font-family="Consolas, Courier New, monospace" font-size="12">L (m)  →  L/Le  (tables SR7-5 à SR7-12)</text>
+<rect x="24.0" y="414.0" width="912.0" height="44.0" rx="4" fill="#f4f6f8" stroke="#c9d1d9" stroke-width="1.0"/>
+<text x="34.0" y="434.0" fill="#1f2933" text-anchor="start" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12">L'effet système dégrade la performance du ventilateur (ASHRAE 2021 SI, ch. 21) : il se retranche</text>
+<text x="34.0" y="450.0" fill="#1f2933" text-anchor="start" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12">de la courbe constructeur, il ne s'ajoute PAS aux pertes de charge des gaines.</text>
+</svg>

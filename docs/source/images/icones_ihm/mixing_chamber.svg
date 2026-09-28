@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100" role="img" aria-label="Melange de deux flux d'air">
+  <title>Melange de deux flux d'air</title>
+  <desc>Raccord en Y : deux branches d'entree a gauche convergeant vers une sortie unique a droite (entrees y=20 et y=80, sortie y=50).</desc>
+  <path fill="#000000" fill-rule="evenodd" d="M 8,11.7 L 57.1,43 L 92,43 L 92,57 L 57.1,57 L 8,88.3 L 8,71.7 L 42,50 L 8,28.3 Z"/>
+</svg>
+

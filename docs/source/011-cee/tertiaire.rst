@@ -90,32 +90,32 @@ Les 54 fiches du secteur en vigueur au 28/09/2026, avec la version dont les coef
      - Paramètres
    * - ``BAT-EN-101``
      - Isolation de combles ou de toitures
-     - A64-4
+     - A33-3, A64-4
      - 30/04/2027
      - ``surface``, ``zone``, ``departement``, ``secteur_activite``
    * - ``BAT-EN-102``
      - Isolation des murs
-     - A64-3
+     - A27-2, A64-3
      - 30/04/2027
      - ``surface``, ``zone``, ``departement``, ``energie_chauffage``, ``secteur_activite``
    * - ``BAT-EN-103``
      - Isolation d’un plancher
-     - A64-4
+     - A33-3, A64-4
      - 30/04/2027
      - ``surface``, ``zone``, ``departement``, ``secteur_activite``
    * - ``BAT-EN-104``
      - Fenêtre ou porte-fenêtre complète avec vitrage isolant
-     - A54-3
+     - A27-2, A54-3
      - 30/06/2028
-     - ``surface``, ``zone``, ``departement``, ``secteur_activite``
+     - ``surface``, ``zone``, ``departement``, ``secteur_activite``, ``energie_chauffage``
    * - ``BAT-EN-106``
      - Isolation de combles ou de toitures (France d’outre-mer)
-     - A64-3
+     - A33-2, A64-3
      - 30/04/2027
      - ``surface``, ``secteur_activite``, ``batiment``
    * - ``BAT-EN-107``
      - Isolation des toitures terrasses
-     - A64-3
+     - A27-2, A64-3
      - 30/04/2027
      - ``surface``, ``zone``, ``departement``, ``energie_chauffage``, ``secteur_activite``
    * - ``BAT-EN-108``
@@ -225,7 +225,7 @@ Les 54 fiches du secteur en vigueur au 28/09/2026, avec la version dont les coef
      - ``surface``, ``zone``, ``departement``, ``secteur_activite``, ``energie_chauffage``
    * - ``BAT-TH-109``
      - Optimiseur de relance en chauffage collectif comprenant une fonction auto-adaptative
-     - A54-3
+     - A31-2, A54-3
      - 30/06/2028
      - ``surface``, ``zone``, ``departement``, ``secteur_activite``
    * - ``BAT-TH-110``
@@ -250,7 +250,7 @@ Les 54 fiches du secteur en vigueur au 28/09/2026, avec la version dont les coef
      - ``secteur_activite``, ``classe_energetique``, ``puissance_frigorifique``, ``puissance_btu``
    * - ``BAT-TH-116``
      - Système de gestion technique du bâtiment pour le chauffage, l’eau chaude sanitaire, le refroidissement / climatisation, l’éclairage et les auxiliaires
-     - A62-6
+     - A38-3, A59-5, A62-6
      - 31/12/2029
      - ``surfaces``, ``classe``, ``zone``, ``departement``, ``secteur_activite``
    * - ``BAT-TH-121``
@@ -295,9 +295,9 @@ Les 54 fiches du secteur en vigueur au 28/09/2026, avec la version dont les coef
      - ``duree_annuelle``, ``puissance_recuperee``, ``puissance_compresseurs``, ``puissance_deja_recuperee``
    * - ``BAT-TH-142``
      - Système de déstratification d’air
-     - A71-4
+     - A38-2, A54-3, A71-4
      - 31/07/2030
-     - ``zone``, ``departement``, ``puissance_convectif``, ``puissance_radiatif``
+     - ``zone``, ``departement``, ``puissance_convectif``, ``puissance_radiatif``, ``hauteur``, ``type_batiment``
    * - ``BAT-TH-143``
      - Ventilo-convecteurs haute performance
      - A16-1
@@ -330,7 +330,7 @@ Les 54 fiches du secteur en vigueur au 28/09/2026, avec la version dont les coef
      - ``chaleur_utile``, ``puissance_chaudiere``
    * - ``BAT-TH-158``
      - Pompe à chaleur réversible de type air/air
-     - A62-3
+     - A40-1, A62-3
      - 31/12/2029
      - ``surface``, ``zone``, ``departement``, ``secteur_activite``, ``puissance_calorifique``, ``rooftop``
    * - ``BAT-TH-159``
@@ -345,16 +345,16 @@ Les 54 fiches du secteur en vigueur au 28/09/2026, avec la version dont les coef
      - ``puissance_nominale``, ``nombre_groupes``
    * - ``BAT-TH-162``
      - Système géothermique
-     - A81-2
+     - A75-1, A81-2
      - 31/12/2030
      - ``surface``, ``puissance_thermique``, ``usage``, ``zone``, ``departement``, ``secteur_activite``, ``etas``, ``cop``, ``puissance_chaufferie``, ``coefficient_r``
    * - ``BAT-TH-163``
      - Pompe à chaleur collective de type air/eau
-     - A81-2
+     - A75-1, A81-2
      - 31/12/2030
      - ``surface``, ``puissance_thermique``, ``zone``, ``departement``, ``secteur_activite``, ``etas``, ``cop``, ``puissance_chaufferie``, ``coefficient_r``
    * - ``BAT-TH-164``
      - Pompe à chaleur collective de type eau/eau ou eau glycolée/eau
-     - A81-2
+     - A75-1, A81-2
      - 31/12/2030
      - ``surface``, ``puissance_thermique``, ``zone``, ``departement``, ``secteur_activite``, ``etas``, ``cop``, ``puissance_chaufferie``, ``coefficient_r``

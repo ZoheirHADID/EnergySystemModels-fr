@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100" role="img" aria-label="Diaphragme (orifice calibré)">
+  <title>Diaphragme (orifice calibré)</title>
+  <desc>Plaque percée entre deux brides : deux barres de part et d'autre de l'orifice.</desc>
+  <metadata>{&quot;standard&quot;: &quot;ISO 14617-8 (forme)&quot;, &quot;name&quot;: &quot;Diaphragme (orifice calibré)&quot;, &quot;ports&quot;: [{&quot;id&quot;: &quot;port-w&quot;, &quot;x&quot;: 8, &quot;y&quot;: 62, &quot;dir&quot;: &quot;w&quot;, &quot;role&quot;: &quot;inlet&quot;}, {&quot;id&quot;: &quot;port-e&quot;, &quot;x&quot;: 92, &quot;y&quot;: 62, &quot;dir&quot;: &quot;e&quot;, &quot;role&quot;: &quot;outlet&quot;}]}</metadata>
+  <g fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <line x1="8" y1="62" x2="44" y2="62"/>
+    <line x1="56" y1="62" x2="92" y2="62"/>
+    <line x1="50" y1="42" x2="50" y2="56"/>
+    <line x1="50" y1="68" x2="50" y2="82"/>
+    <line x1="44" y1="42" x2="44" y2="82"/>
+    <line x1="56" y1="42" x2="56" y2="82"/>
+  </g>
+  <g class="ports">
+    <circle class="port" cx="8" cy="62" r="2.0" fill="#000000" stroke="none" data-port="port-w" data-dir="w" data-role="inlet"/>
+    <circle class="port" cx="92" cy="62" r="2.0" fill="#000000" stroke="none" data-port="port-e" data-dir="e" data-role="outlet"/>
+  </g>
+</svg>

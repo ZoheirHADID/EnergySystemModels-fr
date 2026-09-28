@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="640" viewBox="0 0 960 640" role="img" aria-label="Modèles du paquet Separation">
+<title>Modèles du paquet Separation</title>
+<defs><marker id="fleche" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-end"><path d="M 0 0 L 10 5 L 0 10 z" fill="#1f2933"/></marker><marker id="fleche_cote" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-end"><path d="M 0 0 L 10 5 L 0 10 z" fill="#b46a00"/></marker><marker id="fleche_flux" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-end"><path d="M 0 0 L 10 5 L 0 10 z" fill="#2670a8"/></marker></defs>
+<rect width="960" height="640" fill="#ffffff"/>
+<text x="24.0" y="34.0" fill="#1f2933" text-anchor="start" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="14" font-weight="600">ComponentSeparator — partage imposé</text>
+<rect x="200.0" y="80.0" width="90.0" height="120.0" rx="6" fill="#ffffff" stroke="#1f2933" stroke-width="2.0"/>
+<text x="245.0" y="146.0" fill="#1f2933" text-anchor="middle" font-family="Consolas, Courier New, monospace" font-size="13">SF_i</text>
+<polyline points="60.00,140.00 192.00,140.00" fill="none" stroke="#2670a8" stroke-width="2.0" stroke-linejoin="round" marker-end="url(#fleche_flux)"/>
+<text x="120.0" y="130.0" fill="#1f2933" text-anchor="middle" font-family="Consolas, Courier New, monospace" font-size="12">alimentation</text>
+<polyline points="290.00,100.00 440.00,100.00" fill="none" stroke="#2670a8" stroke-width="2.0" stroke-linejoin="round" marker-end="url(#fleche_flux)"/>
+<text x="365.0" y="90.0" fill="#1f2933" text-anchor="middle" font-family="Consolas, Courier New, monospace" font-size="12">produit_1 = SF·n</text>
+<polyline points="290.00,180.00 440.00,180.00" fill="none" stroke="#2670a8" stroke-width="2.0" stroke-linejoin="round" marker-end="url(#fleche_flux)"/>
+<text x="365.0" y="170.0" fill="#1f2933" text-anchor="middle" font-family="Consolas, Courier New, monospace" font-size="12">produit_2 = (1−SF)·n</text>
+<text x="245.0" y="222.0" fill="#7b8794" text-anchor="middle" font-family="Consolas, Courier New, monospace" font-size="12">split_fractions = {espèce: SF}</text>
+<text x="500.0" y="34.0" fill="#1f2933" text-anchor="start" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="14" font-weight="600">KremserCascade — absorbeur à n_stages</text>
+<rect x="650.0" y="56.0" width="80.0" height="190.0" rx="4" fill="#ffffff" stroke="#1f2933" stroke-width="2.0"/>
+<line x1="650.0" y1="87.7" x2="730.0" y2="87.7" stroke="#7b8794" stroke-width="1.0" stroke-dasharray="4 3"/>
+<line x1="650.0" y1="119.3" x2="730.0" y2="119.3" stroke="#7b8794" stroke-width="1.0" stroke-dasharray="4 3"/>
+<line x1="650.0" y1="151.0" x2="730.0" y2="151.0" stroke="#7b8794" stroke-width="1.0" stroke-dasharray="4 3"/>
+<line x1="650.0" y1="182.7" x2="730.0" y2="182.7" stroke="#7b8794" stroke-width="1.0" stroke-dasharray="4 3"/>
+<line x1="650.0" y1="214.3" x2="730.0" y2="214.3" stroke="#7b8794" stroke-width="1.0" stroke-dasharray="4 3"/>
+<polyline points="540.00,76.00 642.00,76.00" fill="none" stroke="#2670a8" stroke-width="2.0" stroke-linejoin="round" marker-end="url(#fleche_flux)"/>
+<text x="570.0" y="66.0" fill="#1f2933" text-anchor="middle" font-family="Consolas, Courier New, monospace" font-size="12">liquide_entrant (L0)</text>
+<polyline points="730.00,70.00 830.00,70.00" fill="none" stroke="#2670a8" stroke-width="2.0" stroke-linejoin="round" marker-end="url(#fleche_flux)"/>
+<text x="830.0" y="60.0" fill="#1f2933" text-anchor="middle" font-family="Consolas, Courier New, monospace" font-size="12">vapeur_sortante (V1)</text>
+<polyline points="540.00,230.00 642.00,230.00" fill="none" stroke="#2670a8" stroke-width="2.0" stroke-linejoin="round" marker-end="url(#fleche_flux)"/>
+<text x="570.0" y="254.0" fill="#1f2933" text-anchor="middle" font-family="Consolas, Courier New, monospace" font-size="12">vapeur_entrante</text>
+<polyline points="730.00,236.00 830.00,236.00" fill="none" stroke="#2670a8" stroke-width="2.0" stroke-linejoin="round" marker-end="url(#fleche_flux)"/>
+<text x="830.0" y="260.0" fill="#1f2933" text-anchor="middle" font-family="Consolas, Courier New, monospace" font-size="12">liquide_sortant (LN)</text>
+<text x="690.0" y="276.0" fill="#7b8794" text-anchor="middle" font-family="Consolas, Courier New, monospace" font-size="12">k_values = {espèce: K = y/x}</text>
+<text x="24.0" y="334.0" fill="#1f2933" text-anchor="start" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="14" font-weight="600">EvaporativeCrystallizer — sel hydraté</text>
+<rect x="190.0" y="380.0" width="110.0" height="130.0" rx="10" fill="#dbe9f5" stroke="#1f2933" stroke-width="2.0"/>
+<rect x="217.0" y="420.0" width="8" height="8" fill="#b46a00" transform="rotate(45 221 424)"/>
+<rect x="241.0" y="432.0" width="8" height="8" fill="#b46a00" transform="rotate(45 245 436)"/>
+<rect x="265.0" y="424.0" width="8" height="8" fill="#b46a00" transform="rotate(45 269 428)"/>
+<rect x="231.0" y="444.0" width="8" height="8" fill="#b46a00" transform="rotate(45 235 448)"/>
+<rect x="255.0" y="450.0" width="8" height="8" fill="#b46a00" transform="rotate(45 259 454)"/>
+<polyline points="60.00,430.00 182.00,430.00" fill="none" stroke="#2670a8" stroke-width="2.0" stroke-linejoin="round" marker-end="url(#fleche_flux)"/>
+<text x="120.0" y="420.0" fill="#1f2933" text-anchor="middle" font-family="Consolas, Courier New, monospace" font-size="12">masse_alimentation</text>
+<polyline points="245.00,376.00 245.00,350.00 380.00,350.00" fill="none" stroke="#2670a8" stroke-width="2.0" stroke-linejoin="round" marker-end="url(#fleche_flux)"/>
+<text x="400.0" y="354.0" fill="#1f2933" text-anchor="middle" font-family="Consolas, Courier New, monospace" font-size="12">vapeur</text>
+<polyline points="300.00,450.00 420.00,450.00" fill="none" stroke="#2670a8" stroke-width="2.0" stroke-linejoin="round" marker-end="url(#fleche_flux)"/>
+<text x="370.0" y="440.0" fill="#1f2933" text-anchor="middle" font-family="Consolas, Courier New, monospace" font-size="12">solution mère</text>
+<polyline points="245.00,510.00 245.00,546.00 380.00,546.00" fill="none" stroke="#2670a8" stroke-width="2.0" stroke-linejoin="round" marker-end="url(#fleche_flux)"/>
+<text x="410.0" y="550.0" fill="#1f2933" text-anchor="middle" font-family="Consolas, Courier New, monospace" font-size="12">cristaux</text>
+<text x="40.0" y="582.0" fill="#7b8794" text-anchor="start" font-family="Consolas, Courier New, monospace" font-size="12">solubilite, fraction_eau_evaporee, moles_eau_hydrate</text>
+<text x="500.0" y="334.0" fill="#1f2933" text-anchor="start" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="14" font-weight="600">ExtractionCascade — contre-courant</text>
+<rect x="590.0" y="410.0" width="64.0" height="70.0" rx="4" fill="#ffffff" stroke="#1f2933" stroke-width="2.0"/>
+<text x="622.0" y="450.0" fill="#1f2933" text-anchor="middle" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="13">1</text>
+<rect x="680.0" y="410.0" width="64.0" height="70.0" rx="4" fill="#ffffff" stroke="#1f2933" stroke-width="2.0"/>
+<text x="712.0" y="450.0" fill="#1f2933" text-anchor="middle" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="13">2</text>
+<rect x="770.0" y="410.0" width="64.0" height="70.0" rx="4" fill="#ffffff" stroke="#1f2933" stroke-width="2.0"/>
+<text x="802.0" y="450.0" fill="#1f2933" text-anchor="middle" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="13">3</text>
+<polyline points="520.00,430.00 584.00,430.00" fill="none" stroke="#2670a8" stroke-width="2.0" stroke-linejoin="round" marker-end="url(#fleche_flux)"/>
+<text x="540.0" y="422.0" fill="#1f2933" text-anchor="middle" font-family="Consolas, Courier New, monospace" font-size="12">F_A</text>
+<polyline points="834.00,430.00 900.00,430.00" fill="none" stroke="#2670a8" stroke-width="2.0" stroke-linejoin="round" marker-end="url(#fleche_flux)"/>
+<text x="880.0" y="420.0" fill="#1f2933" text-anchor="middle" font-family="Consolas, Courier New, monospace" font-size="12">raffinat</text>
+<polyline points="900.00,464.00 836.00,464.00" fill="none" stroke="#2670a8" stroke-width="2.0" stroke-linejoin="round" marker-end="url(#fleche_flux)"/>
+<text x="880.0" y="492.0" fill="#1f2933" text-anchor="middle" font-family="Consolas, Courier New, monospace" font-size="12">solvant S</text>
+<polyline points="588.00,464.00 520.00,464.00" fill="none" stroke="#2670a8" stroke-width="2.0" stroke-linejoin="round" marker-end="url(#fleche_flux)"/>
+<text x="544.0" y="492.0" fill="#1f2933" text-anchor="middle" font-family="Consolas, Courier New, monospace" font-size="12">extrait</text>
+<text x="710.0" y="524.0" fill="#7b8794" text-anchor="middle" font-family="Consolas, Courier New, monospace" font-size="12">E = K_D · S / F_A</text>
+<text x="710.0" y="542.0" fill="#7b8794" text-anchor="middle" font-family="Consolas, Courier New, monospace" font-size="12">arrangement : cocourant, croise, contrecourant</text>
+<rect x="24.0" y="580.0" width="912.0" height="44.0" rx="4" fill="#f4f6f8" stroke="#c9d1d9" stroke-width="1.0"/>
+<text x="34.0" y="600.0" fill="#1f2933" text-anchor="start" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12">Débits par espèce, dans une unité unique au choix (molaire pour KremserCascade).</text>
+<text x="34.0" y="616.0" fill="#1f2933" text-anchor="start" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12">Aucun port FluidPort, aucune enthalpie : ce sont des bilans matière.</text>
+</svg>

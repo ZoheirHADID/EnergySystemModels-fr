@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="430" viewBox="0 0 960 430" role="img" aria-label="Boucle de régulation PID">
+<title>Boucle de régulation PID</title>
+<defs><marker id="fleche" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-end"><path d="M 0 0 L 10 5 L 0 10 z" fill="#1f2933"/></marker><marker id="fleche_cote" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-end"><path d="M 0 0 L 10 5 L 0 10 z" fill="#b46a00"/></marker><marker id="fleche_flux" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-end"><path d="M 0 0 L 10 5 L 0 10 z" fill="#2670a8"/></marker></defs>
+<rect width="960" height="430" fill="#ffffff"/>
+<g transform="translate(40.00 227.24) scale(0.2759)"><g transform="translate(-91 -451)"><path d="M92.5 494.5 300.5 494.5 300.5 455.5 378.5 533.5 300.5 611.501 300.5 572.501 92.5 572.501Z" stroke="#000000" stroke-width="3.4375" stroke-miterlimit="8" fill="none" fill-rule="evenodd" /><path d="M92.5 455.5 92.5003 611.405" stroke="#000000" stroke-width="3.4375" stroke-miterlimit="8" fill="none" fill-rule="evenodd" /></g></g>
+<g transform="translate(170.00 220.00) scale(0.6000)"><g fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="50" cy="50" r="24" />
+    <polyline points="26,50 50,26 74,50" />
+    <line x1="50" y1="26" x2="50" y2="8" />
+    <line x1="50" y1="74" x2="50" y2="92" />
+    <line x1="26" y1="50" x2="8" y2="50" />
+  </g>
+  <g class="ports">
+    <circle class="port" cx="50" cy="8" r="2.0" fill="#000000" stroke="none" data-port="port-n" data-dir="n" data-role="process" />
+    <circle class="port" cx="50" cy="92" r="2.0" fill="#000000" stroke="none" data-port="port-s" data-dir="s" data-role="process" />
+    <circle class="port" cx="8" cy="50" r="2.0" fill="#000000" stroke="none" data-port="port-w" data-dir="w" data-role="process" />
+  </g>
+</g>
+<g transform="translate(495.00 225.00) scale(0.5000)"><g fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <polygon points="30,51 30,73 50,62" />
+    <polygon points="70,51 70,73 50,62" />
+    <line x1="30" y1="62" x2="8" y2="62" />
+    <line x1="70" y1="62" x2="92" y2="62" />
+  </g>
+  <g class="ports">
+    <circle class="port" cx="8" cy="62" r="2.0" fill="#000000" stroke="none" data-port="port-w" data-dir="w" data-role="inlet" />
+    <circle class="port" cx="92" cy="62" r="2.0" fill="#000000" stroke="none" data-port="port-e" data-dir="e" data-role="outlet" />
+  </g>
+</g>
+<g transform="translate(830.00 227.24) scale(0.2759)"><g transform="translate(-91 -671)"><path d="M92.5 714.5 300.5 714.5 300.5 675.5 378.5 753.5 300.5 831.501 300.5 792.501 92.5 792.501Z" stroke="#000000" stroke-width="3.4375" stroke-miterlimit="8" fill="none" fill-rule="evenodd" /><path d="M378.5 675.5 378.5 831.405" stroke="#000000" stroke-width="3.4375" stroke-miterlimit="8" fill="none" fill-rule="evenodd" /></g></g>
+<polyline points="122.00,250.00 170.00,250.00" fill="none" stroke="#1f2933" stroke-width="2.4" stroke-linejoin="round"/>
+<polyline points="230.00,250.00 485.00,250.00" fill="none" stroke="#1f2933" stroke-width="2.4" stroke-linejoin="round"/>
+<polyline points="555.00,250.00 828.00,250.00" fill="none" stroke="#1f2933" stroke-width="2.4" stroke-linejoin="round"/>
+<text x="350.0" y="274.0" fill="#7b8794" text-anchor="middle" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12">tube DN40, 30 m</text>
+<text x="700.0" y="274.0" fill="#7b8794" text-anchor="middle" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12">tube DN40, 30 m</text>
+<text x="520.0" y="292.0" fill="#1f2933" text-anchor="middle" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12">Vanne générique (Kvs 25)</text>
+<g transform="translate(627.83 148.00) scale(0.1512)"><g transform="translate(-155 -940)"><path d="M157.5 1020.5C157.5 977.422 192.422 942.5 235.5 942.5 278.578 942.5 313.5 977.422 313.5 1020.5 313.5 1063.58 278.578 1098.5 235.5 1098.5 192.422 1098.5 157.5 1063.58 157.5 1020.5Z" stroke="#000000" stroke-width="4.58333" stroke-miterlimit="8" fill="none" fill-rule="evenodd" /><path d="M235.5 1098.5 235.5 1228.42" stroke="#000000" stroke-width="4.58333" stroke-miterlimit="8" fill="none" fill-rule="evenodd" /><path d="M157.5 1020.5 313.405 1020.5" stroke="#000000" stroke-width="4.58333" stroke-miterlimit="8" fill="none" fill-rule="evenodd" /></g></g>
+<polyline points="640.00,192.00 640.00,250.00" fill="none" stroke="#7b8794" stroke-width="1.4" stroke-dasharray="3 3" stroke-linejoin="round"/>
+<text x="668.0" y="166.0" fill="#1f2933" text-anchor="start" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12">Capteur (débit m³/h)</text>
+<g transform="translate(488.00 38.00) scale(1.0000)"><rect x="2" y="2" width="60" height="60" rx="8" fill="none" stroke="#000000" stroke-width="2" />
+  <g fill="none" stroke="#2f7fd7" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round">
+    
+    <path d="M 10 46 L 10 18 L 17 18 A 7 7 0 0 1 17 32 L 10 32" />
+    
+    <path d="M 32 18 L 32 46" />
+    
+    <path d="M 42 18 L 42 46 L 46 46 A 10 14 0 0 0 46 18 Z" />
+  </g>
+</g>
+<text x="520.0" y="122.0" fill="#1f2933" text-anchor="middle" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12">PID</text>
+<g transform="translate(170.00 40.00) scale(0.9375)"><rect x="2" y="2" width="60" height="60" rx="8" fill="none" stroke="#000000" stroke-width="2" />
+  <polyline points="10,46 32,46 32,18 54,18" fill="none" stroke="#2f7fd7" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" />
+</g>
+<text x="200.0" y="122.0" fill="#1f2933" text-anchor="middle" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12">Échelon 6 → 9 à 30 s</text>
+<polyline points="232.00,70.00 486.00,70.00" fill="none" stroke="#2670a8" stroke-width="2.0" stroke-dasharray="6 4" stroke-linejoin="round" marker-end="url(#fleche_flux)"/>
+<text x="360.0" y="60.0" fill="#2670a8" text-anchor="middle" font-family="Consolas, Courier New, monospace" font-size="12">y → setpoint</text>
+<polyline points="640.00,148.00 640.00,70.00 554.00,70.00" fill="none" stroke="#2670a8" stroke-width="2.0" stroke-dasharray="6 4" stroke-linejoin="round" marker-end="url(#fleche_flux)"/>
+<text x="770.0" y="60.0" fill="#2670a8" text-anchor="middle" font-family="Consolas, Courier New, monospace" font-size="12">volume_flow_m3h → measurement</text>
+<polyline points="520.00,104.00 520.00,222.00" fill="none" stroke="#2670a8" stroke-width="2.0" stroke-dasharray="6 4" stroke-linejoin="round" marker-end="url(#fleche_flux)"/>
+<text x="440.0" y="180.0" fill="#2670a8" text-anchor="middle" font-family="Consolas, Courier New, monospace" font-size="12">output → ouverture</text>
+<rect x="24.0" y="374.0" width="912.0" height="44.0" rx="4" fill="#f4f6f8" stroke="#c9d1d9" stroke-width="1.0"/>
+<text x="34.0" y="394.0" fill="#1f2933" text-anchor="start" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12">Pointillés : liaisons de signal (grandeur émise → attribut reçu).</text>
+<text x="34.0" y="410.0" fill="#1f2933" text-anchor="start" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12">Le PID compare débit et consigne, puis règle l'ouverture (0..1) à chaque « Pas PID ».</text>
+</svg>

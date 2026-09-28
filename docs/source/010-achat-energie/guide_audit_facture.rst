@@ -7,9 +7,9 @@ Ce guide explique comment utiliser les modeles ``Facture`` de la bibliotheque
 EnergySystemModels pour **verifier et auditer** une facture d'electricite ou
 de gaz, que ce soit en France (TURPE, ATR) ou en Algerie (Sonalgaz).
 
-.. admonition:: Nouveaute v20260408001
+.. admonition:: Tableaux auditables
 
-   Chaque calculateur produit desormais des **DataFrames auditables** (Option B)
+   Chaque calculateur produit des **DataFrames auditables** (Option B)
    qui detaillent chaque ligne de calcul avec : la formule utilisee, les entrees,
    les coefficients et le resultat. L'objectif est de pouvoir controler chaque
    composante d'une facture.
@@ -83,7 +83,7 @@ Chaque calculateur produit plusieurs DataFrames par section :
    * - ``df_contrat``
      - Parametres contractuels : tension, tarif, puissances souscrites, periode
    * - ``df_fourniture_detail``
-     - Detail de la fourniture d'energie : kWh x prix par poste horaire, capacite, ARENH
+     - Détail de la fourniture (TURPE, Sonalgaz) : kWh x prix par poste, capacité, ARENH ; ``df_fourniture`` pour le gaz ATR
    * - ``df_acheminement``
      - Detail du TURPE (France elec) : CG, CC, CS fixe/variable, CMDPS, CACS
    * - ``df_transport``
@@ -93,43 +93,56 @@ Chaque calculateur produit plusieurs DataFrames par section :
    * - ``df_taxes``
      - Taxes et contributions : CTA, TICFE/CSPE, TICGN, TVA
    * - ``df_totaux``
-     - Synthese : HT, TTC, couts unitaires EUR/MWh
+     - Synthèse : HT, TTC, coûts unitaires EUR/MWh
+   * - ``df_charges``
+     - Charges annexes du gaz Sonalgaz : entretien, taxe produits énergétiques
+   * - ``df_simulation_tarifs``
+     - Sonalgaz électricité HTA : comparaison des tarifs 41 à 44 (saisie par cadrans)
+   * - ``df``
+     - Tableau récapitulatif ; pour le gaz Sonalgaz, comparaison relevé / calculé
 
-Colonnes standard de chaque DataFrame :
+Colonnes des tableaux TURPE et Sonalgaz (``Facture.df_utils.STANDARD_COLUMNS``) :
 
 .. list-table::
    :header-rows: 1
    :widths: 15 85
 
    * - Colonne
-     - Role
+     - Rôle
    * - **Ligne**
      - Description du poste de calcul
    * - **Formule**
-     - Equation utilisee (ex: ``kWh x prix``)
-   * - **Entree(s)**
-     - Valeurs d'entree formatees (ex: ``150,000 kWh``)
+     - Équation utilisée (ex. ``kWh x prix``)
+   * - **Entrée(s)**
+     - Valeurs d'entrée formatées (ex. ``30,000 kWh``)
    * - **Coefficient**
-     - Taux ou coefficient utilise + source (ex: ``0.00827 EUR/kWh (ATRD7)``)
-   * - **Resultat**
-     - Montant calcule
+     - Taux ou coefficient utilisé, avec sa grille (ex. ``0.06760 EUR/kWh (TURPE 6)``)
+   * - **Résultat**
+     - Montant de la période
    * - **Annuel**
-     - Projection annuelle (si applicable)
+     - Projection annuelle, quand elle a un sens
+
+Le calculateur gaz français (``ATR_calculation``) a ses propres colonnes :
+``Section``, ``Ligne``, ``Formule``, ``Quantite``, ``Taux / Coeff``,
+``Montant (EUR)``, ``Annuel (EUR/an)``.
 
 
-10.3.1. Auditer une facture d'electricite en France (TURPE)
+10.3.1. Auditer une facture d'électricité en France (TURPE)
 -------------------------------------------------------------
+
+On recopie la facture — contrat, prix, kWh par poste — puis on compare chaque
+ligne de ``df_acheminement`` à la facture Enedis.
 
 .. code-block:: python
 
    from Facture.TURPE import TurpeCalculator, input_Contrat, input_Tarif, input_Facture
 
-   # 1. Entrees : recopier les donnees de la facture
+   # 1. Entrées : recopier les données de la facture
    contrat = input_Contrat(
        domaine_tension="HTA",
        version_utilisation="CU_pf",
        cadre_contractuel="contrat unique",
-       PS_pointe=100, PS_HPH=200, PS_HCH=200, PS_HPB=200, PS_HCB=200,
+       PS_pointe=100, PS_HPH=200, PS_HCH=200, PS_HPB=200, PS_HCB=200,   # kW
    )
    tarif = input_Tarif(
        c_euro_kWh_pointe=0.12,
@@ -139,7 +152,7 @@ Colonnes standard de chaque DataFrame :
        c_euro_kWh_HCB=0.05,
    )
    facture = input_Facture(
-       start="2025-01-01", end="2025-01-31",
+       start="2025-03-01", end="2025-03-31",
        kWh_pointe=5000, kWh_HPH=30000, kWh_HCH=20000,
        kWh_HPB=25000, kWh_HCB=15000,
    )
@@ -148,175 +161,214 @@ Colonnes standard de chaque DataFrame :
    calc = TurpeCalculator(contrat, tarif, facture)
    calc.calculate_turpe()
 
-   # 3. Consultation des resultats
-   print("=== CONTRAT ===")
-   print(calc.df_contrat.to_string(index=False))
-
-   print("\n=== FOURNITURE ===")
-   print(calc.df_fourniture_detail.to_string(index=False))
-
-   print("\n=== ACHEMINEMENT (TURPE) ===")
+   # 3. Tableaux à comparer à la facture
+   print("=== ACHEMINEMENT (TURPE) ===")
    print(calc.df_acheminement.to_string(index=False))
-
-   print("\n=== TAXES ===")
-   print(calc.df_taxes.to_string(index=False))
-
    print("\n=== TOTAUX ===")
    print(calc.df_totaux.to_string(index=False))
+   # calc.df_contrat, calc.df_fourniture_detail et calc.df_taxes se lisent de même
 
    # 4. Graphiques
-   calc.plot()          # Donut : Fourniture / TURPE / Taxes
-   calc.plot_detail()   # Cascades detaillees
+   calc.plot()          # anneau : fourniture / TURPE / taxes
+   calc.plot_detail()   # cascades détaillées
 
-**Sortie réelle (df_acheminement)** :
-
-.. code-block:: text
-
-                         Ligne                                   Formule       Entrée(s)                Coefficient  Résultat   Annuel
-    Composante de Gestion (CG)                            CG_annuel / 12   361.20 EUR/an                   31 jours     30.10    361.2
-   Composante de Comptage (CC)                            CC_annuel / 12   306.00 EUR/an                   31 jours     25.50    306.0
-                CS Fixe Pointe                            b0 x PS_Pointe          100 kW 6.4400 EUR/kW/an (TURPE 5)    644.00
-            CS Fixe HPH-Pointe                 b1 x (PS_HPH - PS_Pointe)          100 kW 6.4400 EUR/kW/an (TURPE 5)    644.00
-               CS Fixe HCH-HPH                    b2 x (PS_HCH - PS_HPH)            0 kW 6.4400 EUR/kW/an (TURPE 5)      0.00
-               CS Fixe HPB-HCH                    b3 x (PS_HPB - PS_HCH)            0 kW 6.4400 EUR/kW/an (TURPE 5)      0.00
-               CS Fixe HCB-HPB                    b4 x (PS_HCB - PS_HPB)            0 kW 6.4400 EUR/kW/an (TURPE 5)      0.00
-         = CS Fixe (proratisé)                 CS_annuel x nb_jour / 365 1,288.00 EUR/an                   31 jours    109.39   1288.0
-            CS Variable Pointe                     c_Pointe x kWh_Pointe       5,000 kWh  0.03690 EUR/kWh (TURPE 5)    184.50
-               CS Variable HPH                           c_HPH x kWh_HPH      30,000 kWh  0.03690 EUR/kWh (TURPE 5)   1107.00
-               CS Variable HCH                           c_HCH x kWh_HCH      20,000 kWh  0.03690 EUR/kWh (TURPE 5)    738.00
-               CS Variable HPB                           c_HPB x kWh_HPB      25,000 kWh  0.03690 EUR/kWh (TURPE 5)    922.50
-               CS Variable HCB                           c_HCB x kWh_HCB      15,000 kWh  0.03690 EUR/kWh (TURPE 5)    553.50
-           = CS Variable total                             Somme c x kWh                                              3505.50
-        Dépassement PS (CMDPS)                             CMDPS mensuel                                                 0.00
-  = TOTAL TURPE (acheminement) CG + CC + CS_fixe + CS_var + CMDPS + CACS                                              3671.56  44021.2
-
-**Sortie réelle (df_totaux)** :
+Sortie réelle (étapes intermédiaires ``euro_…`` résumées par « … ») :
 
 .. code-block:: text
 
-                        Ligne                    Formule Entrée(s) Coefficient  Résultat
-                   Fourniture                                                    6950.00
-         Acheminement (TURPE)                                                    3671.56
-       Taxes et contributions                                                      83.68
-                 = Total HTVA Fourniture + TURPE + Taxes                        10705.24
-                      TVA 20%           Total_HTVA x 20%                         2141.05
-                  = Total TTC                 HTVA + TVA                        12846.29
-          Coût HTVA (EUR/MWh)           Total_HTVA / MWh 95.00 MWh                112.69
-    Coût fourniture (EUR/MWh)           Fourniture / MWh                           73.16
-  Coût distribution (EUR/MWh)                TURPE / MWh                           38.65
-         Coût taxes (EUR/MWh)                Taxes / MWh                            0.88
+   …
+   === ACHEMINEMENT (TURPE) ===
+                          Ligne                                   Formule       Entrée(s)                 Coefficient  Résultat    Annuel
+     Composante de Gestion (CG)                            CG_annuel / 12   440.76 EUR/an                    31 jours     36.73    440.76
+    Composante de Comptage (CC)                            CC_annuel / 12   383.76 EUR/an                    31 jours     31.98    383.76
+                 CS Fixe Pointe                            b0 x PS_Pointe          100 kW 14.1300 EUR/kW/an (TURPE 6)   1413.00
+             CS Fixe HPH-Pointe                 b1 x (PS_HPH - PS_Pointe)          100 kW 14.1300 EUR/kW/an (TURPE 6)   1413.00
+                CS Fixe HCH-HPH                    b2 x (PS_HCH - PS_HPH)            0 kW 14.1300 EUR/kW/an (TURPE 6)      0.00
+                CS Fixe HPB-HCH                    b3 x (PS_HPB - PS_HCH)            0 kW 14.1300 EUR/kW/an (TURPE 6)      0.00
+                CS Fixe HCB-HPB                    b4 x (PS_HCB - PS_HPB)            0 kW 14.1300 EUR/kW/an (TURPE 6)      0.00
+          = CS Fixe (proratisé)                 CS_annuel x nb_jour / 365 2,826.00 EUR/an                    31 jours    240.02    2826.0
+             CS Variable Pointe                     c_Pointe x kWh_Pointe       5,000 kWh   0.06760 EUR/kWh (TURPE 6)    338.00
+                CS Variable HPH                           c_HPH x kWh_HPH      30,000 kWh   0.04840 EUR/kWh (TURPE 6)   1452.00
+                CS Variable HCH                           c_HCH x kWh_HCH      20,000 kWh   0.02830 EUR/kWh (TURPE 6)    566.00
+                CS Variable HPB                           c_HPB x kWh_HPB      25,000 kWh   0.00820 EUR/kWh (TURPE 6)    205.00
+                CS Variable HCB                           c_HCB x kWh_HCB      15,000 kWh   0.00540 EUR/kWh (TURPE 6)     81.00
+            = CS Variable total                             Somme c x kWh                                               2642.00
+         Dépassement PS (CMDPS)                             CMDPS mensuel                                                  0.00
+   = TOTAL TURPE (acheminement) CG + CC + CS_fixe + CS_var + CMDPS + CACS                                               2952.04  35354.52
 
-**Lecture du tableau** :
+   === TOTAUX ===
+                         Ligne                    Formule Entrée(s) Coefficient  Résultat Annuel
+                    Fourniture                                                    6950.00
+          Acheminement (TURPE)                                                    2952.04
+        Taxes et contributions                                                    2205.20
+                  = Total HTVA Fourniture + TURPE + Taxes                        12107.24
+                       TVA 20%           Total_HTVA x 20%                         2421.45
+                   = Total TTC                 HTVA + TVA                        14528.69
+           Coût HTVA (EUR/MWh)           Total_HTVA / MWh 95.00 MWh                127.44
+     Coût fourniture (EUR/MWh)           Fourniture / MWh                           73.16
+   Coût distribution (EUR/MWh)                TURPE / MWh                           31.07
+          Coût taxes (EUR/MWh)                Taxes / MWh                           23.21
 
-Chaque ligne du ``df_acheminement`` montre :
-
-- Les coefficients **b** (part puissance) avec la version TURPE utilisee
-- Les coefficients **c** (part energie) par poste horaire
-- La formule exacte : ``b0 x PS_Pointe``, ``c_HPH x kWh_HPH``, etc.
-- Les sous-totaux CS fixe et CS variable
-
-**Verifier un ecart :** Comparez chaque ligne du ``df_acheminement`` avec les
-montants de votre facture ENEDIS. Les coefficients b et c doivent correspondre
-a la grille TURPE en vigueur (publiee par la CRE).
+**Lecture du tableau** : chaque ligne montre le coefficient *b* (part
+puissance) ou *c* (part énergie) et la grille dont il vient, la formule
+exacte (``b1 x (PS_HPH - PS_Pointe)``, ``c_HPH x kWh_HPH``) et les sous-totaux.
+Pour contrôler une facture Enedis, comparez ligne à ligne ; un écart sur un
+coefficient signale une grille différente, un écart sur une quantité une
+erreur de relève ou de puissance souscrite.
 
 
 10.3.2. Auditer une facture de gaz en France (ATR)
------------------------------------------------------
+---------------------------------------------------
 
 .. code-block:: python
 
    from Facture.ATR_Transport_Distribution import (
-       ATR_calculation, input_Contrat, input_Facture, input_Tarif
+       ATR_calculation, input_Contrat as Contrat_gaz,
+       input_Facture as Facture_gaz, input_Tarif as Tarif_gaz,
    )
 
-   # 1. Entrees
-   contrat = input_Contrat(
+   # 1. Entrées
+   contrat_gaz = Contrat_gaz(
        type_tarif_acheminement="T4",
-       CAR_MWh=8920,              # Consommation Annuelle de Reference (MWh)
-       CJA_MWh_j=93,              # Capacite Journaliere Annualisee (MWh/j)
+       CAR_MWh=8920,              # consommation annuelle de référence (MWh)
+       CJA_MWh_j=93,              # capacité journalière souscrite (MWh/j)
        station_meteo="PARIS-MONTSOURIS",
        profil="P016",
        reseau_transport="naTran",
        niv_tarif_region=2,
    )
-   facture = input_Facture(
-       start="2024-01-01", end="2024-01-31",
-       kWh_total=1358713,
-   )
-   tarif = input_Tarif(prix_kWh=0.03171)
+   facture_gaz = Facture_gaz(start="2024-01-01", end="2024-01-31", kWh_total=1358713)
+   tarif_gaz = Tarif_gaz(prix_kWh=0.03171)   # prix de la molécule (EUR/kWh)
 
    # 2. Calcul
-   calc = ATR_calculation(contrat, facture, tarif)
-   calc.calculate()
+   atr = ATR_calculation(contrat_gaz, facture_gaz, tarif_gaz)
+   atr.calculate()
 
-   # 3. Resultats par section
-   print("=== CONTRAT ===")
-   print(calc.df_contrat.to_string(index=False))
-
-   print("\n=== FOURNITURE ===")
-   print(calc.df_fourniture.to_string(index=False))
-
-   print("\n=== TRANSPORT (ATRT) ===")
-   print(calc.df_transport.to_string(index=False))
-
-   print("\n=== DISTRIBUTION (ATRD) ===")
-   print(calc.df_distribution.to_string(index=False))
-
-   print("\n=== TAXES ===")
-   print(calc.df_taxes.to_string(index=False))
-
-   print("\n=== TOTAUX ===")
-   print(calc.df_totaux.to_string(index=False))
+   # 3. Tableaux par section
+   for titre, df in (("TRANSPORT (ATRT)", atr.df_transport),
+                     ("DISTRIBUTION (ATRD)", atr.df_distribution),
+                     ("TAXES", atr.df_taxes),
+                     ("TOTAUX", atr.df_totaux)):
+       print(f"=== {titre} ===")
+       print(df.drop(columns="Section").to_string(index=False))
 
    # 4. Graphiques
-   calc.plot()            # Donut : Acheminement / Consommation / Taxes
-   calc.plot_detail()     # Cascades ATRD, ATRT, Taxes
-   calc.plot_euro_MWh()   # Couts unitaires EUR/MWh
+   atr.plot()            # anneau : acheminement / molécule / taxes
+   atr.plot_detail()     # cascades ATRD, ATRT, taxes
+   atr.plot_euro_MWh()   # coûts unitaires EUR/MWh
 
-**Points cles a verifier :**
+Sortie réelle :
 
-- **CJN** : calculee automatiquement depuis CAR x Zi x A (coefficients meteo et reseau)
-- **ATRT** : Transport = TCS + TCR x NTR + TCL (coefficients annuels naTran (ex-GRTgaz)/Terega)
-- **ATRD** : Distribution = fixe + capacite + variable (coefficients GRDF)
-- **TVA** : 5,5% sur fixe+CTA, 20% sur variable+molecule+accise
+.. code-block:: text
+
+   === TRANSPORT (ATRT) ===
+                        Ligne              Formule         Quantite       Taux / Coeff Montant (EUR) Annuel (EUR/an)
+       TCS (reseau principal)       CJA x TCS / 12         93 MWh/j  95.2 EUR/MWh/j/an         737.8          8853.6
+        TCR (reseau regional) CJA x TCR x NTR / 12 93 MWh/j x NTR=2 84.29 EUR/MWh/j/an        1306.5        15677.94
+         TCL (livraison PITD)       CJA x TCL / 12         93 MWh/j 49.52 EUR/MWh/j/an        383.78         4605.36
+         = ATRT hors stockage      TCS + TCR + TCL                                           2428.08         29136.9
+   Compensation stockage (TS)       Mod x TTS / 12      68.56 MWh/j 186.7 EUR/MWh/j/an        1066.7        12800.46
+     = TOTAL TRANSPORT (ATRT)   Hors stock + Stock                                           3494.78        41937.36
+   === DISTRIBUTION (ATRD) ===
+                         Ligne                 Formule        Quantite    Taux / Coeff Montant (EUR) Annuel (EUR/an)
+               Abonnement fixe          ATRD_fixe / 12 16069.56 EUR/an            / 12       1339.13        16069.56
+     Souscription capacite CJA CJA x 1000 x tarif / 12 93 x 1000 kWh/j 0.213 EUR/kWh/j       1650.75         19809.0
+             = ATRD fixe total     Abon + Souscription                                       2989.88        35878.56
+     Terme quantite (variable)         kWh x prix_prop   1,358,713 kWh 0.00087 EUR/kWh       1182.08
+   = TOTAL DISTRIBUTION (ATRD)         Fixe + Variable                                       4171.96        37060.64
+   === TAXES ===
+                   Ligne                  Formule                                    Quantite    Taux / Coeff Montant (EUR) Annuel (EUR/an)
+   CTA part distribution        Assiette x 20.80%          Assiette = 2989.88 EUR (ATRD fixe)          20.80%        621.89         7462.74
+      CTA part transport         Assiette x 4.71% Assiette = 2496.85 EUR (ATRD fixe x 83.51%)           4.71%         117.6         1411.22
+             = CTA total CTA_distrib + CTA_transp                                                                    739.49         8873.96
+   Accise gaz (ex-TICGN)        kWh x taux_accise                               1,358,713 kWh 0.01637 EUR/kWh      22242.13
+           = TOTAL TAXES             CTA + Accise                                                                  22981.62
+   === TOTAUX ===
+                              Ligne                      Formule Quantite Taux / Coeff Montant (EUR) Annuel (EUR/an)
+   Acheminement (Transport+Distrib)                  ATRT + ATRD                             7666.74
+                           Total HT Fourniture + Achemin + Taxes                            73733.15
+              TVA 5,5% (fixe + CTA)          (Fixe + CTA) x 5.5%                              397.33
+      TVA 20% (var+molecule+accise)   (Var + Mol + Accise) x 20%                             13301.8
+                          Total TVA             TVA_5.5 + TVA_20                            13699.13
+                        = TOTAL TTC                     HT + TVA                            87432.28
+              Distribution variable               ATRD_var / MWh                                0.87
+                         Accise gaz                 Accise / MWh                               16.37
+                       Molecule gaz               Molecule / MWh                               31.71
+                       = Total HTVA               Total_HT / MWh                               54.27
+
+**Points clés à vérifier :**
+
+- **Capacité** : pour T4 et TP, la capacité facturée est la CJA souscrite ; la
+  CJN calculée (CAR × Zi × A) n'est donnée qu'à titre de référence dans
+  ``atr.df_contrat``.
+- **ATRT** : transport = TCS + TCR × NTR + TCL, plus la compensation de
+  stockage (modulation hivernale × terme de stockage).
+- **ATRD** : distribution = abonnement fixe + souscription de capacité + terme
+  proportionnel.
+- **TVA** : taux lus dans ``coefficients_gaz_TVA.json`` (5,5 % sur la part
+  fixe jusqu'au 31 juillet 2025, 20 % ensuite ; 20 % sur la part variable).
+  Les libellés « TVA 5,5% » du tableau ne changent pas avec le taux.
+
+Le détail des termes (CAR, CJA, Zi, modulation) est dans :doc:`contrat_gaz`.
 
 
-10.3.3. Auditer une facture d'electricite en Algerie (Sonalgaz)
+10.3.3. Auditer une facture d'électricité en Algérie (Sonalgaz)
 -----------------------------------------------------------------
 
 .. code-block:: python
 
-   from Facture.SONALGAZ_Elec import Sonalgaz_Elec, input_Contrat, input_Facture
+   from Facture.SONALGAZ_Elec import (
+       Sonalgaz_Elec, input_Contrat as Contrat_dz, input_Facture as Facture_dz,
+   )
 
-   # 1. Entrees (relever sur la facture Sonalgaz)
-   facture = input_Facture(
+   # 1. Entrées (relevées sur la facture Sonalgaz) — tarif 41 : pointe, pleine, nuit
+   facture_dz = Facture_dz(
        start="2025-01-01", end="2025-01-31",
        kWh_pointe=5000,
        kWh_pleine=10000,
-       kWh_jour=8000,
        kWh_nuit=6000,
-       kvarh_reactif=5000,    # Energie reactive mesuree
-       PMA_kW=100,            # Puissance Maximale Atteinte
+       kvarh_reactif=5000,    # énergie réactive mesurée
+       PMA_kW=100,            # puissance maximale atteinte
    )
-   contrat = input_Contrat(
-       code_tarif="41",       # HTA : 41, 42, 43, 44 / HTB : 31, 32 / BT : 51M-54NM
-       PMD_kW=120,            # Puissance Mise a Disposition
-   )
+   contrat_dz = Contrat_dz(code_tarif="41", PMD_kW=120)   # PMD : puissance mise à disposition
 
    # 2. Calcul
-   calc = Sonalgaz_Elec(contrat, facture)
-   calc.calculate()
+   calc_dz = Sonalgaz_Elec(contrat_dz, facture_dz)
+   calc_dz.calculate()
 
-   # 3. Resultats detailles
-   print(calc.df_contrat.to_string(index=False))
-   print(calc.df_fourniture_detail.to_string(index=False))
-   print(calc.df_totaux.to_string(index=False))
+   # 3. Résultats détaillés
+   print(calc_dz.df_fourniture_detail.to_string(index=False))
+   print(calc_dz.df_totaux.to_string(index=False))
 
    # 4. Graphiques
-   calc.plot()
-   calc.plot_detail()
+   calc_dz.plot()
+   calc_dz.plot_detail()
 
-**Codes tarif Sonalgaz Electricite :**
+Sortie réelle :
+
+.. code-block:: text
+
+   …
+                          Ligne                          Formule   Entrée(s)         Coefficient  Résultat Annuel
+                 Redevance fixe                     fixe_DA_mois               38,673.35 DA/mois 38,673.35
+      PMD (puissance souscrite)               PMD x souscription      120 kW  25.8500 DA/kW/mois  3,102.00
+   PMA (puissance max atteinte)                   PMA x absorbée      100 kW 116.1500 DA/kW/mois 11,615.00
+                 Énergie Pointe              kWh x cDA/kWh / 100   5,000 kWh    872.0200 cDA/kWh 43,601.00
+                 Énergie Pleine              kWh x cDA/kWh / 100  10,000 kWh    193.7600 cDA/kWh 19,376.00
+                   Énergie Nuit              kWh x cDA/kWh / 100   6,000 kWh    102.4000 cDA/kWh  6,144.00
+                Réactif (bonus) (kvarh - seuil_50%) x taux / 100 5,000 kvarh    9.1100 cDA/kvarh   -501.05
+         = Total énergie active                     Somme postes                                 69,121.00
+                              Ligne                                                  Formule Entrée(s) Coefficient   Résultat Annuel
+                         Total HTVA                                                                                122,010.30
+                                TVA                                                                                 23,181.96
+                        = Total TTC                                               HTVA + TVA                       145,192.26
+                    Taxe habitation                                                                                    200.00
+   Taxe vente produits énergétiques                                                                                    630.00
+                    = Total Facture Total TTC + taxe habitation + taxe produits énergétiques                       146,022.26
+                 Coût DA/MWh (HTVA)                                           Total_HT / MWh                         5,810.01
+
+**Codes tarif Sonalgaz électricité** (postes lus dans
+``coefficients_sonalgaz_elec.json``) :
 
 .. list-table::
    :header-rows: 1
@@ -324,76 +376,111 @@ a la grille TURPE en vigueur (publiee par la CRE).
 
    * - Code
      - Tension
-     - Description
+     - Postes facturés
    * - 41
      - HTA
-     - Postes horaires : Pointe, Pleine, Jour, Hors Pointe, Nuit
+     - Pointe, pleine, nuit
    * - 42
      - HTA
-     - Postes : Pointe, Hors Pointe
+     - Pointe, hors pointe
    * - 43
      - HTA
-     - Postes : Pointe, Jour, Nuit
+     - Jour, nuit
    * - 44
      - HTA
      - Poste unique
    * - 31
      - HTB
-     - Postes : Pointe, Pleine, Nuit
+     - Pointe, pleine, nuit
    * - 32
      - HTB
      - Poste unique
-   * - 51M-54M
+   * - 51M, 51NM
      - BT
-     - Basse Tension mesure (54M = tranches progressives)
-   * - 51NM-54NM
+     - Pointe, pleine, nuit (facturation trimestrielle)
+   * - 52M, 52NM
      - BT
-     - Basse Tension non-mesure
+     - Pointe, hors pointe (trimestrielle)
+   * - 53M, 53NM
+     - BT
+     - Jour, nuit (trimestrielle)
+   * - 54M, 54NM
+     - BT
+     - Tranches progressives — **non calculable** : ``calculate()`` lève
+       ``AttributeError`` (défaut consigné dans ``BUGS_LIB.md``)
 
-**Energie reactive :** Un seuil de 50% de l'energie active est gratuit.
-Au-dela, un malus s'applique. En-dessous, un bonus est accorde.
+**Énergie réactive** : le seuil gratuit vaut 50 % de l'énergie active. Au-delà,
+un malus s'applique au dépassement ; en deçà, l'écart négatif donne un bonus
+(ici 5 000 − 10 500 = −5 500 kvarh, soit −501,05 DA).
 
 
-10.3.4. Auditer une facture de gaz en Algerie (Sonalgaz Gaz)
+10.3.4. Auditer une facture de gaz en Algérie (Sonalgaz Gaz)
 --------------------------------------------------------------
+
+Le calculateur gaz Sonalgaz compare directement les montants relevés sur la
+facture aux montants recalculés. Les relevés ci-dessous sont **construits
+pour l'exemple** : ils reprennent les montants calculés, sauf l'énergie,
+volontairement surfacturée.
 
 .. code-block:: python
 
-   from Facture.SONALGAZ_gaz import Sonalgaz_Gaz, input_Contrat, input_Facture
+   from Facture.SONALGAZ_gaz import (
+       Sonalgaz_Gaz, input_Contrat as Contrat_gz, input_Facture as Facture_gz,
+   )
 
-   # 1. Entrees
-   facture = input_Facture(
+   facture_gz = Facture_gz(
        start="2025-01-01", end="2025-01-31",
-       thermies=50000,           # Consommation en thermies
-       DMA_thermie_h=30,         # Debit Maximal Absorbe
-       # Optionnel : montants releves pour comparaison
-       releve_fixe=1500,
-       releve_DMD=2000,
-       releve_DMA=800,
-       releve_energie=5000,
-       releve_total_ht=9300,
-       releve_tva=1767,
+       thermies=50000,           # consommation en thermies
+       DMA_thermie_h=30,         # débit maximal absorbé (thermie/h)
+       # montants relevés sur la facture (construits pour l'exemple)
+       releve_fixe=72423.80,
+       releve_DMD=146.50,
+       releve_DMA=869.10,
+       releve_energie=6458.40,   # 52 000 thermies facturées au lieu de 50 000
+       releve_total_ht=79897.80,
+       releve_tva=15180.58,
        redevance_entretien=250,
    )
-   contrat = input_Contrat(
-       code_tarif="11",          # HP : 11, 21T / MP : 21, 22 / BP : 23M, 23NM
-       DMD_thermie_h=25,         # Debit Mis a Disposition (souscrit)
-   )
+   contrat_gz = Contrat_gz(code_tarif="11", DMD_thermie_h=25)   # DMD souscrit (thermie/h)
 
-   # 2. Calcul
-   calc = Sonalgaz_Gaz(contrat, facture)
-   calc.calculate()
+   calc_gz = Sonalgaz_Gaz(contrat_gz, facture_gz)
+   calc_gz.calculate()
 
-   # 3. Tableau de comparaison releve vs calcule
-   print(calc.df.to_string(index=False))
+   # Tableau de comparaison relevé / calculé
+   print(calc_gz.df.to_string(index=False))
 
-   # 4. DataFrames auditables detailles
-   print(calc.df_contrat.to_string(index=False))
-   print(calc.df_fourniture_detail.to_string(index=False))
-   print(calc.df_charges.to_string(index=False))
-   print(calc.df_totaux.to_string(index=False))
+Sortie réelle :
 
-**Codes tarif Sonalgaz Gaz :**
+.. code-block:: text
+
+                      Composante Relevé (facture) Calculé (Python)            Écart
+          Energie Gaz (thermies)        50,000.00
+               Energie Gaz (MWh)            58.11
+    Prix moyen HTVA (DA/thermie)                            1.5930
+        Prix moyen HTVA (DA/MWh)                          1,370.64
+
+                  Redevance Fixe        72,423.80        72,423.80               OK
+   DMD (Débit mis à disposition)           146.50           146.50               OK
+     DMA (Débit maximal absorbé)           869.10           869.10               OK
+                         Energie         6,458.40         6,210.00 +248.40 (+3.85%)
+
+                Total Energie HT        79,897.80        79,649.40 +248.40 (+0.31%)
+                         TVA 19%        15,180.58        15,133.39  +47.19 (+0.31%)
+
+       Redevance entretien poste                            250.00
+              TVA prestation 19%                             47.50
+     Taxes produits énergétiques                            115.00
+               Taxe d'Habitation                              0.00
+
+                   TOTAL FACTURE                —        95,195.29                —
+
+La colonne « Écart » isole le poste fautif : seule l'énergie (et donc le total
+HT et la TVA) s'écarte, de 248,40 DA, soit exactement 2 000 thermies à
+12,42 cDA. Les tableaux détaillés sont dans ``calc_gz.df_contrat``,
+``calc_gz.df_fourniture_detail``, ``calc_gz.df_charges`` et
+``calc_gz.df_totaux``.
+
+**Codes tarif Sonalgaz gaz** :
 
 .. list-table::
    :header-rows: 1
@@ -401,64 +488,182 @@ Au-dela, un malus s'applique. En-dessous, un bonus est accorde.
 
    * - Code
      - Pression
-     - Description
+     - Composantes
    * - 11
      - HP
-     - Haute Pression : fixe + DMD + DMA + energie lineaire
+     - Fixe + débit mis à disposition (DMD) + débit maximal absorbé (DMA) + énergie
    * - 21T
      - HP
-     - Haute Pression Transport
+     - Fixe + DMD + énergie
    * - 21
      - MP
-     - Moyenne Pression : fixe + DMD + DMA + energie lineaire
+     - Fixe + DMD + énergie
    * - 22
      - MP
-     - Moyenne Pression tarif reduit
+     - Fixe + DMD + énergie (fixe réduit, énergie plus chère)
    * - 23M
      - BP
-     - Basse Pression mesure : tranches progressives
+     - Fixe + énergie par tranches progressives, facturation trimestrielle
    * - 23NM
      - BP
-     - Basse Pression non-mesure : tranches progressives
+     - Idem 23M, trois tranches
 
 
 10.3.5. Module utilitaire : df_utils
 --------------------------------------
 
-Le module ``Facture.df_utils`` fournit les fonctions partagees par tous les
-calculateurs pour construire les DataFrames auditables :
+Le module ``Facture.df_utils`` fournit les fonctions partagées par les
+calculateurs TURPE et Sonalgaz pour construire leurs tableaux ; on peut s'en
+servir pour ses propres contrôles :
 
 .. code-block:: python
 
    from Facture.df_utils import (
-       add_row,             # Ajouter une ligne au tableau
-       build_section_df,    # Construire un DataFrame de section
-       format_number,       # Formater un nombre (separateurs, unite)
-       smart_round,         # Arrondi adaptatif (<10 : 6 dec, >=10 : 2 dec)
-       fmt,                 # Formater ou retourner '---' si None
-       ecart,               # Calculer l'ecart releve vs calcule
-       add_comparison_row,  # Ligne de comparaison
-       build_comparison_df, # DataFrame de comparaison
-       set_display_options, # Configurer pandas pour affichage optimal
-       STANDARD_COLUMNS,    # ['Ligne', 'Formule', 'Entree(s)', 'Coefficient', 'Resultat', 'Annuel']
-       COMPARISON_COLUMNS,  # ['Composante', 'Releve (facture)', 'Calcule (Python)', 'Ecart']
+       add_row, build_section_df, format_number, smart_round,
+       ecart, STANDARD_COLUMNS, COMPARISON_COLUMNS,
    )
 
+   print(STANDARD_COLUMNS)
+   print(COMPARISON_COLUMNS)
+   print(format_number(150000, 0, "kWh"), "|", smart_round(0.0082731), "|", smart_round(1234.5678))
+   print(ecart(1000.00, 1000.004), "|", ecart(1000.00, 950.00))
 
-10.3.6. Recuperer tous les DataFrames en une fois
-----------------------------------------------------
+   # un tableau de contrôle maison, aux colonnes standard
+   lignes = []
+   add_row(lignes, "Abonnement", formule="12 x 35", resultat=420.0)
+   add_row(lignes, "Énergie", formule="kWh x prix", entrees=format_number(8500, 0, "kWh"),
+           coefficient="0.15 EUR/kWh", resultat=8500 * 0.15)
+   print(build_section_df(lignes).to_string(index=False))
 
-Pour le modele ATR gaz, une methode ``get_dataframes()`` retourne un
-dictionnaire de tous les DataFrames :
+Sortie réelle :
+
+.. code-block:: text
+
+   ['Ligne', 'Formule', 'Entrée(s)', 'Coefficient', 'Résultat', 'Annuel']
+   ['Composante', 'Relevé (facture)', 'Calculé (Python)', 'Écart']
+   150,000 kWh | 0.008273 | 1234.57
+   OK | +50.00 (+5.00%)
+        Ligne    Formule Entrée(s)  Coefficient  Résultat Annuel
+   Abonnement    12 x 35                           420.00
+      Énergie kWh x prix 8,500 kWh 0.15 EUR/kWh  1,275.00
+
+
+10.3.6. Récupérer tous les tableaux en une fois
+-------------------------------------------------
+
+Chaque calculateur expose ``get_dataframes()``, qui renvoie un dictionnaire
+de tous ses tableaux :
 
 .. code-block:: python
 
-   calc = ATR_calculation(contrat, facture, tarif)
-   calc.calculate()
+   for nom, calculateur in (("TURPE", calc), ("ATR gaz", atr), ("Sonalgaz élec", calc_dz)):
+       tailles = {cle: len(df) for cle, df in calculateur.get_dataframes().items()
+                  if df is not None}
+       print(nom, tailles)
 
-   dfs = calc.get_dataframes()
-   for name, df in dfs.items():
-       if df is not None and not df.empty:
-           print(f"=== {name} ({len(df)} lignes) ===")
-           print(df.to_string(index=False))
-           print()
+Sortie réelle :
+
+.. code-block:: text
+
+   TURPE {'df_contrat': 17, 'df_fourniture_detail': 6, 'df_acheminement': 16, 'df_taxes': 3, 'df_totaux': 10}
+   ATR gaz {'df_contrat': 17, 'df_fourniture': 1, 'df_transport': 6, 'df_distribution': 5, 'df_taxes': 5, 'df_totaux': 10, 'df_results': 44}
+   Sonalgaz élec {'df_contrat': 8, 'df_fourniture_detail': 8, 'df_taxes': 3, 'df_totaux': 7, 'df_simulation_tarifs': 0}
+
+
+Paramètres à personnaliser
+--------------------------
+
+Ce qu'il faut recopier de la facture, pour chaque calculateur.
+
+.. list-table::
+   :header-rows: 1
+   :widths: 22 40 38
+
+   * - Calculateur
+     - Entrées à recopier
+     - Où les trouver
+   * - ``TurpeCalculator``
+     - ``domaine_tension``, ``version_utilisation``, ``PS_*``, ``kWh_*``, prix par poste, accise
+     - En-tête du contrat, relevé par poste horosaisonnier, ligne accise
+   * - ``ATR_calculation``
+     - ``type_tarif_acheminement``, ``CAR_MWh``, ``CJA_MWh_j``, ``profil``, ``station_meteo``, ``niv_tarif_region``, ``kWh_total``, ``prix_kWh``
+     - Caractéristiques du PCE, consommation relevée, prix molécule
+   * - ``Sonalgaz_Elec``
+     - ``code_tarif``, ``PMD_kW``, ``PMA_kW``, kWh par poste (ou les trois cadrans), ``kvarh_reactif``
+     - Rubriques « puissance » et « index » de la facture
+   * - ``Sonalgaz_Gaz``
+     - ``code_tarif``, ``DMD_thermie_h``, ``DMA_thermie_h``, ``thermies``, montants ``releve_*``
+     - Rubriques « débit » et « énergie » de la facture
+
+Variante : quel tarif Sonalgaz HTA est le moins cher ?
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Si l'on saisit les **trois cadrans** du compteur au lieu des postes,
+``Sonalgaz_Elec`` refait la facture dans les quatre tarifs HTA (41 à 44) et
+désigne le moins cher.
+
+.. code-block:: python
+
+   # variante : mêmes 21 000 kWh, saisis sur les trois cadrans du compteur
+   facture_cadrans = Facture_dz(
+       start="2025-01-01", end="2025-01-31",
+       cadran_1_kWh=6000,     # T41 : nuit
+       cadran_2_kWh=5000,     # T41 : pointe
+       cadran_3_kWh=10000,    # T41 : pleine
+       kvarh_reactif=5000, PMA_kW=100,
+   )
+   calc_cadrans = Sonalgaz_Elec(Contrat_dz(code_tarif="41", PMD_kW=120), facture_cadrans)
+   calc_cadrans.calculate()
+   print(calc_cadrans.df_simulation_tarifs[["Ligne", "Entrée(s)", "Résultat"]].to_string(index=False))
+
+Sortie réelle (une ligne « dépassement réactif » par tarif simulé, résumées par « … ») :
+
+.. code-block:: text
+
+   …
+                                     Ligne                                   Entrée(s)   Résultat
+   Scenarios autres tarifs HTA (3 cadrans)
+              Scenario T41 - Total Facture                                         T41 146,022.26
+              Scenario T42 - Total Facture                                         T42 114,141.80
+              Scenario T43 - Total Facture                                         T43 108,529.28
+              Scenario T44 - Total Facture                                         T44 121,730.19
+                        Tarif de reference                                         T41
+                         Montant reference                                             146,022.26
+                          Tarif recommande                                         T43
+                        Montant recommande                                             108,529.28
+                            Gain potentiel                                              37,492.97
+                        Gain potentiel (%)                                                  25.68
+                                Suggestion Modifier vers T43 pour optimiser la facture
+
+Sur ce profil, le tarif 43 (jour / nuit) coûterait 37 493 DA de moins par mois
+que le 41. L'essentiel de l'écart vient de la redevance fixe du tarif 41
+(38 673,35 DA/mois dans la grille livrée, contre 515,65 DA/mois pour les
+tarifs 42 à 44) : vérifiez cette valeur sur votre propre facture avant de
+conclure.
+
+Pièges
+------
+
+1. **Grille HTA CU_pf fantôme (août 2021 - janvier 2025).** Pour cette
+   période, la bibliothèque retient une grille étiquetée « TURPE 5 » aux
+   coefficients uniformes (b = 6,44, c = 0,0369) au lieu de la grille TURPE 6
+   qui la suit dans le fichier. Un audit HTA CU_pf de cette période sera faux
+   (défaut consigné dans ``BUGS_LIB.md``) ; c'est pourquoi l'exemple est pris
+   en mars 2025.
+2. **Totaux TURPE et accise.** Si vous saisissez ``c_euro_kwh_CSPE_TICFE``, le
+   total HTVA l'applique mais la ligne « Taxes et contributions » garde le taux
+   de la grille (voir :doc:`contrat_electricite`).
+3. **Gaz : grilles jusqu'en 2026.** Les coefficients ATRT s'arrêtent au
+   31 mars 2026 et les coefficients ATRD au 30 juin 2026 : une facture
+   ultérieure lève ``ValueError: Aucun coefficient ATRT trouve``.
+4. **Option TP inutilisable.** ``type_tarif_acheminement="TP"`` lève
+   ``KeyError: 'prix_proportionnel_euro_kWh'`` : les clés que le code attend
+   ne sont pas celles du fichier de coefficients.
+5. **Sonalgaz BT : montants trimestriels.** Pour les codes 51 à 53, les montants
+   sont calculés sur un trimestre mais libellés « DA/mois » dans ``calc.df``.
+6. **Poste non tarifé.** Un poste saisi qui n'existe pas dans le code tarif
+   (``kWh_jour`` en tarif 41, par exemple) n'est pas facturé mais compte dans
+   le seuil d'énergie réactive, sans avertissement.
+
+Voir aussi : :doc:`contrat_electricite`, :doc:`contrat_gaz`,
+:doc:`exemples/exemple_hta_cu_pf`.

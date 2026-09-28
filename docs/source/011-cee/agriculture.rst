@@ -104,7 +104,7 @@ Les 25 fiches du secteur en vigueur au 28/09/2026, avec la version dont les coef
      - ``surface``
    * - ``AGRI-EQ-109``
      - Couverture performante de serre
-     - A58-2
+     - A38-1, A58-2
      - 31/12/2028
      - ``type_paroi``, ``type_serre``, ``surface``
    * - ``AGRI-EQ-111``
@@ -119,7 +119,7 @@ Les 25 fiches du secteur en vigueur au 28/09/2026, avec la version dont les coef
      - ``type_serre``, ``surface``
    * - ``AGRI-SE-101``
      - Contrôle et préconisations de réglage du moteur d’un tracteur
-     - A40-2
+     - A19-1, A40-2
      - 31/03/2027
      - ``puissance_moteur_ch``
    * - ``AGRI-TH-101``
@@ -139,9 +139,9 @@ Les 25 fiches du secteur en vigueur au 28/09/2026, avec la version dont les coef
      - ``production_laitiere``
    * - ``AGRI-TH-104``
      - Système de récupération de chaleur sur un groupe de production de froid hors tanks à lait
-     - A35-3
+     - A27-2, A35-3
      - sans fin connue
-     - ``duree_besoins_ponderee``, ``duree_fonctionnement_compresseurs``, ``puissance_systeme_recuperation``, ``puissance_a_couvrir``, ``puissance_compresseurs``, ``puissance_deja_recuperee``
+     - ``duree_besoins_ponderee``, ``duree_fonctionnement_compresseurs``, ``puissance_systeme_recuperation``, ``puissance_a_couvrir``, ``puissance_compresseurs``, ``puissance_deja_recuperee``, ``filiere``
    * - ``AGRI-TH-105``
      - Récupérateur de chaleur sur tank à lait
      - A16-1
@@ -159,7 +159,7 @@ Les 25 fiches du secteur en vigueur au 28/09/2026, avec la version dont les coef
      - ``type_serre``, ``surface``
    * - ``AGRI-TH-110``
      - Chaudière à haute performance énergétique pour serres horticoles
-     - A54-3
+     - A35-2, A54-3
      - 30/06/2028
      - ``type_serre``, ``surface``, ``puissance_thermique_nominale``
    * - ``AGRI-TH-113``
@@ -169,9 +169,9 @@ Les 25 fiches du secteur en vigueur au 28/09/2026, avec la version dont les coef
      - ``surface``
    * - ``AGRI-TH-118``
      - Double tube de chauffage pour serres
-     - —
+     - A14-1
      - sans fin connue
-     - *non codée* : aucun PDF ni texte de la fiche parmi les sources téléchargées (seules AGRI-TH-117 vA73-3 et AGRI-TH-119 vA65-2 sont présentes) : aucune valeur ne peut être codée sans la source officielle.
+     - ``surface``
    * - ``AGRI-UT-101``
      - Moto-variateur synchrone à aimants permanents ou à reluctance
      - A24-2

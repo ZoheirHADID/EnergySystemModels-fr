@@ -3,12 +3,14 @@
 Mélangeur, bouteille flash et stockage mélangé
 ==============================================
 
-Trois primitives de flowsheet du paquet ``ThermodynamicCycles`` :
+Quatre primitives de flowsheet du paquet ``ThermodynamicCycles`` :
 
 - **Mélangeur** (``Mixer``) : réunit :math:`N` flux d'un même fluide (bilan
   masse + énergie) ;
 - **Bouteille flash** (``FlashTank``) : détente à pression imposée et séparation
   liquide/vapeur saturés ;
+- **Flash multi-constituants** (``MulticomponentFlash``) : partage d'un mélange
+  entre vapeur et liquide en équilibre (Rachford-Rice) ;
 - **Stockage mélangé** (``Tank.MixedStorage``) : ballon monocouche parfaitement
   mélangé, réponse thermique exponentielle.
 
@@ -256,6 +258,197 @@ Sortie réelle :
    Fraction vapeur x : 0.1528
    T flash           : 99.61 °C
    Débit vapeur      : 0.1528 kg/s
+
+.. _flash_multiconstituants:
+
+Flash multi-constituants (``ThermodynamicCycles.FlashTank.MulticomponentFlash``)
+--------------------------------------------------------------------------------
+
+Rôle
+~~~~
+
+``FlashTank`` partage un **corps pur** entre vapeur et liquide saturés.
+``MulticomponentFlash`` partage un **mélange** de plusieurs constituants
+(hydrocarbures, gaz de procédé) entre une vapeur et un liquide en équilibre, à
+température et pression fixées : c'est le ballon séparateur d'une unité de
+fractionnement, ou le calcul qui dit quelle part d'un condensat se revaporise.
+
+Il résout l'équation de **Rachford-Rice** (Seader, Henley & Roper, *Separation
+Process Principles*, 3e éd., Wiley 2011, table 4.4), sur des **moles** :
+
+.. math::
+
+   \sum_i \frac{z_i\,(K_i - 1)}{1 + \Psi\,(K_i - 1)} = 0,
+   \qquad x_i = \frac{z_i}{1 + \Psi\,(K_i - 1)}, \qquad y_i = K_i\,x_i
+
+où :math:`z_i` est la composition d'alimentation, :math:`K_i = y_i/x_i` le
+coefficient de partage de chaque constituant et :math:`\Psi = V/F` le taux de
+vaporisation **molaire**. Les :math:`K_i` sont soit imposés (``K_values`` :
+abaque, mesure), soit demandés à une équation d'état (``eos``, par exemple
+``Distillation.PengRobinson.PengRobinsonEOS``), auquel cas le modèle itère
+jusqu'à ce que :math:`\Psi` ne bouge plus.
+
+Connecteurs : ``Inlet`` (doit porter une composition **molaire**, posée par
+``set_composition(..., basis="mole")``), ``Outlet_vapor`` (composition
+:math:`y_i`) et ``Outlet_liquid`` (composition :math:`x_i`).
+
+Exemple : l'exemple 4.1 de Seader
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+100 kmol/h d'un mélange propane / n-butane / n-pentane / n-hexane (10, 20, 30,
+40 % molaires) à 100 psia et 200 °F. Les :math:`K_i` sont ceux que Seader lit
+sur son abaque (figure 2.4). Résultat publié : :math:`\Psi = 0{,}1219`.
+
+.. code-block:: python
+
+    from ThermodynamicCycles.FlashTank import MulticomponentFlash
+
+    alimentation = {"C3": 0.10, "nC4": 0.20, "nC5": 0.30, "nC6": 0.40}   # fractions molaires
+
+    ballon = MulticomponentFlash.Object()
+    ballon.Inlet.set_composition(alimentation, basis="mole")
+    ballon.F_mol = 100 / 3.6                                             # mol/s (100 kmol/h)
+    ballon.K_values = {"C3": 4.2, "nC4": 1.75, "nC5": 0.74, "nC6": 0.34}
+    ballon.molar_masses = {"C3": 0.04410, "nC4": 0.05812,                # kg/mol : pour
+                           "nC5": 0.07215, "nC6": 0.08618}               # remplir les F en kg/s
+    ballon.calculate()
+
+    print(f"Psi = V/F = {ballon.psi:.4f}")
+    print(f"Vapeur : {ballon.V_mol * 3.6:.2f} kmol/h ({ballon.Outlet_vapor.F:.4f} kg/s)")
+    print(f"Liquide : {ballon.L_mol * 3.6:.2f} kmol/h ({ballon.Outlet_liquid.F:.4f} kg/s)")
+    for espece in alimentation:
+        print(f"  {espece:4s} liquide x = {ballon.x[espece]:.4f}   vapeur y = {ballon.y[espece]:.4f}")
+
+Sortie réelle :
+
+.. code-block:: text
+
+   Psi = V/F = 0.1219
+   Vapeur : 12.19 kmol/h (0.2074 kg/s)
+   Liquide : 87.81 kmol/h (1.7968 kg/s)
+     C3   liquide x = 0.0719   vapeur y = 0.3022
+     nC4  liquide x = 0.1832   vapeur y = 0.3207
+     nC5  liquide x = 0.3098   vapeur y = 0.2293
+     nC6  liquide x = 0.4350   vapeur y = 0.1479
+
+Le modèle retrouve le résultat publié : **12,19 kmol/h de vapeur**, trois fois
+plus riche en propane que l'alimentation (30 % contre 10 %), et un liquide
+enrichi en hexane.
+
+Paramètres à personnaliser (flash multi-constituants)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. list-table::
+   :header-rows: 1
+   :widths: 22 50 16 12
+
+   * - Entrée
+     - Effet
+     - Plage
+     - Unité
+   * - ``Inlet.set_composition(z, basis="mole")``
+     - Composition d'alimentation ; la base **massique est refusée**
+     - somme = 1
+     - —
+   * - ``F_mol``
+     - Débit molaire d'alimentation ; à défaut, déduit de ``Inlet.F`` et de
+       ``molar_masses``
+     - > 0
+     - mol/s
+   * - ``K_values``
+     - Coefficients de partage imposés, un par constituant ; prioritaires sur
+       ``eos``
+     - au moins un > 1 et un < 1
+     - —
+   * - ``eos``, ``T``, ``P``
+     - Équation d'état exposant ``K_values(T, P, x, y)`` et l'état du ballon
+       (utilisés si ``K_values`` est vide)
+     - —
+     - K, Pa
+   * - ``molar_masses``
+     - Masses molaires, pour publier des débits massiques sur les ports ;
+       absentes, ``Outlet_*.F`` restent ``None``
+     - —
+     - kg/mol
+
+Variante : les K d'une équation d'état
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Même alimentation, mais les :math:`K_i` sont calculés par l'équation de
+Peng-Robinson de la bibliothèque, à 200 °F et 100 psia, au lieu d'être lus sur
+l'abaque. L'hexane s'y nomme ``C6``.
+
+.. code-block:: python
+
+    # variante : K calculés par Peng-Robinson plutôt que lus sur l'abaque
+    from Distillation.PengRobinson import PengRobinsonEOS
+
+    alimentation_pr = {"C3": 0.10, "nC4": 0.20, "nC5": 0.30, "C6": 0.40}
+    ballon_pr = MulticomponentFlash.Object()
+    ballon_pr.Inlet.set_composition(alimentation_pr, basis="mole")
+    ballon_pr.F_mol = 100 / 3.6
+    ballon_pr.eos = PengRobinsonEOS(list(alimentation_pr))
+    ballon_pr.T = (200 - 32) / 1.8 + 273.15      # K (200 °F)
+    ballon_pr.P = 100 * 6894.757                 # Pa (100 psia)
+    ballon_pr.calculate()
+
+    print(f"Psi = V/F = {ballon_pr.psi:.4f} en {ballon_pr.iterations} itérations")
+    for espece, K in ballon_pr.K_effectifs.items():
+        print(f"  K {espece:4s} = {K:.3f}")
+
+Sortie réelle :
+
+.. code-block:: text
+
+   Psi = V/F = 0.1287 en 7 itérations
+     K C3   = 3.995
+     K nC4  = 1.721
+     K nC5  = 0.776
+     K C6   = 0.360
+
+Peng-Robinson donne des :math:`K_i` à 6 % près de ceux de l'abaque, et un taux de
+vaporisation de **0,1287 au lieu de 0,1219** (+5,6 %). Le choix de la source des
+:math:`K_i` pèse donc autant que la précision de la mesure de composition.
+
+Un mélange qui n'est pas diphasique est **refusé**, pas borné : si tous les
+:math:`K_i` sont inférieurs à 1 (liquide sous-refroidi), ``calculate()`` lève
+``SinglePhaseError`` (sous-classe de ``ValueError``) en nommant la phase.
+
+.. code-block:: python
+
+    from ThermodynamicCycles.FlashTank.rachford_rice import SinglePhaseError
+
+    trop_froid = MulticomponentFlash.Object()
+    trop_froid.Inlet.set_composition(alimentation, basis="mole")
+    trop_froid.F_mol = 1.0
+    trop_froid.K_values = {"C3": 0.9, "nC4": 0.5, "nC5": 0.3, "nC6": 0.1}
+    try:
+        trop_froid.calculate()
+    except SinglePhaseError as erreur:
+        print("Refusé, phase :", erreur.phase)
+
+Sortie réelle :
+
+.. code-block:: text
+
+   Refusé, phase : liquid
+
+Pièges (flash multi-constituants)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+- **Tout est en moles** : :math:`\Psi` est un rapport de débits molaires. En
+  masse, la vapeur ne pèse ici que 10,3 % du débit (0,2074 sur 2,0042 kg/s),
+  pas 12,19 %.
+- **Pas de bilan d'énergie** : le flash est isotherme à :math:`(T, P)` donnés ;
+  la chaleur à fournir au ballon n'est pas calculée, et les deux ports de
+  sortie reçoivent **l'enthalpie de l'entrée, recopiée telle quelle**. Ne pas
+  lire ``Outlet_vapor.h`` comme l'enthalpie de la vapeur.
+- **Les noms de constituants sont des clés** : ils doivent être identiques dans
+  la composition, ``K_values`` et ``molar_masses``, et connus de l'équation
+  d'état (``C6`` et non ``nC6`` pour ``PengRobinsonEOS``). Un K manquant lève
+  ``ValueError`` en le nommant.
+- Pour un **corps pur**, utiliser :ref:`FlashTank <flashtank>` : sans
+  composition sur le port, ``MulticomponentFlash`` lève ``ValueError``.
 
 .. _stockage_melange:
 

@@ -147,3 +147,71 @@ Sortie réelle :
    la moyenne :math:`V/N`. Elle est donc désormais **cohérente avec**
    ``cumul_Qstr_kWh`` (intégrale de la puissance échangée) — les deux donnent la
    même variation d'énergie stockée sur la grille non uniforme.
+
+Paramètres à personnaliser
+--------------------------
+
+.. list-table::
+   :header-rows: 1
+   :widths: 24 22 54
+
+   * - Paramètre
+     - Plage usuelle
+     - Effet
+   * - ``Hball`` / ``Dball``
+     - H/D ≥ 2
+     - Volume et élancement ; un ballon haut stratifie mieux.
+   * - ``N``
+     - 5 à 50
+     - Finesse du profil. **Pas moins de 5** : avec 3 ou 4 couches, les couches
+       d'extrémité (``2·Hball/N``) dépassent la hauteur du ballon.
+   * - ``U``
+     - 0,3 à 3 W/m²/K
+     - Isolation : fixe les pertes au repos (variante ci-dessous).
+   * - ``Tamb_degC`` / ``Tinit_degC``
+     - —
+     - Local et état initial ; l'énergie cumulée part de ``Tinit_degC``.
+   * - ``t`` / ``n_substeps``
+     - 60 à 3600 s / 20 à 100
+     - Durée d'un ``calculate()`` et minimum de sous-pas (relevé
+       automatiquement si le débit l'exige).
+   * - ``port_hot_a`` / ``port_cold_a``
+     - ``F`` en kg/s, ``h`` en J/kg
+     - Charge par le haut, puisage par le bas ; les sorties se déduisent.
+
+Variante : 24 h de repos, ballon isolé ou non
+---------------------------------------------
+
+.. code-block:: python
+
+   # variante : ballon à 70 °C laissé 24 h sans débit, U = 1 puis U = 3 W/m²/K
+   for U in (1.0, 3.0):
+       repos = StratifiedStorageTank.Object()
+       repos.N, repos.Tinit_degC, repos.Tamb_degC, repos.t, repos.U = 10, 70, 12, 3600, U
+       repos.port_hot_a.fluid = "water"          # fluide des sorties, sans débit
+       for _ in range(24):
+           repos.calculate()
+       print(f"U = {U} : profil {[round(T, 1) for T in repos.T_degC]}")
+       print(f"         pertes {-repos.cumul_Qstr_kWh:.2f} kWh en 24 h")
+
+Sortie réelle :
+
+.. code-block:: text
+
+   U = 1.0 : profil [64.7, 66.8, 67.3, 67.4, 67.4, 67.4, 67.4, 67.3, 66.8, 64.7]
+            pertes 22.09 kWh en 24 h
+   U = 3.0 : profil [55.5, 61.0, 62.3, 62.5, 62.5, 62.5, 62.5, 62.3, 61.0, 55.5]
+            pertes 61.54 kWh en 24 h
+
+Sur les 5 m³ du ballon par défaut, une mauvaise isolation (U = 3) triple les
+pertes au repos : 62 kWh par jour au lieu de 22. Le profil montre aussi une
+**limite du modèle** : la couche du haut, refroidie par le couvercle, reste
+plus froide que la couche du dessous. Dans un vrai ballon, cette eau plus dense
+redescendrait et brasserait le haut ; le modèle ne représente pas ce brassage
+par flottabilité.
+
+Voir aussi
+----------
+
+- :doc:`../013-simulation-temporelle/ballon_stratifie_temps` — une journée de
+  charge et de puisage, le nœud de l'IHM et le choix du nombre de couches.

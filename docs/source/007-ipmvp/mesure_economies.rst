@@ -101,6 +101,80 @@ pourcentages de ``df_savings`` (sortie ci-dessus).
 cumulée : plus la période d'observation est longue, plus l'économie annoncée est
 robuste au sens IPMVP.
 
+Paramètres à personnaliser
+--------------------------
+
+Les paramètres de ``Mathematical_Models`` sont détaillés dans :doc:`exemples`.
+Ceux de ``incertitude_savings`` :
+
+.. list-table::
+   :widths: 22 46 20 12
+   :header-rows: 1
+
+   * - Paramètre
+     - Effet
+     - Plage usuelle
+     - Défaut
+   * - ``rmse``, ``ddof``
+     - Erreur-type et degrés de liberté du modèle de référence : lignes ``rmse``
+       et ``ddof`` de ``df_bl``
+     - —
+     - —
+   * - ``moyenne``
+     - Consommation moyenne **par pas de temps** (ici par mois) sur la référence
+     - —
+     - —
+   * - ``gain_pct``
+     - Économie attendue, en fraction (0,18 = 18 %) de la moyenne
+     - 0,05 à 0,40
+     - —
+   * - ``duree_contrat_mois``
+     - Durée d'engagement sur laquelle l'économie est garantie
+     - 36 à 120
+     - —
+   * - ``duree_reporting_mois``
+     - Durée de la période de suivi rapportée
+     - 12
+     - —
+   * - ``niveau_confiance``
+     - Niveau de confiance de la précision annoncée
+     - 0,80 à 0,95
+     - 0,8
+
+Variante : exigence de confiance à 95 %
+---------------------------------------
+
+Un contrat de performance plus exigeant : confiance 95 %, engagement de 36 mois,
+gain attendu ramené à 12 %.
+
+.. code-block:: python
+
+   # variante : niveau de confiance 95 %, contrat de 36 mois, gain attendu ramené à 12 %
+   inc95 = incertitude_savings(
+       rmse, ddof, moyenne,
+       gain_pct=0.12, duree_contrat_mois=36, duree_reporting_mois=12,
+       niveau_confiance=0.95,
+   )
+   print(f"t de Student : {inc['stat_t']:.3f} (90 %) -> {inc95['stat_t']:.3f} (95 %)")
+   for cle in ("contrat", "reporting"):
+       r = inc95[cle]
+       print(f"{cle:9s} {r['mois']:2d} mois : {r['economie_kwh']:9.0f} kWh "
+             f"± {r['precision_absolue_kwh']:6.0f} kWh ({100 * r['precision_relative']:.1f} %)")
+
+Sortie réelle :
+
+.. code-block:: text
+
+   t de Student : 1.673 (90 %) -> 2.004 (95 %)
+   contrat   36 mois :     93656 kWh ±   3493 kWh (3.7 %)
+   reporting 12 mois :     31219 kWh ±   2017 kWh (6.5 %)
+
+Passer de 90 à 95 % de confiance élargit l'intervalle de 20 % (t = 2,004 au lieu
+de 1,673) ; avec un gain attendu plus faible, la précision **relative** se dégrade
+(6,5 % sur 12 mois au lieu de 3,6 %). Une économie annoncée n'a de sens que si sa
+précision relative reste nettement inférieure à 50 % : c'est ce calcul qui dit si
+le compteur et le modèle suffisent à la démontrer.
+
 Figure produite
 ---------------
 

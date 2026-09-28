@@ -136,7 +136,8 @@
    "trace": [],
    "noeud_ihm": [],
    "pages": [
-    "003-ahu_modules/composants_cta.rst"
+    "003-ahu_modules/composants_cta.rst",
+    "usage/section-5-usages-finaux.rst"
    ]
   },
   "AHU.Coil.CoolingCoil.Object": {
@@ -218,7 +219,9 @@
    ],
    "pages": [
     "003-ahu_modules/batteries.rst",
-    "api.rst"
+    "api.rst",
+    "interface/noeuds.rst",
+    "usage/section-5-usages-finaux.rst"
    ]
   },
   "AHU.Coil.CoolingCoil_Expert.Object": {
@@ -308,7 +311,10 @@
    "noeud_ihm": [
     "cooling_coil_expert"
    ],
-   "pages": []
+   "pages": [
+    "003-ahu_modules/batteries.rst",
+    "interface/noeuds.rst"
+   ]
   },
   "AHU.Coil.CoolingCoil_Sensible.Object": {
    "module": "AHU.Coil.CoolingCoil_Sensible",
@@ -455,7 +461,8 @@
     "cooling_coil_tc"
    ],
    "pages": [
-    "003-ahu_modules/batteries.rst"
+    "003-ahu_modules/batteries.rst",
+    "interface/noeuds.rst"
    ]
   },
   "AHU.Coil.HeatingCoil.Object": {
@@ -622,7 +629,8 @@
     "heating_coil_nut"
    ],
    "pages": [
-    "003-ahu_modules/batteries.rst"
+    "003-ahu_modules/batteries.rst",
+    "interface/noeuds.rst"
    ]
   },
   "AHU.FreshAir.AirMix.Object": {
@@ -809,7 +817,9 @@
    "sources": [],
    "trace": [],
    "noeud_ihm": [],
-   "pages": []
+   "pages": [
+    "003-ahu_modules/composants_cta.rst"
+   ]
   },
   "AHU.FreshAir.Old.FreshAir.Object": {
    "module": "AHU.FreshAir.Old.FreshAir",
@@ -867,7 +877,9 @@
    "sources": [],
    "trace": [],
    "noeud_ihm": [],
-   "pages": []
+   "pages": [
+    "003-ahu_modules/composants_cta.rst"
+   ]
   },
   "AHU.GenericAHU.AirRecoveryAHU.Object": {
    "module": "AHU.GenericAHU.AirRecoveryAHU",
@@ -909,7 +921,9 @@
    ],
    "pages": [
     "003-ahu_modules/generic_ahu.rst",
-    "api.rst"
+    "api.rst",
+    "interface/noeuds.rst",
+    "usage/section-5-usages-finaux.rst"
    ]
   },
   "AHU.GenericAHU.AirRecyclingAHU.Object": {
@@ -951,7 +965,9 @@
    ],
    "pages": [
     "003-ahu_modules/generic_ahu.rst",
-    "api.rst"
+    "api.rst",
+    "interface/noeuds.rst",
+    "usage/section-5-usages-finaux.rst"
    ]
   },
   "AHU.HeatRecovery.Heat_plate_exchanger.Object": {
@@ -1008,7 +1024,9 @@
     "thermal_wheel_exchanger"
    ],
    "pages": [
-    "003-ahu_modules/composants_cta.rst"
+    "003-ahu_modules/composants_cta.rst",
+    "interface/noeuds.rst",
+    "usage/section-5-usages-finaux.rst"
    ]
   },
   "AHU.HeatRecovery.Thermal_wheel_exchanger.Object": {
@@ -1071,7 +1089,8 @@
     "thermal_wheel_exchanger"
    ],
    "pages": [
-    "003-ahu_modules/composants_cta.rst"
+    "003-ahu_modules/composants_cta.rst",
+    "interface/noeuds.rst"
    ]
   },
   "AHU.Humidification.Humidifier.Object": {
@@ -1195,7 +1214,9 @@
    "pages": [
     "003-ahu_modules/composants_cta.rst",
     "003-ahu_modules/cta_air_neuf.rst",
-    "api.rst"
+    "api.rst",
+    "interface/noeuds.rst",
+    "usage/section-5-usages-finaux.rst"
    ]
   },
   "AHU.Humidification.Old.Humidifier.Object": {
@@ -1295,7 +1316,9 @@
    "sources": [],
    "trace": [],
    "noeud_ihm": [],
-   "pages": []
+   "pages": [
+    "003-ahu_modules/composants_cta.rst"
+   ]
   },
   "AHU.Sensor.AirSensor.Object": {
    "module": "AHU.Sensor.AirSensor",
@@ -1374,7 +1397,8 @@
     "air_sensor"
    ],
    "pages": [
-    "003-ahu_modules/composants_cta.rst"
+    "003-ahu_modules/composants_cta.rst",
+    "interface/noeuds.rst"
    ]
   },
   "Electrical.MotorPFCompensation.MotorPFCompensation": {
@@ -1710,6 +1734,7 @@
    "pages": [
     "010-achat-energie/contrat_gaz.rst",
     "010-achat-energie/guide_audit_facture.rst",
+    "010-achat-energie/index.rst",
     "api.rst",
     "usage/section-1-achat-facturation.rst"
    ]
@@ -1766,6 +1791,7 @@
    "noeud_ihm": [],
    "pages": [
     "010-achat-energie/guide_audit_facture.rst",
+    "010-achat-energie/index.rst",
     "api.rst",
     "usage/section-1-achat-facturation.rst"
    ]
@@ -1819,6 +1845,7 @@
    "noeud_ihm": [],
    "pages": [
     "010-achat-energie/guide_audit_facture.rst",
+    "010-achat-energie/index.rst",
     "api.rst",
     "usage/section-1-achat-facturation.rst"
    ]
@@ -1941,6 +1968,7 @@
    "pages": [
     "001-heat_transfer/corps_parallelepipedique.rst",
     "api.rst",
+    "usage/section-4-distribution.rst",
     "usage/section-6-autres.rst"
    ]
   },
@@ -2094,6 +2122,7 @@
    "pages": [
     "001-heat_transfer/pipe_insulation_analysis.rst",
     "api.rst",
+    "interface/noeuds.rst",
     "usage/section-4-distribution.rst",
     "usage/section-6-autres.rst"
    ]
@@ -2265,7 +2294,9 @@
    ],
    "trace": [],
    "noeud_ihm": [],
-   "pages": []
+   "pages": [
+    "002-thermodynamic_cycles/separation.rst"
+   ]
   },
   "Separation.EvaporativeCrystallizer.EvaporativeCrystallizer": {
    "module": "Separation.EvaporativeCrystallizer",
@@ -2325,7 +2356,9 @@
    ],
    "trace": [],
    "noeud_ihm": [],
-   "pages": []
+   "pages": [
+    "002-thermodynamic_cycles/separation.rst"
+   ]
   },
   "Separation.KremserCascade.KremserCascade": {
    "module": "Separation.KremserCascade",
@@ -2370,7 +2403,9 @@
    ],
    "trace": [],
    "noeud_ihm": [],
-   "pages": []
+   "pages": [
+    "002-thermodynamic_cycles/separation.rst"
+   ]
   },
   "ThermodynamicCycles.Absorber.Absorber.Object": {
    "module": "ThermodynamicCycles.Absorber.Absorber",
@@ -2436,7 +2471,8 @@
     "absorber"
    ],
    "pages": [
-    "002-thermodynamic_cycles/froid_absorption.rst"
+    "002-thermodynamic_cycles/froid_absorption.rst",
+    "interface/noeuds.rst"
    ]
   },
   "ThermodynamicCycles.AbsorptionChiller.AbsorptionChiller.Object": {
@@ -2531,7 +2567,9 @@
     "absorption_chiller"
    ],
    "pages": [
-    "002-thermodynamic_cycles/froid_absorption.rst"
+    "002-thermodynamic_cycles/froid_absorption.rst",
+    "interface/noeuds.rst",
+    "usage/section-3-transformation.rst"
    ]
   },
   "ThermodynamicCycles.Aeraulic.BladeDamper.Object": {
@@ -2587,7 +2625,10 @@
    "noeud_ihm": [
     "aeraulic_damper"
    ],
-   "pages": []
+   "pages": [
+    "005-aeraulic/registre_lames.rst",
+    "interface/noeuds.rst"
+   ]
   },
   "ThermodynamicCycles.Aeraulic.EdgedBend.Object": {
    "module": "ThermodynamicCycles.Aeraulic.EdgedBend",
@@ -2651,7 +2692,10 @@
    "noeud_ihm": [
     "aeraulic_bend"
    ],
-   "pages": []
+   "pages": [
+    "005-aeraulic/coude_aeraulique.rst",
+    "interface/noeuds.rst"
+   ]
   },
   "ThermodynamicCycles.Aeraulic.FanSystemEffect.Object": {
    "module": "ThermodynamicCycles.Aeraulic.FanSystemEffect",
@@ -2737,7 +2781,10 @@
    "noeud_ihm": [
     "fan_system_effect"
    ],
-   "pages": []
+   "pages": [
+    "005-aeraulic/effet_systeme.rst",
+    "interface/noeuds.rst"
+   ]
   },
   "ThermodynamicCycles.Aeraulic.Obstruction.Object": {
    "module": "ThermodynamicCycles.Aeraulic.Obstruction",
@@ -2781,7 +2828,10 @@
    "noeud_ihm": [
     "aeraulic_obstruction"
    ],
-   "pages": []
+   "pages": [
+    "005-aeraulic/obstruction.rst",
+    "interface/noeuds.rst"
+   ]
   },
   "ThermodynamicCycles.Aeraulic.StraightPipe.Object": {
    "module": "ThermodynamicCycles.Aeraulic.StraightPipe",
@@ -2918,7 +2968,8 @@
     "aeraulic_straight_pipe"
    ],
    "pages": [
-    "005-aeraulic/perte_pression_lineaire.rst"
+    "005-aeraulic/perte_pression_lineaire.rst",
+    "interface/noeuds.rst"
    ]
   },
   "ThermodynamicCycles.Aeraulic.TeeJunction.Object": {
@@ -2991,7 +3042,10 @@
    "noeud_ihm": [
     "aeraulic_tee"
    ],
-   "pages": []
+   "pages": [
+    "005-aeraulic/te_aeraulique.rst",
+    "interface/noeuds.rst"
+   ]
   },
   "ThermodynamicCycles.Aeraulic._singular_base.SingularLossBase": {
    "module": "ThermodynamicCycles.Aeraulic._singular_base",
@@ -3063,7 +3117,9 @@
     "aeraulic_tee",
     "fan_system_effect"
    ],
-   "pages": []
+   "pages": [
+    "005-aeraulic/effet_systeme.rst"
+   ]
   },
   "ThermodynamicCycles.AmmoniaWater.AmmoniaWater.Object": {
    "module": "ThermodynamicCycles.AmmoniaWater.AmmoniaWater",
@@ -3204,7 +3260,8 @@
     "borehole_hex"
    ],
    "pages": [
-    "002-thermodynamic_cycles/geothermie_solaire.rst"
+    "002-thermodynamic_cycles/geothermie_solaire.rst",
+    "interface/noeuds.rst"
    ]
   },
   "ThermodynamicCycles.Combustion.Combustor_cantera.Object": {
@@ -3307,7 +3364,9 @@
    "sources": [],
    "trace": [],
    "noeud_ihm": [],
-   "pages": []
+   "pages": [
+    "002-thermodynamic_cycles/combustion_moteurs.rst"
+   ]
   },
   "ThermodynamicCycles.Combustion.NG_Boiler_Efficiency_EN1295X.NG_Boiler_Efficiency": {
    "module": "ThermodynamicCycles.Combustion.NG_Boiler_Efficiency_EN1295X",
@@ -3449,7 +3508,8 @@
     "ng_boiler"
    ],
    "pages": [
-    "002-thermodynamic_cycles/ng_boiler_efficiency.rst"
+    "002-thermodynamic_cycles/ng_boiler_efficiency.rst",
+    "interface/noeuds.rst"
    ]
   },
   "ThermodynamicCycles.Compressor.Compressor.Object": {
@@ -3525,7 +3585,10 @@
    "noeud_ihm": [],
    "pages": [
     "002-thermodynamic_cycles/compressor.rst",
+    "002-thermodynamic_cycles/exergie.rst",
+    "002-thermodynamic_cycles/outils_diagrammes.rst",
     "api.rst",
+    "interface/noeuds.rst",
     "ports_connexions.rst",
     "usage/section-3-transformation.rst",
     "usage/section-6-autres.rst"
@@ -3650,7 +3713,10 @@
    "sources": [],
    "trace": [],
    "noeud_ihm": [],
-   "pages": []
+   "pages": [
+    "002-thermodynamic_cycles/compressor.rst",
+    "interface/noeuds.rst"
+   ]
   },
   "ThermodynamicCycles.Compressor.VolumetricCompressor.Object": {
    "module": "ThermodynamicCycles.Compressor.VolumetricCompressor",
@@ -3738,7 +3804,10 @@
    "sources": [],
    "trace": [],
    "noeud_ihm": [],
-   "pages": []
+   "pages": [
+    "002-thermodynamic_cycles/compressor.rst",
+    "interface/noeuds.rst"
+   ]
   },
   "ThermodynamicCycles.Condenser.Condenser.Object": {
    "module": "ThermodynamicCycles.Condenser.Condenser",
@@ -3786,7 +3855,8 @@
    "noeud_ihm": [],
    "pages": [
     "002-thermodynamic_cycles/condenseur_evaporateur.rst",
-    "usage/section-3-transformation.rst",
+    "002-thermodynamic_cycles/outils_diagrammes.rst",
+    "interface/noeuds.rst",
     "usage/section-6-autres.rst"
    ]
   },
@@ -3893,7 +3963,8 @@
     "cooling_tower"
    ],
    "pages": [
-    "002-thermodynamic_cycles/ejecteur_tour_refroidissement.rst"
+    "002-thermodynamic_cycles/ejecteur_tour_refroidissement.rst",
+    "interface/noeuds.rst"
    ]
   },
   "ThermodynamicCycles.Desorber.Desorber.Object": {
@@ -3960,7 +4031,8 @@
     "desorber"
    ],
    "pages": [
-    "002-thermodynamic_cycles/froid_absorption.rst"
+    "002-thermodynamic_cycles/froid_absorption.rst",
+    "interface/noeuds.rst"
    ]
   },
   "ThermodynamicCycles.Desuperheater.Desuperheater.Object": {
@@ -4003,7 +4075,7 @@
    ],
    "pages": [
     "002-thermodynamic_cycles/echangeurs.rst",
-    "usage/section-3-transformation.rst"
+    "interface/noeuds.rst"
    ]
   },
   "ThermodynamicCycles.DirectionalControl.DCV_3_2.Object": {
@@ -4049,7 +4121,8 @@
     "dcv_3_2"
    ],
    "pages": [
-    "002-thermodynamic_cycles/detente_distributeurs.rst"
+    "002-thermodynamic_cycles/detente_distributeurs.rst",
+    "interface/noeuds.rst"
    ]
   },
   "ThermodynamicCycles.DirectionalControl.DCV_4_2.Object": {
@@ -4099,7 +4172,8 @@
     "dcv_4_2"
    ],
    "pages": [
-    "002-thermodynamic_cycles/detente_distributeurs.rst"
+    "002-thermodynamic_cycles/detente_distributeurs.rst",
+    "interface/noeuds.rst"
    ]
   },
   "ThermodynamicCycles.DirectionalControl.DCV_4_3_B.Object": {
@@ -4149,7 +4223,8 @@
     "dcv_4_3_b"
    ],
    "pages": [
-    "002-thermodynamic_cycles/detente_distributeurs.rst"
+    "002-thermodynamic_cycles/detente_distributeurs.rst",
+    "interface/noeuds.rst"
    ]
   },
   "ThermodynamicCycles.Ejector.Diffuser.Object": {
@@ -4201,7 +4276,10 @@
    "noeud_ihm": [
     "diffuser"
    ],
-   "pages": []
+   "pages": [
+    "002-thermodynamic_cycles/ejecteur_tour_refroidissement.rst",
+    "interface/noeuds.rst"
+   ]
   },
   "ThermodynamicCycles.Ejector.Ejector.Object": {
    "module": "ThermodynamicCycles.Ejector.Ejector",
@@ -4284,7 +4362,8 @@
     "ejector"
    ],
    "pages": [
-    "002-thermodynamic_cycles/ejecteur_tour_refroidissement.rst"
+    "002-thermodynamic_cycles/ejecteur_tour_refroidissement.rst",
+    "interface/noeuds.rst"
    ]
   },
   "ThermodynamicCycles.Ejector.Mixing_Chamber.Object": {
@@ -4344,7 +4423,10 @@
    "noeud_ihm": [
     "mixing_chamber"
    ],
-   "pages": []
+   "pages": [
+    "002-thermodynamic_cycles/ejecteur_tour_refroidissement.rst",
+    "interface/noeuds.rst"
+   ]
   },
   "ThermodynamicCycles.Ejector.Nozzle.Object": {
    "module": "ThermodynamicCycles.Ejector.Nozzle",
@@ -4395,7 +4477,10 @@
    "noeud_ihm": [
     "nozzle"
    ],
-   "pages": []
+   "pages": [
+    "002-thermodynamic_cycles/ejecteur_tour_refroidissement.rst",
+    "interface/noeuds.rst"
+   ]
   },
   "ThermodynamicCycles.Electrolyzer.Electrolyzer.Object": {
    "module": "ThermodynamicCycles.Electrolyzer.Electrolyzer",
@@ -4486,7 +4571,8 @@
     "electrolyzer"
    ],
    "pages": [
-    "002-thermodynamic_cycles/hydrogene_piles.rst"
+    "002-thermodynamic_cycles/hydrogene_piles.rst",
+    "interface/noeuds.rst"
    ]
   },
   "ThermodynamicCycles.Evaporator.Evaporator.Object": {
@@ -4559,7 +4645,8 @@
    ],
    "pages": [
     "002-thermodynamic_cycles/condenseur_evaporateur.rst",
-    "usage/section-3-transformation.rst",
+    "002-thermodynamic_cycles/outils_diagrammes.rst",
+    "interface/noeuds.rst",
     "usage/section-6-autres.rst"
    ]
   },
@@ -4602,7 +4689,9 @@
    "sources": [],
    "trace": [],
    "noeud_ihm": [],
-   "pages": []
+   "pages": [
+    "002-thermodynamic_cycles/exergie.rst"
+   ]
   },
   "ThermodynamicCycles.Exergy.ExergyBalance.PlantExergyAnalysis": {
    "module": "ThermodynamicCycles.Exergy.ExergyBalance",
@@ -4641,7 +4730,9 @@
     "plot_grassmann"
    ],
    "noeud_ihm": [],
-   "pages": []
+   "pages": [
+    "002-thermodynamic_cycles/exergie.rst"
+   ]
   },
   "ThermodynamicCycles.Expansion_Valve.Expansion_Valve.Object": {
    "module": "ThermodynamicCycles.Expansion_Valve.Expansion_Valve",
@@ -4679,7 +4770,8 @@
    ],
    "pages": [
     "002-thermodynamic_cycles/detente_distributeurs.rst",
-    "usage/section-3-transformation.rst",
+    "002-thermodynamic_cycles/outils_diagrammes.rst",
+    "interface/noeuds.rst",
     "usage/section-6-autres.rst"
    ]
   },
@@ -4726,7 +4818,8 @@
     "mixer"
    ],
    "pages": [
-    "002-thermodynamic_cycles/raccords_fittings.rst"
+    "002-thermodynamic_cycles/raccords_fittings.rst",
+    "interface/noeuds.rst"
    ]
   },
   "ThermodynamicCycles.Fittings.Separator_Simple.Object": {
@@ -4774,7 +4867,10 @@
    "noeud_ihm": [
     "separator"
    ],
-   "pages": []
+   "pages": [
+    "002-thermodynamic_cycles/raccords_fittings.rst",
+    "interface/noeuds.rst"
+   ]
   },
   "ThermodynamicCycles.Fittings.Splitter.Object": {
    "module": "ThermodynamicCycles.Fittings.Splitter",
@@ -4826,7 +4922,8 @@
     "splitter"
    ],
    "pages": [
-    "002-thermodynamic_cycles/raccords_fittings.rst"
+    "002-thermodynamic_cycles/raccords_fittings.rst",
+    "interface/noeuds.rst"
    ]
   },
   "ThermodynamicCycles.FlashTank.FlashTank.Object": {
@@ -4883,7 +4980,8 @@
     "flash_tank"
    ],
    "pages": [
-    "002-thermodynamic_cycles/melangeur_flash_stockage.rst"
+    "002-thermodynamic_cycles/melangeur_flash_stockage.rst",
+    "interface/noeuds.rst"
    ]
   },
   "ThermodynamicCycles.FlashTank.MulticomponentFlash.Object": {
@@ -4969,7 +5067,10 @@
    "noeud_ihm": [
     "multicomponent_flash"
    ],
-   "pages": []
+   "pages": [
+    "002-thermodynamic_cycles/melangeur_flash_stockage.rst",
+    "interface/noeuds.rst"
+   ]
   },
   "ThermodynamicCycles.Frost.Air.Object": {
    "module": "ThermodynamicCycles.Frost.Air",
@@ -5077,7 +5178,9 @@
    "sources": [],
    "trace": [],
    "noeud_ihm": [],
-   "pages": []
+   "pages": [
+    "002-thermodynamic_cycles/givrage.rst"
+   ]
   },
   "ThermodynamicCycles.Frost.CroissanceDuGivre.Object": {
    "module": "ThermodynamicCycles.Frost.CroissanceDuGivre",
@@ -5186,7 +5289,9 @@
    "sources": [],
    "trace": [],
    "noeud_ihm": [],
-   "pages": []
+   "pages": [
+    "002-thermodynamic_cycles/givrage.rst"
+   ]
   },
   "ThermodynamicCycles.Frost.Fin.Object": {
    "module": "ThermodynamicCycles.Frost.Fin",
@@ -5231,7 +5336,9 @@
    "sources": [],
    "trace": [],
    "noeud_ihm": [],
-   "pages": []
+   "pages": [
+    "002-thermodynamic_cycles/givrage.rst"
+   ]
   },
   "ThermodynamicCycles.Frost.FrostedFinnedTubeHEX.Object": {
    "module": "ThermodynamicCycles.Frost.FrostedFinnedTubeHEX",
@@ -5506,7 +5613,9 @@
    "sources": [],
    "trace": [],
    "noeud_ihm": [],
-   "pages": []
+   "pages": [
+    "002-thermodynamic_cycles/givrage.rst"
+   ]
   },
   "ThermodynamicCycles.FuelCell.FuelCell.Object": {
    "module": "ThermodynamicCycles.FuelCell.FuelCell",
@@ -5589,7 +5698,8 @@
     "fuel_cell"
    ],
    "pages": [
-    "002-thermodynamic_cycles/hydrogene_piles.rst"
+    "002-thermodynamic_cycles/hydrogene_piles.rst",
+    "interface/noeuds.rst"
    ]
   },
   "ThermodynamicCycles.GasTurbine.Combustor.Object": {
@@ -5652,7 +5762,10 @@
    "noeud_ihm": [
     "combustor"
    ],
-   "pages": []
+   "pages": [
+    "002-thermodynamic_cycles/combustion_moteurs.rst",
+    "interface/noeuds.rst"
+   ]
   },
   "ThermodynamicCycles.GasTurbine.GasTurbine.Object": {
    "module": "ThermodynamicCycles.GasTurbine.GasTurbine",
@@ -5762,7 +5875,8 @@
     "gas_turbine"
    ],
    "pages": [
-    "002-thermodynamic_cycles/combustion_moteurs.rst"
+    "002-thermodynamic_cycles/combustion_moteurs.rst",
+    "interface/noeuds.rst"
    ]
   },
   "ThermodynamicCycles.Gasifier.Gasifier.Object": {
@@ -5894,7 +6008,8 @@
     "gasifier"
    ],
    "pages": [
-    "002-thermodynamic_cycles/hydrogene_piles.rst"
+    "002-thermodynamic_cycles/hydrogene_piles.rst",
+    "interface/noeuds.rst"
    ]
   },
   "ThermodynamicCycles.HEX.AirCoolerDesignHEX.Object": {
@@ -5906,22 +6021,22 @@
    "entrees": [
     {
      "nom": "Air_Inlet",
-     "defaut": "FluidPort(fluid='air', F=15 / 3.6, P=101325)",
+     "defaut": "FluidPort(fluid='air', F=15 / 3.6)",
      "note": ""
     },
     {
      "nom": "Air_Outlet",
-     "defaut": "FluidPort(fluid='air', F=15 / 3.6, P=101325)",
+     "defaut": "FluidPort(fluid='air', F=15 / 3.6)",
      "note": ""
     },
     {
      "nom": "Fluid_Inlet",
-     "defaut": "FluidPort(fluid='water', P=101325)",
+     "defaut": "FluidPort(fluid='water')",
      "note": ""
     },
     {
      "nom": "Fluid_Outlet",
-     "defaut": "FluidPort(fluid='water', P=101325)",
+     "defaut": "FluidPort(fluid='water')",
      "note": ""
     },
     {
@@ -5980,11 +6095,6 @@
      "note": "Rendement de trasmission"
     },
     {
-     "nom": "nb_rangs",
-     "defaut": "None",
-     "note": ""
-    },
-    {
      "nom": "nb_vent_baie",
      "defaut": "2",
      "note": ""
@@ -6009,6 +6119,7 @@
     "UA",
     "L_tube",
     "Qth_fluid",
+    "nb_rangs",
     "Ntr",
     "Ntf",
     "Sf",
@@ -6026,7 +6137,9 @@
     "R2",
     "R3",
     "F_vent_m3h",
-    "F_air_m3h"
+    "F_air_m3h",
+    "nb_rangs",
+    "_nb_rangs_deduit"
    ],
    "sorties_df": [
     "Timestamp",
@@ -6056,14 +6169,19 @@
     "P_elec (kW)",
     "self.nb_vent"
    ],
-   "refus": [],
+   "refus": [
+    "ValueError"
+   ],
    "sources": [],
    "trace": [],
    "noeud_ihm": [
     "discretized_hex",
     "dtlm_hex"
    ],
-   "pages": []
+   "pages": [
+    "002-thermodynamic_cycles/aerorefrigerant.rst",
+    "002-thermodynamic_cycles/echangeurs.rst"
+   ]
   },
   "ThermodynamicCycles.HEX.SingleStreamBalanceSetpointHEX.Object": {
    "module": "ThermodynamicCycles.HEX.SingleStreamBalanceSetpointHEX",
@@ -6122,7 +6240,10 @@
     "discretized_hex",
     "dtlm_hex"
    ],
-   "pages": []
+   "pages": [
+    "002-thermodynamic_cycles/echangeurs.rst",
+    "interface/noeuds.rst"
+   ]
   },
   "ThermodynamicCycles.HEX.SingleStreamSurfaceDesignHEX.Object": {
    "module": "ThermodynamicCycles.HEX.SingleStreamSurfaceDesignHEX",
@@ -6190,7 +6311,10 @@
     "discretized_hex",
     "dtlm_hex"
    ],
-   "pages": []
+   "pages": [
+    "002-thermodynamic_cycles/echangeurs.rst",
+    "interface/noeuds.rst"
+   ]
   },
   "ThermodynamicCycles.HEX.TwoStreamDiscretizedCounterflowHEX.Object": {
    "module": "ThermodynamicCycles.HEX.TwoStreamDiscretizedCounterflowHEX",
@@ -6270,7 +6394,10 @@
    "noeud_ihm": [
     "discretized_hex"
    ],
-   "pages": []
+   "pages": [
+    "002-thermodynamic_cycles/echangeurs.rst",
+    "interface/noeuds.rst"
+   ]
   },
   "ThermodynamicCycles.HEX.TwoStreamSteadyHEX.TwoStreamSteadyHEX": {
    "module": "ThermodynamicCycles.HEX.TwoStreamSteadyHEX",
@@ -6394,7 +6521,9 @@
     "discretized_hex",
     "dtlm_hex"
    ],
-   "pages": []
+   "pages": [
+    "002-thermodynamic_cycles/echangeurs.rst"
+   ]
   },
   "ThermodynamicCycles.Hydraulic.BallValve.Object": {
    "module": "ThermodynamicCycles.Hydraulic.BallValve",
@@ -6483,7 +6612,10 @@
    "noeud_ihm": [
     "ball_valve"
    ],
-   "pages": []
+   "pages": [
+    "004-hydraulic/vanne_boule.rst",
+    "interface/noeuds.rst"
+   ]
   },
   "ThermodynamicCycles.Hydraulic.ButterflyValve.Object": {
    "module": "ThermodynamicCycles.Hydraulic.ButterflyValve",
@@ -6577,7 +6709,10 @@
    "noeud_ihm": [
     "butterfly_valve"
    ],
-   "pages": []
+   "pages": [
+    "004-hydraulic/vanne_papillon.rst",
+    "interface/noeuds.rst"
+   ]
   },
   "ThermodynamicCycles.Hydraulic.CheckValve.Object": {
    "module": "ThermodynamicCycles.Hydraulic.CheckValve",
@@ -6661,7 +6796,10 @@
    "noeud_ihm": [
     "check_valve"
    ],
-   "pages": []
+   "pages": [
+    "004-hydraulic/clapet_anti_retour.rst",
+    "interface/noeuds.rst"
+   ]
   },
   "ThermodynamicCycles.Hydraulic.Coil.Object": {
    "module": "ThermodynamicCycles.Hydraulic.Coil",
@@ -6758,7 +6896,10 @@
    "noeud_ihm": [
     "coil"
    ],
-   "pages": []
+   "pages": [
+    "004-hydraulic/serpentin.rst",
+    "interface/noeuds.rst"
+   ]
   },
   "ThermodynamicCycles.Hydraulic.ConvergingTee.Object": {
    "module": "ThermodynamicCycles.Hydraulic.ConvergingTee",
@@ -6859,7 +7000,10 @@
    "noeud_ihm": [
     "converging_tee"
    ],
-   "pages": []
+   "pages": [
+    "004-hydraulic/te_jonction.rst",
+    "interface/noeuds.rst"
+   ]
   },
   "ThermodynamicCycles.Hydraulic.CurvedBend.Object": {
    "module": "ThermodynamicCycles.Hydraulic.CurvedBend",
@@ -7006,7 +7150,8 @@
     "curved_bend"
    ],
    "pages": [
-    "004-hydraulic/coudes_tes_singularites.rst"
+    "004-hydraulic/coudes_tes_singularites.rst",
+    "interface/noeuds.rst"
    ]
   },
   "ThermodynamicCycles.Hydraulic.DarbyMethod3K.Object": {
@@ -7079,7 +7224,10 @@
    "noeud_ihm": [
     "darby_method_3k"
    ],
-   "pages": []
+   "pages": [
+    "004-hydraulic/methodes_2k_3k.rst",
+    "interface/noeuds.rst"
+   ]
   },
   "ThermodynamicCycles.Hydraulic.DivergingTee.Object": {
    "module": "ThermodynamicCycles.Hydraulic.DivergingTee",
@@ -7185,7 +7333,10 @@
    "noeud_ihm": [
     "diverging_tee"
    ],
-   "pages": []
+   "pages": [
+    "004-hydraulic/te_jonction.rst",
+    "interface/noeuds.rst"
+   ]
   },
   "ThermodynamicCycles.Hydraulic.DpRegulator.Object": {
    "module": "ThermodynamicCycles.Hydraulic.DpRegulator",
@@ -7265,7 +7416,10 @@
    "noeud_ihm": [
     "dp_regulator"
    ],
-   "pages": []
+   "pages": [
+    "004-hydraulic/regulateur_dp.rst",
+    "interface/noeuds.rst"
+   ]
   },
   "ThermodynamicCycles.Hydraulic.EdgedBend.Object": {
    "module": "ThermodynamicCycles.Hydraulic.EdgedBend",
@@ -7341,7 +7495,10 @@
    "noeud_ihm": [
     "edged_bend"
    ],
-   "pages": []
+   "pages": [
+    "004-hydraulic/coudes_tes_singularites.rst",
+    "interface/noeuds.rst"
+   ]
   },
   "ThermodynamicCycles.Hydraulic.EntranceShaft.Object": {
    "module": "ThermodynamicCycles.Hydraulic.EntranceShaft",
@@ -7433,7 +7590,10 @@
    "noeud_ihm": [
     "entrance_shaft"
    ],
-   "pages": []
+   "pages": [
+    "004-hydraulic/entree_conduite.rst",
+    "interface/noeuds.rst"
+   ]
   },
   "ThermodynamicCycles.Hydraulic.ErgunPackedBed.Object": {
    "module": "ThermodynamicCycles.Hydraulic.ErgunPackedBed",
@@ -7520,7 +7680,10 @@
    "noeud_ihm": [
     "ergun_packed_bed"
    ],
-   "pages": []
+   "pages": [
+    "004-hydraulic/lit_grains.rst",
+    "interface/noeuds.rst"
+   ]
   },
   "ThermodynamicCycles.Hydraulic.FreeDischarge.Object": {
    "module": "ThermodynamicCycles.Hydraulic.FreeDischarge",
@@ -7581,7 +7744,10 @@
    "noeud_ihm": [
     "free_discharge"
    ],
-   "pages": []
+   "pages": [
+    "004-hydraulic/sortie_libre.rst",
+    "interface/noeuds.rst"
+   ]
   },
   "ThermodynamicCycles.Hydraulic.GateValve.Object": {
    "module": "ThermodynamicCycles.Hydraulic.GateValve",
@@ -7668,7 +7834,10 @@
    "noeud_ihm": [
     "gate_valve"
    ],
-   "pages": []
+   "pages": [
+    "004-hydraulic/vanne_isolement.rst",
+    "interface/noeuds.rst"
+   ]
   },
   "ThermodynamicCycles.Hydraulic.GeneralValve.Object": {
    "module": "ThermodynamicCycles.Hydraulic.GeneralValve",
@@ -7774,7 +7943,10 @@
    "noeud_ihm": [
     "general_valve"
    ],
-   "pages": []
+   "pages": [
+    "004-hydraulic/vanne_generique.rst",
+    "interface/noeuds.rst"
+   ]
   },
   "ThermodynamicCycles.Hydraulic.GlobeValve.Object": {
    "module": "ThermodynamicCycles.Hydraulic.GlobeValve",
@@ -7861,7 +8033,10 @@
    "noeud_ihm": [
     "globe_valve"
    ],
-   "pages": []
+   "pages": [
+    "004-hydraulic/vanne_soupape.rst",
+    "interface/noeuds.rst"
+   ]
   },
   "ThermodynamicCycles.Hydraulic.GradualContraction.Object": {
    "module": "ThermodynamicCycles.Hydraulic.GradualContraction",
@@ -7961,7 +8136,10 @@
    "noeud_ihm": [
     "gradual_contraction"
    ],
-   "pages": []
+   "pages": [
+    "004-hydraulic/reduction_section.rst",
+    "interface/noeuds.rst"
+   ]
   },
   "ThermodynamicCycles.Hydraulic.GradualExpansion.Object": {
    "module": "ThermodynamicCycles.Hydraulic.GradualExpansion",
@@ -8065,7 +8243,10 @@
    "noeud_ihm": [
     "gradual_expansion"
    ],
-   "pages": []
+   "pages": [
+    "004-hydraulic/elargissement_section.rst",
+    "interface/noeuds.rst"
+   ]
   },
   "ThermodynamicCycles.Hydraulic.HooperMethod2K.Object": {
    "module": "ThermodynamicCycles.Hydraulic.HooperMethod2K",
@@ -8132,7 +8313,10 @@
    "noeud_ihm": [
     "hooper_method_2k"
    ],
-   "pages": []
+   "pages": [
+    "004-hydraulic/methodes_2k_3k.rst",
+    "interface/noeuds.rst"
+   ]
   },
   "ThermodynamicCycles.Hydraulic.MovableFlap.Object": {
    "module": "ThermodynamicCycles.Hydraulic.MovableFlap",
@@ -8235,7 +8419,10 @@
    "noeud_ihm": [
     "movable_flap"
    ],
-   "pages": []
+   "pages": [
+    "004-hydraulic/clapet_volet.rst",
+    "interface/noeuds.rst"
+   ]
   },
   "ThermodynamicCycles.Hydraulic.Orifice.Object": {
    "module": "ThermodynamicCycles.Hydraulic.Orifice",
@@ -8302,7 +8489,10 @@
    "noeud_ihm": [
     "orifice"
    ],
-   "pages": []
+   "pages": [
+    "004-hydraulic/orifice.rst",
+    "interface/noeuds.rst"
+   ]
   },
   "ThermodynamicCycles.Hydraulic.RectangularButterflyValve.Object": {
    "module": "ThermodynamicCycles.Hydraulic.RectangularButterflyValve",
@@ -8364,7 +8554,10 @@
    "noeud_ihm": [
     "rect_butterfly_valve"
    ],
-   "pages": []
+   "pages": [
+    "004-hydraulic/vanne_papillon.rst",
+    "interface/noeuds.rst"
+   ]
   },
   "ThermodynamicCycles.Hydraulic.ScreenGrid.Object": {
    "module": "ThermodynamicCycles.Hydraulic.ScreenGrid",
@@ -8458,7 +8651,10 @@
    "noeud_ihm": [
     "screen_grid"
    ],
-   "pages": []
+   "pages": [
+    "004-hydraulic/grille_plaque.rst",
+    "interface/noeuds.rst"
+   ]
   },
   "ThermodynamicCycles.Hydraulic.StraightPipe.Object": {
    "module": "ThermodynamicCycles.Hydraulic.StraightPipe",
@@ -8583,8 +8779,9 @@
    ],
    "pages": [
     "004-hydraulic/perte_pression_lineaire.rst",
-    "004-hydraulic/propagation_pression.rst",
+    "004-hydraulic/resolution_circuit.rst",
     "api.rst",
+    "interface/noeuds.rst",
     "usage/section-4-distribution.rst",
     "usage/section-6-autres.rst"
    ]
@@ -8679,7 +8876,10 @@
    "noeud_ihm": [
     "sudden_contraction"
    ],
-   "pages": []
+   "pages": [
+    "004-hydraulic/reduction_section.rst",
+    "interface/noeuds.rst"
+   ]
   },
   "ThermodynamicCycles.Hydraulic.SuddenExpansion.Object": {
    "module": "ThermodynamicCycles.Hydraulic.SuddenExpansion",
@@ -8771,7 +8971,10 @@
    "noeud_ihm": [
     "sudden_expansion"
    ],
-   "pages": []
+   "pages": [
+    "004-hydraulic/elargissement_section.rst",
+    "interface/noeuds.rst"
+   ]
   },
   "ThermodynamicCycles.Hydraulic.TA_Valve.Object": {
    "module": "ThermodynamicCycles.Hydraulic.TA_Valve",
@@ -8830,6 +9033,7 @@
    "pages": [
     "004-hydraulic/TA_valve.rst",
     "api.rst",
+    "interface/noeuds.rst",
     "usage/section-6-autres.rst"
    ]
   },
@@ -8925,7 +9129,10 @@
    "noeud_ihm": [
     "thick_grid_plate"
    ],
-   "pages": []
+   "pages": [
+    "004-hydraulic/grille_plaque.rst",
+    "interface/noeuds.rst"
+   ]
   },
   "ThermodynamicCycles.MSF.MSF.Object": {
    "module": "ThermodynamicCycles.MSF.MSF",
@@ -9019,7 +9226,8 @@
     "msf"
    ],
    "pages": [
-    "002-thermodynamic_cycles/dessalement_evaporation.rst"
+    "002-thermodynamic_cycles/dessalement_evaporation.rst",
+    "interface/noeuds.rst"
    ]
   },
   "ThermodynamicCycles.MVR.MVR.Object": {
@@ -9096,7 +9304,8 @@
     "mvr"
    ],
    "pages": [
-    "002-thermodynamic_cycles/dessalement_evaporation.rst"
+    "002-thermodynamic_cycles/dessalement_evaporation.rst",
+    "interface/noeuds.rst"
    ]
   },
   "ThermodynamicCycles.Mixer.Mixer.Object": {
@@ -9259,7 +9468,8 @@
     "multi_effect_evaporator"
    ],
    "pages": [
-    "002-thermodynamic_cycles/dessalement_evaporation.rst"
+    "002-thermodynamic_cycles/dessalement_evaporation.rst",
+    "interface/noeuds.rst"
    ]
   },
   "ThermodynamicCycles.OxyCombustion.OxyCombustion.Object": {
@@ -9375,7 +9585,8 @@
     "oxy_combustion"
    ],
    "pages": [
-    "002-thermodynamic_cycles/combustion_moteurs.rst"
+    "002-thermodynamic_cycles/combustion_moteurs.rst",
+    "interface/noeuds.rst"
    ]
   },
   "ThermodynamicCycles.Pump.Pump.Object": {
@@ -9486,7 +9697,9 @@
    ],
    "noeud_ihm": [],
    "pages": [
-    "002-thermodynamic_cycles/pompe.rst"
+    "002-thermodynamic_cycles/pompe.rst",
+    "004-hydraulic/index.rst",
+    "interface/noeuds.rst"
    ]
   },
   "ThermodynamicCycles.ReciprocatingEngine.ReciprocatingEngine.Object": {
@@ -9577,7 +9790,8 @@
     "recip_engine"
    ],
    "pages": [
-    "002-thermodynamic_cycles/combustion_moteurs.rst"
+    "002-thermodynamic_cycles/combustion_moteurs.rst",
+    "interface/noeuds.rst"
    ]
   },
   "ThermodynamicCycles.Reformer.Reformer.Object": {
@@ -9669,7 +9883,8 @@
     "reformer"
    ],
    "pages": [
-    "002-thermodynamic_cycles/hydrogene_piles.rst"
+    "002-thermodynamic_cycles/hydrogene_piles.rst",
+    "interface/noeuds.rst"
    ]
   },
   "ThermodynamicCycles.Refrigeration.ColdStorageTank.Object": {
@@ -9731,7 +9946,9 @@
     "cold_storage_bang_bang"
    ],
    "pages": [
-    "002-thermodynamic_cycles/refrigeration.rst"
+    "002-thermodynamic_cycles/refrigeration.rst",
+    "013-simulation-temporelle/chambre_froide.rst",
+    "interface/noeuds.rst"
    ]
   },
   "ThermodynamicCycles.Refrigeration.RefrigerationBangBang.Object": {
@@ -9781,7 +9998,10 @@
     "cold_storage_bang_bang"
    ],
    "pages": [
-    "002-thermodynamic_cycles/refrigeration.rst"
+    "002-thermodynamic_cycles/refrigeration.rst",
+    "013-simulation-temporelle/chambre_froide.rst",
+    "interface/noeuds.rst",
+    "usage/section-3-transformation.rst"
    ]
   },
   "ThermodynamicCycles.ReverseOsmosis.ReverseOsmosis.Object": {
@@ -9900,7 +10120,8 @@
     "reverse_osmosis"
    ],
    "pages": [
-    "002-thermodynamic_cycles/dessalement_evaporation.rst"
+    "002-thermodynamic_cycles/dessalement_evaporation.rst",
+    "interface/noeuds.rst"
    ]
   },
   "ThermodynamicCycles.Sensor.Sensor.Object": {
@@ -9972,7 +10193,8 @@
     "sensor"
    ],
    "pages": [
-    "002-thermodynamic_cycles/capteur_signaux.rst"
+    "002-thermodynamic_cycles/capteur_signaux.rst",
+    "interface/noeuds.rst"
    ]
   },
   "ThermodynamicCycles.Signals.PIDController.Object": {
@@ -10066,7 +10288,9 @@
     "signal_generators"
    ],
    "pages": [
-    "002-thermodynamic_cycles/capteur_signaux.rst"
+    "002-thermodynamic_cycles/capteur_signaux.rst",
+    "013-simulation-temporelle/regulation_pid.rst",
+    "interface/noeuds.rst"
    ]
   },
   "ThermodynamicCycles.Sink.Sink.Object": {
@@ -10117,13 +10341,19 @@
    "trace": [],
    "noeud_ihm": [],
    "pages": [
+    "002-thermodynamic_cycles/aerorefrigerant.rst",
     "002-thermodynamic_cycles/compressor.rst",
     "002-thermodynamic_cycles/sink.rst",
     "004-hydraulic/TA_valve.rst",
     "004-hydraulic/perte_pression_lineaire.rst",
+    "005-aeraulic/coude_aeraulique.rst",
+    "005-aeraulic/filtre.rst",
+    "005-aeraulic/obstruction.rst",
     "005-aeraulic/perte_pression_lineaire.rst",
+    "005-aeraulic/registre_iris.rst",
+    "005-aeraulic/registre_lames.rst",
+    "005-aeraulic/te_aeraulique.rst",
     "api.rst",
-    "usage/section-4-distribution.rst",
     "usage/section-6-autres.rst"
    ]
   },
@@ -10203,7 +10433,8 @@
     "solar_collector"
    ],
    "pages": [
-    "002-thermodynamic_cycles/geothermie_solaire.rst"
+    "002-thermodynamic_cycles/geothermie_solaire.rst",
+    "interface/noeuds.rst"
    ]
   },
   "ThermodynamicCycles.SolutionHEX.SolutionHEX.Object": {
@@ -10263,7 +10494,8 @@
     "solution_hex"
    ],
    "pages": [
-    "002-thermodynamic_cycles/echangeurs.rst"
+    "002-thermodynamic_cycles/echangeurs.rst",
+    "interface/noeuds.rst"
    ]
   },
   "ThermodynamicCycles.Source.Source.Object": {
@@ -10317,10 +10549,12 @@
    "trace": [],
    "noeud_ihm": [],
    "pages": [
+    "002-thermodynamic_cycles/aerorefrigerant.rst",
     "002-thermodynamic_cycles/capteur_signaux.rst",
     "002-thermodynamic_cycles/combustion_moteurs.rst",
     "002-thermodynamic_cycles/compressor.rst",
     "002-thermodynamic_cycles/condenseur_evaporateur.rst",
+    "002-thermodynamic_cycles/exergie.rst",
     "002-thermodynamic_cycles/fluid_source.rst",
     "002-thermodynamic_cycles/geothermie_solaire.rst",
     "002-thermodynamic_cycles/pompe.rst",
@@ -10328,17 +10562,27 @@
     "002-thermodynamic_cycles/turbine.rst",
     "003-ahu_modules/batteries.rst",
     "004-hydraulic/TA_valve.rst",
+    "004-hydraulic/clapet_anti_retour.rst",
     "004-hydraulic/coudes_tes_singularites.rst",
     "004-hydraulic/perte_pression_lineaire.rst",
-    "004-hydraulic/propagation_pression.rst",
+    "004-hydraulic/regulateur_dp.rst",
+    "004-hydraulic/resolution_circuit.rst",
     "004-hydraulic/valve_3_voies.rst",
+    "004-hydraulic/vanne_generique.rst",
+    "004-hydraulic/vanne_isolement.rst",
+    "005-aeraulic/coude_aeraulique.rst",
+    "005-aeraulic/filtre.rst",
+    "005-aeraulic/obstruction.rst",
     "005-aeraulic/perte_pression_lineaire.rst",
+    "005-aeraulic/registre_iris.rst",
+    "005-aeraulic/registre_lames.rst",
+    "005-aeraulic/te_aeraulique.rst",
     "api.rst",
     "contributing.rst",
+    "interface/noeuds.rst",
     "ports_connexions.rst",
     "quickstart.rst",
     "usage.rst",
-    "usage/section-4-distribution.rst",
     "usage/section-6-autres.rst"
    ]
   },
@@ -10450,7 +10694,8 @@
     "spray_dryer"
    ],
    "pages": [
-    "002-thermodynamic_cycles/dessalement_evaporation.rst"
+    "002-thermodynamic_cycles/dessalement_evaporation.rst",
+    "interface/noeuds.rst"
    ]
   },
   "ThermodynamicCycles.Tank.MixedStorage.Object": {
@@ -10532,7 +10777,8 @@
     "mixed_storage"
    ],
    "pages": [
-    "002-thermodynamic_cycles/melangeur_flash_stockage.rst"
+    "002-thermodynamic_cycles/melangeur_flash_stockage.rst",
+    "interface/noeuds.rst"
    ]
   },
   "ThermodynamicCycles.Tank.StratifiedStorageTank.Object": {
@@ -10668,7 +10914,9 @@
     "stratified_storage"
    ],
    "pages": [
-    "002-thermodynamic_cycles/ballon_stratifie.rst"
+    "002-thermodynamic_cycles/ballon_stratifie.rst",
+    "013-simulation-temporelle/ballon_stratifie_temps.rst",
+    "interface/noeuds.rst"
    ]
   },
   "ThermodynamicCycles.Turbine.Turbine.Object": {
@@ -10728,7 +10976,8 @@
    ],
    "pages": [
     "002-thermodynamic_cycles/turbine.rst",
-    "api.rst"
+    "api.rst",
+    "interface/noeuds.rst"
    ]
   },
   "ThermodynamicCycles.Turbine.TurbineBlade.Object": {
@@ -10794,7 +11043,10 @@
    "noeud_ihm": [
     "turbine_blade"
    ],
-   "pages": []
+   "pages": [
+    "002-thermodynamic_cycles/turbine.rst",
+    "interface/noeuds.rst"
+   ]
   },
   "ThermodynamicCycles.Valve3Way.Valve3Way.Object": {
    "module": "ThermodynamicCycles.Valve3Way.Valve3Way",
@@ -10948,7 +11200,9 @@
     "valve3way"
    ],
    "pages": [
-    "004-hydraulic/valve_3_voies.rst"
+    "004-hydraulic/index.rst",
+    "004-hydraulic/valve_3_voies.rst",
+    "interface/noeuds.rst"
    ]
   }
  }

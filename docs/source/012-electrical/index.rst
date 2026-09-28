@@ -3,24 +3,73 @@
 Modèles électriques
 ===================
 
-Le module ``Electrical`` regroupe des outils de bilan et de dimensionnement
-électrique basés uniquement sur les données de plaque signalétique et de
-documentation constructeur. Deux modèles sont disponibles :
-``MotorPFCompensation`` (compensation du facteur de puissance d'un moteur) et
-``TransformerEnergyBalance`` (bilan énergétique d'un transformateur).
+Le paquet ``Electrical`` répond à deux questions d'audit électrique, à partir des
+seules données de **plaque signalétique** :
+
+* **combien de condensateurs** poser au pied d'un moteur pour ramener son
+  réactif sous la limite facturée, et ce qu'on gagne en courant et en pertes
+  en ligne (``MotorPFCompensation``) ;
+* **combien coûtent les pertes** d'un transformateur à son point de charge, et
+  s'il vaut mieux un ou deux transformateurs en service
+  (``TransformerEnergyBalance``).
+
+Aucun des deux n'a de nœud dans l'interface ``PyqtSimulator`` : ils s'utilisent en
+Python.
 
 .. _electrical-motorpfcompensation:
 
-MotorPFCompensation — compensation du facteur de puissance d'un moteur
-----------------------------------------------------------------------
+Compensation d'un moteur
+------------------------
 
-Le module ``MotorPFCompensation`` dimensionne une batterie de condensateurs pour
-réduire la puissance réactive absorbée par un moteur. Par défaut, il vise la
-limite réglementaire algérienne :math:`\tan\varphi \le 0{,}5` (soit
-:math:`Q \le 0{,}5\,P`), mais un ``cos φ`` cible peut aussi être imposé. Le
-condensateur retenu est toujours une **valeur normalisée** du marché (jamais une
-valeur continue calculée), choisie dans une gamme (individuelle, moyenne,
-batterie ou complète).
+``MotorPFCompensation`` dimensionne la batterie de condensateurs d'un moteur. Par
+défaut, il vise la limite de facturation **algérienne** :math:`\tan\varphi \le 0{,}5`
+(soit :math:`Q \le 0{,}5\,P`, même contexte que le tarif SONALGAZ du chapitre
+:doc:`../010-achat-energie/index`) ; un ``cos φ`` cible peut la remplacer. Le
+condensateur retenu est toujours une **valeur normalisée** du marché, jamais une
+valeur continue.
+
+Exemple
+~~~~~~~
+
+.. code-block:: python
+
+   from Electrical.MotorPFCompensation import MotorPFCompensation
+
+   # Moteur triphasé 400 V : 100 A nominal, cos φ = 0,75
+   m = MotorPFCompensation(I=100, cos_phi=0.75, name="Pompe P1")
+   m.calculate()
+   print(m.df.T)
+   print(m)
+
+Sortie réelle :
+
+.. code-block:: text
+
+                                0
+   moteur                Pompe P1
+   U_V                      400.0
+   I_initial_A              100.0
+   cos_phi_initial           0.75
+   P_kW                    51.962
+   Q_kVAr                  45.826
+   Q_limite_kVAr           25.981
+   Qc_theorique_kVAr       19.845
+   Qc_normalise_kVAr           20
+   gamme                 complete
+   condensateurs_kVAr        [20]
+   Q_residuel_kVAr         25.826
+   cos_phi_nouveau         0.8955
+   I_nouveau_A             83.753
+   gain_courant_%           16.25
+   gain_pertes_%            29.85
+   compensation_requise      True
+   conforme_Q_inf_0.5P       True
+   <MotorPFCompensation Pompe P1 P=52.0kW Qc=20kVAr cos_phi 0.750->0.895>
+
+Le moteur absorbe 52 kW et 45,8 kVAr ; la limite est 26 kVAr, il faut donc
+retirer 19,8 kVAr, arrondis à la valeur normalisée **20 kVAr**. Le cos φ passe de
+0,75 à 0,895, le courant de ligne baisse de 16 % et les **pertes Joule du câble
+d'alimentation** de 30 %.
 
 Équations
 ~~~~~~~~~
@@ -58,133 +107,173 @@ où :math:`Q_c` est la valeur normalisée retenue (première valeur de la gamme
 supérieure ou égale à :math:`Q_{c,\text{th}}`, avec combinaison possible de
 plusieurs condensateurs si :math:`Q_{c,\text{th}}` dépasse la plus grande unité).
 
-Paramètres
-~~~~~~~~~~~
+
+Paramètres à personnaliser
+~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. list-table::
+   :widths: 20 46 20 14
    :header-rows: 1
 
    * - Paramètre
-     - Description
-     - Unité / Défaut
-   * - I
-     - Courant nominal absorbé par le moteur
-     - A
-   * - cos_phi
-     - Facteur de puissance nominal (0 < cos φ ≤ 1)
-     - -
-   * - U
-     - Tension réseau
-     - V (défaut 400)
-   * - name
-     - Identifiant du moteur (optionnel)
-     - -
-   * - cos_phi_cible
-     - cos φ cible visé au lieu de la limite 0,5 P (optionnel)
-     - -
-   * - gamme
-     - "individuelle", "moyenne", "batterie" ou "complete"
-     - défaut "complete"
-   * - standard_values
-     - Liste custom de condensateurs normalisés (prioritaire sur gamme)
-     - liste kVAr
-   * - Qc_impose
-     - Dimensionnement imposé (test « what-if »), court-circuite la sélection
-     - kVAr
-   * - allow_combination
-     - Autorise la combinaison de plusieurs condensateurs
-     - défaut True
-   * - three_phase
-     - Triphasé (√3) si True, monophasé sinon
-     - défaut True
+     - Effet
+     - Plage usuelle
+     - Défaut
+   * - ``I``
+     - Courant nominal absorbé (plaque ou mesure pince), A
+     - 5 à 500 A en BT
+     - —
+   * - ``cos_phi``
+     - Facteur de puissance nominal ; doit être dans ]0, 1]
+     - 0,70 à 0,90 (moteur asynchrone chargé)
+     - —
+   * - ``U``
+     - Tension entre phases, V
+     - 230, 400, 690
+     - 400
+   * - ``three_phase``
+     - ``True`` : :math:`P = \sqrt3\,U I \cos\varphi` ; ``False`` : monophasé
+     - —
+     - ``True``
+   * - ``cos_phi_cible``
+     - Remplace la limite 0,5 P par un cos φ visé
+     - 0,90 à 0,98
+     - ``None``
+   * - ``gamme``
+     - Catalogue de condensateurs : ``"individuelle"`` (2,5 à 15 kVAr),
+       ``"moyenne"`` (20 à 50), ``"batterie"`` (50 à 1000), ``"complete"``
+       (union des trois)
+     - selon le montage
+     - ``"complete"``
+   * - ``standard_values``
+     - Votre propre catalogue (liste de kVAr), prioritaire sur ``gamme``
+     - —
+     - ``None``
+   * - ``allow_combination``
+     - Autorise plusieurs condensateurs si le besoin dépasse la plus grande unité
+     - —
+     - ``True``
+   * - ``Qc_impose``
+     - Teste une compensation imposée (kVAr), sans sélection normalisée
+     - —
+     - ``None``
+   * - ``name``
+     - Repère du moteur, repris dans ``df``
+     - —
+     - ``None``
 
-Gammes normalisées disponibles (kVAr) :
+Variante : cos φ 0,95 et tout un atelier
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-.. list-table::
-   :header-rows: 1
+On vise maintenant cos φ = 0,95 avec les seuls condensateurs individuels, puis on
+traite quatre moteurs d'un coup avec ``compensate_motors`` (une ligne par moteur).
 
-   * - Gamme
-     - Valeurs (kVAr)
-   * - individuelle
-     - 2.5, 5, 6.25, 7.5, 10, 12.5, 15
-   * - moyenne
-     - 20, 25, 30, 40, 50
-   * - batterie
-     - 50, 75, 100, 125, 150, 200, 250, 300, 400, 500, 600, 800, 1000
-   * - complete
-     - union triée des trois gammes ci-dessus (défaut)
+.. code-block:: python
+
+   # variante : viser cos φ = 0,95 avec la seule gamme « individuelle », puis tout un atelier
+   from Electrical.MotorPFCompensation import compensate_motors
+
+   m95 = MotorPFCompensation(I=100, cos_phi=0.75, name="Pompe P1",
+                             cos_phi_cible=0.95, gamme="individuelle")
+   m95.calculate()
+   print(m95)
+   print("Condensateurs :", m95.Qc_units, "kVAr")
+
+   atelier = compensate_motors([
+       {"name": "Pompe P1",       "I": 100, "cos_phi": 0.75},
+       {"name": "Ventilateur V2", "I": 32,  "cos_phi": 0.80, "gamme": "individuelle"},
+       {"name": "Compresseur C3", "I": 410, "cos_phi": 0.82},
+       {"name": "Broyeur B4",     "I": 60,  "cos_phi": 0.91},
+   ])
+   print(atelier[["moteur", "P_kW", "Qc_theorique_kVAr", "condensateurs_kVAr",
+                  "cos_phi_nouveau", "gain_pertes_%", "conforme_Q_inf_0.5P"]].to_string(index=False))
+
+Sortie réelle :
+
+.. code-block:: text
+
+   <MotorPFCompensation Pompe P1 P=52.0kW Qc=30.0kVAr cos_phi 0.750->0.957>
+   Condensateurs : [15, 15] kVAr
+           moteur    P_kW  Qc_theorique_kVAr condensateurs_kVAr  cos_phi_nouveau  gain_pertes_%  conforme_Q_inf_0.5P
+         Pompe P1  51.962             19.845               [20]           0.8955          29.85                 True
+   Ventilateur V2  17.736              4.434                [5]           0.9057          21.98                 True
+   Compresseur C3 232.926             46.120               [50]           0.9003          17.05                 True
+       Broyeur B4  37.828             -1.679                 []           0.9100           0.00                 True
+
+Pour atteindre 0,95, il faut 30 kVAr ; la gamme individuelle s'arrêtant à
+15 kVAr, le modèle **combine deux unités de 15**. Dans l'atelier, le broyeur
+(cos φ 0,91) est déjà sous la limite : besoin théorique négatif, aucun
+condensateur.
+
+Pièges
+~~~~~~
+
+* ``conforme_Q_inf_0.5P`` juge **toujours** la limite algérienne 0,5 P, même quand
+  ``cos_phi_cible`` est fourni.
+* Avec ``Qc_impose``, rien ne garantit la conformité : ``Qc_impose=10`` sur la
+  pompe donne cos φ 0,823 et ``conforme = False``.
+* ``P`` est la puissance **électrique absorbée**, pas la puissance mécanique utile ;
+  ``gain_pertes_%`` porte sur les pertes en ligne en amont du condensateur, pas
+  sur le rendement du moteur.
+* ``cos_phi`` hors de ]0, 1], ``I`` négatif ou ``gamme`` inconnue lèvent
+  ``ValueError`` dès la création de l'objet.
+
+.. _electrical-transformerenergybalance:
+
+Pertes d'un transformateur
+--------------------------
+
+``TransformerEnergyBalance`` chiffre les pertes fer (à vide, constantes) et cuivre
+(en charge, au carré de la charge) d'un ou de :math:`n` transformateurs identiques,
+en puissance, en énergie annuelle et — si on lui donne un prix — en coût, dans la
+devise de son choix. Le modèle est celui des normes CEI et ne demande que la
+plaque.
 
 Exemple
 ~~~~~~~
 
+Les valeurs de plaque ci-dessous sont celles d'un transformateur HTA/BT 1000 kVA
+à huile courant ; remplacez-les par celles de votre plaque.
+
 .. code-block:: python
 
-    from Electrical.MotorPFCompensation import MotorPFCompensation
+   from Electrical.TransformerEnergyBalance import TransformerEnergyBalance
 
-    m = MotorPFCompensation(I=100, cos_phi=0.75)
-    m.calculate()
-    print(m.df.T)
-    print(m.Qc)   # condensateur normalisé retenu (kVAr)
+   # Transformateur HTA/BT 1000 kVA ; charge 780 kVA pendant 5280 h/an
+   t = TransformerEnergyBalance(
+       S_n=1000, P0=1.1, Pcc=10.5, Ucc=6.0, I0=1.1,
+       S_ch=780, hours_load=5280, hours_noload=8760,
+       cost_active=0.15, cost_reactive=0.02, currency="EUR", name="TR1",
+   )
+   t.calculate()
+   print(t.df.T)
+   print(t)
 
-Sortie réelle ``m.df`` pour cet exemple (triphasé 400 V, gamme complète) :
+Sortie réelle :
 
-.. list-table::
-   :widths: 55 25 20
-   :header-rows: 1
+.. code-block:: text
 
-   * - Résultat (``m.df``)
-     - Valeur
-     - Unité
-   * - ``P_kW``
-     - 51,962
-     - kW
-   * - ``Q_kVAr``
-     - 45,826
-     - kVAr
-   * - ``Q_limite_kVAr``
-     - 25,981
-     - kVAr
-   * - ``Qc_theorique_kVAr``
-     - 19,845
-     - kVAr
-   * - ``Qc_normalise_kVAr``
-     - 20
-     - kVAr
-   * - ``condensateurs_kVAr``
-     - [20]
-     - kVAr
-   * - ``Q_residuel_kVAr``
-     - 25,826
-     - kVAr
-   * - ``cos_phi_nouveau``
-     - 0,8955
-     - -
-   * - ``I_nouveau_A``
-     - 83,753
-     - A
-   * - ``gain_courant_%``
-     - 16,25
-     - %
-   * - ``gain_pertes_%``
-     - 29,85
-     - %
-   * - ``conforme_Q_inf_0.5P``
-     - True
-     - -
+                                         0
+   transformateur                      TR1
+   n_transformateurs                     1
+   S_n_kVA                          1000.0
+   S_charge_kVA                      780.0
+   taux_charge_%                      78.0
+   pertes_actives_vide_kW              1.1
+   pertes_actives_charge_kW          6.388
+   pertes_reactives_vide_kVar         11.0
+   pertes_reactives_charge_kVar     36.504
+   energie_active_perdue_kWh       43365.7
+   energie_reactive_perdue_kVarh  289101.1
+   cout_pertes_actives_EUR         6504.85
+   cout_pertes_reactives_EUR       5782.02
+   cout_pertes_total_EUR          12286.88
+   <TransformerEnergyBalance TR1 n=1 S_n=1000.0kVA charge=78.0% dP=43366kWh dQ=289101kVarh>
 
-La fonction ``compensate_motors(motors)`` applique le calcul à une liste de
-moteurs (dicts ou objets) et retourne un DataFrame, une ligne par moteur.
-
-.. _electrical-transformerenergybalance:
-
-TransformerEnergyBalance — bilan énergétique d'un transformateur
-----------------------------------------------------------------
-
-Le module ``TransformerEnergyBalance`` met en évidence les pertes d'un (ou de
-:math:`n`) transformateur(s) selon le point de charge. Le modèle de pertes est
-universel (normes CEI/IEC) et repose uniquement sur les données de plaque
-signalétique. La valorisation financière des pertes est optionnelle et agnostique
-à la devise.
+À 78 % de charge, les pertes cuivre (6,4 kW) dépassent de loin les pertes fer
+(1,1 kW) ; sur l'année, **43 366 kWh** sont perdus, soit 6 505 € à 0,15 €/kWh. Les
+pertes fer courent 8760 h (le transformateur reste sous tension), les pertes
+cuivre seulement les 5280 h en charge.
 
 Équations
 ~~~~~~~~~
@@ -215,121 +304,137 @@ avec :math:`T_0` les heures à vide et :math:`T_\text{ch}` les heures en charge
 les pertes cuivre :math:`\Delta P_\text{ch}` croissant avec le carré de la charge
 tandis que les pertes fer :math:`\Delta P_0` restent constantes.
 
-Paramètres
-~~~~~~~~~~~
+
+Paramètres à personnaliser
+~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. list-table::
+   :widths: 20 46 20 14
    :header-rows: 1
 
    * - Paramètre
-     - Description
-     - Unité / Défaut
-   * - S_n
-     - Puissance apparente nominale
-     - kVA
-   * - P0
-     - Pertes actives à vide (pertes fer)
-     - kW
-   * - Pcc
-     - Pertes actives en charge à 75 °C (pertes cuivre, pleine charge)
-     - kW
-   * - Ucc
-     - Tension de court-circuit
-     - %
-   * - I0
-     - Courant à vide
-     - %
-   * - S_ch
-     - Puissance apparente de charge totale
-     - kVA
-   * - P_ch, cos_phi
-     - Alternative à S_ch : S_ch = P_ch / cos_phi
-     - kW, -
-   * - n
-     - Nombre de transformateurs en parallèle sur le même jeu de barre
-     - défaut 1
-   * - hours_load
-     - Heures de fonctionnement en charge (T_ch)
-     - h (défaut 8760)
-   * - hours_noload
-     - Heures de fonctionnement à vide (T_0)
-     - h (défaut 8760)
-   * - cost_active
-     - Coût moyen de l'énergie active (optionnel)
-     - devise/kWh
-   * - cost_reactive
-     - Coût moyen de l'énergie réactive (optionnel)
-     - devise/kVarh
-   * - currency
-     - Libellé de la devise (indicatif)
-     - défaut ""
-   * - U1n, U2n, f, name
-     - Tensions primaire/secondaire, fréquence, identifiant (informatifs)
-     - V, V, Hz, -
+     - Effet
+     - Plage usuelle (1000 kVA)
+     - Défaut
+   * - ``S_n``
+     - Puissance apparente nominale, kVA
+     - 100 à 2500 (toutes tailles)
+     - —
+   * - ``P0``
+     - Pertes à vide (fer), kW — plaque ou fiche constructeur
+     - 0,7 à 1,7
+     - —
+   * - ``Pcc``
+     - Pertes en charge à 75 °C et pleine charge (cuivre), kW
+     - 8 à 13
+     - —
+   * - ``Ucc``
+     - Tension de court-circuit, %
+     - 4 à 6
+     - —
+   * - ``I0``
+     - Courant à vide, % de l'intensité nominale
+     - 0,5 à 2
+     - —
+   * - ``S_ch``
+     - Charge **totale** du jeu de barres, kVA
+     - —
+     - —
+   * - ``P_ch`` + ``cos_phi``
+     - Alternative à ``S_ch`` : :math:`S_{ch} = P_{ch}/\cos\varphi`
+     - —
+     - ``None``
+   * - ``n``
+     - Nombre de transformateurs identiques couplés sur le même jeu de barres
+     - 1 ou 2
+     - 1
+   * - ``hours_load``
+     - Heures en charge par an (:math:`T_{ch}`)
+     - 2000 à 8760
+     - 8760
+   * - ``hours_noload``
+     - Heures sous tension par an (:math:`T_0`)
+     - 8760 si jamais déconnecté
+     - 8760
+   * - ``cost_active`` / ``cost_reactive``
+     - Prix moyen du kWh / du kVArh, en ``currency``
+     - —
+     - ``None``
+   * - ``currency``
+     - Libellé de devise, suffixe des colonnes de coût
+     - ``"EUR"``, ``"DA"``…
+     - ``""``
+   * - ``U1n``, ``U2n``, ``f``, ``name``
+     - Informatifs : tensions, fréquence, repère
+     - —
+     - ``None``
 
-Exemple
-~~~~~~~
+Variante : un ou deux transformateurs en service ?
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Un poste à deux transformateurs peut en découpler un. La variante compare, à
+faible et à forte charge, un transformateur seul et deux couplés. Le prix du kWh
+est d'abord moyenné sur une grille à trois postes horaires avec
+``average_energy_cost``.
 
 .. code-block:: python
 
-    from Electrical.TransformerEnergyBalance import TransformerEnergyBalance
+   # variante : la même charge sur deux transformateurs couplés, ou sur un seul ?
+   from Electrical.TransformerEnergyBalance import balance_transformers, average_energy_cost
 
-    t = TransformerEnergyBalance(
-        S_n=1000, P0=2.7, Pcc=78.8, Ucc=5.8, I0=2.7,
-        S_ch=777.75, hours_load=5280, hours_noload=8760,
-    )
-    t.calculate()
-    print(t.df.T)
-    print(t.dP_energy_active)   # pertes d'énergie active sur l'année (kWh)
+   # coût moyen du kWh à partir d'une grille à postes horaires (prix €/kWh, durée h/jour)
+   c_kwh = average_energy_cost([(0.21, 8), (0.16, 8), (0.11, 8)])
+   print(f"Coût moyen pondéré : {c_kwh:.4f} €/kWh")
 
-Sortie réelle ``t.df`` pour cet exemple (un transformateur 1000 kVA, sans coût) :
+   plaque = dict(S_n=1000, P0=1.1, Pcc=10.5, Ucc=6.0, I0=1.1,
+                 hours_load=5280, hours_noload=8760, cost_active=c_kwh, currency="EUR")
+   bilan = balance_transformers([
+       {**plaque, "name": "1 Tr pour 300 kVA",  "S_ch": 300,  "n": 1},
+       {**plaque, "name": "2 Tr pour 300 kVA",  "S_ch": 300,  "n": 2},
+       {**plaque, "name": "1 Tr pour 1300 kVA", "S_ch": 1300, "n": 1},
+       {**plaque, "name": "2 Tr pour 1300 kVA", "S_ch": 1300, "n": 2},
+   ])
+   print(bilan[["transformateur", "taux_charge_%", "pertes_actives_vide_kW",
+                "pertes_actives_charge_kW", "energie_active_perdue_kWh",
+                "cout_pertes_total_EUR"]].to_string(index=False))
 
-.. list-table::
-   :widths: 55 25 20
-   :header-rows: 1
+Sortie réelle :
 
-   * - Résultat (``t.df``)
-     - Valeur
-     - Unité
-   * - ``n_transformateurs``
-     - 1
-     - -
-   * - ``S_n_kVA``
-     - 1000,0
-     - kVA
-   * - ``S_charge_kVA``
-     - 777,75
-     - kVA
-   * - ``taux_charge_%``
-     - 77,78
-     - %
-   * - ``pertes_actives_vide_kW``
-     - 2,7
-     - kW
-   * - ``pertes_actives_charge_kW``
-     - 47,666
-     - kW
-   * - ``pertes_reactives_vide_kVar``
-     - 27,0
-     - kVar
-   * - ``pertes_reactives_charge_kVar``
-     - 35,084
-     - kVar
-   * - ``energie_active_perdue_kWh``
-     - 275327,1
-     - kWh
-   * - ``energie_reactive_perdue_kVarh``
-     - 421763,1
-     - kVarh
+.. code-block:: text
 
-Sans coût fourni (``cost_active`` / ``cost_reactive``), seules les colonnes de
-coût restent à ``None`` et seul le bilan physique est produit.
+   Coût moyen pondéré : 0.1600 €/kWh
+       transformateur  taux_charge_%  pertes_actives_vide_kW  pertes_actives_charge_kW  energie_active_perdue_kWh  cout_pertes_total_EUR
+    1 Tr pour 300 kVA           30.0                     1.1                     0.945                    14625.6                2340.10
+    2 Tr pour 300 kVA           15.0                     2.2                     0.472                    21766.8                3482.69
+   1 Tr pour 1300 kVA          130.0                     1.1                    17.745                   103329.6               16532.74
+   2 Tr pour 1300 kVA           65.0                     2.2                     8.873                    66118.8               10579.01
 
-Fonctions utilitaires :
+**À 300 kVA, un seul transformateur perd moins** (14 626 contre 21 767 kWh/an) :
+coupler le second double les pertes fer pour un gain cuivre négligeable. **À
+1300 kVA, c'est l'inverse** : deux transformateurs divisent les pertes cuivre par
+deux et économisent 37 000 kWh/an. Des formules ci-dessus se déduit la charge de
+bascule entre :math:`n` et :math:`n+1` transformateurs,
+:math:`S^* = S_n\sqrt{n(n+1)\,P_0/P_{cc}}`, soit 458 kVA ici (calcul du guide, non
+fourni par la bibliothèque).
 
-* ``balance_transformers(transformers)`` — applique le bilan à une liste de
-  transformateurs (ou modes de fonctionnement) et retourne un DataFrame, une
-  ligne par entrée.
-* ``average_energy_cost(posts, unit_scale=1.0, period_hours=24.0)`` — coût moyen
-  pondéré du kWh (ou du kVarh) à partir d'une grille tarifaire à postes horaires
-  ``[(prix_unitaire, durée_heures), ...]``.
+Pièges
+~~~~~~
+
+* **Aucune alerte de surcharge** : la ligne « 1 Tr pour 1300 kVA » est calculée à
+  130 % de charge sans avertissement. Vérifiez ``taux_charge_%`` vous-même.
+* ``S_ch`` est la charge **totale** du jeu de barres, pas la charge par
+  transformateur : le modèle la répartit sur ``n``.
+* ``hours_noload`` compte les heures **sous tension** (pertes fer), pas les heures
+  sans charge : laissez 8760 pour un transformateur jamais déconnecté.
+* Sans ``cost_active`` ni ``cost_reactive``, les colonnes de coût valent ``None`` et
+  s'intitulent ``cout_pertes_*`` sans suffixe de devise.
+* ``average_energy_cost`` divise par ``period_hours`` (24 h) : la somme des
+  durées des postes doit valoir 24 h, sinon la moyenne est faussée sans message.
+
+Pour aller plus loin
+--------------------
+
+* :doc:`../010-achat-energie/index` — facturation de l'énergie réactive et
+  tarifs à postes horaires ;
+* :doc:`../006-pinch_analysis/index` — valoriser la chaleur perdue par les
+  transformateurs et moteurs.

@@ -319,3 +319,293 @@ Le ``Sink`` calcule notamment :
 
 Pour l'air, ``fluid_quality`` vaut généralement ``vapor`` (``Q > 1``), ce qui
 est normal pour un gaz permanent.
+
+Compresseur à cylindrée — Compressor_m
+--------------------------------------
+
+**À quoi ça sert.** ``ThermodynamicCycles.Compressor.Compressor_m`` décrit un
+compresseur **à piston ou à vis dont on connaît la cylindrée**. Contrairement à
+``Compressor``, le débit n'est pas celui de l'amont : il est **imposé par la
+machine**, à partir de sa cylindrée, de sa vitesse et de la masse volumique
+aspirée. Les deux rendements dépendent du taux de compression
+:math:`\tau = HP / P_{asp}` :
+
+.. math::
+
+   \eta_{vol} = a_0 - a_1\,\tau, \qquad
+   \eta_{is} = K_1 + \frac{K_2}{\tau} + \frac{K_3}{\tau^2}
+
+.. math::
+
+   N = 60\,\frac{f}{p}\ \text{(tr/min)}, \qquad
+   \dot m = \eta_{vol}\cdot cyl\cdot\frac{N}{60}\cdot\rho_{asp}
+
+Dans ``PyqtSimulator``, c'est le nœud « Compresseur volumetrique » (sans accent
+— à ne pas confondre avec « Compresseur volumétrique », qui est
+``VolumetricCompressor`` ci-dessous ; les deux portent la même icône).
+
+.. code-block:: python
+
+    import contextlib, io
+    from ThermodynamicCycles.Source import Source
+    from ThermodynamicCycles.Compressor import Compressor_m
+    from ThermodynamicCycles.Connect import Fluid_connect
+
+    # Aspiration : R134a à 2 bar et 0 °C (vapeur surchauffée d'environ 10 K)
+    ASP = Source.Object()
+    ASP.fluid = "R134a"
+    ASP.Pi_bar = 2.0
+    ASP.Ti_degC = 0
+    ASP.F = 0.1                   # kg/s — ignoré par le compresseur, voir les pièges
+    with contextlib.redirect_stdout(io.StringIO()):
+        ASP.calculate()
+
+    CM = Compressor_m.Object()
+    Fluid_connect(CM.Inlet, ASP.Outlet)
+    CM.HP = 10e5                  # Pa, pression de refoulement
+    CM.cyl = 0.0005               # m3 balayés par tour (0,5 L)
+    CM.Tdischarge_target = None   # compresseur non refroidi (adiabatique)
+    with contextlib.redirect_stdout(io.StringIO()):   # calculate() imprime 9 lignes de mise au point
+        CM.calculate()
+
+    print(CM.df.drop("Timestamp"))
+    print(f"Débit imposé par la machine : {CM.F:.4f} kg/s (la source annonçait {ASP.F} kg/s)")
+
+Sortie réelle :
+
+.. code-block:: text
+
+                               Compressor_m
+    Fluid                             R134a
+    eta_is                           0.7943
+    VolEff                             0.76
+    Taux                                5.0
+    F (kg/s)                         0.1813
+    VitesseDeRotation (tr/min)       3000.0
+    Inlet.P (bar)                       2.0
+    HP (bar)                           10.0
+    To_ref (C)                        63.91
+    Tdischarge_target (C)       adiabatique
+    Pu (W)                           8056.8
+    Q_losses (W)                        0.0
+    Pth (W)                          6399.8
+    Pel (W)                          8056.8
+    Débit imposé par la machine : 0.1813 kg/s (la source annonçait 0.1 kg/s)
+
+Au taux de 5, le rendement volumétrique tombe à 0,76 : sur 25 L/s balayés, seuls
+19 L/s de vapeur sont réellement aspirés. ``Pth`` est la puissance isentropique,
+``Pu = Pth / eta_is`` la puissance transmise au gaz ; avec ``MecEff = 1`` (défaut)
+``Pel`` lui est égale.
+
+Personnaliser Compressor_m
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. list-table::
+   :header-rows: 1
+   :widths: 24 46 30
+
+   * - Attribut
+     - Effet
+     - Défaut / plage
+   * - ``HP``
+     - Pression de refoulement, en **Pa** (pas en bar)
+     - 15e5 Pa
+   * - ``cyl``
+     - Volume balayé par tour
+     - 0,02 m³ ; 1e-4 à 1e-2 en froid
+   * - ``f``, ``p``
+     - Fréquence d'alimentation et nombre de paires de pôles : :math:`N = 60 f/p`
+     - 50 Hz, 1 (3000 tr/min)
+   * - ``a0``, ``a1``
+     - Loi de rendement volumétrique :math:`a_0 - a_1\tau`
+     - piston 0,95 / 0,038 ; vis 0,9 / 0,008
+   * - ``K1``, ``K2``, ``K3``
+     - Loi de rendement isentropique en :math:`1/\tau`
+     - 0,8 / 0,0037 / −0,16
+   * - ``eta_lim``, ``eta_max``, ``t_max``
+     - Alternative aux ``K`` : rendement asymptotique, rendement maximal et taux
+       où il est atteint ; les trois doivent être renseignés
+     - ``None``
+   * - ``MecEff``
+     - Rendement mécanique : ``Pel = Pth / (eta_is · MecEff)``
+     - 1 (le nœud IHM propose 0,7)
+   * - ``Tdischarge_target``
+     - Température de refoulement d'un compresseur **refroidi** ; ``None``, ou une
+       valeur supérieure à ``To_ref``, donne un compresseur adiabatique
+     - 80 °C
+
+.. code-block:: python
+
+    # variante : même machine, refoulement à 14 bar au lieu de 10
+    CM14 = Compressor_m.Object()
+    Fluid_connect(CM14.Inlet, ASP.Outlet)
+    CM14.HP = 14e5
+    CM14.cyl = 0.0005
+    CM14.Tdischarge_target = None
+    with contextlib.redirect_stdout(io.StringIO()):
+        CM14.calculate()
+    print(f"Taux {CM.Taux:.1f} -> {CM14.Taux:.1f}")
+    print(f"Rendement volumétrique {CM.VolEff:.3f} -> {CM14.VolEff:.3f}")
+    print(f"Débit {CM.F:.4f} -> {CM14.F:.4f} kg/s")
+    print(f"Puissance {CM.Pel/1000:.2f} -> {CM14.Pel/1000:.2f} kW")
+
+Sortie réelle :
+
+.. code-block:: text
+
+    Taux 5.0 -> 7.0
+    Rendement volumétrique 0.760 -> 0.684
+    Débit 0.1813 -> 0.1632 kg/s
+    Puissance 8.06 -> 8.77 kW
+
+.. warning::
+
+   - **Le débit de l'amont est ignoré** : ``CM.F`` est calculé par la cylindrée
+     et ``Outlet.F`` le reprend, sans que ``Inlet.F`` (0,1 kg/s ici) ne soit
+     corrigé ni signalé. Dans une chaîne, le débit change donc au passage du
+     compresseur ; c'est à vous d'accorder la source.
+   - ``calculate()`` **imprime** ses résultats intermédiaires (``self.eta_is=…``),
+     d'où le ``redirect_stdout`` de l'exemple.
+   - ``eta_vol`` devient négatif au-delà de :math:`\tau = a_0/a_1` (25 avec les
+     défauts) : aucune garde, le débit devient négatif.
+
+Compresseur à rapport volumétrique — VolumetricCompressor
+---------------------------------------------------------
+
+**À quoi ça sert.** ``ThermodynamicCycles.Compressor.VolumetricCompressor``
+représente les machines à **lumières fixes** (vis, lobes, spiro-orbital,
+palettes) : elles compriment toujours dans le même rapport de volume
+``Rv = V1/V2``, quelle que soit la pression du réseau. Si ``Rv`` ne correspond
+pas au taux demandé, la fin de compression interne ``P_i`` diffère de la pression
+aval ``P_b`` et un transvasement irréversible coûte du travail (Destoop,
+*Techniques de l'Ingénieur* B 4 220) :
+
+.. math::
+
+   w_{ind} = (h_i - h_a) + v_2\,(P_b - P_i), \qquad
+   \eta_{th} = \frac{h_{is,b} - h_a}{w_{ind}}, \qquad
+   P_{arbre} = \dot m\,\frac{w_{ind}}{\varepsilon_s}
+
+avec :math:`\dot m = \varepsilon_v\,V_s\,f_{rotor}\,\rho_a`. Avec ``Rv = None``
+(défaut), la machine est supposée **à clapets**, donc toujours adaptée
+(:math:`\eta_{th} = 1`). Le modèle calcule aussi ``Rv_optimal``, le rapport qui
+adapterait la machine au point demandé. Nœud IHM : « Compresseur volumétrique ».
+
+.. code-block:: python
+
+    from ThermodynamicCycles.Compressor import VolumetricCompressor
+
+    # Air atmosphérique aspiré à 20 °C, refoulé à 8 bar abs
+    AIR = Source.Object()
+    AIR.fluid = "air"
+    AIR.Pi_bar = 1.0
+    AIR.Ti_degC = 20
+    AIR.F = 0.1
+    with contextlib.redirect_stdout(io.StringIO()):
+        AIR.calculate()
+
+    VIS = VolumetricCompressor.Object()
+    Fluid_connect(VIS.Inlet, AIR.Outlet)
+    VIS.Outlet.P = 8e5        # Pa : pression du réseau, à imposer
+    VIS.V_s = 0.002           # m3 par tour du rotor
+    VIS.f_rotor = 50.0        # Hz
+    VIS.epsilon_v = 0.9       # rendement volumétrique (donnée constructeur)
+    VIS.epsilon_s = 0.8       # autres pertes
+    VIS.Rv = 3.0              # vis construite pour un taux plus faible
+    VIS.calculate()
+
+    print(VIS.df.drop("Timestamp"))
+
+Sortie réelle :
+
+.. code-block:: text
+
+               VolumetricCompressor
+    fluid                       air
+    f_rotor_Hz                 50.0
+    V_s_m3                    0.002
+    V_dot_m3h                 324.0
+    m_flow_kgs             0.106994
+    Ti_degC                    20.0
+    Tiso_degC            255.037315
+    To_degC              332.932629
+    P_ext_kW              34.273673
+    Pa_bar                      1.0
+    Pb_bar                      8.0
+    Rv                          3.0
+    Rv_optimal             4.426114
+    Pi_bar                 4.652844
+    eta_th                 0.931948
+    regime         sous-compression
+
+La vis de ``Rv = 3`` n'atteint que ``Pi_bar`` ≈ 4,65 bar en fin de compression
+interne ; l'air du réseau à 8 bar reflue dans la cellule à l'ouverture de la
+lumière (**sous-compression**) et le rendement théorique tombe à 0,93. Le
+rapport qui adapterait la machine est ``Rv_optimal`` ≈ 4,43.
+
+Personnaliser VolumetricCompressor
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. list-table::
+   :header-rows: 1
+   :widths: 22 50 28
+
+   * - Attribut
+     - Effet
+     - Défaut / plage
+   * - ``Outlet.P``
+     - Pression de refoulement (Pa) — obligatoire
+     - —
+   * - ``V_s``, ``f_rotor``
+     - Volume par tour et fréquence : fixent le débit volumique aspiré
+     - 1e-4 m³, 50 Hz
+   * - ``epsilon_v``
+     - Rendement volumétrique : **donnée d'entrée**, le modèle ne calcule pas les fuites
+     - 1,0 ; 0,8 à 0,95 pour une vis
+   * - ``epsilon_s``
+     - Rendement couvrant les pertes autres que l'inadaptation de ``Rv``
+     - 0,7
+   * - ``Rv``
+     - Rapport volumétrique interne ; ``None`` = machine à clapets, toujours adaptée
+     - ``None`` ; 2 à 5 pour une vis d'air
+   * - sorties
+     - ``m_flow``, ``P_ext`` (W), ``P_i``, ``Rv_optimal``, ``eta_th``, ``regime``
+       (``adapte`` / ``sous-compression`` / ``sur-compression``)
+     - —
+
+.. code-block:: python
+
+    # variante : balayer Rv de part et d'autre du point d'adaptation
+    for rv in (None, 3.0, 4.43, 6.0):
+        V = VolumetricCompressor.Object()
+        Fluid_connect(V.Inlet, AIR.Outlet)
+        V.Outlet.P = 8e5
+        V.V_s, V.f_rotor, V.epsilon_v, V.epsilon_s = 0.002, 50.0, 0.9, 0.8
+        V.Rv = rv
+        V.calculate()
+        print(f"Rv = {str(rv):>5} : P_i = {V.P_i/1e5:5.2f} bar, eta_th = {V.eta_th:.3f}, "
+              f"P_arbre = {V.P_ext/1000:.2f} kW, {V.regime}")
+
+Sortie réelle :
+
+.. code-block:: text
+
+    Rv =  None : P_i =  8.00 bar, eta_th = 1.000, P_arbre = 31.94 kW, adapte
+    Rv =   3.0 : P_i =  4.65 bar, eta_th = 0.932, P_arbre = 34.27 kW, sous-compression
+    Rv =  4.43 : P_i =  8.01 bar, eta_th = 1.000, P_arbre = 31.94 kW, adapte
+    Rv =   6.0 : P_i = 12.21 bar, eta_th = 0.963, P_arbre = 33.18 kW, sur-compression
+
+L'optimum est plat : près de ``Rv_optimal`` la perte d'inadaptation disparaît ;
+une vis trop longue (``Rv = 6``) sur-comprime et perd aussi (3,7 % de rendement
+théorique, contre 6,8 % pour ``Rv = 3``). C'est le calcul à faire avant d'exploiter une vis conçue pour 8 bar
+sur un réseau réglé à 6 bar.
+
+.. warning::
+
+   - ``Q_losses`` est déclaré mais **jamais calculé** (reste ``None``) : le modèle
+     est adiabatique, toutes les pertes échauffent le gaz.
+   - Le débit massique réécrit ``Inlet.F`` : le débit de la source amont n'est pas
+     conservé.
+   - ``Rv <= 0`` lève ``ValueError`` ; quand l'équation d'état ne sait pas
+     s'inverser en (s, v) (mélanges), ``P_i`` est estimée par l'exposant
+     isentropique local et ``regime`` le signale.

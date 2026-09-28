@@ -92,32 +92,32 @@ Les 32 fiches du secteur en vigueur au 28/09/2026, avec la version dont les coef
      - Paramètres
    * - ``IND-BA-110``
      - Déstratificateur ou brasseur d'air
-     - A71-4
+     - A20-2, A71-4
      - 31/07/2030
      - ``type_chauffage``, ``fonctionnement``, ``hauteur``, ``puissance_nominale``, ``zone``, ``Department``
    * - ``IND-BA-113``
      - Lanterneaux d’éclairage zénithal (France Métropolitaine)
-     - non renseignée
+     - A26-1
      - sans fin connue
      - ``surface``, ``zone``, ``Department``
    * - ``IND-BA-114``
      - Conduits de lumière naturelle
-     - non renseignée
+     - A15-1
      - sans fin connue
      - ``surface``, ``zone_geographique``
    * - ``IND-BA-117``
      - Chauffage décentralisé performant
-     - non renseignée
+     - A27-1
      - sans fin connue
      - ``type_appareil``, ``fonctionnement``, ``puissance_nominale``, ``zone``, ``Department``
    * - ``IND-EN-101``
      - Isolation des murs (France d’outre-mer)
-     - non renseignée
+     - A23-1
      - sans fin connue
      - ``type_construction``, ``surface``
    * - ``IND-EN-102``
      - Isolation de combles ou de toitures (France d’outre-mer)
-     - non renseignée
+     - A33-2, A64-3
      - 30/04/2027
      - ``type_construction``, ``surface``
    * - ``IND-UT-102``
@@ -127,22 +127,22 @@ Les 32 fiches du secteur en vigueur au 28/09/2026, avec la version dont les coef
      - ``application``, ``puissance_nominale``
    * - ``IND-UT-103``
      - Système de récupération de chaleur sur un compresseur d’air
-     - non renseignée
+     - A17-2
      - sans fin connue
      - ``fonctionnement``, ``Department``, ``Heat_Use``, ``puissance_nominale``
    * - ``IND-UT-104``
      - Économiseur sur les effluents gazeux d’une chaudière de production de vapeur
-     - non renseignée
+     - A14-1
      - sans fin connue
      - ``fonctionnement``, ``puissance_nominale``
    * - ``IND-UT-105``
      - Brûleur micromodulant sur chaudière industrielle
-     - non renseignée
+     - A14-1
      - sans fin connue
      - ``fonctionnement``, ``puissance_nominale``
    * - ``IND-UT-113``
      - Système de condensation frigorifique à haute efficacité
-     - non renseignée
+     - A14-1
      - sans fin connue
      - ``type_condensation``, ``delta_T``, ``fonctionnement``, ``puissance_nominale``
    * - ``IND-UT-114``
@@ -152,37 +152,37 @@ Les 32 fiches du secteur en vigueur au 28/09/2026, avec la version dont les coef
      - ``application``, ``puissance_nominale``
    * - ``IND-UT-115``
      - Système de régulation sur un groupe de production de froid permettant d’avoir une basse pression flottante
-     - non renseignée
+     - A15-1
      - sans fin connue
      - ``puissance_nominale``
    * - ``IND-UT-116``
      - Système de régulation sur un groupe de production de froid permettant d’avoir une haute pression flottante
-     - non renseignée
+     - A14-1
      - sans fin connue
      - ``type_condensation``, ``puissance_nominale``, ``zone``, ``Department``
    * - ``IND-UT-118``
      - Brûleur avec dispositif de récupération de chaleur sur un four industriel
-     - non renseignée
+     - A14-1
      - sans fin connue
      - ``nature``, ``fonctionnement``, ``puissance_nominale``, ``temperature_fumees``
    * - ``IND-UT-120``
      - Compresseur d’air basse pression à vis ou centrifuge
-     - non renseignée
+     - A14-1
      - sans fin connue
      - ``puissance_nominale``
    * - ``IND-UT-122``
      - Sécheur d'air comprimé à adsorption utilisant un apport calorifique pour sa régénération
-     - non renseignée
+     - A14-1
      - sans fin connue
      - ``fonctionnement``, ``puissance_nominale``
    * - ``IND-UT-124``
      - Séquenceur électronique pour le pilotage d’une centrale de production d’air comprimé
-     - non renseignée
+     - A14-1
      - sans fin connue
      - ``nb_compresseurs``, ``type_sequenceur``, ``puissance_nominale``
    * - ``IND-UT-125``
      - Traitement d’eau performant sur chaudière de production de vapeur
-     - non renseignée
+     - A14-1
      - sans fin connue
      - ``fonctionnement``, ``puissance_nominale``, ``zone``, ``Department``
    * - ``IND-UT-127``
@@ -197,7 +197,7 @@ Les 32 fiches du secteur en vigueur au 28/09/2026, avec la version dont les coef
      - ``nature``, ``fonctionnement``, ``puissance_nominale``
    * - ``IND-UT-130``
      - Condenseur sur les effluents gazeux d’une chaudière de production de vapeur
-     - non renseignée
+     - A19-1
      - sans fin connue
      - ``fonctionnement``, ``puissance_nominale``
    * - ``IND-UT-131``
@@ -222,7 +222,7 @@ Les 32 fiches du secteur en vigueur au 28/09/2026, avec la version dont les coef
      - ``fonctionnement``, ``duree_contrat``, ``puissance_nominale``, ``prix_mwh_cumac``
    * - ``IND-UT-135``
      - Freecooling par eau de refroidissement en substitution d'un groupe froid
-     - non renseignée
+     - A31-1
      - sans fin connue
      - ``fonctionnement``, ``Department``, ``Supply_Temperature``, ``puissance_nominale``
    * - ``IND-UT-137``
@@ -232,17 +232,17 @@ Les 32 fiches du secteur en vigueur au 28/09/2026, avec la version dont les coef
      - ``Q``, ``Eelec``
    * - ``IND-UT-138``
      - Conversion de chaleur fatale en électricité ou en air comprimé
-     - non renseignée
+     - A62-1
      - 31/12/2029
      - ``D``, ``Precup``, ``rendement``, ``Pconso``
    * - ``IND-UT-139``
      - Système de stockage de chaleur fatale
-     - non renseignée
+     - A73-2
      - 31/08/2030
      - ``rendement``, ``capacite_stockage``, ``nb_cycles``
    * - ``IND-UT-140``
      - Mise en veille automatique d’une machine utilisant de l’air comprimé
-     - non renseignée
+     - A65-1
      - 31/12/2029
      - ``fonctionnement``, ``debit_air``
    * - ``IND-UT-141``

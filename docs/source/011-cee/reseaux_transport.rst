@@ -116,7 +116,7 @@ Les 47 fiches du secteur en vigueur au 28/09/2026, avec la version dont les coef
      - ``nb_luminaires_gradation``, ``nb_luminaires_gradation_detection``
    * - ``TRA-EQ-101``
      - Unité de transport intermodal pour le transport combiné rail-route
-     - non renseignée
+     - A14-1
      - sans fin connue
      - ``longueur_uti``, ``nb_voyage_an``, ``nb_uti``
    * - ``TRA-EQ-103``
@@ -136,7 +136,7 @@ Les 47 fiches du secteur en vigueur au 28/09/2026, avec la version dont les coef
      - ``kilometrage_annuel_moyen``, ``nb_pneus_classe_a``, ``nb_pneus_classe_b``, ``nb_pneus_classe_c``
    * - ``TRA-EQ-107``
      - Unité de transport intermodal pour le transport combiné fluvial-route
-     - non renseignée
+     - A17-1
      - sans fin connue
      - ``type_bateau``, ``bassin_navigation``, ``nb_voyage_uti``
    * - ``TRA-EQ-108``
@@ -166,9 +166,9 @@ Les 47 fiches du secteur en vigueur au 28/09/2026, avec la version dont les coef
      - ``volume_lubrifiant_m3``, ``y1_pct``, ``y2_pct``
    * - ``TRA-EQ-114``
      - Achat ou location d’un véhicule léger électrique neuf ou opération de rétrofit électrique d’un véhicule léger, par une collectivité locale ou une autre personne morale
-     - A83-5
+     - A16-1, A65-2, A68-3, A76-4, A83-5
      - 31/12/2029
-     - ``origine``, ``categorie_vehicule``, ``nb_vehicules``, ``masse_ordre_marche_t``
+     - ``origine``, ``categorie_vehicule``, ``nb_vehicules``, ``masse_ordre_marche_t``, ``type_beneficiaire``, ``annee``, ``emission_co2_g_km``
    * - ``TRA-EQ-115``
      - Véhicules de transport de marchandises optimisé
      - A14-1
@@ -176,9 +176,9 @@ Les 47 fiches du secteur en vigueur au 28/09/2026, avec la version dont les coef
      - ``nb_vehicules``
    * - ``TRA-EQ-117``
      - Achat ou location d’un véhicule léger électrique neuf ou opération de rétrofit électrique d’un véhicule léger par des personnes physiques
-     - A83-6
+     - A16-1, A65-2, A72-4, A76-5, A83-6
      - 31/12/2029
-     - ``origine``, ``categorie_vehicule``, ``masse_ordre_marche_t``, ``nb_vehicules``
+     - ``origine``, ``categorie_vehicule``, ``masse_ordre_marche_t``, ``nb_vehicules``, ``emission_co2_g_km``
    * - ``TRA-EQ-118``
      - Lubrifiant économiseur d’énergie pour la pêche professionnelle
      - A15-1
@@ -216,7 +216,7 @@ Les 47 fiches du secteur en vigueur au 28/09/2026, avec la version dont les coef
      - ``type_port``, ``consommation_kwh``
    * - ``TRA-EQ-125``
      - « Stop & Start » pour véhicules ferroviaires
-     - A40-2
+     - A38-1, A40-2
      - 31/03/2027
      - ``type_vehicule``, ``nb_heures_moteur``
    * - ``TRA-EQ-126``
@@ -231,17 +231,17 @@ Les 47 fiches du secteur en vigueur au 28/09/2026, avec la version dont les coef
      - ``motorisation``, ``type_bateau``, ``heures_relevees``, ``puissance_kw``
    * - ``TRA-EQ-128``
      - Achat ou location d’un autocar ou d’un autobus électrique neuf ou réalisation d’une opération de rétrofit électrique d’autocar ou d’autobus
-     - A83-4
+     - A58-1, A83-4
      - 31/12/2029
-     - ``categorie_vehicule``, ``nb_vehicules``, ``commune_listee_annexe_I``
+     - ``categorie_vehicule``, ``nb_vehicules``, ``commune_listee_annexe_I``, ``annee_engagement``
    * - ``TRA-EQ-129``
      - Achat ou location d’un véhicule lourd électrique neuf de transport de marchandises ou issu d’une opération de rétrofit électrique
-     - A83-4
+     - A65-1, A83-4
      - 31/12/2029
      - ``operation``, ``type_vehicule``, ``nb_vehicules``, ``ptac_t``, ``commune_listee_annexe_I``
    * - ``TRA-EQ-130``
      - Achat ou location d’un quadricycle électrique neuf
-     - A73-3
+     - A65-1, A73-3
      - 31/12/2029
      - ``acquereur``, ``categorie_vehicule``, ``nb_vehicules``
    * - ``TRA-EQ-132``
@@ -311,9 +311,9 @@ Les 47 fiches du secteur en vigueur au 28/09/2026, avec la version dont les coef
      - ``nb_cartes``
    * - ``TRA-SE-116``
      - Fret ferroviaire
-     - A65-2
+     - A49-1, A54-2, A65-2
      - 31/12/2029
-     - ``type_flux``, ``tkm``, ``duree_contrat_mois``, ``categorie_nst``
+     - ``type_flux``, ``tkm``, ``duree_contrat_mois``, ``categorie_nst``, ``traction_100_electrique``
    * - ``TRA-SE-117``
      - Fret fluvial
      - A65-1

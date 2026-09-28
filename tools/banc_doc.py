@@ -50,7 +50,10 @@ from pathlib import Path
 DOC_ROOT = Path(__file__).resolve().parent.parent
 SOURCE = DOC_ROOT / "docs" / "source"
 IMAGES = SOURCE / "images"
-STATE_FILE = DOC_ROOT / "banc_doc.json"
+# Un agent qui travaille en parallèle mesure dans son propre fichier d'état
+# (BANC_DOC_ETAT) pour ne pas écraser celui des autres ; le banc officiel
+# reste banc_doc.json.
+STATE_FILE = Path(os.environ.get("BANC_DOC_ETAT", str(DOC_ROOT / "banc_doc.json")))
 
 # La bibliothèque documentée. Lue, jamais modifiée.
 LIB_ROOT = DOC_ROOT.parent / "EnergySystemModels"

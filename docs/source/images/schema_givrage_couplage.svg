@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="520" viewBox="0 0 960 520" role="img" aria-label="Givrage d'une ailette : couche de givre et couplage">
+<title>Givrage d'une ailette : couche de givre et couplage</title>
+<defs><marker id="fleche" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-end"><path d="M 0 0 L 10 5 L 0 10 z" fill="#1f2933"/></marker><marker id="fleche_cote" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-end"><path d="M 0 0 L 10 5 L 0 10 z" fill="#b46a00"/></marker><marker id="fleche_flux" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-end"><path d="M 0 0 L 10 5 L 0 10 z" fill="#2670a8"/></marker></defs>
+<rect width="960" height="520" fill="#ffffff"/>
+<rect x="60.0" y="70.0" width="40.0" height="230.0" rx="0" fill="#9aa5b1" stroke="#1f2933" stroke-width="1.6"/>
+<rect x="100.0" y="70.0" width="150.0" height="230.0" rx="0" fill="#e9f4fb" stroke="#1f2933" stroke-width="1.6"/>
+<rect x="250.0" y="70.0" width="150.0" height="230.0" rx="0" fill="#e7f1f8" stroke="none" stroke-width="0"/>
+<circle cx="107.5" cy="185.0" r="3.0" fill="#b9dcef" stroke="#1f2933" stroke-width="0.8"/>
+<circle cx="122.5" cy="185.0" r="3.0" fill="#b9dcef" stroke="#1f2933" stroke-width="0.8"/>
+<circle cx="137.5" cy="185.0" r="3.0" fill="#b9dcef" stroke="#1f2933" stroke-width="0.8"/>
+<circle cx="152.5" cy="185.0" r="3.0" fill="#b9dcef" stroke="#1f2933" stroke-width="0.8"/>
+<circle cx="167.5" cy="185.0" r="3.0" fill="#b9dcef" stroke="#1f2933" stroke-width="0.8"/>
+<circle cx="182.5" cy="185.0" r="3.0" fill="#b9dcef" stroke="#1f2933" stroke-width="0.8"/>
+<circle cx="197.5" cy="185.0" r="3.0" fill="#b9dcef" stroke="#1f2933" stroke-width="0.8"/>
+<circle cx="212.5" cy="185.0" r="3.0" fill="#b9dcef" stroke="#1f2933" stroke-width="0.8"/>
+<circle cx="227.5" cy="185.0" r="3.0" fill="#b9dcef" stroke="#1f2933" stroke-width="0.8"/>
+<circle cx="242.5" cy="185.0" r="3.0" fill="#b9dcef" stroke="#1f2933" stroke-width="0.8"/>
+<text x="80.0" y="60.0" fill="#1f2933" text-anchor="middle" font-family="Consolas, Courier New, monospace" font-size="13">Tp</text>
+<text x="250.0" y="60.0" fill="#1f2933" text-anchor="middle" font-family="Consolas, Courier New, monospace" font-size="13">Ts</text>
+<text x="175.0" y="92.0" fill="#1f2933" text-anchor="middle" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12">givre, Nx nœuds</text>
+<text x="175.0" y="110.0" fill="#1f2933" text-anchor="middle" font-family="Consolas, Courier New, monospace" font-size="12">rho_f, Kff(rho_f)</text>
+<line x1="100.0" y1="318.0" x2="250.0" y2="318.0" stroke="#b46a00" stroke-width="1.2" marker-start="url(#fleche_cote)" marker-end="url(#fleche_cote)"/>
+<text x="175.0" y="334.0" fill="#b46a00" text-anchor="middle" font-family="Consolas, Courier New, monospace" font-size="12">delta_f</text>
+<text x="80.0" y="336.0" fill="#7b8794" text-anchor="middle" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12">ailette</text>
+<text x="325.0" y="92.0" fill="#1f2933" text-anchor="middle" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12">air humide</text>
+<text x="325.0" y="110.0" fill="#1f2933" text-anchor="middle" font-family="Consolas, Courier New, monospace" font-size="12">T_in, w_in, V</text>
+<line x1="380.0" y1="150.0" x2="258.0" y2="150.0" stroke="#2670a8" stroke-width="2.0" marker-end="url(#fleche_flux)"/>
+<text x="320.0" y="144.0" fill="#2670a8" text-anchor="middle" font-family="Consolas, Courier New, monospace" font-size="12">Q_sens</text>
+<line x1="380.0" y1="200.0" x2="258.0" y2="200.0" stroke="#2670a8" stroke-width="2.0" marker-end="url(#fleche_flux)"/>
+<text x="320.0" y="194.0" fill="#2670a8" text-anchor="middle" font-family="Consolas, Courier New, monospace" font-size="12">Q_lat</text>
+<text x="320.0" y="240.0" fill="#2670a8" text-anchor="middle" font-family="Consolas, Courier New, monospace" font-size="12">m_f = Q_lat / Lsv</text>
+<text x="320.0" y="258.0" fill="#2670a8" text-anchor="middle" font-family="Consolas, Courier New, monospace" font-size="12">= m_delta + m_rho</text>
+<text x="175.0" y="262.0" fill="#1f2933" text-anchor="middle" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11">épaissit : m_delta</text>
+<text x="175.0" y="278.0" fill="#1f2933" text-anchor="middle" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11">densifie : m_rho</text>
+<rect x="470.0" y="70.0" width="300.0" height="82.0" rx="6" fill="#ffffff" stroke="#1f2933" stroke-width="1.6"/>
+<text x="482.0" y="94.0" fill="#1f2933" text-anchor="start" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="13" font-weight="600">Fin.Object()</text>
+<text x="482.0" y="114.0" fill="#1f2933" text-anchor="start" font-family="Consolas, Courier New, monospace" font-size="12">Tp = 248.0   # K, paroi</text>
+<text x="482.0" y="134.0" fill="#1f2933" text-anchor="start" font-family="Consolas, Courier New, monospace" font-size="12">A_T = 0.506 × 0.304 m²</text>
+<rect x="470.0" y="200.0" width="300.0" height="82.0" rx="6" fill="#ffffff" stroke="#1f2933" stroke-width="1.6"/>
+<text x="482.0" y="224.0" fill="#1f2933" text-anchor="start" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="13" font-weight="600">CroissanceDuGivre.Object()</text>
+<text x="482.0" y="244.0" fill="#1f2933" text-anchor="start" font-family="Consolas, Courier New, monospace" font-size="12">t = 60.0     # s, pas d'Euler</text>
+<text x="482.0" y="264.0" fill="#1f2933" text-anchor="start" font-family="Consolas, Courier New, monospace" font-size="12">delta_f, rho_f, Frost, T[]  (état)</text>
+<rect x="470.0" y="340.0" width="300.0" height="82.0" rx="6" fill="#ffffff" stroke="#1f2933" stroke-width="1.6"/>
+<text x="482.0" y="364.0" fill="#1f2933" text-anchor="start" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="13" font-weight="600">Air.Object()</text>
+<text x="482.0" y="384.0" fill="#1f2933" text-anchor="start" font-family="Consolas, Courier New, monospace" font-size="12">T_in = 286.0, w_in = 0.0039</text>
+<text x="482.0" y="404.0" fill="#1f2933" text-anchor="start" font-family="Consolas, Courier New, monospace" font-size="12">V = 2.12, L = 0.506, m_a = 0.22</text>
+<line x1="620.0" y1="152.0" x2="620.0" y2="198.0" stroke="#2670a8" stroke-width="2.0" marker-end="url(#fleche_flux)"/>
+<text x="630.0" y="175.0" fill="#2670a8" text-anchor="start" font-family="Consolas, Courier New, monospace" font-size="12">Tp, A_T</text>
+<polyline points="770.00,110.00 810.00,110.00 810.00,380.00 772.00,380.00" fill="none" stroke="#2670a8" stroke-width="2.0" stroke-linejoin="round" marker-end="url(#fleche_flux)"/>
+<text x="816.0" y="240.0" fill="#2670a8" text-anchor="start" font-family="Consolas, Courier New, monospace" font-size="12">A_T</text>
+<line x1="560.0" y1="338.0" x2="560.0" y2="284.0" stroke="#2670a8" stroke-width="2.0" marker-end="url(#fleche_flux)"/>
+<text x="554.0" y="306.0" fill="#2670a8" text-anchor="end" font-family="Consolas, Courier New, monospace" font-size="11">Q_sens → Qsens_in</text>
+<text x="554.0" y="322.0" fill="#2670a8" text-anchor="end" font-family="Consolas, Courier New, monospace" font-size="11">Q_lat → Qlat_in</text>
+<line x1="680.0" y1="284.0" x2="680.0" y2="338.0" stroke="#b46a00" stroke-width="2.0" marker-end="url(#fleche_cote)"/>
+<text x="688.0" y="314.0" fill="#b46a00" text-anchor="start" font-family="Consolas, Courier New, monospace" font-size="11">Ts → Air.Ts</text>
+<rect x="24.0" y="464.0" width="912.0" height="44.0" rx="4" fill="#f4f6f8" stroke="#c9d1d9" stroke-width="1.0"/>
+<text x="34.0" y="484.0" fill="#1f2933" text-anchor="start" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12">Aucun nœud PyqtSimulator et aucun FluidPort : les trois objets échangent des attributs, recopiés à</text>
+<text x="34.0" y="500.0" fill="#1f2933" text-anchor="start" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12">chaque pas par le script (portage du modèle Modelica Croissance_Du_Givre). Un appel = un pas de t secondes.</text>
+</svg>

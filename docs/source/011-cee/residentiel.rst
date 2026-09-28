@@ -97,7 +97,7 @@ Les 56 fiches du secteur en vigueur au 28/09/2026, avec la version dont les coef
      - Paramètres
    * - ``BAR-EN-101``
      - Isolation de combles ou de toitures
-     - A64-6
+     - A33-3, A64-6
      - 30/04/2027
      - ``surface``, ``zone``, ``departement``
    * - ``BAR-EN-102``
@@ -107,7 +107,7 @@ Les 56 fiches du secteur en vigueur au 28/09/2026, avec la version dont les coef
      - ``surface``, ``zone``, ``departement``
    * - ``BAR-EN-103``
      - Isolation d’un plancher
-     - A64-6
+     - A29-2, A36-4, A64-6
      - 30/04/2027
      - ``surface``, ``zone``, ``departement``
    * - ``BAR-EN-104``
@@ -117,7 +117,7 @@ Les 56 fiches du secteur en vigueur au 28/09/2026, avec la version dont les coef
      - ``surface``, ``zone``, ``departement``
    * - ``BAR-EN-105``
      - Isolation des toitures terrasses
-     - A64-4
+     - A37-2, A64-4
      - 30/04/2027
      - ``surface``, ``zone``, ``departement``
    * - ``BAR-EN-106``
@@ -127,14 +127,14 @@ Les 56 fiches du secteur en vigueur au 28/09/2026, avec la version dont les coef
      - ``surface``, ``type_logement``, ``etat_logement``
    * - ``BAR-EN-107``
      - Isolation des murs (France d’outre-mer)
-     - A64-4
+     - A20-3, A64-4
      - 30/04/2027
      - ``surface``, ``type_logement``, ``etat_logement``, ``resistance_thermique``
    * - ``BAR-EN-108``
      - Fermeture isolante
-     - A54-3
+     - A37-2, A54-3
      - 30/06/2028
-     - ``surface``, ``zone``, ``departement``
+     - ``surface``, ``zone``, ``departement``, ``nombre_fermetures``
    * - ``BAR-EN-109``
      - Réduction des apports solaires par la toiture (France d'outre-mer)
      - A24-1
@@ -172,12 +172,12 @@ Les 56 fiches du secteur en vigueur au 28/09/2026, avec la version dont les coef
      - ``nombre_logements``, ``zone``, ``departement``
    * - ``BAR-SE-108``
      - Désembouage d’un réseau hydraulique individuel de chauffage en France métropolitaine
-     - A71-3
+     - A65-2, A71-3
      - 31/07/2030
      - ``type_logement``, ``zone``, ``departement``
    * - ``BAR-TH-101``
      - Chauffe-eau solaire individuel (France métropolitaine)
-     - A78-3
+     - A62-2, A78-3
      - 31/12/2030
      - ``zone``, ``departement``
    * - ``BAR-TH-102``
@@ -197,7 +197,7 @@ Les 56 fiches du secteur en vigueur au 28/09/2026, avec la version dont les coef
      - ``surface_habitable``, ``energie_chauffage``, ``zone``, ``departement``
    * - ``BAR-TH-112``
      - Appareil indépendant de chauffage au bois
-     - A46-3
+     - A35-2, A46-3
      - 30/09/2027
      - ``etas``, ``zone``, ``departement``
    * - ``BAR-TH-113``
@@ -257,7 +257,7 @@ Les 56 fiches du secteur en vigueur au 28/09/2026, avec la version dont les coef
      - ``besoin_annuel``, ``taux_couverture``, ``type_appoint``, ``etat_logement``, ``territoire``, ``departement``
    * - ``BAR-TH-137``
      - Raccordement d'un bâtiment résidentiel à un réseau de chaleur
-     - A79-4
+     - A35-2, A45-3, A79-4
      - 31/12/2030
      - ``type_logement``, ``nombre_appartements``, ``surface_habitable``, ``zone``, ``departement``
    * - ``BAR-TH-139``
@@ -277,17 +277,17 @@ Les 56 fiches du secteur en vigueur au 28/09/2026, avec la version dont les coef
      - ``zone``, ``departement``
    * - ``BAR-TH-148``
      - Chauffe-eau thermodynamique à accumulation
-     - A78-4
+     - A15-2, A78-4
      - 31/12/2030
-     - ``type_logement``
+     - ``type_logement``, ``engagement_avant_26_09_2017``
    * - ``BAR-TH-155``
      - Ventilation hybride hygroréglable (France métropolitaine)
-     - A40-4
+     - A36-3, A40-4
      - 31/03/2027
      - ``nombre_appartements``, ``type_systeme``, ``extracteur``, ``zone``, ``departement``
    * - ``BAR-TH-158``
      - Émetteur électrique à régulation électronique à fonctions avancées
-     - A73-3
+     - A35-2, A73-3
      - 01/11/2030
      - ``nombre_emetteurs``, ``type_logement``, ``zone``, ``departement``
    * - ``BAR-TH-159``
@@ -297,9 +297,9 @@ Les 56 fiches du secteur en vigueur au 28/09/2026, avec la version dont les coef
      - ``type_logement``, ``etas``, ``surface_chauffee``, ``zone``, ``departement``
    * - ``BAR-TH-161``
      - Isolation de points singuliers d’un réseau
-     - A71-3
+     - A54-2, A71-3
      - 31/07/2030
-     - ``nombre_housses``, ``diametre_nominal``, ``temperature_fluide``, ``zone``, ``departement``
+     - ``nombre_housses``, ``diametre_nominal``, ``temperature_fluide``, ``zone``, ``departement``, ``type_point``
    * - ``BAR-TH-162``
      - Système énergétique comportant des capteurs solaires photovoltaïques et thermiques à circulation d’eau (France métropolitaine)
      - A28-1
@@ -317,7 +317,7 @@ Les 56 fiches du secteur en vigueur au 28/09/2026, avec la version dont les coef
      - ``surface``, ``usage``, ``zone``, ``departement``
    * - ``BAR-TH-169``
      - Pompe à chaleur collective de type air/eau ou eau/eau pour l’eau chaude sanitaire
-     - A65-2
+     - A46-1, A65-2
      - 31/03/2030
      - ``nombre_appartements``, ``pacs``, ``zone``, ``departement``
    * - ``BAR-TH-170``
@@ -327,19 +327,19 @@ Les 56 fiches du secteur en vigueur au 28/09/2026, avec la version dont les coef
      - ``puissance_electrique``
    * - ``BAR-TH-171``
      - Pompe à chaleur de type air/eau
-     - A78-4, A82-5
+     - A55-1, A62-2, A74-3, A78-4, A82-5
      - 31/12/2030
-     - ``type_logement``, ``etas``, ``surface_chauffee``, ``zone``, ``departement``
+     - ``type_logement``, ``etas``, ``surface_chauffee``, ``zone``, ``departement``, ``usage``
    * - ``BAR-TH-172``
      - Pompe à chaleur de type eau/eau ou eau glycolée/eau
-     - A78-4, A82-5
+     - A55-1, A62-2, A74-3, A78-4, A82-5
      - 31/12/2030
-     - ``etas``, ``surface_chauffee``, ``zone``, ``departement``
+     - ``etas``, ``surface_chauffee``, ``zone``, ``departement``, ``usage``
    * - ``BAR-TH-173``
      - Système de régulation par programmation horaire pièce par pièce
-     - A69-2
+     - A56-1, A69-2
      - 31/12/2026
-     - ``nombre_emetteurs``, ``type_logement``, ``zone``, ``departement``
+     - ``nombre_emetteurs``, ``type_logement``, ``zone``, ``departement``, ``classe_regulation``, ``surface_chauffee``
    * - ``BAR-TH-174``
      - Rénovation d’ampleur d’une maison individuelle (France métropolitaine)
      - A80-3
@@ -362,16 +362,16 @@ Les 56 fiches du secteur en vigueur au 28/09/2026, avec la version dont les coef
      - ``surface_habitable``
    * - ``BAR-TH-178``
      - Système géothermique
-     - A81-2
+     - A75-1, A81-2
      - 31/12/2030
      - ``nombre_appartements``, ``pacs``, ``puissance_chaufferie``, ``usage``, ``zone``, ``departement``
    * - ``BAR-TH-179``
      - Pompe à chaleur collective de type air/eau
-     - A81-2
+     - A75-1, A81-2
      - 31/12/2030
      - ``nombre_appartements``, ``pacs``, ``puissance_chaufferie``, ``usage``, ``zone``, ``departement``
    * - ``BAR-TH-180``
      - Pompe à chaleur collective de type eau/eau ou eau glycolée/eau
-     - A81-2
+     - A75-1, A81-2
      - 31/12/2030
      - ``nombre_appartements``, ``pacs``, ``puissance_chaufferie``, ``usage``, ``zone``, ``departement``

@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100" role="img" aria-label="Division d'un flux d'air">
+  <title>Division d'un flux d'air</title>
+  <desc>Raccord en Y inverse : une entree unique a gauche se divisant en deux branches a droite (entree y=50, sorties y=20 et y=80). Image miroir de cta_melange_air.svg.</desc>
+  <path fill="#000000" fill-rule="evenodd" d="M 92,11.7 L 42.9,43 L 8,43 L 8,57 L 42.9,57 L 92,88.3 L 92,71.7 L 58,50 L 92,28.3 Z"/>
+</svg>
+

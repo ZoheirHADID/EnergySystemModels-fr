@@ -59,6 +59,19 @@ coefficient ``UA``).
      - dimensionnement
      - aéroréfrigérant (méthode R1/R2/R3 + DTLM)
 
+Chaque nom est exporté par ``ThermodynamicCycles.HEX`` ; il vient de l'un des cinq
+modules du paquet, qu'on peut aussi importer directement :
+
+- ``ThermodynamicCycles.HEX.TwoStreamSteadyHEX`` — cœur bi-fluide (NUT, DTLM
+  inverse, pincement) ;
+- ``ThermodynamicCycles.HEX.SingleStreamBalanceSetpointHEX`` — bilan mono-fluide ;
+- ``ThermodynamicCycles.HEX.SingleStreamSurfaceDesignHEX`` — mono-fluide contre
+  paroi ;
+- ``ThermodynamicCycles.HEX.TwoStreamDiscretizedCounterflowHEX`` — contre-courant
+  discrétisé ;
+- ``ThermodynamicCycles.HEX.AirCoolerDesignHEX`` — aéroréfrigérant, page dédiée
+  :doc:`aerorefrigerant`.
+
 Les trois modèles bi-fluides ``TwoStreamEffectivenessNTUHEX``,
 ``TwoStreamLMTDInverseDesignHEX`` et ``TwoStreamPinchConstrainedDesignHEX``
 héritent d'un cœur unifié ``TwoStreamSteadyHEX`` (fichier
@@ -186,6 +199,40 @@ du bilan :math:`\dot m_2 = |Q_{th} / (h_{2,out} - h_{2,in})|`.
 
 Paramètres imposés : ``T1o``, ``T2o`` (°C) ; sorties : ``Qth``, ``DTLM``,
 ``UA``, ``C1``, ``C2``, ``R``.
+
+Exemple : quel ``UA`` pour refroidir 1 kg/s d'eau de 80 à 45 °C en réchauffant
+de l'eau de 20 à 50 °C ? Le cœur ``TwoStreamSteadyHEX`` s'importe directement,
+le mode passé au constructeur ; le débit froid est laissé libre (``None``) pour
+que le modèle le déduise du bilan.
+
+.. code-block:: python
+
+    from ThermodynamicCycles.HEX.TwoStreamSteadyHEX import TwoStreamSteadyHEX
+    from ThermodynamicCycles.FluidPort.FluidPort import ThermoPropsSI
+
+    dtlm = TwoStreamSteadyHEX(mode="lmtd_inverse")
+    P = 101325
+    for port, T, F in ((dtlm.Inlet1, 80, 1.0), (dtlm.Inlet2, 20, None)):
+        port.fluid, port.P, port.F = "water", P, F
+        port.h = ThermoPropsSI("H", "P", P, "T", T + 273.15, "water")
+    dtlm.T1o = 45            # °C, sortie chaude imposée
+    dtlm.T2o = 50            # °C, sortie froide imposée
+    dtlm.calculate()
+    print(f"Qth = {dtlm.Qth / 1e3:.1f} kW   DTLM = {dtlm.DTLM:.2f} K   UA = {dtlm.UA:.0f} W/K")
+    print(f"débit froid déduit : {dtlm.Outlet2.F:.3f} kg/s")
+
+Sortie réelle :
+
+.. code-block:: text
+
+   Qth = -146.5 kW   DTLM = 27.42 K   UA = 5343 W/K
+   débit froid déduit : 1.168 kg/s
+
+``Qth`` est compté **négativement** : c'est la variation d'enthalpie du flux 1,
+qui cède. Si l'on renseigne aussi le débit froid, le modèle ne vérifie pas le
+bilan : avec 1 kg/s imposé des deux côtés, il rend le même ``UA`` alors que
+1 kg/s d'eau ne peut absorber que 125,6 kW entre 20 et 50 °C — laissez
+``Inlet2.F`` à ``None``.
 
 TwoStreamPinchConstrainedDesignHEX — pincement imposé
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -331,6 +378,39 @@ sortie est réinjectée dans la DTLM jusqu'à convergence) :
 
 Sorties : ``Q_flow_W`` (W), ``LMTD``, ``Ti_degC``, ``To_degC``.
 
+Exemple : eau à 20 °C, 0,5 kg/s, dans un serpentin de 2 m² (U = 500 W/m².K)
+plongé dans une vapeur qui condense à 100 °C — la paroi est isotherme. Le cas a
+une solution exacte, :math:`T_{out} = T_w - (T_w - T_{in})\,e^{-UA/(\dot m c_p)}`,
+qui sert de contrôle.
+
+.. code-block:: python
+
+    import math
+    from ThermodynamicCycles.HEX.SingleStreamSurfaceDesignHEX import SingleStreamWallTemperatureHEX
+
+    paroi = SingleStreamWallTemperatureHEX()
+    paroi.Inlet.fluid, paroi.Inlet.P, paroi.Inlet.F = "water", 101325, 0.5
+    paroi.Inlet.h = ThermoPropsSI("H", "P", 101325, "T", 20 + 273.15, "water")
+    paroi.U, paroi.A, paroi.T_wall_degC = 500.0, 2.0, 100.0
+    paroi.calculate()
+
+    cp = ThermoPropsSI("C", "P", 101325, "T", 35 + 273.15, "water")   # cp moyen
+    exact = 100 - (100 - 20) * math.exp(-paroi.U * paroi.A / (0.5 * cp))
+    print(f"Q = {paroi.Q_flow_W / 1e3:.1f} kW   sortie {paroi.To_degC:.2f} °C   (exacte : {exact:.2f} °C)")
+    print("LMTD publiée :", paroi.LMTD)
+
+Sortie réelle :
+
+.. code-block:: text
+
+   Q = 63.6 kW   sortie 50.42 °C   (exacte : 50.43 °C)
+   LMTD publiée : None
+
+Le point fixe retrouve la solution exacte à 0,01 K près. En revanche l'attribut
+``LMTD`` reste ``None`` dès qu'il y a un débit : le code ne l'affecte que
+lorsque le débit est **nul** (condition inversée) — la DTLM se recalcule, si
+besoin, à partir de ``Ti_degC``, ``To_degC`` et ``T_wall_degC``.
+
 TwoStreamDiscretizedCounterflowHEX — contre-courant discrétisé
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -372,76 +452,132 @@ décroissant) et relaxés (:math:`\alpha = 0{,}5`) jusqu'à convergence :
 Sorties : ``Q_total_W`` (W), ``T1_profile_degC`` / ``T2_profile_degC`` (profils
 le long de l'échangeur).
 
+.. warning::
+
+   **Convention inverse de celle du cœur NUT** : ici le flux **1 est le flux
+   froid** (son enthalpie croît) et le flux **2 le flux chaud**. Brancher le
+   chaud sur ``Inlet1`` comme pour ``TwoStreamEffectivenessNTUHEX`` donne un
+   transfert du froid vers le chaud.
+
+Exemple : les deux courants d'eau du NUT ci-dessus (80 °C et 20 °C, 1 kg/s
+chacun, UA = 5000 W/K), en 10 puis 50 mailles :
+
+.. code-block:: python
+
+    from ThermodynamicCycles.HEX.TwoStreamDiscretizedCounterflowHEX import TwoStreamDiscretizedCounterflowHEX
+
+    for N in (10, 50):
+        disc = TwoStreamDiscretizedCounterflowHEX()
+        for port, T in ((disc.Inlet1, 20), (disc.Inlet2, 80)):     # 1 = froid, 2 = chaud
+            port.fluid, port.P, port.F = "water", 101325, 1.0
+            port.h = ThermoPropsSI("H", "P", 101325, "T", T + 273.15, "water")
+        disc.U, disc.A, disc.N = 500.0, 10.0, N                    # UA = 5000 W/K
+        disc.calculate()
+        print(f"N = {N:2d} : Q = {disc.Q_total_W / 1e3:.2f} kW, froid -> {disc.T1_profile_degC[-1]:.2f} °C, "
+              f"chaud -> {disc.T2_profile_degC[0]:.2f} °C")
+    print(f"NUT-ε (cp constant) : Q = {hex.Qth / 1e3:.2f} kW")
+
+Sortie réelle :
+
+.. code-block:: text
+
+   N = 10 : Q = 136.70 kW, froid -> 52.70 °C, chaud -> 47.35 °C
+   N = 50 : Q = 136.70 kW, froid -> 52.70 °C, chaud -> 47.35 °C
+   NUT-ε (cp constant) : Q = 136.79 kW
+
+Les deux méthodes s'accordent à 0,07 % ; l'écart vient des :math:`c_p`, pris aux
+entrées par le NUT et suivis maille par maille par la discrétisation. Dix
+mailles suffisent pour de l'eau ; la discrétisation se justifie quand le
+:math:`c_p` varie fortement (fluide proche du point critique, changement de
+phase partiel).
+
 .. note::
 
    Le commentaire du code signale un **correctif de signe** : l'ancienne version
    ajoutait la chaleur au flux chaud (violation du premier principe) ; le flux
    chaud (2) cède désormais bien :math:`Q_i` au flux froid (1).
 
-AirCoolerDesignHEX — aéroréfrigérant (dimensionnement)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+AirCoolerDesignHEX — aéroréfrigérant
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Fichier ``HEX/AirCoolerDesignHEX.py`` (alias ``AirCoolerDesignHEX``, typo
-historique ``AirCollerDesignHEX``). Dimensionnement d'un **aéroréfrigérant**
-(air cooler) : le fluide de procédé est refroidi par de l'air ambiant soufflé.
-Connecteurs : ``Fluid_Inlet``/``Fluid_Outlet`` (procédé) et
-``Air_Inlet``/``Air_Outlet`` (air).
+Dimensionnement d'un **aéroréfrigérant** : un fluide de procédé refroidi par
+l'air ambiant soufflé à travers un faisceau de tubes ailetés. À partir de la
+puissance à évacuer et d'un coefficient ``U`` typique, le modèle résout
+l'échauffement de l'air (nombres adimensionnels :math:`R_1`, :math:`R_2`,
+:math:`R_3`), calcule la DTLM et le ``UA``, puis le nombre de baies et la
+ventilation (nombre et diamètre des ventilateurs, puissance électrique).
 
-Méthode : la chaleur à évacuer :math:`Q = \dot F\,c_p\,(T_{i,fluide} -
-T_{o,fluide})` fixe le besoin ; le nombre de rangs de tubes est choisi selon
-l'écart :math:`T_{i,fluide} - T_{i,air}`, le coefficient ``U`` selon le fluide
-(eau 850, hydrocarbure léger 540, gasoil léger 400 W/m²/K par défaut). Trois
-nombres adimensionnels sont utilisés :
+Le modèle a **sa page** : :doc:`aerorefrigerant` — schéma de l'appareil, ports,
+méthode de calcul pas à pas, exemple exécuté, variante et pièges (paliers du
+nombre de rangs, barèmes hérités sans source).
 
-.. math::
+Paramètres à personnaliser (NUT-ε)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-   R_3 = \frac{T_{i,f} - T_{o,f}}{T_{i,f} - T_{i,air}}, \qquad
-   R_1 = \frac{U\,S_{tn}}{V_{air}\,S_f\,\rho_{air}\,c_{p,air}}
+Pour le modèle le plus utilisé, ``TwoStreamEffectivenessNTUHEX`` (premier
+exemple de la page) :
 
-:math:`R_2` est obtenu numériquement (``scipy.optimize.fsolve``) à partir de la
-relation :math:`R_1 = \ln\!\big((1-R_2)/(1-R_3)\big) / (R_3/R_2 - 1)`, ce qui
-donne la température de sortie d'air, puis la DTLM (contre-courant) et
-:math:`UA = Q / \mathrm{DTLM}`. Le modèle dimensionne aussi la géométrie (baies,
-tubes, surface ailetée) et la ventilation (débit, puissance électrique).
-
-.. list-table:: Principaux paramètres géométriques (``__init__``)
+.. list-table::
    :header-rows: 1
-   :widths: 30 16 54
+   :widths: 22 18 40 20
 
    * - Attribut
      - Défaut
-     - Rôle
-   * - ``To_fluid``
+     - Effet
+     - Plage usuelle
+   * - ``UA``
      - ``None`` (requis)
-     - température de sortie procédé visée (°C)
-   * - ``largeur_baie``
-     - ``6``
-     - largeur d'une baie (m)
-   * - ``L_tube`` / ``L_tube_max``
-     - ``3`` / ``18``
-     - longueur de tube et longueur max (m)
-   * - ``diametre_ext_tube``
-     - ``25.4``
-     - diamètre extérieur des tubes (mm)
-   * - ``rapport_ailetage``
-     - ``20.5``
-     - m² ailetée / m² nue
-   * - ``pas_triangulaire``
-     - ``63.5``
-     - pas triangulaire de la baie (mm)
-   * - ``nb_faisceaux``
-     - ``2``
-     - nombre de faisceaux
-   * - ``rendement_statique_ventilateur``
-     - ``0.6``
-     - rendement statique ventilateur
+     - conductance globale ; fixe le NUT, donc l'efficacité
+     - 10² à 10⁶ W/K
+   * - ``arrangement``
+     - ``"counterflow"``
+     - ``"parallelflow"`` pour un co-courant ; toute autre valeur lève
+       ``UnsupportedArrangementError`` (pas de courants croisés)
+     - —
+   * - ``R_f_hot`` / ``R_f_cold``
+     - ``0.0``
+     - résistances d'encrassement **rapportées à la surface** (K/W), ajoutées en
+       série à :math:`1/UA` ; convertir une valeur publiée en m².K/W avec
+       ``fouling_resistance_from_area(R_f, A)``
+     - 10⁻⁶ à 10⁻⁴ K/W
+   * - ``P_drop``
+     - ``0.0``
+     - perte de charge appliquée au flux 1 (Pa)
+     - 0 à 10⁵ Pa
+   * - ``Inlet1`` / ``Inlet2``
+     - —
+     - fluide, pression, débit et enthalpie de chaque flux (1 = chaud)
+     - —
 
-.. note::
+Variante : doubler UA, puis passer en co-courant
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-   Ce modèle est un **outil de dimensionnement** riche mais spécialisé (baies
-   normalisées, corrélations de vitesse d'air par nombre de rangs). ``To_fluid``
-   doit être renseigné et l'attribut ``d_vent`` doit être initialisé avant
-   ``calculate()`` (comparé à ``dmin_vent``).
+.. code-block:: python
+
+    # variante : même paire de flux que le premier exemple, UA et arrangement modifiés
+    from ThermodynamicCycles.HEX import TwoStreamEffectivenessNTUHEX
+
+    for UA, arrangement in ((5000.0, "counterflow"), (10000.0, "counterflow"), (10000.0, "parallelflow")):
+        v = TwoStreamEffectivenessNTUHEX()
+        for port, T in ((v.Inlet1, 80), (v.Inlet2, 20)):
+            port.fluid, port.P, port.F = "water", 101325, 1.0
+            port.h = ThermoPropsSI("H", "P", 101325, "T", T + 273.15, "water")
+        v.UA, v.arrangement = UA, arrangement
+        v.calculate()
+        print(f"UA = {UA:7.0f} W/K, {arrangement:12s} : eff = {v.Eff:.3f}, Q = {v.Qth / 1e3:.1f} kW")
+
+Sortie réelle :
+
+.. code-block:: text
+
+   UA =    5000 W/K, counterflow  : eff = 0.545, Q = 136.8 kW
+   UA =   10000 W/K, counterflow  : eff = 0.706, Q = 177.2 kW
+   UA =   10000 W/K, parallelflow : eff = 0.497, Q = 124.6 kW
+
+Doubler ``UA`` (donc la surface) ne fait gagner que 30 % de puissance : le NUT
+passe de 1,2 à 2,4 et l'efficacité d'un contre-courant sature. En co-courant,
+la même surface plafonne plus bas — l'efficacité ne peut dépasser 50 % pour deux
+débits capacitifs égaux.
 
 .. _echangeurs-solutionhex:
 

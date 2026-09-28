@@ -100,6 +100,13 @@ Table des matières
 
 .. toctree::
    :maxdepth: 2
+   :caption: 8. Simulation temporelle et régulation
+   :titlesonly:
+
+   013-simulation-temporelle/index
+
+.. toctree::
+   :maxdepth: 2
    :caption: Référence
    :titlesonly:
 

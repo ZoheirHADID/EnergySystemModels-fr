@@ -297,3 +297,123 @@ Sortie réelle :
 
    F_b = 1.00 kg/s
    F_c = 3.00 kg/s
+
+Exemple (séparateur)
+--------------------
+
+Du R134a liquide saturé à 10 bar a été détendu jusqu'à 3 bar (détente
+isenthalpe) : quelle part ressort en vapeur ? Le séparateur
+``ThermodynamicCycles.Fittings.Separator_Simple`` reçoit l'état diphasique
+directement sur son port d'entrée (une ``Source`` ne sait pas produire un état
+diphasique, elle part d'une température).
+
+.. code-block:: python
+
+    from CoolProp.CoolProp import PropsSI
+    from ThermodynamicCycles.Fittings import Separator_Simple
+
+    sep = Separator_Simple.Object()
+    sep.Inlet.fluid = "R134a"
+    sep.Inlet.P = 3e5                                        # Pa
+    sep.Inlet.h = PropsSI("H", "P", 10e5, "Q", 0, "R134a")   # h du liquide à 10 bar
+    sep.Inlet.F = 0.5                                        # kg/s
+    sep.calculate()
+
+    def bilan_energie(s):
+        """Entrée moins sorties, en W : nul si l'énergie est conservée."""
+        return (s.Inlet.F * s.Inlet.h - s.Outlet_liquid.F * s.Outlet_liquid.h
+                - s.Outlet_vapor.F * s.Outlet_vapor.h)
+
+    print(f"Titre d'entrée x = {sep.x:.3f}")
+    print(f"Liquide : {sep.Outlet_liquid.F:.3f} kg/s ; vapeur : {sep.Outlet_vapor.F:.3f} kg/s")
+    print(f"Tsat = {sep.T_sat_degC:.2f} °C")
+    print(f"Écart de bilan d'énergie : {abs(bilan_energie(sep)):.1f} W")
+
+Sortie réelle :
+
+.. code-block:: text
+
+   Titre d'entrée x = 0.276
+   Liquide : 0.362 kg/s ; vapeur : 0.138 kg/s
+   Tsat = 0.67 °C
+   Écart de bilan d'énergie : 0.0 W
+
+La détente vaporise 27,6 % du débit : 0,138 kg/s de vapeur « flash » qui ne
+produira pas de froid à l'évaporateur. Tant que l'entrée est diphasique, le
+bilan d'énergie est fermé.
+
+Paramètres à personnaliser (séparateur)
+---------------------------------------
+
+.. list-table::
+   :header-rows: 1
+   :widths: 20 50 18 12
+
+   * - Entrée
+     - Effet
+     - Plage usuelle
+     - Unité
+   * - ``Inlet.fluid``
+     - Fluide, nom CoolProp (``R134a``, ``R744``, ``water``…)
+     - corps pur
+     - —
+   * - ``Inlet.P``
+     - Pression du ballon : fixe :math:`T_{sat}` et les deux enthalpies de
+       saturation
+     - sous la pression critique
+     - Pa
+   * - ``Inlet.h``
+     - Enthalpie d'entrée : fixe le titre :math:`x`
+     - entre :math:`h_{liq}` et :math:`h_{vap}`
+     - J/kg
+   * - ``Inlet.F``
+     - Débit d'entrée, partagé en :math:`x F` et :math:`(1-x) F`
+     - —
+     - kg/s
+
+Le modèle n'a **aucun paramètre propre** : tout se règle sur le port d'entrée.
+
+Variante : une entrée qui n'est pas diphasique
+----------------------------------------------
+
+.. code-block:: python
+
+    # variante : R134a liquide sous-refroidi à −20 °C sous 3 bar (Tsat = 0,67 °C)
+    sep2 = Separator_Simple.Object()
+    sep2.Inlet.fluid = "R134a"
+    sep2.Inlet.P = 3e5
+    sep2.Inlet.h = PropsSI("H", "P", 3e5, "T", 273.15 - 20, "R134a")
+    sep2.Inlet.F = 0.5
+    sep2.calculate()
+    print(f"Titre d'entrée x = {sep2.x:.3f}")
+    print(f"h entrée = {sep2.Inlet.h / 1000:.1f} kJ/kg ; h liquide sortant = {sep2.Outlet_liquid.h / 1000:.1f} kJ/kg")
+    print(f"Écart de bilan d'énergie : {bilan_energie(sep2) / 1000:.1f} kW")
+
+Sortie réelle :
+
+.. code-block:: text
+
+   Titre d'entrée x = 0.000
+   h entrée = 173.7 kJ/kg ; h liquide sortant = 200.9 kJ/kg
+   Écart de bilan d'énergie : -13.6 kW
+
+**Le séparateur crée 13,6 kW sans le signaler** : le titre calculé (négatif) est
+écrêté à 0, puis tout le débit sort en liquide **saturé**, donc réchauffé de
+−20 °C à 0,67 °C sans aucun apport. Symétriquement, une vapeur surchauffée
+ressort en vapeur saturée et perd de l'énergie.
+
+Pièges (séparateur)
+-------------------
+
+- **Écrêtage silencieux du titre** (variante ci-dessus) : une entrée
+  sous-refroidie ou surchauffée ne lève rien. Vérifier ``0 < sep.x < 1`` avant
+  d'exploiter les sorties, ou contrôler le bilan comme ``bilan_energie``.
+- **Températures des sorties non calculées** : les ports ``Outlet_liquid`` et
+  ``Outlet_vapor`` reçoivent ``P``, ``h`` et ``F`` mais leur ``T`` reste
+  ``None`` ; la température commune est ``sep.T_sat_degC``.
+- **Pas de perte de charge ni de rendement de séparation** : la séparation est
+  parfaite (aucun primage de liquide dans la vapeur).
+
+Pour une détente **et** une séparation dans le même appareil, voir la
+:ref:`bouteille flash <flashtank>` ; pour un mélange de plusieurs constituants,
+le :ref:`flash multi-constituants <flash_multiconstituants>`.
