@@ -36,17 +36,17 @@ Table des matières
 
 .. toctree::
    :maxdepth: 2
-   :caption: Sommaire général:
+   :caption: Démarrer
    :titlesonly:
 
-   usage
    quickstart
+   usage
    ports_connexions
-   contributing
+   gui_tools
 
 .. toctree::
    :maxdepth: 2
-   :caption: 1. Achat et fourniture d'énergie
+   :caption: 1. Achat d'énergie
    :titlesonly:
 
    010-achat-energie/index
@@ -65,7 +65,6 @@ Table des matières
    :titlesonly:
 
    001-heat_transfer/index
-   transfert_chaleur
    004-hydraulic/index
    005-aeraulic/index
    012-electrical/index
@@ -93,11 +92,17 @@ Table des matières
 
 .. toctree::
    :maxdepth: 2
-   :caption: 7. Autres
+   :caption: 7. Mesure et données
    :titlesonly:
 
    007-ipmvp/index
    008-meteo/index
-   gui_tools
-   nomenclature
+
+.. toctree::
+   :maxdepth: 2
+   :caption: Référence
+   :titlesonly:
+
    api
+   nomenclature
+   contributing

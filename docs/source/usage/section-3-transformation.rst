@@ -1,8 +1,8 @@
 .. _usage-transformation:
 
-==================================================
-Section 3 : Transformation de l'énergie (utilités)
-==================================================
+========================================
+Transformation de l'énergie — utilités
+========================================
 
 Cette page est un **point de départ** : elle vous dit quelle question relève de
 quel modèle, et vous renvoie à la page qui contient l'exemple exécutable. Les

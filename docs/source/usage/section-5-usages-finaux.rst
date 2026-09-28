@@ -1,8 +1,8 @@
 .. _usage-usages-finaux:
 
-======================================
-Section 5 : Usages finaux de l'énergie
-======================================
+============================
+Usages finaux de l'énergie
+============================
 
 Cette page est un **point de départ** : elle vous dit quel modèle répond à votre
 question sur les usages — traitement d'air, bâtiment, récupération de chaleur,

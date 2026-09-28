@@ -1,5 +1,5 @@
-10.1.2.4. Exemple HTA -- CU_pm
---------------------------------------------
+Exemple HTA — CU à pointe mobile
+--------------------------------
 
 **Contexte** : Un centre logistique raccorde en HTA (20 kV), option Courte
 Utilisation pointe mobile. Puissance souscrite 300 kW, consommation hiver

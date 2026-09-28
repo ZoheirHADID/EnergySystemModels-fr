@@ -1,7 +1,7 @@
 .. _propagation_pression:
 
-Propagation de pression et loi des nœuds (analogie circuit électrique)
-======================================================================
+Propagation de pression et loi des nœuds — analogie électrique
+==============================================================
 
 Les modèles hydrauliques se comportent comme un **circuit électrique**, avec une
 correspondance directe :

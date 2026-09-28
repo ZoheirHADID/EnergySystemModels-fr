@@ -1,7 +1,7 @@
 .. _gui_tools:
 
-Interfaces graphiques et outils visuels
-=======================================
+Interface graphique — PyqtSimulator
+===================================
 
 EnergySystemModels contient plusieurs briques visuelles pour construire,
 tester et présenter des modèles énergétiques. Cette page sert de guide de

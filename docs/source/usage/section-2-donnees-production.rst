@@ -1,8 +1,8 @@
 .. _usage-donnees-production:
 
-=============================================
-Section 2 : Données et production énergétique
-=============================================
+=================================
+Données et production d'énergie
+=================================
 
 Cette page est un **point de départ** : elle vous dit quelle donnée ou quelle
 production relève de quel module, et vous renvoie à la page qui contient

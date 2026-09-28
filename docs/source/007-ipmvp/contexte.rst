@@ -1,5 +1,5 @@
-Contexte et théorie IPMVP
-=========================
+Contexte et théorie de l'IPMVP
+==============================
 
 Objectif
 --------

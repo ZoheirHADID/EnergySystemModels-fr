@@ -1,7 +1,7 @@
 .. _capteur_signaux:
 
-Capteur & Signaux
-=================
+Capteurs et signaux — Sensor
+============================
 
 Ces modules regroupent les briques *non thermodynamiques* de la bibliothèque :
 un **capteur** qui lit une grandeur sur un port de fluide sans en modifier

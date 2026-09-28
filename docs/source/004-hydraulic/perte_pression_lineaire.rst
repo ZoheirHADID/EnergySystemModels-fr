@@ -1,7 +1,7 @@
 .. _straight_pipe:
 
-Perte de charge linéaire d'un conduit d'eau
-============================================
+Tube droit — StraightPipe
+=========================
 
 Utilisation
 -----------

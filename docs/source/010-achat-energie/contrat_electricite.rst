@@ -1,7 +1,7 @@
 .. _calcul_turpe:
 
-10.1. Calcul du coût du réseau électrique
-============================================================
+Coût du réseau électrique — TURPE
+=================================
 
 10.1.1. TURPE
 --------------------------------------------
@@ -305,7 +305,6 @@ La formule générale du TURPE est donc :
 
 .. toctree::
    :maxdepth: 1
-   :caption: Exemples TURPE
    :titlesonly:
 
    exemples/exemple_hta_cu_pf

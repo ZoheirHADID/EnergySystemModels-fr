@@ -1,7 +1,7 @@
 .. _ballon_stratifie:
 
-Ballon de stockage stratifié
-============================
+Ballon de stockage stratifié — StratifiedStorageTank
+====================================================
 
 Le modèle ``ThermodynamicCycles.Tank.StratifiedStorageTank`` simule un **ballon
 d'eau chaude stratifié** à :math:`N` couches (traduction Python d'un modèle

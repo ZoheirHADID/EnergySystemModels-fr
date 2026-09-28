@@ -536,3 +536,20 @@
   instruction explicite de l'utilisateur.
 - Suivant : A4 (`modeles_mathematiques.rst`), puis I2 suivant (`GateValve`,
   `CheckValve` ou `DpRegulator`).
+
+## 2026-09-28 — sommaire uniformisé (demande de l'utilisateur)
+- Unité : « uniformiser tout le sommaire ».
+- Constat (relevé du sommaire rendu) : deux numérotations contradictoires (rubriques
+  1–7, chapitres « 10. », « 1. », « 11. »…), sections de PV et CEE affichées comme
+  des pages (5 titres de premier niveau chacune), chapitre des cycles sans titre,
+  anglais mêlé (« Fluid Source », « API Reference »), doublons (« Transfert de
+  chaleur », trois « Nomenclature »), « Section 7 : Autres » dans
+  `section-6-autres.rst`.
+- Fait : 78 titres de page réécrits selon une convention unique ; rubriques
+  recomposées ; titre surligné pour PV et CEE (les anciens titres `===` deviennent
+  niveau 2 sans réécriture) ; titre ajouté au chapitre des cycles ; légendes des
+  toctree de chapitre retirées. Classes citées dans les titres vérifiées à l'import
+  (dont `NG_Heating_Value`, `StratifiedStorageTank`, `Sensor`, `Fittings.Mixer`).
+- Banc : aucun bloc de code modifié, aucun cran touché.
+- Build : 0 warning (build complet `-E`).
+- Suivant : A4 (`modeles_mathematiques.rst`, seule page qui plante).

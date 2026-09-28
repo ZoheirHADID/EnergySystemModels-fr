@@ -1,7 +1,7 @@
 .. _composants_cta:
 
-Composants d'une CTA (hors batteries)
-=====================================
+Composants de CTA hors batteries
+================================
 
 Cette page documente les **composants unitaires** d'une Centrale de Traitement
 d'Air (CTA) fournis par le paquet ``AHU``, à l'exclusion des batteries

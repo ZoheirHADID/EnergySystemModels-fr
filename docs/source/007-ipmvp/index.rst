@@ -1,11 +1,10 @@
 .. _ipmvp:
 
-IPMVP - Mesure et Vérification
+IPMVP — mesure et vérification
 ==============================
 
 .. toctree::
    :maxdepth: 2
-   :caption: IPMVP:
    :titlesonly:
 
    exemples

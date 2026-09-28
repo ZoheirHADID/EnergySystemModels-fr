@@ -1,7 +1,7 @@
 .. _condenseur_evaporateur:
 
-Condenseur, Évaporateur et modules de givrage
-=============================================
+Condenseur, évaporateur et givrage
+==================================
 
 Cette page documente les composants d'échange thermique du package
 ``ThermodynamicCycles`` : le condenseur, l'évaporateur, le refroidisseur

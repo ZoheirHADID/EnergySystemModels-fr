@@ -1,6 +1,6 @@
 .. _raccords_fittings:
 
-Raccords (Fittings)
+Raccords — Fittings
 ===================
 
 Le module ``ThermodynamicCycles.Fittings`` fournit trois raccords de

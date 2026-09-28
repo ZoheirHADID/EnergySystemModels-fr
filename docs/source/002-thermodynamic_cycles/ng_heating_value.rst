@@ -1,7 +1,7 @@
 .. _ng_heating_value:
 
-NG Heating Value (PCS/PCI gaz naturel)
-=======================================
+PCS et PCI du gaz naturel — NG_Heating_Value
+============================================
 
 Le module ``NG_Heating_Value`` calcule les propriétés thermodynamiques d'un gaz naturel à partir de sa composition molaire, selon la norme **ISO 6976**.
 

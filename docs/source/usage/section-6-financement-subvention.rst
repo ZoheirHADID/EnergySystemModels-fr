@@ -1,8 +1,8 @@
 .. _usage-financement-subvention:
 
-=====================================
-Section 6 : Financement et subvention
-=====================================
+===========================
+Financement et subvention
+===========================
 
 Cette page est un **point de départ** : elle vous dit ce que la bibliothèque sait
 chiffrer pour financer vos travaux, et vous renvoie à la page qui contient les

@@ -1,6 +1,6 @@
 .. _melangeur_flash_stockage:
 
-Mélangeur, Bouteille flash et Stockage mélangé
+Mélangeur, bouteille flash et stockage mélangé
 ==============================================
 
 Trois primitives de flowsheet du paquet ``ThermodynamicCycles`` :

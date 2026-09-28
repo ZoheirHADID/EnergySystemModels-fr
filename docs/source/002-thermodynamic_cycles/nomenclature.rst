@@ -1,7 +1,7 @@
 .. _nomenclature_cycles:
 
-Nomenclature
-============
+Nomenclature des cycles thermodynamiques
+========================================
 
 .. list-table:: 
    :header-rows: 1

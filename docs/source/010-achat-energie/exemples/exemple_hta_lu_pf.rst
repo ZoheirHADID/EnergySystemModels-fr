@@ -1,5 +1,5 @@
-10.1.2.5. Exemple HTA – LU_pf
---------------------------------------------
+Exemple HTA — LU à pointe fixe
+------------------------------
 
 .. code-block:: python
 

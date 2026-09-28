@@ -1,6 +1,6 @@
 .. _distillation:
 
-Distillation (dééthaniseur, équation d'état Peng-Robinson)
+Distillation — dééthaniseur, équation d'état Peng-Robinson
 ==========================================================
 
 Le module ``Distillation`` simule une **colonne de distillation multiconstituant**

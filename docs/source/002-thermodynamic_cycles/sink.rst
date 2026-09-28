@@ -1,6 +1,6 @@
 .. _sink:
 
-Sink (puits de fluide)
+Puits de fluide — Sink
 ======================
 
 Le module ``Sink`` termine une ligne de fluide : il reçoit un état d'entrée

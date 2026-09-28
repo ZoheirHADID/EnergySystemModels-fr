@@ -1,7 +1,8 @@
 .. _cee:
 
-11. Certificats d'Économies d'Énergie
-======================================
+=======================================
+Certificats d'économies d'énergie — CEE
+=======================================
 
 Le module ``CEE`` estime le volume de certificats (kWh cumac) d'une opération
 standardisée via un dispatcher unique, ``calcul_CEE(fiche, **params)``. Cette

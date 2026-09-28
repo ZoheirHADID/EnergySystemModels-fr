@@ -1,5 +1,5 @@
-Degrés-Jours Unifiés (DJU)
-==========================
+Degrés-jours unifiés — DJU_costic
+=================================
 
 Le module calcule les DJU par la **méthode COSTIC** (fonction
 ``MeteoCiel.DJU_costic.DJU_costic``), à partir des températures **minimale et

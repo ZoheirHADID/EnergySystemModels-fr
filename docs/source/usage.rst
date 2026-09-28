@@ -1,6 +1,6 @@
-=====
-Usage
-=====
+=====================
+Parcours de lecture
+=====================
 
 .. _installation:
 
@@ -37,7 +37,6 @@ Le parcours
 
 .. toctree::
    :maxdepth: 2
-   :caption: Sections du guide
    :titlesonly:
 
    usage/section-1-achat-facturation

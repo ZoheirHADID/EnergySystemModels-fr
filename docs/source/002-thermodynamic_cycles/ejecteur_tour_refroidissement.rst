@@ -1,6 +1,6 @@
 .. _ejecteur_tour_refroidissement:
 
-Éjecteur & Tour de refroidissement
+Éjecteur et tour de refroidissement
 ===================================
 
 Ce chapitre documente deux composants du package ``ThermodynamicCycles`` :

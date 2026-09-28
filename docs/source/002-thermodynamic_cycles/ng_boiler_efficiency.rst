@@ -1,7 +1,7 @@
 .. _ng_boiler_efficiency:
 
-NG Boiler Efficiency (Rendement chaudière EN12952-15)
-======================================================
+Rendement de chaudière gaz — EN 12952-15
+========================================
 
 Le module ``NG_Boiler_Efficiency`` calcule le rendement d'une chaudière gaz naturel par la **méthode indirecte** (calcul des pertes) selon les normes EN12952-15 (tubes d'eau) et EN12953-11 (tubes de fumées). Il utilise CoolProp pour les enthalpies exactes des gaz de combustion.
 

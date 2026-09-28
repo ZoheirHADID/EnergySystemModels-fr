@@ -1,8 +1,8 @@
 .. _usage-distribution:
 
-=====================================
-Section 4 : Distribution de l'énergie
-=====================================
+===========================
+Distribution de l'énergie
+===========================
 
 Cette page est un **point de départ** : elle vous dit quel modèle répond à votre
 question de distribution — déperditions, pertes de charge, équilibrage — et vous

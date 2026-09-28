@@ -1,7 +1,7 @@
 .. _froid_absorption:
 
-Froid à absorption (LiBr-H2O, NH3-H2O)
-======================================
+Froid à absorption — LiBr-H2O et NH3-H2O
+========================================
 
 Le froid à absorption est **piloté par la chaleur** (chaleur fatale, eau chaude,
 vapeur) plutôt que par l'électricité : c'est la clé de la trigénération et de la

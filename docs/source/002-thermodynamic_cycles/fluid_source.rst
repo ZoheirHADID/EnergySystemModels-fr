@@ -1,7 +1,7 @@
 .. _fluid_source:
 
-Fluid Source
-============
+Source de fluide — Source
+=========================
 
 Utilisation
 -----------

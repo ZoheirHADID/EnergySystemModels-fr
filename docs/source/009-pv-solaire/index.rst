@@ -1,5 +1,9 @@
 .. _pv_solaire:
 
+=======================================
+Production photovoltaïque — SolarSystem
+=======================================
+
 Le module ``PV.ProductionElectriquePV.SolarSystem`` simule la production
 photovoltaïque d'un site à partir de sa localisation, en s'appuyant sur
 ``pvlib-python`` et la météo horaire PVGIS. Chaque fonctionnalité de la classe

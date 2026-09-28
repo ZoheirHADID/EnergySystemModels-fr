@@ -1,5 +1,5 @@
-10.1.2.6. Exemple HTA -- LU_pm
---------------------------------------------
+Exemple HTA — LU à pointe mobile
+--------------------------------
 
 **Contexte** : Une usine chimique raccordee en HTA (20 kV), option Longue
 Utilisation pointe mobile. Fonctionnement continu 24h/24, puissance souscrite

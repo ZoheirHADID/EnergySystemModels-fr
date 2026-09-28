@@ -1,6 +1,6 @@
 .. _hydrogene_piles:
 
-Hydrogène & piles à combustible
+Hydrogène et piles à combustible
 ================================
 
 Cette page documente les quatre modules « chaîne hydrogène » d'*EnergySystemModels*

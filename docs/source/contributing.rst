@@ -1,4 +1,4 @@
-Contribuer a la documentation
+Contribuer à la documentation
 =============================
 
 Cette page donne une check-list simple pour maintenir une documentation

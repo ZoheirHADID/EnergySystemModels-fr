@@ -1,7 +1,7 @@
 .. _chiller:
 
-Chiller (Groupe froid / PAC)
-=============================
+Groupe froid et pompe à chaleur — Chiller
+=========================================
 
 Le module ``Chiller`` modélise un cycle frigorifique complet : évaporateur, compresseur, désurchauffeur, condenseur, détendeur. En mode PAC, la chaleur au condenseur est valorisée.
 

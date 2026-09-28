@@ -1,7 +1,7 @@
 .. _guide_audit_facture:
 
-10.3. Guide pratique : Auditer une facture d'energie avec Python
-=================================================================
+Auditer une facture d'énergie
+=============================
 
 Ce guide explique comment utiliser les modeles ``Facture`` de la bibliotheque
 EnergySystemModels pour **verifier et auditer** une facture d'electricite ou

@@ -1,7 +1,7 @@
 .. _combustion_moteurs:
 
-Combustion & moteurs
-====================
+Combustion et moteurs
+=====================
 
 Cette page documente les modules de ``ThermodynamicCycles`` relatifs à la
 combustion et aux machines thermiques à combustion interne :

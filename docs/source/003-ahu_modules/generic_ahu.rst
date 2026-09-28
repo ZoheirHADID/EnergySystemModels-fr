@@ -1,7 +1,7 @@
 .. _generic_ahu:
 
-GenericAHU — Simulation de CTA paramétrable
-===========================================
+CTA paramétrable — GenericAHU
+=============================
 
 Le sous-paquet ``AHU.GenericAHU`` simule une Centrale de Traitement d'Air (CTA)
 sur une série chronologique. Il expose **deux classes** selon le mode :

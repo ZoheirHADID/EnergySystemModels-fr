@@ -1,7 +1,7 @@
 .. _hydraulic:
 
-4. Modèles Hydrauliques
-=======================
+Modèles hydrauliques
+====================
 
 Tous les modèles de ``ThermodynamicCycles.Hydraulic``, chacun vérifié importable :
 ``from ThermodynamicCycles.Hydraulic import <Modèle>`` puis ``<Modèle>.Object()``,

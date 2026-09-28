@@ -1,5 +1,5 @@
-Corps parallélépipédique
-========================
+Corps parallélépipédique — ParallelepipedicBody
+===============================================
 
 Utilisation
 -----------

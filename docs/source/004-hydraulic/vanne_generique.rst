@@ -1,7 +1,7 @@
 .. _general_valve:
 
-GeneralValve — vanne générique définie par son Kv
-=================================================
+Vanne générique à Kv — GeneralValve
+===================================
 
 À quoi ça sert
 --------------

@@ -1,7 +1,7 @@
 .. _straight_pipe_air:
 
-5.1. Calcul de la perte de charge linéaire d'une gaine d'air
-============================================================
+Gaine d'air droite — StraightPipe
+=================================
 
 5.1.1. Exemple d'utilisation de "StraightPipe"
 ----------------------------------------------

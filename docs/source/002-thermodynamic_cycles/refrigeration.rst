@@ -1,7 +1,7 @@
 .. _refrigeration:
 
-Réfrigération (chambre froide bang-bang)
-========================================
+Chambre froide régulée en tout-ou-rien — RefrigerationBangBang
+==============================================================
 
 Le module ``ThermodynamicCycles.Refrigeration`` modélise une **enceinte
 réfrigérée** régulée par un **groupe frigorifique tout-ou-rien** (commande

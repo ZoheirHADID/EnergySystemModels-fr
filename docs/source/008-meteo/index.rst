@@ -1,11 +1,10 @@
 .. _meteo:
 
-8. Données Météorologiques
-===========================
+Données météorologiques
+=======================
 
 .. toctree::
    :maxdepth: 2
-   :caption: Données Météo:
    :titlesonly:
 
    meteociel

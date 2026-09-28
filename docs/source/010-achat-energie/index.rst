@@ -1,7 +1,7 @@
 .. _achat-energie:
 
-10. Achat d'énergie
-======================
+Achat d'énergie
+===============
 
 Facture d’énergie (gaz et électricité) : principes communs
 ----------------------------------------------------------
@@ -36,7 +36,6 @@ Une facture d’énergie rémunère toujours une énergie livrée, un réseau mo
 
 .. toctree::
    :maxdepth: 2
-   :caption: Achat d'énergie:
    :titlesonly:
 
    contrat_electricite

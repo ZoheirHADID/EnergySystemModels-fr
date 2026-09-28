@@ -1,7 +1,7 @@
 .. _calcul_atrd_atrt:
 
-10.2. Approvisionnement en Gaz Naturel - France
-============================================================
+Approvisionnement en gaz naturel — France
+=========================================
 
 1. Les elements d'un contrat de fourniture de Gaz Naturel
 ------------------------------------------------------------

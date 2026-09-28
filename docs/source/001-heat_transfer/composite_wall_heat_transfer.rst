@@ -1,5 +1,5 @@
-Mur composite
-=============
+Mur composite — CompositeWall
+=============================
 
 Utilisation
 -----------

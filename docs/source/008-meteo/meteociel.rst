@@ -1,4 +1,4 @@
-MeteoCiel — Données historiques
+Données historiques — MeteoCiel
 ===============================
 
 La fonction ``MeteoCiel_histoScraping`` récupère par *scraping* l'historique

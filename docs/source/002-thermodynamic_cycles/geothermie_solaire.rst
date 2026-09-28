@@ -1,7 +1,7 @@
 .. _geothermie_solaire:
 
-Géothermie & Solaire thermique
-==============================
+Géothermie et solaire thermique
+===============================
 
 Deux modules d'énergies renouvelables thermiques du package
 ``ThermodynamicCycles`` : la sonde géothermique verticale

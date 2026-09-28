@@ -1,7 +1,7 @@
 .. _turbine:
 
-Turbine
-=======
+Turbine — Turbine
+=================
 
 Le module ``Turbine`` modélise une détente. Comme le compresseur, l'état d'entrée
 provient d'un composant amont **connecté via** ``Fluid_connect(TURB.Inlet, amont.Outlet)`` ;

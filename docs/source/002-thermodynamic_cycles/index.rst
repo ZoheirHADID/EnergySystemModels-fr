@@ -1,14 +1,15 @@
 .. _thermodynamic_cycles:
 
+Cycles thermodynamiques
+=======================
+
 .. toctree::
    :maxdepth: 2
-   :caption: Cycles thermodynamiques:
    :titlesonly:
 
    fluid_source
    sink
    capteur_signaux
-   nomenclature
    compressor
    turbine
    pompe
@@ -30,3 +31,4 @@
    ng_heating_value
    ng_boiler_efficiency
    outils_diagrammes
+   nomenclature

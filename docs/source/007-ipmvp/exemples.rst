@@ -1,5 +1,5 @@
-IPMVP — Exemple complet (Option C)
-==================================
+Exemple complet — option C
+==========================
 
 Code à copier
 -------------

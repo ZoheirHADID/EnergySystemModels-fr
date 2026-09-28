@@ -1,5 +1,5 @@
-10.1.2.3. Exemple HTA -- CU_pf
---------------------------------------------
+Exemple HTA — CU à pointe fixe
+------------------------------
 
 **Contexte** : Un site industriel agroalimentaire raccorde en HTA (20 kV),
 option Courte Utilisation pointe fixe. Puissance souscrite 500 kW,

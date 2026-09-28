@@ -1,7 +1,7 @@
 .. _compressor:
 
-Compresseur
-===========
+Compresseur — Compressor
+========================
 
 Le module ``Compressor`` modélise une compression polytropique. L'état d'entrée
 n'est pas saisi directement sur le compresseur : il provient d'un composant amont

@@ -1,8 +1,8 @@
 .. _quickstart:
 
-=============================
-Guide de Démarrage Rapide
-=============================
+==================
+Démarrage rapide
+==================
 
 Ce guide vous fait installer **EnergySystemModels**, calculer un premier cas
 réel, puis l'adapter au vôtre. Comptez dix minutes.

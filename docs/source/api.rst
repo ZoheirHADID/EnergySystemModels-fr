@@ -1,5 +1,5 @@
-API Reference
-=============
+Référence des imports
+=====================
 
 Cette page récapitule les **points d'entrée réels** de la bibliothèque — les
 chemins d'import valides après ``pip install energysystemmodels`` — et renvoie

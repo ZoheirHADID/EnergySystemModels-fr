@@ -1,7 +1,7 @@
 .. _pinch_analysis:
 
-6. Analyse de pincement
-========================
+Analyse de pincement — PinchAnalysis
+====================================
 
 Le module ``PinchAnalysis`` optimise la récupération de chaleur entre flux
 chauds et froids : à partir d'une simple liste de flux, il calcule les utilités

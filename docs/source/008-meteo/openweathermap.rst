@@ -1,5 +1,5 @@
-OpenWeatherMap API
-==================
+Météo en temps réel — OpenWeatherMap
+====================================
 
 Configuration
 -------------

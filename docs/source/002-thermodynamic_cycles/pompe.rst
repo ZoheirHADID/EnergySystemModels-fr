@@ -1,6 +1,6 @@
 .. _pompe:
 
-Pompe (Pump)
+Pompe — Pump
 ============
 
 Le module ``ThermodynamicCycles.Pump`` modélise une **pompe** de circulation de

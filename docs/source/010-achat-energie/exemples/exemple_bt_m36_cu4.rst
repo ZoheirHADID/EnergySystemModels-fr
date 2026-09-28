@@ -1,5 +1,5 @@
-10.1.2.1. Exemple BT < 36 kVA -- CU4
---------------------------------------------
+Exemple BT < 36 kVA — CU4
+-------------------------
 
 **Contexte** : Un petit commerce (boulangerie) raccorde en basse tension avec une
 puissance souscrite de 12 kW. Facturation mensuelle de fevrier 2025.
