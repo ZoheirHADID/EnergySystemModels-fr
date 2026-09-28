@@ -72,8 +72,13 @@ page par page.
     quatre calculateurs réels du paquet `Facture` et le cadre commun à toute
     facture. Cran 1 → 0. `usage.rst` remis d'accord avec lui (mention du
     `Modèle RC` inexistant retirée).
+  - `fait` `section-3-transformation.rst` (2026-09-28) : 5 blocs d'API inventée
+    (`RefrigerationCycle`, `HeatPump`, `Evaporator(surface_echange_m2=…)`…)
+    remplacés par un aiguillage vers `002-thermodynamic_cycles`, 13 imports
+    vérifiés par exécution. Cran 1 → 0. Le 6e bloc (cycle R134a assemblé
+    composant par composant, API réelle mais jamais exécuté) est retiré : voir
+    B-chiller ci-dessous.
   - `à faire` `section-2-donnees-production.rst` (10 occurrences),
-    `section-3-transformation.rst` (6, dont `RefrigerationCycle`),
     `section-4-distribution.rst` (11), `section-5-usages-finaux.rst` (11, dont
     `BuildingModel` et `RC_Model`), `section-6-financement-subvention.rst` (6).
     Table de correspondance vérifiée dans
@@ -175,6 +180,12 @@ réelle si le modèle en a une.
   `usage/` deviennent des renvois commentés vers les pages module (cf. A1).
 - `à faire` **C2 — `quickstart.rst`** : après A2, en faire une vraie prise en main
   de 10 minutes, avec un exemple qui tourne et sa sortie réelle.
+
+- `à faire` **B-chiller — `002-thermodynamic_cycles/chiller.rst`** (cran 4) : y
+  accueillir, exécuté, le cycle assemblé composant par composant (Evaporator →
+  Compressor → Desuperheater → Condenser → Expansion_Valve, R134a) retiré de
+  `usage/section-3` le 2026-09-28, comme variante « à la main » du `Chiller`
+  calculé d'un bloc ; plus la table de personnalisation (cran 5).
 
 ## D. L'IHM PyqtSimulator
 

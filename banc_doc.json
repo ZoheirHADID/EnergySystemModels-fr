@@ -1024,15 +1024,16 @@
    "recul": null
   },
   "docs/source/usage/section-3-transformation.rst": {
-   "blocs": 7,
-   "empreinte": "2599ebda60fe7377",
-   "mesure": "2026-09-27T18:10",
+   "blocs": 0,
+   "empreinte": "b8ff69ec21ec736b",
+   "mesure": "2026-09-28T09:32",
    "figures": [],
    "blocage": null,
-   "motif": "API inexistante : RefrigerationCycle, energysystemmodels.",
-   "cran": 1,
-   "nom": "plante",
-   "cran_max": 1,
+   "motif": "page de prose ou d'index",
+   "extraits": null,
+   "cran": 0,
+   "nom": "sans exemple",
+   "cran_max": 0,
    "recul": null
   },
   "docs/source/usage/section-4-distribution.rst": {

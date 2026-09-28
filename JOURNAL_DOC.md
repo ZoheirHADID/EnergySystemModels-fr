@@ -359,3 +359,21 @@
   bloquant).
 - Écarté : palette lue au registre et pièges de l'IHM (reste de D1).
 - Suivant : A — les pages `usage/` qui plantent encore (API `energysystemmodels.`).
+
+## 2026-09-28 — `usage/section-3-transformation.rst` (A1)
+- Unité : A1 — pages `usage/` à l'API inventée (page qui plantait, priorité 4).
+- Fait : réécrite en parcours de lecture sur le modèle de `section-1` : aiguillage
+  « votre question → la page », table des 10 modules réels du chapitre (13 imports
+  vérifiés par exécution), cadre commun des cycles, renvoi à `ports_connexions`.
+  Supprimés : `Source(temperature_K=…)`, `Evaporator(surface_echange_m2=…)`,
+  `RefrigerationCycle`, `HeatPump` — aucun n'existe. Seule affirmation physique
+  ajoutée hors renvoi, la détente isenthalpique, confrontée au code
+  (`Expansion_Valve.py:20`).
+- Banc : `section-3-transformation.rst` cran 1 → 0 (prose). Pages qui plantent : 5 → 4.
+- Exécution : 13 imports.
+- Build : 0 warning.
+- Bug bibliothèque : aucun.
+- Écarté : le cycle R134a assemblé à la main (API réelle, jamais exécuté) —
+  déplacé en entrée B-chiller plutôt que publié non vérifié.
+- Suivant : `usage/section-6-financement-subvention.rst` (le plus court des
+  restants), puis section-2, 4, 5.

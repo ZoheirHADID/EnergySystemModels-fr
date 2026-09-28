@@ -1,214 +1,117 @@
-================================================================================
-Section 3 : Transformation de l'énergie (Utilités)
-================================================================================
+.. _usage-transformation:
 
-3.1. Cycles Thermodynamiques
------------------------------
+==================================================
+Section 3 : Transformation de l'énergie (utilités)
+==================================================
 
-Le module ThermodynamicCycles permet de modéliser les systèmes frigorifiques, pompes à chaleur et cycles thermodynamiques.
+Cette page est un **point de départ** : elle vous dit quelle question relève de
+quel modèle, et vous renvoie à la page qui contient l'exemple exécutable. Les
+codes et leurs résultats réels vivent dans le chapitre
+:doc:`../002-thermodynamic_cycles/index`.
 
-Composants de base
-~~~~~~~~~~~~~~~~~~
+.. note::
+   Tous les modules s'importent **sans préfixe** :
+   ``from ThermodynamicCycles.Compressor import Compressor``. Si vous trouvez
+   encore un ``from energysystemmodels...`` quelque part dans ces pages, c'est
+   une erreur : ce paquet n'existe pas. Il n'existe pas non plus de classe
+   ``RefrigerationCycle`` ni ``HeatPump`` : un cycle s'**assemble** à partir de
+   ses composants, ou se calcule d'un bloc avec ``Chiller``.
 
-**Source et Sink (Sources chaude et froide)**
+Par quoi commencer, selon votre question
+========================================
 
-.. code-block:: python
+.. list-table::
+   :widths: 46 54
+   :header-rows: 1
 
-   from energysystemmodels.ThermodynamicCycles import Source, Sink
-   
-   # Source froide (évaporateur)
-   source_froide = Source(
-       temperature_K=273.15 + 5,  # 5°C
-       debit_massique_kg_s=1.0
-   )
-   
-   # Source chaude (condenseur)
-   source_chaude = Sink(
-       temperature_K=273.15 + 45,  # 45°C
-       debit_massique_kg_s=1.0
-   )
+   * - Votre question
+     - Où aller
+   * - « Quel COP pour mon groupe froid ou ma pompe à chaleur ? »
+     - :doc:`../002-thermodynamic_cycles/chiller` — le cycle complet
+       (évaporateur, compresseur, désurchauffeur, condenseur, détendeur) calculé
+       d'un bloc ; en mode PAC, la chaleur du condenseur est valorisée
+   * - « Je veux construire le cycle composant par composant »
+     - :doc:`../ports_connexions` d'abord (ce que ``Fluid_connect`` transporte),
+       puis :doc:`../002-thermodynamic_cycles/compressor`,
+       :doc:`../002-thermodynamic_cycles/condenseur_evaporateur` et
+       :doc:`../002-thermodynamic_cycles/detente_distributeurs`
+   * - « D'où part le fluide, où finit-il ? »
+     - :doc:`../002-thermodynamic_cycles/fluid_source` et
+       :doc:`../002-thermodynamic_cycles/sink` — les deux bouts de toute chaîne
+   * - « Et si je produis du froid avec de la chaleur ? »
+     - :doc:`../002-thermodynamic_cycles/froid_absorption` — LiBr-H2O et
+       NH3-H2O
+   * - « Ma chambre froide tient-elle sa consigne ? »
+     - :doc:`../002-thermodynamic_cycles/refrigeration` — régulation tout-ou-rien
+       d'une chambre froide
+   * - « Quel rendement pour ma chaudière gaz ? »
+     - :doc:`../002-thermodynamic_cycles/ng_boiler_efficiency` (méthode
+       EN 12952-15) et :doc:`../002-thermodynamic_cycles/ng_heating_value`
+       (PCS/PCI du gaz)
+   * - « Pompe, turbine, tour de refroidissement ? »
+     - :doc:`../002-thermodynamic_cycles/pompe`,
+       :doc:`../002-thermodynamic_cycles/turbine`,
+       :doc:`../002-thermodynamic_cycles/ejecteur_tour_refroidissement`
+   * - « Quelle chaleur puis-je récupérer entre mes procédés ? »
+     - :doc:`../006-pinch_analysis/index` — l'analyse de pincement
+   * - « Je préfère ne pas écrire de code »
+     - :doc:`../gui_tools` — la plupart de ces composants existent comme nœuds
+       de ``PyqtSimulator``, à assembler à la souris
 
-**Compresseur**
+Les modèles disponibles
+=======================
 
-.. code-block:: python
+Chaque module ci-dessous est vérifié importable dans la version installée ; il
+s'utilise par ``<module>.Object()``, sauf mention contraire dans sa page.
 
-   from energysystemmodels.ThermodynamicCycles import Compressor
-   
-   compresseur = Compressor(
-       rendement_isentropique=0.75,
-       rendement_volumetrique=0.85,
-       puissance_nominale_kW=10.0
-   )
+.. list-table::
+   :widths: 40 60
+   :header-rows: 1
 
-**Évaporateur et Condenseur**
+   * - Module
+     - Rôle dans un cycle
+   * - ``ThermodynamicCycles.Chiller``
+     - cycle frigorifique ou PAC complet, calculé d'un bloc
+   * - ``ThermodynamicCycles.Source`` / ``Sink``
+     - début et fin d'une chaîne : l'état du fluide à l'entrée, sa sortie
+   * - ``ThermodynamicCycles.Evaporator``
+     - évaporation basse pression, avec surchauffe
+   * - ``ThermodynamicCycles.Compressor``
+     - compression, rendement isentropique
+   * - ``ThermodynamicCycles.Desuperheater``
+     - désurchauffe des gaz de refoulement
+   * - ``ThermodynamicCycles.Condenser``
+     - condensation, avec sous-refroidissement
+   * - ``ThermodynamicCycles.Expansion_Valve``
+     - détente isenthalpique
+   * - ``ThermodynamicCycles.Pump``, ``ThermodynamicCycles.Turbine``
+     - pompage et détente motrice
+   * - ``ThermodynamicCycles.AbsorptionChiller.AbsorptionChiller``
+     - machine à absorption
+   * - ``ThermodynamicCycles.Refrigeration.RefrigerationBangBang``
+     - chambre froide régulée en tout-ou-rien
 
-.. code-block:: python
+Ce qui est commun à tous ces cycles
+===================================
 
-   from energysystemmodels.ThermodynamicCycles import Evaporator, Condenser
-   
-   evaporateur = Evaporator(
-       surface_echange_m2=5.0,
-       coefficient_echange_W_m2K=1000,
-       temperature_evaporation_K=273.15 + 5
-   )
-   
-   condenseur = Condenser(
-       surface_echange_m2=6.0,
-       coefficient_echange_W_m2K=1200,
-       temperature_condensation_K=273.15 + 45
-   )
+Un cycle de transformation se lit toujours de la même façon, qu'il fasse du
+froid, de la chaleur ou du travail :
 
-**Détendeur**
+1. **les états du fluide** circulent de composant en composant par des ports :
+   pression en Pa, enthalpie en J/kg, débit en kg/s (voir
+   :doc:`../ports_connexions`) ;
+2. **chaque composant fait un bilan** : ce qu'il reçoit, ce qu'il échange
+   (puissance thermique ou mécanique), ce qu'il rend ;
+3. **la performance** est un rapport de deux bilans : puissance utile
+   (froid à l'évaporateur, chaleur au condenseur) sur puissance payée
+   (compresseur, ou chaleur motrice pour l'absorption).
 
-.. code-block:: python
+Pour aller plus loin
+====================
 
-   from energysystemmodels.ThermodynamicCycles import ExpansionValve
-   
-   detendeur = ExpansionValve(
-       type_valve="thermostatique",
-       coefficient_ouverture=0.8
-   )
-
-Exemple complet : Cycle frigorifique à compression
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-.. code-block:: python
-
-   from energysystemmodels.ThermodynamicCycles import (
-       RefrigerationCycle, Source, Sink, Compressor, 
-       Evaporator, Condenser, ExpansionValve
-   )
-   
-   # Définir les composants
-   source_froide = Source(temperature_K=273.15 + 7, debit_massique_kg_s=0.5)
-   source_chaude = Sink(temperature_K=273.15 + 40, debit_massique_kg_s=0.5)
-   
-   compresseur = Compressor(
-       rendement_isentropique=0.70,
-       rendement_volumetrique=0.80,
-       puissance_nominale_kW=5.0
-   )
-   
-   evaporateur = Evaporator(
-       surface_echange_m2=4.0,
-       coefficient_echange_W_m2K=800,
-       temperature_evaporation_K=273.15 + 5
-   )
-   
-   condenseur = Condenser(
-       surface_echange_m2=5.0,
-       coefficient_echange_W_m2K=1000,
-       temperature_condensation_K=273.15 + 42
-   )
-   
-   detendeur = ExpansionValve(
-       type_valve="thermostatique",
-       coefficient_ouverture=0.75
-   )
-   
-   # Créer le cycle
-   cycle = RefrigerationCycle(
-       source=source_froide,
-       sink=source_chaude,
-       compressor=compresseur,
-       evaporator=evaporateur,
-       condenser=condenseur,
-       expansion_valve=detendeur,
-       refrigerant="R410A"
-   )
-   
-   # Calculer les performances
-   resultats = cycle.calculate_performance()
-   
-   print(f"Puissance frigorifique : {resultats['cooling_capacity_kW']:.2f} kW")
-   print(f"Puissance absorbée : {resultats['power_input_kW']:.2f} kW")
-   print(f"COP : {resultats['COP']:.2f}")
-   print(f"EER : {resultats['EER']:.2f}")
-
-Exemple : Pompe à chaleur air-eau
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-.. code-block:: python
-
-   from energysystemmodels.ThermodynamicCycles import HeatPump
-   
-   # Configuration pompe à chaleur
-   pac = HeatPump(
-       type_source="air",
-       type_sink="eau",
-       puissance_thermique_nominale_kW=12,
-       temperature_source_K=273.15 + 7,
-       temperature_sink_K=273.15 + 35,
-       refrigerant="R32",
-       rendement_compresseur=0.75
-   )
-   
-   # Performances nominales
-   perf_nominale = pac.calculate_performance()
-   
-   print(f"Puissance thermique : {perf_nominale['heating_capacity_kW']:.2f} kW")
-   print(f"Puissance électrique : {perf_nominale['power_input_kW']:.2f} kW")
-   print(f"COP : {perf_nominale['COP']:.2f}")
-   
-   # Performances en fonction de la température extérieure
-   temperatures_ext = [-7, -2, 2, 7, 12]
-   
-   print("\nPerformances selon température extérieure :")
-   for t_ext in temperatures_ext:
-       pac.set_source_temperature(273.15 + t_ext)
-       perf = pac.calculate_performance()
-       print(f"  {t_ext:3.0f}°C : COP = {perf['COP']:.2f}, "
-             f"Puissance = {perf['heating_capacity_kW']:.2f} kW")
-
-Exemple issu des tests : Chiller complet
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-.. code-block:: python
-
-   import CoolProp.CoolProp as CP
-   from ThermodynamicCycles.Evaporator import Evaporator
-   from ThermodynamicCycles.Compressor import Compressor
-   from ThermodynamicCycles.Desuperheater import Desuperheater
-   from ThermodynamicCycles.Expansion_Valve import Expansion_Valve
-   from ThermodynamicCycles.Condenser import Condenser
-   from ThermodynamicCycles.Connect import Fluid_connect
-
-   EVAP = Evaporator.Object()
-   COMP = Compressor.Object()
-   DESURCH = Desuperheater.Object()
-   COND = Condenser.Object()
-   DET = Expansion_Valve.Object()
-
-   fluid = "R134a"
-   EVAP.fluid = fluid
-   EVAP.Inlet.F = 1
-   EVAP.LP_bar = 2.930154
-   EVAP.surchauff = 2
-   EVAP.Inlet.h = CP.PropsSI('H', 'P', 1 * 1e5, 'T', 40 + 273.15, fluid)
-
-   COMP.Tcond_degC = 40
-   COMP.eta_is = 0.8
-   COMP.Tdischarge_target = 80
-
-   COND.subcooling = 2
-
-   EVAP.calculate()
-   Fluid_connect(COMP.Inlet, EVAP.Outlet)
-   COMP.calculate()
-   Fluid_connect(DESURCH.Inlet, COMP.Outlet)
-   DESURCH.calculate()
-   Fluid_connect(COND.Inlet, DESURCH.Outlet)
-   COND.calculate()
-   Fluid_connect(DET.Inlet, COND.Outlet)
-   Fluid_connect(DET.Outlet, EVAP.Inlet)
-   DET.calculate()
-   Fluid_connect(EVAP.Inlet, DET.Outlet)
-   EVAP.calculate()
-
-   EER = EVAP.Q_evap / COMP.Q_comp
-   Q_condTot = COND.Q_cond + DESURCH.Qdesurch
-   COP = Q_condTot / COMP.Q_comp
-
-   print("EER=" + str(round(EER, 1)))
-   print("Q_condTot=" + str(round(Q_condTot / 1000, 1)) + " kW")
-   print("COP=" + str(round(COP, 1)))
+* :doc:`../002-thermodynamic_cycles/index` — le chapitre complet, avec les
+  exemples exécutables et leurs sorties réelles.
+* :doc:`../ports_connexions` — la page à lire avant d'assembler un cycle.
+* :doc:`../api` — la liste des imports réels, module par module.
+* :doc:`section-4-distribution` — la suite du parcours : distribution des
+  utilités.
