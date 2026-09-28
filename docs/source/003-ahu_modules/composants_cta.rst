@@ -797,6 +797,7 @@ Puissances et énergies stockées :
    for _ in range(60):             # 60 pas de 60 s = 1 h
        local.calculate(dt=60)
    print(local.T_int, local.Q_total, local.E_mur)
+
 Sortie réelle :
 
 .. code-block:: text

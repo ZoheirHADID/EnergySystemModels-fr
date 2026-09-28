@@ -719,3 +719,9 @@
 - Build : 0 warning.
 - Bug bibliothèque : **nouvelle entrée** `Humidifier` (RH > 100 % sans refus).
 - Suivant : K2 — schémas des cycles thermodynamiques, placés sous les titres.
+- **Correctif, même tour** : le commit `ed1de36` a été poussé avec **1 warning**
+  Sphinx (« Explicit markup ends without a blank line », `composants_cta.rst:800`) —
+  le dernier exemple était en fin de fichier sans ligne vide, et l'insertion de sa
+  sortie l'a collée au code. Ligne vide ajoutée, build revenu à 0. Cause de
+  l'oubli : la commande de commit n'était pas conditionnée au résultat du build ;
+  elle l'est désormais (`[ "$(… | grep -ci warning)" = 0 ] &&`).
