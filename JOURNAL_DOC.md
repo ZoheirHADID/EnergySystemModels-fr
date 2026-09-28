@@ -1031,3 +1031,20 @@
   le `banc_doc.json` commité ne contient que les 6 pages de ce tour.
 - Build : voir commit. Bug bibliothèque : aucun.
 - Suivant : `combustion_moteurs` et `distillation` (dépendances absentes), puis AHU.
+
+## 2026-09-28 15:20 — Distillation : page débloquée et mesurée
+- Unité : `002-thermodynamic_cycles/distillation.rst` (cran 1, `No module named 'thermo'`).
+- Constat : `thermo`, `chemicals`, `fluids` sont des dépendances **déclarées** de la
+  bibliothèque (`install_requires` de `setup.py`) — le lecteur les a après
+  `pip install energysystemmodels` ; seule la machine de mesure ne les avait pas.
+  Installées comme outils de mesure (thermo 0.6.1, chemicals 1.5.2, fluids 1.3.1).
+  Le fait « thermo absent » de la recette est donc périmé.
+- Fait : sorties réelles publiées (flash d'alimentation ; dééthaniseur PR+kij,
+  convergé en 8 itérations). Ajout d'une comparaison mesure / référence (table 6-7) :
+  T tête 261,2 K (réf. 260,2), T pied 416,1 K (réf. 416,6), QC 3 998 296 kJ/h
+  (réf. 4 133 588, −3,3 %), QR 23 100 639 kJ/h (réf. 22 854 385, +1,1 %).
+- Banc : cran 1 → 4.
+- Build : 0 warning. Bug bibliothèque : aucun (écart à la référence dit au lecteur,
+  sans arbitrage).
+- Écarté : `combustion_moteurs` — `cantera` n'est **pas** une dépendance déclarée
+  (`Combustion/Combustor_cantera.py` est optionnel) : à traiter au prochain tour.

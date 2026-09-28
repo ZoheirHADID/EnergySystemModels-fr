@@ -179,15 +179,15 @@
   },
   "docs/source/002-thermodynamic_cycles/distillation.rst": {
    "blocs": 2,
-   "empreinte": "224ad0d7f663302b",
-   "mesure": "2026-09-28T13:32",
+   "empreinte": "a2d19d49534626ce",
+   "mesure": "2026-09-28T14:16",
    "figures": [],
    "blocage": null,
-   "motif": "bloc 1 : ModuleNotFoundError: No module named 'thermo'",
+   "motif": "manque : table de personnalisation et variante exécutée",
    "extraits": null,
-   "cran": 1,
-   "nom": "plante",
-   "cran_max": 1,
+   "cran": 4,
+   "nom": "figure réelle",
+   "cran_max": 4,
    "recul": null
   },
   "docs/source/002-thermodynamic_cycles/echangeurs.rst": {
