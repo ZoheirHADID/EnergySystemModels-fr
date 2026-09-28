@@ -1,23 +1,19 @@
 Mur composite — CompositeWall
 =============================
 
-.. figure:: ../images/param_compositewall.svg
-   :alt: Schéma coté du mur composite : couches, he, hi, Te, Ti et profil de température
-   :align: center
-   :width: 100%
-
-   Les couches s'empilent dans l'ordre des appels à ``add_layer`` : la première
-   touche l'air extérieur (``Te``, ``he``), la dernière l'air intérieur (``Ti``,
-   ``hi``). Le profil de température est celui calculé par la bibliothèque sur
-   l'exemple ci-dessous : l'essentiel de l'écart se prend dans l'isolant.
-
-Utilisation
------------
-
-.. image:: ../images/schema_mur_composite.svg
+.. figure:: ../images/schema_mur_composite.svg
    :alt: Mur composite : couches, profil de température calculé, flux et résistances en série
    :width: 100%
    :align: center
+
+   Simulation de l'exemple ci-dessous. Les couches s'empilent dans l'ordre des
+   appels à ``add_layer`` : la première touche l'air extérieur (``Te``,
+   ``he``), la dernière l'air intérieur (``Ti``, ``hi``). Profil de
+   température, flux et résistances en série calculés par la bibliothèque :
+   l'essentiel de l'écart se prend dans l'isolant.
+
+Utilisation
+-----------
 
 .. code-block:: python
 
