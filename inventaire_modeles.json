@@ -9,16 +9,6 @@
    "objet": "",
    "entrees": [
     {
-     "nom": "T_int",
-     "defaut": "20.0",
-     "note": "Température intérieure [°C]"
-    },
-    {
-     "nom": "T_mur",
-     "defaut": "20.0",
-     "note": "Température enveloppe [°C]"
-    },
-    {
      "nom": "V_int",
      "defaut": "1000.0",
      "note": "Volume intérieur [m³]"
@@ -79,26 +69,6 @@
      "note": "Capacité thermique [J/kg·K]"
     },
     {
-     "nom": "Q_vent",
-     "defaut": "0.0",
-     "note": "Puissance ventilation [W]"
-    },
-    {
-     "nom": "Q_dep",
-     "defaut": "0.0",
-     "note": "Déperditions par les murs [W] # Renommé"
-    },
-    {
-     "nom": "Q_sol",
-     "defaut": "0.0",
-     "note": "Puissance sol [W]"
-    },
-    {
-     "nom": "Q_total",
-     "defaut": "0.0",
-     "note": "Puissance totale [W]"
-    },
-    {
      "nom": "T_ext",
      "defaut": "5.0",
      "note": "Température extérieure [°C]"
@@ -109,44 +79,9 @@
      "note": "Température sol constante [°C]"
     },
     {
-     "nom": "T_soufflage",
-     "defaut": "20.0",
-     "note": "Température soufflage [°C]"
-    },
-    {
      "nom": "debit_soufflage",
      "defaut": "0.0",
      "note": "Débit soufflage [m³/h]"
-    },
-    {
-     "nom": "C_air",
-     "defaut": "None",
-     "note": "Capacité thermique air [J/K]"
-    },
-    {
-     "nom": "C_mur",
-     "defaut": "None",
-     "note": "Capacité thermique mur [J/K]"
-    },
-    {
-     "nom": "E_air_init",
-     "defaut": "None",
-     "note": "Énergie initiale air [J]"
-    },
-    {
-     "nom": "E_mur_init",
-     "defaut": "None",
-     "note": "Énergie initiale mur [J]"
-    },
-    {
-     "nom": "E_air",
-     "defaut": "0.0",
-     "note": "Énergie stockée air [kWh]"
-    },
-    {
-     "nom": "E_mur",
-     "defaut": "0.0",
-     "note": "Énergie stockée mur [kWh]"
     },
     {
      "nom": "J_to_kWh",
@@ -167,12 +102,23 @@
      "nom": "T_consigne_froid",
      "defaut": "25.0",
      "note": "Consigne rafraîchissement [°C]"
-    },
-    {
-     "nom": "T_soufflage",
-     "defaut": "self.T_consigne_chaud",
-     "note": "Température soufflage initiale [°C]"
     }
+   ],
+   "sorties": [
+    "T_int",
+    "T_mur",
+    "Q_vent",
+    "Q_dep",
+    "Q_sol",
+    "Q_total",
+    "T_soufflage",
+    "C_air",
+    "C_mur",
+    "E_air_init",
+    "E_mur_init",
+    "E_air",
+    "E_mur",
+    "T_soufflage"
    ],
    "sorties_df": [
     "T_int (C)",
@@ -231,60 +177,26 @@
      "note": ""
     },
     {
-     "nom": "T_inlet",
-     "defaut": "0",
-     "note": ""
-    },
-    {
-     "nom": "T_Outlet",
-     "defaut": "0",
-     "note": ""
-    },
-    {
      "nom": "Déshutype",
      "defaut": "'Droite_sat'",
-     "note": ""
-    },
-    {
-     "nom": "FB",
-     "defaut": "0.2",
-     "note": ""
-    },
-    {
-     "nom": "w_sat",
-     "defaut": "0",
-     "note": ""
-    },
-    {
-     "nom": "h_sat",
-     "defaut": "0",
-     "note": ""
-    },
-    {
-     "nom": "Q_th",
-     "defaut": "12",
-     "note": ""
-    },
-    {
-     "nom": "Eff",
-     "defaut": "0.8",
-     "note": "efficacité de la Coil froide"
-    },
-    {
-     "nom": "F",
-     "defaut": "0",
      "note": ""
     },
     {
      "nom": "F_m3h",
      "defaut": "0",
      "note": ""
-    },
-    {
-     "nom": "F_dry",
-     "defaut": "0",
-     "note": "Débit d'air sec"
     }
+   ],
+   "sorties": [
+    "T_inlet",
+    "T_Outlet",
+    "FB",
+    "w_sat",
+    "h_sat",
+    "Q_th",
+    "Eff",
+    "F",
+    "F_dry"
    ],
    "sorties_df": [
     "Outlet.T (C)",
@@ -352,11 +264,6 @@
      "note": ""
     },
     {
-     "nom": "T_inlet",
-     "defaut": "0",
-     "note": ""
-    },
-    {
      "nom": "T_Outlet",
      "defaut": "12",
      "note": ""
@@ -367,50 +274,21 @@
      "note": "initialisation"
     },
     {
-     "nom": "Inlet_RH",
-     "defaut": "0",
-     "note": ""
-    },
-    {
-     "nom": "FB",
-     "defaut": "0.2",
-     "note": ""
-    },
-    {
-     "nom": "w_sat",
-     "defaut": "0",
-     "note": ""
-    },
-    {
-     "nom": "h_sat",
-     "defaut": "0",
-     "note": ""
-    },
-    {
-     "nom": "Q_th",
-     "defaut": "12",
-     "note": ""
-    },
-    {
-     "nom": "Eff",
-     "defaut": "0.8",
-     "note": "efficacité de la Coil froide"
-    },
-    {
-     "nom": "F",
-     "defaut": "0",
-     "note": ""
-    },
-    {
      "nom": "F_m3h",
      "defaut": "0",
      "note": ""
-    },
-    {
-     "nom": "F_dry",
-     "defaut": "0",
-     "note": "Débit d'air sec"
     }
+   ],
+   "sorties": [
+    "T_inlet",
+    "Inlet_RH",
+    "FB",
+    "w_sat",
+    "h_sat",
+    "Q_th",
+    "Eff",
+    "F",
+    "F_dry"
    ],
    "sorties_df": [
     "Outlet.T (C)",
@@ -450,11 +328,6 @@
      "note": ""
     },
     {
-     "nom": "P",
-     "defaut": "0",
-     "note": ""
-    },
-    {
      "nom": "P_drop",
      "defaut": "0",
      "note": ""
@@ -465,50 +338,21 @@
      "note": ""
     },
     {
-     "nom": "T_in",
-     "defaut": "0",
-     "note": ""
-    },
-    {
-     "nom": "hi",
-     "defaut": "0",
-     "note": ""
-    },
-    {
-     "nom": "wi",
-     "defaut": "12",
-     "note": ""
-    },
-    {
-     "nom": "F",
-     "defaut": "0",
-     "note": ""
-    },
-    {
-     "nom": "F_dry",
-     "defaut": "0",
-     "note": ""
-    },
-    {
      "nom": "To_target",
      "defaut": "20",
      "note": ""
-    },
-    {
-     "nom": "ho",
-     "defaut": "0",
-     "note": ""
-    },
-    {
-     "nom": "Q_th",
-     "defaut": "12",
-     "note": ""
-    },
-    {
-     "nom": "RH_out",
-     "defaut": "0",
-     "note": ""
     }
+   ],
+   "sorties": [
+    "P",
+    "T_in",
+    "hi",
+    "wi",
+    "F",
+    "F_dry",
+    "ho",
+    "Q_th",
+    "RH_out"
    ],
    "sorties_df": [
     "T_in (C)",
@@ -572,11 +416,6 @@
      "note": ""
     },
     {
-     "nom": "T_inlet",
-     "defaut": "0",
-     "note": ""
-    },
-    {
      "nom": "T_Outlet",
      "defaut": "0",
      "note": ""
@@ -585,42 +424,17 @@
      "nom": "Déshutype",
      "defaut": "'Droite_sat'",
      "note": ""
-    },
-    {
-     "nom": "FB",
-     "defaut": "0.2",
-     "note": ""
-    },
-    {
-     "nom": "w_sat",
-     "defaut": "0",
-     "note": ""
-    },
-    {
-     "nom": "h_sat",
-     "defaut": "0",
-     "note": ""
-    },
-    {
-     "nom": "Q_th",
-     "defaut": "12",
-     "note": ""
-    },
-    {
-     "nom": "Eff",
-     "defaut": "0.8",
-     "note": "efficacité de la Coil froide"
-    },
-    {
-     "nom": "F",
-     "defaut": "0",
-     "note": ""
-    },
-    {
-     "nom": "F_dry",
-     "defaut": "0",
-     "note": "Débit d'air sec"
     }
+   ],
+   "sorties": [
+    "T_inlet",
+    "FB",
+    "w_sat",
+    "h_sat",
+    "Q_th",
+    "Eff",
+    "F",
+    "F_dry"
    ],
    "sorties_df": [
     "Outlet.T (C)",
@@ -662,11 +476,6 @@
      "note": ""
     },
     {
-     "nom": "P",
-     "defaut": "0",
-     "note": ""
-    },
-    {
      "nom": "P_drop",
      "defaut": "0",
      "note": ""
@@ -677,50 +486,21 @@
      "note": ""
     },
     {
-     "nom": "T_in",
-     "defaut": "0",
-     "note": ""
-    },
-    {
-     "nom": "hi",
-     "defaut": "0",
-     "note": ""
-    },
-    {
-     "nom": "wi",
-     "defaut": "12",
-     "note": ""
-    },
-    {
-     "nom": "F",
-     "defaut": "0",
-     "note": ""
-    },
-    {
-     "nom": "F_dry",
-     "defaut": "0",
-     "note": ""
-    },
-    {
      "nom": "To_target",
      "defaut": "20",
      "note": ""
-    },
-    {
-     "nom": "ho",
-     "defaut": "0",
-     "note": ""
-    },
-    {
-     "nom": "Q_th",
-     "defaut": "12",
-     "note": ""
-    },
-    {
-     "nom": "RH_out",
-     "defaut": "0",
-     "note": ""
     }
+   ],
+   "sorties": [
+    "P",
+    "T_in",
+    "hi",
+    "wi",
+    "F",
+    "F_dry",
+    "ho",
+    "Q_th",
+    "RH_out"
    ],
    "sorties_df": [
     "ID",
@@ -746,7 +526,8 @@
    ],
    "pages": [
     "003-ahu_modules/batteries.rst",
-    "api.rst"
+    "api.rst",
+    "ports_connexions.rst"
    ]
   },
   "AHU.Coil.HeatingCoilNUT.HeatingCoilNUT": {
@@ -787,51 +568,6 @@
      "note": "Perte de charge air [Pa]"
     },
     {
-     "nom": "T_in",
-     "defaut": "0",
-     "note": "Température entrée air [°C]"
-    },
-    {
-     "nom": "hi",
-     "defaut": "0",
-     "note": "Enthalpie entrée air [kJ/kg]"
-    },
-    {
-     "nom": "wi",
-     "defaut": "12",
-     "note": "Humidité spécifique entrée [g/kg]"
-    },
-    {
-     "nom": "F",
-     "defaut": "0",
-     "note": "Débit massique air humide [kg/s]"
-    },
-    {
-     "nom": "F_dry",
-     "defaut": "0",
-     "note": "Débit massique air sec [kg/s]"
-    },
-    {
-     "nom": "T_water_in",
-     "defaut": "80",
-     "note": "Température entrée eau [°C]"
-    },
-    {
-     "nom": "T_water_out",
-     "defaut": "60",
-     "note": "Température sortie eau [°C]"
-    },
-    {
-     "nom": "P_water",
-     "defaut": "300000.0",
-     "note": "Pression eau [Pa]"
-    },
-    {
-     "nom": "m_water",
-     "defaut": "0",
-     "note": "Débit massique eau [kg/s]"
-    },
-    {
      "nom": "S",
      "defaut": "10",
      "note": "Surface d'échange [m²]"
@@ -842,35 +578,26 @@
      "note": "Coefficient d'échange global [W/m².K]"
     },
     {
-     "nom": "NUT",
-     "defaut": "0",
-     "note": "Number of Transfer Units [-]"
-    },
-    {
-     "nom": "effectiveness",
-     "defaut": "0",
-     "note": "Efficacité de l'échangeur [-]"
-    },
-    {
-     "nom": "Q_th",
-     "defaut": "0",
-     "note": "Puissance échangée [kW]"
-    },
-    {
      "nom": "To_target",
      "defaut": "20",
      "note": "Température de consigne sortie air [°C]"
-    },
-    {
-     "nom": "ho",
-     "defaut": "0",
-     "note": "Enthalpie sortie air [kJ/kg]"
-    },
-    {
-     "nom": "RH_out",
-     "defaut": "0",
-     "note": "Humidité relative sortie [%]"
     }
+   ],
+   "sorties": [
+    "T_in",
+    "hi",
+    "wi",
+    "F",
+    "F_dry",
+    "T_water_in",
+    "T_water_out",
+    "P_water",
+    "m_water",
+    "NUT",
+    "effectiveness",
+    "Q_th",
+    "ho",
+    "RH_out"
    ],
    "sorties_df": [
     "ID",
@@ -924,22 +651,12 @@
      "nom": "id",
      "defaut": "1",
      "note": ""
-    },
-    {
-     "nom": "F_dry",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "F_dry1",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "F_dry2",
-     "defaut": "None",
-     "note": ""
     }
+   ],
+   "sorties": [
+    "F_dry",
+    "F_dry1",
+    "F_dry2"
    ],
    "sorties_df": [],
    "refus": [],
@@ -986,45 +703,23 @@
      "note": "Humidité relative de l'air (%)"
     },
     {
-     "nom": "F",
-     "defaut": "None",
-     "note": "Débit massique d'air (kg/s)"
-    },
-    {
-     "nom": "Pv_sat",
-     "defaut": "0",
-     "note": "Pression de vapeur saturante (Pa)"
-    },
-    {
-     "nom": "w",
-     "defaut": "0",
-     "note": "Humidité absolue de l'air (kg/kg)"
-    },
-    {
      "nom": "T_hum",
      "defaut": "0",
      "note": "Température humide (C)"
     },
     {
-     "nom": "h",
-     "defaut": "0",
-     "note": "Enthalpie spécifique (J/kg)"
-    },
-    {
-     "nom": "P",
-     "defaut": "101325",
-     "note": "Pression de l'air (Pa) - valeur standard à la mer"
-    },
-    {
      "nom": "F_m3h",
      "defaut": "None",
      "note": "Débit volumique en m3/h (air humide)"
-    },
-    {
-     "nom": "F_dry",
-     "defaut": "None",
-     "note": "Débit d'air sec (kg/s)"
     }
+   ],
+   "sorties": [
+    "F",
+    "Pv_sat",
+    "w",
+    "h",
+    "P",
+    "F_dry"
    ],
    "sorties_df": [
     "ID",
@@ -1048,7 +743,8 @@
    "pages": [
     "003-ahu_modules/batteries.rst",
     "003-ahu_modules/composants_cta.rst",
-    "api.rst"
+    "api.rst",
+    "ports_connexions.rst"
    ]
   },
   "AHU.FreshAir.Old.AirMix.Object": {
@@ -1094,45 +790,19 @@
      "note": ""
     },
     {
-     "nom": "Pv_sat",
-     "defaut": "0",
-     "note": ""
-    },
-    {
-     "nom": "w",
-     "defaut": "0",
-     "note": ""
-    },
-    {
-     "nom": "T_hum",
-     "defaut": "0",
-     "note": ""
-    },
-    {
-     "nom": "h",
-     "defaut": "0",
-     "note": ""
-    },
-    {
      "nom": "P",
      "defaut": "101325",
      "note": ""
-    },
-    {
-     "nom": "F_dry",
-     "defaut": "0",
-     "note": ""
-    },
-    {
-     "nom": "F_dry1",
-     "defaut": "0",
-     "note": ""
-    },
-    {
-     "nom": "F_dry2",
-     "defaut": "0",
-     "note": ""
     }
+   ],
+   "sorties": [
+    "Pv_sat",
+    "w",
+    "T_hum",
+    "h",
+    "F_dry",
+    "F_dry1",
+    "F_dry2"
    ],
    "sorties_df": [],
    "refus": [],
@@ -1174,45 +844,23 @@
      "note": "Humidité relative de l'air (%)"
     },
     {
-     "nom": "F",
-     "defaut": "None",
-     "note": "Débit massique d'air (kg/s)"
-    },
-    {
-     "nom": "Pv_sat",
-     "defaut": "0",
-     "note": "Pression de vapeur saturante (Pa)"
-    },
-    {
-     "nom": "w",
-     "defaut": "0",
-     "note": "Humidité absolue de l'air (kg/kg)"
-    },
-    {
      "nom": "T_hum",
      "defaut": "0",
      "note": "Température humide (C)"
     },
     {
-     "nom": "h",
-     "defaut": "0",
-     "note": "Enthalpie spécifique (J/kg)"
-    },
-    {
-     "nom": "P",
-     "defaut": "101325",
-     "note": "Pression de l'air (Pa) - valeur standard à la mer"
-    },
-    {
      "nom": "F_m3h",
      "defaut": "None",
      "note": "Débit volumique en m3/h (air humide)"
-    },
-    {
-     "nom": "F_dry",
-     "defaut": "None",
-     "note": "Débit d'air sec (kg/s)"
     }
+   ],
+   "sorties": [
+    "F",
+    "Pv_sat",
+    "w",
+    "h",
+    "P",
+    "F_dry"
    ],
    "sorties_df": [],
    "refus": [],
@@ -1242,22 +890,12 @@
      "nom": "data",
      "defaut": "data",
      "note": ""
-    },
-    {
-     "nom": "Outlet",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "ExhaustOutlet",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "component_logs",
-     "defaut": "{}",
-     "note": ""
     }
+   ],
+   "sorties": [
+    "Outlet",
+    "ExhaustOutlet",
+    "component_logs"
    ],
    "sorties_df": [],
    "refus": [
@@ -1295,17 +933,11 @@
      "nom": "data",
      "defaut": "data",
      "note": ""
-    },
-    {
-     "nom": "Outlet",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "component_logs",
-     "defaut": "{}",
-     "note": ""
     }
+   ],
+   "sorties": [
+    "Outlet",
+    "component_logs"
    ],
    "sorties_df": [],
    "refus": [
@@ -1355,40 +987,18 @@
      "note": "Air extrait sortant"
     },
     {
-     "nom": "h_efficiency",
-     "defaut": "None",
-     "note": "Efficacité enthalpique (calculée)"
-    },
-    {
-     "nom": "T_efficiency",
-     "defaut": "80",
-     "note": "Efficacité en température (%)"
-    },
-    {
-     "nom": "T_efficiency_target",
-     "defaut": "None",
-     "note": ""
-    },
-    {
      "nom": "T_target",
      "defaut": "16",
      "note": ""
-    },
-    {
-     "nom": "heat_transfer",
-     "defaut": "None",
-     "note": "Transfert de chaleur (W)"
-    },
-    {
-     "nom": "T1o",
-     "defaut": "None",
-     "note": "Température de sortie de l'air frais (°C)"
-    },
-    {
-     "nom": "F_dry_min",
-     "defaut": "None",
-     "note": ""
     }
+   ],
+   "sorties": [
+    "h_efficiency",
+    "T_efficiency",
+    "T_efficiency_target",
+    "heat_transfer",
+    "T1o",
+    "F_dry_min"
    ],
    "sorties_df": [],
    "refus": [],
@@ -1434,70 +1044,24 @@
      "note": "Air extrait sortant"
     },
     {
-     "nom": "h_efficiency",
-     "defaut": "None",
-     "note": "Efficacité enthalpique (calculée)"
-    },
-    {
-     "nom": "T_efficiency",
-     "defaut": "80",
-     "note": "Efficacité en température (%)"
-    },
-    {
-     "nom": "T_efficiency_target",
-     "defaut": "None",
-     "note": ""
-    },
-    {
      "nom": "T_target",
      "defaut": "16",
      "note": ""
-    },
-    {
-     "nom": "heat_transfer1",
-     "defaut": "None",
-     "note": "Transfert de chaleur du flux 1 (kW)"
-    },
-    {
-     "nom": "heat_transfer2",
-     "defaut": "None",
-     "note": "Transfert de chaleur du flux 2 (kW)"
-    },
-    {
-     "nom": "sensible_heat_transfer1",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "sensible_heat_transfer2",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "T1o",
-     "defaut": "None",
-     "note": "Température de sortie de l'air frais (°C)"
-    },
-    {
-     "nom": "T2o",
-     "defaut": "None",
-     "note": "Température de sortie de l'air frais (°C)"
-    },
-    {
-     "nom": "F_dry_min",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "delta_mw1",
-     "defaut": "None",
-     "note": "quantité d'eau gagné ou perdu par le flux 1 en g/s"
-    },
-    {
-     "nom": "delta_mw2",
-     "defaut": "None",
-     "note": "quantité d'eau gagné ou perdu par le flux 2 en g/s"
     }
+   ],
+   "sorties": [
+    "h_efficiency",
+    "T_efficiency",
+    "T_efficiency_target",
+    "heat_transfer1",
+    "heat_transfer2",
+    "sensible_heat_transfer1",
+    "sensible_heat_transfer2",
+    "T1o",
+    "T2o",
+    "F_dry_min",
+    "delta_mw1",
+    "delta_mw2"
    ],
    "sorties_df": [],
    "refus": [],
@@ -1558,21 +1122,6 @@
      "note": ""
     },
     {
-     "nom": "hi",
-     "defaut": "24.522",
-     "note": ""
-    },
-    {
-     "nom": "wi",
-     "defaut": "10",
-     "note": ""
-    },
-    {
-     "nom": "F",
-     "defaut": "20000",
-     "note": ""
-    },
-    {
      "nom": "Llv",
      "defaut": "2500.8",
      "note": "kJ/kg"
@@ -1608,30 +1157,19 @@
      "note": ""
     },
     {
-     "nom": "F_water",
-     "defaut": "0",
-     "note": ""
-    },
-    {
-     "nom": "ho",
-     "defaut": "0",
-     "note": ""
-    },
-    {
-     "nom": "Q_th",
-     "defaut": "0",
-     "note": ""
-    },
-    {
-     "nom": "P",
-     "defaut": "0",
-     "note": ""
-    },
-    {
      "nom": "id",
      "defaut": "None",
      "note": "ID"
     }
+   ],
+   "sorties": [
+    "hi",
+    "wi",
+    "F",
+    "F_water",
+    "ho",
+    "Q_th",
+    "P"
    ],
    "sorties_df": [
     "ID",
@@ -1708,21 +1246,6 @@
      "note": ""
     },
     {
-     "nom": "hi",
-     "defaut": "24.522",
-     "note": ""
-    },
-    {
-     "nom": "wi",
-     "defaut": "10",
-     "note": ""
-    },
-    {
-     "nom": "F",
-     "defaut": "20000",
-     "note": ""
-    },
-    {
      "nom": "Llv",
      "defaut": "2500.8",
      "note": "kJ/kg"
@@ -1756,27 +1279,16 @@
      "nom": "T_out",
      "defaut": "0",
      "note": ""
-    },
-    {
-     "nom": "F_water",
-     "defaut": "0",
-     "note": ""
-    },
-    {
-     "nom": "ho",
-     "defaut": "0",
-     "note": ""
-    },
-    {
-     "nom": "Q_th",
-     "defaut": "0",
-     "note": ""
-    },
-    {
-     "nom": "P",
-     "defaut": "0",
-     "note": ""
     }
+   ],
+   "sorties": [
+    "hi",
+    "wi",
+    "F",
+    "F_water",
+    "ho",
+    "Q_th",
+    "P"
    ],
    "sorties_df": [],
    "refus": [],
@@ -1818,75 +1330,25 @@
      "note": ""
     },
     {
-     "nom": "value",
-     "defaut": "None",
-     "note": ""
-    },
-    {
      "nom": "unit",
      "defaut": "None",
      "note": ""
-    },
-    {
-     "nom": "temperature_degC",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "absolute_humidity_gkg",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "relative_humidity_percent",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "humid_mass_flow_kgs",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "humid_mass_flow_kgh",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "dry_mass_flow_kgs",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "volume_flow_m3h",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "normal_volume_flow_Nm3h",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "enthalpy_kJkg",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "pressure_bar",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "density_kgm3",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "normal_density_kgNm3",
-     "defaut": "None",
-     "note": ""
     }
+   ],
+   "sorties": [
+    "value",
+    "temperature_degC",
+    "absolute_humidity_gkg",
+    "relative_humidity_percent",
+    "humid_mass_flow_kgs",
+    "humid_mass_flow_kgh",
+    "dry_mass_flow_kgs",
+    "volume_flow_m3h",
+    "normal_volume_flow_Nm3h",
+    "enthalpy_kJkg",
+    "pressure_bar",
+    "density_kgm3",
+    "normal_density_kgNm3"
    ],
    "sorties_df": [
     "Timestamp",
@@ -1966,77 +1428,23 @@
      "nom": "three_phase",
      "defaut": "three_phase",
      "note": ""
-    },
-    {
-     "nom": "P",
-     "defaut": "None",
-     "note": "puissance active (kW)"
-    },
-    {
-     "nom": "Q",
-     "defaut": "None",
-     "note": "puissance reactive initiale (kVAr)"
-    },
-    {
-     "nom": "Q_limite",
-     "defaut": "None",
-     "note": "limite reglementaire 0.5 P (kVAr)"
-    },
-    {
-     "nom": "Q_target",
-     "defaut": "None",
-     "note": "objectif de reactif vise (kVAr)"
-    },
-    {
-     "nom": "Qc_th",
-     "defaut": "None",
-     "note": "compensation theorique (kVAr)"
-    },
-    {
-     "nom": "Qc",
-     "defaut": "None",
-     "note": "valeur normalisee retenue (kVAr)"
-    },
-    {
-     "nom": "Qc_units",
-     "defaut": "None",
-     "note": "liste des condensateurs normalises utilises"
-    },
-    {
-     "nom": "Q_new",
-     "defaut": "None",
-     "note": "reactif residuel apres compensation (kVAr)"
-    },
-    {
-     "nom": "cos_phi_new",
-     "defaut": "None",
-     "note": "nouveau facteur de puissance"
-    },
-    {
-     "nom": "I_new",
-     "defaut": "None",
-     "note": "nouveau courant absorbe (A)"
-    },
-    {
-     "nom": "gain_I",
-     "defaut": "None",
-     "note": "gain de courant (%)"
-    },
-    {
-     "nom": "gain_pertes",
-     "defaut": "None",
-     "note": "gain sur les pertes Joule (%)"
-    },
-    {
-     "nom": "compensation_requise",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "conforme",
-     "defaut": "None",
-     "note": "Q_new <= 0.5 P (limite Algerie)"
     }
+   ],
+   "sorties": [
+    "P",
+    "Q",
+    "Q_limite",
+    "Q_target",
+    "Qc_th",
+    "Qc",
+    "Qc_units",
+    "Q_new",
+    "cos_phi_new",
+    "I_new",
+    "gain_I",
+    "gain_pertes",
+    "compensation_requise",
+    "conforme"
    ],
    "sorties_df": [],
    "refus": [
@@ -2140,57 +1548,19 @@
      "nom": "currency",
      "defaut": "currency",
      "note": ""
-    },
-    {
-     "nom": "taux_charge",
-     "defaut": "None",
-     "note": "taux de charge par Tr (%)"
-    },
-    {
-     "nom": "dP0_tot",
-     "defaut": "None",
-     "note": "pertes actives a vide (kW)"
-    },
-    {
-     "nom": "dPch_tot",
-     "defaut": "None",
-     "note": "pertes actives en charge (kW)"
-    },
-    {
-     "nom": "dQ0_tot",
-     "defaut": "None",
-     "note": "pertes reactives a vide (kVar)"
-    },
-    {
-     "nom": "dQch_tot",
-     "defaut": "None",
-     "note": "pertes reactives en charge (kVar)"
-    },
-    {
-     "nom": "dP_energy_active",
-     "defaut": "None",
-     "note": "pertes d'energie active (kWh)"
-    },
-    {
-     "nom": "dQ_energy_reactive",
-     "defaut": "None",
-     "note": "pertes d'energie reactive (kVarh)"
-    },
-    {
-     "nom": "Cea",
-     "defaut": "None",
-     "note": "cout des pertes d'energie active"
-    },
-    {
-     "nom": "Cer",
-     "defaut": "None",
-     "note": "cout des pertes d'energie reactive"
-    },
-    {
-     "nom": "Cet",
-     "defaut": "None",
-     "note": "cout total des pertes"
     }
+   ],
+   "sorties": [
+    "taux_charge",
+    "dP0_tot",
+    "dPch_tot",
+    "dQ0_tot",
+    "dQch_tot",
+    "dP_energy_active",
+    "dQ_energy_reactive",
+    "Cea",
+    "Cer",
+    "Cet"
    ],
    "sorties_df": [],
    "refus": [
@@ -2241,91 +1611,6 @@
      "note": ""
     },
     {
-     "nom": "euro_molecule_gaz",
-     "defaut": "0.0",
-     "note": ""
-    },
-    {
-     "nom": "euro_terme_distance",
-     "defaut": "0.0",
-     "note": ""
-    },
-    {
-     "nom": "euro_CTA",
-     "defaut": "0.0",
-     "note": ""
-    },
-    {
-     "nom": "euro_an_CTA",
-     "defaut": "0.0",
-     "note": ""
-    },
-    {
-     "nom": "euro_TICGN",
-     "defaut": "0.0",
-     "note": ""
-    },
-    {
-     "nom": "euro_total_HTVA",
-     "defaut": "0.0",
-     "note": ""
-    },
-    {
-     "nom": "euro_total_TTC",
-     "defaut": "0.0",
-     "note": ""
-    },
-    {
-     "nom": "taxes_contributions",
-     "defaut": "0.0",
-     "note": ""
-    },
-    {
-     "nom": "euro_ATRD_fixe_hors_capacite",
-     "defaut": "0.0",
-     "note": ""
-    },
-    {
-     "nom": "euro_ATRD_variable",
-     "defaut": "0.0",
-     "note": ""
-    },
-    {
-     "nom": "euro_ATRD_souscript_capa_CJA",
-     "defaut": "0.0",
-     "note": ""
-    },
-    {
-     "nom": "euro_ATRD_fixe_total",
-     "defaut": "0.0",
-     "note": ""
-    },
-    {
-     "nom": "euro_an_ATRD_souscript_capa_CJA",
-     "defaut": "0.0",
-     "note": ""
-    },
-    {
-     "nom": "euro_ATRD_fixe_hors_capacite",
-     "defaut": "0.0",
-     "note": ""
-    },
-    {
-     "nom": "euro_an_ATRD_fixe_total",
-     "defaut": "0.0",
-     "note": ""
-    },
-    {
-     "nom": "euro_an_ATRD_variable",
-     "defaut": "0.0",
-     "note": ""
-    },
-    {
-     "nom": "euro_an_ATRD_total",
-     "defaut": "0.0",
-     "note": ""
-    },
-    {
      "nom": "coef_A_GRTgaz",
      "defaut": "self.coeff_atrt.get('coef_A_GRTgaz', 1.0)",
      "note": ""
@@ -2336,92 +1621,12 @@
      "note": ""
     },
     {
-     "nom": "coef_A",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "modulation_hivernale",
-     "defaut": "0.0",
-     "note": ""
-    },
-    {
-     "nom": "TCS",
-     "defaut": "0.0",
-     "note": ""
-    },
-    {
-     "nom": "TCR",
-     "defaut": "0.0",
-     "note": ""
-    },
-    {
-     "nom": "TCL",
-     "defaut": "0.0",
-     "note": ""
-    },
-    {
-     "nom": "NTR",
-     "defaut": "0.0",
-     "note": ""
-    },
-    {
      "nom": "euro_fixe_transport",
      "defaut": "0.0",
      "note": ""
     },
     {
      "nom": "euro_variable_transport",
-     "defaut": "0.0",
-     "note": ""
-    },
-    {
-     "nom": "euro_an_compensation_stockage",
-     "defaut": "0.0",
-     "note": ""
-    },
-    {
-     "nom": "euro_an_ATRT_TCS",
-     "defaut": "0.0",
-     "note": ""
-    },
-    {
-     "nom": "euro_an_ATRT_TCR",
-     "defaut": "0.0",
-     "note": ""
-    },
-    {
-     "nom": "euro_an_ATRT_TCL",
-     "defaut": "0.0",
-     "note": ""
-    },
-    {
-     "nom": "euro_an_total_ATRT",
-     "defaut": "0.0",
-     "note": ""
-    },
-    {
-     "nom": "euro_ATRT_compensation_stockage",
-     "defaut": "0.0",
-     "note": ""
-    },
-    {
-     "nom": "euro_ATRT_TCS",
-     "defaut": "0.0",
-     "note": ""
-    },
-    {
-     "nom": "euro_ATRT_TCR",
-     "defaut": "0.0",
-     "note": ""
-    },
-    {
-     "nom": "euro_ATRT_TCL",
-     "defaut": "0.0",
-     "note": ""
-    },
-    {
-     "nom": "euro_total_ATRT",
      "defaut": "0.0",
      "note": ""
     },
@@ -2455,6 +1660,41 @@
      "defaut": "None",
      "note": ""
     }
+   ],
+   "sorties": [
+    "euro_molecule_gaz",
+    "euro_terme_distance",
+    "euro_CTA",
+    "euro_an_CTA",
+    "euro_TICGN",
+    "euro_total_HTVA",
+    "euro_total_TTC",
+    "taxes_contributions",
+    "euro_ATRD_fixe_hors_capacite",
+    "euro_ATRD_variable",
+    "euro_ATRD_souscript_capa_CJA",
+    "euro_ATRD_fixe_total",
+    "euro_an_ATRD_souscript_capa_CJA",
+    "euro_ATRD_fixe_hors_capacite",
+    "euro_an_ATRD_fixe_total",
+    "euro_an_ATRD_variable",
+    "euro_an_ATRD_total",
+    "coef_A",
+    "modulation_hivernale",
+    "TCS",
+    "TCR",
+    "TCL",
+    "NTR",
+    "euro_an_compensation_stockage",
+    "euro_an_ATRT_TCS",
+    "euro_an_ATRT_TCR",
+    "euro_an_ATRT_TCL",
+    "euro_an_total_ATRT",
+    "euro_ATRT_compensation_stockage",
+    "euro_ATRT_TCS",
+    "euro_ATRT_TCR",
+    "euro_ATRT_TCL",
+    "euro_total_ATRT"
    ],
    "sorties_df": [],
    "refus": [
@@ -2492,85 +1732,27 @@
      "note": ""
     },
     {
-     "nom": "coefficients",
-     "defaut": "None",
-     "note": ""
-    },
-    {
      "nom": "nb_jours",
      "defaut": "(self.facture.end - self.facture.start).days + 1",
      "note": ""
-    },
-    {
-     "nom": "montant_fixe",
-     "defaut": "0",
-     "note": ""
-    },
-    {
-     "nom": "montant_PMD",
-     "defaut": "0",
-     "note": ""
-    },
-    {
-     "nom": "montant_PMA",
-     "defaut": "0",
-     "note": ""
-    },
-    {
-     "nom": "montant_energie",
-     "defaut": "0",
-     "note": ""
-    },
-    {
-     "nom": "montant_reactif",
-     "defaut": "0",
-     "note": ""
-    },
-    {
-     "nom": "montant_total",
-     "defaut": "0",
-     "note": ""
-    },
-    {
-     "nom": "montant_tva",
-     "defaut": "0",
-     "note": ""
-    },
-    {
-     "nom": "montant_total_ttc",
-     "defaut": "0",
-     "note": ""
-    },
-    {
-     "nom": "montant_taxe_produits_energetiques",
-     "defaut": "0",
-     "note": ""
-    },
-    {
-     "nom": "montant_taxe_habitation",
-     "defaut": "0",
-     "note": ""
-    },
-    {
-     "nom": "montant_soutien_etat",
-     "defaut": "0",
-     "note": ""
-    },
-    {
-     "nom": "montant_total_facture",
-     "defaut": "0",
-     "note": ""
-    },
-    {
-     "nom": "simulation_tarifs_result",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "df_simulation_tarifs",
-     "defaut": "build_section_df([])",
-     "note": ""
     }
+   ],
+   "sorties": [
+    "coefficients",
+    "montant_fixe",
+    "montant_PMD",
+    "montant_PMA",
+    "montant_energie",
+    "montant_reactif",
+    "montant_total",
+    "montant_tva",
+    "montant_total_ttc",
+    "montant_taxe_produits_energetiques",
+    "montant_taxe_habitation",
+    "montant_soutien_etat",
+    "montant_total_facture",
+    "simulation_tarifs_result",
+    "df_simulation_tarifs"
    ],
    "sorties_df": [],
    "refus": [
@@ -2606,70 +1788,24 @@
      "note": ""
     },
     {
-     "nom": "coefficients",
-     "defaut": "None",
-     "note": ""
-    },
-    {
      "nom": "nb_jours",
      "defaut": "(self.facture.end - self.facture.start).days + 1",
      "note": ""
-    },
-    {
-     "nom": "montant_fixe",
-     "defaut": "0",
-     "note": ""
-    },
-    {
-     "nom": "montant_DMD",
-     "defaut": "0",
-     "note": ""
-    },
-    {
-     "nom": "montant_DMA",
-     "defaut": "0",
-     "note": ""
-    },
-    {
-     "nom": "montant_energie",
-     "defaut": "0",
-     "note": ""
-    },
-    {
-     "nom": "montant_total",
-     "defaut": "0",
-     "note": "Total Energie HT"
-    },
-    {
-     "nom": "montant_tva",
-     "defaut": "0",
-     "note": "TVA 19% sur énergie"
-    },
-    {
-     "nom": "montant_entretien",
-     "defaut": "0",
-     "note": ""
-    },
-    {
-     "nom": "montant_tva_prestation",
-     "defaut": "0",
-     "note": ""
-    },
-    {
-     "nom": "montant_taxe_produits",
-     "defaut": "0",
-     "note": ""
-    },
-    {
-     "nom": "montant_taxe_habitation",
-     "defaut": "0",
-     "note": ""
-    },
-    {
-     "nom": "montant_total_facture",
-     "defaut": "0",
-     "note": "Total Facture (tout inclus)"
     }
+   ],
+   "sorties": [
+    "coefficients",
+    "montant_fixe",
+    "montant_DMD",
+    "montant_DMA",
+    "montant_energie",
+    "montant_total",
+    "montant_tva",
+    "montant_entretien",
+    "montant_tva_prestation",
+    "montant_taxe_produits",
+    "montant_taxe_habitation",
+    "montant_total_facture"
    ],
    "sorties_df": [],
    "refus": [
@@ -2720,20 +1856,14 @@
      "note": "Area of the wall (m²)"
     },
     {
-     "nom": "Q",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "R_total",
-     "defaut": "None",
-     "note": ""
-    },
-    {
      "nom": "layers",
      "defaut": "[]",
      "note": ""
     }
+   ],
+   "sorties": [
+    "Q",
+    "R_total"
    ],
    "sorties_df": [],
    "refus": [
@@ -2800,6 +1930,7 @@
      "note": ""
     }
    ],
+   "sorties": [],
    "sorties_df": [],
    "refus": [],
    "sources": [],
@@ -2944,22 +2075,12 @@
      "nom": "A_i",
      "defaut": "math.pi * self.di * self.L_tube",
      "note": ""
-    },
-    {
-     "nom": "Tc",
-     "defaut": "self.Tamb + 10.4 if self.Tfluid >= self.Tamb else self.Tamb - 10.4",
-     "note": ""
-    },
-    {
-     "nom": "Tf",
-     "defaut": "(self.Tc + self.Tamb) / 2",
-     "note": "Initial film temperature"
-    },
-    {
-     "nom": "rho_air",
-     "defaut": "air_humide.Air_rho_hum(T_db=self.Tf, RH=self.RH, P=101325)",
-     "note": ""
     }
+   ],
+   "sorties": [
+    "Tc",
+    "Tf",
+    "rho_air"
    ],
    "sorties_df": [],
    "refus": [
@@ -3085,6 +2206,7 @@
      "note": ""
     }
    ],
+   "sorties": [],
    "sorties_df": [
     "Orientation",
     "Tp (C)",
@@ -3133,6 +2255,7 @@
      "note": ""
     }
    ],
+   "sorties": [],
    "sorties_df": [],
    "refus": [
     "CascadeSpecificationError"
@@ -3192,6 +2315,7 @@
      "note": ""
     }
    ],
+   "sorties": [],
    "sorties_df": [],
    "refus": [
     "CrystallizerSpecificationError"
@@ -3236,6 +2360,7 @@
      "note": ""
     }
    ],
+   "sorties": [],
    "sorties_df": [],
    "refus": [
     "CascadeSpecificationError"
@@ -3283,37 +2408,15 @@
      "nom": "P_evap_kPa",
      "defaut": "None",
      "note": ""
-    },
-    {
-     "nom": "w_poor",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "w_rich",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "mdot_poor",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "mdot_refrig",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "mdot_rich",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "Qa_W",
-     "defaut": "None",
-     "note": ""
     }
+   ],
+   "sorties": [
+    "w_poor",
+    "w_rich",
+    "mdot_poor",
+    "mdot_refrig",
+    "mdot_rich",
+    "Qa_W"
    ],
    "sorties_df": [
     "Timestamp",
@@ -3392,62 +2495,20 @@
      "nom": "T_chilled_out_degC",
      "defaut": "None",
      "note": "consigne depart eau glacee (si Inlet.F fourni)"
-    },
-    {
-     "nom": "COP_rev",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "COP_out",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "Q_gen",
-     "defaut": "None",
-     "note": "W chaleur motrice au generateur"
-    },
-    {
-     "nom": "Q_reject",
-     "defaut": "None",
-     "note": "W rejetes (condenseur + absorbeur)"
-    },
-    {
-     "nom": "Q_evap",
-     "defaut": "None",
-     "note": "W froid produit"
-    },
-    {
-     "nom": "P_evap_kPa",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "P_cond_kPa",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "X_dilute",
-     "defaut": "None",
-     "note": "% LiBr solution diluee (absorbeur)"
-    },
-    {
-     "nom": "X_concentrated",
-     "defaut": "None",
-     "note": "% LiBr solution concentree (generateur)"
-    },
-    {
-     "nom": "degassing_range",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "circulation_ratio",
-     "defaut": "None",
-     "note": "kg solution / kg refrigerant"
     }
+   ],
+   "sorties": [
+    "COP_rev",
+    "COP_out",
+    "Q_gen",
+    "Q_reject",
+    "Q_evap",
+    "P_evap_kPa",
+    "P_cond_kPa",
+    "X_dilute",
+    "X_concentrated",
+    "degassing_range",
+    "circulation_ratio"
    ],
    "sorties_df": [
     "Timestamp",
@@ -3509,27 +2570,13 @@
      "nom": "l_over_r",
      "defaut": "None",
      "note": "L/R (CR9-3, CR9-4)"
-    },
-    {
-     "nom": "C_o",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "citation",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "clamped",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "is_closed",
-     "defaut": "False",
-     "note": "ETAT, pas une valeur"
     }
+   ],
+   "sorties": [
+    "C_o",
+    "citation",
+    "clamped",
+    "is_closed"
    ],
    "sorties_df": [],
    "refus": [
@@ -3588,22 +2635,12 @@
      "nom": "n_gores",
      "defaut": "None",
      "note": "informatif : le nombre de gorges est"
-    },
-    {
-     "nom": "C_o",
-     "defaut": "None",
-     "note": "coefficient retenu, mode ASHRAE"
-    },
-    {
-     "nom": "citation",
-     "defaut": "None",
-     "note": "ouvrage, chapitre, table, page"
-    },
-    {
-     "nom": "clamped",
-     "defaut": "None",
-     "note": "True si un axe a ete borne a son extremite"
     }
+   ],
+   "sorties": [
+    "C_o",
+    "citation",
+    "clamped"
    ],
    "sorties_df": [],
    "refus": [
@@ -3672,37 +2709,15 @@
      "nom": "theta_deg",
      "defaut": "None",
      "note": ""
-    },
-    {
-     "nom": "Le",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "l_over_Le",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "C_o",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "p_v",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "delta_P_system_effect",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "citation",
-     "defaut": "None",
-     "note": ""
     }
+   ],
+   "sorties": [
+    "Le",
+    "l_over_Le",
+    "C_o",
+    "p_v",
+    "delta_P_system_effect",
+    "citation"
    ],
    "sorties_df": [
     "Timestamp",
@@ -3750,22 +2765,12 @@
      "nom": "area_ratio",
      "defaut": "None",
      "note": "A1/Ao"
-    },
-    {
-     "nom": "C_o",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "citation",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "clamped",
-     "defaut": "None",
-     "note": ""
     }
+   ],
+   "sorties": [
+    "C_o",
+    "citation",
+    "clamped"
    ],
    "sorties_df": [],
    "refus": [
@@ -3801,16 +2806,6 @@
      "note": "circular | rectangular | oblong"
     },
     {
-     "nom": "_resolved_shape",
-     "defaut": "'circular'",
-     "note": ""
-    },
-    {
-     "nom": "d_hyd",
-     "defaut": "None",
-     "note": "m (forcé si circular)"
-    },
-    {
      "nom": "a",
      "defaut": "None",
      "note": "m (rectangular/oblong major)"
@@ -3819,26 +2814,6 @@
      "nom": "b",
      "defaut": "None",
      "note": "m (rectangular/oblong minor)"
-    },
-    {
-     "nom": "S",
-     "defaut": "None",
-     "note": "m2 section"
-    },
-    {
-     "nom": "p_wet",
-     "defaut": "None",
-     "note": "m périmètre mouillé"
-    },
-    {
-     "nom": "d_iso",
-     "defaut": "None",
-     "note": "m diamètre isocinétique/isométrique"
-    },
-    {
-     "nom": "d_equiv",
-     "defaut": "None",
-     "note": "m diamètre équivalent"
     },
     {
      "nom": "d_equiv_model",
@@ -3851,11 +2826,6 @@
      "note": "m longueur"
     },
     {
-     "nom": "epsilon",
-     "defaut": "9e-05",
-     "note": "m rugosité absolue (acier galvanisé typique)"
-    },
-    {
      "nom": "material",
      "defaut": "None",
      "note": ""
@@ -3864,16 +2834,6 @@
      "nom": "material_bound",
      "defaut": "None",
      "note": "'min' | 'max', requis quand la table donne un intervalle"
-    },
-    {
-     "nom": "epsilon_r",
-     "defaut": "None",
-     "note": "rugosité relative"
-    },
-    {
-     "nom": "lambda_",
-     "defaut": "None",
-     "note": "facteur de friction Darcy"
     },
     {
      "nom": "friction_model",
@@ -3901,51 +2861,6 @@
      "note": "liste de xi supplémentaires"
     },
     {
-     "nom": "delta_P",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "delta_P_linear",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "delta_P_singular",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "j_linear",
-     "defaut": "None",
-     "note": "Pa/m"
-    },
-    {
-     "nom": "rho",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "u",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "mu",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "eta",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "Re",
-     "defaut": "None",
-     "note": ""
-    },
-    {
      "nom": "rho_override",
      "defaut": "None",
      "note": ""
@@ -3955,6 +2870,26 @@
      "defaut": "None",
      "note": ""
     }
+   ],
+   "sorties": [
+    "_resolved_shape",
+    "d_hyd",
+    "S",
+    "p_wet",
+    "d_iso",
+    "d_equiv",
+    "epsilon",
+    "epsilon_r",
+    "lambda_",
+    "delta_P",
+    "delta_P_linear",
+    "delta_P_singular",
+    "j_linear",
+    "rho",
+    "u",
+    "mu",
+    "eta",
+    "Re"
    ],
    "sorties_df": [
     "Timestamp",
@@ -4037,27 +2972,13 @@
      "nom": "area_ratio_straight",
      "defaut": "None",
      "note": "As/Ac, pour les tables a 3 entrees"
-    },
-    {
-     "nom": "C_branch",
-     "defaut": "None",
-     "note": "sortie : coefficient de branche"
-    },
-    {
-     "nom": "C_straight",
-     "defaut": "None",
-     "note": "sortie : coefficient de passage"
-    },
-    {
-     "nom": "citation",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "clamped",
-     "defaut": "None",
-     "note": ""
     }
+   ],
+   "sorties": [
+    "C_branch",
+    "C_straight",
+    "citation",
+    "clamped"
    ],
    "sorties_df": [],
    "refus": [
@@ -4095,11 +3016,6 @@
      "note": "circular | rectangular"
     },
     {
-     "nom": "d_hyd",
-     "defaut": "None",
-     "note": ""
-    },
-    {
      "nom": "a",
      "defaut": "None",
      "note": ""
@@ -4110,35 +3026,18 @@
      "note": ""
     },
     {
-     "nom": "S",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "delta_P",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "rho",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "u",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "qv_m3_s",
-     "defaut": "None",
-     "note": ""
-    },
-    {
      "nom": "rho_override",
      "defaut": "None",
      "note": ""
     }
+   ],
+   "sorties": [
+    "d_hyd",
+    "S",
+    "delta_P",
+    "rho",
+    "u",
+    "qv_m3_s"
    ],
    "sorties_df": [
     "Timestamp",
@@ -4177,47 +3076,17 @@
      "nom": "P_bar",
      "defaut": "None",
      "note": ""
-    },
-    {
-     "nom": "x_NH3_mole",
-     "defaut": "None",
-     "note": "fraction molaire d'ammoniac dans le liquide"
-    },
-    {
-     "nom": "w_NH3_mass",
-     "defaut": "None",
-     "note": "fraction massique (alternative)"
-    },
-    {
-     "nom": "T_bubble_degC",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "T_dew_degC",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "y_NH3_mole",
-     "defaut": "None",
-     "note": "vapeur en equilibre"
-    },
-    {
-     "nom": "h_liquid_kJ_kg",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "h_vapor_kJ_kg",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "glide_K",
-     "defaut": "None",
-     "note": "glissement de temperature bulle->rosee"
     }
+   ],
+   "sorties": [
+    "x_NH3_mole",
+    "w_NH3_mass",
+    "T_bubble_degC",
+    "T_dew_degC",
+    "y_NH3_mole",
+    "h_liquid_kJ_kg",
+    "h_vapor_kJ_kg",
+    "glide_K"
    ],
    "sorties_df": [
     "Timestamp",
@@ -4284,19 +3153,9 @@
      "note": "resistance de forage m.K/W"
     },
     {
-     "nom": "length_m",
-     "defaut": "100.0",
-     "note": "longueur (rating) ; calculee en sizing"
-    },
-    {
      "nom": "operating_time_s",
      "defaut": "10 * 365 * 24 * 3600.0",
      "note": "duree (defaut 10 ans)"
-    },
-    {
-     "nom": "Q_W",
-     "defaut": "-5000.0",
-     "note": "defaut : extraction 5 kW (chauffage)"
     },
     {
      "nom": "n_boreholes",
@@ -4312,37 +3171,17 @@
      "nom": "T_fluid_limit_degC",
      "defaut": "None",
      "note": "si defini -> calcule length_m"
-    },
-    {
-     "nom": "q_lin",
-     "defaut": "None",
-     "note": "W/m"
-    },
-    {
-     "nom": "T_wall_degC",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "T_fluid_mean_degC",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "T_penalty_K",
-     "defaut": "None",
-     "note": "penalite de champ"
-    },
-    {
-     "nom": "Ti_degC",
-     "defaut": "None",
-     "note": "T fluide entree (donnee si Inlet.T, sinon deduite)"
-    },
-    {
-     "nom": "To_degC",
-     "defaut": "None",
-     "note": "T fluide sortie (calculee)"
     }
+   ],
+   "sorties": [
+    "length_m",
+    "Q_W",
+    "q_lin",
+    "T_wall_degC",
+    "T_fluid_mean_degC",
+    "T_penalty_K",
+    "Ti_degC",
+    "To_degC"
    ],
    "sorties_df": [
     "Timestamp",
@@ -4391,27 +3230,7 @@
      "note": ""
     },
     {
-     "nom": "fuel_name",
-     "defaut": "'H2'",
-     "note": ""
-    },
-    {
-     "nom": "oxidizer_name",
-     "defaut": "'O2:1.0'",
-     "note": ""
-    },
-    {
      "nom": "Q_comb",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "phi",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "AIR_EXCESS",
      "defaut": "None",
      "note": ""
     },
@@ -4419,12 +3238,14 @@
      "nom": "products_O2_molRatio",
      "defaut": "None",
      "note": ""
-    },
-    {
-     "nom": "oxidizer_F_kgs",
-     "defaut": "1.0",
-     "note": ""
     }
+   ],
+   "sorties": [
+    "fuel_name",
+    "oxidizer_name",
+    "phi",
+    "AIR_EXCESS",
+    "oxidizer_F_kgs"
    ],
    "sorties_df": [
     "Timestamp",
@@ -4477,6 +3298,7 @@
      "note": ""
     }
    ],
+   "sorties": [],
    "sorties_df": [
     "Ti_air (C)",
     "air_Inlet.P (bar)"
@@ -4497,11 +3319,6 @@
     {
      "nom": "gas_composition",
      "defaut": "gas_composition",
-     "note": ""
-    },
-    {
-     "nom": "ng_flow",
-     "defaut": "ng_flow_Nm3h",
      "note": ""
     },
     {
@@ -4615,6 +3432,9 @@
      "note": ""
     }
    ],
+   "sorties": [
+    "ng_flow"
+   ],
    "sorties_df": [],
    "refus": [
     "ValueError",
@@ -4655,95 +3475,29 @@
      "note": ""
     },
     {
-     "nom": "HP_bar",
-     "defaut": "None",
-     "note": ""
-    },
-    {
      "nom": "Tcond_degC",
      "defaut": "None",
      "note": ""
-    },
-    {
-     "nom": "HP",
-     "defaut": "None",
-     "note": "self.HP_bar*100000"
-    },
-    {
-     "nom": "Tdischarge_target",
-     "defaut": "None",
-     "note": "°C"
-    },
-    {
-     "nom": "F",
-     "defaut": "0.1",
-     "note": ""
-    },
-    {
-     "nom": "F_Sm3s",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "F_Sm3h",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "HeatLossesRatio",
-     "defaut": "0",
-     "note": ""
-    },
-    {
-     "nom": "So_is",
-     "defaut": "0",
-     "note": ""
-    },
-    {
-     "nom": "To_is",
-     "defaut": "0",
-     "note": ""
-    },
-    {
-     "nom": "Ho_is",
-     "defaut": "0",
-     "note": ""
-    },
-    {
-     "nom": "Ho_ref",
-     "defaut": "0",
-     "note": ""
-    },
-    {
-     "nom": "To_ref",
-     "defaut": "0",
-     "note": ""
-    },
-    {
-     "nom": "So_ref",
-     "defaut": "0",
-     "note": ""
-    },
-    {
-     "nom": "To",
-     "defaut": "0",
-     "note": ""
-    },
-    {
-     "nom": "Q_comp",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "Q_losses",
-     "defaut": "0",
-     "note": ""
-    },
-    {
-     "nom": "Ti_degC",
-     "defaut": "0",
-     "note": ""
     }
+   ],
+   "sorties": [
+    "HP_bar",
+    "HP",
+    "Tdischarge_target",
+    "F",
+    "F_Sm3s",
+    "F_Sm3h",
+    "HeatLossesRatio",
+    "So_is",
+    "To_is",
+    "Ho_is",
+    "Ho_ref",
+    "To_ref",
+    "So_ref",
+    "To",
+    "Q_comp",
+    "Q_losses",
+    "Ti_degC"
    ],
    "sorties_df": [
     "Timestamp",
@@ -4772,6 +3526,7 @@
    "pages": [
     "002-thermodynamic_cycles/compressor.rst",
     "api.rst",
+    "ports_connexions.rst",
     "usage/section-3-transformation.rst",
     "usage/section-6-autres.rst"
    ]
@@ -4784,19 +3539,9 @@
    "objet": "",
    "entrees": [
     {
-     "nom": "eta_is",
-     "defaut": "0.7",
-     "note": ""
-    },
-    {
      "nom": "MecEff",
      "defaut": "1",
      "note": "\"rendement mecanique\""
-    },
-    {
-     "nom": "VolEff",
-     "defaut": "0.99",
-     "note": "\"rendement volumetrique\";"
     },
     {
      "nom": "cyl",
@@ -4824,21 +3569,6 @@
      "note": "piston, à vis= 0.008"
     },
     {
-     "nom": "K1",
-     "defaut": "0.8",
-     "note": ""
-    },
-    {
-     "nom": "K2",
-     "defaut": "0.0037",
-     "note": ""
-    },
-    {
-     "nom": "K3",
-     "defaut": "-0.16",
-     "note": ""
-    },
-    {
      "nom": "eta_lim",
      "defaut": "None",
      "note": ""
@@ -4859,28 +3589,8 @@
      "note": ""
     },
     {
-     "nom": "F",
-     "defaut": "0.1",
-     "note": ""
-    },
-    {
      "nom": "Outlet",
      "defaut": "FluidPort()",
-     "note": ""
-    },
-    {
-     "nom": "So_is",
-     "defaut": "0",
-     "note": ""
-    },
-    {
-     "nom": "To_is",
-     "defaut": "0",
-     "note": ""
-    },
-    {
-     "nom": "Ho_is",
-     "defaut": "0",
      "note": ""
     },
     {
@@ -4889,75 +3599,34 @@
      "note": ""
     },
     {
-     "nom": "Ho_ref",
-     "defaut": "0",
-     "note": ""
-    },
-    {
-     "nom": "To_ref",
-     "defaut": "0",
-     "note": ""
-    },
-    {
-     "nom": "So_ref",
-     "defaut": "0",
-     "note": ""
-    },
-    {
      "nom": "Tdischarge_target",
      "defaut": "80",
      "note": ""
-    },
-    {
-     "nom": "To",
-     "defaut": "0",
-     "note": ""
-    },
-    {
-     "nom": "Pu",
-     "defaut": "50000",
-     "note": "\"Puissance utile\";"
-    },
-    {
-     "nom": "Q_losses",
-     "defaut": "0",
-     "note": ""
-    },
-    {
-     "nom": "Pel",
-     "defaut": "1000",
-     "note": "Puissance electrique W"
-    },
-    {
-     "nom": "Pth",
-     "defaut": "50000",
-     "note": "# Puissance mécanique theorique isentropique"
-    },
-    {
-     "nom": "VitesseDeRotation",
-     "defaut": "0",
-     "note": "\"tr/min\";"
-    },
-    {
-     "nom": "Inlet_rho",
-     "defaut": "0",
-     "note": "masse volumique à l'aspiration kg/m3"
-    },
-    {
-     "nom": "Vol_Bal",
-     "defaut": "0",
-     "note": "m3/s"
-    },
-    {
-     "nom": "Vol_asp",
-     "defaut": "0",
-     "note": "m3/s"
-    },
-    {
-     "nom": "Taux",
-     "defaut": "1",
-     "note": "taux de compression"
     }
+   ],
+   "sorties": [
+    "eta_is",
+    "VolEff",
+    "K1",
+    "K2",
+    "K3",
+    "F",
+    "So_is",
+    "To_is",
+    "Ho_is",
+    "Ho_ref",
+    "To_ref",
+    "So_ref",
+    "To",
+    "Pu",
+    "Q_losses",
+    "Pel",
+    "Pth",
+    "VitesseDeRotation",
+    "Inlet_rho",
+    "Vol_Bal",
+    "Vol_asp",
+    "Taux"
    ],
    "sorties_df": [
     "Fluid",
@@ -5026,65 +3695,23 @@
      "note": "rapport volumetrique interne V1/V2"
     },
     {
-     "nom": "V_dot_su",
-     "defaut": "None",
-     "note": "debit volumique aspiration (m3/s)"
-    },
-    {
-     "nom": "m_flow",
-     "defaut": "None",
-     "note": "debit massique (kg/s)"
-    },
-    {
-     "nom": "P_ext",
-     "defaut": "None",
-     "note": "puissance arbre (W)"
-    },
-    {
      "nom": "Q_losses",
      "defaut": "None",
      "note": "pertes (W) = m_flow*(h_iso - h_b) si refroidi"
-    },
-    {
-     "nom": "T_iso_K",
-     "defaut": "None",
-     "note": "temp refoulement isentropique"
-    },
-    {
-     "nom": "T_out_K",
-     "defaut": "None",
-     "note": "temp refoulement reelle"
-    },
-    {
-     "nom": "P_i",
-     "defaut": "None",
-     "note": "pression interne fin de compression (Pa)"
-    },
-    {
-     "nom": "T_i_K",
-     "defaut": "None",
-     "note": "temp interne fin de compression (K)"
-    },
-    {
-     "nom": "w_ind",
-     "defaut": "None",
-     "note": "travail indique specifique (J/kg)"
-    },
-    {
-     "nom": "eta_th",
-     "defaut": "None",
-     "note": "rendement theorique (perte Rv seule)"
-    },
-    {
-     "nom": "Rv_optimal",
-     "defaut": "None",
-     "note": "Rv qui adapterait la machine au reseau"
-    },
-    {
-     "nom": "regime",
-     "defaut": "None",
-     "note": "'adapte'|'sous-compression'|'sur-compression'"
     }
+   ],
+   "sorties": [
+    "V_dot_su",
+    "m_flow",
+    "P_ext",
+    "T_iso_K",
+    "T_out_K",
+    "P_i",
+    "T_i_K",
+    "w_ind",
+    "eta_th",
+    "Rv_optimal",
+    "regime"
    ],
    "sorties_df": [
     "Timestamp",
@@ -5131,30 +3758,16 @@
      "note": ""
     },
     {
-     "nom": "Tl_sat",
-     "defaut": "0",
-     "note": ""
-    },
-    {
-     "nom": "Hl_sat",
-     "defaut": "0",
-     "note": ""
-    },
-    {
-     "nom": "Sl_sat",
-     "defaut": "0",
-     "note": ""
-    },
-    {
      "nom": "subcooling",
      "defaut": "2",
      "note": ""
-    },
-    {
-     "nom": "Q_cond",
-     "defaut": "0",
-     "note": ""
     }
+   ],
+   "sorties": [
+    "Tl_sat",
+    "Hl_sat",
+    "Sl_sat",
+    "Q_cond"
    ],
    "sorties_df": [
     "fluid",
@@ -5220,11 +3833,6 @@
      "note": "bulbe humide (degC) ; si fourni, prioritaire"
     },
     {
-     "nom": "LG",
-     "defaut": "1.0",
-     "note": "L/G (kg eau / kg air sec), si pas de debit d'air"
-    },
-    {
      "nom": "air_flow_dry_kgs",
      "defaut": "None",
      "note": "G (kg/s air sec) ; alternative a Air_Inlet.F"
@@ -5245,55 +3853,22 @@
      "note": "exposant (ASHRAE : -0.55..-0.65)"
     },
     {
-     "nom": "KaV_L",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "range_K",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "approach_K",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "wet_bulb_used_degC",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "Q_flow",
-     "defaut": "None",
-     "note": "W rejetes par l'eau (positif)"
-    },
-    {
-     "nom": "evaporation_kgs",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "T_air_out_degC",
-     "defaut": "None",
-     "note": ""
-    },
-    {
      "nom": "w_air_in",
      "defaut": "None",
      "note": "g/kg air sec"
-    },
-    {
-     "nom": "w_air_out",
-     "defaut": "None",
-     "note": "g/kg air sec (air sature)"
-    },
-    {
-     "nom": "makeup_note",
-     "defaut": "None",
-     "note": ""
     }
+   ],
+   "sorties": [
+    "LG",
+    "KaV_L",
+    "range_K",
+    "approach_K",
+    "wet_bulb_used_degC",
+    "Q_flow",
+    "evaporation_kgs",
+    "T_air_out_degC",
+    "w_air_out",
+    "makeup_note"
    ],
    "sorties_df": [
     "Timestamp",
@@ -5357,37 +3932,15 @@
      "nom": "P_cond_kPa",
      "defaut": "None",
      "note": ""
-    },
-    {
-     "nom": "w_rich",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "w_poor",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "mdot_rich",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "mdot_poor",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "mdot_refrig",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "Qg_W",
-     "defaut": "None",
-     "note": ""
     }
+   ],
+   "sorties": [
+    "w_rich",
+    "w_poor",
+    "mdot_rich",
+    "mdot_poor",
+    "mdot_refrig",
+    "Qg_W"
    ],
    "sorties_df": [
     "Timestamp",
@@ -5426,27 +3979,13 @@
      "nom": "Outlet",
      "defaut": "FluidPort()",
      "note": ""
-    },
-    {
-     "nom": "Tsv",
-     "defaut": "1",
-     "note": ""
-    },
-    {
-     "nom": "Hsv",
-     "defaut": "1",
-     "note": ""
-    },
-    {
-     "nom": "Ssv",
-     "defaut": "1",
-     "note": ""
-    },
-    {
-     "nom": "Qdesurch",
-     "defaut": "0",
-     "note": ""
     }
+   ],
+   "sorties": [
+    "Tsv",
+    "Hsv",
+    "Ssv",
+    "Qdesurch"
    ],
    "sorties_df": [
     "fluid",
@@ -5495,6 +4034,7 @@
      "note": "False : P -> A, True : T -> A"
     }
    ],
+   "sorties": [],
    "sorties_df": [
     "Timestamp",
     "route",
@@ -5545,6 +4085,7 @@
      "note": ""
     }
    ],
+   "sorties": [],
    "sorties_df": [
     "Timestamp",
     "route",
@@ -5594,6 +4135,7 @@
      "note": "-1 / 0 / +1"
     }
    ],
+   "sorties": [],
    "sorties_df": [
     "Timestamp",
     "route",
@@ -5636,17 +4178,11 @@
      "nom": "v_3",
      "defaut": "100.0",
      "note": "vitesse entree (m/s)"
-    },
-    {
-     "nom": "h_es",
-     "defaut": "None",
-     "note": "enthalpie isentropique sortie"
-    },
-    {
-     "nom": "P_out",
-     "defaut": "None",
-     "note": "pression de sortie calculee"
     }
+   ],
+   "sorties": [
+    "h_es",
+    "P_out"
    ],
    "sorties_df": [
     "Timestamp",
@@ -5723,17 +4259,11 @@
      "nom": "diffuser",
      "defaut": "Diffuser()",
      "note": ""
-    },
-    {
-     "nom": "entrainment_ratio",
-     "defaut": "None",
-     "note": "m_secondary / m_primary"
-    },
-    {
-     "nom": "compression_ratio",
-     "defaut": "None",
-     "note": "P_out / P_secondary"
     }
+   ],
+   "sorties": [
+    "entrainment_ratio",
+    "compression_ratio"
    ],
    "sorties_df": [
     "Timestamp",
@@ -5788,27 +4318,13 @@
      "nom": "v_1",
      "defaut": "100.0",
      "note": "vitesse primaire entree (m/s)"
-    },
-    {
-     "nom": "v_2",
-     "defaut": "None",
-     "note": "vitesse melange post-meeting"
-    },
-    {
-     "nom": "v_3",
-     "defaut": "None",
-     "note": "vitesse melange post-choc"
-    },
-    {
-     "nom": "m_total",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "h_2",
-     "defaut": "None",
-     "note": ""
     }
+   ],
+   "sorties": [
+    "v_2",
+    "v_3",
+    "m_total",
+    "h_2"
    ],
    "sorties_df": [
     "Timestamp",
@@ -5856,22 +4372,12 @@
      "nom": "A",
      "defaut": "0.001",
      "note": "section sortie (m2)"
-    },
-    {
-     "nom": "v_1",
-     "defaut": "None",
-     "note": "vitesse sortie (m/s)"
-    },
-    {
-     "nom": "m_flow",
-     "defaut": "None",
-     "note": "debit massique (kg/s)"
-    },
-    {
-     "nom": "x",
-     "defaut": "None",
-     "note": "titre vapeur en sortie"
     }
+   ],
+   "sorties": [
+    "v_1",
+    "m_flow",
+    "x"
    ],
    "sorties_df": [
     "Timestamp",
@@ -5947,47 +4453,17 @@
      "nom": "P_out_bar",
      "defaut": "30.0",
      "note": "H2 souvent produit sous pression (PEM)"
-    },
-    {
-     "nom": "eta_HHV_out",
-     "defaut": "None",
-     "note": "rendement HHV effectif"
-    },
-    {
-     "nom": "eta_LHV_out",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "mdot_H2",
-     "defaut": "None",
-     "note": "kg/s"
-    },
-    {
-     "nom": "mdot_O2",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "mdot_H2O",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "Q_waste",
-     "defaut": "None",
-     "note": "W (chaleur fatale)"
-    },
-    {
-     "nom": "I_stack",
-     "defaut": "None",
-     "note": "A (si V_cell fourni)"
-    },
-    {
-     "nom": "spec_energy_kWh_per_kg",
-     "defaut": "None",
-     "note": ""
     }
+   ],
+   "sorties": [
+    "eta_HHV_out",
+    "eta_LHV_out",
+    "mdot_H2",
+    "mdot_O2",
+    "mdot_H2O",
+    "Q_waste",
+    "I_stack",
+    "spec_energy_kWh_per_kg"
    ],
    "sorties_df": [
     "Timestamp",
@@ -6036,11 +4512,6 @@
      "note": ""
     },
     {
-     "nom": "fluid",
-     "defaut": "None",
-     "note": ""
-    },
-    {
      "nom": "Outlet",
      "defaut": "FluidPort()",
      "note": ""
@@ -6051,55 +4522,22 @@
      "note": "surchauffe"
     },
     {
-     "nom": "Tl_sat",
-     "defaut": "0",
-     "note": ""
-    },
-    {
-     "nom": "Tsv",
-     "defaut": "0",
-     "note": ""
-    },
-    {
-     "nom": "Hsv",
-     "defaut": "0",
-     "note": ""
-    },
-    {
-     "nom": "Ssv",
-     "defaut": "0",
-     "note": ""
-    },
-    {
-     "nom": "To",
-     "defaut": "0",
-     "note": ""
-    },
-    {
-     "nom": "Ho",
-     "defaut": "0",
-     "note": ""
-    },
-    {
-     "nom": "So",
-     "defaut": "0",
-     "note": ""
-    },
-    {
-     "nom": "Q_evap",
-     "defaut": "0",
-     "note": ""
-    },
-    {
-     "nom": "Qevap_i",
-     "defaut": "[]",
-     "note": "descritisation de la puissance de l'évaporateur"
-    },
-    {
      "nom": "Tfluid_i",
      "defaut": "[]",
      "note": ""
     }
+   ],
+   "sorties": [
+    "fluid",
+    "Tl_sat",
+    "Tsv",
+    "Hsv",
+    "Ssv",
+    "To",
+    "Ho",
+    "So",
+    "Q_evap",
+    "Qevap_i"
    ],
    "sorties_df": [
     "fluid",
@@ -6146,42 +4584,16 @@
      "nom": "terms",
      "defaut": "[]",
      "note": ""
-    },
-    {
-     "nom": "_product_names",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "E_in",
-     "defaut": "None",
-     "note": "somme des termes entrants (W)"
-    },
-    {
-     "nom": "E_out",
-     "defaut": "None",
-     "note": "somme des termes sortants (W)"
-    },
-    {
-     "nom": "I",
-     "defaut": "None",
-     "note": "irreversibilite (W)"
-    },
-    {
-     "nom": "psi",
-     "defaut": "None",
-     "note": "rendement rationnel (-)"
-    },
-    {
-     "nom": "E_product",
-     "defaut": "None",
-     "note": "exergie de la sortie utile (W)"
-    },
-    {
-     "nom": "E_fuel",
-     "defaut": "None",
-     "note": "exergie de l'entree necessaire (W)"
     }
+   ],
+   "sorties": [
+    "_product_names",
+    "E_in",
+    "E_out",
+    "I",
+    "psi",
+    "E_product",
+    "E_fuel"
    ],
    "sorties_df": [],
    "refus": [
@@ -6213,22 +4625,12 @@
      "nom": "regions",
      "defaut": "[]",
      "note": ""
-    },
-    {
-     "nom": "plant_fuel",
-     "defaut": "plant_fuel",
-     "note": "exergie entrant dans l'installation (W)"
-    },
-    {
-     "nom": "I_total",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "psi",
-     "defaut": "None",
-     "note": ""
     }
+   ],
+   "sorties": [
+    "plant_fuel",
+    "I_total",
+    "psi"
    ],
    "sorties_df": [],
    "refus": [
@@ -6257,12 +4659,10 @@
      "nom": "Outlet",
      "defaut": "FluidPort()",
      "note": ""
-    },
-    {
-     "nom": "Q_exp",
-     "defaut": "0",
-     "note": ""
     }
+   ],
+   "sorties": [
+    "Q_exp"
    ],
    "sorties_df": [
     "fluid",
@@ -6304,12 +4704,10 @@
      "nom": "Outlet",
      "defaut": "FluidPort()",
      "note": ""
-    },
-    {
-     "nom": "T_degC",
-     "defaut": "None",
-     "note": ""
     }
+   ],
+   "sorties": [
+    "T_degC"
    ],
    "sorties_df": [
     "Timestamp",
@@ -6352,27 +4750,13 @@
      "nom": "Outlet_vapor",
      "defaut": "FluidPort()",
      "note": ""
-    },
-    {
-     "nom": "x",
-     "defaut": "None",
-     "note": "titre vapeur entree"
-    },
-    {
-     "nom": "h_liquid",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "h_vapor",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "T_sat_degC",
-     "defaut": "None",
-     "note": ""
     }
+   ],
+   "sorties": [
+    "x",
+    "h_liquid",
+    "h_vapor",
+    "T_sat_degC"
    ],
    "sorties_df": [
     "Timestamp",
@@ -6418,17 +4802,11 @@
      "nom": "Ratio",
      "defaut": "0.5",
      "note": ""
-    },
-    {
-     "nom": "F_b",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "F_c",
-     "defaut": "None",
-     "note": ""
     }
+   ],
+   "sorties": [
+    "F_b",
+    "F_c"
    ],
    "sorties_df": [
     "Timestamp",
@@ -6477,32 +4855,14 @@
      "nom": "P_flash",
      "defaut": "None",
      "note": ""
-    },
-    {
-     "nom": "x",
-     "defaut": "None",
-     "note": "fraction vapeur produite"
-    },
-    {
-     "nom": "h_vapor",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "h_liquid",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "T_flash_degC",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "Q_flash_W",
-     "defaut": "None",
-     "note": "chaleur latente liberee = m_b * (h_b - h_c)"
     }
+   ],
+   "sorties": [
+    "x",
+    "h_vapor",
+    "h_liquid",
+    "T_flash_degC",
+    "Q_flash_W"
    ],
    "sorties_df": [
     "Timestamp",
@@ -6584,16 +4944,6 @@
      "note": "taux de vaporisation MOLAIRE V/F"
     },
     {
-     "nom": "V_mol",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "L_mol",
-     "defaut": "None",
-     "note": ""
-    },
-    {
      "nom": "x",
      "defaut": "None",
      "note": "fractions molaires du liquide"
@@ -6602,17 +4952,13 @@
      "nom": "y",
      "defaut": "None",
      "note": "fractions molaires de la vapeur"
-    },
-    {
-     "nom": "K_effectifs",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "iterations",
-     "defaut": "0",
-     "note": ""
     }
+   ],
+   "sorties": [
+    "V_mol",
+    "L_mol",
+    "K_effectifs",
+    "iterations"
    ],
    "sorties_df": [],
    "refus": [
@@ -6701,47 +5047,17 @@
      "nom": "A_T",
      "defaut": "0.506 * 0.304",
      "note": "m2 (vient de Fin)"
-    },
-    {
-     "nom": "h_a",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "h_m",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "w_s",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "Q_sens",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "Q_lat",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "T_out",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "Re",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "Nu",
-     "defaut": "None",
-     "note": ""
     }
+   ],
+   "sorties": [
+    "h_a",
+    "h_m",
+    "w_s",
+    "Q_sens",
+    "Q_lat",
+    "T_out",
+    "Re",
+    "Nu"
    ],
    "sorties_df": [
     "Tin_degC",
@@ -6834,77 +5150,23 @@
      "nom": "Qsens_in",
      "defaut": "0.0",
      "note": "W (Air, conduction)"
-    },
-    {
-     "nom": "T",
-     "defaut": "None",
-     "note": "K, list Nx (profil)"
-    },
-    {
-     "nom": "delta_f",
-     "defaut": "0.0001",
-     "note": "m (epaisseur initiale)"
-    },
-    {
-     "nom": "rho_f",
-     "defaut": "25.0",
-     "note": "kg/m3 (densite initiale)"
-    },
-    {
-     "nom": "Frost",
-     "defaut": "0.0",
-     "note": "kg/m2 (masse cumulee)"
-    },
-    {
-     "nom": "dx",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "Pv",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "f",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "Mu",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "m_f",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "m_rho",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "m_delta",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "Q_fin",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "Ts",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "_initialized",
-     "defaut": "False",
-     "note": ""
     }
+   ],
+   "sorties": [
+    "T",
+    "delta_f",
+    "rho_f",
+    "Frost",
+    "dx",
+    "Pv",
+    "f",
+    "Mu",
+    "m_f",
+    "m_rho",
+    "m_delta",
+    "Q_fin",
+    "Ts",
+    "_initialized"
    ],
    "sorties_df": [
     "Tp_degC",
@@ -6952,17 +5214,11 @@
      "nom": "A_T_override",
      "defaut": "None",
      "note": "m2 -- si None, utilise 0.506*0.304"
-    },
-    {
-     "nom": "A_fin",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "A_T",
-     "defaut": "None",
-     "note": ""
     }
+   ],
+   "sorties": [
+    "A_fin",
+    "A_T"
    ],
    "sorties_df": [
     "Tp_degC",
@@ -7075,140 +5331,38 @@
      "note": "sous-pas pour solveur frost"
     },
     {
-     "nom": "delta_f",
-     "defaut": "1e-05",
-     "note": "m -- epaisseur initiale givre"
-    },
-    {
-     "nom": "rho_f",
-     "defaut": "25.0",
-     "note": "kg/m3 -- densite initiale givre"
-    },
-    {
-     "nom": "Frost",
-     "defaut": "0.0",
-     "note": "kg -- masse cumulee"
-    },
-    {
-     "nom": "T_frost",
-     "defaut": "None",
-     "note": "profil T dans le givre (Nx noeuds)"
-    },
-    {
      "nom": "Nx_frost",
      "defaut": "4",
      "note": "nombre de noeuds dans le givre (these: Nx=4)"
-    },
-    {
-     "nom": "V_face",
-     "defaut": "None",
-     "note": "vitesse frontale (m/s)"
-    },
-    {
-     "nom": "V_max",
-     "defaut": "None",
-     "note": "vitesse a S_min (m/s)"
-    },
-    {
-     "nom": "Re_d",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "Pr",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "Nu_air",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "h_a",
-     "defaut": "None",
-     "note": "coeff air (W/m2/K)"
-    },
-    {
-     "nom": "h_m",
-     "defaut": "None",
-     "note": "coeff masse"
-    },
-    {
-     "nom": "S_super",
-     "defaut": "None",
-     "note": "facteur sursaturation"
-    },
-    {
-     "nom": "Le_f",
-     "defaut": "None",
-     "note": "fonction de Lewis"
-    },
-    {
-     "nom": "h_i",
-     "defaut": "None",
-     "note": "coeff refrigerant (W/m2/K)"
-    },
-    {
-     "nom": "Re_ref",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "Q_sens",
-     "defaut": "None",
-     "note": "W"
-    },
-    {
-     "nom": "Q_lat",
-     "defaut": "None",
-     "note": "W"
-    },
-    {
-     "nom": "Q_total",
-     "defaut": "None",
-     "note": "W"
-    },
-    {
-     "nom": "T_out_air",
-     "defaut": "None",
-     "note": "K"
-    },
-    {
-     "nom": "HR_out",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "T_out_ref",
-     "defaut": "None",
-     "note": "K"
-    },
-    {
-     "nom": "T_s_givre",
-     "defaut": "None",
-     "note": "K (surface du givre, T[Nx])"
-    },
-    {
-     "nom": "T_p",
-     "defaut": "None",
-     "note": "K (paroi ailette)"
-    },
-    {
-     "nom": "dP_air",
-     "defaut": "None",
-     "note": "Pa"
-    },
-    {
-     "nom": "m_f",
-     "defaut": "None",
-     "note": "kg/s flux d'eau"
-    },
-    {
-     "nom": "_initialized",
-     "defaut": "False",
-     "note": ""
     }
+   ],
+   "sorties": [
+    "delta_f",
+    "rho_f",
+    "Frost",
+    "T_frost",
+    "V_face",
+    "V_max",
+    "Re_d",
+    "Pr",
+    "Nu_air",
+    "h_a",
+    "h_m",
+    "S_super",
+    "Le_f",
+    "h_i",
+    "Re_ref",
+    "Q_sens",
+    "Q_lat",
+    "Q_total",
+    "T_out_air",
+    "HR_out",
+    "T_out_ref",
+    "T_s_givre",
+    "T_p",
+    "dP_air",
+    "m_f",
+    "_initialized"
    ],
    "sorties_df": [
     "Timestamp",
@@ -7310,77 +5464,23 @@
      "nom": "delta_f",
      "defaut": "0.0",
      "note": "m -- epaisseur couche de givre (chaque cote)"
-    },
-    {
-     "nom": "d_i",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "P_fin",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "Y_eff",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "s",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "P_d",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "S_face",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "S_min",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "N_fin",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "S_fin",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "A_fin",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "A_tube",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "A_T",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "A_int",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "eta_s",
-     "defaut": "None",
-     "note": ""
     }
+   ],
+   "sorties": [
+    "d_i",
+    "P_fin",
+    "Y_eff",
+    "s",
+    "P_d",
+    "S_face",
+    "S_min",
+    "N_fin",
+    "S_fin",
+    "A_fin",
+    "A_tube",
+    "A_T",
+    "A_int",
+    "eta_s"
    ],
    "sorties_df": [
     "d_r_mm",
@@ -7459,42 +5559,16 @@
      "nom": "P_out_bar",
      "defaut": "1.5",
      "note": ""
-    },
-    {
-     "nom": "eta_HHV_out",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "eta_LHV_out",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "P_el_W",
-     "defaut": "None",
-     "note": "puissance electrique produite (W)"
-    },
-    {
-     "nom": "mdot_H2",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "mdot_O2",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "mdot_H2O",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "Q_waste",
-     "defaut": "None",
-     "note": "W chaleur fatale (cogeneration)"
     }
+   ],
+   "sorties": [
+    "eta_HHV_out",
+    "eta_LHV_out",
+    "P_el_W",
+    "mdot_H2",
+    "mdot_O2",
+    "mdot_H2O",
+    "Q_waste"
    ],
    "sorties_df": [
     "Timestamp",
@@ -7554,22 +5628,12 @@
      "nom": "Q_cooling",
      "defaut": "0.0",
      "note": "pertes refroidissement (W)"
-    },
-    {
-     "nom": "P_fuel",
-     "defaut": "None",
-     "note": "puissance thermique apportee (W)"
-    },
-    {
-     "nom": "Ti_degC",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "To_degC",
-     "defaut": "None",
-     "note": ""
     }
+   ],
+   "sorties": [
+    "P_fuel",
+    "Ti_degC",
+    "To_degC"
    ],
    "sorties_df": [
     "Timestamp",
@@ -7671,27 +5735,13 @@
      "nom": "turbine",
      "defaut": "Turbine()",
      "note": ""
-    },
-    {
-     "nom": "P_ext",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "P_compressor",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "P_turbine",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "eta_thermal",
-     "defaut": "None",
-     "note": ""
     }
+   ],
+   "sorties": [
+    "P_ext",
+    "P_compressor",
+    "P_turbine",
+    "eta_thermal"
    ],
    "sorties_df": [
     "Timestamp",
@@ -7798,85 +5848,27 @@
      "note": "pression (atm) -- WGS insensible a P (dn=0)"
     },
     {
-     "nom": "n_H2",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "n_CO",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "n_CO2",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "n_CH4",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "n_H2O",
-     "defaut": "None",
-     "note": "eau dans le gaz brut (reactif restant + humidite inerte)"
-    },
-    {
-     "nom": "n_N2",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "syngas_vol_dry",
-     "defaut": "None",
-     "note": "dict %vol base seche (H2/CO/CO2/CH4/N2)"
-    },
-    {
-     "nom": "LHV_syngas_raw_MJkg",
-     "defaut": "None",
-     "note": "PCI du gaz brut humide (MJ/kg) -- base du livre (3.4)"
-    },
-    {
-     "nom": "LHV_syngas_dry_MJNm3",
-     "defaut": "None",
-     "note": "PCI base seche (MJ/Nm3) -- Table 16.2 (4-6)"
-    },
-    {
-     "nom": "HHV_biomass_MJkg",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "LHV_biomass_MJkg",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "cold_gas_efficiency",
-     "defaut": "None",
-     "note": "PCI(syngas)/PCI(biomasse) -- livre 70-75 %"
-    },
-    {
-     "nom": "air_fuel_stoich",
-     "defaut": "None",
-     "note": "kg air / kg biomasse seche a la stoechiometrie"
-    },
-    {
-     "nom": "lambda_air",
-     "defaut": "None",
-     "note": "facteur d'air (= equivalence_ratio)"
-    },
-    {
-     "nom": "Kp_wgs",
-     "defaut": "None",
-     "note": ""
-    },
-    {
      "nom": "char_free",
      "defaut": "True",
      "note": "hypothese : conversion complete du carbone (pas de char)"
     }
+   ],
+   "sorties": [
+    "n_H2",
+    "n_CO",
+    "n_CO2",
+    "n_CH4",
+    "n_H2O",
+    "n_N2",
+    "syngas_vol_dry",
+    "LHV_syngas_raw_MJkg",
+    "LHV_syngas_dry_MJNm3",
+    "HHV_biomass_MJkg",
+    "LHV_biomass_MJkg",
+    "cold_gas_efficiency",
+    "air_fuel_stoich",
+    "lambda_air",
+    "Kp_wgs"
    ],
    "sorties_df": [
     "Timestamp",
@@ -7933,44 +5925,9 @@
      "note": ""
     },
     {
-     "nom": "fluid",
-     "defaut": "'water'",
-     "note": "\"hydrocarbure leger\" , \"water\""
-    },
-    {
-     "nom": "Ti_fluid",
-     "defaut": "165",
-     "note": "Temperature d'entree du fluide de procede"
-    },
-    {
      "nom": "To_fluid",
      "defaut": "None",
      "note": "Temperature de sortie Fluide de Procede"
-    },
-    {
-     "nom": "Cp_fluid",
-     "defaut": "None",
-     "note": "Capacite thermique massique J/ Kg K"
-    },
-    {
-     "nom": "F_fluid",
-     "defaut": "None",
-     "note": "debit du fluide procede"
-    },
-    {
-     "nom": "Ti_air",
-     "defaut": "25",
-     "note": "temperature d'entree de l'air ambiant"
-    },
-    {
-     "nom": "rho_air",
-     "defaut": "None",
-     "note": "1.201"
-    },
-    {
-     "nom": "Cp_air",
-     "defaut": "None",
-     "note": ""
     },
     {
      "nom": "TminAmb",
@@ -7983,34 +5940,9 @@
      "note": "Largeur (m)"
     },
     {
-     "nom": "L_tube",
-     "defaut": "10",
-     "note": ""
-    },
-    {
      "nom": "L_tube_max",
      "defaut": "18",
      "note": "Tube Longueur max (m)"
-    },
-    {
-     "nom": "U",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "DTLM",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "UA",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "L_tube",
-     "defaut": "3",
-     "note": ""
     },
     {
      "nom": "diametre_ext_tube",
@@ -8048,92 +5980,7 @@
      "note": "Rendement de trasmission"
     },
     {
-     "nom": "Qth_fluid",
-     "defaut": "None",
-     "note": ""
-    },
-    {
      "nom": "nb_rangs",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "Ntr",
-     "defaut": "None",
-     "note": "nombre de tube par rang"
-    },
-    {
-     "nom": "Ntf",
-     "defaut": "None",
-     "note": "nombre de tube par faisceau"
-    },
-    {
-     "nom": "Sf",
-     "defaut": "None",
-     "note": "Surface faciale Sf m2"
-    },
-    {
-     "nom": "Stn",
-     "defaut": "None",
-     "note": "Surface de tube Nus"
-    },
-    {
-     "nom": "surface_ailetee",
-     "defaut": "None",
-     "note": "Surface Ailetee"
-    },
-    {
-     "nom": "V_air",
-     "defaut": "None",
-     "note": "m/s"
-    },
-    {
-     "nom": "Qth_air",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "nb_baie_design",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "S_sol_design",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "Stn_design",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "surface_ailetee_design",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "dmin_vent",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "d_vent",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "R1",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "R2",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "R3",
      "defaut": "None",
      "note": ""
     },
@@ -8146,17 +5993,40 @@
      "nom": "S_vent",
      "defaut": "None",
      "note": ""
-    },
-    {
-     "nom": "F_vent_m3h",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "F_air_m3h",
-     "defaut": "None",
-     "note": ""
     }
+   ],
+   "sorties": [
+    "fluid",
+    "Ti_fluid",
+    "Cp_fluid",
+    "F_fluid",
+    "Ti_air",
+    "rho_air",
+    "Cp_air",
+    "L_tube",
+    "U",
+    "DTLM",
+    "UA",
+    "L_tube",
+    "Qth_fluid",
+    "Ntr",
+    "Ntf",
+    "Sf",
+    "Stn",
+    "surface_ailetee",
+    "V_air",
+    "Qth_air",
+    "nb_baie_design",
+    "S_sol_design",
+    "Stn_design",
+    "surface_ailetee_design",
+    "dmin_vent",
+    "d_vent",
+    "R1",
+    "R2",
+    "R3",
+    "F_vent_m3h",
+    "F_air_m3h"
    ],
    "sorties_df": [
     "Timestamp",
@@ -8213,18 +6083,8 @@
      "note": ""
     },
     {
-     "nom": "To",
-     "defaut": "None",
-     "note": ""
-    },
-    {
      "nom": "P_drop",
      "defaut": "0",
-     "note": ""
-    },
-    {
-     "nom": "Qth",
-     "defaut": "None",
      "note": ""
     },
     {
@@ -8241,22 +6101,14 @@
      "nom": "Q_flow_nominal",
      "defaut": "None",
      "note": "puissance nominale (W) -> Q = u * Q_flow_nominal"
-    },
-    {
-     "nom": "Q_flow",
-     "defaut": "None",
-     "note": "= Qth (W)"
-    },
-    {
-     "nom": "To_degC",
-     "defaut": "None",
-     "note": "= To (temperature de sortie, degC)"
-    },
-    {
-     "nom": "Ti_degC",
-     "defaut": "None",
-     "note": ""
     }
+   ],
+   "sorties": [
+    "To",
+    "Qth",
+    "Q_flow",
+    "To_degC",
+    "Ti_degC"
    ],
    "sorties_df": [
     "Timestamp",
@@ -8313,27 +6165,13 @@
      "nom": "tol",
      "defaut": "0.001",
      "note": ""
-    },
-    {
-     "nom": "Q_flow_W",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "LMTD",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "Ti_degC",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "To_degC",
-     "defaut": "None",
-     "note": ""
     }
+   ],
+   "sorties": [
+    "Q_flow_W",
+    "LMTD",
+    "Ti_degC",
+    "To_degC"
    ],
    "sorties_df": [
     "Timestamp",
@@ -8405,22 +6243,12 @@
      "nom": "tol",
      "defaut": "0.001",
      "note": ""
-    },
-    {
-     "nom": "Q_total_W",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "T1_profile_degC",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "T2_profile_degC",
-     "defaut": "None",
-     "note": ""
     }
+   ],
+   "sorties": [
+    "Q_total_W",
+    "T1_profile_degC",
+    "T2_profile_degC"
    ],
    "sorties_df": [
     "Timestamp",
@@ -8482,11 +6310,6 @@
      "note": ""
     },
     {
-     "nom": "UA",
-     "defaut": "None",
-     "note": ""
-    },
-    {
      "nom": "arrangement",
      "defaut": "'counterflow'",
      "note": ""
@@ -8502,62 +6325,12 @@
      "note": ""
     },
     {
-     "nom": "UA_eff",
-     "defaut": "None",
-     "note": "conductance actually used by the NTU mode"
-    },
-    {
-     "nom": "C1",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "C2",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "Cmin",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "Cmax",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "R",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "Eff",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "NUT",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "Qth",
-     "defaut": "None",
-     "note": ""
-    },
-    {
      "nom": "T1o",
      "defaut": "None",
      "note": ""
     },
     {
      "nom": "T2o",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "DTLM",
      "defaut": "None",
      "note": ""
     },
@@ -8582,11 +6355,6 @@
      "note": ""
     },
     {
-     "nom": "Q_flow",
-     "defaut": "None",
-     "note": ""
-    },
-    {
      "nom": "LMTD",
      "defaut": "None",
      "note": ""
@@ -8601,6 +6369,20 @@
      "defaut": "None",
      "note": ""
     }
+   ],
+   "sorties": [
+    "UA",
+    "UA_eff",
+    "C1",
+    "C2",
+    "Cmin",
+    "Cmax",
+    "R",
+    "Eff",
+    "NUT",
+    "Qth",
+    "DTLM",
+    "Q_flow"
    ],
    "sorties_df": [],
    "refus": [
@@ -8652,39 +6434,9 @@
      "note": ""
     },
     {
-     "nom": "ouverture",
-     "defaut": "1.0",
-     "note": "Position d'ouverture (0.0-1.0 = 0°-90°)"
-    },
-    {
-     "nom": "angle_opening",
-     "defaut": "0.0",
-     "note": "Angle d'ouverture actuel (°)"
-    },
-    {
      "nom": "coeff_base",
      "defaut": "{'standard': {'K1': 0.5, 'K_inf': 0.25}, 'full-bore': {'K1': 0.3, 'K_inf': 0.15}}",
      "note": ""
-    },
-    {
-     "nom": "rho",
-     "defaut": "998.2",
-     "note": "kg/m³"
-    },
-    {
-     "nom": "eta",
-     "defaut": "None",
-     "note": "Viscosité dynamique (Pa·s)"
-    },
-    {
-     "nom": "V",
-     "defaut": "None",
-     "note": "Vitesse (m/s)"
-    },
-    {
-     "nom": "Re",
-     "defaut": "None",
-     "note": "Nombre de Reynolds"
     },
     {
      "nom": "K1",
@@ -8695,22 +6447,18 @@
      "nom": "K_inf",
      "defaut": "None",
      "note": "Coefficient turbulent"
-    },
-    {
-     "nom": "zeta",
-     "defaut": "None",
-     "note": "Coefficient de perte (-)"
-    },
-    {
-     "nom": "delta_P",
-     "defaut": "0",
-     "note": "Perte de charge (Pa)"
-    },
-    {
-     "nom": "m_flow",
-     "defaut": "None",
-     "note": "Débit massique (kg/s)"
     }
+   ],
+   "sorties": [
+    "ouverture",
+    "angle_opening",
+    "rho",
+    "eta",
+    "V",
+    "Re",
+    "zeta",
+    "delta_P",
+    "m_flow"
    ],
    "sorties_df": [
     "Timestamp",
@@ -8780,39 +6528,9 @@
      "note": ""
     },
     {
-     "nom": "ouverture",
-     "defaut": "1.0",
-     "note": "Position d'ouverture (0.0-1.0 = 0°-90°)"
-    },
-    {
-     "nom": "angle_opening",
-     "defaut": "0.0",
-     "note": "Angle d'ouverture actuel (°)"
-    },
-    {
      "nom": "coeff_base",
      "defaut": "{'centered': {'K1': 0.4, 'K_inf': 0.3}, 'eccentric': {'K1': 0.35, 'K_inf': 0.25}}",
      "note": ""
-    },
-    {
-     "nom": "rho",
-     "defaut": "998.2",
-     "note": "kg/m³"
-    },
-    {
-     "nom": "eta",
-     "defaut": "None",
-     "note": "Viscosité dynamique (Pa·s)"
-    },
-    {
-     "nom": "V",
-     "defaut": "None",
-     "note": "Vitesse (m/s)"
-    },
-    {
-     "nom": "Re",
-     "defaut": "None",
-     "note": "Nombre de Reynolds"
     },
     {
      "nom": "K1",
@@ -8823,22 +6541,18 @@
      "nom": "K_inf",
      "defaut": "None",
      "note": "Coefficient turbulent"
-    },
-    {
-     "nom": "zeta",
-     "defaut": "None",
-     "note": "Coefficient de perte (-)"
-    },
-    {
-     "nom": "delta_P",
-     "defaut": "0",
-     "note": "Perte de charge (Pa)"
-    },
-    {
-     "nom": "m_flow",
-     "defaut": "None",
-     "note": "Débit massique (kg/s)"
     }
+   ],
+   "sorties": [
+    "ouverture",
+    "angle_opening",
+    "rho",
+    "eta",
+    "V",
+    "Re",
+    "zeta",
+    "delta_P",
+    "m_flow"
    ],
    "sorties_df": [
     "Timestamp",
@@ -8911,52 +6625,18 @@
      "nom": "zeta_coeff",
      "defaut": "{'tilting': 1.0, 'swing': 2.0, 'lift': 4.5}",
      "note": ""
-    },
-    {
-     "nom": "rho",
-     "defaut": "998.2",
-     "note": "kg/m³"
-    },
-    {
-     "nom": "eta",
-     "defaut": "None",
-     "note": "Viscosité dynamique (Pa·s)"
-    },
-    {
-     "nom": "V",
-     "defaut": "None",
-     "note": "Vitesse (m/s)"
-    },
-    {
-     "nom": "Re",
-     "defaut": "None",
-     "note": "Nombre de Reynolds"
-    },
-    {
-     "nom": "zeta",
-     "defaut": "None",
-     "note": "Coefficient de perte (-)"
-    },
-    {
-     "nom": "delta_P",
-     "defaut": "0",
-     "note": "Perte de charge (Pa)"
-    },
-    {
-     "nom": "m_flow",
-     "defaut": "None",
-     "note": "Débit massique (kg/s)"
-    },
-    {
-     "nom": "is_open",
-     "defaut": "True",
-     "note": "État du clapet"
-    },
-    {
-     "nom": "flow_direction",
-     "defaut": "'forward'",
-     "note": "'forward' ou 'backward'"
     }
+   ],
+   "sorties": [
+    "rho",
+    "eta",
+    "V",
+    "Re",
+    "zeta",
+    "delta_P",
+    "m_flow",
+    "is_open",
+    "flow_direction"
    ],
    "sorties_df": [
     "Timestamp",
@@ -9011,11 +6691,6 @@
      "note": "m -- rayon d'enroulement"
     },
     {
-     "nom": "delta",
-     "defaut": "2.0 * math.pi",
-     "note": "rad -- angle total (1 spire)"
-    },
-    {
      "nom": "turns",
      "defaut": "None",
      "note": "spires ; si renseigne, impose delta"
@@ -9039,77 +6714,24 @@
      "nom": "lambda_source",
      "defaut": "'auto'",
      "note": "auto | formula | table"
-    },
-    {
-     "nom": "rho",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "eta",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "A",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "V",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "Re",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "X",
-     "defaut": "None",
-     "note": "Re.sqrt(D0/2R0)"
-    },
-    {
-     "nom": "lambda_el",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "lambda_source_used",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "lambda_domain",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "ksi_total",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "L_dev",
-     "defaut": "None",
-     "note": "longueur developpee (m)"
-    },
-    {
-     "nom": "out_of_domain",
-     "defaut": "False",
-     "note": ""
-    },
-    {
-     "nom": "domain_note",
-     "defaut": "''",
-     "note": ""
-    },
-    {
-     "nom": "delta_P",
-     "defaut": "None",
-     "note": "Pa"
     }
+   ],
+   "sorties": [
+    "delta",
+    "rho",
+    "eta",
+    "A",
+    "V",
+    "Re",
+    "X",
+    "lambda_el",
+    "lambda_source_used",
+    "lambda_domain",
+    "ksi_total",
+    "L_dev",
+    "out_of_domain",
+    "domain_note",
+    "delta_P"
    ],
    "sorties_df": [
     "Timestamp",
@@ -9186,36 +6808,6 @@
      "note": "'idelchik' (Diag. 7.1-7.4) | 'legacy'"
     },
     {
-     "nom": "rho",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "A",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "A_side",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "V_C",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "q_ratio",
-     "defaut": "None",
-     "note": "Q_S / Q_C"
-    },
-    {
-     "nom": "area_ratio_side",
-     "defaut": "None",
-     "note": "Fs / Fc"
-    },
-    {
      "nom": "A_factor",
      "defaut": "None",
      "note": "Table 7.1"
@@ -9229,17 +6821,17 @@
      "nom": "ksi_S",
      "defaut": "None",
      "note": ""
-    },
-    {
-     "nom": "dP_St_to_C",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "dP_S_to_C",
-     "defaut": "None",
-     "note": ""
     }
+   ],
+   "sorties": [
+    "rho",
+    "A",
+    "A_side",
+    "V_C",
+    "q_ratio",
+    "area_ratio_side",
+    "dP_St_to_C",
+    "dP_S_to_C"
    ],
    "sorties_df": [
     "Timestamp",
@@ -9292,11 +6884,6 @@
      "note": "m"
     },
     {
-     "nom": "R_0",
-     "defaut": "None",
-     "note": "m -- rayon de courbure (defaut : 0.5*d_hyd)"
-    },
-    {
      "nom": "delta",
      "defaut": "math.pi / 2",
      "note": "rad -- angle (defaut 90°)"
@@ -9325,51 +6912,6 @@
      "nom": "apply_roughness_factor",
      "defaut": "True",
      "note": "k_Delta"
-    },
-    {
-     "nom": "rho",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "eta",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "A",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "V",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "Re",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "ksi_loc",
-     "defaut": "None",
-     "note": "coefficient singularite"
-    },
-    {
-     "nom": "ksi_loc_base",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "ksi_fr",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "lambda_FRI",
-     "defaut": "None",
-     "note": ""
     },
     {
      "nom": "A1",
@@ -9407,21 +6949,6 @@
      "note": "'auto-modele' | 'kRe' | 'A2/Re'"
     },
     {
-     "nom": "out_of_domain",
-     "defaut": "False",
-     "note": ""
-    },
-    {
-     "nom": "domain_note",
-     "defaut": "''",
-     "note": ""
-    },
-    {
-     "nom": "delta_P",
-     "defaut": "None",
-     "note": "Pa"
-    },
-    {
      "nom": "apply_handbook_corrections",
      "defaut": "False",
      "note": ""
@@ -9436,6 +6963,21 @@
      "defaut": "None",
      "note": ""
     }
+   ],
+   "sorties": [
+    "R_0",
+    "rho",
+    "eta",
+    "A",
+    "V",
+    "Re",
+    "ksi_loc",
+    "ksi_loc_base",
+    "ksi_fr",
+    "lambda_FRI",
+    "out_of_domain",
+    "domain_note",
+    "delta_P"
    ],
    "sorties_df": [
     "Timestamp",
@@ -9508,42 +7050,16 @@
      "nom": "Kd",
      "defaut": "1.0",
      "note": "Coefficient de correction géométrique"
-    },
-    {
-     "nom": "rho",
-     "defaut": "998.2",
-     "note": "kg/m³"
-    },
-    {
-     "nom": "eta",
-     "defaut": "None",
-     "note": "Viscosité dynamique (Pa·s)"
-    },
-    {
-     "nom": "V",
-     "defaut": "None",
-     "note": "Vitesse (m/s)"
-    },
-    {
-     "nom": "Re",
-     "defaut": "None",
-     "note": "Nombre de Reynolds"
-    },
-    {
-     "nom": "zeta",
-     "defaut": "None",
-     "note": "Coefficient de perte (-)"
-    },
-    {
-     "nom": "delta_P",
-     "defaut": "0",
-     "note": "Perte de charge (Pa)"
-    },
-    {
-     "nom": "m_flow",
-     "defaut": "None",
-     "note": "Débit massique (kg/s)"
     }
+   ],
+   "sorties": [
+    "rho",
+    "eta",
+    "V",
+    "Re",
+    "zeta",
+    "delta_P",
+    "m_flow"
    ],
    "sorties_df": [
     "Timestamp",
@@ -9618,36 +7134,6 @@
      "note": "'idelchik' (Diag. 7.18/7.20) | 'legacy'"
     },
     {
-     "nom": "rho",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "A",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "A_side",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "V_C",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "q_ratio",
-     "defaut": "None",
-     "note": "Q_s / Q_c"
-    },
-    {
-     "nom": "area_ratio_side",
-     "defaut": "None",
-     "note": "Fs / Fc"
-    },
-    {
      "nom": "ksi_St",
      "defaut": "None",
      "note": ""
@@ -9661,17 +7147,17 @@
      "nom": "domain_note",
      "defaut": "''",
      "note": ""
-    },
-    {
-     "nom": "dP_C_to_St",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "dP_C_to_S",
-     "defaut": "None",
-     "note": ""
     }
+   ],
+   "sorties": [
+    "rho",
+    "A",
+    "A_side",
+    "V_C",
+    "q_ratio",
+    "area_ratio_side",
+    "dP_C_to_St",
+    "dP_C_to_S"
    ],
    "sorties_df": [
     "Timestamp",
@@ -9739,26 +7225,6 @@
      "note": "Pa, pression au point de reference (capillaire)"
     },
     {
-     "nom": "rho",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "q",
-     "defaut": "None",
-     "note": "m3/h"
-    },
-    {
-     "nom": "Kv_max",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "dp_open",
-     "defaut": "None",
-     "note": ""
-    },
-    {
      "nom": "delta_P",
      "defaut": "None",
      "note": ""
@@ -9768,6 +7234,12 @@
      "defaut": "None",
      "note": ""
     }
+   ],
+   "sorties": [
+    "rho",
+    "q",
+    "Kv_max",
+    "dp_open"
    ],
    "sorties_df": [
     "Timestamp",
@@ -9823,46 +7295,6 @@
      "note": "rad -- angle (defaut 90°)"
     },
     {
-     "nom": "rho",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "eta",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "A",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "V",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "Re",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "ksi_loc",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "ksi_loc_base",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "delta_P",
-     "defaut": "None",
-     "note": "Pa"
-    },
-    {
      "nom": "apply_handbook_corrections",
      "defaut": "False",
      "note": ""
@@ -9877,6 +7309,16 @@
      "defaut": "None",
      "note": ""
     }
+   ],
+   "sorties": [
+    "rho",
+    "eta",
+    "A",
+    "V",
+    "Re",
+    "ksi_loc",
+    "ksi_loc_base",
+    "delta_P"
    ],
    "sorties_df": [
     "Timestamp",
@@ -9934,46 +7376,6 @@
      "note": ""
     },
     {
-     "nom": "rho",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "eta",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "A",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "V",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "Re",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "ksi_loc_base",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "ksi_loc",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "delta_P",
-     "defaut": "None",
-     "note": ""
-    },
-    {
      "nom": "apply_handbook_corrections",
      "defaut": "False",
      "note": ""
@@ -9998,6 +7400,16 @@
      "defaut": "{1: [4.4, 2.15, 1.78, 1.58, 1.35, 1.23, 1.13, 1.1, 1.06, 1.06, 1.06], 2: [48.0, 6.4, 2.72, 1.73, 1.47, 1.26, 1.16, 1.07, 1.06, 1.06, 1.06], 3: [2.63, 1.83, 1.53, 1.39, 1.31, 1.19, 1.15, 1.08, 1.07, 1.06, 1.06], 4: [2.13, 1.3, 0.95, 0.84, 0.75, 0.7, 0.65, 0.63, 0.6, 0.6, 0.6], 5: [2.9, 1.9, 1.59, 1.41, 1.33, 1.25, 1.15, 1.1, 1.07, 1.06, 1.06], 6: [1.32, 0.77, 0.6, 0.48, 0.41, 0.3, 0.29, 0.28, 0.25, 0.25, 0.25]}",
      "note": ""
     }
+   ],
+   "sorties": [
+    "rho",
+    "eta",
+    "A",
+    "V",
+    "Re",
+    "ksi_loc_base",
+    "ksi_loc",
+    "delta_P"
    ],
    "sorties_df": [
     "Timestamp",
@@ -10069,57 +7481,19 @@
      "nom": "l0",
      "defaut": "0.5",
      "note": "m, epaisseur du lit"
-    },
-    {
-     "nom": "rho",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "mu",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "nu",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "A",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "w1",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "Re1",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "del_char",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "lambda_bed",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "ksi_loc",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "delta_P",
-     "defaut": "None",
-     "note": ""
     }
+   ],
+   "sorties": [
+    "rho",
+    "mu",
+    "nu",
+    "A",
+    "w1",
+    "Re1",
+    "del_char",
+    "lambda_bed",
+    "ksi_loc",
+    "delta_P"
    ],
    "sorties_df": [
     "Timestamp",
@@ -10179,32 +7553,14 @@
      "nom": "m_profile",
      "defaut": "7.0",
      "note": ""
-    },
-    {
-     "nom": "rho",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "A",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "w0",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "ksi_loc",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "delta_P",
-     "defaut": "None",
-     "note": ""
     }
+   ],
+   "sorties": [
+    "rho",
+    "A",
+    "w0",
+    "ksi_loc",
+    "delta_P"
    ],
    "sorties_df": [
     "Timestamp",
@@ -10265,34 +7621,9 @@
      "note": ""
     },
     {
-     "nom": "ouverture",
-     "defaut": "1.0",
-     "note": "Position d'ouverture (0.0-1.0)"
-    },
-    {
      "nom": "coeff_base",
      "defaut": "{'standard': {'K1': 0.7, 'K_inf': 0.35}, 'full-bore': {'K1': 0.5, 'K_inf': 0.2}}",
      "note": ""
-    },
-    {
-     "nom": "rho",
-     "defaut": "998.2",
-     "note": "kg/m³"
-    },
-    {
-     "nom": "eta",
-     "defaut": "None",
-     "note": "Viscosité dynamique (Pa·s)"
-    },
-    {
-     "nom": "V",
-     "defaut": "None",
-     "note": "Vitesse (m/s)"
-    },
-    {
-     "nom": "Re",
-     "defaut": "None",
-     "note": "Nombre de Reynolds"
     },
     {
      "nom": "K1",
@@ -10303,22 +7634,17 @@
      "nom": "K_inf",
      "defaut": "None",
      "note": "Coefficient turbulent"
-    },
-    {
-     "nom": "zeta",
-     "defaut": "None",
-     "note": "Coefficient de perte (-)"
-    },
-    {
-     "nom": "delta_P",
-     "defaut": "0",
-     "note": "Perte de charge (Pa)"
-    },
-    {
-     "nom": "m_flow",
-     "defaut": "None",
-     "note": "Débit massique (kg/s)"
     }
+   ],
+   "sorties": [
+    "ouverture",
+    "rho",
+    "eta",
+    "V",
+    "Re",
+    "zeta",
+    "delta_P",
+    "m_flow"
    ],
    "sorties_df": [
     "Timestamp",
@@ -10367,11 +7693,6 @@
      "note": "Coefficient Kv à ouverture maximale (m³/h)"
     },
     {
-     "nom": "ouverture",
-     "defaut": "1.0",
-     "note": "Position d'ouverture (0.0 à 1.0 = 0% à 100%)"
-    },
-    {
      "nom": "D_mm",
      "defaut": "50",
      "note": "Diamètre nominal (mm)"
@@ -10415,72 +7736,23 @@
      "nom": "cv_curve",
      "defaut": "self._equal_percentage_curve",
      "note": "Par défaut logarithmique"
-    },
-    {
-     "nom": "rho",
-     "defaut": "998.2",
-     "note": "kg/m³"
-    },
-    {
-     "nom": "eta",
-     "defaut": "None",
-     "note": "Viscosité dynamique (Pa·s)"
-    },
-    {
-     "nom": "V",
-     "defaut": "None",
-     "note": "Vitesse (m/s)"
-    },
-    {
-     "nom": "Re",
-     "defaut": "None",
-     "note": "Nombre de Reynolds"
-    },
-    {
-     "nom": "Kv_effective",
-     "defaut": "None",
-     "note": "Kv à l'ouverture actuelle (m³/h)"
-    },
-    {
-     "nom": "zeta",
-     "defaut": "None",
-     "note": "Coefficient de perte (-)"
-    },
-    {
-     "nom": "delta_P",
-     "defaut": "0",
-     "note": "Perte de charge (Pa)"
-    },
-    {
-     "nom": "m_flow",
-     "defaut": "None",
-     "note": "Débit massique (kg/s)"
-    },
-    {
-     "nom": "Q_m3_h",
-     "defaut": "None",
-     "note": "Débit volumique (m³/h)"
-    },
-    {
-     "nom": "choked",
-     "defaut": "None",
-     "note": "True/False : ecoulement bloque"
-    },
-    {
-     "nom": "q_max",
-     "defaut": "None",
-     "note": "debit maximal admissible (m³/h)"
-    },
-    {
-     "nom": "dp_max",
-     "defaut": "None",
-     "note": "perte de charge maximale admissible (Pa)"
-    },
-    {
-     "nom": "cavitation_state",
-     "defaut": "None",
-     "note": "'aucune' | 'cavitation' | 'flashing'"
     }
+   ],
+   "sorties": [
+    "ouverture",
+    "rho",
+    "eta",
+    "V",
+    "Re",
+    "Kv_effective",
+    "zeta",
+    "delta_P",
+    "m_flow",
+    "Q_m3_h",
+    "choked",
+    "q_max",
+    "dp_max",
+    "cavitation_state"
    ],
    "sorties_df": [
     "Timestamp",
@@ -10542,34 +7814,9 @@
      "note": ""
     },
     {
-     "nom": "ouverture",
-     "defaut": "1.0",
-     "note": "Position d'ouverture (0.0-1.0)"
-    },
-    {
      "nom": "coeff_base",
      "defaut": "{'straight': {'K1': 1.7, 'K_inf': 2.4}, 'angle': {'K1': 1.0, 'K_inf': 2.8}}",
      "note": ""
-    },
-    {
-     "nom": "rho",
-     "defaut": "998.2",
-     "note": "kg/m³"
-    },
-    {
-     "nom": "eta",
-     "defaut": "None",
-     "note": "Viscosité dynamique (Pa·s)"
-    },
-    {
-     "nom": "V",
-     "defaut": "None",
-     "note": "Vitesse (m/s)"
-    },
-    {
-     "nom": "Re",
-     "defaut": "None",
-     "note": "Nombre de Reynolds"
     },
     {
      "nom": "K1",
@@ -10580,22 +7827,17 @@
      "nom": "K_inf",
      "defaut": "None",
      "note": "Coefficient turbulent"
-    },
-    {
-     "nom": "zeta",
-     "defaut": "None",
-     "note": "Coefficient de perte (-)"
-    },
-    {
-     "nom": "delta_P",
-     "defaut": "0",
-     "note": "Perte de charge (Pa)"
-    },
-    {
-     "nom": "m_flow",
-     "defaut": "None",
-     "note": "Débit massique (kg/s)"
     }
+   ],
+   "sorties": [
+    "ouverture",
+    "rho",
+    "eta",
+    "V",
+    "Re",
+    "zeta",
+    "delta_P",
+    "m_flow"
    ],
    "sorties_df": [
     "Timestamp",
@@ -10664,56 +7906,6 @@
      "note": ""
     },
     {
-     "nom": "rho",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "eta",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "A_small",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "A_large",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "V_small",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "V_large",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "Re_small",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "Re_large",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "darcy_factor",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "ksi_loc",
-     "defaut": "None",
-     "note": "rapporte a V_small (sortie)"
-    },
-    {
      "nom": "ksi_conv",
      "defaut": "None",
      "note": ""
@@ -10722,27 +7914,23 @@
      "nom": "ksi_fr",
      "defaut": "None",
      "note": ""
-    },
-    {
-     "nom": "length",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "domain_note",
-     "defaut": "''",
-     "note": ""
-    },
-    {
-     "nom": "delta_P_friction",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "delta_P_static",
-     "defaut": "None",
-     "note": "P_aval - P_amont (negatif)"
     }
+   ],
+   "sorties": [
+    "rho",
+    "eta",
+    "A_small",
+    "A_large",
+    "V_small",
+    "V_large",
+    "Re_small",
+    "Re_large",
+    "darcy_factor",
+    "ksi_loc",
+    "length",
+    "domain_note",
+    "delta_P_friction",
+    "delta_P_static"
    ],
    "sorties_df": [
     "Timestamp",
@@ -10818,51 +8006,6 @@
      "note": ""
     },
     {
-     "nom": "rho",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "eta",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "A_small",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "A_large",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "V_small",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "V_large",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "Re_small",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "darcy_factor",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "ksi_loc",
-     "defaut": "None",
-     "note": "rapporte a V_small"
-    },
-    {
      "nom": "ksi_exp",
      "defaut": "None",
      "note": ""
@@ -10876,27 +8019,22 @@
      "nom": "phi_exp",
      "defaut": "None",
      "note": ""
-    },
-    {
-     "nom": "domain_note",
-     "defaut": "''",
-     "note": ""
-    },
-    {
-     "nom": "length",
-     "defaut": "None",
-     "note": "longueur du cone, m (info)"
-    },
-    {
-     "nom": "delta_P_friction",
-     "defaut": "None",
-     "note": "perte irreversible, Pa"
-    },
-    {
-     "nom": "delta_P_static",
-     "defaut": "None",
-     "note": "P_aval - P_amont, Pa"
     }
+   ],
+   "sorties": [
+    "rho",
+    "eta",
+    "A_small",
+    "A_large",
+    "V_small",
+    "V_large",
+    "Re_small",
+    "darcy_factor",
+    "ksi_loc",
+    "domain_note",
+    "length",
+    "delta_P_friction",
+    "delta_P_static"
    ],
    "sorties_df": [
     "Timestamp",
@@ -10965,42 +8103,16 @@
      "nom": "K_inf",
      "defaut": "0.3",
      "note": "Coefficient régime turbulent asymptotique"
-    },
-    {
-     "nom": "rho",
-     "defaut": "998.2",
-     "note": "kg/m³"
-    },
-    {
-     "nom": "eta",
-     "defaut": "None",
-     "note": "Viscosité dynamique (Pa·s)"
-    },
-    {
-     "nom": "V",
-     "defaut": "None",
-     "note": "Vitesse (m/s)"
-    },
-    {
-     "nom": "Re",
-     "defaut": "None",
-     "note": "Nombre de Reynolds"
-    },
-    {
-     "nom": "zeta",
-     "defaut": "None",
-     "note": "Coefficient de perte (-)"
-    },
-    {
-     "nom": "delta_P",
-     "defaut": "0",
-     "note": "Perte de charge (Pa)"
-    },
-    {
-     "nom": "m_flow",
-     "defaut": "None",
-     "note": "Débit massique (kg/s)"
     }
+   ],
+   "sorties": [
+    "rho",
+    "eta",
+    "V",
+    "Re",
+    "zeta",
+    "delta_P",
+    "m_flow"
    ],
    "sorties_df": [
     "Timestamp",
@@ -11060,46 +8172,6 @@
      "note": ""
     },
     {
-     "nom": "rho",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "eta",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "A",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "V",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "Re",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "ksi_loc_base",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "ksi_loc",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "delta_P",
-     "defaut": "None",
-     "note": ""
-    },
-    {
      "nom": "apply_handbook_corrections",
      "defaut": "False",
      "note": ""
@@ -11129,6 +8201,16 @@
      "defaut": "{'single_top_hinged': [[11.0, 6.3, 4.5, 4.0, 3.0, 2.5, 2.0], [17.0, 12.0, 8.5, 6.9, 4.0, 3.1, 2.5], [30.0, 16.0, 11.0, 8.6, 4.7, 3.3, 2.5]], 'double_top_hinged': [[16.0, 11.0, 8.0, 5.7, 3.7, 3.1, 2.6], [21.0, 13.0, 9.3, 6.9, 4.0, 3.2, 2.6], [30.0, 18.0, 12.0, 8.0, 4.5, 3.0, 2.4]], 'single_center_hinged': [[14.0, 9.0, 6.0, 4.9, 3.8, 3.0, 2.4], [31.0, 21.0, 14.0, 9.8, 5.2, 3.5, 2.4], [45.0, 28.0, 18.0, 12.0, 6.0, 3.8, 2.4]]}",
      "note": ""
     }
+   ],
+   "sorties": [
+    "rho",
+    "eta",
+    "A",
+    "V",
+    "Re",
+    "ksi_loc_base",
+    "ksi_loc",
+    "delta_P"
    ],
    "sorties_df": [
     "Timestamp",
@@ -11191,42 +8273,16 @@
      "nom": "orifice_type",
      "defaut": "'thin'",
      "note": "'thin' ou 'thick'"
-    },
-    {
-     "nom": "rho",
-     "defaut": "998.2",
-     "note": "kg/m³"
-    },
-    {
-     "nom": "eta",
-     "defaut": "None",
-     "note": "Viscosité dynamique (Pa·s)"
-    },
-    {
-     "nom": "V",
-     "defaut": "None",
-     "note": "Vitesse dans l'orifice (m/s)"
-    },
-    {
-     "nom": "Re",
-     "defaut": "None",
-     "note": "Nombre de Reynolds"
-    },
-    {
-     "nom": "zeta_total",
-     "defaut": "None",
-     "note": "Coefficient de perte total (-)"
-    },
-    {
-     "nom": "delta_P",
-     "defaut": "0",
-     "note": "Perte de charge (Pa)"
-    },
-    {
-     "nom": "m_flow",
-     "defaut": "None",
-     "note": "Débit massique (kg/s)"
     }
+   ],
+   "sorties": [
+    "rho",
+    "eta",
+    "V",
+    "Re",
+    "zeta_total",
+    "delta_P",
+    "m_flow"
    ],
    "sorties_df": [
     "Timestamp",
@@ -11274,52 +8330,18 @@
      "nom": "delta_deg",
      "defaut": "0.0",
      "note": "deg, 0 ouverte -> 90 fermee"
-    },
-    {
-     "nom": "rho",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "mu",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "A",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "V",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "Re",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "ksi_loc_lam",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "ksi_loc_quad",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "ksi_loc",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "delta_P",
-     "defaut": "None",
-     "note": ""
     }
+   ],
+   "sorties": [
+    "rho",
+    "mu",
+    "A",
+    "V",
+    "Re",
+    "ksi_loc_lam",
+    "ksi_loc_quad",
+    "ksi_loc",
+    "delta_P"
    ],
    "sorties_df": [
     "Timestamp",
@@ -11387,56 +8409,6 @@
      "note": ""
     },
     {
-     "nom": "rho",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "eta",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "A",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "V",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "Re",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "ksi_loc_base",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "ksi_loc",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "delta_P",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "re_regime",
-     "defaut": "None",
-     "note": "'turbulent' | 'transition' | 'laminaire'"
-    },
-    {
-     "nom": "out_of_domain",
-     "defaut": "False",
-     "note": ""
-    },
-    {
      "nom": "apply_handbook_corrections",
      "defaut": "False",
      "note": ""
@@ -11451,6 +8423,18 @@
      "defaut": "None",
      "note": ""
     }
+   ],
+   "sorties": [
+    "rho",
+    "eta",
+    "A",
+    "V",
+    "Re",
+    "ksi_loc_base",
+    "ksi_loc",
+    "delta_P",
+    "re_regime",
+    "out_of_domain"
    ],
    "sorties_df": [
     "Timestamp",
@@ -11494,11 +8478,6 @@
      "note": ""
     },
     {
-     "nom": "Ti",
-     "defaut": "None",
-     "note": "Modelica.Units.SI.Temperature Ti"
-    },
-    {
      "nom": "To",
      "defaut": "None",
      "note": "Modelica.Units.SI.Temperature To"
@@ -11519,11 +8498,6 @@
      "note": "Modelica.Units.SI.Length L=1 Length"
     },
     {
-     "nom": "K",
-     "defaut": "0.0015 * 10 ** (-3)",
-     "note": "Modelica.Units.SI.Length K=0.0015*10^(-3) Roughness (average height of surface asperities)"
-    },
-    {
      "nom": "material",
      "defaut": "None",
      "note": ""
@@ -11539,44 +8513,14 @@
      "note": "Modelica.Units.SI.Angle alpha=pi/2 inclinaison du tube par rapport a l horizontale"
     },
     {
-     "nom": "delta_Z",
-     "defaut": "None",
-     "note": "Modelica.Units.SI.Height delta_Z hauteur du tuyau"
-    },
-    {
      "nom": "include_static_head",
      "defaut": "False",
      "note": ""
     },
     {
-     "nom": "delta_P_static",
-     "defaut": "0.0",
-     "note": "Pa, rho.g.delta_Z (0 si desactive)"
-    },
-    {
      "nom": "delta_H",
      "defaut": "None",
      "note": "Modelica.Units.SI.Height delta_H perte de pression en m"
-    },
-    {
-     "nom": "eta",
-     "defaut": "None",
-     "note": "Modelica.Units.SI.DynamicViscosity eta Dynamic viscosity of fluid"
-    },
-    {
-     "nom": "rho",
-     "defaut": "998.2",
-     "note": "Modelica.Units.SI.Density rho(start=998.2) Density of fluid"
-    },
-    {
-     "nom": "delta_P",
-     "defaut": "80",
-     "note": "Modelica.Units.SI.Pressure delta_P(start=80) perte de pression du aux frottements"
-    },
-    {
-     "nom": "diff_P",
-     "defaut": "None",
-     "note": "Modelica.Units.SI.Pressure diff_P dif de pression entre Inlet et Outlet"
     },
     {
      "nom": "IN_con",
@@ -11597,27 +8541,21 @@
      "nom": "perimeter",
      "defaut": "None",
      "note": ""
-    },
-    {
-     "nom": "A",
-     "defaut": "None",
-     "note": "Real A(unit=\"m2\") section du tube"
-    },
-    {
-     "nom": "V",
-     "defaut": "None",
-     "note": "Real V(unit=\"m/s\")"
-    },
-    {
-     "nom": "Re",
-     "defaut": "None",
-     "note": "Real Re"
-    },
-    {
-     "nom": "h",
-     "defaut": "10000",
-     "note": "Real h( start=10000);"
     }
+   ],
+   "sorties": [
+    "Ti",
+    "K",
+    "delta_Z",
+    "delta_P_static",
+    "eta",
+    "rho",
+    "delta_P",
+    "diff_P",
+    "A",
+    "V",
+    "Re",
+    "h"
    ],
    "sorties_df": [
     "Timestamp",
@@ -11689,61 +8627,6 @@
      "note": "m"
     },
     {
-     "nom": "rho",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "A_small",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "A_large",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "V_small",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "V_large",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "ksi_loc",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "ksi_loc_base",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "Re_large",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "darcy_factor",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "delta_P_friction",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "delta_P_static",
-     "defaut": "None",
-     "note": ""
-    },
-    {
      "nom": "apply_handbook_corrections",
      "defaut": "False",
      "note": ""
@@ -11758,6 +8641,19 @@
      "defaut": "None",
      "note": ""
     }
+   ],
+   "sorties": [
+    "rho",
+    "A_small",
+    "A_large",
+    "V_small",
+    "V_large",
+    "ksi_loc",
+    "ksi_loc_base",
+    "Re_large",
+    "darcy_factor",
+    "delta_P_friction",
+    "delta_P_static"
    ],
    "sorties_df": [
     "Timestamp",
@@ -11823,61 +8719,6 @@
      "note": "m"
     },
     {
-     "nom": "rho",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "A_small",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "A_large",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "V_small",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "V_large",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "ksi_loc",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "ksi_loc_base",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "Re_small",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "darcy_factor",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "delta_P_friction",
-     "defaut": "None",
-     "note": "frottement (perte irreversible)"
-    },
-    {
-     "nom": "delta_P_static",
-     "defaut": "None",
-     "note": "variation P statique (= -dP_cinetique + dP_friction)"
-    },
-    {
      "nom": "apply_handbook_corrections",
      "defaut": "False",
      "note": ""
@@ -11892,6 +8733,19 @@
      "defaut": "None",
      "note": ""
     }
+   ],
+   "sorties": [
+    "rho",
+    "A_small",
+    "A_large",
+    "V_small",
+    "V_large",
+    "ksi_loc",
+    "ksi_loc_base",
+    "Re_small",
+    "darcy_factor",
+    "delta_P_friction",
+    "delta_P_static"
    ],
    "sorties_df": [
     "Timestamp",
@@ -11937,16 +8791,6 @@
      "note": ""
     },
     {
-     "nom": "delta_P",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "q",
-     "defaut": "None",
-     "note": ""
-    },
-    {
      "nom": "nb_tours",
      "defaut": "None",
      "note": ""
@@ -11966,6 +8810,10 @@
      "defaut": "['STAD-DN10', 'STAD-DN15', 'STAD-DN20', 'STAD-DN25', 'STAD-DN32', 'STAD-DN40', 'STAD-DN50', 'STAV-DN15', 'STAV-DN20', 'STAV-DN25', 'STAV-DN32', 'STAV-DN40', 'STAV-DN50', 'TBV-DN15', 'TBV-DN20', 'TBV-C-DN10', 'TBV-C-DN15', 'TBV-C-DN20', 'TBV-LF-DN15', 'TBV-NF-DN15', 'TBV-NF-DN20', 'STAF-DN20', 'STAF-DN25', 'STAF-DN32', 'STAF-DN40', 'STAF-DN50', 'STAF-DN65', 'STAF-DN80', 'STAF-DN100', 'STAF-DN125', 'STAF-DN150', 'STAF-DN200', 'STAF-DN250', 'STAF-DN300', 'STAF-DN350', 'STAF-DN400', 'STAF-SG-DN65', 'STAF-SG-DN80', 'STAF-SG-DN100', 'STAF-SG-DN125', 'STAF-SG-DN150', 'STAF-SG-DN200', 'STAF-SG-DN250', 'STAF-SG-DN300', 'STAF-SG-DN350', 'STAF-SG-DN400', 'STAF-R-DN65', 'STAF-R-DN80', 'STAF-R-DN100', 'STAF-R-DN125', 'STAF-R-DN150', 'STAF-R-DN200', 'STAG-DN65', 'STAG-DN80', 'STAG-DN100', 'STAG-DN125', 'STAG-DN150', 'STAG-DN200', 'STAG-DN250', 'STAG-DN300', 'STA-DN15', 'STA-DN20', 'STA-DN25', 'STA-DN32', 'STA-DN40', 'STA-DN50', 'STA-DN65', 'STA-DN80', 'STA-DN100', 'STA-DN125', 'STA-DN150', 'MDFO-DN20', 'MDFO-DN25', 'MDFO-DN32', 'MDFO-DN40', 'MDFO-DN50', 'MDFO-DN65', 'MDFO-DN80', 'MDFO-DN100', 'MDFO-DN125', 'MDFO-DN150', 'MDFO-DN200', 'MDFO-DN250', 'MDFO-DN300', 'MDFO-DN350', 'MDFO-DN400', 'MDFO-DN450', 'MDFO-DN500', 'MDFO-DN600', 'MDFO-DN700', 'MDFO-DN800', 'MDFO-DN900', 'STAP-DN15', 'STAP-DN20', 'STAP-DN25', 'STAP-DN32', 'STAP-DN40', 'STAP-DN50', 'STAP-DN65', 'STAP-DN80', 'STAP-DN100', 'STAM-DN15', 'STAM-DN20', 'STAM-DN25', 'STAM-DN32', 'STAM-DN40', 'STAM-DN50', 'STAZ-DN15', 'STAZ-DN20', 'STAZ-DN25', 'STAZ-DN32', 'STAZ-DN40', 'STAZ-DN50', 'STAP-R-DN15', 'STAP-R-DN20', 'STAP-R-DN25', 'STAP-R-DN32', 'STAP-R-DN40', 'STAP-R-DN50']",
      "note": ""
     }
+   ],
+   "sorties": [
+    "delta_P",
+    "q"
    ],
    "sorties_df": [],
    "refus": [
@@ -12028,51 +8876,6 @@
      "note": ""
     },
     {
-     "nom": "rho",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "mu",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "A",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "V",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "Re",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "tau",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "ksi_loc_base",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "ksi_loc",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "delta_P",
-     "defaut": "None",
-     "note": ""
-    },
-    {
      "nom": "apply_handbook_corrections",
      "defaut": "False",
      "note": ""
@@ -12087,6 +8890,17 @@
      "defaut": "None",
      "note": ""
     }
+   ],
+   "sorties": [
+    "rho",
+    "mu",
+    "A",
+    "V",
+    "Re",
+    "tau",
+    "ksi_loc_base",
+    "ksi_loc",
+    "delta_P"
    ],
    "sorties_df": [
     "Timestamp",
@@ -12174,37 +8988,15 @@
      "nom": "Lv_eff_kJ_kg",
      "defaut": "2000.0",
      "note": "chaleur latente effective vapeur vive (couple OSC/ESC livre)"
-    },
-    {
-     "nom": "mdot_brine_recycle",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "mdot_steam",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "GOR",
-     "defaut": "None",
-     "note": "gain output ratio = distillat / vapeur vive"
-    },
-    {
-     "nom": "OSC",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "ESC_kWh_per_t",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "flash_per_stage",
-     "defaut": "None",
-     "note": "distillat par etage (kg/s)"
     }
+   ],
+   "sorties": [
+    "mdot_brine_recycle",
+    "mdot_steam",
+    "GOR",
+    "OSC",
+    "ESC_kWh_per_t",
+    "flash_per_stage"
    ],
    "sorties_df": [
     "Timestamp",
@@ -12271,42 +9063,16 @@
      "nom": "fluid",
      "defaut": "'water'",
      "note": ""
-    },
-    {
-     "nom": "P_discharge_bar",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "T_suction_degC",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "dh_comp_kJ_kg",
-     "defaut": "None",
-     "note": "h23 (enthalpie de compression)"
-    },
-    {
-     "nom": "Lv_discharge_kJ_kg",
-     "defaut": "None",
-     "note": "h45 (latente recuperee)"
-    },
-    {
-     "nom": "W_comp_kW",
-     "defaut": "None",
-     "note": "puissance de recompression"
-    },
-    {
-     "nom": "ratio_h23_h45",
-     "defaut": "None",
-     "note": "h23 / h45 (petit pour l'eau)"
-    },
-    {
-     "nom": "W_specific_kWh_per_t",
-     "defaut": "None",
-     "note": "kWhe par tonne de vapeur recomprimee"
     }
+   ],
+   "sorties": [
+    "P_discharge_bar",
+    "T_suction_degC",
+    "dh_comp_kJ_kg",
+    "Lv_discharge_kJ_kg",
+    "W_comp_kW",
+    "ratio_h23_h45",
+    "W_specific_kWh_per_t"
    ],
    "sorties_df": [
     "Timestamp",
@@ -12364,17 +9130,11 @@
      "nom": "Po_bar",
      "defaut": "None",
      "note": "pression de sortie imposee (sinon min des entrees)"
-    },
-    {
-     "nom": "To",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "composition",
-     "defaut": "None",
-     "note": ""
     }
+   ],
+   "sorties": [
+    "To",
+    "composition"
    ],
    "sorties_df": [
     "Timestamp",
@@ -12417,16 +9177,6 @@
      "note": ""
     },
     {
-     "nom": "mdot_feed",
-     "defaut": "None",
-     "note": "kg/s, debit d'alimentation"
-    },
-    {
-     "nom": "x_in",
-     "defaut": "None",
-     "note": "fraction massique de solute a l'entree (0-1)"
-    },
-    {
      "nom": "x_out",
      "defaut": "None",
      "note": "fraction massique de solute visee (concentrat)"
@@ -12445,11 +9195,6 @@
      "nom": "P_evap_bar",
      "defaut": "1.0",
      "note": "pression cote evaporation (vapeur solvant)"
-    },
-    {
-     "nom": "feed_cp_kJ_kgK",
-     "defaut": "3.8",
-     "note": "chaleur massique du produit (jus ~3.8)"
     },
     {
      "nom": "T_feed_in_degC",
@@ -12475,57 +9220,22 @@
      "nom": "i_vant_hoff",
      "defaut": "1.0",
      "note": "coefficient de dissociation (NaCl=2, sucre=1)"
-    },
-    {
-     "nom": "mdot_concentrate",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "mdot_vapor",
-     "defaut": "None",
-     "note": "eau totale evaporee (utile en dessalement)"
-    },
-    {
-     "nom": "mdot_steam",
-     "defaut": "None",
-     "note": "vapeur vive de chauffe consommee"
-    },
-    {
-     "nom": "economy",
-     "defaut": "None",
-     "note": "kg eau evaporee / kg vapeur vive"
-    },
-    {
-     "nom": "economy_single",
-     "defaut": "None",
-     "note": "economie ramenee a un seul effet"
-    },
-    {
-     "nom": "OSC",
-     "defaut": "None",
-     "note": "operation specific consumption"
-    },
-    {
-     "nom": "ESC_kWh_per_t",
-     "defaut": "None",
-     "note": "energy specific consumption"
-    },
-    {
-     "nom": "Q_single_kW",
-     "defaut": "None",
-     "note": "chaleur d'un seul effet (sensible + latente)"
-    },
-    {
-     "nom": "dT_eb",
-     "defaut": "None",
-     "note": "elevation ebullioscopique du concentrat"
-    },
-    {
-     "nom": "T_boil_degC",
-     "defaut": "None",
-     "note": "temperature d'ebullition effective"
     }
+   ],
+   "sorties": [
+    "mdot_feed",
+    "x_in",
+    "feed_cp_kJ_kgK",
+    "mdot_concentrate",
+    "mdot_vapor",
+    "mdot_steam",
+    "economy",
+    "economy_single",
+    "OSC",
+    "ESC_kWh_per_t",
+    "Q_single_kW",
+    "dT_eb",
+    "T_boil_degC"
    ],
    "sorties_df": [
     "Timestamp",
@@ -12628,67 +9338,21 @@
      "nom": "P_comb_bar",
      "defaut": "40.0",
      "note": "pression de combustion (info CoolProp)"
-    },
-    {
-     "nom": "n_fuel",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "n_O2",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "mdot_O2",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "n_CO2",
-     "defaut": "None",
-     "note": "CO2 produit par la combustion (mol/s)"
-    },
-    {
-     "nom": "n_H2O",
-     "defaut": "None",
-     "note": "H2O produit par la combustion (mol/s)"
-    },
-    {
-     "nom": "Q_comb_W",
-     "defaut": "None",
-     "note": "chaleur de reaction (= n_fuel * PCI)"
-    },
-    {
-     "nom": "T_flame_degC",
-     "defaut": "None",
-     "note": "temperature adiabatique de fin de combustion"
-    },
-    {
-     "nom": "mdot_flue",
-     "defaut": "None",
-     "note": "debit total des fumees (kg/s)"
-    },
-    {
-     "nom": "mdot_CO2_captured",
-     "defaut": "None",
-     "note": "CO2 capturable (produit par la combustion)"
-    },
-    {
-     "nom": "flue_CO2_mass_frac",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "flue_H2O_mass_frac",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "zero_emission",
-     "defaut": "True",
-     "note": "oxy-combustion : fumees = CO2 + H2O uniquement"
     }
+   ],
+   "sorties": [
+    "n_fuel",
+    "n_O2",
+    "mdot_O2",
+    "n_CO2",
+    "n_H2O",
+    "Q_comb_W",
+    "T_flame_degC",
+    "mdot_flue",
+    "mdot_CO2_captured",
+    "flue_CO2_mass_frac",
+    "flue_H2O_mass_frac",
+    "zero_emission"
    ],
    "sorties_df": [
     "Timestamp",
@@ -12732,19 +9396,9 @@
      "note": ""
     },
     {
-     "nom": "eta",
-     "defaut": "None",
-     "note": ""
-    },
-    {
      "nom": "Pdischarge_bar",
      "defaut": "None",
      "note": ""
-    },
-    {
-     "nom": "Pdischarge",
-     "defaut": "None",
-     "note": "self.Pdischarge_bar*100000"
     },
     {
      "nom": "IsenEff",
@@ -12753,81 +9407,6 @@
     },
     {
      "nom": "F_impose",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "Ho_is",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "Ho",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "To",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "W_pump",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "X_F",
-     "defaut": "None",
-     "note": "débit volumique m3/h X_F = [5,34,40,50]"
-    },
-    {
-     "nom": "Y_hmt",
-     "defaut": "None",
-     "note": "Hauteur manométrique Y_hmt = [12,60,80,68]"
-    },
-    {
-     "nom": "Y_eta",
-     "defaut": "None",
-     "note": "point de rendement Y_eta = [0.4,0.8,0.9,0.1]"
-    },
-    {
-     "nom": "model_hmt",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "model_eta",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "polynomial_features",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "nb_degree",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "x_new_min",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "x_new_max",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "Y_hmt_NEW",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "Y_eta_NEW",
      "defaut": "None",
      "note": ""
     },
@@ -12860,42 +9439,33 @@
      "nom": "omega_ref",
      "defaut": "None",
      "note": "tr/min, vitesse de la courbe fournie"
-    },
-    {
-     "nom": "npsh_available",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "npsh_margin",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "cavitation_state",
-     "defaut": "None",
-     "note": "'ok' | 'marge_faible' | 'cavitation'"
-    },
-    {
-     "nom": "npsh_warning",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "extrapolated",
-     "defaut": "False",
-     "note": ""
-    },
-    {
-     "nom": "Q_pump",
-     "defaut": "0",
-     "note": ""
-    },
-    {
-     "nom": "Ti_degC",
-     "defaut": "None",
-     "note": ""
     }
+   ],
+   "sorties": [
+    "eta",
+    "Pdischarge",
+    "Ho_is",
+    "Ho",
+    "To",
+    "W_pump",
+    "X_F",
+    "Y_hmt",
+    "Y_eta",
+    "model_hmt",
+    "model_eta",
+    "polynomial_features",
+    "nb_degree",
+    "x_new_min",
+    "x_new_max",
+    "Y_hmt_NEW",
+    "Y_eta_NEW",
+    "npsh_available",
+    "npsh_margin",
+    "cavitation_state",
+    "npsh_warning",
+    "extrapolated",
+    "Q_pump",
+    "Ti_degC"
    ],
    "sorties_df": [
     "Timestamp",
@@ -12957,31 +9527,6 @@
      "note": ""
     },
     {
-     "nom": "eta",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "W_net_spec",
-     "defaut": "None",
-     "note": "J/kg"
-    },
-    {
-     "nom": "Q_in_spec",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "Q_out_spec",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "cutoff_ratio",
-     "defaut": "None",
-     "note": "v3/v2 (Diesel)"
-    },
-    {
      "nom": "T2_degC",
      "defaut": "None",
      "note": ""
@@ -13000,12 +9545,15 @@
      "nom": "T4_degC",
      "defaut": "None",
      "note": ""
-    },
-    {
-     "nom": "eta_ideal",
-     "defaut": "None",
-     "note": "1 - 1/r^(gamma-1), repere gaz parfait"
     }
+   ],
+   "sorties": [
+    "eta",
+    "W_net_spec",
+    "Q_in_spec",
+    "Q_out_spec",
+    "cutoff_ratio",
+    "eta_ideal"
    ],
    "sorties_df": [
     "Timestamp",
@@ -13088,52 +9636,18 @@
      "nom": "use_wgs_equilibrium",
      "defaut": "False",
      "note": "si True, X_wgs calcule depuis l'equilibre a T"
-    },
-    {
-     "nom": "n_CH4_out",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "n_H2",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "n_CO",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "n_CO2",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "n_H2O_out",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "mdot_H2",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "H2_yield",
-     "defaut": "None",
-     "note": "mol H2 / mol CH4 alimente"
-    },
-    {
-     "nom": "Q_reform_W",
-     "defaut": "None",
-     "note": "chaleur nette requise (endothermique > 0)"
-    },
-    {
-     "nom": "Kp_wgs",
-     "defaut": "None",
-     "note": ""
     }
+   ],
+   "sorties": [
+    "n_CH4_out",
+    "n_H2",
+    "n_CO",
+    "n_CO2",
+    "n_H2O_out",
+    "mdot_H2",
+    "H2_yield",
+    "Q_reform_W",
+    "Kp_wgs"
    ],
    "sorties_df": [
     "Timestamp",
@@ -13194,22 +9708,12 @@
      "nom": "Q_f_in",
      "defaut": "0.0",
      "note": "W (cooling du groupe froid, >= 0)"
-    },
-    {
-     "nom": "T",
-     "defaut": "273.15 - 40.0",
-     "note": "K (init -40 degC)"
-    },
-    {
-     "nom": "m",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "dT_dt",
-     "defaut": "None",
-     "note": ""
     }
+   ],
+   "sorties": [
+    "T",
+    "m",
+    "dT_dt"
    ],
    "sorties_df": [
     "Timestamp",
@@ -13253,20 +9757,14 @@
      "note": "W"
     },
     {
-     "nom": "is_on",
-     "defaut": "False",
-     "note": "False = arrete, True = en marche"
-    },
-    {
      "nom": "T_measured",
      "defaut": "273.15 - 40.0",
      "note": "K (a actualiser avant calculate())"
-    },
-    {
-     "nom": "P_f_out",
-     "defaut": "0.0",
-     "note": "W (vers le tank)"
     }
+   ],
+   "sorties": [
+    "is_on",
+    "P_f_out"
    ],
    "sorties_df": [
     "Timestamp",
@@ -13307,16 +9805,6 @@
      "nom": "Brine_Outlet",
      "defaut": "FluidPort(fluid='water')",
      "note": ""
-    },
-    {
-     "nom": "mdot_permeate",
-     "defaut": "1.0",
-     "note": "kg/s d'eau douce produite (ou definir mdot_feed+recovery)"
-    },
-    {
-     "nom": "mdot_feed",
-     "defaut": "None",
-     "note": "kg/s (si defini, prioritaire avec recovery)"
     },
     {
      "nom": "recovery",
@@ -13377,52 +9865,20 @@
      "nom": "E_arr",
      "defaut": "None",
      "note": "energie d'activation (J/mol)"
-    },
-    {
-     "nom": "pi_feed_bar",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "pi_permeate_bar",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "dpi_bar",
-     "defaut": "None",
-     "note": "difference de pression osmotique"
-    },
-    {
-     "nom": "mdot_brine",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "W_comp_kW",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "W_specific_kWh_per_m3",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "retention",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "Je_flux",
-     "defaut": "None",
-     "note": "flux de solvant (17.7) si A fourni"
-    },
-    {
-     "nom": "Js_flux",
-     "defaut": "None",
-     "note": "flux de solute (17.9) si B fourni"
     }
+   ],
+   "sorties": [
+    "mdot_permeate",
+    "mdot_feed",
+    "pi_feed_bar",
+    "pi_permeate_bar",
+    "dpi_bar",
+    "mdot_brine",
+    "W_comp_kW",
+    "W_specific_kWh_per_m3",
+    "retention",
+    "Je_flux",
+    "Js_flux"
    ],
    "sorties_df": [
     "Timestamp",
@@ -13478,62 +9934,20 @@
      "nom": "normal_pressure_Pa",
      "defaut": "101325.0",
      "note": ""
-    },
-    {
-     "nom": "value",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "unit",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "temperature_degC",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "pressure_bar",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "mass_flow_kgs",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "volume_flow_m3h",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "normal_volume_flow_Nm3h",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "enthalpy_kJkg",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "density_kgm3",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "normal_density_kgNm3",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "relative_humidity_percent",
-     "defaut": "None",
-     "note": ""
     }
+   ],
+   "sorties": [
+    "value",
+    "unit",
+    "temperature_degC",
+    "pressure_bar",
+    "mass_flow_kgs",
+    "volume_flow_m3h",
+    "normal_volume_flow_Nm3h",
+    "enthalpy_kJkg",
+    "density_kgm3",
+    "normal_density_kgNm3",
+    "relative_humidity_percent"
    ],
    "sorties_df": [
     "Timestamp",
@@ -13622,52 +10036,18 @@
      "nom": "i_max",
      "defaut": "2.0",
      "note": ""
-    },
-    {
-     "nom": "bias",
-     "defaut": "0.0",
-     "note": ""
-    },
-    {
-     "nom": "integral",
-     "defaut": "0.0",
-     "note": ""
-    },
-    {
-     "nom": "prev_error",
-     "defaut": "0.0",
-     "note": ""
-    },
-    {
-     "nom": "prev_time",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "error",
-     "defaut": "0.0",
-     "note": ""
-    },
-    {
-     "nom": "p_term",
-     "defaut": "0.0",
-     "note": ""
-    },
-    {
-     "nom": "i_term",
-     "defaut": "0.0",
-     "note": ""
-    },
-    {
-     "nom": "d_term",
-     "defaut": "0.0",
-     "note": ""
-    },
-    {
-     "nom": "output",
-     "defaut": "0.0",
-     "note": ""
     }
+   ],
+   "sorties": [
+    "bias",
+    "integral",
+    "prev_error",
+    "prev_time",
+    "error",
+    "p_term",
+    "i_term",
+    "d_term",
+    "output"
    ],
    "sorties_df": [
     "Timestamp",
@@ -13700,72 +10080,22 @@
      "nom": "Inlet",
      "defaut": "FluidPort()",
      "note": ""
-    },
-    {
-     "nom": "fluid",
-     "defaut": "None",
-     "note": "\"air\""
-    },
-    {
-     "nom": "F_Sm3s",
-     "defaut": "0",
-     "note": ""
-    },
-    {
-     "nom": "F_m3s",
-     "defaut": "0",
-     "note": ""
-    },
-    {
-     "nom": "Po_bar",
-     "defaut": "None",
-     "note": "Pas de pression imposée par défaut"
-    },
-    {
-     "nom": "To_degC",
-     "defaut": "0",
-     "note": ""
-    },
-    {
-     "nom": "F_Sm3h",
-     "defaut": "0",
-     "note": ""
-    },
-    {
-     "nom": "F_m3h",
-     "defaut": "0",
-     "note": ""
-    },
-    {
-     "nom": "F_kgh",
-     "defaut": "0",
-     "note": ""
-    },
-    {
-     "nom": "F",
-     "defaut": "None",
-     "note": "0.1"
-    },
-    {
-     "nom": "H",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "D",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "Q",
-     "defaut": "0",
-     "note": ""
-    },
-    {
-     "nom": "fluid_quality",
-     "defaut": "'liquid'",
-     "note": ""
     }
+   ],
+   "sorties": [
+    "fluid",
+    "F_Sm3s",
+    "F_m3s",
+    "Po_bar",
+    "To_degC",
+    "F_Sm3h",
+    "F_m3h",
+    "F_kgh",
+    "F",
+    "H",
+    "D",
+    "Q",
+    "fluid_quality"
    ],
    "sorties_df": [
     "Timestamp",
@@ -13843,37 +10173,15 @@
      "nom": "Ta_degC",
      "defaut": "20.0",
      "note": "temperature ambiante"
-    },
-    {
-     "nom": "Q_flow",
-     "defaut": "None",
-     "note": "W utiles transmis au fluide"
-    },
-    {
-     "nom": "eta",
-     "defaut": "None",
-     "note": "rendement instantane"
-    },
-    {
-     "nom": "To_degC",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "Tm_degC",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "dT_K",
-     "defaut": "None",
-     "note": "Tm - Ta"
-    },
-    {
-     "nom": "stagnation_degC",
-     "defaut": "None",
-     "note": "To si mdot -> 0 (Q=0)"
     }
+   ],
+   "sorties": [
+    "Q_flow",
+    "eta",
+    "To_degC",
+    "Tm_degC",
+    "dT_K",
+    "stagnation_degC"
    ],
    "sorties_df": [
     "Timestamp",
@@ -13934,22 +10242,12 @@
      "nom": "effectiveness",
      "defaut": "0.7",
      "note": ""
-    },
-    {
-     "nom": "Q_she_W",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "T_rich_out_degC",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "T_poor_out_degC",
-     "defaut": "None",
-     "note": ""
     }
+   ],
+   "sorties": [
+    "Q_she_W",
+    "T_rich_out_degC",
+    "T_poor_out_degC"
    ],
    "sorties_df": [
     "Timestamp",
@@ -13984,67 +10282,21 @@
      "nom": "fluid",
      "defaut": "None",
      "note": "\"air\""
-    },
-    {
-     "nom": "Ti_degC",
-     "defaut": "None",
-     "note": "15 #♣°C"
-    },
-    {
-     "nom": "Pi_bar",
-     "defaut": "None",
-     "note": "1.01325"
-    },
-    {
-     "nom": "F",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "F_Sm3s",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "F_Sm3h",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "F_m3s",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "F_m3h",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "F_kgh",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "F_Nm3s",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "F_Nm3h",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "Q",
-     "defaut": "0",
-     "note": ""
-    },
-    {
-     "nom": "fluid_quality",
-     "defaut": "'liquid'",
-     "note": ""
     }
+   ],
+   "sorties": [
+    "Ti_degC",
+    "Pi_bar",
+    "F",
+    "F_Sm3s",
+    "F_Sm3h",
+    "F_m3s",
+    "F_m3h",
+    "F_kgh",
+    "F_Nm3s",
+    "F_Nm3h",
+    "Q",
+    "fluid_quality"
    ],
    "sorties_df": [
     "Timestamp",
@@ -14083,6 +10335,7 @@
     "005-aeraulic/perte_pression_lineaire.rst",
     "api.rst",
     "contributing.rst",
+    "ports_connexions.rst",
     "quickstart.rst",
     "usage.rst",
     "usage/section-4-distribution.rst",
@@ -14160,62 +10413,20 @@
      "nom": "loss_fraction",
      "defaut": "0.0",
      "note": "pertes thermiques (fraction de la chaleur d'evaporation)"
-    },
-    {
-     "nom": "mdot_evaporated",
-     "defaut": "None",
-     "note": "eau evaporee (kg/s)"
-    },
-    {
-     "nom": "mdot_powder",
-     "defaut": "None",
-     "note": "produit sec en sortie"
-    },
-    {
-     "nom": "w_out",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "T_air_out_degC",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "RH_out_pct",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "dHt_kW",
-     "defaut": "None",
-     "note": "gain de chaleur sensible (refroidissement air)"
-    },
-    {
-     "nom": "dHw_kW",
-     "defaut": "None",
-     "note": "gain de chaleur latente (humidification)"
-    },
-    {
-     "nom": "dQ_kW",
-     "defaut": "None",
-     "note": "variation nette d'enthalpie de l'air"
-    },
-    {
-     "nom": "SHR",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "specific_consumption_kJ_kg",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "combustion_heat_kW",
-     "defaut": "None",
-     "note": "si l'air est chauffe par combustion (~2x dHw)"
     }
+   ],
+   "sorties": [
+    "mdot_evaporated",
+    "mdot_powder",
+    "w_out",
+    "T_air_out_degC",
+    "RH_out_pct",
+    "dHt_kW",
+    "dHw_kW",
+    "dQ_kW",
+    "SHR",
+    "specific_consumption_kJ_kg",
+    "combustion_heat_kW"
    ],
    "sorties_df": [
     "Timestamp",
@@ -14260,23 +10471,8 @@
      "note": ""
     },
     {
-     "nom": "Qstr_J",
-     "defaut": "None",
-     "note": "Energie stockée"
-    },
-    {
-     "nom": "cumul_Qstr_kWh",
-     "defaut": "0",
-     "note": ""
-    },
-    {
      "nom": "V",
      "defaut": "1",
-     "note": ""
-    },
-    {
-     "nom": "Tinit_degC",
-     "defaut": "12",
      "note": ""
     },
     {
@@ -14285,33 +10481,8 @@
      "note": ""
     },
     {
-     "nom": "m",
-     "defaut": "1000 / 3600",
-     "note": ""
-    },
-    {
      "nom": "t",
      "defaut": "3600",
-     "note": ""
-    },
-    {
-     "nom": "Ti_degC",
-     "defaut": "60",
-     "note": ""
-    },
-    {
-     "nom": "T",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "T_degC",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "Cp",
-     "defaut": "4181",
      "note": ""
     },
     {
@@ -14328,17 +10499,19 @@
      "nom": "Tamb_degC",
      "defaut": "12",
      "note": "Température ambiance"
-    },
-    {
-     "nom": "const",
-     "defaut": "None",
-     "note": "constante de calcul (pour simplfier l'écriture)"
-    },
-    {
-     "nom": "const_t",
-     "defaut": "None",
-     "note": "constante de calcul exp"
     }
+   ],
+   "sorties": [
+    "Qstr_J",
+    "cumul_Qstr_kWh",
+    "Tinit_degC",
+    "m",
+    "Ti_degC",
+    "T",
+    "T_degC",
+    "Cp",
+    "const",
+    "const_t"
    ],
    "sorties_df": [
     "Timestamp",
@@ -14405,16 +10578,6 @@
      "note": "nombre de couches"
     },
     {
-     "nom": "Hstr_1",
-     "defaut": "None",
-     "note": "hauteur couche 1 (top), defaut 2*Hball/N"
-    },
-    {
-     "nom": "Hstr_N",
-     "defaut": "None",
-     "note": "hauteur couche N (bottom), defaut 2*Hball/N"
-    },
-    {
      "nom": "rho",
      "defaut": "1000.0",
      "note": "masse volumique eau (kg/m3)"
@@ -14453,107 +10616,31 @@
      "nom": "n_substeps",
      "defaut": "100",
      "note": "sous-pas Euler explicite"
-    },
-    {
-     "nom": "T",
-     "defaut": "None",
-     "note": "vecteur temperatures couches (K)"
-    },
-    {
-     "nom": "T_degC",
-     "defaut": "None",
-     "note": "idem en degC"
-    },
-    {
-     "nom": "_Tinit_K_const",
-     "defaut": "None",
-     "note": "Tinit fixe pour Delta_u (style Modelica)"
-    },
-    {
-     "nom": "_initialized",
-     "defaut": "False",
-     "note": ""
-    },
-    {
-     "nom": "V",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "Vstr_1",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "Vstr_N",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "Vstr",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "Hstr",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "A1",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "An",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "Ai",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "P",
-     "defaut": "None",
-     "note": "puissance par couche (W) en fin de pas"
-    },
-    {
-     "nom": "P_ballon",
-     "defaut": "None",
-     "note": "somme(P[i]) en W"
-    },
-    {
-     "nom": "Qstr_J",
-     "defaut": "None",
-     "note": "energie echangee sur le pas (J)"
-    },
-    {
-     "nom": "Qstr_kWh",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "Qstr_kW",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "cumul_Qstr_kWh",
-     "defaut": "0.0",
-     "note": ""
-    },
-    {
-     "nom": "Delta_u_J",
-     "defaut": "None",
-     "note": "energie stockee absolue / Tinit (J)"
-    },
-    {
-     "nom": "Delta_u_kWh",
-     "defaut": "None",
-     "note": ""
     }
+   ],
+   "sorties": [
+    "Hstr_1",
+    "Hstr_N",
+    "T",
+    "T_degC",
+    "_Tinit_K_const",
+    "_initialized",
+    "V",
+    "Vstr_1",
+    "Vstr_N",
+    "Vstr",
+    "Hstr",
+    "A1",
+    "An",
+    "Ai",
+    "P",
+    "P_ballon",
+    "Qstr_J",
+    "Qstr_kWh",
+    "Qstr_kW",
+    "cumul_Qstr_kWh",
+    "Delta_u_J",
+    "Delta_u_kWh"
    ],
    "sorties_df": [
     "Timestamp",
@@ -14602,55 +10689,25 @@
      "note": ""
     },
     {
-     "nom": "F",
-     "defaut": "0.1",
-     "note": ""
-    },
-    {
      "nom": "Outlet",
      "defaut": "FluidPort()",
-     "note": ""
-    },
-    {
-     "nom": "So_is",
-     "defaut": "0",
-     "note": ""
-    },
-    {
-     "nom": "To_is",
-     "defaut": "0",
-     "note": ""
-    },
-    {
-     "nom": "Ho_is",
-     "defaut": "0",
      "note": ""
     },
     {
      "nom": "LP",
      "defaut": "1 * 100000",
      "note": ""
-    },
-    {
-     "nom": "Ho",
-     "defaut": "0",
-     "note": ""
-    },
-    {
-     "nom": "To",
-     "defaut": "0",
-     "note": ""
-    },
-    {
-     "nom": "So",
-     "defaut": "0",
-     "note": ""
-    },
-    {
-     "nom": "Q_turb",
-     "defaut": "0",
-     "note": ""
     }
+   ],
+   "sorties": [
+    "F",
+    "So_is",
+    "To_is",
+    "Ho_is",
+    "Ho",
+    "To",
+    "So",
+    "Q_turb"
    ],
    "sorties_df": [
     "Fluid",
@@ -14710,27 +10767,13 @@
      "nom": "dp_design",
      "defaut": "100000.0",
      "note": "delta P pour mode design"
-    },
-    {
-     "nom": "m_flow",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "P_ext",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "T_iso_K",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "T_out_K",
-     "defaut": "None",
-     "note": ""
     }
+   ],
+   "sorties": [
+    "m_flow",
+    "P_ext",
+    "T_iso_K",
+    "T_out_K"
    ],
    "sorties_df": [
     "Timestamp",
@@ -14786,11 +10829,6 @@
      "note": ""
     },
     {
-     "nom": "Kvs",
-     "defaut": "8.0",
-     "note": ""
-    },
-    {
      "nom": "bypass_kvs_ratio",
      "defaut": "1.0",
      "note": ""
@@ -14798,26 +10836,6 @@
     {
      "nom": "Kvs_bypass",
      "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "valve_characteristic",
-     "defaut": "'linear'",
-     "note": ""
-    },
-    {
-     "nom": "rangeability",
-     "defaut": "50.0",
-     "note": ""
-    },
-    {
-     "nom": "characteristic_table",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "interp_mode",
-     "defaut": "'linear'",
      "note": ""
     },
     {
@@ -14831,78 +10849,8 @@
      "note": ""
     },
     {
-     "nom": "alpha",
-     "defaut": "0.5",
-     "note": "Ratio de mélange/répartition (0-1)"
-    },
-    {
-     "nom": "opening",
-     "defaut": "0",
-     "note": "Taux d'ouverture effectif (0-100%)"
-    },
-    {
      "nom": "T_measured",
      "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "last_warning",
-     "defaut": "''",
-     "note": ""
-    },
-    {
-     "nom": "design_flow_violation",
-     "defaut": "False",
-     "note": ""
-    },
-    {
-     "nom": "dp_in1_bar",
-     "defaut": "0.0",
-     "note": ""
-    },
-    {
-     "nom": "dp_in2_bar",
-     "defaut": "0.0",
-     "note": ""
-    },
-    {
-     "nom": "dp_valve_bar",
-     "defaut": "0.0",
-     "note": ""
-    },
-    {
-     "nom": "delta_P",
-     "defaut": "0.0",
-     "note": "perte de la vanne = max des deux voies (Pa)"
-    },
-    {
-     "nom": "delta_P_in1",
-     "defaut": "0.0",
-     "note": "voie 1 (Pa)"
-    },
-    {
-     "nom": "delta_P_in2",
-     "defaut": "0.0",
-     "note": "voie 2 (Pa)"
-    },
-    {
-     "nom": "dp_straight_bar",
-     "defaut": "0.0",
-     "note": "voie directe (partie droite)"
-    },
-    {
-     "nom": "dp_perp_bar",
-     "defaut": "0.0",
-     "note": "voie perpendiculaire (bypass/melange)"
-    },
-    {
-     "nom": "f1_cmd",
-     "defaut": "0.0",
-     "note": ""
-    },
-    {
-     "nom": "f2_cmd",
-     "defaut": "0.0",
      "note": ""
     },
     {
@@ -14964,22 +10912,31 @@
      "nom": "authority_max",
      "defaut": "0.7",
      "note": ""
-    },
-    {
-     "nom": "authority",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "sizing",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "_propagating",
-     "defaut": "False",
-     "note": ""
     }
+   ],
+   "sorties": [
+    "Kvs",
+    "valve_characteristic",
+    "rangeability",
+    "characteristic_table",
+    "interp_mode",
+    "alpha",
+    "opening",
+    "last_warning",
+    "design_flow_violation",
+    "dp_in1_bar",
+    "dp_in2_bar",
+    "dp_valve_bar",
+    "delta_P",
+    "delta_P_in1",
+    "delta_P_in2",
+    "dp_straight_bar",
+    "dp_perp_bar",
+    "f1_cmd",
+    "f2_cmd",
+    "authority",
+    "sizing",
+    "_propagating"
    ],
    "sorties_df": [],
    "refus": [],

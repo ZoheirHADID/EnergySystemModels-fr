@@ -27,6 +27,26 @@
   réels au lieu de `source.h_outlet` / `source.T_outlet`) — entrée A2 de
   `ROADMAP_DOC.md`.
 
+## `FluidPort.set_mixture()` — `C2H6` (éthane) tabulé mais refusé par CoolProp
+
+- **Page concernée** : `docs/source/ports_connexions.rst` (section « Mélange réel
+  — Peng-Robinson »).
+- **Reproduction** (mesurée le 2026-09-28) :
+  ```python
+  from ThermodynamicCycles.FluidPort.FluidPort import FluidPort
+  p = FluidPort()
+  p.set_mixture({"CH4": 0.9, "C2H6": 0.05, "N2": 0.05}, P=20e5, T=293.15, F=0.5)
+  ```
+- **Trace** : `ValueError: ... fluid: "C2H6" ... key [C2H6] was not found in
+  string_to_index_map in JSONFluidLibrary` —
+  `src/ThermodynamicCycles/FluidPort/peng_robinson.py:237` et `:251`
+  (`PropsSI('Cp0molar', ..., _resolve(n))`). `_resolve()` (`:285`) renvoie le
+  symbole interne de la table `COMPONENTS`, que CoolProp accepte pour `CH4`, `N2`,
+  `CO2`… mais pas pour `C2H6` (CoolProp attend `Ethane`).
+- **Traitement dans le guide** : la page le dit dans un avertissement (« un gaz
+  naturel réel se modélise, pour l'instant, sans sa fraction d'éthane ») ; l'exemple
+  publié n'en contient pas. Les onze autres constituants de `COMPONENTS` (dont `C3H8` et `n-Butane`) passent, mesurés un par un en mélange avec `N2`.
+
 ## Corrigés depuis, dans le dépôt source — ne pas rouvrir
 
 - **`FluidPort.set_humid_gas_mixture()` acceptait une espèce hors table en

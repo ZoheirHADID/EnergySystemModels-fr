@@ -940,6 +940,22 @@
    "cran_max": 0,
    "recul": null
   },
+  "docs/source/ports_connexions.rst": {
+   "blocs": 9,
+   "empreinte": "badd0925b83fb5d2",
+   "mesure": "2026-09-28T09:15",
+   "figures": [
+    "images/param_fluid_connect.svg",
+    "images/param_ports_unites.svg"
+   ],
+   "blocage": null,
+   "motif": "",
+   "extraits": null,
+   "cran": 5,
+   "nom": "personnalisable",
+   "cran_max": 5,
+   "recul": null
+  },
   "docs/source/quickstart.rst": {
    "blocs": 4,
    "empreinte": "0922a885f8f6177f",

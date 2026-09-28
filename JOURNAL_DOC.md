@@ -293,3 +293,26 @@
   désormais documenter le domaine du modèle de fumées **tel qu'il est** : cinq
   espèces, exception nommée au-delà, et `set_composition` pour le reste.
 
+
+## 2026-09-28 — `ports_connexions.rst` (H1, H2, H3) et générateur de schémas (G1)
+- Unité : H1 « Ports et connexions » — reprise d'un tour interrompu (page, générateur
+  et trois SVG non commités, relus avant reprise).
+- Fait : variante exécutée ajoutée (batterie chaude à 20 / 24 / 28 °C) ; la phrase
+  qu'elle remplace annonçait 20,3 kW à 24 °C, la mesure donne **20,19 kW** —
+  corrigée. Recoupement du bilan refait sur l'enthalpie du port (31,070) et non sur
+  celle arrondie du `df` (31,1). Table Peng-Robinson : **12** constituants et non
+  11 (`n-Butane` manquait), chacun mesuré un par un. Pièges « état global » et
+  « écrire `P` coûte cher » confrontés au code (`Connect.py:5,264`,
+  `FluidPort.py:381`). Page ajoutée au sommaire général après `quickstart`.
+  `inventaire_modeles.json` régénéré par l'outil (reflète l'état actuel de `$LIB`).
+- Banc : `ports_connexions.rst` (nouvelle) → cran 5.
+- Exécution : 9 blocs + 1 variante, 12 espèces `set_mixture`, 1 repro éthane —
+  `py -3.12`.
+- Build : 0 warning.
+- Bug bibliothèque : **nouvelle entrée** `FluidPort.set_mixture()` — `C2H6` tabulé
+  mais refusé par CoolProp (`peng_robinson.py:237/251`, `_resolve` rend le symbole
+  interne).
+- Écarté : insertion de `param_curvedbend.svg` dans la page coudes (G2, `en cours`)
+  — son domaine de validité doit d'abord être éprouvé par exécution.
+- Suivant : G2 — schéma et domaine de `CurvedBend` dans
+  `004-hydraulic/coudes_tes_singularites.rst`, ou A (pages `usage/` qui plantent).

@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="340" viewBox="0 0 760 340" role="img" aria-label="Fluid_connect : l'état descend, la pression remonte">
+<title>Fluid_connect : l'état descend, la pression remonte</title>
+<defs><marker id="fleche" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-end"><path d="M 0 0 L 10 5 L 0 10 z" fill="#1f2933"/></marker><marker id="fleche_cote" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-end"><path d="M 0 0 L 10 5 L 0 10 z" fill="#b46a00"/></marker><marker id="fleche_flux" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-end"><path d="M 0 0 L 10 5 L 0 10 z" fill="#2670a8"/></marker></defs>
+<rect width="760" height="340" fill="#ffffff"/>
+<rect x="70.0" y="96.0" width="190.0" height="96.0" rx="6" fill="#ffffff" stroke="#1f2933" stroke-width="1.6"/>
+<text x="165.0" y="130.0" fill="#1f2933" text-anchor="middle" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="13" font-weight="600">composant amont</text>
+<text x="165.0" y="152.0" fill="#1f2933" text-anchor="middle" font-family="Consolas, Courier New, monospace" font-size="12">SOURCE.calculate()</text>
+<rect x="500.0" y="96.0" width="190.0" height="96.0" rx="6" fill="#ffffff" stroke="#1f2933" stroke-width="1.6"/>
+<text x="595.0" y="130.0" fill="#1f2933" text-anchor="middle" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="13" font-weight="600">composant aval</text>
+<text x="595.0" y="152.0" fill="#1f2933" text-anchor="middle" font-family="Consolas, Courier New, monospace" font-size="12">COMP.calculate()</text>
+<rect x="252.0" y="130.0" width="16.0" height="28.0" rx="3" fill="#2670a8" stroke="#2670a8" stroke-width="1.0"/>
+<text x="252.0" y="122.0" fill="#2670a8" text-anchor="middle" font-family="Consolas, Courier New, monospace" font-size="11">SOURCE.Outlet</text>
+<rect x="492.0" y="130.0" width="16.0" height="28.0" rx="3" fill="#2670a8" stroke="#2670a8" stroke-width="1.0"/>
+<text x="508.0" y="122.0" fill="#2670a8" text-anchor="middle" font-family="Consolas, Courier New, monospace" font-size="11">COMP.Inlet</text>
+<line x1="272.0" y1="126.0" x2="488.0" y2="126.0" stroke="#2670a8" stroke-width="2.4" marker-end="url(#fleche_flux)"/>
+<text x="380.0" y="116.0" fill="#2670a8" text-anchor="middle" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12" font-weight="600">l'état descend vers l'aval</text>
+<text x="380.0" y="100.0" fill="#2670a8" text-anchor="middle" font-family="Consolas, Courier New, monospace" font-size="12">fluid · h · F · S · T · composition + basis · backend</text>
+<line x1="488.0" y1="168.0" x2="272.0" y2="168.0" stroke="#b46a00" stroke-width="2.4" marker-end="url(#fleche_cote)"/>
+<text x="380.0" y="186.0" fill="#b46a00" text-anchor="middle" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12" font-weight="600">la pression remonte vers l'amont</text>
+<text x="380.0" y="202.0" fill="#b46a00" text-anchor="middle" font-family="Consolas, Courier New, monospace" font-size="12">P</text>
+<text x="380.0" y="62.0" fill="#1f2933" text-anchor="middle" font-family="Consolas, Courier New, monospace" font-size="14" font-weight="600">Fluid_connect(aval.Inlet, amont.Outlet)</text>
+<rect x="70.0" y="232.0" width="620.0" height="76.0" rx="4" fill="#f4f6f8" stroke="#c9d1d9" stroke-width="1.0"/>
+<text x="80.0" y="252.0" fill="#1f2933" text-anchor="start" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12">C'est ce double sens qui permet au réseau hydraulique de se résoudre : on impose</text>
+<text x="80.0" y="268.0" fill="#1f2933" text-anchor="start" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12">l'état à la source et la pression au puits, et chaque composant reçoit les deux.</text>
+<text x="80.0" y="284.0" fill="#1f2933" text-anchor="start" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12">Conséquence pratique : l'ordre des arguments n'est pas symétrique — le premier est</text>
+<text x="80.0" y="300.0" fill="#1f2933" text-anchor="start" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12">le port AVAL (celui qu'on remplit), le second le port AMONT (celui qui fournit).</text>
+</svg>

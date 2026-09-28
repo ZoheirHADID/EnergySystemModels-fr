@@ -257,7 +257,9 @@ Priorité **au-dessus** du reste du corpus : un lecteur qui n'a pas compris ce
 qu'un port transporte ne peut lire aucun exemple. Faits relevés dans le code, à
 re-vérifier par exécution avant rédaction.
 
-- `à faire` **H1 — page « Ports et connexions »** (nouveau chapitre de concepts,
+- `fait` (2026-09-28, banc cran 5, 9 blocs) **H1 — page « Ports et connexions »**
+  (`docs/source/ports_connexions.rst`, dans le sommaire général après le démarrage
+  rapide). Contenu d'origine conservé ci-dessous pour mémoire (nouveau chapitre de concepts,
   placé avant les modèles) :
   - ce que transporte `FluidPort` : `P` (Pa), `h` (J/kg), `F` (kg/s), `fluid`,
     `T`, `S`, `composition` + `composition_basis` (`'mole'` ou `'mass'`,
@@ -300,7 +302,8 @@ re-vérifier par exécution avant rédaction.
     cas d'école pour l'item « éprouver le modèle » du squelette de page ;
   - ce qui se passe quand on oublie de connecter, et le piège d'état global
     documenté dans `$LIB/CLAUDE.md` (`Connect._hydraulic_nodes`, `reset_network()`).
-- `à faire` **H2 — page « Ports d'air humide »** (ou section de H1) : `AirPort`
+- `fait` (2026-09-28, section « La connexion d'air humide » de H1, avec variante
+  exécutée à trois consignes) **H2 — page « Ports d'air humide »** (ou section de H1) : `AirPort`
   transporte `F` (air humide, kg/s), `F_dry` (air sec, kg/s), `P` (Pa, défaut
   101325), `h`, `w`, et **calcule** `T` (°C), `RH` (%), `Pv_sat` (Pa).
   `Air_connect` recopie `w`, `P`, `h`, `F`, `F_dry` puis appelle
@@ -314,8 +317,13 @@ re-vérifier par exécution avant rédaction.
   **pas** en SI, alors que `FluidPort` l'est (`h` en J/kg — 411606 pour du R134a à
   5 bar / 20 °C, `P` en Pa). Deux familles de ports, deux conventions d'unités :
   c'est la première cause d'erreur d'un facteur 1000 dans un bilan.
-- `à faire` **H3 — tableau des unités par port**, repris depuis `quickstart.rst`
+- `fait` (2026-09-28, section « Ce que transporte chaque port » de H1 + schéma
+  `param_ports_unites.svg`) **H3 — tableau des unités par port**, repris depuis `quickstart.rst`
   (entrées en unités usuelles, ports en SI) et étendu à l'air humide.
+
+- `à faire` **H4 — limite `set_mixture` + `C2H6`** : dite dans H1 et inscrite dans
+  `BUGS_LIB.md` ; retirer l'avertissement de la page quand la bibliothèque la
+  corrige (vérifier par exécution).
 
 ## G. Schémas de paramétrage — demande de l'utilisateur (2026-09-27)
 
@@ -325,12 +333,15 @@ La table de personnalisation (étape 6.4 de la boucle) dit ce qu'un paramètre f
 le schéma dit **ce qu'il désigne**. Les deux portent les **mêmes identifiants que
 le code**.
 
-- `à faire` **G1 — `docs/generate_param_diagrams.py`** : générateur de schémas 2D
+- `fait` (2026-09-28 ; produit `param_fluid_connect.svg`, `param_ports_unites.svg`,
+  `param_curvedbend.svg`, reproductibles octet pour octet) **G1 — `docs/generate_param_diagrams.py`** : générateur de schémas 2D
   cotés, en SVG pur Python (sans dépendance), sur le modèle de
   `generate_diagrams.py` : lignes de cote, arcs d'angle, flèches d'écoulement,
   étiquettes portant le nom exact du paramètre. Sortie :
   `docs/source/images/param_<module>.svg`.
-- `à faire` **G2 — premier cas : le coude hydraulique** (`CurvedBend`,
+- `en cours` — `param_curvedbend.svg` est généré mais **pas encore inséré** dans la
+  page ; le domaine de validité affiché reste à confronter au code par exécution
+  **G2 — premier cas : le coude hydraulique** (`CurvedBend`,
   `004-hydraulic/coudes_tes_singularites.rst`). Paramètres réels relevés dans
   `ThermodynamicCycles/Hydraulic/CurvedBend.py` :
 

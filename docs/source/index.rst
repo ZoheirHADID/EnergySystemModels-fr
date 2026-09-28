@@ -40,6 +40,7 @@ Table des matières
 
    usage
    quickstart
+   ports_connexions
    contributing
 
 .. toctree::
