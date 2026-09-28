@@ -840,3 +840,16 @@
 - Build : 0 warning. Bug bibliothèque : aucun.
 - Suivant : K4, coude / té / registres aérauliques (modèles sans page : EdgedBend,
   TeeJunction, IrisDamper, BladeDamper, Obstruction, Filter).
+
+## 2026-09-28 12:58 — K4 : page du coude aéraulique (Aeraulic.EdgedBend)
+- Unité : K4 (sous-entrée : `Aeraulic.EdgedBend`, sans page jusqu'ici).
+- Fait : `005-aeraulic/coude_aeraulique.rst` créée et ajoutée au sommaire :
+  schéma `schema_edgedbend_air.svg` (icône du nœud « Coude aéraulique ») sous le
+  titre ; à quoi ça sert (Idel'chik vs ASHRAE, angle en DEGRÉS ici / RADIANS côté
+  hydraulique) ; exemple Ø 250 mm, 90°, 1000 m³/h → xi 0,9875, **19,05 Pa** ; table de
+  personnalisation ; variante `model='ashrae'`, `ashrae_code='CD3-1'` → Co 0,11,
+  **2,12 Pa** ; refus d'un `model` mal orthographié (`ValueError`, message réel).
+  Trois sorties publiées par `tools/publier_sorties.py`.
+- Banc : `coude_aeraulique.rst` (nouvelle) → cran 5.
+- Build : 0 warning. Bug bibliothèque : aucun.
+- Suivant : K4, té aéraulique (`TeeJunction`).

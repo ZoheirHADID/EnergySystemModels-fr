@@ -652,12 +652,41 @@ def gaine_droite_air():
                   hauteur=400, noeud="aeraulic_straight_pipe")
 
 
+def coude_air():
+    """Coude aéraulique — `ThermodynamicCycles.Aeraulic.EdgedBend` (ports fluide)."""
+    cx = (XI + XO) / 2 - 20
+    d = 22.0
+    haut = Y - 72                       # extrémité de la branche sortante
+    coude = [(XI, Y - d), (cx - d, Y - d), (cx - d, haut), (cx + d, haut),
+             (cx + d, Y + d), (XI, Y + d)]
+    chaine = " ".join(f"{x:.1f},{y:.1f}" for x, y in coude)
+    forme = [
+        f'<polygon points="{chaine}" fill="{AIR}" stroke="{TRAIT}" stroke-width="2.2"/>',
+        _polyligne([(XI + 20, Y), (cx, Y), (cx, haut + 14)], FLUX, 1.6).replace(
+            "/>", ' marker-end="url(#fleche_flux)"/>'),
+        '<path d="M %.1f %.1f A 34 34 0 0 0 %.1f %.1f" fill="none" stroke="%s" stroke-width="1.2"/>'
+        % (cx - 34, Y, cx, Y - 34, COTE),
+        _texte(cx + d + 8, Y + 40, "angle_deg = 90", 12, COTE, "start", MONO),
+        _polyligne([(cx, haut), (cx, haut - 18), (XO - 50, haut - 18), (XO - 50, Y), (XO, Y)],
+                   AXE, 1.0, "4,4"),
+        _texte(cx + d + 8, haut + 12, "sortie", 11, AXE, "start"),
+    ]
+    return _cadre("schema_edgedbend_air.svg", "Coude aéraulique", forme,
+                  ["EdgedBend()",
+                   "d_hyd (m)  ou  a × b (m)",
+                   "angle_deg = 90.0   # DEGRÉS",
+                   "model = 'idelchik'   # ou 'ashrae' + ashrae_code"],
+                  ["Aeraulic.EdgedBend prend l'angle en DEGRÉS ; Hydraulic.EdgedBend prend delta en RADIANS.",
+                   "Idel'chik (défaut) ignore le rayon de cintrage ; model='ashrae' lit le coefficient du coude par son code (CD3-1…)."],
+                  hauteur=400, noeud="aeraulic_bend")
+
+
 FIGURES = [compresseur, turbine, pompe, detendeur, evaporateur, condenseur, source_fluide,
            puits_fluide, air_neuf, batterie_chaude, batterie_froide, humidificateur, recuperateur_plaques,
            roue_thermique, vanne_generique, vanne_isolement, vanne_soupape, vanne_boule, vanne_papillon,
            papillon_rectangulaire, clapet_anti_retour, clapet_volet, regulateur_dp, serpentin,
            confuseur, diffuseur, orifice, grille, plaque_perforee, lit_grains, entree, sortie_libre,
-           methode_k, loi_des_noeuds, circuit_serie, coup_de_belier, gaine_droite_air]
+           methode_k, loi_des_noeuds, circuit_serie, coup_de_belier, gaine_droite_air, coude_air]
 
 
 def main() -> int:

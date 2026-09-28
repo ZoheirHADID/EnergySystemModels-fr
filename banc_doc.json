@@ -900,6 +900,21 @@
    "cran_max": 4,
    "recul": null
   },
+  "docs/source/005-aeraulic/coude_aeraulique.rst": {
+   "blocs": 3,
+   "empreinte": "e30f7f2591f2ab01",
+   "mesure": "2026-09-28T12:43",
+   "figures": [
+    "../images/schema_edgedbend_air.svg"
+   ],
+   "blocage": null,
+   "motif": "",
+   "extraits": null,
+   "cran": 5,
+   "nom": "personnalisable",
+   "cran_max": 5,
+   "recul": null
+  },
   "docs/source/005-aeraulic/index.rst": {
    "blocs": 0,
    "empreinte": "da39a3ee5e6b4b0d",

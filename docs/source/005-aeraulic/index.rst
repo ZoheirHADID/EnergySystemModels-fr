@@ -8,3 +8,4 @@ Modèles aérauliques
    :titlesonly:
 
    perte_pression_lineaire
+   coude_aeraulique
