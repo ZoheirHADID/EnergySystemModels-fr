@@ -145,6 +145,22 @@ Exemple
     ez2.eta_faraday = 0.98
     ez2.calculate()
 
+Sortie réelle :
+
+.. code-block:: text
+
+                        Electrolyzer
+   Timestamp                     NaN
+   P_electrique_kW         1000.0000
+   eta_HHV                    0.7000
+   eta_LHV                    0.5922
+   H2_produit_kg_h           17.7715
+   O2_coproduit_kg_h        141.0433
+   H2O_consommee_kg_h       158.8148
+   Q_fatale_kW              300.0000
+   Conso_kWh_par_kg_H2       56.2700
+   I_stack_A                     NaN
+
 Index du DataFrame ``ez.df`` (clé ``'Electrolyzer'``) : ``Timestamp``,
 ``P_electrique_kW``, ``eta_HHV``, ``eta_LHV``, ``H2_produit_kg_h``,
 ``O2_coproduit_kg_h``, ``H2O_consommee_kg_h``, ``Q_fatale_kW``,
@@ -257,6 +273,21 @@ Exemple
 
     print(fc.df)                  # débit H2 requis, O2, eau, chaleur cogénération
     print("H2 :", fc.mdot_H2 * 3600, "kg/h")
+
+Sortie réelle :
+
+.. code-block:: text
+
+                      FuelCell
+   Timestamp               NaN
+   H2_consomme_kg_h    23.0799
+   eta_HHV              0.5500
+   eta_LHV              0.6501
+   P_electrique_kW    500.0000
+   Q_cogeneration_kW  409.0910
+   O2_consomme_kg_h   183.1731
+   H2O_produite_kg_h  206.2530
+   H2 : 23.07988203615848 kg/h
 
 Index de ``fc.df`` (clé ``'FuelCell'``) : ``Timestamp``, ``H2_consomme_kg_h``,
 ``eta_HHV``, ``eta_LHV``, ``P_electrique_kW``, ``Q_cogeneration_kW``,
@@ -386,6 +417,23 @@ Exemple
     print(rf.df)
     print("Rendement H2 :", rf.H2_yield, "mol H2 / mol CH4")
     print("Chaleur reformage :", rf.Q_reform_W / 1000, "kW")
+
+Sortie réelle :
+
+.. code-block:: text
+
+                          Reformer
+   Timestamp                   NaN
+   CH4_in_mol_h          3600.0000
+   SC_ratio                 3.0000
+   X_reform                 1.0000
+   X_wgs                    0.0000
+   H2_yield_mol_per_CH4     3.0000
+   H2_produit_kg_h         21.7728
+   Q_reform_kW            206.1400
+   Kp_wgs                   0.9378
+   Rendement H2 : 3.0 mol H2 / mol CH4
+   Chaleur reformage : 206.14 kW
 
 Index de ``rf.df`` (clé ``'Reformer'``) : ``Timestamp``, ``CH4_in_mol_h``,
 ``SC_ratio``, ``X_reform``, ``X_wgs``, ``H2_yield_mol_per_CH4``, ``H2_produit_kg_h``,
@@ -530,6 +578,27 @@ Exemple
     print(gz.df)
     print("Syngas %vol sec :", gz.syngas_vol_dry)
     print("Cold gas efficiency :", 100 * gz.cold_gas_efficiency, "%")
+
+Sortie réelle :
+
+.. code-block:: text
+
+                          Gasifier
+   Timestamp                   NaN
+   C_in_mol_h             3600.000
+   lambda_air                0.330
+   T_gasif_degC            900.000
+   H2_%vol_dry              19.320
+   CO_%vol_dry              15.960
+   CO2_%vol_dry             16.800
+   CH4_%vol_dry              3.240
+   N2_%vol_dry              44.670
+   LHV_syngas_raw_MJ_kg      3.295
+   LHV_syngas_dry_MJ_Nm3     5.260
+   LHV_biomass_MJ_kg        16.374
+   cold_gas_efficiency_%    74.000
+   Syngas %vol sec : {'H2': 19.322790005244173, 'CO': 15.960888053868956, 'CO2': 16.802527286736094, 'CH4': 3.2403377809389613, 'N2': 44.673456873211805}
+   Cold gas efficiency : 74.00106562915894 %
 
 Index de ``gz.df`` (clé ``'Gasifier'``) : ``Timestamp``, ``C_in_mol_h``,
 ``lambda_air``, ``T_gasif_degC``, ``H2_%vol_dry``, ``CO_%vol_dry``, ``CO2_%vol_dry``,

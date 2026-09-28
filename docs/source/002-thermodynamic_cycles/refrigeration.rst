@@ -127,6 +127,19 @@ Exemple
     tank.calculate()
     print(tank.df)
 
+Sortie réelle :
+
+.. code-block:: text
+
+                    ColdStorageTank
+   Timestamp                    NaN
+   T_degC                -25.154150
+   Q_air_W              2000.000000
+   Q_f_W                3000.000000
+   dT_dt_K_per_min        -0.308299
+   m_kg                   63.600000
+   V_L                    60.000000
+
 RefrigerationBangBang
 ---------------------
 
@@ -223,6 +236,12 @@ Exemple
     refr.calculate()
     print(refr.P_f_out)               # 3000.0 W
 
+Sortie réelle :
+
+.. code-block:: text
+
+   3000.0
+
 Couplage tank + groupe (simulation)
 -----------------------------------
 
@@ -263,6 +282,12 @@ oscille entre −40 et −39 °C en régime hystérétique stable.
         t += tank.t
 
     print("T finale :", round(tank.T - 273.15, 2), "degC")
+
+Sortie réelle :
+
+.. code-block:: text
+
+   T finale : -39.95 degC
 
 .. note::
    Le module (``__init__.py`` vide) n'expose ni méthode ``plot()`` ni bilan

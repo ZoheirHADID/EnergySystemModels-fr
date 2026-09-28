@@ -128,6 +128,13 @@ Exemple
     print("Débit total :", round(mix.Outlet.F, 3), "kg/s")
     print("T mélange   :", round(mix.To, 2), "°C")
 
+Sortie réelle :
+
+.. code-block:: text
+
+   Débit total : 1.5 kg/s
+   T mélange   : 40.02 °C
+
 .. _flashtank:
 
 Bouteille flash (``ThermodynamicCycles.FlashTank``)
@@ -241,6 +248,14 @@ Exemple
     print("Fraction vapeur x :", round(flash.x, 4))
     print("T flash           :", round(flash.T_flash_degC, 2), "°C")
     print("Débit vapeur      :", round(flash.Outlet_vapor.F, 4), "kg/s")
+
+Sortie réelle :
+
+.. code-block:: text
+
+   Fraction vapeur x : 0.1528
+   T flash           : 99.61 °C
+   Débit vapeur      : 0.1528 kg/s
 
 .. _stockage_melange:
 
@@ -383,3 +398,10 @@ Exemple
 
     print("T ballon         :", round(tank.T_degC, 2), "°C")
     print("Énergie cumulée  :", round(tank.cumul_Qstr_kWh, 3), "kWh")
+
+Sortie réelle :
+
+.. code-block:: text
+
+   T ballon         : 54.37 °C
+   Énergie cumulée  : 22.853 kWh

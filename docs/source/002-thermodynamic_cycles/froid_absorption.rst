@@ -137,6 +137,19 @@ Exemple
     abs.calculate()
     print(abs.df)
 
+Sortie réelle :
+
+.. code-block:: text
+
+                  Absorber
+   Timestamp          None
+   pair           LiBr-H2O
+   T_abs_C            35.0
+   w_poor              0.4
+   w_rich             0.46
+   mdot_rich_kgs       1.0
+   Qa_kW           275.063
+
 
 .. _froid_abs_desorber:
 
@@ -235,6 +248,19 @@ Exemple
     des.Inlet.T = 70 + 273.15
     des.calculate()
     print(des.df)
+
+Sortie réelle :
+
+.. code-block:: text
+
+                    Desorber
+   Timestamp            None
+   pair             LiBr-H2O
+   T_gen_C              90.0
+   w_rich               0.45
+   w_poor             0.3528
+   mdot_refrig_kgs  0.150151
+   Qg_kW             443.499
 
 Choix du couple
 ~~~~~~~~~~~~~~~
@@ -395,6 +421,24 @@ Exemple
     ac.calculate()
     print(ac.df)
 
+Sortie réelle :
+
+.. code-block:: text
+
+                       AbsorptionChiller
+   Timestamp                         NaN
+   Q_froid_kW                   100.0000
+   Q_generateur_kW              154.8130
+   Q_rejet_kW                   254.8130
+   COP                            0.6459
+   COP_reversible                 1.4042
+   P_evap_kPa                     0.8726
+   P_cond_kPa                     5.6290
+   X_dilue_pct                   55.6520
+   X_concentre_pct               64.7190
+   Plage_degazage_pct             9.0670
+   Taux_circulation               7.1380
+
 Couple LiBr-H2O — domaine de validité (module ``LiBrH2O``)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -506,6 +550,22 @@ Exemple
     aw.calculate()
     print(aw.df)
     # -> T_bubble_C, T_dew_C, glide_K (glissement), y_NH3_mole, h_liquid/h_vapor
+
+Sortie réelle :
+
+.. code-block:: text
+
+                   AmmoniaWater
+   Timestamp                NaN
+   P_bar                10.0000
+   x_NH3_mole            0.4000
+   w_NH3_mass            0.3866
+   y_NH3_mole            0.9651
+   T_bubble_C           83.3300
+   T_dew_C              83.3300
+   glide_K               0.0000
+   h_liquid_kJ_kg      131.7000
+   h_vapor_kJ_kg      1479.0000
 
 Fonctions bas niveau utilisables directement :
 

@@ -1016,3 +1016,18 @@
 - Banc : cran 2 → 4 (toutes les sorties publiées étaient conformes).
 - Build : 0 warning. Bug bibliothèque : aucun.
 - Suivant : les 6 pages de cycles à sorties non publiées.
+
+## 2026-09-28 15:05 — Cycles : sorties réelles de 6 pages (reprise après arrêt mémoire)
+- Contexte : le tour précédent avait été interrompu par Claude Code (mémoire
+  insuffisante) ; boucle arrêtée, reprise sur demande de l'utilisateur. Publication
+  faite page par page pour ménager la mémoire.
+- Fait : 20 sorties réelles publiées par `tools/publier_sorties.py` —
+  `froid_absorption` (4 blocs), `geothermie_solaire` (4), `hydrogene_piles` (4),
+  `melangeur_flash_stockage` (3), `raccords_fittings` (2), `refrigeration` (3 : cuve
+  −25,15 °C, groupe 3000 W, simulation 6 h → −39,95 °C).
+- Banc : les 6 pages cran 2 → 4.
+- Constaté : un autre travail est en cours dans l'arbre (découpage de
+  `011-cee/index.rst` en 7 pages, `tools/pages_cee.py`). Non touché, non commité ;
+  le `banc_doc.json` commité ne contient que les 6 pages de ce tour.
+- Build : voir commit. Bug bibliothèque : aucun.
+- Suivant : `combustion_moteurs` et `distillation` (dépendances absentes), puis AHU.

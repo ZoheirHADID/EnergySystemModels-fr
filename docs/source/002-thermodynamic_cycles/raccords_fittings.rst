@@ -264,6 +264,13 @@ Exemple (mélangeur)
     print("F_c = %.2f kg/s" % mix.Outlet.F)   # 3.00
     print("T_c = %.1f °C"  % mix.T_degC)       # ~60 °C (mélange 2:1)
 
+Sortie réelle :
+
+.. code-block:: text
+
+   F_c = 3.00 kg/s
+   T_c = 60.0 °C
+
 Exemple (répartiteur)
 ---------------------
 
@@ -283,3 +290,10 @@ Exemple (répartiteur)
 
     print("F_b = %.2f kg/s" % split.F_b)   # 1.00
     print("F_c = %.2f kg/s" % split.F_c)   # 3.00
+
+Sortie réelle :
+
+.. code-block:: text
+
+   F_b = 1.00 kg/s
+   F_c = 3.00 kg/s

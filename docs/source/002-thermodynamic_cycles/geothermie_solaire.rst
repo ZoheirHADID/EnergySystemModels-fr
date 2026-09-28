@@ -150,6 +150,24 @@ Exemple — dimensionnement (sizing)
     print(b.df)
     # Longueur requise ~ 474 m pour tenir 0 degC de fluide moyen a 10 ans
 
+Sortie réelle :
+
+.. code-block:: text
+
+                         BoreholeHeatExchanger
+   Timestamp                               NaN
+   Q_kW                                 -8.000
+   Longueur_m                          473.550
+   q_lineique_W_m                      -16.894
+   Duree_ans                            10.000
+   T_sol_degC                           10.000
+   T_paroi_degC                          1.689
+   T_fluide_moyen_degC                   0.000
+   T_fluide_entree_degC                  0.000
+   T_fluide_sortie_degC                  0.000
+   T_penalite_K                          0.000
+   Nb_sondes                             1.000
+
 Exemple — simulation pilotée par l'entrée
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -173,6 +191,13 @@ Exemple — simulation pilotée par l'entrée
     b.calculate()
     # Eau a 4 degC plus froide que le sol (10 degC) -> extraction (Q_W < 0),
     # le fluide se rechauffe en traversant la sonde (To > Ti).
+
+Sortie réelle :
+
+.. code-block:: text
+
+   [SOURCE-CALLBACK] flow update: 0.000 -> 0.300 kg/s
+      New volumetric flow: 1.08 m3/h
 
 .. _stc:
 
@@ -293,6 +318,23 @@ Exemple
     print(c.df)
     # Cas de reference : eta ~ 0.652, T_sortie ~ 50.4 degC, Q_utile ~ 1305 W
 
+Sortie réelle :
+
+.. code-block:: text
+
+   [SOURCE-CALLBACK] flow update: 0.000 -> 0.030 kg/s
+      New volumetric flow: 0.11 m3/h
+                      SolarThermalCollector
+   Timestamp                            NaN
+   T_entree_degC                    40.0000
+   T_sortie_degC                    50.4050
+   T_ambiante_degC                  20.0000
+   Eclairement_W_m2               1000.0000
+   Rendement                         0.6523
+   Q_utile_W                      1304.5300
+   Q_par_m2_W                      652.2600
+   T_stagnation_degC               155.5500
+
 Exemple — stagnation (débit nul)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -301,3 +343,11 @@ Exemple — stagnation (débit nul)
     src.Outlet.F = 0.0                     # pas de debit
     c.calculate()
     print(c.stagnation_degC)               # To monte a la stagnation (plan vitre ~ 150-190 degC), Q_utile = 0
+
+Sortie réelle :
+
+.. code-block:: text
+
+   [SOURCE-CALLBACK] flow update: 0.030 -> 0.000 kg/s
+      New volumetric flow: 0.00 m3/h
+   155.54576584035928
