@@ -206,14 +206,14 @@
   "docs/source/002-thermodynamic_cycles/ejecteur_tour_refroidissement.rst": {
    "blocs": 3,
    "empreinte": "791c683fe63206fa",
-   "mesure": "2026-09-28T13:43",
+   "mesure": "2026-09-28T13:50",
    "figures": [],
    "blocage": null,
-   "motif": "ligne publiée absente de la sortie réelle : 'port_a (HP primaire) ---> Nozzle ---> Mixing_Chamber.primary'",
+   "motif": "manque : table de personnalisation et variante exécutée",
    "extraits": null,
-   "cran": 2,
-   "nom": "exécuté",
-   "cran_max": 2,
+   "cran": 4,
+   "nom": "figure réelle",
+   "cran_max": 4,
    "recul": null
   },
   "docs/source/002-thermodynamic_cycles/fluid_source.rst": {

@@ -1004,3 +1004,15 @@
 - Build : 0 warning. Bug bibliothèque : aucun.
 - Suivant : `ejecteur_tour_refroidissement` (sortie publiée à remettre d'accord),
   puis les 6 pages de cycles à sorties non publiées.
+
+## 2026-09-28 14:32 — Éjecteur et tour de refroidissement : faux écart de sortie levé
+- Unité : `002-thermodynamic_cycles/ejecteur_tour_refroidissement.rst` (cran 2, « ligne
+  publiée absente de la sortie réelle »).
+- Constat : la ligne en cause n'était pas une sortie mais le schéma ASCII des
+  connexions internes de l'éjecteur (bloc `text`) ; le banc le lisait comme une
+  sortie parce que la phrase qui le précède contient « sortie recomprimée ».
+- Fait : schéma annoncé par « Schéma des connexions internes : » — plus clair pour
+  le lecteur, et le bloc n'est plus confondu avec une sortie. Aucune valeur modifiée.
+- Banc : cran 2 → 4 (toutes les sorties publiées étaient conformes).
+- Build : 0 warning. Bug bibliothèque : aucun.
+- Suivant : les 6 pages de cycles à sorties non publiées.

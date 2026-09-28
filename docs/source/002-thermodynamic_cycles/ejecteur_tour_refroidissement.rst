@@ -25,6 +25,8 @@ composant composite qui chaîne trois sous-composants :
 * ``Diffuser`` — le **diffuseur** convertit l'énergie cinétique du mélange en
   pression et le refoule (port_c, sortie recomprimée).
 
+Schéma des connexions internes :
+
 .. code-block:: text
 
     port_a (HP primaire) ---> Nozzle ---> Mixing_Chamber.primary
