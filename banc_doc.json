@@ -903,8 +903,8 @@
   },
   "docs/source/gui_tools.rst": {
    "blocs": 3,
-   "empreinte": "0c73305a566af6d6",
-   "mesure": "2026-09-27T19:49",
+   "empreinte": "c5577492bf4ee214",
+   "mesure": "2026-09-28T09:27",
    "figures": [
     "images/gui_pyqtsimulator_architecture.svg",
     "images/gui_node_declaratif_heater.svg",
@@ -913,10 +913,11 @@
     "images/gui_evaluation_flow.svg"
    ],
    "blocage": null,
-   "motif": "bloc 2 : ModuleNotFoundError: No module named 'ThermodynamicCycles.Components'",
-   "cran": 1,
-   "nom": "plante",
-   "cran_max": 1,
+   "motif": "page de développement : 3 extraits, imports vérifiés",
+   "extraits": 3,
+   "cran": 0,
+   "nom": "sans exemple",
+   "cran_max": 0,
    "recul": null
   },
   "docs/source/index.rst": {

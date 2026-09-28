@@ -309,9 +309,12 @@ Les points importants pour l'utilisateur sont :
 Créer un nouveau nœud
 ---------------------
 
-Pour exposer un modèle EnergySystemModels dans l'interface, utiliser de
-préférence la classe ``ESMNode``. Elle évite de réécrire l'interface Qt, la
-sérialisation et les labels de résultats.
+Pour exposer un modèle EnergySystemModels dans l'interface, dériver de la
+classe ``CalcNode`` (``PyqtSimulator.nodes.esm_node_helpers``), comme le font
+les 118 nœuds de composant livrés. Elle évite de réécrire l'interface Qt, la
+sérialisation et les labels de résultats. Le nom ``ESMNode``, qu'on rencontre
+dans d'anciens scripts, n'est plus qu'un alias de compatibilité de
+``CalcNode``.
 
 Un nœud déclaratif contient :
 
@@ -329,7 +332,8 @@ Un nœud déclaratif contient :
 
    Pour un composant simple, ``OUTPUTS = [1]`` suffit. Pour un composant à
    deux sorties, utiliser ``OUTPUTS = [1, 1]`` et retourner une liste de deux
-   ports dans le même ordre que les sockets.
+   ports dans le même ordre que les sockets. Extrait de ``nodes/splitter.py``
+   (le séparateur de débit) :
 
    .. code-block:: python
 
@@ -337,7 +341,7 @@ Un nœud déclaratif contient :
 
       def evalOperation(self, input1, input2):
           ...
-          self.value = [fluid_out(model.Outlet_b), fluid_out(model.Outlet_c)]
+          self.value = [fluid_out(M.Outlet_b), fluid_out(M.Outlet_c)]
           return self.value
 
 ``FIELDS``
@@ -353,56 +357,68 @@ Un nœud déclaratif contient :
    Code métier : lecture des entrées, appel du modèle, affichage des résultats,
    retour de la valeur de sortie.
 
-Exemple réel : nœud Réchauffeur
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Exemple réel : nœud Batterie chaude
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Le nœud ``Réchauffeur`` illustre la structure recommandée.
+Le nœud de la batterie chaude d'une CTA est le plus court des nœuds livrés, et
+il montre toute la structure. Extrait intégral de ``nodes/heating_coil.py`` :
 
 .. code-block:: python
 
-   from ThermodynamicCycles.Components import Heater
-   from ThermodynamicCycles.FluidPort.FluidPort import Fluid_connect
-   from PyqtSimulator.calc_conf import register_node, OP_NODE_HEATER
-   from PyqtSimulator.nodes.esm_node_helpers import ESMNode, make_fluid_port, fluid_out
+   from PyqtSimulator.calc_conf import register_node, OP_NODE_HEATING_COIL
+   from PyqtSimulator.nodes.esm_node_helpers import CalcNode, make_air_port, air_out
+
+   from AHU import HeatingCoil
+   from AHU.Connect import Air_connect
 
 
-   @register_node(OP_NODE_HEATER)
-   class CalcNode_Heater(ESMNode):
-       icon = "icons/heating_coil.png"
-       op_code = OP_NODE_HEATER
-       op_title = "Réchauffeur"
-       content_label_objname = "calc_node_heater"
+   @register_node(OP_NODE_HEATING_COIL)
+   class CalcNode_heating_coil(CalcNode):
+       icon = "icons/cta_batterie_chaude.svg"
+       op_code = OP_NODE_HEATING_COIL
+       op_title = "Heating Coil"
+       content_label_objname = "calc_node_heating_coil"
+
+       # Entrée et sortie rapprochées un peu du centre (dx en px écran : +13 pousse
+       # l'entrée vers la droite, −13 pousse la sortie vers la gauche).
+       SOCKET_POS_INPUTS = [("left", 60, 20)]
+       SOCKET_POS_OUTPUTS = [("right", 60, -20)]
 
        INPUTS = [2]
        OUTPUTS = [1]
-       HEIGHT = 300
-
+       HEIGHT = 250
        FIELDS = [
-           ("q_nom", "Puissance nominale (kW)", 100.0),
-           ("u", "Taux de charge (0-1)", 1.0),
+           ("pdrop", "Perte de pression (bar)", 0.001),
+           ("ttarget", "Temp. cible (°C)", 20),
        ]
        RESULTS = [
-           ("q", "Puissance transférée (kW)"),
-           ("to", "T° sortie (°C)"),
+           ("qth", "Qth(kW)"),
        ]
 
        def evalOperation(self, input1, input2):
-           a = make_fluid_port(input1)
-           model = Heater.Object()
-           Fluid_connect(model.Inlet, a)
-           model.Q_flow_nominal = self.num("q_nom") * 1000.0
-           model.u = self.num("u")
-           model.calculate()
-
-           self.show_result("q", "%.3f" % (model.Q_flow / 1000.0))
-           self.show_result("to", "%.2f" % model.To_degC)
-
-           self.value = fluid_out(model.Outlet)
+           a = make_air_port(input1)
+           HEATING_COIL = HeatingCoil.Object()
+           Air_connect(HEATING_COIL.Inlet, a)
+           HEATING_COIL.P_drop = 1e5 * self.num("pdrop")
+           HEATING_COIL.To_target = self.num("ttarget")
+           HEATING_COIL.calculate()
+           # Publie le modele pour le releve de flux du noeud << Etude de pincement >>
+           self._model = HEATING_COIL
+           self.show_result("qth", "%.3f" % HEATING_COIL.Q_th)
+           self.value = air_out(HEATING_COIL.Outlet)
            return self.value
 
-Ce modèle donne une règle générale : les champs affichés en kW ou en bar sont
-convertis dans les unités attendues par le modèle, puis reconvertis pour les
-ports ou les labels utilisateur.
+Ce qu'il faut y lire :
+
+* ``make_air_port(input1)`` reconstruit un ``AirPort`` depuis ce que la socket
+  d'entrée reçoit, et ``air_out(...)`` fait l'inverse pour la sortie. Pour un
+  fluide, les équivalents sont ``make_fluid_port`` et ``fluid_out``.
+* Le modèle est relié à ce port par ``Air_connect(aval.Inlet, amont)``, comme
+  dans un script : voir :doc:`ports_connexions`.
+* **Les unités se convertissent dans le nœud.** Le champ affiché est en bar,
+  le modèle attend des pascals : d'où ``1e5 * self.num("pdrop")``. La consigne
+  ``To_target`` est déjà en °C et ``Q_th`` déjà en kW : aucun facteur.
+* Le titre affiché dans la palette est ``op_title`` — ici « Heating Coil ».
 
 Enregistrer le nœud dans la palette
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -414,11 +430,12 @@ Enregistrer le nœud dans la palette
    automatiquement les fichiers ``.py`` du dossier.
 5. Relancer ``PyqtSimulator``. Le nœud doit apparaître dans la palette.
 
-Exemple de réservation d'opcode :
+Exemple de réservation d'opcode — extrait de ``calc_conf.py``, qui en déclare
+126 :
 
 .. code-block:: python
 
-   OP_NODE_HEATER = 280
+   OP_NODE_HEATING_COIL = 200
 
 Bonnes pratiques de développement
 ---------------------------------

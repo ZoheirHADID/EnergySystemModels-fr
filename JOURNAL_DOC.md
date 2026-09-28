@@ -336,3 +336,26 @@
 - Bug bibliothèque : aucun.
 - Écarté : les autres singularités de la page (G2b, un modèle par tour).
 - Suivant : G2b (`EdgedBend`), ou A — les pages `usage/` qui plantent encore.
+
+## 2026-09-28 — `gui_tools.rst`, section « Créer un nouveau nœud » (D1)
+- Unité : D1 — le nœud inventé de `gui_tools.rst` (page qui plantait, priorité 4).
+- Fait : « Réchauffeur » (`from ThermodynamicCycles.Components import Heater`,
+  paquet inexistant ; `Fluid_connect` importé du mauvais module ;
+  `OP_NODE_HEATER = 280` déclaré mais employé par aucun nœud) remplacé par
+  l'**extrait intégral** de `nodes/heating_coil.py`, avec ce qu'il faut y lire
+  (conversion bar → Pa dans le nœud, `Q_th` déjà en kW, `op_title` réel
+  « Heating Coil »). Classe de base corrigée : `CalcNode` (118 nœuds), `ESMNode`
+  n'étant qu'un alias (`esm_node_helpers.py:75`). Extrait à deux sorties attribué à
+  `nodes/splitter.py` et aligné sur lui (`M.Outlet_b`). Opcode d'exemple :
+  `OP_NODE_HEATING_COIL = 200` (126 opcodes déclarés, mesuré). Vérifiés dans le
+  code : `CHOICES` (`calc_node_base.py:987`), import automatique des nœuds
+  (`calc_conf.py:245`).
+- Banc : `gui_tools.rst` cran 1 (plante) → 0 (page de développement, 3 extraits,
+  imports vérifiés). Pas un recul : la page n'avait jamais atteint le cran 2.
+  Pages qui plantent : 6 → 5.
+- Exécution : imports des 3 extraits, par le banc.
+- Build : 0 warning.
+- Bug bibliothèque : aucun (`OP_NODE_HEATER` inutilisé est un résidu, pas un défaut
+  bloquant).
+- Écarté : palette lue au registre et pièges de l'IHM (reste de D1).
+- Suivant : A — les pages `usage/` qui plantent encore (API `energysystemmodels.`).

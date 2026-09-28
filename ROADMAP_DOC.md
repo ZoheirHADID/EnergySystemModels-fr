@@ -178,22 +178,17 @@ réelle si le modèle en a une.
 
 ## D. L'IHM PyqtSimulator
 
-- `en cours` **D1 — `gui_tools.rst`** (cran 1). Fait : lancement corrigé
-  (`pip install` puis `python -m PyqtSimulator`), dépannage réécrit sans
-  `PYTHONPATH`, palette annoncée à 140 éléments (mesuré).
-  Reste, et c'est le cœur du problème : la section « écrire un nœud » montre un
-  **nœud inventé**. Mesuré : `from ThermodynamicCycles.Components import Heater`
-  → le paquet `Components` n'existe pas ; `Fluid_connect` vit dans
-  `ThermodynamicCycles/Connect.py`, pas dans `FluidPort.FluidPort` ; et
-  `OP_NODE_HEATER = 280`, déclaré dans `calc_conf.py`, **n'est utilisé par aucun
-  nœud**. Le vrai modèle à montrer est
-  `PyqtSimulator/nodes/heating_coil.py` (`OP_NODE_HEATING_COIL`, classe
-  `CalcNode`, `make_air_port`, `air_out`, `from AHU import HeatingCoil`).
-  L'extrait devra être annoncé comme tel — « (extrait de `nodes/heating_coil.py`) »
-  — pour que le banc vérifie ses imports sans exiger qu'il tourne seul.
-  Reste aussi : décrire la palette depuis le registre `CALC_NODES` lu à
-  l'exécution, et dire les pièges de l'IHM listés dans `$LIB/CLAUDE.md` (statut de
-  convergence, recyclages à froid).
+- `en cours` **D1 — `gui_tools.rst`** (banc : page de développement, 3 extraits,
+  imports vérifiés — plus aucun bloc qui plante). Fait : lancement corrigé,
+  dépannage sans `PYTHONPATH`, palette annoncée à 140 éléments (mesuré) ; le
+  **nœud inventé** « Réchauffeur » (`ThermodynamicCycles.Components`,
+  `OP_NODE_HEATER` qu'aucun nœud n'emploie) est remplacé le 2026-09-28 par
+  l'extrait intégral de `nodes/heating_coil.py`, la base `CalcNode` au lieu de
+  l'alias `ESMNode`, l'extrait à deux sorties attribué à `nodes/splitter.py`,
+  l'opcode réel `OP_NODE_HEATING_COIL = 200`.
+  Reste : décrire la palette depuis le registre `CALC_NODES` lu à l'exécution, et
+  dire les pièges de l'IHM listés dans `$LIB/CLAUDE.md` (statut de convergence,
+  recyclages à froid).
 - `à faire` **D2 — figures de scènes réelles, par export headless** — recette
   **vérifiée le 2026-09-27** : `QT_QPA_PLATFORM=offscreen`,
   `CalculatorSubWindow().fileLoad(<scène>.json)`, puis
