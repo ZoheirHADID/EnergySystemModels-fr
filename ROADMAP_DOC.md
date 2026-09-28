@@ -84,8 +84,12 @@ page par page.
     aiguillage vers `011-cee`, le décompte mesuré (33 fiches : 25 IND-UT, 4 IND-BA,
     2 IND-EN, 2 TRA-EQ) et un avertissement « aucune fiche résidentielle ou
     tertiaire ». Cran 1 → 0.
-  - `à faire` `section-2-donnees-production.rst` (10 occurrences),
-    `section-4-distribution.rst` (11), `section-5-usages-finaux.rst` (11, dont
+  - `fait` `section-2-donnees-production.rst` (2026-09-28) : 11 blocs dont 9
+    d'API inventée (`PVSystem`, `ShadingProfile`, `OpenWeatherMapClient`,
+    `MeteoCielClient`, `DJUCalculator`) remplacés par un aiguillage vers
+    `008-meteo` et `009-pv-solaire`, avec ce que chaque module exige (réseau, clé
+    d'API, PVGIS) — mesuré dans le code. Cran 1 → 0.
+  - `à faire` `section-4-distribution.rst` (11), `section-5-usages-finaux.rst` (11, dont
     `BuildingModel` et `RC_Model`).
     Table de correspondance vérifiée dans
     `SPRINT_BACKLOG_doc_imports_cleanup.md`. `section-6-autres.rst` est déjà

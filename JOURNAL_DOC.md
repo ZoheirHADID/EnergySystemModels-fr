@@ -394,3 +394,19 @@
 - Écarté : le 7e bloc (`CEE.TRA_EQ_107(...)`, API réelle) — déjà couvert, exécuté,
   par la section Transport de `011-cee`.
 - Suivant : `usage/section-2-donnees-production.rst`.
+
+## 2026-09-28 — `usage/section-2-donnees-production.rst` (A1)
+- Unité : A1 — pages `usage/` à l'API inventée.
+- Fait : parcours de lecture vers `008-meteo` et `009-pv-solaire`. Relevé dans le
+  code, et dit au lecteur : `DJU_costic` est le **seul** module qui tourne hors
+  ligne (`DJU_costic(2, 10)` → `(12.0, 0)`, exécuté) ; `MeteoCiel_*` lit le site
+  MeteoCiel ; `OpenWeatherMap` exige une clé d'API lue dans son `config.ini`
+  (`get_weather.py:22`) ; `SolarSystem` télécharge la TMY PVGIS
+  (`ProductionElectriquePV.py:46`). 4 imports vérifiés.
+- Banc : cran 1 → 0 (prose). Pages qui plantent : 3 → 2.
+- Build : 0 warning.
+- Bug bibliothèque : aucun.
+- Écarté : les deux blocs d'API réelle (`MeteoCiel_histoScraping`, `SolarSystem`) —
+  dépendants du réseau, ils relèvent des pages `008-meteo/meteociel.rst` et
+  `009-pv-solaire/index.rst`, dont la mesure demande un accès réseau.
+- Suivant : `usage/section-4-distribution.rst`, puis section-5.

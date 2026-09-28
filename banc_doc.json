@@ -1012,15 +1012,16 @@
    "recul": null
   },
   "docs/source/usage/section-2-donnees-production.rst": {
-   "blocs": 13,
-   "empreinte": "c5bd071a3dcad57d",
-   "mesure": "2026-09-27T18:10",
+   "blocs": 0,
+   "empreinte": "b9ff2e93bf917f26",
+   "mesure": "2026-09-28T09:40",
    "figures": [],
    "blocage": null,
-   "motif": "API inexistante : energysystemmodels.",
-   "cran": 1,
-   "nom": "plante",
-   "cran_max": 1,
+   "motif": "page de prose ou d'index",
+   "extraits": null,
+   "cran": 0,
+   "nom": "sans exemple",
+   "cran_max": 0,
    "recul": null
   },
   "docs/source/usage/section-3-transformation.rst": {
