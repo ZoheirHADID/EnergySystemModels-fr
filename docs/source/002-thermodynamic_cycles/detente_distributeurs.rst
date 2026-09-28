@@ -21,6 +21,13 @@ un port aval.
 Détendeur / vanne d'expansion (``Expansion_Valve``)
 ---------------------------------------------------
 
+.. figure:: ../images/schema_expansion_valve.svg
+   :alt: Schéma du détendeur
+   :align: center
+   :width: 100%
+
+   Forme, ports et raccordement ; paramètres sous leur nom de code, avec leur valeur par défaut.
+
 Rôle
 ~~~~
 

@@ -3,6 +3,13 @@
 Compresseur — Compressor
 ========================
 
+.. figure:: ../images/schema_compressor.svg
+   :alt: Schéma du compresseur
+   :align: center
+   :width: 100%
+
+   Forme, ports et raccordement ; paramètres sous leur nom de code, avec leur valeur par défaut.
+
 Le module ``Compressor`` modélise une compression polytropique. L'état d'entrée
 n'est pas saisi directement sur le compresseur : il provient d'un composant amont
 (``Source``, échangeur…) **connecté via** ``Fluid_connect(COMP.Inlet, amont.Outlet)``.

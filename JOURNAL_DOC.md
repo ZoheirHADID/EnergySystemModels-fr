@@ -725,3 +725,20 @@
   sortie l'a collée au code. Ligne vide ajoutée, build revenu à 0. Cause de
   l'oubli : la commande de commit n'était pas conditionnée au résultat du build ;
   elle l'est désormais (`[ "$(… | grep -ci warning)" = 0 ] &&`).
+
+## 2026-09-28 — schémas du chapitre cycles (K2)
+- Unité : K2 — schémas à icônes PyqtSimulator, cycles thermodynamiques.
+- Fait : 8 schémas — compresseur, turbine, pompe, détendeur, évaporateur,
+  condenseur (flèches rouges du travail et de la chaleur échangés), source et puits
+  de fluide — placés **juste sous le titre** de chaque modèle. Icônes et titres
+  lus dans `nodes/` (`compressor` « Compresseur », `expansion_valve` « Détendeur »…).
+  Vérifié dans le code avant de l'écrire : `LP` de la turbine passé tel quel à
+  CoolProp comme pression → Pa ; le détendeur lit `Outlet.P` sans le calculer → la
+  pression vient de l'aval. Rendu contrôlé (planche Qt).
+- Banc : aucun recul (comparaison page par page avec le dernier commit).
+  `pompe.rst`, `detente_distributeurs.rst`, `condenseur_evaporateur.rst` mesurées
+  pour la première fois → cran 2 (sorties non publiées) : entrée B-CYC.
+- Build : 0 warning (`-E`).
+- Écarté : le cycle complet du groupe froid — c'est un assemblage ; son schéma
+  viendra de l'export d'une scène réelle de l'IHM (règle de la boucle).
+- Suivant : B-CYC, puis le cycle du groupe froid.

@@ -23,6 +23,13 @@ sont connus, ``FluidPort`` recalcule automatiquement ``T``, ``S``, ``rho``,
 Condenser (Condenseur)
 ----------------------
 
+.. figure:: ../images/schema_condenser.svg
+   :alt: Schéma du condenseur
+   :align: center
+   :width: 100%
+
+   Forme, ports et raccordement ; paramètres sous leur nom de code, avec leur valeur par défaut.
+
 Rôle
 ~~~~
 
@@ -131,6 +138,13 @@ Exemple
 
 Evaporator (Évaporateur)
 ------------------------
+
+.. figure:: ../images/schema_evaporator.svg
+   :alt: Schéma de l'évaporateur
+   :align: center
+   :width: 100%
+
+   Forme, ports et raccordement ; paramètres sous leur nom de code, avec leur valeur par défaut.
 
 Rôle
 ~~~~

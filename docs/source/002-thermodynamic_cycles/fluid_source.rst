@@ -3,6 +3,13 @@
 Source de fluide — Source
 =========================
 
+.. figure:: ../images/schema_source.svg
+   :alt: Schéma de la source de fluide
+   :align: center
+   :width: 100%
+
+   Forme, ports et raccordement ; paramètres sous leur nom de code, avec leur valeur par défaut.
+
 Utilisation
 -----------
 

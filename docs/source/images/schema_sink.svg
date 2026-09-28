@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="250" viewBox="0 0 960 250" role="img" aria-label="Puits de fluide">
+<title>Puits de fluide</title>
+<defs><marker id="fleche" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-end"><path d="M 0 0 L 10 5 L 0 10 z" fill="#1f2933"/></marker><marker id="fleche_cote" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-end"><path d="M 0 0 L 10 5 L 0 10 z" fill="#b46a00"/></marker><marker id="fleche_flux" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-end"><path d="M 0 0 L 10 5 L 0 10 z" fill="#2670a8"/></marker></defs>
+<rect width="960" height="250" fill="#ffffff"/>
+<text x="220.0" y="36.0" fill="#1f2933" text-anchor="start" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12">nœud de l'IHM « Sortie »</text>
+<circle cx="392.0" cy="140.0" r="7.0" fill="#ffffff" stroke="#e8793a" stroke-width="4"/>
+<text x="300.0" y="144.0" fill="#7b8794" text-anchor="end" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12">composant amont</text>
+<polyline points="399.00,140.00 586.00,140.00" fill="none" stroke="#2670a8" stroke-width="2.0" stroke-linejoin="round" marker-end="url(#fleche_flux)"/>
+<text x="492.0" y="160.0" fill="#2670a8" text-anchor="middle" font-family="Consolas, Courier New, monospace" font-size="12">Fluid_connect</text>
+<circle cx="594.0" cy="140.0" r="7.0" fill="#ffffff" stroke="#1d5f86" stroke-width="4"/>
+<text x="594.0" y="96.0" fill="#1f2933" text-anchor="middle" font-family="Consolas, Courier New, monospace" font-size="12">Inlet</text>
+<g transform="translate(600.00 105.86) scale(0.4138)"><g transform="translate(-91 -671)"><path d="M92.5 714.5 300.5 714.5 300.5 675.5 378.5 753.5 300.5 831.501 300.5 792.501 92.5 792.501Z" stroke="#000000" stroke-width="3.4375" stroke-miterlimit="8" fill="none" fill-rule="evenodd" /><path d="M378.5 675.5 378.5 831.405" stroke="#000000" stroke-width="3.4375" stroke-miterlimit="8" fill="none" fill-rule="evenodd" /></g></g>
+<text x="560.0" y="200.0" fill="#1f2933" text-anchor="start" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="13" font-weight="600">Sink.Object()</text>
+<text x="560.0" y="217.0" fill="#1f2933" text-anchor="start" font-family="Consolas, Courier New, monospace" font-size="12">(un seul port : Inlet)</text>
+</svg>

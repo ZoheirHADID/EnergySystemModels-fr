@@ -110,10 +110,13 @@
   "docs/source/002-thermodynamic_cycles/compressor.rst": {
    "blocs": 4,
    "empreinte": "85a9b1484d468e38",
-   "mesure": "2026-09-27T18:16",
-   "figures": [],
+   "mesure": "2026-09-28T11:46",
+   "figures": [
+    "../images/schema_compressor.svg"
+   ],
    "blocage": null,
    "motif": "manque : table de personnalisation et variante exécutée",
+   "extraits": null,
    "cran": 4,
    "nom": "figure réelle",
    "cran_max": 4,
@@ -121,14 +124,18 @@
   },
   "docs/source/002-thermodynamic_cycles/condenseur_evaporateur.rst": {
    "blocs": 3,
-   "empreinte": "56e3978eecfffc7f",
-   "mesure": "2026-09-27T18:10",
-   "figures": [],
+   "empreinte": "ce4d0e764e20be49",
+   "mesure": "2026-09-28T11:46",
+   "figures": [
+    "../images/schema_condenser.svg",
+    "../images/schema_evaporator.svg"
+   ],
    "blocage": null,
-   "motif": "non exécutée (passe statique)",
-   "cran": null,
-   "nom": "non mesuré",
-   "cran_max": null,
+   "motif": "sortie mesurée non publiée dans la page",
+   "extraits": null,
+   "cran": 2,
+   "nom": "exécuté",
+   "cran_max": 2,
    "recul": null
   },
   "docs/source/002-thermodynamic_cycles/dessalement_evaporation.rst": {
@@ -145,14 +152,17 @@
   },
   "docs/source/002-thermodynamic_cycles/detente_distributeurs.rst": {
    "blocs": 4,
-   "empreinte": "8e54572451af5988",
-   "mesure": "2026-09-27T18:10",
-   "figures": [],
+   "empreinte": "3e580b44fa4be839",
+   "mesure": "2026-09-28T11:46",
+   "figures": [
+    "../images/schema_expansion_valve.svg"
+   ],
    "blocage": null,
-   "motif": "non exécutée (passe statique)",
-   "cran": null,
-   "nom": "non mesuré",
-   "cran_max": null,
+   "motif": "sortie mesurée non publiée dans la page",
+   "extraits": null,
+   "cran": 2,
+   "nom": "exécuté",
+   "cran_max": 2,
    "recul": null
   },
   "docs/source/002-thermodynamic_cycles/distillation.rst": {
@@ -194,10 +204,13 @@
   "docs/source/002-thermodynamic_cycles/fluid_source.rst": {
    "blocs": 1,
    "empreinte": "d6acad70243bb822",
-   "mesure": "2026-09-27T18:16",
-   "figures": [],
+   "mesure": "2026-09-28T11:47",
+   "figures": [
+    "../images/schema_source.svg"
+   ],
    "blocage": null,
    "motif": "manque : table de personnalisation et variante exécutée",
+   "extraits": null,
    "cran": 4,
    "nom": "figure réelle",
    "cran_max": 4,
@@ -313,14 +326,17 @@
   },
   "docs/source/002-thermodynamic_cycles/pompe.rst": {
    "blocs": 2,
-   "empreinte": "597cc0cbc14f9bee",
-   "mesure": "2026-09-27T18:10",
-   "figures": [],
+   "empreinte": "65712ebab59a667d",
+   "mesure": "2026-09-28T11:46",
+   "figures": [
+    "../images/schema_pump.svg"
+   ],
    "blocage": null,
-   "motif": "non exécutée (passe statique)",
-   "cran": null,
-   "nom": "non mesuré",
-   "cran_max": null,
+   "motif": "sortie mesurée non publiée dans la page",
+   "extraits": null,
+   "cran": 2,
+   "nom": "exécuté",
+   "cran_max": 2,
    "recul": null
   },
   "docs/source/002-thermodynamic_cycles/raccords_fittings.rst": {
@@ -350,10 +366,13 @@
   "docs/source/002-thermodynamic_cycles/sink.rst": {
    "blocs": 1,
    "empreinte": "ba5d9acbc9e1dbe0",
-   "mesure": "2026-09-27T18:17",
-   "figures": [],
+   "mesure": "2026-09-28T11:47",
+   "figures": [
+    "../images/schema_sink.svg"
+   ],
    "blocage": null,
    "motif": "manque : table de personnalisation et variante exécutée",
+   "extraits": null,
    "cran": 4,
    "nom": "figure réelle",
    "cran_max": 4,
@@ -362,10 +381,13 @@
   "docs/source/002-thermodynamic_cycles/turbine.rst": {
    "blocs": 1,
    "empreinte": "85b3ddefbbfdb6fa",
-   "mesure": "2026-09-27T18:17",
-   "figures": [],
+   "mesure": "2026-09-28T11:46",
+   "figures": [
+    "../images/schema_turbine.svg"
+   ],
    "blocage": null,
    "motif": "manque : table de personnalisation et variante exécutée",
+   "extraits": null,
    "cran": 4,
    "nom": "figure réelle",
    "cran_max": 4,

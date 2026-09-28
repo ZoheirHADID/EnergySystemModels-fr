@@ -3,6 +3,13 @@
 Pompe — Pump
 ============
 
+.. figure:: ../images/schema_pump.svg
+   :alt: Schéma de la pompe
+   :align: center
+   :width: 100%
+
+   Forme, ports et raccordement ; paramètres sous leur nom de code, avec leur valeur par défaut.
+
 Le module ``ThermodynamicCycles.Pump`` modélise une **pompe** de circulation de
 liquide. Selon les paramètres fournis, il fonctionne dans **deux modes** distincts
 (chemin additif, sans redondance) :

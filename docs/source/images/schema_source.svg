@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="280" viewBox="0 0 960 280" role="img" aria-label="Source de fluide">
+<title>Source de fluide</title>
+<defs><marker id="fleche" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-end"><path d="M 0 0 L 10 5 L 0 10 z" fill="#1f2933"/></marker><marker id="fleche_cote" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-end"><path d="M 0 0 L 10 5 L 0 10 z" fill="#b46a00"/></marker><marker id="fleche_flux" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-end"><path d="M 0 0 L 10 5 L 0 10 z" fill="#2670a8"/></marker></defs>
+<rect width="960" height="280" fill="#ffffff"/>
+<g transform="translate(240.00 105.86) scale(0.4138)"><g transform="translate(-91 -451)"><path d="M92.5 494.5 300.5 494.5 300.5 455.5 378.5 533.5 300.5 611.501 300.5 572.501 92.5 572.501Z" stroke="#000000" stroke-width="3.4375" stroke-miterlimit="8" fill="none" fill-rule="evenodd" /><path d="M92.5 455.5 92.5003 611.405" stroke="#000000" stroke-width="3.4375" stroke-miterlimit="8" fill="none" fill-rule="evenodd" /></g></g>
+<circle cx="366.0" cy="140.0" r="7.0" fill="#ffffff" stroke="#e8793a" stroke-width="4"/>
+<text x="366.0" y="96.0" fill="#1f2933" text-anchor="middle" font-family="Consolas, Courier New, monospace" font-size="12">Outlet</text>
+<polyline points="373.00,140.00 560.00,140.00" fill="none" stroke="#2670a8" stroke-width="2.0" stroke-linejoin="round" marker-end="url(#fleche_flux)"/>
+<text x="466.0" y="160.0" fill="#2670a8" text-anchor="middle" font-family="Consolas, Courier New, monospace" font-size="12">Fluid_connect</text>
+<circle cx="568.0" cy="140.0" r="7.0" fill="#ffffff" stroke="#1d5f86" stroke-width="4"/>
+<text x="600.0" y="144.0" fill="#7b8794" text-anchor="start" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12">vers le composant aval</text>
+<text x="220.0" y="36.0" fill="#1f2933" text-anchor="start" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12">nœud de l'IHM « Source »</text>
+<text x="200.0" y="200.0" fill="#1f2933" text-anchor="start" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="13" font-weight="600">Source.Object()</text>
+<text x="200.0" y="217.0" fill="#1f2933" text-anchor="start" font-family="Consolas, Courier New, monospace" font-size="12">fluid = &quot;water&quot;   # nom CoolProp</text>
+<text x="200.0" y="234.0" fill="#1f2933" text-anchor="start" font-family="Consolas, Courier New, monospace" font-size="12">Pi_bar, Ti_degC   # bar, °C</text>
+<text x="200.0" y="251.0" fill="#1f2933" text-anchor="start" font-family="Consolas, Courier New, monospace" font-size="12">F                 # kg/s (ou F_m3h…)</text>
+</svg>

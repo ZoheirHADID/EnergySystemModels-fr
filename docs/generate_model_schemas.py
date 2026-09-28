@@ -515,7 +515,127 @@ def roue_thermique():
                          "Thermal_wheel_exchanger", roue=True)
 
 
-FIGURES = [air_neuf, batterie_chaude, batterie_froide, humidificateur, recuperateur_plaques,
+# --------------------------------------------------------------------------- #
+# Cycles thermodynamiques — FluidPort, Fluid_connect
+# --------------------------------------------------------------------------- #
+FRIGO = "#fdf2e3"
+
+
+def _chaleur(x, y, entrante, texte):
+    """Flèche de chaleur échangée (Q), vers le composant ou hors de lui."""
+    y0, y1 = (y - 70, y - 32) if entrante else (y - 32, y - 70)
+    return [_ligne(x, y0, x, y1, "#c0392b", 2.4, marqueurs=' marker-end="url(#fleche)"'),
+            _texte(x + 10, y - 56, texte, 12, "#c0392b", "start", MONO)]
+
+
+def compresseur():
+    cx = (XI + XO) / 2
+    forme = _tube(XI, cx - 40) + _tube(cx + 40, XO) + [
+        _cercle(cx, Y, 40, "#ffffff", TRAIT, 2.4),
+        _polyligne([(cx - 28, Y - 28), (cx + 34, Y - 12), (cx + 34, Y + 12), (cx - 28, Y + 28)], TRAIT, 2.0)]
+    forme += _chaleur(cx, Y, True, "travail W")
+    return _cadre("schema_compressor.svg", "Compresseur", forme,
+                  ["Compressor.Object()", "HP_bar = None             # bar, pression de refoulement",
+                   "eta_is = 0.75             # rendement isentropique",
+                   "Tdischarge_target = None  # °C, température de refoulement visée"],
+                  ["Le fluide sort à la pression HP_bar ; le travail absorbé dépend de eta_is."],
+                  noeud="compressor")
+
+
+def turbine():
+    cx = (XI + XO) / 2
+    forme = _tube(XI, cx - 40) + _tube(cx + 40, XO) + [
+        _polyligne([(cx - 40, Y - 16), (cx + 40, Y - 34), (cx + 40, Y + 34), (cx - 40, Y + 16), (cx - 40, Y - 16)],
+                   TRAIT, 2.4, remplissage="#ffffff")]
+    forme += _chaleur(cx, Y, False, "travail W")
+    return _cadre("schema_turbine.svg", "Turbine", forme,
+                  ["Turbine.Object()", "LP = 1 * 100000    # Pa, pression de sortie",
+                   "IsenEff = 0.7      # rendement isentropique"],
+                  ["Détente du fluide jusqu'à LP (en Pa) ; le travail produit dépend de IsenEff."],
+                  noeud="turbine")
+
+
+def pompe():
+    cx = (XI + XO) / 2
+    forme = _tube(XI, cx - 36) + _tube(cx + 36, XO) + [
+        _cercle(cx, Y, 36, "#ffffff", TRAIT, 2.4),
+        _polyligne([(cx - 18, Y + 26), (cx + 30, Y), (cx - 18, Y - 26)], TRAIT, 2.0)]
+    forme += _chaleur(cx, Y, True, "travail W")
+    return _cadre("schema_pump.svg", "Pompe", forme,
+                  ["Pump.Object()", "Pdischarge_bar = None   # bar, pression de refoulement",
+                   "IsenEff = None          # rendement isentropique"],
+                  ["Mode thermodynamique : pression de refoulement et rendement ; mode réseau : courbe",
+                   "caractéristique (voir la page)."],
+                  noeud="pump")
+
+
+def detendeur():
+    cx = (XI + XO) / 2
+    forme = _tube(XI, cx - 34) + _tube(cx + 34, XO) + _noeud_papillon(cx) + [
+        _ligne(cx - 20, Y + 30, cx + 20, Y - 30, TRAIT, 1.6, marqueurs=' marker-end="url(#fleche)"')]
+    return _cadre("schema_expansion_valve.svg", "Détendeur", forme,
+                  ["Expansion_Valve.Object()", "(aucun paramètre : la pression de sortie",
+                   " vient de l'aval, par Fluid_connect)"],
+                  ["Détente isenthalpique : Outlet.h = Inlet.h ; seule la pression baisse."],
+                  noeud="expansion_valve")
+
+
+def _echangeur_frigo(nom, titre, classe, noeud, params, note, entrante, texte):
+    cx = (XI + XO) / 2
+    forme = [_rect(XI, Y - 30, XO - XI, 60, FRIGO, TRAIT, 4, 2.2)]
+    pts = [(XI + 20 + i * 26, Y - 16 if i % 2 else Y + 16) for i in range(11)]
+    forme.append(_polyligne(pts, TRAIT, 2.0))
+    forme += _chaleur(cx, Y - 10, entrante, texte)
+    return _cadre(nom, titre, forme, [f"{classe}.Object()"] + params, note, noeud=noeud)
+
+
+def evaporateur():
+    return _echangeur_frigo("schema_evaporator.svg", "Évaporateur", "Evaporator", "evaporator",
+                            ["LP_bar = None    # bar, pression d'évaporation",
+                             "Ti_degC = None   # °C, température d'évaporation",
+                             "surchauff = 2    # K, surchauffe en sortie"],
+                            ["Le fluide frigorigène s'évapore en absorbant la chaleur Q (le froid produit)."],
+                            True, "Q absorbée")
+
+
+def condenseur():
+    return _echangeur_frigo("schema_condenser.svg", "Condenseur", "Condenser", "condenser",
+                            ["subcooling = 2   # K, sous-refroidissement en sortie"],
+                            ["Le fluide se condense en cédant la chaleur Q (valorisable en pompe à chaleur)."],
+                            False, "Q cédée")
+
+
+def source_fluide():
+    m = _entete(L, 280, "Source de fluide")
+    m.append(_icone("input", 300, Y - 10, 120, 78))
+    m.append(_port(366, Y - 10, entree=False))
+    m.append(_texte(366, Y - 54, "Outlet", 12, TRAIT, "middle", MONO))
+    m.append(_polyligne([(373, Y - 10), (560, Y - 10)], FLUX, 2.0).replace("/>", ' marker-end="url(#fleche_flux)"/>'))
+    m.append(_texte(466, Y + 10, "Fluid_connect", 12, FLUX, "middle", MONO))
+    m.append(_port(568, Y - 10, entree=True))
+    m.append(_texte(600, Y - 6, "vers le composant aval", 12, AXE, "start"))
+    m.append(_texte(220, 36, "nœud de l'IHM « " + titre_du_noeud("input") + " »", 12, TRAIT, "start"))
+    m += _lignes(200, Y + 50, ["Source.Object()", 'fluid = "water"   # nom CoolProp',
+                               "Pi_bar, Ti_degC   # bar, °C", "F                 # kg/s (ou F_m3h…)"], 12, 17)
+    return _ecrire("schema_source.svg", m), _verifier_debordements("schema_source.svg", m, L)
+
+
+def puits_fluide():
+    m = _entete(L, 250, "Puits de fluide")
+    m.append(_texte(220, 36, "nœud de l'IHM « " + titre_du_noeud("output") + " »", 12, TRAIT, "start"))
+    m.append(_port(392, Y - 10, entree=False))
+    m.append(_texte(300, Y - 6, "composant amont", 12, AXE, "end"))
+    m.append(_polyligne([(399, Y - 10), (586, Y - 10)], FLUX, 2.0).replace("/>", ' marker-end="url(#fleche_flux)"/>'))
+    m.append(_texte(492, Y + 10, "Fluid_connect", 12, FLUX, "middle", MONO))
+    m.append(_port(594, Y - 10, entree=True))
+    m.append(_texte(594, Y - 54, "Inlet", 12, TRAIT, "middle", MONO))
+    m.append(_icone("output", 660, Y - 10, 120, 78))
+    m += _lignes(560, Y + 50, ["Sink.Object()", "(un seul port : Inlet)"], 12, 17)
+    return _ecrire("schema_sink.svg", m), _verifier_debordements("schema_sink.svg", m, L)
+
+
+FIGURES = [compresseur, turbine, pompe, detendeur, evaporateur, condenseur, source_fluide,
+           puits_fluide, air_neuf, batterie_chaude, batterie_froide, humidificateur, recuperateur_plaques,
            roue_thermique, vanne_generique, vanne_isolement, vanne_soupape, vanne_boule, vanne_papillon,
            papillon_rectangulaire, clapet_anti_retour, clapet_volet, regulateur_dp, serpentin,
            confuseur, diffuseur, orifice, grille, plaque_perforee, lit_grains, entree, sortie_libre,

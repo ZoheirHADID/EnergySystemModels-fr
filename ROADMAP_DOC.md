@@ -439,7 +439,12 @@ aucune valeur calculée sauf mesurée. Un chapitre par tour :
   froide, humidificateur, récupérateurs, `GenericAHU` ; ports `AirPort`,
   `Air_connect`, icônes `cta_*`. **Unités d'air non SI** à porter sur les schémas
   (h en kJ/kg d'air sec, w en g/kg d'air sec).
-- `à faire` **K2 — cycles thermodynamiques** (`002-thermodynamic_cycles`) :
+- `à faire` **B-CYC — sorties à publier** (première mesure, 2026-09-28) :
+  `pompe.rst`, `detente_distributeurs.rst`, `condenseur_evaporateur.rst` — exemples
+  exécutés sans sortie publiée (cran 2). Même méthode que `composants_cta.rst`.
+- `en cours` (2026-09-28 : 8 schémas — compresseur, turbine, pompe, détendeur,
+  évaporateur, condenseur, source, puits ; reste : cycle complet du groupe froid,
+  par export d'une scène réelle de l'IHM) **K2 — cycles thermodynamiques** (`002-thermodynamic_cycles`) :
   `Source`, `Sink`, compresseur, turbine, pompe, évaporateur, condenseur, détendeur,
   échangeurs, chiller (cycle assemblé).
 - `à faire` **K3 — transfert de chaleur** (`001-heat_transfer`) : mur composite,

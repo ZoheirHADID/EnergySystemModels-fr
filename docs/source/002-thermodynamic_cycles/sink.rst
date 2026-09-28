@@ -3,6 +3,13 @@
 Puits de fluide — Sink
 ======================
 
+.. figure:: ../images/schema_sink.svg
+   :alt: Schéma du puits de fluide
+   :align: center
+   :width: 100%
+
+   Forme, ports et raccordement ; paramètres sous leur nom de code, avec leur valeur par défaut.
+
 Le module ``Sink`` termine une ligne de fluide : il reçoit un état d'entrée
 (via ``Fluid_connect`` depuis l'amont, ou en renseignant directement le port
 ``Inlet``) et restitue les grandeurs de sortie (débits, enthalpie, état).

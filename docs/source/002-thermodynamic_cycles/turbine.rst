@@ -3,6 +3,13 @@
 Turbine — Turbine
 =================
 
+.. figure:: ../images/schema_turbine.svg
+   :alt: Schéma de la turbine
+   :align: center
+   :width: 100%
+
+   Forme, ports et raccordement ; paramètres sous leur nom de code, avec leur valeur par défaut.
+
 Le module ``Turbine`` modélise une détente. Comme le compresseur, l'état d'entrée
 provient d'un composant amont **connecté via** ``Fluid_connect(TURB.Inlet, amont.Outlet)`` ;
 la pression d'échappement est fixée par ``LP`` (en Pa, défaut 1 bar).
