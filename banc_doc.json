@@ -1015,10 +1015,11 @@
   "docs/source/usage/section-1-achat-facturation.rst": {
    "blocs": 0,
    "empreinte": "af81323cf2f0ccc3",
-   "mesure": "2026-09-27T19:30",
+   "mesure": "2026-09-28T10:02",
    "figures": [],
    "blocage": null,
    "motif": "page de prose ou d'index",
+   "extraits": null,
    "cran": 0,
    "nom": "sans exemple",
    "cran_max": 0,
@@ -1040,7 +1041,7 @@
   "docs/source/usage/section-3-transformation.rst": {
    "blocs": 0,
    "empreinte": "b8ff69ec21ec736b",
-   "mesure": "2026-09-28T09:32",
+   "mesure": "2026-09-28T10:02",
    "figures": [],
    "blocage": null,
    "motif": "page de prose ou d'index",
@@ -1051,22 +1052,16 @@
    "recul": null
   },
   "docs/source/usage/section-4-distribution.rst": {
-   "blocs": 15,
-   "empreinte": "52850d52f971862f",
-   "mesure": "2026-09-27T18:10",
-   "figures": [
-    "../images/001_heat_transfer_composite_wall.png",
-    "../images/PlateHeatTransfer.png",
-    "../images/004_hydraulic_straight_pipe.png",
-    "../images/004_hydraulic_straight_pipe_courbe_reseau.png",
-    "../images/004_TA_valve.png",
-    "../images/004_TA_valve-courbe-reseau.png"
-   ],
+   "blocs": 0,
+   "empreinte": "77071d77cbe9b3d5",
+   "mesure": "2026-09-28T10:02",
+   "figures": [],
    "blocage": null,
-   "motif": "API inexistante : energysystemmodels.",
-   "cran": 1,
-   "nom": "plante",
-   "cran_max": 1,
+   "motif": "page de prose ou d'index",
+   "extraits": null,
+   "cran": 0,
+   "nom": "sans exemple",
+   "cran_max": 0,
    "recul": null
   },
   "docs/source/usage/section-5-usages-finaux.rst": {
@@ -1086,11 +1081,12 @@
   },
   "docs/source/usage/section-6-autres.rst": {
    "blocs": 1,
-   "empreinte": "cbcc0bcb80391f1d",
-   "mesure": "2026-09-27T19:48",
+   "empreinte": "63129c0a4d3c21d0",
+   "mesure": "2026-09-28T10:00",
    "figures": [],
    "blocage": null,
    "motif": "manque : table de personnalisation et variante exécutée",
+   "extraits": null,
    "cran": 4,
    "nom": "figure réelle",
    "cran_max": 4,

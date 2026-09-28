@@ -89,8 +89,17 @@ page par page.
     `MeteoCielClient`, `DJUCalculator`) remplacés par un aiguillage vers
     `008-meteo` et `009-pv-solaire`, avec ce que chaque module exige (réseau, clé
     d'API, PVGIS) — mesuré dans le code. Cran 1 → 0.
-  - `à faire` `section-4-distribution.rst` (11), `section-5-usages-finaux.rst` (11, dont
-    `BuildingModel` et `RC_Model`).
+  - `fait` `section-4-distribution.rst` (2026-09-28) : aiguillage vers 001, 004,
+    005. Mesuré et dit : `PlateHeatTransfer` est une **convection naturelle sur
+    plaque plane**, pas un échangeur à plaques ; l'aéraulique a ses propres
+    `StraightPipe`/`EdgedBend`, à `FluidPort`. Cran 1 → 0.
+  - **Correction transverse** : `energysystemmodels` **existe** (noyau de calcul :
+    `SystemModel`, solveurs, planification — `src/energysystemmodels/`), seuls ses
+    sous-modules métier n'existent pas. Les notes « ce paquet n'existe pas » de
+    `section-1`, `section-3` et `section-6-autres` corrigées le 2026-09-28.
+  - `à faire` **E-noyau** : documenter l'API `energysystemmodels` (SystemModel,
+    solveurs) — module réel sans page.
+  - `à faire` `section-5-usages-finaux.rst` (11, dont `BuildingModel` et `RC_Model`).
     Table de correspondance vérifiée dans
     `SPRINT_BACKLOG_doc_imports_cleanup.md`. `section-6-autres.rst` est déjà
     propre.

@@ -12,8 +12,10 @@ codes et leurs résultats réels vivent dans le chapitre
 .. note::
    Tous les modules s'importent **sans préfixe** :
    ``from ThermodynamicCycles.Compressor import Compressor``. Si vous trouvez
-   encore un ``from energysystemmodels...`` quelque part dans ces pages, c'est
-   une erreur : ce paquet n'existe pas. Il n'existe pas non plus de classe
+   encore un ``from energysystemmodels.ThermodynamicCycles...`` quelque part,
+   c'est une erreur : le paquet ``energysystemmodels`` existe, mais il ne
+   contient que le noyau de calcul, pas les modules métier. Il n'existe pas non
+   plus de classe
    ``RefrigerationCycle`` ni ``HeatPump`` : un cycle s'**assemble** à partir de
    ses composants, ou se calcule d'un bloc avec ``Chiller``.
 

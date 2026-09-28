@@ -12,8 +12,9 @@ codes et leurs résultats réels vivent dans le chapitre
 .. note::
    Tous les modules s'importent **sans préfixe** :
    ``from Facture.TURPE import TurpeCalculator``. Si vous trouvez encore un
-   ``from energysystemmodels...`` quelque part dans ces pages, c'est une erreur :
-   ce paquet n'existe pas.
+   ``from energysystemmodels.Facture...`` quelque part, c'est une erreur : le
+   paquet ``energysystemmodels`` existe, mais il ne contient que le noyau de
+   calcul (solveurs, description de système), pas les modules métier.
 
 Par quoi commencer, selon votre question
 ========================================

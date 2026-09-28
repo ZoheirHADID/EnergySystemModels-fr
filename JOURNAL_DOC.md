@@ -470,3 +470,25 @@
   `StraightPipe`/`TA_Valve` comme cassés — l'exécution a montré l'inverse ; la note
   de la page et l'entrée de bug reposent sur la mesure dynamique.
 - Suivant : A1 — `usage/section-4-distribution.rst`, puis section-5.
+
+## 2026-09-28 — `usage/section-4-distribution.rst` (A1) + correction « energysystemmodels »
+- Unité : A1 — pages `usage/` à l'API inventée.
+- Fait : parcours de lecture vers transfert de chaleur, hydraulique, aéraulique.
+  Relevé dans le code et dit au lecteur : `PlateHeatTransfer` = convection naturelle
+  sur plaque plane (l'ancienne page le présentait en échangeur à plaques) ; le paquet
+  `Aeraulic` a ses propres modèles, à `FluidPort` (`Aeraulic/StraightPipe.py:67`),
+  `DuctSizing` et `Balancing` sans `Object()`. Une mise en garde du premier jet
+  (« le chemin d'import décide si le fluide est de l'air ou de l'eau ») a été
+  **retirée** : la mesure l'a contredite.
+- **Correction d'une erreur des tours précédents** : `energysystemmodels` existe
+  (`src/energysystemmodels/`, noyau : `SystemModel`, solveurs, planification ;
+  s'importe). Seuls ses sous-modules métier n'existent pas (`ModuleNotFoundError`
+  mesuré pour HeatTransfer, ThermodynamicCycles, Hydraulic, PV, CEE). Les phrases
+  « ce paquet n'existe pas » de `section-1`, `section-3`, `section-6-autres` sont
+  corrigées ; `api.rst` et `quickstart.rst` (« importer sans préfixe ») restaient
+  justes. Nouvelle entrée E-noyau : ce module réel n'a pas de page.
+- Banc : section-4 cran 1 → 0 ; section-1, -3 : 0 → 0 ; section-6-autres : 4 → 4
+  (re-mesurée). Pages qui plantent : 2 → 1.
+- Build : 0 warning.
+- Bug bibliothèque : aucun.
+- Suivant : `usage/section-5-usages-finaux.rst`, dernière page qui plante.

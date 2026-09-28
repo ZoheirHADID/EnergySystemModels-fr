@@ -34,7 +34,8 @@ Imports essentiels
    import matplotlib.pyplot as plt
 
    # Modules EnergySystemModels : ce sont des packages top-level
-   # (il n'existe PAS de package « energysystemmodels » à préfixer).
+   # (le paquet « energysystemmodels » ne contient que le noyau de calcul :
+   # on n'y préfixe pas les modules métier).
 
    # Facturation et finance
    from Facture.TURPE import TurpeCalculator, input_Contrat, input_Tarif, input_Facture
