@@ -410,3 +410,20 @@
   dépendants du réseau, ils relèvent des pages `008-meteo/meteociel.rst` et
   `009-pv-solaire/index.rst`, dont la mesure demande un accès réseau.
 - Suivant : `usage/section-4-distribution.rst`, puis section-5.
+
+## 2026-09-28 — `004-hydraulic/index.rst` : liste exhaustive des formes (retour utilisateur)
+- Unité : retour utilisateur — « voir la liste des formes qu'on peut simuler,
+  exhaustive, avec accès direct à l'explication ; à la fin, les exemples de calcul
+  réseau ». Consigne complémentaire : garder toutes les explications de la loi des
+  nœuds.
+- Fait : index réécrit. Inventaire **mécanique** du paquet (import, classe,
+  docstring, pages citantes) + correspondance op_code → nœud relevée dans
+  `calc_conf.py` / `nodes/`. 10 familles de formes, 38 entrées, 9 avec page,
+  les autres marquées *à documenter* (entrée I2). Exemples de réseau : 3 pages du
+  guide + 17 scènes IHM, modèles relevés dans chaque `.json`.
+  `propagation_pression.rst` intacte, en tête de chapitre et du toctree.
+- Banc : `004-hydraulic/index.rst` cran 0 → 0 (index).
+- Build : 0 warning.
+- Bug bibliothèque : **nouvelle entrée** — `examples_usage.py` et
+  `examples_vannes.py` plantent à l'exécution.
+- Suivant : schémas dans `coudes_tes_singularites.rst` (demande de l'utilisateur).

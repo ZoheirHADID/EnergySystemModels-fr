@@ -341,6 +341,20 @@ re-vérifier par exécution avant rédaction.
   `BUGS_LIB.md` ; retirer l'avertissement de la page quand la bibliothèque la
   corrige (vérifier par exécution).
 
+## I. Index du chapitre hydraulique — demande de l'utilisateur (2026-09-28)
+
+- `fait` **I1 — `004-hydraulic/index.rst`** : liste **exhaustive** des 30 modèles de
+  `ThermodynamicCycles.Hydraulic` (+ `Pump`, `Valve3Way`, `Source`/`Sink`,
+  `network`, `transient`, `control_valve`, tables Crane), rangés par famille de
+  forme, chacun avec son import vérifié, son nœud IHM relevé dans `nodes/` et son
+  lien d'explication ; puis la liste des exemples de réseau : pages du guide et
+  **17 scènes réelles** de `json/3 - Hydraulique`, avec les modèles relevés dans
+  chaque fichier. La page « Propagation de pression et loi des nœuds » est
+  **conservée intégralement** (consigne de l'utilisateur) et placée en tête.
+- `à faire` **I2 — pages des modèles marqués *à documenter*** dans l'index (21
+  entrées) : un modèle par tour, selon le squelette de page ; l'index se met à
+  jour à chaque page créée.
+
 ## G. Schémas de paramétrage — demande de l'utilisateur (2026-09-27)
 
 **Un modèle géométrique ne s'explique pas sans schéma coté.** Le lecteur doit voir

@@ -47,6 +47,22 @@
   naturel réel se modélise, pour l'instant, sans sa fraction d'éthane ») ; l'exemple
   publié n'en contient pas. Les onze autres constituants de `COMPONENTS` (dont `C3H8` et `n-Butane`) passent, mesurés un par un en mélange avec `N2`.
 
+## `ThermodynamicCycles/Hydraulic/examples_usage.py` et `examples_vannes.py` — les scripts d'exemples livrés plantent
+
+- **Page concernée** : aucune (constaté en recensant le paquet `Hydraulic` pour
+  `docs/source/004-hydraulic/index.rst`) ; le guide ne les cite pas.
+- **Reproduction** (mesurée le 2026-09-28) :
+  ```python
+  import ThermodynamicCycles.Hydraulic.examples_usage    # exécute ses exemples à l'import
+  import ThermodynamicCycles.Hydraulic.examples_vannes
+  ```
+- **Trace** : `examples_usage` — `ValueError` CoolProp, pression négative
+  (`PropsSI("T","P",-4023329.968,"H",63458.44,"water")`) après l'exemple 3 (vanne
+  générique, courbe d'ouverture) ; `examples_vannes` — `TypeError: PropsSI()`
+  appelé avec `P = None` dès l'exemple 1 (comparaison des 4 types de vannes).
+- **Traitement dans le guide** : non cités ; les exemples du guide sont écrits et
+  exécutés à part.
+
 ## Corrigés depuis, dans le dépôt source — ne pas rouvrir
 
 - **`FluidPort.set_humid_gas_mixture()` acceptait une espèce hors table en
