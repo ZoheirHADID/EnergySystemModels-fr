@@ -389,7 +389,7 @@ re-vérifier par exécution avant rédaction.
   2026-09-28, première mesure de la page) : bloc 1, `NameError: name 'df' is not
   defined`. Priorité : c'est la seule page au cran 1.
 - `en cours` **I2 — pages des modèles marqués *à documenter*** dans l'index (21
-  entrées) : un modèle par tour, selon le squelette de page ; l'index se met à
+  entrées ; fait : `GeneralValve` → `vanne_generique.rst`, cran 5, 2026-09-28 ; reste 20) : un modèle par tour, selon le squelette de page ; l'index se met à
   jour à chaque page créée.
 
 ## G. Schémas de paramétrage — demande de l'utilisateur (2026-09-27)
