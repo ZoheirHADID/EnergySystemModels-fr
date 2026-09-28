@@ -986,3 +986,21 @@
 - Banc : les trois pages cran 2 → 4.
 - Build : 0 warning. Bug bibliothèque : aucun.
 - Suivant : mesurer les 10 pages de cycles restantes non mesurées.
+
+## 2026-09-28 14:25 — Mesure des 10 dernières pages de cycles ; flowsheet réparé
+- Unité : pages non mesurées de `002-thermodynamic_cycles` + la seule qui plante.
+- Mesure : `ng_boiler_efficiency`, `ng_heating_value` → cran 4 ; `froid_absorption`,
+  `geothermie_solaire`, `hydrogene_piles`, `melangeur_flash_stockage`,
+  `raccords_fittings`, `refrigeration` → cran 2 (sorties à publier) ;
+  `ejecteur_tour_refroidissement` → cran 2 (une ligne publiée absente de la sortie
+  réelle : à confronter) ; `outils_diagrammes` → cran 1 (`NameError: EVAP`).
+- Fait : `outils_diagrammes.rst`, exemple `FlowsheetSolver` — il supposait quatre
+  composants `EVAP`/`COMP`/`COND`/`DET` jamais créés. Réécrit sur les API réelles
+  (Evaporator, Compressor HP 10 bar η 0,7, Condenser sous-refroidissement 3 K,
+  Expansion_Valve BP 3 bar, R134a 1 kg/s, estimation initiale du recyclage). Mesuré :
+  convergé en 2 itérations, coupure DET → EVAP, Q_evap **152,44 kW**, Q_cond
+  **189,18 kW** (écart 36,7 kW = travail du compresseur). Sorties publiées.
+- Banc : `outils_diagrammes.rst` cran 1 → 4.
+- Build : 0 warning. Bug bibliothèque : aucun.
+- Suivant : `ejecteur_tour_refroidissement` (sortie publiée à remettre d'accord),
+  puis les 6 pages de cycles à sorties non publiées.

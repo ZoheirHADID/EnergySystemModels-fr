@@ -108,6 +108,16 @@ Exemple
     m.add_machine("Turbine vapeur", Tc=30, Th=500, eta=0.38)
     m.plot(savefig="eta.pdf")
 
+Sortie réelle :
+
+.. code-block:: text
+
+               name  Tc  Th  delta_T  COP  COP_carnot     ratio
+   0  R290 plancher   0  35       35  4.8    8.804286  0.545189
+   Name                         Tc    Th    dT    COP  COP_C  Ratio
+   -----------------------------------------------------------------
+   R290 plancher                 0    35    35   4.80   8.80 54.5%
+
 L'argument ``savefig`` déduit le format du fichier de son extension (``.pdf``,
 ``.svg``, ``.png``...). ``plot()`` renvoie ``(fig, ax)`` matplotlib.
 
@@ -283,14 +293,35 @@ Exemple
 
 .. code-block:: python
 
+    from ThermodynamicCycles.Evaporator import Evaporator
+    from ThermodynamicCycles.Compressor import Compressor
+    from ThermodynamicCycles.Condenser import Condenser
+    from ThermodynamicCycles.Expansion_Valve import Expansion_Valve
+    from ThermodynamicCycles.FluidPort.FluidPort import ThermoPropsSI
     from ThermodynamicCycles.Flowsheet import FlowsheetSolver
 
-    solver = FlowsheetSolver(tol=1e-6, max_iter=50, verbose=True)
+    # Les quatre composants d'un groupe froid au R134a
+    EVAP = Evaporator.Object()
+    EVAP.surchauff = 5            # K
+    COMP = Compressor.Object()
+    COMP.HP_bar = 10              # bar
+    COMP.eta_is = 0.7
+    COND = Condenser.Object()
+    COND.subcooling = 3           # K
+    DET = Expansion_Valve.Object()
+    DET.Outlet.P = 3e5            # Pa : basse pression
+
+    # Point de départ du recyclage : entrée évaporateur (estimation grossière)
+    EVAP.Inlet.fluid = "R134a"
+    EVAP.Inlet.F = 1.0            # kg/s
+    EVAP.Inlet.P = 3e5            # Pa
+    EVAP.Inlet.h = ThermoPropsSI("H", "P", 3e5, "Q", 0.3, "R134a")
+
+    solver = FlowsheetSolver(tol=1e-6, max_iter=50)
     solver.add_unit("EVAP", EVAP)
     solver.add_unit("COMP", COMP)
     solver.add_unit("COND", COND)
     solver.add_unit("DET",  DET)
-
     solver.connect("EVAP", "Outlet", "COMP", "Inlet")
     solver.connect("COMP", "Outlet", "COND", "Inlet")
     solver.connect("COND", "Outlet", "DET",  "Inlet")
@@ -298,6 +329,16 @@ Exemple
 
     report = solver.solve()
     print(report["converged"], report["iterations"], report["residual"])
+    print("séquence :", report["sequence"], "coupures :", report["tears"])
+    print("Q_evap =", round(EVAP.Q_evap / 1000, 2), "kW ; Q_cond =", round(COND.Q_cond / 1000, 2), "kW")
+
+Sortie réelle :
+
+.. code-block:: text
+
+   True 2 0.0
+   séquence : ['EVAP', 'COMP', 'COND', 'DET'] coupures : [('DET', 'EVAP')]
+   Q_evap = 152.44 kW ; Q_cond = 189.18 kW
 
 .. note::
 
