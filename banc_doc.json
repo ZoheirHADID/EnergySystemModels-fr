@@ -1337,16 +1337,18 @@
   },
   "docs/source/transfert_chaleur.rst": {
    "blocs": 1,
-   "empreinte": "783299fdc43584bb",
-   "mesure": "2026-09-27T18:10",
+   "empreinte": "1d20c3a00bbe8373",
+   "mesure": "2026-09-28T12:30",
    "figures": [
+    "images/param_plateheattransfer.svg",
     "images/PlateHeatTransfer.png"
    ],
    "blocage": null,
-   "motif": "non exécutée (passe statique)",
-   "cran": null,
-   "nom": "non mesuré",
-   "cran_max": null,
+   "motif": "manque : table de personnalisation et variante exécutée",
+   "extraits": null,
+   "cran": 4,
+   "nom": "figure réelle",
+   "cran_max": 4,
    "recul": null
   },
   "docs/source/usage.rst": {

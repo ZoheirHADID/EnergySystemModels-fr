@@ -840,6 +840,74 @@ def corps_parallelepipedique(nom="param_parallelepipedicbody.svg") -> Path:
     return _ecrire(nom, m), _verifier_debordements(nom, m, Lg)
 
 
+def plaque(nom="param_plateheattransfer.svg") -> Path:
+    """Paramétrage de `HeatTransfer.PlateHeatTransfer` : trois orientations, W, L, H, Lc.
+
+    Les flux sont ceux que **calcule la bibliothèque** (corrélation par défaut
+    `legacy`) sur les dimensions de l'exemple de la page.
+    """
+    from HeatTransfer import PlateHeatTransfer
+
+    Tp, Ta, L, W, H = 60, 25, 0.6, 0.8, 1.5
+    q = {}
+    for orient in ('horizontal_up', 'horizontal_down', 'vertical'):
+        obj = PlateHeatTransfer.Object(orientation=orient, Tp=Tp, Ta=Ta, W=W, L=L, H=H)
+        q[orient] = obj.calculate()
+    Lc = W * L / (2 * W + 2 * L)
+
+    Lg, Hg = 860.0, 520.0
+    k = 150.0
+    m = _entete(Lg, Hg, "Paramétrage d'une plaque : orientation, W, L, H")
+    CHAUD = "#f4b183"
+
+    # 1. horizontale, face chaude vers le haut (vue en perspective)
+    def dalle(x, y, face_haut):
+        w, dx, dy = W * k, L * k * 0.62, -L * k * 0.42
+        pts = [(x, y), (x + w, y), (x + w + dx, y + dy), (x + dx, y + dy)]
+        chaine = " ".join(f"{a:.1f},{b:.1f}" for a, b in pts)
+        m.append(f'<polygon points="{chaine}" fill="{CHAUD if face_haut else "#fbe7da"}" '
+                 f'stroke="{TRAIT}" stroke-width="1.6"/>')
+        m.append(_rect(x, y, w, 8, "#fbe7da" if face_haut else CHAUD, TRAIT, 0, 1.2))
+        m.extend(_cote_droite(x, y + 30, x + w, y + 30, "", 0))
+        m.append(_texte(x + w / 2, y + 50, f"W = {W}", 12, COTE, "middle", MONO))
+        m.extend(_cote_droite(x + w + 12, y + 4, x + w + dx + 12, y + dy + 4, "", 0))
+        m.append(_texte(x + w + dx / 2 + 22, y + dy / 2 + 14, f"L = {L}", 12, COTE, police=MONO))
+        return x + w / 2 + dx / 2
+
+    xc = dalle(40, 200, True)
+    for dxa in (-40, 0, 40):
+        m.append(_ligne(xc + dxa, 160, xc + dxa, 110, "#c0392b", 1.6, marqueurs=' marker-end="url(#fleche)"'))
+    m.append(_texte(xc, 60, "'horizontal_up'", 13, TRAIT, "middle", MONO, gras=True))
+    m.append(_texte(xc, 80, "face chaude vers le haut", 11, TRAIT, "middle"))
+    m.append(_texte(xc, 290, f"q_total = {q['horizontal_up']:.1f} W", 12, "#c0392b", "middle", MONO))
+
+    xc = dalle(330, 200, False)
+    for dxa in (-40, 0, 40):
+        m.append(_ligne(xc + dxa - 20, 212, xc + dxa - 27, 228, "#c0392b", 1.6, marqueurs=' marker-end="url(#fleche)"'))
+    m.append(_texte(xc, 60, "'horizontal_down'", 13, TRAIT, "middle", MONO, gras=True))
+    m.append(_texte(xc, 80, "face chaude vers le bas", 11, TRAIT, "middle"))
+    m.append(_texte(xc, 290, f"q_total = {q['horizontal_down']:.1f} W", 12, "#c0392b", "middle", MONO))
+
+    # 3. verticale : W × H
+    xv, yv, wv, hv = 680.0, 110.0, W * 90, H * 90
+    m.append(_rect(xv, yv, wv, hv, CHAUD, TRAIT, 0, 1.6))
+    m.append(_texte(xv + wv / 2, 60, "'vertical'", 13, TRAIT, "middle", MONO, gras=True))
+    m.append(_texte(xv + wv / 2, 80, "L n'est pas lu", 11, TRAIT, "middle"))
+    m += _cote_droite(xv, yv + hv + 18, xv + wv, yv + hv + 18, "", 0)
+    m.append(_texte(xv + wv / 2, yv + hv + 38, f"W = {W}", 12, COTE, "middle", MONO))
+    m += _cote_droite(xv - 16, yv, xv - 16, yv + hv, "", 0)
+    m.append(_texte(xv - 22, yv + hv / 2, f"H = {H}", 12, COTE, "end", MONO))
+    m.append(_texte(xv + wv / 2, yv + hv + 60, f"q_total = {q['vertical']:.1f} W", 12, "#c0392b", "middle", MONO))
+
+    m += _note(40, Hg - 140, 780, [
+        f"Tp = {Tp} °C (paroi), Ta = {Ta} °C (air) ; dimensions en m. q_total = convection naturelle + rayonnement (e = 0.85).",
+        f"Horizontale : surface W·L, longueur caractéristique Lc = W·L/(2W+2L) = {Lc:.3f} m.",
+        "Verticale : surface W·H, longueur caractéristique H.",
+        "correlation='legacy' (défaut) diffère de Cengel ch. 9 ; correlation='cengel' lève OutOfRangeError hors domaine.",
+    ])
+    return _ecrire(nom, m), _verifier_debordements(nom, m, Lg)
+
+
 FIGURES = {
     "assemblage_curvedbend.svg": assemblage_coude_courbe,
     "assemblage_edgedbend.svg": assemblage_coude_vif,
@@ -853,6 +921,7 @@ FIGURES = {
     "param_compositewall.svg": mur_composite,
     "param_pipeinsulation.svg": tuyauterie_isolee,
     "param_parallelepipedicbody.svg": corps_parallelepipedique,
+    "param_plateheattransfer.svg": plaque,
 }
 
 

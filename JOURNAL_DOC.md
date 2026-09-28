@@ -810,3 +810,16 @@
 - Banc : `corps_parallelepipedique.rst` non mesuré → cran 4.
 - Build : 0 warning. Bug bibliothèque : aucun.
 - Suivant : K3, plaque (`PlateHeatTransfer`) — sans page propre ; à voir.
+
+## 2026-09-28 12:40 — K3 : schéma de la plaque, K3 fait
+- Unité : K3 (`PlateHeatTransfer`, page `transfert_chaleur.rst`).
+- Fait : `plaque()` → `param_plateheattransfer.svg` : les trois `orientation`
+  (`horizontal_up`, `horizontal_down`, `vertical`), surfaces `W × L` / `W × H` (relevé
+  dans le code : `L` n'est pas lu à la verticale), `Lc = W·L/(2W+2L)`, `q_total` de
+  chaque cas calculé par le modèle (corrélation `legacy`, défaut). Figure sous le titre.
+- Sortie réelle publiée par `tools/publier_sorties.py` ; la ligne « Résultat : »
+  tapée en prose (doublon) retirée.
+- Banc : `transfert_chaleur.rst` non mesuré → cran 4.
+- Build : 0 warning. Bug bibliothèque : aucun (écarts `legacy`/Cengel déjà
+  documentés dans le module).
+- Suivant : K4, aéraulique.

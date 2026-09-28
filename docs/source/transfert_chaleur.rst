@@ -1,6 +1,16 @@
 Convection naturelle sur une plaque — PlateHeatTransfer
 =======================================================
 
+.. figure:: images/param_plateheattransfer.svg
+   :alt: Schéma coté de la plaque : orientations horizontal_up, horizontal_down, vertical ; W, L, H
+   :align: center
+   :width: 100%
+
+   ``orientation`` choisit la corrélation. À l'horizontale, la plaque mesure
+   ``W × L`` ; à la verticale, ``W × H`` (``L`` n'est alors pas lu). Les flux
+   ``q_total`` sont calculés par le modèle pour ``Tp`` = 60 °C et ``Ta`` = 25 °C,
+   les dimensions de l'exemple ci-dessous.
+
 L'image ci-dessous montre un exemple de transfert de chaleur confectif et radiatif à travers un échangeur de chaleur à plaques non isolé dont la température de la paroi est de 60°C et la température ambiante est de 25°C.:
 
 .. image:: images/PlateHeatTransfer.png
@@ -70,8 +80,18 @@ Les déperditions de chaleur à travers les parois de l'échangeur de chaleur à
     plate.calculate()
     print(plate.df)
 
-Résultat : 
-1957.0 W = 191.0 W + 190.0 W + 900.0 W + 675.0 W
+Sortie réelle :
+
+.. code-block:: text
+
+   1957.0 W = 191.0 W + 190.0 W + 900.0 W + 675.0 W
+               PlateHeatTransfer
+   Orientation     horizontal_up
+   Tp (C)                     60
+   Ta (C)                     25
+   dT (C)                     35
+   q_total (W)            191.19
+   Correlation            legacy
 
 Explication des équations utilisées
 -----------------------------------
