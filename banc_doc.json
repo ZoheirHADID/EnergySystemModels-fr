@@ -475,16 +475,18 @@
    "recul": null
   },
   "docs/source/004-hydraulic/clapet_anti_retour.rst": {
-   "blocs": 1,
-   "empreinte": "67a546e530977332",
-   "mesure": "2026-09-28T10:47",
-   "figures": [],
+   "blocs": 3,
+   "empreinte": "8e0c826b99857d0b",
+   "mesure": "2026-09-28T11:16",
+   "figures": [
+    "../images/schema_checkvalve.svg"
+   ],
    "blocage": null,
-   "motif": "manque : table de personnalisation et variante exécutée",
+   "motif": "",
    "extraits": null,
-   "cran": 4,
-   "nom": "figure réelle",
-   "cran_max": 4,
+   "cran": 5,
+   "nom": "personnalisable",
+   "cran_max": 5,
    "recul": null
   },
   "docs/source/004-hydraulic/clapet_volet.rst": {

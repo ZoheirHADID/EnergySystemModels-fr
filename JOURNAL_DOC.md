@@ -636,3 +636,17 @@
   silencieux de `bore_type`, loi d'ouverture sans source).
 - Bibliothèque : arbre modifié par un tiers (`src/CEE/…`, `test/CEE/…`) — non touché.
 - Suivant : I2 — `CheckValve` (2 scènes) ou `DpRegulator` (2 scènes).
+
+## 2026-09-28 — `004-hydraulic/clapet_anti_retour.rst` (I2, CheckValve)
+- Unité : I2 — `CheckValve` (3 scènes IHM).
+- Fait : page selon le squelette, sondée avant rédaction (script `cv_sonde`) puis
+  3 blocs exécutés. Mesuré : ζ 1,0 / 2,0 / 4,5 (basculant / battant / soulèvement) ;
+  Crane 1,9 (battant, concorde) et **11,4 (soulèvement, ×2,53)** ; `source='crane'`
+  → `AttributeError` sans `D_in_pouces` ; écoulement inverse « Fermé » mais débit
+  −2 kg/s transmis ; `alpha` sans effet ; type inconnu → ζ 2,0. Relecture : « quatre
+  fois une vanne d'isolement » corrigé en 3,8 (mesuré) ; scènes 2 → 3.
+- Banc : `clapet_anti_retour.rst` cran 4 → 5.
+- Build : 0 warning.
+- Bug bibliothèque : **nouvelle entrée** `CheckValve`.
+- Bibliothèque : arbre modifié par un tiers (`CEE`) — non touché.
+- Suivant : I2 — `DpRegulator` (2 scènes).

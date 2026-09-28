@@ -141,9 +141,7 @@ PAGES = {
     "vanne_papillon.rst": ("Vanne papillon", "butterfly_valve",
         "Vanne papillon, en section circulaire ou rectangulaire.",
         [("objet", "ButterflyValve"), ("objet", "RectangularButterflyValve")]),
-    "clapet_anti_retour.rst": ("Clapet anti-retour", "check_valve",
-        "Clapet qui laisse passer le fluide dans un seul sens.",
-        [("objet", "CheckValve")]),
+    # clapet_anti_retour.rst : page rédigée avec exemples exécutés (2026-09-28), plus générée.
     "clapet_volet.rst": ("Clapet à volet mobile", "movable_flap",
         "Clapet à volet mobile.",
         [("objet", "MovableFlap")]),

@@ -136,6 +136,29 @@
 - **Traitement dans le guide** : page publiée, écarts dits, `source='crane'`
   recommandé pour une perte réelle.
 
+## `Hydraulic.CheckValve` — `source='crane'` plante ; l'écoulement inverse n'est pas bloqué ; `alpha` inutilisé
+
+- **Page concernée** : `docs/source/004-hydraulic/clapet_anti_retour.rst` (tout est
+  montré par un bloc exécuté et dit au lecteur).
+- **Reproduction** (2026-09-28) : eau 15 °C, 3 bar, DN50.
+  ```python
+  c = CheckValve.Object(); ...; c.source = "crane"; c.calculate()
+  # AttributeError: 'Object' object has no attribute 'D_in_pouces'
+  ```
+- **Trace** :
+  - `CheckValve.py`, `_zeta_forward` : la voie `'crane'` lit `self.D_in_pouces`,
+    jamais créé dans `__init__` (GateValve, lui, le crée). Contournement donné au
+    lecteur : poser `D_in_pouces` avant `calculate()`.
+  - écoulement inverse (`F < 0`) : `is_open = False`, `delta_P = dp_crack`, mais
+    `Outlet.F = Inlet.F` — le débit inverse (−2 kg/s mesuré) traverse le clapet.
+  - `alpha` est déclaré (« angle d'inclinaison pour tilting ») et n'entre dans aucun
+    calcul (ζ = 2,0 à 30° comme à 5°).
+  - `zeta_coeff.get(check_type, 2.0)` : un type inconnu reçoit 2,0 sans exception
+    (invariant n° 2) ; coefficients 1,0 / 2,0 / 4,5 sans citation (invariant n° 1).
+  - écart mesuré, clapet à soulèvement : `'crane'` ζ 11,4 contre `'legacy'` 4,5
+    (×2,53) ; clapet à battant : 1,9 contre 2,0.
+- **Traitement dans le guide** : page publiée, comportements dits.
+
 ## Corrigés depuis, dans le dépôt source — ne pas rouvrir
 
 - **`FluidPort.set_humid_gas_mixture()` acceptait une espèce hors table en
