@@ -6,9 +6,9 @@ CTA d'air neuf
 Utilisation
 -----------
 
-.. image:: ../images/003_ahu_fresh_air.png
-   :alt: AHU Fresh Air
-   :width: 600px
+.. image:: ../images/schema_cta_air_neuf.svg
+   :alt: CTA d'air neuf : FreshAir, HeatingCoil et Humidifier reliés par Air_connect
+   :width: 100%
    :align: center
 
 .. code-block:: python
@@ -52,16 +52,16 @@ Utilisation
 
 **Diagramme psychrométrique** :
 
-.. image:: ../images/003_ahu_fresh_air_figure1.png
+.. image:: ../images/003_cta_air_neuf_psychrometrique.svg
    :alt: Diagramme psychrométrique
-   :width: 600px
+   :width: 100%
    :align: center
 
 **Résultats numériques** :
 
-- **Air neuf (AN)** : T=5°C, RH=80%, F=1.053 kg/s, w=4.314 g/kg_sec, h=15.8 kJ/kg
+- **Air neuf (AN)** : T=5°C, RH=80%, F=1.053 kg/s, w=4.314 g/kg_sec, h=15.9 kJ/kg
 - **Batterie chauffage (BC)** : T_sortie=20°C, RH=29.8%, Q_th=15.9 kW
-- **Humidificateur (HMD)** : T_sortie=20.6°C, RH=53.1%, w_sortie=8 g/kg_sec, F_eau=0.0039 kg/s
+- **Humidificateur (HMD)** : T_sortie=20.5°C, RH=53.3%, w_sortie=8 g/kg_sec, F_eau=0.0039 kg/s
 
 Chaque composant retourne un DataFrame (``df``) avec les détails complets.
 

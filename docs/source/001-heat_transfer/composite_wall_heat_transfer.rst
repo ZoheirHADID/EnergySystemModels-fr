@@ -14,9 +14,9 @@ Mur composite — CompositeWall
 Utilisation
 -----------
 
-.. image:: ../images/001_heat_transfer_composite_wall.png
-   :alt: Composite Wall
-   :width: 500px
+.. image:: ../images/schema_mur_composite.svg
+   :alt: Mur composite : couches, profil de température calculé, flux et résistances en série
+   :width: 100%
    :align: center
 
 .. code-block:: python

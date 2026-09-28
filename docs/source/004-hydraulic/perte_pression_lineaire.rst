@@ -6,9 +6,9 @@ Perte de charge linéaire dans une conduite
 Utilisation
 -----------
 
-.. image:: ../images/004_hydraulic_straight_pipe.png
-   :alt: Straight Pipe
-   :width: 800px
+.. image:: ../images/schema_conduite_droite.svg
+   :alt: Assemblage Source, StraightPipe, Sink relié par Fluid_connect
+   :width: 100%
    :align: center
 
 .. code-block:: python
@@ -125,9 +125,9 @@ tableaux ``df`` donnent les bonnes unités.
 
 **Courbe de réseau :**
 
-.. image:: ../images/004_hydraulic_straight_pipe_courbe_reseau.png
+.. image:: ../images/004_straightpipe_courbe_reseau.svg
    :alt: Courbe de réseau du tuyau droit
-   :width: 800px
+   :width: 100%
    :align: center
 
 Paramètres possibles

@@ -10,9 +10,9 @@ Cette classe Python calcule les pertes de charge à travers différents modèles
 Utilisation
 -----------
 
-.. image:: ../images/004_TA_valve.png
-   :alt: Schéma Vanne TA
-   :width: 800px
+.. image:: ../images/schema_ta_valve.svg
+   :alt: Assemblage Source, TA_Valve, Sink relié par Fluid_connect
+   :width: 100%
    :align: center
 
 .. code-block:: python
@@ -66,9 +66,9 @@ Résultats ::
 
 **Courbe de réseau de la vanne :**
 
-.. image:: ../images/004_TA_valve-courbe-reseau.png
+.. image:: ../images/004_ta_valve_courbe_reseau.svg
    :alt: Courbe de réseau vanne TA
-   :width: 800px
+   :width: 100%
    :align: center
 
 Paramètres possibles

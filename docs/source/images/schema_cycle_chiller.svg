@@ -1,0 +1,113 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="560" viewBox="0 0 960 560" role="img" aria-label="Chiller — cycle frigorifique">
+<title>Chiller — cycle frigorifique</title>
+<defs><marker id="fleche_chaud" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" fill="#c0392b"/></marker><marker id="fleche_froid" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" fill="#2670a8"/></marker></defs>
+<defs><marker id="fleche" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-end"><path d="M 0 0 L 10 5 L 0 10 z" fill="#1f2933"/></marker><marker id="fleche_cote" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-end"><path d="M 0 0 L 10 5 L 0 10 z" fill="#b46a00"/></marker><marker id="fleche_flux" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-end"><path d="M 0 0 L 10 5 L 0 10 z" fill="#2670a8"/></marker></defs>
+<rect width="960" height="560" fill="#ffffff"/>
+<text x="24.0" y="30.0" fill="#1f2933" text-anchor="start" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="15" font-weight="600">Chiller — cycle frigorifique (R134a)</text>
+<rect x="40.0" y="150.0" width="230.0" height="58.0" rx="6" fill="#e5f4ec" stroke="#1e7b4a" stroke-width="1.6"/>
+<g transform="translate(48.00 160.00) scale(0.3800)"><g fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="50" cy="50" r="24" />
+    <line x1="40.4" y1="28.1" x2="31.1" y2="64.9" />
+    <line x1="59.6" y1="28.1" x2="68.9" y2="64.9" />
+    <line x1="50" y1="26" x2="50" y2="8" />
+    <line x1="50" y1="74" x2="50" y2="92" />
+    <line x1="26" y1="50" x2="8" y2="50" />
+  </g>
+  <g class="ports">
+    <circle class="port" cx="50" cy="8" r="2.0" fill="#000000" stroke="none" data-port="port-n" data-dir="n" data-role="process" />
+    <circle class="port" cx="50" cy="92" r="2.0" fill="#000000" stroke="none" data-port="port-s" data-dir="s" data-role="process" />
+    <circle class="port" cx="8" cy="50" r="2.0" fill="#000000" stroke="none" data-port="port-w" data-dir="w" data-role="process" />
+  </g>
+</g>
+<line x1="92.0" y1="158.0" x2="92.0" y2="200.0" stroke="#1e7b4a" stroke-width="0.8"/>
+<text x="181.0" y="173.0" fill="#1f2933" text-anchor="middle" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="13" font-weight="600">Compresseur</text>
+<text x="181.0" y="193.0" fill="#1f2933" text-anchor="middle" font-family="Consolas, Courier New, monospace" font-size="11">COMP.Q_comp = 30.4 kW</text>
+<rect x="365.0" y="150.0" width="230.0" height="58.0" rx="6" fill="#e5f4ec" stroke="#1e7b4a" stroke-width="1.6"/>
+<g transform="translate(373.00 160.00) scale(0.3800)"><g fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <line x1="50" y1="8" x2="50" y2="41" />
+    <line x1="50" y1="59" x2="50" y2="92" />
+    <polyline points="42,41 58,41 42,59 58,59" />
+  </g>
+  <g class="ports">
+    <circle class="port" cx="50" cy="8" r="2.0" fill="#000000" stroke="none" data-port="port-n" data-dir="n" data-role="process" />
+    <circle class="port" cx="50" cy="92" r="2.0" fill="#000000" stroke="none" data-port="port-s" data-dir="s" data-role="process" />
+  </g>
+</g>
+<line x1="417.0" y1="158.0" x2="417.0" y2="200.0" stroke="#1e7b4a" stroke-width="0.8"/>
+<text x="506.0" y="173.0" fill="#1f2933" text-anchor="middle" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="13" font-weight="600">Désurchauffeur</text>
+<text x="506.0" y="193.0" fill="#1f2933" text-anchor="middle" font-family="Consolas, Courier New, monospace" font-size="11">DESURCH.Qdesurch = 17.0 kW</text>
+<rect x="690.0" y="150.0" width="230.0" height="58.0" rx="6" fill="#e5f4ec" stroke="#1e7b4a" stroke-width="1.6"/>
+<g transform="translate(698.00 160.00) scale(0.3800)"><g fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <polygon points="26,26 74,26 74,74 26,74" />
+    <line x1="8" y1="50" x2="92" y2="50" />
+    <polyline points="42,40 58,40 42,60 58,60" />
+  </g>
+  <g class="ports">
+    <circle class="port" cx="8" cy="50" r="2.0" fill="#000000" stroke="none" data-port="port-w" data-dir="w" data-role="inlet" />
+    <circle class="port" cx="92" cy="50" r="2.0" fill="#000000" stroke="none" data-port="port-e" data-dir="e" data-role="outlet" />
+  </g>
+</g>
+<line x1="742.0" y1="158.0" x2="742.0" y2="200.0" stroke="#1e7b4a" stroke-width="0.8"/>
+<text x="831.0" y="173.0" fill="#1f2933" text-anchor="middle" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="13" font-weight="600">Condenseur</text>
+<text x="831.0" y="193.0" fill="#1f2933" text-anchor="middle" font-family="Consolas, Courier New, monospace" font-size="11">COND.Q_cond = 167.5 kW</text>
+<rect x="690.0" y="360.0" width="230.0" height="58.0" rx="6" fill="#e5f4ec" stroke="#1e7b4a" stroke-width="1.6"/>
+<g transform="translate(698.00 370.00) scale(0.3800)"><g fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <polygon points="30,39 30,61 50,50" />
+    <polygon points="70,39 70,61 50,50" />
+    <polygon points="46,38 54,38 50,50" fill="#000000" />
+    <line x1="30" y1="50" x2="8" y2="50" />
+    <line x1="70" y1="50" x2="92" y2="50" />
+  </g>
+  <g class="ports">
+    <circle class="port" cx="8" cy="50" r="2.0" fill="#000000" stroke="none" data-port="port-w" data-dir="w" data-role="inlet" />
+    <circle class="port" cx="92" cy="50" r="2.0" fill="#000000" stroke="none" data-port="port-e" data-dir="e" data-role="outlet" />
+  </g>
+</g>
+<line x1="742.0" y1="368.0" x2="742.0" y2="410.0" stroke="#1e7b4a" stroke-width="0.8"/>
+<text x="831.0" y="383.0" fill="#1f2933" text-anchor="middle" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="13" font-weight="600">Détendeur</text>
+<text x="831.0" y="403.0" fill="#1f2933" text-anchor="middle" font-family="Consolas, Courier New, monospace" font-size="11">détente HP → BP</text>
+<rect x="40.0" y="360.0" width="230.0" height="58.0" rx="6" fill="#e5f4ec" stroke="#1e7b4a" stroke-width="1.6"/>
+<g transform="translate(48.00 370.00) scale(0.3800)"><g fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <polygon points="14,36 86,36 86,64 14,64" />
+    <line x1="22" y1="36" x2="22" y2="64" />
+    <line x1="78" y1="36" x2="78" y2="64" />
+    <line x1="22" y1="44" x2="78" y2="44" />
+    <line x1="22" y1="50" x2="78" y2="50" />
+    <line x1="22" y1="56" x2="78" y2="56" />
+    <line x1="30" y1="36" x2="30" y2="8" />
+    <line x1="70" y1="36" x2="70" y2="8" />
+    <line x1="30" y1="64" x2="30" y2="92" />
+    <line x1="70" y1="64" x2="70" y2="92" />
+  </g>
+  <g class="ports">
+    <circle class="port" cx="30" cy="8" r="2.0" fill="#000000" stroke="none" data-port="port-nw" data-dir="n" data-role="process" />
+    <circle class="port" cx="70" cy="8" r="2.0" fill="#000000" stroke="none" data-port="port-ne" data-dir="n" data-role="process" />
+    <circle class="port" cx="30" cy="92" r="2.0" fill="#000000" stroke="none" data-port="port-sw" data-dir="s" data-role="process" />
+    <circle class="port" cx="70" cy="92" r="2.0" fill="#000000" stroke="none" data-port="port-se" data-dir="s" data-role="process" />
+  </g>
+</g>
+<line x1="92.0" y1="368.0" x2="92.0" y2="410.0" stroke="#1e7b4a" stroke-width="0.8"/>
+<text x="181.0" y="383.0" fill="#1f2933" text-anchor="middle" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="13" font-weight="600">Évaporateur</text>
+<text x="181.0" y="403.0" fill="#1f2933" text-anchor="middle" font-family="Consolas, Courier New, monospace" font-size="11">EVAP.Q_evap = 154.1 kW</text>
+<polyline points="155.00,358.00 155.00,210.00" fill="none" stroke="#2670a8" stroke-width="2.0" stroke-linejoin="round" marker-end="url(#fleche_flux)"/>
+<text x="165.0" y="285.0" fill="#2670a8" text-anchor="start" font-family="Consolas, Courier New, monospace" font-size="11">vapeur BP</text>
+<polyline points="270.00,179.00 363.00,179.00" fill="none" stroke="#2670a8" stroke-width="2.0" stroke-linejoin="round" marker-end="url(#fleche_flux)"/>
+<text x="317.5" y="171.0" fill="#2670a8" text-anchor="middle" font-family="Consolas, Courier New, monospace" font-size="11">vapeur HP</text>
+<polyline points="595.00,179.00 688.00,179.00" fill="none" stroke="#2670a8" stroke-width="2.0" stroke-linejoin="round" marker-end="url(#fleche_flux)"/>
+<text x="642.5" y="171.0" fill="#2670a8" text-anchor="middle" font-family="Consolas, Courier New, monospace" font-size="11">vapeur HP</text>
+<polyline points="805.00,208.00 805.00,358.00" fill="none" stroke="#2670a8" stroke-width="2.0" stroke-linejoin="round" marker-end="url(#fleche_flux)"/>
+<text x="815.0" y="285.0" fill="#2670a8" text-anchor="start" font-family="Consolas, Courier New, monospace" font-size="11">liquide HP</text>
+<polyline points="690.00,389.00 272.00,389.00" fill="none" stroke="#2670a8" stroke-width="2.0" stroke-linejoin="round" marker-end="url(#fleche_flux)"/>
+<text x="480.0" y="381.0" fill="#2670a8" text-anchor="middle" font-family="Consolas, Courier New, monospace" font-size="11">mélange BP</text>
+<text x="480.0" y="410.0" fill="#2670a8" text-anchor="middle" font-family="Consolas, Courier New, monospace" font-size="11">Fluid_connect</text>
+<line x1="155.0" y1="468.0" x2="155.0" y2="424.0" stroke="#c0392b" stroke-width="2.6" marker-end="url(#fleche_chaud)"/>
+<text x="167.0" y="458.0" fill="#c0392b" text-anchor="start" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11">chaleur prise au fluide à refroidir</text>
+<line x1="155.0" y1="100.0" x2="155.0" y2="144.0" stroke="#c0392b" stroke-width="2.6" marker-end="url(#fleche_chaud)"/>
+<text x="167.0" y="120.0" fill="#c0392b" text-anchor="start" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11">travail du compresseur</text>
+<line x1="480.0" y1="144.0" x2="480.0" y2="100.0" stroke="#c0392b" stroke-width="2.6" marker-end="url(#fleche_chaud)"/>
+<line x1="805.0" y1="144.0" x2="805.0" y2="100.0" stroke="#c0392b" stroke-width="2.6" marker-end="url(#fleche_chaud)"/>
+<text x="642.5" y="88.0" fill="#c0392b" text-anchor="middle" font-family="Consolas, Courier New, monospace" font-size="12">chaleur rejetée : Q_condTot = 184.5 kW</text>
+<rect x="24.0" y="504.0" width="912.0" height="44.0" rx="4" fill="#f4f6f8" stroke="#c9d1d9" stroke-width="1.0"/>
+<text x="34.0" y="524.0" fill="#1f2933" text-anchor="start" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12">Exemple de la page exécuté (R134a, évaporation 5 °C, condensation 40 °C) : EER = 5,072, COP = 6,072.</text>
+<text x="34.0" y="540.0" fill="#1f2933" text-anchor="start" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12">Chaque composant est un objet du Chiller (EVAP, COMP, DESURCH, COND, DET) ; calculate_cycle() les relie par Fluid_connect.</text>
+</svg>

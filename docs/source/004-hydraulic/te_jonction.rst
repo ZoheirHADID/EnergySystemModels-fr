@@ -10,6 +10,8 @@ Té / jonction 3 ports
 
    Té convergent : **deux** composants amont, un sur le passage droit
    (``Inlet_St``), un sur la branche (``Inlet_S``) ; les débits s'additionnent.
+   L'angle ``alpha`` se mesure au croisement des axes, entre l'axe de la branche
+   et l'axe du passage droit côté **amont** (``Inlet_St``) : 90° = té droit.
 
 .. figure:: ../images/assemblage_divergingtee.svg
    :alt: Une Source vers un té divergent DivergingTee, puis deux Sinks
@@ -18,6 +20,9 @@ Té / jonction 3 ports
 
    Té divergent : le débit de la branche s'**impose** par ``Outlet_S.F`` ; le passage
    droit ``Outlet_St`` reçoit le reste (1,5 − 0,5 = 1,0 kg/s, mesuré).
+   Ici ``alpha`` se mesure entre l'axe de la branche et l'axe du passage droit
+   côté **aval** (``Outlet_St``) : c'est l'angle dont la branche dévie du
+   courant.
 
 Deux modèles à trois ports : le té **convergent** réunit deux courants, le té
 **divergent** en partage un. Bilan de masse sur les trois ports ; le té

@@ -14,9 +14,10 @@ bibliothèque sur le jeu de flux présenté.
 Le problème
 -----------
 
-.. figure:: ../images/006_pinch_base.svg
+.. figure:: ../images/schema_pinch_base.svg
    :alt: Schéma d'une analyse Pinch de base
    :align: center
+   :width: 100%
 
    Deux flux chauds à refroidir et deux flux froids à chauffer. L'analyse Pinch
    détermine combien de chaleur ces flux peuvent s'échanger entre eux, et donc

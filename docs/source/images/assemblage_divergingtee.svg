@@ -1,7 +1,7 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="960" height="500" viewBox="0 0 960 500" role="img" aria-label="Assemblage d'un té divergent">
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="660" viewBox="0 0 960 660" role="img" aria-label="Assemblage d'un té divergent">
 <title>Assemblage d'un té divergent</title>
 <defs><marker id="fleche" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-end"><path d="M 0 0 L 10 5 L 0 10 z" fill="#1f2933"/></marker><marker id="fleche_cote" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-end"><path d="M 0 0 L 10 5 L 0 10 z" fill="#b46a00"/></marker><marker id="fleche_flux" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-end"><path d="M 0 0 L 10 5 L 0 10 z" fill="#2670a8"/></marker></defs>
-<rect width="960" height="500" fill="#ffffff"/>
+<rect width="960" height="660" fill="#ffffff"/>
 <g transform="translate(64.00 123.83) scale(0.3172)"><g transform="translate(-91 -451)"><path d="M92.5 494.5 300.5 494.5 300.5 455.5 378.5 533.5 300.5 611.501 300.5 572.501 92.5 572.501Z" stroke="#000000" stroke-width="3.4375" stroke-miterlimit="8" fill="none" fill-rule="evenodd" /><path d="M92.5 455.5 92.5003 611.405" stroke="#000000" stroke-width="3.4375" stroke-miterlimit="8" fill="none" fill-rule="evenodd" /></g></g>
 <text x="64.0" y="216.0" fill="#1f2933" text-anchor="start" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="13" font-weight="600">Source.Object()</text>
 <text x="64.0" y="232.0" fill="#1f2933" text-anchor="start" font-family="Consolas, Courier New, monospace" font-size="12">F = 1.5   # kg/s</text>
@@ -17,6 +17,28 @@
 <polyline points="630.00,166.00 496.00,166.00 496.00,262.00" fill="none" stroke="#1f2933" stroke-width="2.4" stroke-linejoin="round"/>
 <line x1="330.0" y1="150.0" x2="630.0" y2="150.0" stroke="#7b8794" stroke-width="1.0" stroke-dasharray="10 4 2 4"/>
 <line x1="480.0" y1="150.0" x2="480.0" y2="262.0" stroke="#7b8794" stroke-width="1.0" stroke-dasharray="10 4 2 4"/>
+<polyline points="526.00,150.00 525.90,153.01 525.61,156.00 525.12,158.97 524.43,161.91 523.56,164.79 522.50,167.60 521.26,170.35 519.84,173.00 518.25,175.56 516.49,178.00 514.58,180.33 512.53,182.53 510.33,184.58 508.00,186.49 505.56,188.25 503.00,189.84 500.35,191.26 497.60,192.50 494.79,193.56 491.91,194.43 488.97,195.12 486.00,195.61 483.01,195.90 480.00,196.00" fill="none" stroke="#b46a00" stroke-width="1.6" stroke-linejoin="round" marker-end="url(#fleche_cote)"/>
+<circle cx="480.0" cy="150.0" r="2.6" fill="#b46a00" stroke="none" stroke-width="0.0"/>
+<text x="525.3" y="199.8" fill="#b46a00" text-anchor="start" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="13" font-weight="600">α = 90°</text>
+<text x="40.0" y="460.0" fill="#1f2933" text-anchor="start" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="13" font-weight="600">Branche inclinée (alpha &lt; 90°) : même mesure</text>
+<line x1="90.0" y1="504.0" x2="370.0" y2="504.0" stroke="#dde3e9" stroke-width="12"/>
+<line x1="230.0" y1="504.0" x2="295.1" y2="569.1" stroke="#dde3e9" stroke-width="12"/>
+<line x1="90.0" y1="504.0" x2="370.0" y2="504.0" stroke="#7b8794" stroke-width="1.0" stroke-dasharray="10 4 2 4"/>
+<line x1="230.0" y1="504.0" x2="295.1" y2="569.1" stroke="#7b8794" stroke-width="1.0" stroke-dasharray="10 4 2 4"/>
+<line x1="100.0" y1="490.0" x2="150.0" y2="490.0" stroke="#2670a8" stroke-width="1.6" marker-end="url(#fleche_flux)"/>
+<line x1="310.0" y1="490.0" x2="360.0" y2="490.0" stroke="#2670a8" stroke-width="1.6" marker-end="url(#fleche_flux)"/>
+<line x1="244.1" y1="546.4" x2="272.4" y2="574.7" stroke="#2670a8" stroke-width="1.6" marker-end="url(#fleche_flux)"/>
+<text x="90.0" y="480.0" fill="#1f2933" text-anchor="start" font-family="Consolas, Courier New, monospace" font-size="11">Inlet</text>
+<text x="370.0" y="480.0" fill="#1f2933" text-anchor="end" font-family="Consolas, Courier New, monospace" font-size="11">Outlet_St</text>
+<text x="303.1" y="573.1" fill="#1f2933" text-anchor="start" font-family="Consolas, Courier New, monospace" font-size="11">Outlet_S</text>
+<polyline points="274.00,504.00 273.98,505.44 273.91,506.88 273.79,508.31 273.62,509.74 273.41,511.17 273.15,512.58 272.85,513.99 272.50,515.39 272.11,516.77 271.66,518.14 271.18,519.50 270.65,520.84 270.08,522.16 269.46,523.46 268.80,524.74 268.11,526.00 267.36,527.23 266.58,528.45 265.77,529.63 264.91,530.79 264.01,531.91 263.08,533.01 262.11,534.08 261.11,535.11" fill="none" stroke="#b46a00" stroke-width="1.6" stroke-linejoin="round" marker-end="url(#fleche_cote)"/>
+<circle cx="230.0" cy="504.0" r="2.6" fill="#b46a00" stroke="none" stroke-width="0.0"/>
+<text x="283.6" y="531.4" fill="#b46a00" text-anchor="start" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="15" font-weight="600">α</text>
+<text x="420.0" y="478.0" fill="#1f2933" text-anchor="start" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12">α = angle entre l'axe de la branche (Outlet_S)</text>
+<text x="420.0" y="496.0" fill="#1f2933" text-anchor="start" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12">et l'axe du passage droit, côté aval (Outlet_St).</text>
+<text x="420.0" y="514.0" fill="#1f2933" text-anchor="start" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12">alpha = math.pi / 2 (défaut, schéma du haut) : té droit.</text>
+<text x="420.0" y="532.0" fill="#1f2933" text-anchor="start" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12">Saisi en radians ; le df le restitue en degrés (alpha_deg).</text>
+<text x="420.0" y="550.0" fill="#1f2933" text-anchor="start" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12">Idel'chik, Diag. 7.18 et 7.20 : α = 0 à 90°.</text>
 <circle cx="330.0" cy="150.0" r="7.0" fill="#ffffff" stroke="#1d5f86" stroke-width="4"/>
 <circle cx="480.0" cy="262.0" r="7.0" fill="#ffffff" stroke="#e8793a" stroke-width="4"/>
 <circle cx="630.0" cy="150.0" r="7.0" fill="#ffffff" stroke="#e8793a" stroke-width="4"/>
@@ -26,14 +48,14 @@
 <text x="716.0" y="170.0" fill="#2670a8" text-anchor="middle" font-family="Consolas, Courier New, monospace" font-size="12">Fluid_connect</text>
 <polyline points="480.00,270.00 480.00,330.00 795.00,330.00" fill="none" stroke="#2670a8" stroke-width="2.0" stroke-linejoin="round" marker-end="url(#fleche_flux)"/>
 <text x="660.0" y="350.0" fill="#2670a8" text-anchor="middle" font-family="Consolas, Courier New, monospace" font-size="12">Fluid_connect</text>
-<text x="520.0" y="226.0" fill="#1f2933" text-anchor="start" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="13" font-weight="600">DivergingTee.Object()</text>
-<text x="520.0" y="243.0" fill="#1f2933" text-anchor="start" font-family="Consolas, Courier New, monospace" font-size="12">d_hyd = 0.04          # m</text>
-<text x="520.0" y="260.0" fill="#1f2933" text-anchor="start" font-family="Consolas, Courier New, monospace" font-size="12">alpha = math.pi / 2   # rad</text>
-<text x="520.0" y="277.0" fill="#1f2933" text-anchor="start" font-family="Consolas, Courier New, monospace" font-size="12">Outlet_S.F = 0.5      # kg/s imposé</text>
+<text x="528.0" y="246.0" fill="#1f2933" text-anchor="start" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="13" font-weight="600">DivergingTee.Object()</text>
+<text x="528.0" y="263.0" fill="#1f2933" text-anchor="start" font-family="Consolas, Courier New, monospace" font-size="12">d_hyd = 0.04          # m</text>
+<text x="528.0" y="280.0" fill="#1f2933" text-anchor="start" font-family="Consolas, Courier New, monospace" font-size="12">alpha = math.pi / 2   # rad</text>
+<text x="528.0" y="297.0" fill="#1f2933" text-anchor="start" font-family="Consolas, Courier New, monospace" font-size="12">Outlet_S.F = 0.5      # kg/s imposé</text>
 <text x="324.0" y="122.0" fill="#1f2933" text-anchor="start" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="13" font-weight="600">Inlet</text>
 <text x="396.0" y="266.0" fill="#1f2933" text-anchor="start" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="13" font-weight="600">Outlet_S</text>
 <text x="570.0" y="122.0" fill="#1f2933" text-anchor="start" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="13" font-weight="600">Outlet_St</text>
-<rect x="24.0" y="444.0" width="912.0" height="44.0" rx="4" fill="#f4f6f8" stroke="#c9d1d9" stroke-width="1.0"/>
-<text x="34.0" y="464.0" fill="#1f2933" text-anchor="start" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12">Exécuté (eau 15 °C, 3 bar, 1,5 kg/s ; Outlet_S.F = 0,5 kg/s imposé) : Outlet_St.F = 1,0 kg/s ;</text>
-<text x="34.0" y="480.0" fill="#1f2933" text-anchor="start" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12">dP_C_to_S = 736,8 Pa (branche) ; dP_C_to_St = -52,8 Pa : le passage droit REGAGNE de la pression, sa vitesse ayant baissé.</text>
+<rect x="24.0" y="604.0" width="912.0" height="44.0" rx="4" fill="#f4f6f8" stroke="#c9d1d9" stroke-width="1.0"/>
+<text x="34.0" y="624.0" fill="#1f2933" text-anchor="start" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12">Exécuté (eau 15 °C, 3 bar, 1,5 kg/s ; Outlet_S.F = 0,5 kg/s imposé) : Outlet_St.F = 1,0 kg/s ;</text>
+<text x="34.0" y="640.0" fill="#1f2933" text-anchor="start" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12">dP_C_to_S = 736,8 Pa (branche) ; dP_C_to_St = -52,8 Pa : le passage droit REGAGNE de la pression, sa vitesse ayant baissé.</text>
 </svg>

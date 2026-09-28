@@ -575,8 +575,71 @@ def assemblage_coude_vif(nom="assemblage_edgedbend.svg"):
         arrondi=False)
 
 
+def _arc_alpha(cx, cy, r, t_axe, t_branche, etiquette, r_etiquette, taille=13):
+    """Arc coté de l'angle alpha, sommet (cx, cy) au croisement des axes.
+
+    Angles en degrés, sens écran (y vers le bas : 0 = droite, 90 = bas). L'arc
+    part de l'axe du passage droit et finit, flèche, sur l'axe de la branche.
+    """
+    n = 24
+    pts = [(cx + r * math.cos(math.radians(t_axe + (t_branche - t_axe) * i / n)),
+            cy + r * math.sin(math.radians(t_axe + (t_branche - t_axe) * i / n)))
+           for i in range(n + 1)]
+    t_mid = math.radians((t_axe + t_branche) / 2)
+    ex, ey = cx + r_etiquette * math.cos(t_mid), cy + r_etiquette * math.sin(t_mid)
+    ancre = "end" if math.cos(t_mid) < -0.2 else ("start" if math.cos(t_mid) > 0.2 else "middle")
+    return [_polyligne(pts, COTE, 1.6).replace("/>", ' marker-end="url(#fleche_cote)"/>'),
+            _cercle(cx, cy, 2.6, COTE),
+            _texte(ex, ey + taille * 0.35, etiquette, taille, COTE, ancre, gras=True)]
+
+
+def _encart_alpha(convergent: bool, x0=40.0, y0=470.0) -> list[str]:
+    """Encart « branche inclinée » : où se mesure alpha quand alpha < 90°."""
+    a = 45.0                                    # angle d'illustration
+    cx, cy, lb = x0 + 190, y0 + 34, 92.0        # sommet, longueur de branche
+    sgn = -1 if convergent else 1               # branche à gauche (amont) / à droite (aval)
+    t_br = 180 - a if convergent else a
+    bx = cx + lb * math.cos(math.radians(t_br))
+    by = cy + lb * math.sin(math.radians(t_br))
+    bande = "#dde3e9"
+    m = [_texte(x0, y0 - 10, "Branche inclinée (alpha < 90°) : même mesure", 13, TRAIT, gras=True),
+         _ligne(x0 + 50, cy, x0 + 330, cy, bande, 12),
+         _ligne(cx, cy, bx, by, bande, 12),
+         _ligne(x0 + 50, cy, x0 + 330, cy, AXE, 1.0, pointille="10 4 2 4"),
+         _ligne(cx, cy, bx, by, AXE, 1.0, pointille="10 4 2 4")]
+    fl = ' marker-end="url(#fleche_flux)"'
+    m.append(_ligne(x0 + 60, cy - 14, x0 + 110, cy - 14, FLUX, 1.6, marqueurs=fl))
+    m.append(_ligne(x0 + 270, cy - 14, x0 + 320, cy - 14, FLUX, 1.6, marqueurs=fl))
+    ux, uy = math.cos(math.radians(t_br)), math.sin(math.radians(t_br))
+    px, py = -uy * 20 * sgn, ux * 20 * sgn      # décalage à côté de la branche
+    if convergent:                               # débit entrant : vers le sommet
+        m.append(_ligne(cx + ux * 80 + px, cy + uy * 80 + py, cx + ux * 40 + px,
+                        cy + uy * 40 + py, FLUX, 1.6, marqueurs=fl))
+        noms = [("Inlet_St", x0 + 50, cy - 24, "start"), ("Outlet", x0 + 330, cy - 24, "end"),
+                ("Inlet_S", bx - 8, by + 4, "end")]
+    else:
+        m.append(_ligne(cx + ux * 40 + px, cy + uy * 40 + py, cx + ux * 80 + px,
+                        cy + uy * 80 + py, FLUX, 1.6, marqueurs=fl))
+        noms = [("Inlet", x0 + 50, cy - 24, "start"), ("Outlet_St", x0 + 330, cy - 24, "end"),
+                ("Outlet_S", bx + 8, by + 4, "start")]
+    for texte, x, y, ancre in noms:
+        m.append(_texte(x, y, texte, 11, TRAIT, ancre, MONO))
+    m += _arc_alpha(cx, cy, 44, 180 if convergent else 0, t_br, "α", 58, 15)
+    cote = ("amont (Inlet_St)", "Inlet_S") if convergent else ("aval (Outlet_St)", "Outlet_S")
+    source = ("Idel'chik, Diag. 7.1 à 7.4 : α = 30°, 45°, 60°, 90°." if convergent
+              else "Idel'chik, Diag. 7.18 et 7.20 : α = 0 à 90°.")
+    lignes = [f"α = angle entre l'axe de la branche ({cote[1]})",
+              f"et l'axe du passage droit, côté {cote[0]}.",
+              "alpha = math.pi / 2 (défaut, schéma du haut) : té droit.",
+              "Saisi en radians ; le df le restitue en degrés (alpha_deg).",
+              source]
+    for i, l in enumerate(lignes):
+        m.append(_texte(x0 + 380, y0 + 8 + 18 * i, l, 12, TRAIT))
+    return m
+
+
 def _te(nom, titre, convergent: bool):
-    """Té à 90° : passage droit horizontal, branche vers le bas."""
+    """Té à 90° : passage droit horizontal, branche vers le bas ; alpha coté."""
     y, demi = 150.0, 16.0
     x_g, x_b, x_d = 330.0, 480.0, 630.0
     y_b = 262.0
@@ -587,6 +650,10 @@ def _te(nom, titre, convergent: bool):
         _ligne(x_g, y, x_d, y, AXE, 1.0, pointille="10 4 2 4"),
         _ligne(x_b, y, x_b, y_b, AXE, 1.0, pointille="10 4 2 4"),
     ]
+    # alpha : de l'axe du passage droit (côté Inlet_St en convergent, côté
+    # Outlet_St en divergent) à l'axe de la branche ; ici 90°, valeur de l'exemple.
+    comp += _arc_alpha(x_b, y, 46, 180 if convergent else 0, 90, "α = 90°", 64)
+    comp += _encart_alpha(convergent)
     if convergent:
         comp += [_port(x_g, y, True), _port(x_b, y_b, True), _port(x_d, y, False)]
         sources = [(110, y, ["Source.Object()", "F = 1.0   # kg/s"], (156, y)),
@@ -611,7 +678,7 @@ def _te(nom, titre, convergent: bool):
         connexions = [([(163, y), (321, y)], (242, y + 20)),
                       ([(637, y), (795, y)], (716, y + 20)),
                       ([(x_b, y_b + 8), (x_b, 330), (795, 330)], (660, 350))]
-        etiquettes = [(520, 226, ["DivergingTee.Object()", "d_hyd = 0.04          # m",
+        etiquettes = [(528, 246, ["DivergingTee.Object()", "d_hyd = 0.04          # m",
                                   "alpha = math.pi / 2   # rad", "Outlet_S.F = 0.5      # kg/s imposé"]),
                       (x_g - 6, y - demi - 12, ["Inlet"]), (x_b - 84, y_b + 4, ["Outlet_S"]),
                       (x_d - 60, y - demi - 12, ["Outlet_St"])]
@@ -619,7 +686,7 @@ def _te(nom, titre, convergent: bool):
                 "Outlet_St.F = 1,0 kg/s ;",
                 "dP_C_to_S = 736,8 Pa (branche) ; dP_C_to_St = -52,8 Pa : le passage droit "
                 "REGAGNE de la pression, sa vitesse ayant baissé."]
-    return _assemblage(nom, titre, sources, puits, comp, connexions, etiquettes, note, H=500.0)
+    return _assemblage(nom, titre, sources, puits, comp, connexions, etiquettes, note, H=660.0)
 
 
 def assemblage_te_convergent(nom="assemblage_convergingtee.svg"):

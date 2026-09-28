@@ -5,9 +5,10 @@ Groupe froid et pompe à chaleur — Chiller
 
 Le module ``Chiller`` modélise un cycle frigorifique complet : évaporateur, compresseur, désurchauffeur, condenseur, détendeur. En mode PAC, la chaleur au condenseur est valorisée.
 
-.. figure:: ../images/002_chiller_cycle.svg
+.. figure:: ../images/schema_cycle_chiller.svg
    :alt: Schéma du cycle frigorifique Chiller
    :align: center
+   :width: 100%
 
    Le fluide frigorigène traverse successivement l'évaporateur, le
    compresseur, le désurchauffeur, le condenseur et le détendeur.

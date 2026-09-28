@@ -14,9 +14,9 @@ Isolation des tuyauteries — PipeInsulationAnalysis
 Utilisation
 -----------
 
-.. image:: ../images/001_heat_transfer_pipe_insulation.png
-   :alt: Pipe Insulation Analysis
-   :width: 600px
+.. image:: ../images/schema_tuyauterie_isolee.svg
+   :alt: Tuyauterie isolée : fluide, acier, isolant, cotes et déperditions calculées
+   :width: 100%
    :align: center
 
 .. code-block:: python

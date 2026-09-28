@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="380" viewBox="0 0 960 380" role="img" aria-label="Architecture PyqtSimulator">
+<title>Architecture PyqtSimulator</title>
+<defs><marker id="fleche_chaud" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" fill="#c0392b"/></marker><marker id="fleche_froid" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" fill="#2670a8"/></marker></defs>
+<defs><marker id="fleche" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-end"><path d="M 0 0 L 10 5 L 0 10 z" fill="#1f2933"/></marker><marker id="fleche_cote" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-end"><path d="M 0 0 L 10 5 L 0 10 z" fill="#b46a00"/></marker><marker id="fleche_flux" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-end"><path d="M 0 0 L 10 5 L 0 10 z" fill="#2670a8"/></marker></defs>
+<rect width="960" height="380" fill="#ffffff"/>
+<text x="24.0" y="30.0" fill="#1f2933" text-anchor="start" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="15" font-weight="600">Architecture PyqtSimulator</text>
+<rect x="24.0" y="70.0" width="190.0" height="58.0" rx="6" fill="#e6f1f8" stroke="#1d5f86" stroke-width="1.6"/>
+<text x="119.0" y="93.0" fill="#1f2933" text-anchor="middle" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="13" font-weight="600">Utilisateur</text>
+<text x="119.0" y="113.0" fill="#1f2933" text-anchor="middle" font-family="Consolas, Courier New, monospace" font-size="11">glisser, connecter, évaluer</text>
+<rect x="294.0" y="70.0" width="200.0" height="58.0" rx="6" fill="#f7f9fb" stroke="#1f2933" stroke-width="1.6"/>
+<text x="394.0" y="93.0" fill="#1f2933" text-anchor="middle" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="13" font-weight="600">CalculatorWindow</text>
+<text x="394.0" y="113.0" fill="#1f2933" text-anchor="middle" font-family="Consolas, Courier New, monospace" font-size="11">fenêtre principale PyQt</text>
+<rect x="574.0" y="70.0" width="200.0" height="58.0" rx="6" fill="#f7f9fb" stroke="#1f2933" stroke-width="1.6"/>
+<text x="674.0" y="93.0" fill="#1f2933" text-anchor="middle" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="13" font-weight="600">CalculatorSubWindow</text>
+<text x="674.0" y="113.0" fill="#1f2933" text-anchor="middle" font-family="Consolas, Courier New, monospace" font-size="11">scène NodeEditor</text>
+<polyline points="214.00,99.00 292.00,99.00" fill="none" stroke="#2670a8" stroke-width="2.0" stroke-linejoin="round" marker-end="url(#fleche_flux)"/>
+<text x="253.0" y="91.0" fill="#2670a8" text-anchor="middle" font-family="Consolas, Courier New, monospace" font-size="11">interface</text>
+<polyline points="494.00,99.00 572.00,99.00" fill="none" stroke="#2670a8" stroke-width="2.0" stroke-linejoin="round" marker-end="url(#fleche_flux)"/>
+<text x="533.0" y="91.0" fill="#2670a8" text-anchor="middle" font-family="Consolas, Courier New, monospace" font-size="11">document</text>
+<rect x="24.0" y="230.0" width="150.0" height="58.0" rx="6" fill="#f7f9fb" stroke="#1f2933" stroke-width="1.6"/>
+<text x="99.0" y="253.0" fill="#1f2933" text-anchor="middle" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="13" font-weight="600">CALC_NODES</text>
+<text x="99.0" y="273.0" fill="#1f2933" text-anchor="middle" font-family="Consolas, Courier New, monospace" font-size="11">@register_node</text>
+<rect x="244.0" y="230.0" width="190.0" height="58.0" rx="6" fill="#f7f9fb" stroke="#1f2933" stroke-width="1.6"/>
+<text x="339.0" y="253.0" fill="#1f2933" text-anchor="middle" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="13" font-weight="600">Nœud ESMNode</text>
+<text x="339.0" y="273.0" fill="#1f2933" text-anchor="middle" font-family="Consolas, Courier New, monospace" font-size="11">champs, ports, résultats</text>
+<rect x="504.0" y="230.0" width="170.0" height="58.0" rx="6" fill="#e5f4ec" stroke="#1e7b4a" stroke-width="1.6"/>
+<text x="589.0" y="253.0" fill="#1f2933" text-anchor="middle" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="13" font-weight="600">Modèle ESM</text>
+<text x="589.0" y="273.0" fill="#1f2933" text-anchor="middle" font-family="Consolas, Courier New, monospace" font-size="11">calculate(), plot()</text>
+<rect x="746.0" y="230.0" width="190.0" height="58.0" rx="6" fill="#f7f9fb" stroke="#1f2933" stroke-width="1.6"/>
+<text x="841.0" y="253.0" fill="#1f2933" text-anchor="middle" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="13" font-weight="600">Sortie</text>
+<text x="841.0" y="273.0" fill="#1f2933" text-anchor="middle" font-family="Consolas, Courier New, monospace" font-size="11">valeurs et fichiers .json</text>
+<polyline points="174.00,259.00 242.00,259.00" fill="none" stroke="#2670a8" stroke-width="2.0" stroke-linejoin="round" marker-end="url(#fleche_flux)"/>
+<text x="208.0" y="251.0" fill="#2670a8" text-anchor="middle" font-family="Consolas, Courier New, monospace" font-size="11">classe</text>
+<polyline points="674.00,128.00 674.00,170.00 339.00,170.00 339.00,228.00" fill="none" stroke="#2670a8" stroke-width="2.0" stroke-linejoin="round" marker-end="url(#fleche_flux)"/>
+<text x="500.0" y="162.0" fill="#2670a8" text-anchor="middle" font-family="Consolas, Courier New, monospace" font-size="11">graphe</text>
+<polyline points="434.00,259.00 502.00,259.00" fill="none" stroke="#2670a8" stroke-width="2.0" stroke-linejoin="round" marker-end="url(#fleche_flux)"/>
+<text x="468.0" y="251.0" fill="#2670a8" text-anchor="middle" font-family="Consolas, Courier New, monospace" font-size="11">ports</text>
+<polyline points="674.00,259.00 744.00,259.00" fill="none" stroke="#2670a8" stroke-width="2.0" stroke-linejoin="round" marker-end="url(#fleche_flux)"/>
+<text x="709.0" y="251.0" fill="#2670a8" text-anchor="middle" font-family="Consolas, Courier New, monospace" font-size="11">résultats</text>
+<rect x="24.0" y="319.0" width="22.0" height="14.0" rx="3" fill="#e6f1f8" stroke="#1d5f86" stroke-width="1.4"/>
+<text x="54.0" y="330.0" fill="#1f2933" text-anchor="start" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12">donnée fournie par l'utilisateur</text>
+<rect x="289.7" y="319.0" width="22.0" height="14.0" rx="3" fill="#e5f4ec" stroke="#1e7b4a" stroke-width="1.4"/>
+<text x="319.7" y="330.0" fill="#1f2933" text-anchor="start" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12">calcul de la bibliothèque</text>
+<rect x="511.7" y="319.0" width="22.0" height="14.0" rx="3" fill="#f7f9fb" stroke="#1f2933" stroke-width="1.4"/>
+<text x="541.7" y="330.0" fill="#1f2933" text-anchor="start" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12">mécanique du code ou de l'IHM</text>
+<text x="24.0" y="358.0" fill="#7b8794" text-anchor="start" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12">Les nœuds enregistrés par @register_node apparaissent dans la palette ; chacun appelle un modèle EnergySystemModels.</text>
+</svg>

@@ -4,10 +4,10 @@
   "docs/source/001-heat_transfer/composite_wall_heat_transfer.rst": {
    "blocs": 1,
    "empreinte": "d3265cc5660e837f",
-   "mesure": "2026-09-28T12:13",
+   "mesure": "2026-09-28T17:06",
    "figures": [
     "../images/param_compositewall.svg",
-    "../images/001_heat_transfer_composite_wall.png"
+    "../images/schema_mur_composite.svg"
    ],
    "blocage": null,
    "motif": "manque : table de personnalisation et variante exécutée",
@@ -20,10 +20,10 @@
   "docs/source/001-heat_transfer/corps_parallelepipedique.rst": {
    "blocs": 1,
    "empreinte": "d1d3f5415305f6ca",
-   "mesure": "2026-09-28T12:23",
+   "mesure": "2026-09-28T17:06",
    "figures": [
     "../images/param_parallelepipedicbody.svg",
-    "../images/001_heat_transfer_parallelepiped.png"
+    "../images/schema_corps_parallelepipede.svg"
    ],
    "blocage": null,
    "motif": "manque : table de personnalisation et variante exécutée",
@@ -48,10 +48,10 @@
   "docs/source/001-heat_transfer/pipe_insulation_analysis.rst": {
    "blocs": 1,
    "empreinte": "2e8f02bc9fd6ee26",
-   "mesure": "2026-09-28T12:19",
+   "mesure": "2026-09-28T17:06",
    "figures": [
     "../images/param_pipeinsulation.svg",
-    "../images/001_heat_transfer_pipe_insulation.png"
+    "../images/schema_tuyauterie_isolee.svg"
    ],
    "blocage": null,
    "motif": "manque : table de personnalisation et variante exécutée",
@@ -107,9 +107,9 @@
   "docs/source/002-thermodynamic_cycles/chiller.rst": {
    "blocs": 2,
    "empreinte": "986498beba54e77a",
-   "mesure": "2026-09-28T12:06",
+   "mesure": "2026-09-28T17:07",
    "figures": [
-    "../images/002_chiller_cycle.svg",
+    "../images/schema_cycle_chiller.svg",
     "../images/scene_machine_frigorifique.svg",
     "../images/002_chiller_plot_ts.svg",
     "../images/002_chiller_plot_parametric.svg"
@@ -530,10 +530,10 @@
   "docs/source/003-ahu_modules/cta_air_neuf.rst": {
    "blocs": 1,
    "empreinte": "b4431059ec5773d5",
-   "mesure": "2026-09-28T14:29",
+   "mesure": "2026-09-28T17:07",
    "figures": [
-    "../images/003_ahu_fresh_air.png",
-    "../images/003_ahu_fresh_air_figure1.png"
+    "../images/schema_cta_air_neuf.svg",
+    "../images/003_cta_air_neuf_psychrometrique.svg"
    ],
    "blocage": null,
    "motif": "manque : table de personnalisation et variante exécutée",
@@ -583,10 +583,10 @@
   "docs/source/004-hydraulic/TA_valve.rst": {
    "blocs": 1,
    "empreinte": "643b4b64fc247857",
-   "mesure": "2026-09-28T10:50",
+   "mesure": "2026-09-28T17:07",
    "figures": [
-    "../images/004_TA_valve.png",
-    "../images/004_TA_valve-courbe-reseau.png"
+    "../images/schema_ta_valve.svg",
+    "../images/004_ta_valve_courbe_reseau.svg"
    ],
    "blocage": null,
    "motif": "manque : table de personnalisation et variante exécutée",
@@ -782,10 +782,10 @@
   "docs/source/004-hydraulic/perte_pression_lineaire.rst": {
    "blocs": 1,
    "empreinte": "8346b5ee7f1627d2",
-   "mesure": "2026-09-28T13:28",
+   "mesure": "2026-09-28T17:07",
    "figures": [
-    "../images/004_hydraulic_straight_pipe.png",
-    "../images/004_hydraulic_straight_pipe_courbe_reseau.png"
+    "../images/schema_conduite_droite.svg",
+    "../images/004_straightpipe_courbe_reseau.svg"
    ],
    "blocage": null,
    "motif": "manque : table de personnalisation et variante exécutée",
@@ -884,11 +884,11 @@
   "docs/source/004-hydraulic/te_jonction.rst": {
    "blocs": 2,
    "empreinte": "977750af628ed1df",
-   "mesure": "2026-09-28T11:01",
+   "mesure": "2026-09-28T17:07",
    "figures": [
     "../images/assemblage_convergingtee.svg",
-    "../images/004_convergingtee_courbe_reseau.svg",
     "../images/assemblage_divergingtee.svg",
+    "../images/004_convergingtee_courbe_reseau.svg",
     "../images/004_divergingtee_courbe_reseau.svg"
    ],
    "blocage": null,
@@ -1118,9 +1118,9 @@
   "docs/source/006-pinch_analysis/index.rst": {
    "blocs": 3,
    "empreinte": "81c367bd8602661a",
-   "mesure": "2026-09-28T13:23",
+   "mesure": "2026-09-28T17:07",
    "figures": [
-    "../images/006_pinch_base.svg",
+    "../images/schema_pinch_base.svg",
     "../images/006_pinch_plot_composites.svg",
     "../images/006_pinch_plot_gcc.svg",
     "../images/006_pinch_plot_hen.svg"
@@ -1251,13 +1251,14 @@
    "recul": null
   },
   "docs/source/009-pv-solaire/index.rst": {
-   "blocs": 12,
-   "empreinte": "2661a200e8fa8878",
-   "mesure": "2026-09-28T16:07",
+   "blocs": 14,
+   "empreinte": "431f056d2025cadf",
+   "mesure": "2026-09-28T17:07",
    "figures": [
     "/images/schema_pv_installation.svg",
     "/009-pv-solaire/figures/009_pv_plot_production.png",
-    "/009-pv-solaire/figures/009_pv_plot_orientation.png"
+    "/009-pv-solaire/figures/009_pv_plot_orientation.png",
+    "/009-pv-solaire/figures/009_pv_batterie.png"
    ],
    "blocage": null,
    "motif": "",
@@ -1693,13 +1694,13 @@
   "docs/source/gui_tools.rst": {
    "blocs": 3,
    "empreinte": "c5577492bf4ee214",
-   "mesure": "2026-09-28T16:08",
+   "mesure": "2026-09-28T17:07",
    "figures": [
-    "images/gui_pyqtsimulator_architecture.svg",
-    "images/gui_node_declaratif_heater.svg",
-    "images/gui_node_splitter_multisortie.svg",
-    "images/gui_node_mixed_storage_pas_temps.svg",
-    "images/gui_evaluation_flow.svg"
+    "images/schema_ihm_architecture.svg",
+    "images/schema_ihm_rechauffeur.svg",
+    "images/schema_ihm_diviseur.svg",
+    "images/schema_ihm_ballon.svg",
+    "images/schema_ihm_evaluation.svg"
    ],
    "blocage": null,
    "motif": "page de développement : 3 extraits, imports vérifiés",
@@ -1828,10 +1829,10 @@
   "docs/source/transfert_chaleur.rst": {
    "blocs": 1,
    "empreinte": "1d20c3a00bbe8373",
-   "mesure": "2026-09-28T12:30",
+   "mesure": "2026-09-28T17:08",
    "figures": [
     "images/param_plateheattransfer.svg",
-    "images/PlateHeatTransfer.png"
+    "images/schema_plaques_boite.svg"
    ],
    "blocage": null,
    "motif": "manque : table de personnalisation et variante exécutée",

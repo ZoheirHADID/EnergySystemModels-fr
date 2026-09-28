@@ -14,9 +14,9 @@ Corps parallélépipédique — ParallelepipedicBody
 Utilisation
 -----------
 
-.. image:: ../images/001_heat_transfer_parallelepiped.png
-   :alt: Plate Heat Transfer
-   :width: 400px
+.. image:: ../images/schema_corps_parallelepipede.svg
+   :alt: Corps parallélépipédique : flux calculé de chaque face
+   :width: 100%
    :align: center
 
 .. code-block:: python

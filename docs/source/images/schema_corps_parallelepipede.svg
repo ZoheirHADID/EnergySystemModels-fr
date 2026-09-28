@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="700" viewBox="0 0 900 700" role="img" aria-label="Corps parallélépipédique — flux par face (ParallelepipedicBody)">
+<title>Corps parallélépipédique — flux par face (ParallelepipedicBody)</title>
+<defs><marker id="fleche_chaud" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" fill="#c0392b"/></marker><marker id="fleche_froid" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" fill="#2670a8"/></marker></defs>
+<defs><marker id="fleche" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-end"><path d="M 0 0 L 10 5 L 0 10 z" fill="#1f2933"/></marker><marker id="fleche_cote" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-end"><path d="M 0 0 L 10 5 L 0 10 z" fill="#b46a00"/></marker><marker id="fleche_flux" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-end"><path d="M 0 0 L 10 5 L 0 10 z" fill="#2670a8"/></marker></defs>
+<rect width="900" height="700" fill="#ffffff"/>
+<text x="24.0" y="30.0" fill="#1f2933" text-anchor="start" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="15" font-weight="600">Corps parallélépipédique — flux par face (ParallelepipedicBody)</text>
+<polygon points="330.0,200.0 393.2,157.2 529.2,157.2 466.0,200.0" fill="#f7d9c4" stroke="#1f2933" stroke-width="1.6"/>
+<polygon points="466.0,200.0 529.2,157.2 529.2,412.2 466.0,455.0" fill="#f0c3a3" stroke="#1f2933" stroke-width="1.6"/>
+<polygon points="330.0,200.0 466.0,200.0 466.0,455.0 330.0,455.0" fill="#fbe7da" stroke="#1f2933" stroke-width="1.6"/>
+<line x1="393.2" y1="412.2" x2="330.0" y2="455.0" stroke="#7b8794" stroke-width="1.0" stroke-dasharray="5,4"/>
+<line x1="393.2" y1="412.2" x2="529.2" y2="412.2" stroke="#7b8794" stroke-width="1.0" stroke-dasharray="5,4"/>
+<line x1="393.2" y1="412.2" x2="393.2" y2="157.2" stroke="#7b8794" stroke-width="1.0" stroke-dasharray="5,4"/>
+<text x="40.0" y="130.0" fill="#1f2933" text-anchor="start" font-family="Consolas, Courier New, monospace" font-size="13" font-weight="600">Tp = 60 °C</text>
+<text x="40.0" y="148.0" fill="#7b8794" text-anchor="start" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11">paroi, toutes faces</text>
+<text x="40.0" y="80.0" fill="#1f2933" text-anchor="start" font-family="Consolas, Courier New, monospace" font-size="13" font-weight="600">Ta = 25 °C</text>
+<text x="40.0" y="98.0" fill="#7b8794" text-anchor="start" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11">air ambiant, toutes faces</text>
+<line x1="330.0" y1="481.0" x2="466.0" y2="481.0" stroke="#b46a00" stroke-width="1.2" marker-start="url(#fleche_cote)" marker-end="url(#fleche_cote)"/>
+<text x="398.0" y="481.0" fill="#b46a00" text-anchor="middle" font-family="Consolas, Courier New, monospace" font-size="13"></text>
+<text x="398.0" y="501.0" fill="#b46a00" text-anchor="middle" font-family="Consolas, Courier New, monospace" font-size="12">W = 0.8 m</text>
+<line x1="304.0" y1="200.0" x2="304.0" y2="455.0" stroke="#b46a00" stroke-width="1.2" marker-start="url(#fleche_cote)" marker-end="url(#fleche_cote)"/>
+<text x="304.0" y="327.5" fill="#b46a00" text-anchor="middle" font-family="Consolas, Courier New, monospace" font-size="13"></text>
+<text x="296.0" y="331.5" fill="#b46a00" text-anchor="end" font-family="Consolas, Courier New, monospace" font-size="12">H = 1.5 m</text>
+<line x1="480.0" y1="469.0" x2="543.2" y2="426.2" stroke="#b46a00" stroke-width="1.2" marker-start="url(#fleche_cote)" marker-end="url(#fleche_cote)"/>
+<text x="511.6" y="447.6" fill="#b46a00" text-anchor="middle" font-family="Consolas, Courier New, monospace" font-size="13"></text>
+<text x="523.6" y="459.6" fill="#b46a00" text-anchor="start" font-family="Consolas, Courier New, monospace" font-size="12">L = 0.6 m</text>
+<line x1="429.6" y1="174.6" x2="429.6" y2="116.6" stroke="#c0392b" stroke-width="3.0" marker-end="url(#fleche_chaud)"/>
+<text x="443.6" y="98.6" fill="#1f2933" text-anchor="start" font-family="Consolas, Courier New, monospace" font-size="12" font-weight="600">top</text>
+<text x="443.6" y="114.6" fill="#1f2933" text-anchor="start" font-family="Consolas, Courier New, monospace" font-size="12">Horizontal (up) · L × W = 0.48 m²</text>
+<text x="443.6" y="132.6" fill="#c0392b" text-anchor="start" font-family="Consolas, Courier New, monospace" font-size="13" font-weight="600">191.2 W</text>
+<line x1="429.6" y1="513.0" x2="429.6" y2="565.0" stroke="#c0392b" stroke-width="3.0" marker-end="url(#fleche_chaud)"/>
+<text x="443.6" y="541.0" fill="#1f2933" text-anchor="start" font-family="Consolas, Courier New, monospace" font-size="12" font-weight="600">bottom</text>
+<text x="443.6" y="557.0" fill="#1f2933" text-anchor="start" font-family="Consolas, Courier New, monospace" font-size="12">Horizontal (down) · L × W = 0.48 m²</text>
+<text x="443.6" y="575.0" fill="#c0392b" text-anchor="start" font-family="Consolas, Courier New, monospace" font-size="13" font-weight="600">190.0 W</text>
+<line x1="377.6" y1="404.0" x2="317.6" y2="495.0" stroke="#c0392b" stroke-width="3.0" marker-end="url(#fleche_chaud)"/>
+<text x="311.6" y="517.0" fill="#1f2933" text-anchor="end" font-family="Consolas, Courier New, monospace" font-size="12" font-weight="600">front + back</text>
+<text x="311.6" y="533.0" fill="#1f2933" text-anchor="end" font-family="Consolas, Courier New, monospace" font-size="12">Vertical · W × H = 1.20 m²</text>
+<text x="311.6" y="551.0" fill="#c0392b" text-anchor="end" font-family="Consolas, Courier New, monospace" font-size="13" font-weight="600">2 × 450.1 W</text>
+<line x1="497.6" y1="318.8" x2="587.6" y2="318.8" stroke="#c0392b" stroke-width="3.0" marker-end="url(#fleche_chaud)"/>
+<text x="597.6" y="298.8" fill="#1f2933" text-anchor="start" font-family="Consolas, Courier New, monospace" font-size="12" font-weight="600">right + left</text>
+<text x="597.6" y="314.8" fill="#1f2933" text-anchor="start" font-family="Consolas, Courier New, monospace" font-size="12">Vertical · L × H = 0.90 m²</text>
+<text x="597.6" y="332.8" fill="#c0392b" text-anchor="start" font-family="Consolas, Courier New, monospace" font-size="13" font-weight="600">2 × 337.6 W</text>
+<text x="876.0" y="80.0" fill="#c0392b" text-anchor="end" font-family="Consolas, Courier New, monospace" font-size="13" font-weight="600">total : 1956.6 W</text>
+<rect x="24.0" y="628.0" width="852.0" height="60.0" rx="4" fill="#f4f6f8" stroke="#c9d1d9" stroke-width="1.0"/>
+<text x="34.0" y="648.0" fill="#1f2933" text-anchor="start" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12">front et back mesurent W × H, left et right L × H, top et bottom L × W ; back, left et bottom sont cachées.</text>
+<text x="34.0" y="664.0" fill="#1f2933" text-anchor="start" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12">Flux = convection naturelle + rayonnement, calculés par ParallelepipedicBody.calculate() (objet.df) ;</text>
+<text x="34.0" y="680.0" fill="#1f2933" text-anchor="start" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12">chaque face a son propre Tp dans faces_config, et 'isolated': True annule son flux.</text>
+</svg>

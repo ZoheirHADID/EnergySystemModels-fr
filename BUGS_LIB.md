@@ -546,24 +546,6 @@
 - **Nature** : invariant n° 2 (domaine de validité nommé).
 - **Traitement dans le guide** : pièges nommés dans la page.
 
-## `PV.SolarSystem` — un onduleur par module, sans contrôle de compatibilité : onduleur de chaîne → production négative
-
-- **Page concernée** : `docs/source/009-pv-solaire/index.rst` (« Dimensionner
-  l'installation », étapes 2 et 3).
-- **Reproduction** : même météo que la page, `retrieve_module_inverter_data(
-  inverter_name="Fronius_International_GmbH__Fronius_Symo_15_0_3_480__480V_")` →
-  productible **−137 kWh/kWc/an** ; avec `ABB__PVI_CENTRAL_100_US__480V_` :
-  −1 994 kWh/kWc/an (`annual_energy` = −438 kWh par module).
-- **Cause** : `calculate_solar_parameters` applique `pvlib.inverter.sandia(dc['v_mp'],
-  dc['p_mp'], inverter)` au courant continu d'**un seul module** : pas de notion de
-  modules en série ni de chaînes, la consommation de veille (`Pso`, `Pnt`) d'un gros
-  onduleur l'emporte. Aucun contrôle de tension non plus : le couple par défaut met
-  un module de Voc 59,3 V (66,9 V à −10 °C) sur un micro-onduleur de `Vdcmax` 50 V.
-- **Nature** : résultat faux sans exception (invariant n° 2) ; le paquet ne
-  dimensionne ni chaînes, ni nombre d'onduleurs, ni autoconsommation.
-- **Traitement dans le guide** : pièges nommés ; le guide calcule chaînes, onduleurs
-  et production « onduleurs de chaîne » à partir de `pv.dc`.
-
 ## `MeteoCiel.DJU_costic` — DJU de rafraîchissement des journées mixtes affectés d'un facteur `b` en trop
 
 - **Page concernée** : `docs/source/008-meteo/degres_jours.rst` (section « Pièges »).
@@ -621,23 +603,6 @@
 - **Nature** : secret publié ; configuration utilisateur rangée dans le paquet installé.
 - **Traitement dans le guide** : l'utilisateur remplace la clé ; la clé livrée n'est pas
   reproduite.
-
-## `PV.SolarSystem.to_excel` — `openpyxl` requis mais non déclaré
-
-- **Page concernée** : `docs/source/009-pv-solaire/index.rst`.
-- **Reproduction** : `pv.to_excel("x.xlsx")` → `ModuleNotFoundError: No module named
-  'openpyxl'` (`ProductionElectriquePV.py:285`, `pd.ExcelWriter(..., engine='openpyxl')`).
-- **Constat** : `openpyxl` absent de `install_requires` (`setup.py`). Même remarque pour
-  `requests`, importé par `MeteoCiel` et `OpenWeatherMap` mais tiré seulement indirectement.
-- **Traitement dans le guide** : appel protégé par try/except, `pip install openpyxl` indiqué.
-
-## `PV.SolarSystem` — `timezone` inutilisé ; `orientation_study` impose module et onduleur par défaut
-
-- **Page concernée** : `docs/source/009-pv-solaire/index.rst` (Pièges).
-- **Constat** : `self.timezone` n'est lu nulle part ; calculs et découpage mensuel de `plot`
-  en UTC. `orientation_study` appelle `retrieve_module_inverter_data()` sans argument :
-  module de 2009 (220 Wc) et micro-onduleur US 208 V, non modifiables.
-- **Traitement dans le guide** : signalé.
 
 ## `Facture.TURPE` — période sans grille : `AttributeError` brut
 
@@ -828,7 +793,46 @@
   colle titre et état (« Air vapeur2.07 ») ; le nœud Source_P_h a un réglage
   « enthalpie (kJ/kg-K) ».
 
+## `openpyxl` et `requests` importés mais non déclarés dans `install_requires`
+
+- **Pages concernées** : `009-pv-solaire/index.rst` (`to_excel`), `008-meteo/*`.
+- **Constat** (2026-09-28) : `setup.py` ne déclare ni `openpyxl` (requis par
+  `SolarSystem.to_excel`, qui lève désormais une `ImportError` explicite) ni
+  `requests` (importé par `MeteoCiel` et `OpenWeatherMap`, tiré seulement
+  indirectement).
+- **Traitement dans le guide** : `pip install openpyxl` indiqué ; exemple protégé.
+
 ## Corrigés depuis, dans le dépôt source — ne pas rouvrir
+
+- **`PV` — aucun modèle de stockage par batterie, aucun bilan d'autoconsommation**
+  (manque relevé puis comblé le 2026-09-28, tests `test/PV/test_PV_batterie.py`).
+  `PV.StockageBatterie.Batterie` (réservoir d'énergie : capacité, puissances,
+  rendement, plage d'état de charge, autodécharge ; aucune valeur typique par
+  défaut), `simuler_autoconsommation()` (stratégie d'autoconsommation maximale,
+  bilan pas à pas) et `SolarSystem.autoconsommation()`. Vérifié par exécution dans
+  `009-pv-solaire/index.rst` (étapes 4 et 5, cran 5). Restent hors modèle, dits
+  dans la page : vieillissement, rendement variable, limites de courant/tension,
+  pilotage tarifaire, bilan économique du stockage.
+
+- **`PV.SolarSystem.plot` — une année météo en UTC donnait 13 mois locaux et
+  `ValueError`** (régression de la correction du fuseau, relevée puis corrigée le
+  2026-09-28). `_par_mois()` regroupe désormais par numéro de mois local (1 à 12)
+  dans `plot`, `to_excel` (feuille Mensuel) et `orientation_study` ; test ajouté.
+  Vérifié par exécution : la météo UTC de `009-pv-solaire/index.rst` passe `plot()`.
+
+- **`PV.SolarSystem` — un onduleur par module, production négative avec un onduleur
+  de chaîne, couple par défaut incompatible, `timezone` inutilisé, `orientation_study`
+  figé sur les défauts, `to_excel` sans message** (relevés puis corrigés le
+  2026-09-28 dans le dépôt source, tests `test/PV/test_PV_cablage.py`). L'onduleur
+  reçoit désormais `modules_par_chaine × chaines_par_onduleur` (× `nb_onduleurs`),
+  dimensionnés par `dimensionner_chaines()` (Voc à `t_min_site` ≤ `Vdcmax`, Vmp dans
+  la plage MPPT, courant ≤ `Idcmax`, DC/AC ≤ `ratio_dc_ac_max`) ou imposés et
+  vérifiés (`ValueError` / `UserWarning`) ; couple incompatible et production ≤ 0
+  lèvent `ValueError` ; onduleur par défaut Fronius Primo 3,8 kW (11 modules × 1
+  chaîne, 2,42 kWc) ; `timezone` sert au découpage mensuel ; `orientation_study`
+  accepte `module_name`, `inverter_name`, `weather` ; `to_excel` sans `openpyxl` lève
+  une `ImportError` explicite. Vérifié par exécution dans
+  `009-pv-solaire/index.rst` (cran 5).
 
 - **`HEX.AirCoolerDesignHEX` ne calculait pas et dimensionnait mal** (relevé et
   corrigé le 28/09/2026). Avant : `calculate()` levait `TypeError` avec NumPy ≥ 2

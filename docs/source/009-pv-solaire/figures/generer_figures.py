@@ -2,7 +2,9 @@
 
 Le script exécute, dans l'ordre, les blocs Python de ``../index.rst`` (ceux que le
 banc documentaire exécute : les extraits réseau sont écartés), puis enregistre les
-figures renvoyées par ``pv.plot()`` et ``SolarSystem.plot_orientation_study()``.
+figures renvoyées par ``pv.plot()`` et ``SolarSystem.plot_orientation_study()``,
+ainsi que la figure de stockage tracée à partir des séries de
+``PV.StockageBatterie.simuler_autoconsommation``.
 Ainsi la figure publiée est exactement celle de l'exemple de la page.
 
     py -3.12 docs/source/009-pv-solaire/figures/generer_figures.py
@@ -43,6 +45,7 @@ def main() -> None:
         os.chdir(ancien)
     espace["fig"].savefig(ICI / "009_pv_plot_production.png", dpi=110, bbox_inches="tight")
     espace["fig_orientation"].savefig(ICI / "009_pv_plot_orientation.png", dpi=110, bbox_inches="tight")
+    espace["fig_batterie"].savefig(ICI / "009_pv_batterie.png", dpi=110, bbox_inches="tight")
     print("figures écrites dans", ICI)
 
 

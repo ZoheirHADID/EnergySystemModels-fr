@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="360" viewBox="0 0 960 360" role="img" aria-label="Nœud multi-sorties : Diviseur">
+<title>Nœud multi-sorties : Diviseur</title>
+<defs><marker id="fleche_chaud" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" fill="#c0392b"/></marker><marker id="fleche_froid" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" fill="#2670a8"/></marker></defs>
+<defs><marker id="fleche" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-end"><path d="M 0 0 L 10 5 L 0 10 z" fill="#1f2933"/></marker><marker id="fleche_cote" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-end"><path d="M 0 0 L 10 5 L 0 10 z" fill="#b46a00"/></marker><marker id="fleche_flux" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-end"><path d="M 0 0 L 10 5 L 0 10 z" fill="#2670a8"/></marker></defs>
+<rect width="960" height="360" fill="#ffffff"/>
+<text x="24.0" y="30.0" fill="#1f2933" text-anchor="start" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="15" font-weight="600">Nœud multi-sorties : Diviseur</text>
+<rect x="40.0" y="160.0" width="170.0" height="58.0" rx="6" fill="#e6f1f8" stroke="#1d5f86" stroke-width="1.6"/>
+<g transform="translate(48.00 178.19) scale(0.1310)"><g transform="translate(-91 -451)"><path d="M92.5 494.5 300.5 494.5 300.5 455.5 378.5 533.5 300.5 611.501 300.5 572.501 92.5 572.501Z" stroke="#000000" stroke-width="3.4375" stroke-miterlimit="8" fill="none" fill-rule="evenodd" /><path d="M92.5 455.5 92.5003 611.405" stroke="#000000" stroke-width="3.4375" stroke-miterlimit="8" fill="none" fill-rule="evenodd" /></g></g>
+<line x1="92.0" y1="168.0" x2="92.0" y2="210.0" stroke="#1d5f86" stroke-width="0.8"/>
+<text x="151.0" y="183.0" fill="#1f2933" text-anchor="middle" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="13" font-weight="600">Source</text>
+<text x="151.0" y="203.0" fill="#1f2933" text-anchor="middle" font-family="Consolas, Courier New, monospace" font-size="11">[fluide, F, P, h]</text>
+<rect x="330.0" y="160.0" width="200.0" height="58.0" rx="6" fill="#e5f4ec" stroke="#1e7b4a" stroke-width="1.6"/>
+<g transform="translate(338.00 170.00) scale(0.3800)"><path fill="#000000" fill-rule="evenodd" d="M 92,11.7 L 42.9,43 L 8,43 L 8,57 L 42.9,57 L 92,88.3 L 92,71.7 L 58,50 L 92,28.3 Z" />
+</g>
+<line x1="382.0" y1="168.0" x2="382.0" y2="210.0" stroke="#1e7b4a" stroke-width="0.8"/>
+<text x="456.0" y="183.0" fill="#1f2933" text-anchor="middle" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="13" font-weight="600">Diviseur</text>
+<text x="456.0" y="203.0" fill="#1f2933" text-anchor="middle" font-family="Consolas, Courier New, monospace" font-size="11">Ratio vers sortie 1</text>
+<rect x="680.0" y="80.0" width="240.0" height="58.0" rx="6" fill="#f7f9fb" stroke="#1f2933" stroke-width="1.6"/>
+<g transform="translate(688.00 98.19) scale(0.1310)"><g transform="translate(-91 -671)"><path d="M92.5 714.5 300.5 714.5 300.5 675.5 378.5 753.5 300.5 831.501 300.5 792.501 92.5 792.501Z" stroke="#000000" stroke-width="3.4375" stroke-miterlimit="8" fill="none" fill-rule="evenodd" /><path d="M378.5 675.5 378.5 831.405" stroke="#000000" stroke-width="3.4375" stroke-miterlimit="8" fill="none" fill-rule="evenodd" /></g></g>
+<line x1="732.0" y1="88.0" x2="732.0" y2="130.0" stroke="#1f2933" stroke-width="0.8"/>
+<text x="826.0" y="103.0" fill="#1f2933" text-anchor="middle" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="13" font-weight="600">Output 1</text>
+<text x="826.0" y="123.0" fill="#1f2933" text-anchor="middle" font-family="Consolas, Courier New, monospace" font-size="11">F_b = Ratio × F</text>
+<rect x="680.0" y="240.0" width="240.0" height="58.0" rx="6" fill="#f7f9fb" stroke="#1f2933" stroke-width="1.6"/>
+<g transform="translate(688.00 258.19) scale(0.1310)"><g transform="translate(-91 -671)"><path d="M92.5 714.5 300.5 714.5 300.5 675.5 378.5 753.5 300.5 831.501 300.5 792.501 92.5 792.501Z" stroke="#000000" stroke-width="3.4375" stroke-miterlimit="8" fill="none" fill-rule="evenodd" /><path d="M378.5 675.5 378.5 831.405" stroke="#000000" stroke-width="3.4375" stroke-miterlimit="8" fill="none" fill-rule="evenodd" /></g></g>
+<line x1="732.0" y1="248.0" x2="732.0" y2="290.0" stroke="#1f2933" stroke-width="0.8"/>
+<text x="826.0" y="263.0" fill="#1f2933" text-anchor="middle" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="13" font-weight="600">Output 2</text>
+<text x="826.0" y="283.0" fill="#1f2933" text-anchor="middle" font-family="Consolas, Courier New, monospace" font-size="11">F_c = (1 − Ratio) × F</text>
+<polyline points="210.00,189.00 328.00,189.00" fill="none" stroke="#2670a8" stroke-width="2.0" stroke-linejoin="round" marker-end="url(#fleche_flux)"/>
+<text x="269.0" y="181.0" fill="#2670a8" text-anchor="middle" font-family="Consolas, Courier New, monospace" font-size="11">entrée</text>
+<polyline points="530.00,180.00 600.00,180.00 600.00,109.00 678.00,109.00" fill="none" stroke="#2670a8" stroke-width="2.0" stroke-linejoin="round" marker-end="url(#fleche_flux)"/>
+<text x="606.0" y="150.0" fill="#2670a8" text-anchor="start" font-family="Consolas, Courier New, monospace" font-size="11">sortie 1</text>
+<polyline points="530.00,198.00 600.00,198.00 600.00,269.00 678.00,269.00" fill="none" stroke="#2670a8" stroke-width="2.0" stroke-linejoin="round" marker-end="url(#fleche_flux)"/>
+<text x="606.0" y="236.0" fill="#2670a8" text-anchor="start" font-family="Consolas, Courier New, monospace" font-size="11">sortie 2</text>
+<rect x="24.0" y="315.0" width="22.0" height="14.0" rx="3" fill="#e6f1f8" stroke="#1d5f86" stroke-width="1.4"/>
+<text x="54.0" y="326.0" fill="#1f2933" text-anchor="start" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12">donnée fournie par l'utilisateur</text>
+<rect x="289.7" y="315.0" width="22.0" height="14.0" rx="3" fill="#e5f4ec" stroke="#1e7b4a" stroke-width="1.4"/>
+<text x="319.7" y="326.0" fill="#1f2933" text-anchor="start" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12">calcul de la bibliothèque</text>
+<rect x="511.7" y="315.0" width="22.0" height="14.0" rx="3" fill="#f7f9fb" stroke="#1f2933" stroke-width="1.4"/>
+<text x="541.7" y="326.0" fill="#1f2933" text-anchor="start" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12">mécanique du code ou de l'IHM</text>
+</svg>

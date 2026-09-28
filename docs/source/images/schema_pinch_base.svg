@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="360" viewBox="0 0 960 360" role="img" aria-label="Pinch — analyse de base">
+<title>Pinch — analyse de base</title>
+<defs><marker id="fleche_chaud" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" fill="#c0392b"/></marker><marker id="fleche_froid" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" fill="#2670a8"/></marker></defs>
+<defs><marker id="fleche" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-end"><path d="M 0 0 L 10 5 L 0 10 z" fill="#1f2933"/></marker><marker id="fleche_cote" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-end"><path d="M 0 0 L 10 5 L 0 10 z" fill="#b46a00"/></marker><marker id="fleche_flux" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-end"><path d="M 0 0 L 10 5 L 0 10 z" fill="#2670a8"/></marker></defs>
+<rect width="960" height="360" fill="#ffffff"/>
+<text x="24.0" y="30.0" fill="#1f2933" text-anchor="start" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="15" font-weight="600">Pinch — analyse de base</text>
+<rect x="30.0" y="60.0" width="170.0" height="58.0" rx="6" fill="#e6f1f8" stroke="#1d5f86" stroke-width="1.6"/>
+<text x="115.0" y="83.0" fill="#1f2933" text-anchor="middle" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="13" font-weight="600">Flux chauds</text>
+<text x="115.0" y="103.0" fill="#1f2933" text-anchor="middle" font-family="Consolas, Courier New, monospace" font-size="11">Ti &gt; To</text>
+<rect x="30.0" y="240.0" width="170.0" height="58.0" rx="6" fill="#e6f1f8" stroke="#1d5f86" stroke-width="1.6"/>
+<text x="115.0" y="263.0" fill="#1f2933" text-anchor="middle" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="13" font-weight="600">Flux froids</text>
+<text x="115.0" y="283.0" fill="#1f2933" text-anchor="middle" font-family="Consolas, Courier New, monospace" font-size="11">Ti &lt; To</text>
+<rect x="270.0" y="150.0" width="170.0" height="58.0" rx="6" fill="#e6f1f8" stroke="#1d5f86" stroke-width="1.6"/>
+<text x="355.0" y="173.0" fill="#1f2933" text-anchor="middle" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="13" font-weight="600">DataFrame</text>
+<text x="355.0" y="193.0" fill="#1f2933" text-anchor="middle" font-family="Consolas, Courier New, monospace" font-size="11">Ti, To, mCp, dTmin</text>
+<rect x="510.0" y="150.0" width="170.0" height="58.0" rx="6" fill="#e5f4ec" stroke="#1e7b4a" stroke-width="1.6"/>
+<text x="595.0" y="173.0" fill="#1f2933" text-anchor="middle" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="13" font-weight="600">PinchAnalysis</text>
+<text x="595.0" y="193.0" fill="#1f2933" text-anchor="middle" font-family="Consolas, Courier New, monospace" font-size="11">cascade énergétique</text>
+<rect x="760.0" y="60.0" width="170.0" height="58.0" rx="6" fill="#e5f4ec" stroke="#1e7b4a" stroke-width="1.6"/>
+<text x="845.0" y="83.0" fill="#1f2933" text-anchor="middle" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="13" font-weight="600">Tracés</text>
+<text x="845.0" y="103.0" fill="#1f2933" text-anchor="middle" font-family="Consolas, Courier New, monospace" font-size="11">CCC, CCF, GCC</text>
+<rect x="760.0" y="240.0" width="170.0" height="58.0" rx="6" fill="#e5f4ec" stroke="#1e7b4a" stroke-width="1.6"/>
+<text x="845.0" y="263.0" fill="#1f2933" text-anchor="middle" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="13" font-weight="600">Réseau HEN</text>
+<text x="845.0" y="283.0" fill="#1f2933" text-anchor="middle" font-family="Consolas, Courier New, monospace" font-size="11">échangeurs</text>
+<polyline points="200.00,89.00 235.00,89.00 235.00,170.00 268.00,170.00" fill="none" stroke="#2670a8" stroke-width="2.0" stroke-linejoin="round" marker-end="url(#fleche_flux)"/>
+<text x="229.0" y="128.0" fill="#2670a8" text-anchor="end" font-family="Consolas, Courier New, monospace" font-size="11">sources</text>
+<polyline points="200.00,269.00 235.00,269.00 235.00,188.00 268.00,188.00" fill="none" stroke="#2670a8" stroke-width="2.0" stroke-linejoin="round" marker-end="url(#fleche_flux)"/>
+<text x="229.0" y="226.0" fill="#2670a8" text-anchor="end" font-family="Consolas, Courier New, monospace" font-size="11">besoins</text>
+<polyline points="440.00,179.00 508.00,179.00" fill="none" stroke="#2670a8" stroke-width="2.0" stroke-linejoin="round" marker-end="url(#fleche_flux)"/>
+<text x="474.0" y="171.0" fill="#2670a8" text-anchor="middle" font-family="Consolas, Courier New, monospace" font-size="11">Object(df)</text>
+<polyline points="680.00,170.00 715.00,170.00 715.00,89.00 758.00,89.00" fill="none" stroke="#2670a8" stroke-width="2.0" stroke-linejoin="round" marker-end="url(#fleche_flux)"/>
+<text x="709.0" y="128.0" fill="#2670a8" text-anchor="end" font-family="Consolas, Courier New, monospace" font-size="11">visualisations</text>
+<polyline points="680.00,188.00 715.00,188.00 715.00,269.00 758.00,269.00" fill="none" stroke="#2670a8" stroke-width="2.0" stroke-linejoin="round" marker-end="url(#fleche_flux)"/>
+<text x="709.0" y="226.0" fill="#2670a8" text-anchor="end" font-family="Consolas, Courier New, monospace" font-size="11">appariements</text>
+<rect x="24.0" y="323.0" width="22.0" height="14.0" rx="3" fill="#e6f1f8" stroke="#1d5f86" stroke-width="1.4"/>
+<text x="54.0" y="334.0" fill="#1f2933" text-anchor="start" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12">donnée fournie par l'utilisateur</text>
+<rect x="289.7" y="323.0" width="22.0" height="14.0" rx="3" fill="#e5f4ec" stroke="#1e7b4a" stroke-width="1.4"/>
+<text x="319.7" y="334.0" fill="#1f2933" text-anchor="start" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12">calcul de la bibliothèque</text>
+</svg>

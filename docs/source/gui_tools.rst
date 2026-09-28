@@ -17,9 +17,10 @@ moteur ``NodeEditor`` pour manipuler des nœuds et des connexions, puis appelle
 les modèles physiques de la bibliothèque : compresseur, échangeur, pompe,
 batterie, humidificateur, réchauffeur, etc.
 
-.. figure:: images/gui_pyqtsimulator_architecture.svg
+.. figure:: images/schema_ihm_architecture.svg
    :alt: Architecture du simulateur PyQt
    :align: center
+   :width: 100%
 
    Architecture générale : la fenêtre PyQt héberge une scène NodeEditor, les
    nœuds enregistrés appellent les modèles EnergySystemModels, puis les valeurs
@@ -154,9 +155,10 @@ Lecture d'un graphe
 
 Pour un graphe simple ``Source -> Réchauffeur -> Output`` :
 
-.. figure:: images/gui_node_declaratif_heater.svg
+.. figure:: images/schema_ihm_rechauffeur.svg
    :alt: Graphe source, réchauffeur, sortie
    :align: center
+   :width: 100%
 
    Le nœud source fournit le fluide. Le réchauffeur convertit la liste d'entrée
    en ``FluidPort``, appelle le modèle ``Heater.Object`` puis renvoie une liste
@@ -185,9 +187,10 @@ Certains composants possèdent plusieurs sorties physiques. C'est le cas du
 ``Diviseur``, du ``Séparateur liq/vap`` et du ``Ballon de flash``. Dans ces
 cas, le nœud renvoie une liste de valeurs, une par socket de sortie.
 
-.. figure:: images/gui_node_splitter_multisortie.svg
+.. figure:: images/schema_ihm_diviseur.svg
    :alt: Exemple de nœud Diviseur avec deux sorties
    :align: center
+   :width: 100%
 
    Le ``Diviseur`` conserve le même fluide, la même pression et la même
    enthalpie sur les deux branches. Seul le débit est réparti entre les deux
@@ -231,9 +234,10 @@ température d'un ballon mélangé après un pas de temps, à partir de la
 température initiale, du volume, du débit entrant et des pertes vers
 l'ambiance.
 
-.. figure:: images/gui_node_mixed_storage_pas_temps.svg
+.. figure:: images/schema_ihm_ballon.svg
    :alt: Exemple de ballon de stockage dans PyqtSimulator
    :align: center
+   :width: 100%
 
    Le nœud reçoit un flux entrant, calcule l'état du ballon après ``dt`` puis
    renvoie un flux de sortie dont l'enthalpie correspond à la température du
@@ -298,9 +302,10 @@ Lorsqu'un paramètre est modifié, le nœud est marqué comme sale et ses
 descendants doivent être recalculés. L'évaluation d'un nœud de sortie remonte
 le graphe jusqu'aux sources, puis propage les valeurs vers l'aval.
 
-.. figure:: images/gui_evaluation_flow.svg
+.. figure:: images/schema_ihm_evaluation.svg
    :alt: Cycle d'évaluation d'un graphe
    :align: center
+   :width: 100%
 
    Les champs Qt déclenchent ``onInputChanged``. Le nœud aval demande ensuite
    l'évaluation des nœuds amont, récupère leurs valeurs et appelle son modèle

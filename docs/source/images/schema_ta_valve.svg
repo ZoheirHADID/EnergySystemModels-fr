@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="390" viewBox="0 0 960 390" role="img" aria-label="Assemblage d'une vanne d'équilibrage TA">
+<title>Assemblage d'une vanne d'équilibrage TA</title>
+<defs><marker id="fleche" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-end"><path d="M 0 0 L 10 5 L 0 10 z" fill="#1f2933"/></marker><marker id="fleche_cote" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-end"><path d="M 0 0 L 10 5 L 0 10 z" fill="#b46a00"/></marker><marker id="fleche_flux" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-end"><path d="M 0 0 L 10 5 L 0 10 z" fill="#2670a8"/></marker></defs>
+<rect width="960" height="390" fill="#ffffff"/>
+<g transform="translate(64.00 123.83) scale(0.3172)"><g transform="translate(-91 -451)"><path d="M92.5 494.5 300.5 494.5 300.5 455.5 378.5 533.5 300.5 611.501 300.5 572.501 92.5 572.501Z" stroke="#000000" stroke-width="3.4375" stroke-miterlimit="8" fill="none" fill-rule="evenodd" /><path d="M92.5 455.5 92.5003 611.405" stroke="#000000" stroke-width="3.4375" stroke-miterlimit="8" fill="none" fill-rule="evenodd" /></g></g>
+<text x="64.0" y="216.0" fill="#1f2933" text-anchor="start" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="13" font-weight="600">Source.Object()</text>
+<text x="64.0" y="232.0" fill="#1f2933" text-anchor="start" font-family="Consolas, Courier New, monospace" font-size="12">fluid = &quot;Water&quot;</text>
+<text x="64.0" y="248.0" fill="#1f2933" text-anchor="start" font-family="Consolas, Courier New, monospace" font-size="12">Ti_degC = 25</text>
+<text x="64.0" y="264.0" fill="#1f2933" text-anchor="start" font-family="Consolas, Courier New, monospace" font-size="12">Pi_bar = 3.0</text>
+<text x="64.0" y="280.0" fill="#1f2933" text-anchor="start" font-family="Consolas, Courier New, monospace" font-size="12">F_m3h = 40</text>
+<circle cx="156.0" cy="150.0" r="7.0" fill="#ffffff" stroke="#e8793a" stroke-width="4"/>
+<g transform="translate(804.00 123.83) scale(0.3172)"><g transform="translate(-91 -671)"><path d="M92.5 714.5 300.5 714.5 300.5 675.5 378.5 753.5 300.5 831.501 300.5 792.501 92.5 792.501Z" stroke="#000000" stroke-width="3.4375" stroke-miterlimit="8" fill="none" fill-rule="evenodd" /><path d="M378.5 675.5 378.5 831.405" stroke="#000000" stroke-width="3.4375" stroke-miterlimit="8" fill="none" fill-rule="evenodd" /></g></g>
+<text x="804.0" y="216.0" fill="#1f2933" text-anchor="start" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="13" font-weight="600">Sink.Object()</text>
+<text x="804.0" y="232.0" fill="#1f2933" text-anchor="start" font-family="Consolas, Courier New, monospace" font-size="12">Po_bar = 2.0</text>
+<circle cx="804.0" cy="150.0" r="7.0" fill="#ffffff" stroke="#1d5f86" stroke-width="4"/>
+<rect x="330.0" y="134.0" width="116.0" height="32.0" rx="0" fill="#cfe8f6" stroke="none" stroke-width="0"/>
+<line x1="330.0" y1="134.0" x2="446.0" y2="134.0" stroke="#1f2933" stroke-width="2.4"/>
+<line x1="330.0" y1="166.0" x2="446.0" y2="166.0" stroke="#1f2933" stroke-width="2.4"/>
+<rect x="514.0" y="134.0" width="116.0" height="32.0" rx="0" fill="#cfe8f6" stroke="none" stroke-width="0"/>
+<line x1="514.0" y1="134.0" x2="630.0" y2="134.0" stroke="#1f2933" stroke-width="2.4"/>
+<line x1="514.0" y1="166.0" x2="630.0" y2="166.0" stroke="#1f2933" stroke-width="2.4"/>
+<polyline points="446.00,128.00 480.00,150.00 446.00,172.00 446.00,128.00" fill="#ffffff" stroke="#1f2933" stroke-width="2.2" stroke-linejoin="round"/>
+<polyline points="514.00,128.00 480.00,150.00 514.00,172.00 514.00,128.00" fill="#ffffff" stroke="#1f2933" stroke-width="2.2" stroke-linejoin="round"/>
+<line x1="480.0" y1="150.0" x2="480.0" y2="104.0" stroke="#1f2933" stroke-width="2.0"/>
+<line x1="454.0" y1="104.0" x2="506.0" y2="104.0" stroke="#1f2933" stroke-width="3.0"/>
+<line x1="390.0" y1="166.0" x2="390.0" y2="184.0" stroke="#1f2933" stroke-width="2.0"/>
+<circle cx="390.0" cy="188.0" r="4.0" fill="#ffffff" stroke="#1f2933" stroke-width="1.6"/>
+<line x1="570.0" y1="166.0" x2="570.0" y2="184.0" stroke="#1f2933" stroke-width="2.0"/>
+<circle cx="570.0" cy="188.0" r="4.0" fill="#ffffff" stroke="#1f2933" stroke-width="1.6"/>
+<circle cx="330.0" cy="150.0" r="7.0" fill="#ffffff" stroke="#1d5f86" stroke-width="4"/>
+<circle cx="630.0" cy="150.0" r="7.0" fill="#ffffff" stroke="#e8793a" stroke-width="4"/>
+<polyline points="163.00,150.00 321.00,150.00" fill="none" stroke="#2670a8" stroke-width="2.0" stroke-linejoin="round" marker-end="url(#fleche_flux)"/>
+<text x="242.0" y="170.0" fill="#2670a8" text-anchor="middle" font-family="Consolas, Courier New, monospace" font-size="12">Fluid_connect</text>
+<polyline points="637.00,150.00 795.00,150.00" fill="none" stroke="#2670a8" stroke-width="2.0" stroke-linejoin="round" marker-end="url(#fleche_flux)"/>
+<text x="716.0" y="170.0" fill="#2670a8" text-anchor="middle" font-family="Consolas, Courier New, monospace" font-size="12">Fluid_connect</text>
+<text x="330.0" y="216.0" fill="#1f2933" text-anchor="start" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="13" font-weight="600">TA_Valve.Object()</text>
+<text x="330.0" y="233.0" fill="#1f2933" text-anchor="start" font-family="Consolas, Courier New, monospace" font-size="12">dn = &quot;STAF-DN100&quot;</text>
+<text x="330.0" y="250.0" fill="#1f2933" text-anchor="start" font-family="Consolas, Courier New, monospace" font-size="12">nb_tours = 3.8   # tours</text>
+<text x="324.0" y="106.0" fill="#1f2933" text-anchor="start" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="13" font-weight="600">Inlet</text>
+<text x="590.0" y="106.0" fill="#1f2933" text-anchor="start" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="13" font-weight="600">Outlet</text>
+<text x="514.0" y="96.0" fill="#1f2933" text-anchor="start" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="13" font-weight="600">volant</text>
+<text x="582.0" y="193.0" fill="#1f2933" text-anchor="start" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="13" font-weight="600">prises de mesure</text>
+<rect x="24.0" y="334.0" width="912.0" height="44.0" rx="4" fill="#f4f6f8" stroke="#c9d1d9" stroke-width="1.0"/>
+<text x="34.0" y="354.0" fill="#1f2933" text-anchor="start" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12">Exécuté : Kv = 55,4 m³/h (table IMI TA interpolée à 3,8 tours) ; perte de charge = 52 131,5 Pa.</text>
+<text x="34.0" y="370.0" fill="#1f2933" text-anchor="start" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12">Le Sink impose Outlet.P = 200 000 Pa ; la pression d'entrée est recalculée : 252 131,5 Pa.</text>
+</svg>

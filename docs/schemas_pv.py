@@ -9,6 +9,11 @@ Une figure pour ``009-pv-solaire/index.rst``, qui documente
   charges du site, compteur, réseau. Chaque composant porte un numéro repris
   dans le tableau du bas, qui dit **ce que la bibliothèque en fait** : entrée
   (bleu), grandeur calculée (vert) ou composant non modélisé (gris, pointillé).
+  Le générateur et l'onduleur sont verts : la bibliothèque câble les chaînes
+  (``dimensionner_chaines``), vérifie tensions et courants et calcule la
+  production du système (``ac_systeme``). Le stockage (``Batterie``) et le
+  bilan au compteur (``SolarSystem.autoconsommation``, ``simuler_autoconsommation``)
+  sont verts ; la courbe de charge du site est une entrée.
 
 Les noms portés sur la figure sont ceux du code (``pv.weather``,
 ``total_irradiance``, ``cell_temperature``, ``dc``, ``ac``, ``summary``…),
@@ -141,7 +146,7 @@ def installation(nom="schema_pv_installation.svg") -> Path:
 
     # --- 2. générateur ----------------------------------------------------
     s += _boite(140, 118, 236, 128, "calcul", "Générateur PV",
-                "nb_modules × module, azimut, inclinaison")
+                "modules en série × chaînes, azimut, inclinaison")
     s += _champ(178, 134)
     s += _pastille(140, 118, 2, CALCUL)
 
@@ -154,15 +159,15 @@ def installation(nom="schema_pv_installation.svg") -> Path:
     # --- 4. onduleur ------------------------------------------------------
     s += _cable([(522, Y_BUS), (570, Y_BUS)], DC)
     s.append(_texte(546, Y_BUS - 8, "câble DC", 10, DC, "middle"))
-    s += _boite(570, 160, 100, 90, "calcul", "Onduleur", "base CEC, 1 par module")
+    s += _boite(570, 160, 100, 90, "calcul", "Onduleur", "chaînes dimensionnées")
     s += _onduleur(570, 160, 100, 90)
     s += _pastille(570, 160, 4, CALCUL)
 
     # --- 5. stockage ------------------------------------------------------
-    s += _cable([(620, 292), (620, 322)], DC, "6 4")
-    s += _boite(580, 322, 80, 70, "absent", "Stockage", "batterie")
+    s += _cable([(620, 292), (620, 322)], DC)
+    s += _boite(580, 322, 80, 70, "calcul", "Stockage", "Batterie")
     s += _batterie(580, 322, 80, 70)
-    s += _pastille(580, 322, 5, ABSENT)
+    s += _pastille(580, 322, 5, CALCUL)
 
     # --- 6. protections AC ------------------------------------------------
     s += _cable([(670, Y_BUS), (716, Y_BUS)], AC)
@@ -176,16 +181,16 @@ def installation(nom="schema_pv_installation.svg") -> Path:
     s.append(_rect(860, 150, 16, 110, TRAIT, TRAIT, 2, 1))
     s.append(_texte(868, 140, "TGBT", 12, TRAIT, "middle", gras=True))
     s += _cable([(868, 260), (868, 322)], AC)
-    s += _boite(820, 322, 96, 70, "absent", "Charges du site", "profil de consommation")
+    s += _boite(820, 322, 96, 70, "entree", "Charges du site", "courbe de charge")
     s += _usine(820, 322, 96, 70)
-    s += _pastille(820, 322, 7, ABSENT)
+    s += _pastille(820, 322, 7, ENTREE)
 
     # --- 8. compteur ------------------------------------------------------
     s += _cable([(876, Y_BUS), (940, Y_BUS)], AC)
-    s += _boite(940, 172, 84, 66, "absent", "Compteur", "injection / soutirage")
+    s += _boite(940, 172, 84, 66, "calcul", "Compteur", "injection / soutirage")
     s.append(_texte(982, 204, "kWh", 14, ABSENT, "middle", MONO, gras=True))
     s.append(_texte(982, 224, "⇄", 16, ABSENT, "middle"))
-    s += _pastille(940, 172, 8, ABSENT)
+    s += _pastille(940, 172, 8, CALCUL)
 
     # --- 9. réseau --------------------------------------------------------
     s += _cable([(1024, Y_BUS), (1110, Y_BUS)], AC)
@@ -208,13 +213,13 @@ def installation(nom="schema_pv_installation.svg") -> Path:
     # --- tableau : ce que fait la bibliothèque ----------------------------
     lignes = [
         (1, ENTREE, "Météo horaire", "pv.weather : ghi, dni, dhi, temp_air, wind_speed — ou retrieve_weather_data() (PVGIS)"),
-        (2, CALCUL, "Générateur", "entrées azimut, inclinaison, module_name, nb_modules → total_irradiance, cell_temperature, dc"),
+        (2, CALCUL, "Générateur", "entrées azimut, inclinaison, module_name → total_irradiance, cell_temperature, dc, dc_systeme"),
         (3, ABSENT, "Protections DC", "fusibles, sectionneur, parafoudre, sections de câble : non modélisés"),
-        (4, CALCUL, "Onduleur", "entrée inverter_name → ac (W, horaire) ; calculé pour UN module par onduleur"),
-        (5, ABSENT, "Stockage", "batterie : non modélisée"),
+        (4, CALCUL, "Onduleur", "entrée inverter_name → dimensionner_chaines(), ratio_dc_ac, ac_systeme (W, horaire)"),
+        (5, CALCUL, "Stockage", "Batterie(capacite_kwh, puissance_charge_kw, rendement…) → soc, charge, decharge"),
         (6, ABSENT, "Protections AC", "disjoncteur, différentiel, pertes de câble : non modélisés"),
-        (7, ABSENT, "Charges du site", "profil de consommation : à fournir, autoconsommation calculée à part"),
-        (8, ABSENT, "Compteur", "injection / soutirage : calculés à part, depuis pv.ac × nb_modules"),
+        (7, ENTREE, "Charges du site", "consommation_kw : courbe de charge horaire du site (entrée)"),
+        (8, CALCUL, "Compteur", "autoconsommation() / simuler_autoconsommation() → injection, soutirage"),
         (9, ABSENT, "Réseau", "tarif de rachat ou prix évité : tarif_elec_eur_mwh de summary()"),
     ]
     y0 = 502
