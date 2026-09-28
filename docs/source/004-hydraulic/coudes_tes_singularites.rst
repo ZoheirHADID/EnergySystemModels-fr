@@ -32,6 +32,14 @@ Coudes
    Assemblage d'un coude vif : ``Inlet`` reçoit la sortie de la ``Source``, ``Outlet``
    alimente le ``Sink``. Paramètres par défaut du code, résultat exécuté en cartouche.
 
+.. figure:: ../images/004_edgedbend_courbe_reseau.svg
+   :alt: Courbe de réseau du coude vif
+   :align: center
+   :width: 80%
+
+   Courbe de réseau du même coude vif : perte de charge en fonction du débit, point
+   de fonctionnement de l'assemblage ci-dessus.
+
 Singularités de section
 -----------------------
 
@@ -56,6 +64,13 @@ Singularités de section
    Rétrécissement brusque : ``d_hyd_large`` est le diamètre **amont** (``Inlet``),
    ``d_hyd_small`` le diamètre **aval** (``Outlet``).
 
+.. figure:: ../images/004_suddencontraction_courbe_reseau.svg
+   :alt: Courbe de réseau du rétrécissement brusque
+   :align: center
+   :width: 80%
+
+   Courbe de réseau du rétrécissement brusque ci-dessus.
+
 .. figure:: ../images/assemblage_suddenexpansion.svg
    :alt: Source, élargissement brusque SuddenExpansion et Sink
    :align: center
@@ -63,6 +78,13 @@ Singularités de section
 
    Élargissement brusque : les rôles s'inversent — ``d_hyd_small`` en amont,
    ``d_hyd_large`` en aval. Mesuré : la pression **remonte** de 85 Pa.
+
+.. figure:: ../images/004_suddenexpansion_courbe_reseau.svg
+   :alt: Courbe de réseau de l'élargissement brusque
+   :align: center
+   :width: 80%
+
+   Courbe de réseau de l'élargissement brusque ci-dessus.
 
 Tés (jonctions 3 ports)
 -----------------------
@@ -90,6 +112,14 @@ Tés (jonctions 3 ports)
    Té convergent : **deux** composants amont, un sur le passage droit
    (``Inlet_St``), un sur la branche (``Inlet_S``) ; les débits s'additionnent.
 
+.. figure:: ../images/004_convergingtee_courbe_reseau.svg
+   :alt: Courbes de réseau du té convergent
+   :align: center
+   :width: 80%
+
+   Courbes de réseau du té convergent : une courbe par chemin, passage droit et
+   branche vers le collecteur.
+
 .. figure:: ../images/assemblage_divergingtee.svg
    :alt: Une Source vers un té divergent DivergingTee, puis deux Sinks
    :align: center
@@ -97,6 +127,23 @@ Tés (jonctions 3 ports)
 
    Té divergent : le débit de la branche s'**impose** par ``Outlet_S.F`` ; le passage
    droit ``Outlet_St`` reçoit le reste (1,5 − 0,5 = 1,0 kg/s, mesuré).
+
+.. figure:: ../images/004_divergingtee_courbe_reseau.svg
+   :alt: Courbes de réseau du té divergent
+   :align: center
+   :width: 80%
+
+   Courbes de réseau du té divergent : la branche latérale perd de la pression, le
+   passage droit en **regagne** (courbe sous zéro, −53 Pa au point de fonctionnement).
+
+.. note::
+   **D'où viennent ces courbes.** Chacune est tracée par la bibliothèque elle-même,
+   par le chemin qu'emprunte le nœud de l'IHM : ``compute_network_curve(modele,
+   **modele.network_plot_kwargs())`` puis ``render_network_figure``, importés de
+   ``ThermodynamicCycles.Hydraulic.network_plot``. La méthode ``modele.Plot()``,
+   plus directe, lève aujourd'hui un ``TypeError`` (arguments ``info``,
+   ``curve_label`` ou ``regime`` refusés) pour **les six modèles de cette page** :
+   utilisez ces deux fonctions à la place.
 
 .. note::
    Ces modèles sont **bidirectionnels** : si la pression d'une sortie est imposée
@@ -203,6 +250,19 @@ Lecture : à 1 m/s, ce coude coûte 170 Pa, dont 84 % par la déviation
 0,051). ``regime = kRe`` signifie que Re (1,1·10⁵) est sous 2·10⁵ : la
 correction de Reynolds du diagramme s'applique. ``dP_Pa`` est la grandeur à
 reporter dans un bilan de réseau ; ``P_out_Pa`` est déjà la pression aval.
+
+.. figure:: ../images/004_curvedbend_courbe_reseau.svg
+   :alt: Courbe de réseau du coude courbe DN50 1.5 D
+   :align: center
+   :width: 80%
+
+   Courbe de réseau du coude de l'exemple : 170 Pa à 7,32 m³/h.
+
+Le **saut** vers 13,4 m³/h n'est pas un défaut de tracé. À Re = 2·10⁵, le
+diagramme 6.1 change de ligne dans sa table de correction de rugosité : mesuré sur
+ce coude, ``kD`` passe de 1,338 à 1,900 pendant que ``kRe`` tombe de 1,099 à 1 —
+``ksi_loc`` augmente de 29 % d'un coup (0,252 → 0,326). La source publie une
+table, pas une loi continue ; le modèle l'applique telle quelle.
 
 Ce qu'on personnalise
 ~~~~~~~~~~~~~~~~~~~~~

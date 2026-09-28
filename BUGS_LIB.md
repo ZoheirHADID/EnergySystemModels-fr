@@ -63,6 +63,31 @@
 - **Traitement dans le guide** : non cités ; les exemples du guide sont écrits et
   exécutés à part.
 
+## `Hydraulic.<Modèle>.Plot()` — `TypeError` pour les 10 modèles qui délèguent à `plot_pressure_network`
+
+- **Page concernée** : `docs/source/004-hydraulic/coudes_tes_singularites.rst`
+  (courbes de réseau des six singularités).
+- **Reproduction** (mesurée le 2026-09-28, sur chaque modèle calculé) :
+  ```python
+  from ThermodynamicCycles.Hydraulic import EdgedBend   # ou l'un des 10
+  m = EdgedBend.Object(); ...; m.calculate()
+  m.Plot()    # TypeError: plot_pressure_network() got an unexpected keyword argument
+  ```
+- **Trace** : `src/ThermodynamicCycles/Hydraulic/network_plot.py:165` —
+  `plot_pressure_network` n'admet que `dp_series, set_flow, get_flow, area, title,
+  npts, v_max`, alors que `network_plot_kwargs()` des modèles renvoie aussi `info`
+  (les 10) et `curve_label`, `regime` (`Coil`, `CurvedBend`, `EdgedBend`).
+  `compute_network_curve` (`:47`) accepte bien ces trois arguments : seul le
+  raccord `plot_pressure_network` a été oublié. Modèles touchés (tous vérifiés) :
+  `Coil`, `ConvergingTee`, `CurvedBend`, `DivergingTee`, `DpRegulator`,
+  `EdgedBend`, `GradualContraction`, `GradualExpansion`, `SuddenContraction`,
+  `SuddenExpansion`. Non touchés : les vannes, `Orifice`, `HooperMethod2K`,
+  `DarbyMethod3K`, qui ont leur propre `Plot()`.
+- **Traitement dans le guide** : figures produites par le chemin de l'IHM
+  (`compute_network_curve` + `render_network_figure`, cf.
+  `esm_node_helpers.py:1162`) ; la page le dit au lecteur et lui donne ce
+  contournement.
+
 ## Corrigés depuis, dans le dépôt source — ne pas rouvrir
 
 - **`FluidPort.set_humid_gas_mixture()` acceptait une espèce hors table en

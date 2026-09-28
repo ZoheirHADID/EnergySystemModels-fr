@@ -358,7 +358,8 @@ re-vérifier par exécution avant rédaction.
   `SuddenContraction`, `SuddenExpansion`, `ConvergingTee`, `DivergingTee`. Chaque
   assemblage dessiné a été **exécuté** ; son résultat mesuré est en cartouche.
   Page toujours au cran 5.
-- `à faire` **I4 — courbes de réseau** des six singularités de la page, comme
+- `fait` (2026-09-28 ; figures par `compute_network_curve` + `render_network_figure`,
+  `Plot()` étant cassé — `BUGS_LIB.md`) **I4 — courbes de réseau** des six singularités de la page, comme
   `004_TA_valve-courbe-reseau.png` : chaque modèle a une méthode `Plot()`
   (`network_plot.plot_pressure_network`), donc une figure « modèle » légitime, à
   produire par `docs/generate_model_plots.py`.

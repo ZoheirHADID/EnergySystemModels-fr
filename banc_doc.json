@@ -476,15 +476,21 @@
   "docs/source/004-hydraulic/coudes_tes_singularites.rst": {
    "blocs": 3,
    "empreinte": "a3d8b17ddb3064cc",
-   "mesure": "2026-09-28T09:49",
+   "mesure": "2026-09-28T09:57",
    "figures": [
     "../images/assemblage_edgedbend.svg",
+    "../images/004_edgedbend_courbe_reseau.svg",
     "../images/assemblage_suddencontraction.svg",
+    "../images/004_suddencontraction_courbe_reseau.svg",
     "../images/assemblage_suddenexpansion.svg",
+    "../images/004_suddenexpansion_courbe_reseau.svg",
     "../images/assemblage_convergingtee.svg",
+    "../images/004_convergingtee_courbe_reseau.svg",
     "../images/assemblage_divergingtee.svg",
+    "../images/004_divergingtee_courbe_reseau.svg",
     "../images/param_curvedbend.svg",
-    "../images/assemblage_curvedbend.svg"
+    "../images/assemblage_curvedbend.svg",
+    "../images/004_curvedbend_courbe_reseau.svg"
    ],
    "blocage": null,
    "motif": "",

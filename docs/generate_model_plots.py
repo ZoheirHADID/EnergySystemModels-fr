@@ -268,10 +268,75 @@ def generate_turpe_plots() -> None:
         _save_current_figure(IMAGES / f"{name}_plot_detail.svg")
 
 
+def generate_hydraulic_singularity_plots() -> None:
+    """Courbes de réseau des singularités de ``coudes_tes_singularites.rst``.
+
+    Chaque modèle est monté avec les entrées de son schéma d'assemblage
+    (``assemblage_*.svg``). La figure est rendue par le chemin même de l'IHM
+    PyqtSimulator (``esm_node_helpers.py``) : ``compute_network_curve(model,
+    **model.network_plot_kwargs())`` puis ``render_network_figure``. La méthode
+    ``Plot()`` des modèles n'est pas employée : pour 10 modèles hydrauliques elle
+    lève ``TypeError`` (``BUGS_LIB.md``, 2026-09-28).
+    """
+    from ThermodynamicCycles.Hydraulic.network_plot import (compute_network_curve,
+                                                            render_network_figure)
+    import math
+
+    from ThermodynamicCycles.Connect import Fluid_connect
+    from ThermodynamicCycles.Hydraulic import (ConvergingTee, CurvedBend, DivergingTee,
+                                               EdgedBend, SuddenContraction, SuddenExpansion)
+    from ThermodynamicCycles.Source import Source
+
+    def source(F, Ti_degC=15):
+        s = Source.Object()
+        s.fluid = "water"
+        s.Pi_bar = 3.0
+        s.Ti_degC = Ti_degC
+        s.F = F
+        s.calculate()
+        return s
+
+    def enregistrer(modele, nom):
+        plt.close("all")
+        fig = render_network_figure(compute_network_curve(modele, **modele.network_plot_kwargs()))
+        fig.savefig(IMAGES / nom, format="svg", bbox_inches="tight")
+        plt.close("all")
+
+    coude = CurvedBend.Object()
+    Fluid_connect(coude.Inlet, source(2.0, Ti_degC=60).Outlet)
+    coude.d_hyd = 0.05
+    coude.R_0 = 1.5 * coude.d_hyd
+    coude.delta = math.radians(90)
+    coude.K = 0.045e-3
+    coude.calculate()
+    enregistrer(coude, "004_curvedbend_courbe_reseau.svg")
+
+    for module, nom in ((EdgedBend, "004_edgedbend_courbe_reseau.svg"),
+                        (SuddenContraction, "004_suddencontraction_courbe_reseau.svg"),
+                        (SuddenExpansion, "004_suddenexpansion_courbe_reseau.svg")):
+        m = module.Object()
+        Fluid_connect(m.Inlet, source(1.0).Outlet)
+        m.calculate()
+        enregistrer(m, nom)
+
+    te = ConvergingTee.Object()
+    Fluid_connect(te.Inlet_St, source(1.0).Outlet)
+    Fluid_connect(te.Inlet_S, source(0.5).Outlet)
+    te.calculate()
+    enregistrer(te, "004_convergingtee_courbe_reseau.svg")
+
+    te = DivergingTee.Object()
+    Fluid_connect(te.Inlet, source(1.5).Outlet)
+    te.Outlet_S.F = 0.5
+    te.calculate()
+    enregistrer(te, "004_divergingtee_courbe_reseau.svg")
+
+
 def main() -> None:
     IMAGES.mkdir(parents=True, exist_ok=True)
     generate_chiller_plots()
     generate_turpe_plots()
+    generate_hydraulic_singularity_plots()
     print("generated real model plots")
 
 

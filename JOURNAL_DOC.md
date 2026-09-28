@@ -449,3 +449,24 @@
   d'attribut `delta_P`, mais `delta_P_friction` et `delta_P_static` — à dire dans
   leur future page).
 - Suivant : I4 — courbes de réseau par `Plot()` ; puis A1 (usage/section-4, -5).
+
+## 2026-09-28 — courbes de réseau des six singularités (I4)
+- Unité : I4 — suite du retour utilisateur « comme la vanne TA et le StraightPipe »,
+  qui portent chacune une courbe de réseau.
+- Fait : `generate_hydraulic_singularity_plots()` dans `docs/generate_model_plots.py`,
+  mêmes entrées que les schémas d'assemblage ; six `004_*_courbe_reseau.svg`
+  insérées sous leur schéma. Points de fonctionnement recoupés avec les exécutions
+  (coude courbe : 7,32 m³/h, 170 Pa ; té divergent, passage droit : −53 Pa).
+  **Saut de la courbe du coude courbe** vers 13,4 m³/h mesuré et expliqué dans la
+  page : à Re = 2·10⁵, `kD` 1,338 → 1,900 et `kRe` 1,099 → 1, `ksi_loc` +29 % —
+  discontinuité de la table d'Idel'chik, appliquée telle quelle.
+- Banc : `coudes_tes_singularites.rst` cran 5 → 5 (13 figures, origine « modèle »).
+- Build : 0 warning.
+- Bug bibliothèque : **nouvelle entrée** — `Plot()` lève `TypeError` pour les 10
+  modèles qui délèguent à `plot_pressure_network` (`network_plot.py:165` n'admet ni
+  `info`, ni `curve_label`, ni `regime`). Figures produites par le chemin de l'IHM,
+  contournement donné au lecteur. **Erreur corrigée en cours de tour** : un premier
+  relevé statique (recherche de `info=`) classait les tés comme sains et
+  `StraightPipe`/`TA_Valve` comme cassés — l'exécution a montré l'inverse ; la note
+  de la page et l'entrée de bug reposent sur la mesure dynamique.
+- Suivant : A1 — `usage/section-4-distribution.rst`, puis section-5.
