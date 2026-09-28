@@ -958,18 +958,18 @@
    "recul": null
   },
   "docs/source/005-aeraulic/perte_pression_lineaire.rst": {
-   "blocs": 1,
-   "empreinte": "8b31d5f956675b17",
-   "mesure": "2026-09-28T12:36",
+   "blocs": 3,
+   "empreinte": "7395c6a950c58987",
+   "mesure": "2026-09-28T13:17",
    "figures": [
     "../images/schema_straightpipe_air.svg"
    ],
    "blocage": null,
-   "motif": "manque : table de personnalisation et variante exécutée",
+   "motif": "",
    "extraits": null,
-   "cran": 4,
-   "nom": "figure réelle",
-   "cran_max": 4,
+   "cran": 5,
+   "nom": "personnalisable",
+   "cran_max": 5,
    "recul": null
   },
   "docs/source/005-aeraulic/registre_iris.rst": {

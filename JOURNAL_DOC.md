@@ -919,3 +919,13 @@
 - Bilan K4 : 7 modèles aérauliques documentés et schématisés ; 6 pages au cran 5,
   `perte_pression_lineaire.rst` au cran 4.
 - Suivant : K5 (schémas de principe hors modèles à ports) ou gaine droite au cran 5.
+
+## 2026-09-28 13:42 — Gaine d'air droite au cran 5
+- Unité : B (page existante au cran 5) — `005-aeraulic/perte_pression_lineaire.rst`.
+- Fait : titre générique « 5.1.3. Paramètres » → « Ce qu'on personnalise » ;
+  variante exécutée (gaine rectangulaire 300 × 200 mm, 10 m, 1000 m³/h → d_hyd
+  0,24 m, 4,63 m/s, **1,10 Pa/m, 11,0 Pa**) ; section « Éprouver le modèle » (oblong
+  avec a < b refusé, `ValueError`). Sorties publiées par l'outil.
+- Banc : `perte_pression_lineaire.rst` cran 4 → 5. Les 7 pages aérauliques au cran 5.
+- Build : 0 warning. Bug bibliothèque : aucun.
+- Suivant : K5 (schémas de principe : pincement, IPMVP, météo, achat, CEE).

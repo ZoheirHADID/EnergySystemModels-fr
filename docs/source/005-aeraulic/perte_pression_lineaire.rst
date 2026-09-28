@@ -75,8 +75,8 @@ régime turbulent (Re ≈ 23 816), rugosité par défaut ``epsilon`` = 0,09 mm (
 réduite 0,00075), coefficient de perte de charge λ ≈ 0,0262 et **perte de charge
 linéaire ≈ 1,15 Pa/m** (``j lineaire (Pa/m)``).
 
-5.1.3. Paramètres
------------------
+Ce qu'on personnalise
+---------------------
 
 .. list-table::
    :header-rows: 1
@@ -108,3 +108,77 @@ Le modèle calcule le nombre de Reynolds puis le coefficient de perte de charge 
 .. note::
    La gaine transmet l'état thermodynamique (transformation isenthalpique) vers
    l'aval : le ``Sink`` connecté restitue donc un DataFrame complet.
+
+Variante : une gaine rectangulaire 300 × 200 mm de 10 m, traversée par 1000 m³/h.
+
+.. code-block:: python
+
+    from ThermodynamicCycles.Aeraulic import StraightPipe
+    from ThermodynamicCycles.Source import Source
+    from ThermodynamicCycles.Sink import Sink
+    from ThermodynamicCycles.Connect import Fluid_connect
+
+    SOURCE = Source.Object()
+    SOURCE.fluid = "air"
+    SOURCE.Ti_degC = 15
+    SOURCE.Pi_bar = 1
+    SOURCE.F_m3h = 1000           # débit [m³/h]
+    SOURCE.calculate()
+
+    GAINE = StraightPipe()
+    # variante : gaine rectangulaire 300 × 200 mm, 10 m de long
+    GAINE.a, GAINE.b = 0.300, 0.200   # côtés [m] : d_hyd = 4S/p est calculé
+    GAINE.L = 10                      # longueur [m]
+
+    Fluid_connect(GAINE.Inlet, SOURCE.Outlet)
+    GAINE.calculate()
+    SINK = Sink.Object()
+    Fluid_connect(SINK.Inlet, GAINE.Outlet)
+    SINK.calculate()
+
+    print(GAINE.df.loc[["d_hyd (m)", "vitesse moyenne (m/s)", "j lineaire (Pa/m)", "perte totale (Pa)"]])
+
+Sortie réelle :
+
+.. code-block:: text
+
+                         StraightPipe
+   d_hyd (m)                     0.24
+   vitesse moyenne (m/s)      4.62963
+   j lineaire (Pa/m)          1.10205
+   perte totale (Pa)        11.020496
+
+Donner ``a`` et ``b`` suffit : le modèle calcule le diamètre hydraulique
+:math:`d_{hyd} = 4S/p` = 0,24 m. À 4,6 m/s, la gaine perd 1,10 Pa/m, soit 11,0 Pa sur
+ses 10 m.
+
+Éprouver le modèle
+------------------
+
+Une gaine oblongue se décrit avec son grand côté ``a`` et son petit côté ``b`` :
+des côtés inversés sont refusés.
+
+.. code-block:: python
+
+    from ThermodynamicCycles.Aeraulic import StraightPipe
+    from ThermodynamicCycles.Source import Source
+    from ThermodynamicCycles.Connect import Fluid_connect
+
+    SOURCE = Source.Object()
+    SOURCE.fluid = "air"; SOURCE.Ti_degC = 15; SOURCE.Pi_bar = 1; SOURCE.F_m3h = 1000
+    SOURCE.calculate()
+
+    GAINE = StraightPipe()
+    GAINE.shape = "oblong"
+    GAINE.a, GAINE.b = 0.200, 0.300   # oblong : il faut a >= b
+    Fluid_connect(GAINE.Inlet, SOURCE.Outlet)
+    try:
+        GAINE.calculate()
+    except ValueError as e:
+        print("refusé :", e)
+
+Sortie réelle :
+
+.. code-block:: text
+
+   refusé : Pour shape=oblong, il faut a >= b
