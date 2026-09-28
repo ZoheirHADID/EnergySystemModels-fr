@@ -30,6 +30,9 @@ templates_path = ['_templates']
 # -- Options for HTML output
 
 html_theme = 'sphinx_rtd_theme'
+# Menu latéral : titres de pages seulement, sans leurs sous-sections
+# (« Utilisation », « Paramètres »…) — demande de l'utilisateur, 2026-09-28.
+html_theme_options = {'titles_only': True}
 
 # -- Options for EPUB output
 epub_show_urls = 'footnote'

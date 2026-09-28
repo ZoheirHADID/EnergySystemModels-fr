@@ -502,8 +502,8 @@
   },
   "docs/source/004-hydraulic/index.rst": {
    "blocs": 0,
-   "empreinte": "a1568c1b3bddc98a",
-   "mesure": "2026-09-28T09:44",
+   "empreinte": "041d5d44b7e703b0",
+   "mesure": "2026-09-28T10:24",
    "figures": [],
    "blocage": null,
    "motif": "page de prose ou d'index",
@@ -550,6 +550,21 @@
    "cran": null,
    "nom": "non mesuré",
    "cran_max": null,
+   "recul": null
+  },
+  "docs/source/004-hydraulic/vanne_generique.rst": {
+   "blocs": 3,
+   "empreinte": "b2179dcfcb1bce8d",
+   "mesure": "2026-09-28T10:24",
+   "figures": [
+    "../images/004_generalvalve_courbe.svg"
+   ],
+   "blocage": null,
+   "motif": "",
+   "extraits": null,
+   "cran": 5,
+   "nom": "personnalisable",
+   "cran_max": 5,
    "recul": null
   },
   "docs/source/005-aeraulic/index.rst": {
@@ -646,13 +661,14 @@
   "docs/source/007-ipmvp/modeles_mathematiques.rst": {
    "blocs": 4,
    "empreinte": "fbca4b45c1a0e665",
-   "mesure": "2026-09-27T18:10",
+   "mesure": "2026-09-28T10:28",
    "figures": [],
    "blocage": null,
-   "motif": "non exécutée (passe statique)",
-   "cran": null,
-   "nom": "non mesuré",
-   "cran_max": null,
+   "motif": "bloc 1 : NameError: name 'df' is not defined",
+   "extraits": 1,
+   "cran": 1,
+   "nom": "plante",
+   "cran_max": 1,
    "recul": null
   },
   "docs/source/008-meteo/degres_jours.rst": {

@@ -509,3 +509,30 @@
 - Bug bibliothèque : aucun.
 - Suivant : A1 clos. Prochaines priorités : I2 (pages des modèles hydrauliques
   *à documenter*, un par tour) et les pages au cran 4 à porter au cran 5.
+
+## 2026-09-28 — `GeneralValve` (I2) + sommaires sans sous-titres (retours utilisateur)
+- Unités : I2 (`GeneralValve`, le plus employé des modèles sans page : 5 scènes) ;
+  retours utilisateur en cours de tour — index hydraulique « droit au but, sans
+  petits ni grands titres », puis « dans les index, garder juste le titre de page »,
+  « à tous les sommaires du guide », « commit and push à chaque fois ».
+- Fait :
+  - `004-hydraulic/vanne_generique.rst`, squelette complet, titre = classe. Relevé
+    et dit : `ouverture` est une fraction (mais `set_opening` prend des %), loi
+    d'ouverture exponentielle **sans source** (le code le déclare), « fermé » = 0,1 %
+    du Kvs, ζ `legacy` faux après changement de Kvs, densité absente de ΔP. Figure
+    par la méthode `Plot()` du modèle (la sienne fonctionne).
+  - Index hydraulique : un tableau unique (36 modèles — le journal précédent disait
+    38, c'était faux), plus aucun titre de section.
+  - 19 toctree `:titlesonly:` + `titles_only` du thème + 2 `.. contents::` retirés.
+    Premier essai avec `:titles_only:` → 104 warnings (option inconnue) : corrigé.
+- Banc : `vanne_generique.rst` nouvelle → cran 5 ; `004-hydraulic/index` 0 → 0 ;
+  `007-ipmvp/modeles_mathematiques.rst` mesurée pour la première fois → **cran 1**
+  (bloc 1, `df` non défini) — pas un recul, un défaut préexistant révélé (A4).
+- Exécution : 3 blocs + contrôle de densité CoolProp (eau 998,6 ; MEG 30 % 1038,0).
+- Build : 0 warning (build complet `-E`).
+- Bug bibliothèque : **nouvelle entrée** — `GeneralValve` sans garde-fou quand
+  ΔP > P amont (ValueError CoolProp brute), et densité omise dans ΔP.
+- Publication : à partir de ce tour, commit **et push** à chaque tour, sur
+  instruction explicite de l'utilisateur.
+- Suivant : A4 (`modeles_mathematiques.rst`), puis I2 suivant (`GateValve`,
+  `CheckValve` ou `DpRegulator`).

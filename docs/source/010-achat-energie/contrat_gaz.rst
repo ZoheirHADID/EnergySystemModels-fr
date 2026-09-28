@@ -1417,3 +1417,4 @@ en Ile-de-France avec un contrat T4.
 
 .. toctree::
    :maxdepth: 1
+   :titlesonly:

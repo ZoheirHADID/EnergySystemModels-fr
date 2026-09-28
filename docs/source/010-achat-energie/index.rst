@@ -37,6 +37,7 @@ Une facture d’énergie rémunère toujours une énergie livrée, un réseau mo
 .. toctree::
    :maxdepth: 2
    :caption: Achat d'énergie:
+   :titlesonly:
 
    contrat_electricite
    contrat_gaz

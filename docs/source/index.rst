@@ -37,6 +37,7 @@ Table des matières
 .. toctree::
    :maxdepth: 2
    :caption: Sommaire général:
+   :titlesonly:
 
    usage
    quickstart
@@ -46,12 +47,14 @@ Table des matières
 .. toctree::
    :maxdepth: 2
    :caption: 1. Achat et fourniture d'énergie
+   :titlesonly:
 
    010-achat-energie/index
 
 .. toctree::
    :maxdepth: 2
    :caption: 2. Production d'utilités et d'énergie
+   :titlesonly:
 
    002-thermodynamic_cycles/index
    009-pv-solaire/index
@@ -59,6 +62,7 @@ Table des matières
 .. toctree::
    :maxdepth: 2
    :caption: 3. Transport des utilités
+   :titlesonly:
 
    001-heat_transfer/index
    transfert_chaleur
@@ -69,24 +73,28 @@ Table des matières
 .. toctree::
    :maxdepth: 2
    :caption: 4. Usages énergétiques
+   :titlesonly:
 
    003-ahu_modules/index
 
 .. toctree::
    :maxdepth: 2
    :caption: 5. Récupération de chaleur
+   :titlesonly:
 
    006-pinch_analysis/index
 
 .. toctree::
    :maxdepth: 2
    :caption: 6. Financement et subvention
+   :titlesonly:
 
    011-cee/index
 
 .. toctree::
    :maxdepth: 2
    :caption: 7. Autres
+   :titlesonly:
 
    007-ipmvp/index
    008-meteo/index

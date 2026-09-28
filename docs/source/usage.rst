@@ -38,6 +38,7 @@ Le parcours
 .. toctree::
    :maxdepth: 2
    :caption: Sections du guide
+   :titlesonly:
 
    usage/section-1-achat-facturation
    usage/section-2-donnees-production

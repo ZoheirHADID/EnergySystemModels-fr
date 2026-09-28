@@ -7,10 +7,6 @@ Guide de Démarrage Rapide
 Ce guide vous fait installer **EnergySystemModels**, calculer un premier cas
 réel, puis l'adapter au vôtre. Comptez dix minutes.
 
-.. contents:: Sommaire
-   :local:
-   :depth: 2
-
 ----
 
 À quoi sert la bibliothèque

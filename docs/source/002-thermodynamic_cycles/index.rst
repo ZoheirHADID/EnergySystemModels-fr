@@ -3,6 +3,7 @@
 .. toctree::
    :maxdepth: 2
    :caption: Cycles thermodynamiques:
+   :titlesonly:
 
    fluid_source
    sink

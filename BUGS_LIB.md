@@ -88,6 +88,23 @@
   `esm_node_helpers.py:1162`) ; la page le dit au lecteur et lui donne ce
   contournement.
 
+## `Hydraulic.GeneralValve.calculate()` — aucun garde-fou quand ΔP dépasse la pression amont
+
+- **Page concernée** : `docs/source/004-hydraulic/vanne_generique.rst` (essai de
+  domaine, où le comportement est montré et expliqué au lecteur).
+- **Reproduction** (mesurée le 2026-09-28) : eau 20 °C, 10 bar, 0,5 kg/s,
+  `Kvs = 10`, `ouverture = 0.1` → `delta_P` = 1 769 298 Pa > `Inlet.P`.
+- **Trace** : `GeneralValve.py:243` écrit `Outlet.P = Inlet.P - delta_P` négatif ;
+  la propriété `P` du port appelle CoolProp, qui lève `ValueError` (« unable to
+  solve 1phase PY flash … p=-… »). Aucune exception nommée (invariant n° 2). C'est
+  aussi la cause du plantage de `examples_usage.py` (entrée plus bas). Quand
+  `F_L`, `p_v`, `p_c` sont fournis, le plafond `dp_max` évite le cas.
+- **Écart de formule, même modèle** : ΔP = (Q/Kv)²·10⁵ **sans** la densité
+  relative ρ/1000 de la définition IEC 60534 — +0,1 % pour l'eau à 20 °C, −3,7 %
+  pour du MEG 30 % (1038 kg/m³). Dit au lecteur dans « Limites connues ».
+- **Traitement dans le guide** : comportement documenté, exemples calés dans le
+  domaine.
+
 ## Corrigés depuis, dans le dépôt source — ne pas rouvrir
 
 - **`FluidPort.set_humid_gas_mixture()` acceptait une espèce hors table en

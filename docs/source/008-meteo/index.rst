@@ -6,6 +6,7 @@
 .. toctree::
    :maxdepth: 2
    :caption: Données Météo:
+   :titlesonly:
 
    meteociel
    openweathermap

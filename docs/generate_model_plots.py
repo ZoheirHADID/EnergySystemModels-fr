@@ -332,11 +332,39 @@ def generate_hydraulic_singularity_plots() -> None:
     enregistrer(te, "004_divergingtee_courbe_reseau.svg")
 
 
+def generate_general_valve_plot() -> None:
+    """Courbe de la vanne générique, par sa propre méthode ``Plot()``.
+
+    Même montage que l'exemple minimal de ``004-hydraulic/vanne_generique.rst``.
+    """
+    from ThermodynamicCycles.Connect import Fluid_connect
+    from ThermodynamicCycles.Hydraulic import GeneralValve
+    from ThermodynamicCycles.Source import Source
+
+    s = Source.Object()
+    s.fluid = "water"
+    s.Pi_bar = 10.0
+    s.Ti_degC = 20
+    s.F = 0.5
+    s.calculate()
+    v = GeneralValve.Object()
+    Fluid_connect(v.Inlet, s.Outlet)
+    v.Kvs = 4.0
+    v.ouverture = 1.0
+    v.D_mm = 25
+    v.calculate()
+    plt.close("all")
+    fig = v.Plot()
+    fig.savefig(IMAGES / "004_generalvalve_courbe.svg", format="svg", bbox_inches="tight")
+    plt.close("all")
+
+
 def main() -> None:
     IMAGES.mkdir(parents=True, exist_ok=True)
     generate_chiller_plots()
     generate_turpe_plots()
     generate_hydraulic_singularity_plots()
+    generate_general_valve_plot()
     print("generated real model plots")
 
 

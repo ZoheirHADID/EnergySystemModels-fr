@@ -377,7 +377,18 @@ re-vérifier par exécution avant rédaction.
   `004_TA_valve-courbe-reseau.png` : chaque modèle a une méthode `Plot()`
   (`network_plot.plot_pressure_network`), donc une figure « modèle » légitime, à
   produire par `docs/generate_model_plots.py`.
-- `à faire` **I2 — pages des modèles marqués *à documenter*** dans l'index (21
+- `fait` **I1 bis — index hydraulique sans titres** (demande de l'utilisateur,
+  2026-09-28) : un seul tableau des 36 modèles, famille en 1re colonne, aucun titre
+  de section ; exemples de réseau en rubriques grasses ; toctree caché.
+- `fait` **J1 — sommaires : titres de page seulement** (demande de l'utilisateur,
+  « à tous les sommaires du guide ») : `:titlesonly:` sur les 19 toctree,
+  `html_theme_options = {'titles_only': True}`, `.. contents::` retirés
+  (`quickstart`, `ports_connexions`). Titre « Utilisation du module IPMVP » →
+  « Mathematical_Models — modèle de référence IPMVP ».
+- `à faire` **A4 — `007-ipmvp/modeles_mathematiques.rst` plante** (mesuré le
+  2026-09-28, première mesure de la page) : bloc 1, `NameError: name 'df' is not
+  defined`. Priorité : c'est la seule page au cran 1.
+- `en cours` **I2 — pages des modèles marqués *à documenter*** dans l'index (21
   entrées) : un modèle par tour, selon le squelette de page ; l'index se met à
   jour à chaque page créée.
 

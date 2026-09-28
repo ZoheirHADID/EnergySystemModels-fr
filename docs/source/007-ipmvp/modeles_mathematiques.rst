@@ -1,5 +1,5 @@
-Utilisation du module IPMVP
-===========================
+Mathematical_Models — modèle de référence IPMVP
+===============================================
 
 Le module ``IPMVP`` construit un modèle de **baseline** (régression) et calcule
 les économies d'énergie selon l'**Option C** (mesure au niveau du site). La

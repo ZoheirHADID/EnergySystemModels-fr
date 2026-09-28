@@ -306,6 +306,7 @@ La formule générale du TURPE est donc :
 .. toctree::
    :maxdepth: 1
    :caption: Exemples TURPE
+   :titlesonly:
 
    exemples/exemple_hta_cu_pf
    exemples/exemple_hta_cu_pm

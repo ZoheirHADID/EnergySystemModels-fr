@@ -6,6 +6,7 @@
 .. toctree::
    :maxdepth: 3
    :caption: Centrales de Traitement d'Air:
+   :titlesonly:
 
 
    air_humide

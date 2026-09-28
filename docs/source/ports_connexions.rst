@@ -4,12 +4,6 @@
 Ports et connexions
 =====================
 
-.. contents:: Sommaire
-   :local:
-   :depth: 2
-
-----
-
 À quoi ça sert
 ==============
 
