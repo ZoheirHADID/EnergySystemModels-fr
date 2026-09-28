@@ -1722,8 +1722,8 @@
   },
   "docs/source/interface/noeuds.rst": {
    "blocs": 0,
-   "empreinte": "fa22e8bc3edf78d5",
-   "mesure": "2026-09-28T16:11",
+   "empreinte": "4d7256f8a87e1839",
+   "mesure": "2026-09-28T20:18",
    "figures": [],
    "blocage": null,
    "motif": "page de prose ou d'index",
@@ -1795,9 +1795,9 @@
    "recul": null
   },
   "docs/source/ports_connexions.rst": {
-   "blocs": 9,
-   "empreinte": "badd0925b83fb5d2",
-   "mesure": "2026-09-28T09:15",
+   "blocs": 10,
+   "empreinte": "1c964adc4645fda2",
+   "mesure": "2026-09-28T20:19",
    "figures": [
     "images/param_fluid_connect.svg",
     "images/param_ports_unites.svg"
@@ -1813,7 +1813,7 @@
   "docs/source/quickstart.rst": {
    "blocs": 4,
    "empreinte": "0922a885f8f6177f",
-   "mesure": "2026-09-27T20:46",
+   "mesure": "2026-09-28T20:18",
    "figures": [],
    "blocage": null,
    "motif": "",

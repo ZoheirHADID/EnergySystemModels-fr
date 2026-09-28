@@ -385,12 +385,30 @@ Sortie réelle :
    rho     : 14.923 kg/m3
    cp      : 2160.7 J/kg.K
 
-.. warning::
-   **Limite constatée au 27/09/2026** : un mélange contenant ``C2H6`` (éthane)
-   échoue, alors que l'espèce figure dans la table. Le calcul de l'enthalpie de
-   gaz parfait passe le symbole tel quel à CoolProp, qui attend ``Ethane`` —
-   d'où une ``ValueError``. Les onze autres constituants passent (mesuré, un par un, en mélange avec ``N2``). Un gaz
-   naturel réel se modélise donc, pour l'instant, sans sa fraction d'éthane.
+L'éthane (``C2H6``) passe aussi, par exemple dans le même gaz avec 8 % d'éthane :
+
+.. code-block:: python
+
+   from ThermodynamicCycles.FluidPort.FluidPort import FluidPort
+
+   gaz = {"CH4": 0.85, "C2H6": 0.08, "N2": 0.04, "CO2": 0.03}
+
+   port = FluidPort()
+   port.set_mixture(gaz, P=20e5, T=20 + 273.15, F=0.5)
+
+   print("backend :", port.thermo_backend)
+   print("h       :", round(port.h, 1), "J/kg")
+   print("rho     :", round(port.rho, 3), "kg/m3")
+   print("cp      :", round(port.cp, 1), "J/kg.K")
+
+Sortie réelle :
+
+.. code-block:: text
+
+   backend : mixture
+   h       : -33157.3 J/kg
+   rho     : 16.016 kg/m3
+   cp      : 2117.1 J/kg.K
 
 Solution aqueuse ou aliment — Choi-Okos
 ---------------------------------------

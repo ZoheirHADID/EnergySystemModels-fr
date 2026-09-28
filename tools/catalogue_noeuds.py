@@ -63,16 +63,20 @@ SOCKET_SIGNAL = 5
 
 #: Rôle écrit à la main, pour les nœuds dont le fichier en définit plusieurs sans
 #: docstring de classe (la docstring du fichier décrit alors la famille, pas le
-#: nœud). Relu dans le code de ``evalOperation`` / ``compute`` le 2026-09-28.
+#: nœud). Relu dans le code de ``evalOperation`` / ``compute`` le 2026-09-28 (opérateurs
+#: arithmétiques après leur correction du même jour).
 ROLE_COMPLEMENT = {
     "CalcNode_Mix": "Mélange adiabatique de deux courants de même fluide : débits "
                     "additionnés, pression minimale, enthalpie moyenne pondérée par le débit.",
-    "CalcNode_Add": "Additionne deux valeurs : deux scalaires, ou deux listes fluide terme à "
-                    "terme (le nom du fluide est repris du premier opérande).",
+    "CalcNode_Add": "Additionne deux scalaires, ou mélange deux courants du même fluide "
+                    "(bilan du Mélangeur : débits sommés, pression minimale, enthalpie "
+                    "pondérée) ; toute autre combinaison lève ValueError.",
     "CalcNode_Sub": "Soustrait deux valeurs ; sur deux courants fluide, rend "
                     "[fluide, écart de débit, pression moyenne, écart d'enthalpie].",
-    "CalcNode_Mul": "Multiplie deux valeurs (scalaires, ou listes fluide terme à terme).",
-    "CalcNode_Div": "Divise deux valeurs (scalaires, ou listes fluide terme à terme).",
+    "CalcNode_Mul": "Multiplie deux scalaires, ou un courant par un nombre : seul le débit "
+                    "change, pression et enthalpie sont conservées ; courant × courant lève ValueError.",
+    "CalcNode_Div": "Divise deux scalaires, ou un courant par un nombre : seul le débit "
+                    "change ; nombre / courant ou courant / courant lève ValueError.",
     "CalcNode_SignalConst": "Source scalaire constante.",
     "CalcNode_SignalSine": "Source scalaire sinusoïdale A·sin(2πft + φ) + décalage, évaluée à l'instant t.",
     "CalcNode_SignalRamp": "Source scalaire en rampe : valeur initiale + pente × t.",

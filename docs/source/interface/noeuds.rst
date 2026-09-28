@@ -145,7 +145,7 @@ Libellé de la palette : « Calculs et signaux » — 12 nœud(s).
    * - |ic_50| **Add**
 
        ``operations.py``
-     - Additionne deux valeurs : deux scalaires, ou deux listes fluide terme à terme (le nom du fluide est repris du premier opérande).
+     - Additionne deux scalaires, ou mélange deux courants du même fluide (bilan du Mélangeur : débits sommés, pression minimale, enthalpie pondérée) ; toute autre combinaison lève ValueError.
      - 2 entrée(s) / 1 sortie(s), scalaire ou liste fluide ; prise de signal
      - outil de l'IHM
      - :doc:`../gui_tools`
@@ -159,14 +159,14 @@ Libellé de la palette : « Calculs et signaux » — 12 nœud(s).
    * - |ic_70| **Multiply**
 
        ``operations.py``
-     - Multiplie deux valeurs (scalaires, ou listes fluide terme à terme).
+     - Multiplie deux scalaires, ou un courant par un nombre : seul le débit change, pression et enthalpie sont conservées ; courant × courant lève ValueError.
      - 2 entrée(s) / 1 sortie(s), scalaire ou liste fluide ; prise de signal
      - outil de l'IHM
      - :doc:`../gui_tools`
    * - |ic_80| **Divide**
 
        ``operations.py``
-     - Divise deux valeurs (scalaires, ou listes fluide terme à terme).
+     - Divise deux scalaires, ou un courant par un nombre : seul le débit change ; nombre / courant ou courant / courant lève ValueError.
      - 2 entrée(s) / 1 sortie(s), scalaire ou liste fluide ; prise de signal
      - outil de l'IHM
      - :doc:`../gui_tools`

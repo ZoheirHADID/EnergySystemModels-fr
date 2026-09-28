@@ -275,8 +275,9 @@ Sortie réelle :
    **Deux pièges d'attributs, vérifiés sur le code.**
 
    1. ``Ti_degC`` n'a pas de valeur par défaut. Sans elle, ``calculate()``
-      s'arrête sur ``TypeError: unsupported operand type(s) for +: 'NoneType'
-      and 'float'``. Renseignez toujours fluide, pression, température et débit.
+      lève ``MissingInputError`` en nommant l'entrée absente
+      (« entrée(s) obligatoire(s) non renseignée(s) : Ti_degC »).
+      Renseignez toujours fluide, pression, température et débit.
    2. Les débits en unités dérivées (``F_kgh``, ``F_m3h``, ``F_Sm3h``…) servent
       d'**entrées alternatives** : on peut saisir le débit dans l'une ou l'autre.
       ``calculate()`` les remet donc à ``None`` après avoir rempli ``df``. Après
