@@ -1,7 +1,7 @@
 .. _general_valve:
 
-Vanne générique à Kv — GeneralValve
-===================================
+Vanne générique (Kv)
+====================
 
 À quoi ça sert
 --------------

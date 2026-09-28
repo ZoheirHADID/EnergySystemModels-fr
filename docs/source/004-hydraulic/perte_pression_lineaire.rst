@@ -1,7 +1,7 @@
 .. _straight_pipe:
 
-Tube droit — StraightPipe
-=========================
+Perte de charge linéaire dans une conduite
+==========================================
 
 Utilisation
 -----------

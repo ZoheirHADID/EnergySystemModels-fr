@@ -28,7 +28,7 @@ sauf mention contraire. Avant d'assembler un réseau, lire
      - ``Coil``
      - serpentin, tube lisse à grand rayon de courbure (Idel'chik, diagr. 6.2)
      - Serpentin
-     - *à documenter*
+     - :doc:`serpentin`
    * - Coudes
      - ``CurvedBend``
      - coude cintré (Idel'chik, diagr. 6.1)
@@ -38,44 +38,44 @@ sauf mention contraire. Avant d'assembler un réseau, lire
      - ``EdgedBend``
      - coude vif, à angle soudé
      - Coude vif
-     - :doc:`coudes_tes_singularites` (résumé)
+     - :doc:`coudes_tes_singularites`
    * - Changements de section
      - ``SuddenContraction``
      - rétrécissement brusque
      - Retrecissement
-     - :doc:`coudes_tes_singularites` (résumé)
+     - :doc:`reduction_section`
    * - Changements de section
      - ``SuddenExpansion``
      - élargissement brusque (la pression statique remonte)
      - Elargissement
-     - :doc:`coudes_tes_singularites` (résumé)
+     - :doc:`elargissement_section`
    * - Changements de section
      - ``GradualContraction``
      - confuseur conique, rétrécissement progressif
      - Confuseur conique
-     - *à documenter*
+     - :doc:`reduction_section`
    * - Changements de section
      - ``GradualExpansion``
      - diffuseur conique, élargissement progressif
      - Diffuseur conique
-     - *à documenter*
+     - :doc:`elargissement_section`
    * - Changements de section
      - ``Hooper1988PipeSizeChange``
      - fonctions de coefficient K pour les changements de diamètre (Hooper,
        1988) : ``sharp_contraction_k``, ``gradual_expansion_k``…
      - —
-     - *à documenter*
+     - :doc:`reduction_section`
    * - Tés et jonctions
      - ``ConvergingTee``
      - té convergent : deux entrées, une sortie, mélange enthalpique
        (Idel'chik, diagr. 7.1 à 7.4)
      - Té convergent
-     - :doc:`coudes_tes_singularites` (résumé)
+     - :doc:`te_jonction`
    * - Tés et jonctions
      - ``DivergingTee``
      - té divergent : une entrée, deux sorties (Idel'chik, diagr. 7.18 et 7.20)
      - Té divergent
-     - :doc:`coudes_tes_singularites` (résumé)
+     - :doc:`te_jonction`
    * - Vannes de réglage et d'équilibrage
      - ``TA_Valve``
      - vanne d'équilibrage IMI TA : Kv selon le DN et l'ouverture, d'après
@@ -97,94 +97,94 @@ sauf mention contraire. Avant d'assembler un réseau, lire
      - ``DpRegulator``
      - régulateur de pression différentielle (type STAP / STAM)
      - Régulateur de Δp
-     - *à documenter*
+     - :doc:`regulateur_dp`
    * - Vannes de réglage et d'équilibrage
      - ``control_valve``
      - fonctions de dimensionnement normalisé des vannes de régulation
        (conversions Cv/Kv, cavitation…) — pas de ``Object()``
      - —
-     - *à documenter*
+     - :doc:`dimensionnement_vannes`
    * - Vannes d'isolement et clapets
      - ``GateValve``
      - vanne d'isolement (à opercule)
      - Vanne d'isolement (Gate)
-     - *à documenter*
+     - :doc:`vanne_isolement`
    * - Vannes d'isolement et clapets
      - ``GlobeValve``
      - vanne à soupape (arrêt ou régulation)
      - Vanne Globe
-     - *à documenter*
+     - :doc:`vanne_soupape`
    * - Vannes d'isolement et clapets
      - ``BallValve``
      - vanne à boule
      - Vanne à boule (Ball)
-     - *à documenter*
+     - :doc:`vanne_boule`
    * - Vannes d'isolement et clapets
      - ``ButterflyValve``
      - vanne papillon
      - Vanne papillon (Butterfly)
-     - *à documenter*
+     - :doc:`vanne_papillon`
    * - Vannes d'isolement et clapets
      - ``RectangularButterflyValve``
      - vanne papillon rectangulaire (Idel'chik 9.18)
      - Papillon rectangulaire
-     - *à documenter*
+     - :doc:`vanne_papillon`
    * - Vannes d'isolement et clapets
      - ``CheckValve``
      - clapet anti-retour
      - Clapet anti-retour
-     - *à documenter*
+     - :doc:`clapet_anti_retour`
    * - Vannes d'isolement et clapets
      - ``MovableFlap``
      - clapet à volet mobile
      - Clapet à volet mobile
-     - *à documenter*
+     - :doc:`clapet_volet`
    * - Obstacles, grilles et lits
      - ``Orifice``
      - diaphragme ou orifice, mince ou épais
      - Orifice
-     - *à documenter*
+     - :doc:`orifice`
    * - Obstacles, grilles et lits
      - ``ScreenGrid``
      - grille, écran ou tôle perforée uniforme
      - Grille / tamis
-     - *à documenter*
+     - :doc:`grille_plaque`
    * - Obstacles, grilles et lits
      - ``ThickGridPlate``
      - grille épaisse ou plaque perforée épaisse
      - Plaque perforée épaisse
-     - *à documenter*
+     - :doc:`grille_plaque`
    * - Obstacles, grilles et lits
      - ``ErgunPackedBed``
      - lit poreux, lit de grains (Idel'chik, section 8)
      - Lit de grains (Ergun)
-     - *à documenter*
+     - :doc:`lit_grains`
    * - Entrées et sorties
      - ``EntranceShaft``
      - entrée dans une gaine ou un puits circulaire (Idel'chik, diagr. 3.18)
      - Prise d'entrée en puits
-     - *à documenter*
+     - :doc:`entree_conduite`
    * - Entrées et sorties
      - ``FreeDischarge``
      - sortie libre d'un tube ou d'un canal (Idel'chik, section 11)
      - Décharge libre
-     - *à documenter*
+     - :doc:`sortie_libre`
    * - Singularité quelconque, par coefficients
      - ``HooperMethod2K``
      - méthode 2K (Hooper, 1981)
      - Singularité Hooper 2K
-     - *à documenter*
+     - :doc:`methodes_2k_3k`
    * - Singularité quelconque, par coefficients
      - ``DarbyMethod3K``
      - méthode 3K (Darby, 1999)
      - Singularité Darby 3K
-     - *à documenter*
+     - :doc:`methodes_2k_3k`
    * - Singularité quelconque, par coefficients
      - ``crane_valves``, ``crane_data``
      - données Crane TP-410 : coefficients K = n × f_T des vannes, facteurs de
        frottement et rugosités — tables, pas de ``Object()``
      - —
-     - *à documenter*
+     - :doc:`methodes_2k_3k`
    * - Pompes et conditions aux limites
      - ``Pump``
      - pompe, avec sa courbe caractéristique — ``from ThermodynamicCycles.Pump
@@ -202,13 +202,13 @@ sauf mention contraire. Avant d'assembler un réseau, lire
      - solveur de réseau en régime permanent, par nœuds et branches — pas de
        ``Object()``
      - —
-     - *à documenter*
+     - :doc:`resolution_circuit`
    * - Résoudre un réseau entier
      - ``transient``
      - coups de bélier : régime transitoire d'un réseau de liquide — pas de
        ``Object()``
      - —
-     - *à documenter*
+     - :doc:`coups_de_belier`
 
 **Exemples de calcul de réseau — dans ce guide :**
 
@@ -273,9 +273,30 @@ emploie, relevés dans le fichier de la scène.
    :hidden:
    :titlesonly:
 
-   propagation_pression
    perte_pression_lineaire
-   coudes_tes_singularites
    TA_valve
    valve_3_voies
    vanne_generique
+   vanne_isolement
+   vanne_soupape
+   vanne_boule
+   vanne_papillon
+   clapet_anti_retour
+   clapet_volet
+   regulateur_dp
+   dimensionnement_vannes
+   coudes_tes_singularites
+   serpentin
+   te_jonction
+   reduction_section
+   elargissement_section
+   orifice
+   grille_plaque
+   lit_grains
+   entree_conduite
+   sortie_libre
+   methodes_2k_3k
+   propagation_pression
+   loi_des_noeuds
+   resolution_circuit
+   coups_de_belier

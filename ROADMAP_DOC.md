@@ -395,6 +395,19 @@ re-vérifier par exécution avant rédaction.
 - `fait` (2026-09-28 ; cran 1 → 0, page de référence, 4 extraits aux imports vérifiés) **A4 — `007-ipmvp/modeles_mathematiques.rst` plante** (mesuré le
   2026-09-28, première mesure de la page) : bloc 1, `NameError: name 'df' is not
   defined`. Priorité : c'est la seule page au cran 1.
+- `fait` **I5 — sommaire hydraulique simple et exhaustif** (demande de
+  l'utilisateur, 2026-09-28) : 27 entrées aux titres courts, dans l'ordre donné par
+  l'utilisateur (perte linéaire, vanne TA, vanne 3 voies, coude, té, réduction,
+  élargissement, propagation, loi des nœuds, résolution) complété par tous les
+  modèles existants. Pages découpées : `coudes_tes_singularites` → Coude, Té /
+  jonction, Réduction, Élargissement ; `propagation_pression` → Propagation, Loi des
+  nœuds, Résolution d'un circuit (exemple série désormais **exécuté et publié**).
+  16 pages-fiches générées par `tools/fiches_hydrauliques.py` (relevé du code, sans
+  valeur calculée). Plus aucun « à documenter » dans l'index.
+- `à faire` **I6 — schémas SVG de chaque modèle** (demande de l'utilisateur,
+  « schématiser pour expliquer les formes, les connexions ») : un schéma
+  forme + ports + connexions par page de l'index hydraulique, et un schéma de la loi
+  des nœuds.
 - `en cours` **I2 — pages des modèles marqués *à documenter*** dans l'index (21
   entrées ; fait : `GeneralValve` → `vanne_generique.rst`, cran 5, 2026-09-28 ; reste 20) : un modèle par tour, selon le squelette de page ; l'index se met à
   jour à chaque page créée.

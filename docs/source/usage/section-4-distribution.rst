@@ -42,7 +42,7 @@ Par quoi commencer, selon votre question
    * - « Comment équilibrer mes circuits ? »
      - :doc:`../004-hydraulic/TA_valve` et :doc:`../004-hydraulic/valve_3_voies`
    * - « Comment les pressions se répartissent-elles dans le réseau ? »
-     - :doc:`../004-hydraulic/propagation_pression` — la loi des nœuds
+     - :doc:`../004-hydraulic/loi_des_noeuds` et :doc:`../004-hydraulic/propagation_pression`
    * - « Quelle perte de charge dans mes gaines d'air ? »
      - :doc:`../005-aeraulic/index` — gaines droites et singularités
        aérauliques

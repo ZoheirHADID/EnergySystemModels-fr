@@ -1,7 +1,7 @@
 .. _ta_valve:
 
-Vanne d'équilibrage IMI TA — TA_Valve
-=====================================
+Vanne d'équilibrage TA
+======================
 
 Les vannes d'équilibrage **TA** (Tour & Andersson / IMI Hydronic Engineering) permettent l'équilibrage hydraulique des circuits CVC pour garantir les débits nominaux et optimiser la performance énergétique des installations.
 

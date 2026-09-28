@@ -105,6 +105,17 @@
 - **Traitement dans le guide** : comportement documenté, exemples calés dans le
   domaine.
 
+## `Hydraulic.StraightPipe` — traces imprimées à chaque recalcul, étiquetées « bar » sur des pascals
+
+- **Page concernée** : `docs/source/004-hydraulic/resolution_circuit.rst` (la sortie
+  réelle publiée contient ces traces, et la page les explique).
+- **Reproduction** (2026-09-28) : deux `StraightPipe` en série derrière une `Source`
+  à 5 bar, puis `p2.Outlet.P = 3.0e5` → 20 lignes de traces.
+- **Trace** : `src/ThermodynamicCycles/Hydraulic/StraightPipe.py:90` (« Détection d'un
+  changement de Outlet.P… », inconditionnelle) et `:99` (`P_entrée détectée
+  {self.Inlet.P:.3f} bar` — la valeur est en Pa : 500000.000 pour 5 bar).
+- **Traitement dans le guide** : sortie publiée telle quelle, note au lecteur.
+
 ## Corrigés depuis, dans le dépôt source — ne pas rouvrir
 
 - **`FluidPort.set_humid_gas_mixture()` acceptait une espèce hors table en

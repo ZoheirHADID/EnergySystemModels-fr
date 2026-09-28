@@ -1,7 +1,7 @@
 .. _valve_3_voies:
 
-Vanne 3 voies — Valve3Way
-=========================
+Vanne 3 voies
+=============
 
 La **vanne 3 voies** (``ThermodynamicCycles.Valve3Way``) modélise une vanne de
 réglage hydraulique dans ses trois montages classiques. Un **seul modèle** couvre

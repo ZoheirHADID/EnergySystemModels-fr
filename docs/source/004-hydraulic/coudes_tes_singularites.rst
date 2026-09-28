@@ -1,28 +1,46 @@
 .. _coudes_tes_singularites:
 
-Coudes, tés et singularités
-===========================
+Coude
+=====
 
-En plus du :ref:`tube droit <straight_pipe>` (perte linéaire) et des
-vannes, la bibliothèque fournit les **singularités** hydrauliques courantes
-(pertes locales :math:`\xi`). Tous ces modèles partagent la loi
-:math:`\Delta P = \xi \cdot \tfrac{1}{2}\rho V^2` et la
-:ref:`propagation de pression aval→amont <propagation_pression>`.
+Deux modèles : le coude **cintré** (``CurvedBend``, rayon de courbure et angle)
+et le coude **vif** (``EdgedBend``, angle soudé). Tous deux suivent la loi
+:math:`\Delta P = \xi \cdot \tfrac{1}{2}\rho V^2`.
 
-Coudes
-------
+``EdgedBend`` — coude vif (Modelica PressureLoss.Bend.EdgedBend).
+
+.. code-block:: python
+
+   from ThermodynamicCycles.Hydraulic import EdgedBend
+   modele = EdgedBend.Object()
+
+* **Ports** : ``Inlet``, ``Outlet`` (voir :doc:`../ports_connexions`).
+* **Nœud de l'IHM** : « Coude vif ».
 
 .. list-table::
    :header-rows: 1
-   :widths: 30 70
+   :widths: 26 26 48
 
-   * - Modèle
-     - Description
-   * - ``Hydraulic.CurvedBend``
-     - coude **arrondi** : singularité (rayon de courbure :math:`R_0`, angle
-       :math:`\delta`) + frottement le long de la longueur développée.
-   * - ``Hydraulic.EdgedBend``
-     - coude **à angle vif** : :math:`\xi` local selon l'angle.
+   * - Entrée
+     - Défaut
+     - Commentaire du code
+   * - ``d_hyd``
+     - ``0.04``
+     - m
+   * - ``delta``
+     - ``math.pi / 2``
+     - rad -- angle (defaut 90°)
+   * - ``apply_handbook_corrections``
+     - ``False``
+     - —
+   * - ``handbook_roughness_multiplier``
+     - ``None``
+     - —
+   * - ``handbook_aspect_ratio``
+     - ``None``
+     - —
+
+Lignes du ``df`` de sortie : ``fluid``, ``F_kgs``, ``d_hyd_mm``, ``delta_deg``, ``V_ms``, ``Re``, ``ksi_loc_base``, ``ksi_loc``, ``dP_Pa``, ``dP_mbar``.
 
 .. figure:: ../images/assemblage_edgedbend.svg
    :alt: Source, coude vif EdgedBend et Sink reliés par Fluid_connect
@@ -40,115 +58,18 @@ Coudes
    Courbe de réseau du même coude vif : perte de charge en fonction du débit, point
    de fonctionnement de l'assemblage ci-dessus.
 
-Singularités de section
------------------------
-
-.. list-table::
-   :header-rows: 1
-   :widths: 30 70
-
-   * - Modèle
-     - Description
-   * - ``Hydraulic.SuddenContraction``
-     - **rétrécissement** brusque : perte par frottement + variation de pression
-       dynamique (la pression statique chute).
-   * - ``Hydraulic.SuddenExpansion``
-     - **élargissement** brusque : la pression statique **remonte** (récupération
-       cinétique) diminuée du frottement — signe géré correctement.
-
-.. figure:: ../images/assemblage_suddencontraction.svg
-   :alt: Source, rétrécissement brusque SuddenContraction et Sink
-   :align: center
-   :width: 100%
-
-   Rétrécissement brusque : ``d_hyd_large`` est le diamètre **amont** (``Inlet``),
-   ``d_hyd_small`` le diamètre **aval** (``Outlet``).
-
-.. figure:: ../images/004_suddencontraction_courbe_reseau.svg
-   :alt: Courbe de réseau du rétrécissement brusque
-   :align: center
-   :width: 80%
-
-   Courbe de réseau du rétrécissement brusque ci-dessus.
-
-.. figure:: ../images/assemblage_suddenexpansion.svg
-   :alt: Source, élargissement brusque SuddenExpansion et Sink
-   :align: center
-   :width: 100%
-
-   Élargissement brusque : les rôles s'inversent — ``d_hyd_small`` en amont,
-   ``d_hyd_large`` en aval. Mesuré : la pression **remonte** de 85 Pa.
-
-.. figure:: ../images/004_suddenexpansion_courbe_reseau.svg
-   :alt: Courbe de réseau de l'élargissement brusque
-   :align: center
-   :width: 80%
-
-   Courbe de réseau de l'élargissement brusque ci-dessus.
-
-Tés (jonctions 3 ports)
------------------------
-
-.. list-table::
-   :header-rows: 1
-   :widths: 30 70
-
-   * - Modèle
-     - Description
-   * - ``Hydraulic.ConvergingTee``
-     - **té convergent** : 2 entrées (axe ``Inlet_St`` + branche ``Inlet_S``) →
-       1 sortie ``Outlet``. Bilan masse :math:`F_C = F_{St}+F_S` et **mélange
-       enthalpique** :math:`h_C = (F_{St}h_{St}+F_S h_S)/F_C`. Coefficients
-       Idel'cik.
-   * - ``Hydraulic.DivergingTee``
-     - **té divergent** : 1 entrée ``Inlet`` → 2 sorties (``Outlet_St`` axe,
-       ``Outlet_S`` branche). Bilan masse :math:`F_{St}=F_C-F_S`.
-
-.. figure:: ../images/assemblage_convergingtee.svg
-   :alt: Deux Sources vers un té convergent ConvergingTee, puis un Sink
-   :align: center
-   :width: 100%
-
-   Té convergent : **deux** composants amont, un sur le passage droit
-   (``Inlet_St``), un sur la branche (``Inlet_S``) ; les débits s'additionnent.
-
-.. figure:: ../images/004_convergingtee_courbe_reseau.svg
-   :alt: Courbes de réseau du té convergent
-   :align: center
-   :width: 80%
-
-   Courbes de réseau du té convergent : une courbe par chemin, passage droit et
-   branche vers le collecteur.
-
-.. figure:: ../images/assemblage_divergingtee.svg
-   :alt: Une Source vers un té divergent DivergingTee, puis deux Sinks
-   :align: center
-   :width: 100%
-
-   Té divergent : le débit de la branche s'**impose** par ``Outlet_S.F`` ; le passage
-   droit ``Outlet_St`` reçoit le reste (1,5 − 0,5 = 1,0 kg/s, mesuré).
-
-.. figure:: ../images/004_divergingtee_courbe_reseau.svg
-   :alt: Courbes de réseau du té divergent
-   :align: center
-   :width: 80%
-
-   Courbes de réseau du té divergent : la branche latérale perd de la pression, le
-   passage droit en **regagne** (courbe sous zéro, −53 Pa au point de fonctionnement).
-
 .. note::
-   **D'où viennent ces courbes.** Chacune est tracée par la bibliothèque elle-même,
+   **D'où viennent les courbes de réseau.** Elles sont tracées par la bibliothèque,
    par le chemin qu'emprunte le nœud de l'IHM : ``compute_network_curve(modele,
    **modele.network_plot_kwargs())`` puis ``render_network_figure``, importés de
-   ``ThermodynamicCycles.Hydraulic.network_plot``. La méthode ``modele.Plot()``,
-   plus directe, lève aujourd'hui un ``TypeError`` (arguments ``info``,
-   ``curve_label`` ou ``regime`` refusés) pour **les six modèles de cette page** :
-   utilisez ces deux fonctions à la place.
+   ``ThermodynamicCycles.Hydraulic.network_plot``. La méthode ``modele.Plot()``
+   lève aujourd'hui un ``TypeError`` pour ce modèle (arguments ``info``,
+   ``curve_label`` ou ``regime`` refusés) : utilisez ces deux fonctions à la place.
 
 .. note::
    Ces modèles sont **bidirectionnels** : si la pression d'une sortie est imposée
    (aval), le modèle remonte la (les) pression(s) d'entrée
-   (:math:`P_{in}=P_{out}+\Delta P`). Voir :ref:`propagation_pression`.
+   (:math:`P_{in}=P_{out}+\Delta P`). Voir :doc:`propagation_pression`.
 
 .. _curved_bend:
 

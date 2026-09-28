@@ -571,3 +571,24 @@
   même, et désactivable).
 - Suivant : I2 — prochain modèle hydraulique sans page (`GateValve`, `CheckValve`,
   `DpRegulator`).
+
+## 2026-09-28 — sommaire hydraulique simple et exhaustif (demande de l'utilisateur)
+- Unité : « le sommaire hydraulique doit être simple comme ceci : [10 titres] » +
+  « et être exhaustif par rapport aux modèles existants ».
+- Fait : 27 pages au sommaire du chapitre, titres courts ; l'ordre des 10 titres
+  donnés est conservé, les autres modèles intercalés (vannes après la vanne 3 voies,
+  singularités après l'élargissement, coups de bélier à la fin). Découpage de deux
+  pages sans perte d'explication. 16 fiches générées depuis `inventaire_modeles.json`
+  par `tools/fiches_hydrauliques.py` ; relecture : nom de nœud tronqué à l'apostrophe
+  et préfixe de docstring répété — corrigés ; deux introductions rédigées qui
+  affirmaient plus que le code (« ouverte ou fermée », « arrêt de pompe ») —
+  ramenées au code. Exemple du circuit série : il ne publiait rien et se disait
+  « vérifié numériquement » ; il imprime désormais les trois lois, sortie réelle
+  publiée (nœud à 0,2 Pa, KVL à 0,1 Pa, débit conservé).
+- Banc : 27 pages mesurées, aucune au cran 1, aucun recul ; coude et vanne générique
+  restent au cran 5 ; `perte_pression_lineaire` et `valve_3_voies` mesurées pour la
+  première fois → cran 2 (sortie non publiée).
+- Build : 0 warning (`-E`).
+- Bug bibliothèque : **nouvelle entrée** — traces de `StraightPipe` étiquetées « bar »
+  sur des Pa.
+- Suivant : I6 — schémas SVG (nouvelle demande de l'utilisateur).
