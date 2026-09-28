@@ -2,11 +2,24 @@
 <title>Vanne générique à Kv</title>
 <defs><marker id="fleche" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-end"><path d="M 0 0 L 10 5 L 0 10 z" fill="#1f2933"/></marker><marker id="fleche_cote" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-end"><path d="M 0 0 L 10 5 L 0 10 z" fill="#b46a00"/></marker><marker id="fleche_flux" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-end"><path d="M 0 0 L 10 5 L 0 10 z" fill="#2670a8"/></marker></defs>
 <rect width="960" height="330" fill="#ffffff"/>
-<circle cx="110.0" cy="150.0" r="46.0" fill="#87c9ea" stroke="none" stroke-width="0.0"/>
+<g transform="translate(64.00 123.83) scale(0.3172)"><g transform="translate(-91 -451)"><path d="M92.5 494.5 300.5 494.5 300.5 455.5 378.5 533.5 300.5 611.501 300.5 572.501 92.5 572.501Z" stroke="#000000" stroke-width="3.4375" stroke-miterlimit="8" fill="none" fill-rule="evenodd" /><path d="M92.5 455.5 92.5003 611.405" stroke="#000000" stroke-width="3.4375" stroke-miterlimit="8" fill="none" fill-rule="evenodd" /></g></g>
 <text x="64.0" y="216.0" fill="#1f2933" text-anchor="start" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="13" font-weight="600">Source.Object()</text>
 <circle cx="156.0" cy="150.0" r="7.0" fill="#ffffff" stroke="#e8793a" stroke-width="4"/>
-<circle cx="850.0" cy="150.0" r="46.0" fill="#e8793a" stroke="none" stroke-width="0.0"/>
+<g transform="translate(804.00 123.83) scale(0.3172)"><g transform="translate(-91 -671)"><path d="M92.5 714.5 300.5 714.5 300.5 675.5 378.5 753.5 300.5 831.501 300.5 792.501 92.5 792.501Z" stroke="#000000" stroke-width="3.4375" stroke-miterlimit="8" fill="none" fill-rule="evenodd" /><path d="M378.5 675.5 378.5 831.405" stroke="#000000" stroke-width="3.4375" stroke-miterlimit="8" fill="none" fill-rule="evenodd" /></g></g>
 <text x="804.0" y="216.0" fill="#1f2933" text-anchor="start" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="13" font-weight="600">Sink.Object()</text>
+<g transform="translate(384.00 14.00) scale(0.5200)"><g fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <polygon points="30,51 30,73 50,62" />
+    <polygon points="70,51 70,73 50,62" />
+    <line x1="30" y1="62" x2="8" y2="62" />
+    <line x1="70" y1="62" x2="92" y2="62" />
+  </g>
+  <g class="ports">
+    <circle class="port" cx="8" cy="62" r="2.0" fill="#000000" stroke="none" data-port="port-w" data-dir="w" data-role="inlet" />
+    <circle class="port" cx="92" cy="62" r="2.0" fill="#000000" stroke="none" data-port="port-e" data-dir="e" data-role="outlet" />
+  </g>
+</g>
+<text x="442.0" y="36.0" fill="#7b8794" text-anchor="start" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11">nœud de l'IHM</text>
+<text x="442.0" y="52.0" fill="#1f2933" text-anchor="start" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12">« Vanne générique (Kv) »</text>
 <circle cx="804.0" cy="150.0" r="7.0" fill="#ffffff" stroke="#1d5f86" stroke-width="4"/>
 <rect x="330.0" y="134.0" width="116.0" height="32.0" rx="0" fill="#cfe8f6" stroke="none" stroke-width="0"/>
 <line x1="330.0" y1="134.0" x2="446.0" y2="134.0" stroke="#1f2933" stroke-width="2.4"/>

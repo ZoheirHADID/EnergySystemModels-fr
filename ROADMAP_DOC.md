@@ -412,7 +412,7 @@ re-vérifier par exécution avant rédaction.
   entrées ; fait : `GeneralValve` → `vanne_generique.rst`, cran 5, 2026-09-28 ; reste 20) : un modèle par tour, selon le squelette de page ; l'index se met à
   jour à chaque page créée.
 
-- `à faire` **I7 — icônes PyqtSimulator dans les schémas d'assemblage** (demande de
+- `fait` (2026-09-28) **I7 — icônes PyqtSimulator dans les schémas d'assemblage** (demande de
   l'utilisateur, 2026-09-28) : dessiner Source, Sink et le modèle avec les icônes
   réelles de `src/PyqtSimulator/nodes/icons/`, pour que le schéma du guide
   ressemble à ce que l'utilisateur voit dans l'IHM.

@@ -503,7 +503,7 @@
   "docs/source/004-hydraulic/coudes_tes_singularites.rst": {
    "blocs": 4,
    "empreinte": "dfe7e153c90156c3",
-   "mesure": "2026-09-28T10:56",
+   "mesure": "2026-09-28T11:00",
    "figures": [
     "../images/assemblage_edgedbend.svg",
     "../images/004_edgedbend_courbe_reseau.svg",
@@ -758,7 +758,7 @@
   "docs/source/004-hydraulic/te_jonction.rst": {
    "blocs": 2,
    "empreinte": "977750af628ed1df",
-   "mesure": "2026-09-28T10:50",
+   "mesure": "2026-09-28T11:01",
    "figures": [
     "../images/assemblage_convergingtee.svg",
     "../images/004_convergingtee_courbe_reseau.svg",
@@ -802,7 +802,7 @@
   "docs/source/004-hydraulic/vanne_generique.rst": {
    "blocs": 3,
    "empreinte": "b2179dcfcb1bce8d",
-   "mesure": "2026-09-28T10:56",
+   "mesure": "2026-09-28T11:01",
    "figures": [
     "../images/schema_generalvalve.svg",
     "../images/004_generalvalve_courbe.svg"

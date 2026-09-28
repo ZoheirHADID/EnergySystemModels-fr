@@ -2,8 +2,8 @@
 <title>Circuit série résolu</title>
 <defs><marker id="fleche" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-end"><path d="M 0 0 L 10 5 L 0 10 z" fill="#1f2933"/></marker><marker id="fleche_cote" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-end"><path d="M 0 0 L 10 5 L 0 10 z" fill="#b46a00"/></marker><marker id="fleche_flux" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-end"><path d="M 0 0 L 10 5 L 0 10 z" fill="#2670a8"/></marker></defs>
 <rect width="960" height="330" fill="#ffffff"/>
-<circle cx="90.0" cy="140.0" r="40.0" fill="#87c9ea" stroke="none" stroke-width="0.0"/>
-<circle cx="870.0" cy="140.0" r="40.0" fill="#e8793a" stroke="none" stroke-width="0.0"/>
+<g transform="translate(50.00 117.24) scale(0.2759)"><g transform="translate(-91 -451)"><path d="M92.5 494.5 300.5 494.5 300.5 455.5 378.5 533.5 300.5 611.501 300.5 572.501 92.5 572.501Z" stroke="#000000" stroke-width="3.4375" stroke-miterlimit="8" fill="none" fill-rule="evenodd" /><path d="M92.5 455.5 92.5003 611.405" stroke="#000000" stroke-width="3.4375" stroke-miterlimit="8" fill="none" fill-rule="evenodd" /></g></g>
+<g transform="translate(830.00 117.24) scale(0.2759)"><g transform="translate(-91 -671)"><path d="M92.5 714.5 300.5 714.5 300.5 675.5 378.5 753.5 300.5 831.501 300.5 792.501 92.5 792.501Z" stroke="#000000" stroke-width="3.4375" stroke-miterlimit="8" fill="none" fill-rule="evenodd" /><path d="M378.5 675.5 378.5 831.405" stroke="#000000" stroke-width="3.4375" stroke-miterlimit="8" fill="none" fill-rule="evenodd" /></g></g>
 <rect x="190.0" y="126.0" width="230.0" height="28.0" rx="0" fill="#cfe8f6" stroke="#1f2933" stroke-width="2.0"/>
 <text x="305.0" y="176.0" fill="#1f2933" text-anchor="middle" font-family="Consolas, Courier New, monospace" font-size="12">p1 : StraightPipe, L = 10 m</text>
 <rect x="540.0" y="126.0" width="230.0" height="28.0" rx="0" fill="#cfe8f6" stroke="#1f2933" stroke-width="2.0"/>

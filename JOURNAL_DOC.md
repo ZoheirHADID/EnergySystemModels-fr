@@ -604,3 +604,18 @@
 - Banc : aucun recul (coude et vanne générique au cran 5, fiches au cran 4).
 - Build : 0 warning (`-E`).
 - Suivant : I7 — icônes PyqtSimulator dans les schémas (nouvelle demande).
+
+## 2026-09-28 — icônes PyqtSimulator dans les schémas (demande de l'utilisateur)
+- Unité : « pour les schémas, utiliser les icônes PyqtSimulator dans la composition
+  des modèles ».
+- Fait : `icone_du_noeud()` lit l'attribut `icon` de la classe du nœud
+  (`nodes/<nœud>.py`), `titre_du_noeud()` son `op_title` ; `_icone()` insère le
+  contenu **vectoriel** de l'icône en groupe `<g>` mis à l'échelle de sa `viewBox`.
+  Source et Sink = icônes des nœuds `input` / `output` ; chaque schéma de modèle
+  porte en en-tête l'icône de son nœud et son nom dans la palette. Appliqué aux 22
+  `schema_*.svg` et aux 6 `assemblage_*.svg`. Premier essai en image `data:` SVG :
+  **non affiché par Qt** (contrôle hors écran) — remplacé par l'insertion
+  vectorielle, affichée partout.
+- Banc : aucun recul. Build : 0 warning (`-E`).
+- Bibliothèque : lue seulement (icônes). Son arbre montre des modifications `CEE`
+  qui ne viennent pas de cette boucle ; rien n'y a été touché.

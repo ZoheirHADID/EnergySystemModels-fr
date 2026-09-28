@@ -20,7 +20,7 @@ from __future__ import annotations
 import math
 
 import generate_param_diagrams as G
-from generate_param_diagrams import (AXE, COTE, FLUX, MONO, TRAIT, _cercle, _cote_droite,
+from generate_param_diagrams import (_icone, titre_du_noeud, AXE, COTE, FLUX, MONO, TRAIT, _cercle, _cote_droite,
                                      _entete, _ecrire, _ligne, _lignes, _note, _polyligne,
                                      _port, _rect, _texte, _verifier_debordements)
 
@@ -33,14 +33,36 @@ XI, XO = 330.0, 630.0     # ports Inlet / Outlet du modèle
 L, H = 960.0, 330.0
 
 
+#: Schéma → nœud de la palette PyqtSimulator dont on reprend l'icône.
+NOEUD_DU_SCHEMA = {
+    "schema_generalvalve.svg": "general_valve", "schema_gatevalve.svg": "gate_valve",
+    "schema_globevalve.svg": "globe_valve", "schema_ballvalve.svg": "ball_valve",
+    "schema_butterflyvalve.svg": "butterfly_valve",
+    "schema_rectangularbutterflyvalve.svg": "rect_butterfly_valve",
+    "schema_checkvalve.svg": "check_valve", "schema_movableflap.svg": "movable_flap",
+    "schema_dpregulator.svg": "dp_regulator", "schema_coil.svg": "coil",
+    "schema_gradualcontraction.svg": "gradual_contraction",
+    "schema_gradualexpansion.svg": "gradual_expansion", "schema_orifice.svg": "orifice",
+    "schema_screengrid.svg": "screen_grid", "schema_thickgridplate.svg": "thick_grid_plate",
+    "schema_ergunpackedbed.svg": "ergun_packed_bed", "schema_entranceshaft.svg": "entrance_shaft",
+    "schema_freedischarge.svg": "free_discharge", "schema_methodes_k.svg": "hooper_method_2k",
+}
+
+
 def _cadre(nom, titre, forme, parametres, note, ports=("Inlet", "Outlet"), hauteur=H):
     """Source → forme → Sink, sur l'axe Y."""
     m = _entete(L, hauteur, titre)
-    m.append(_cercle(110, Y, 46, BLEU))
+    m.append(_icone("input", 110, Y, 92, 60))
     m += _lignes(64, Y + 66, ["Source.Object()"], 12)
     m.append(_port(156, Y, entree=False))
-    m.append(_cercle(850, Y, 46, ORANGE))
+    m.append(_icone("output", 850, Y, 92, 60))
     m += _lignes(804, Y + 66, ["Sink.Object()"], 12)
+    noeud = NOEUD_DU_SCHEMA.get(nom)
+    if noeud:
+        cx = (XI + XO) / 2
+        m.append(_icone(noeud, cx - 70, 40, 52, 52))
+        m.append(_texte(cx - 38, 36, "nœud de l'IHM", 11, AXE, "start"))
+        m.append(_texte(cx - 38, 52, "« " + titre_du_noeud(noeud) + " »", 12, TRAIT, "start"))
     m.append(_port(804, Y, entree=True))
     m += forme
     m.append(_port(XI, Y, entree=True))
@@ -328,8 +350,8 @@ def circuit_serie():
     """Pressions MESURÉES par l'exemple de resolution_circuit.rst (2026-09-28)."""
     m = _entete(L, 330, "Circuit série résolu")
     y = 140.0
-    m.append(_cercle(90, y, 40, BLEU))
-    m.append(_cercle(870, y, 40, ORANGE))
+    m.append(_icone("input", 90, y, 80, 52))
+    m.append(_icone("output", 870, y, 80, 52))
     for x0, x1, nom in ((190, 420, "p1 : StraightPipe, L = 10 m"), (540, 770, "p2 : StraightPipe, L = 20 m")):
         m.append(_rect(x0, y - 14, x1 - x0, 28, EAU, TRAIT, 0, 2.0))
         m.append(_texte((x0 + x1) / 2, y + 36, nom, 12, TRAIT, "middle", MONO))

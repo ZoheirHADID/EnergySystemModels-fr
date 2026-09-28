@@ -372,6 +372,56 @@ PORT_IN = "#1d5f86"        # port d'entrée (Inlet)
 PORT_OUT = "#e8793a"       # port de sortie (Outlet)
 
 
+#: Icônes de la palette PyqtSimulator (dépôt bibliothèque, lu sans être modifié).
+NOEUDS_IHM = RACINE.parent.parent / "EnergySystemModels" / "src" / "PyqtSimulator" / "nodes"
+
+
+def icone_du_noeud(noeud: str) -> str:
+    """Fichier d'icône déclaré par le nœud (attribut ``icon`` de sa classe)."""
+    texte = (NOEUDS_IHM / f"{noeud}.py").read_text(encoding="utf-8")
+    m = re.search(r'^\s*icon\s*=\s*["\']icons/([^"\']+)["\']', texte, re.M)
+    if not m:
+        raise ValueError(f"pas d'icône déclarée dans nodes/{noeud}.py")
+    return m.group(1)
+
+
+def titre_du_noeud(noeud: str) -> str:
+    """Nom affiché dans la palette (attribut ``op_title`` de la classe du nœud)."""
+    texte = (NOEUDS_IHM / f"{noeud}.py").read_text(encoding="utf-8")
+    m = re.search(r'op_title\s*=\s*(["\'])(.+?)\1', texte)
+    return m.group(2) if m else noeud
+
+
+def _icone(noeud: str, x: float, y: float, largeur: float, hauteur: float) -> str:
+    """L'icône réelle du nœud, recopiée en VECTORIEL et centrée sur (x, y).
+
+    Le contenu de l'icône est inséré comme groupe ``<g>`` mis à l'échelle de sa
+    ``viewBox`` : une image ``data:`` SVG imbriquée n'est pas affichée par tous
+    les moteurs (Qt ne la dessine pas), un groupe l'est partout.
+    """
+    import xml.etree.ElementTree as ET
+    ns = "{http://www.w3.org/2000/svg}"
+    racine = ET.fromstring((NOEUDS_IHM / "icons" / icone_du_noeud(noeud)).read_bytes())
+    vb = racine.get("viewBox")
+    if vb:
+        vx, vy, vw, vh = (float(v) for v in vb.replace(",", " ").split())
+    else:
+        vx = vy = 0.0
+        vw = float(re.sub(r"[^\d.]", "", racine.get("width", "100")))
+        vh = float(re.sub(r"[^\d.]", "", racine.get("height", "100")))
+    s = min(largeur / vw, hauteur / vh)
+    tx = x - vw * s / 2 - vx * s
+    ty = y - vh * s / 2 - vy * s
+    enfants = []
+    for e in racine:
+        if e.tag.replace(ns, "") in {"title", "desc", "metadata"}:
+            continue
+        brut = ET.tostring(e, encoding="unicode")
+        brut = re.sub(r'\sxmlns(:\w+)?="[^"]*"', "", brut).replace("ns0:", "").replace("svg:", "")
+        enfants.append(brut)
+    return f'<g transform="translate({tx:.2f} {ty:.2f}) scale({s:.4f})">' + "".join(enfants) + "</g>"
+
+
 def _cercle(x, y, r, remplissage, bordure="none", epaisseur=0.0) -> str:
     return (f'<circle cx="{x:.1f}" cy="{y:.1f}" r="{r:.1f}" fill="{remplissage}" '
             f'stroke="{bordure}" stroke-width="{epaisseur}"/>')
@@ -401,11 +451,11 @@ def _assemblage(nom, titre, sources, puits, composant, connexions, etiquettes,
     `etiquettes` = [(x, y, lignes)] (paramètres et noms de ports)."""
     m = _entete(L, H, titre)
     for x, y, lignes, (px, py) in sources:
-        m.append(_cercle(x, y, 46, BLEU_SOURCE))
+        m.append(_icone("input", x, y, 92, 60))
         m += _lignes(x - 46, y + 66, lignes, 12, 16)
         m.append(_port(px, py, entree=False))
     for x, y, lignes, (px, py) in puits:
-        m.append(_cercle(x, y, 46, ORANGE_PUITS))
+        m.append(_icone("output", x, y, 92, 60))
         m += _lignes(x - 46, y + 66, lignes, 12, 16)
         m.append(_port(px, py, entree=True))
     m += composant
