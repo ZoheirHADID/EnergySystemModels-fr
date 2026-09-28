@@ -555,7 +555,8 @@ par votre courbe de charge horaire (relevé du gestionnaire de réseau), exprim�
 .. code-block:: python
 
    # Étape 4 : autoconsommation — calculée par la bibliothèque
-   from PV.StockageBatterie import Batterie, simuler_autoconsommation
+   from PV.StockageBatterie import (Batterie, etude_capacites, simuler_autoconsommation,
+                                    tracer_autoconsommation)
 
    # profil de charge CONSTRUIT (atelier 5 j/7), sur l'index UTC de la production
    heures = ac_toiture.index
@@ -604,87 +605,52 @@ des **hypothèses saisies pour l'exemple**, pas des valeurs de référence.
 
    # Étape 5 : stockage par batterie — plusieurs capacités, mêmes hypothèses de batterie
    # HYPOTHÈSES SAISIES pour l'exemple (à remplacer par la fiche du constructeur retenu)
-   PUISSANCE_PAR_KWH = 0.5        # kW de charge/décharge par kWh de capacité
-   RENDEMENT_AR = 0.90            # rendement aller-retour
-   SOC_MIN, SOC_MAX = 0.10, 0.95  # plage d'état de charge utilisable
+   hypotheses = dict(puissance_kw_par_kwh=0.5,      # kW de charge/décharge par kWh
+                     rendement_aller_retour=0.90,
+                     soc_min=0.10, soc_max=0.95)    # plage d'état de charge utilisable
 
-   def batterie(capacite_kwh):
-       return Batterie(capacite_kwh=capacite_kwh,
-                       puissance_charge_kw=PUISSANCE_PAR_KWH * capacite_kwh,
-                       rendement_aller_retour=RENDEMENT_AR,
-                       soc_min=SOC_MIN, soc_max=SOC_MAX)
-
-   print(f"{'kWh':>5} {'autoconso %':>12} {'autoprod %':>11} {'injection MWh':>14} "
-         f"{'soutirage MWh':>14} {'pertes kWh':>11} {'cycles/an':>10}")
-   resultats = {}
-   for cap in (0, 5, 10, 20):
-       serie, bb = simuler_autoconsommation(ac_toiture / 1000, charge_kw,
-                                            batterie=batterie(cap) if cap else None)
-       resultats[cap] = (serie, bb)
-       print(f"{cap:5d} {100 * bb['taux_autoconsommation']:12.1f} {100 * bb['taux_autoproduction']:11.1f} "
-             f"{bb['injection_kwh'] / 1000:14.1f} {bb['soutirage_kwh'] / 1000:14.1f} "
-             f"{bb.get('pertes_kwh', 0):11.0f} {bb.get('cycles_equivalents', 0):10.0f}")
+   etude = etude_capacites(ac_toiture / 1000, charge_kw,
+                           [0, 5, 10, 20, 50, 100, 200, 400], **hypotheses)
+   tableau = pd.DataFrame({
+       "autoconso %": 100 * etude["taux_autoconsommation"],
+       "autoprod %": 100 * etude["taux_autoproduction"],
+       "injection MWh": etude["injection_kwh"] / 1000,
+       "soutirage MWh": etude["soutirage_kwh"] / 1000,
+       "pertes kWh": etude["pertes_kwh"],
+       "cycles/an": etude["cycles_equivalents"],
+   })
+   print(tableau.round(1).to_string())
 
 Sortie réelle :
 
 .. code-block:: text
 
-     kWh  autoconso %  autoprod %  injection MWh  soutirage MWh  pertes kWh  cycles/an
-       0         80.1        38.0           28.4          185.8           0          0
-       5         80.5        38.2           27.8          185.3          59        124
-      10         80.8        38.3           27.3          184.8         107        114
-      20         81.5        38.6           26.3          184.0         202        107
+                 autoconso %  autoprod %  injection MWh  soutirage MWh  pertes kWh  cycles/an
+   capacite_kwh                                                                              
+   0                    80.1        38.0           28.4          185.8         0.0        0.0
+   5                    80.5        38.2           27.8          185.3        58.7      124.3
+   10                   80.8        38.3           27.3          184.8       107.5      113.8
+   20                   81.5        38.6           26.3          184.0       201.5      106.7
+   50                   83.5        39.5           23.5          181.4       483.8      102.4
+   100                  86.8        40.9           18.8          177.2       954.2      101.0
+   200                  92.8        43.4           10.3          169.6      1803.2       95.3
+   400                  97.1        45.3            4.1          164.0      2425.3       64.1
 
 .. code-block:: python
 
-   # Figure : état de charge d'une batterie de 20 kWh, une semaine d'été et une d'hiver,
-   # et taux d'autoconsommation selon la capacité (sorties de simuler_autoconsommation)
-   import matplotlib.pyplot as plt
-
-   capacites = [0, 5, 10, 20, 50, 100, 200, 400]
-   taux = [100 * simuler_autoconsommation(ac_toiture / 1000, charge_kw,
-                                          batterie=batterie(c) if c else None)[1]["taux_autoconsommation"]
-           for c in capacites]
-
-   serie20 = resultats[20][0]
-   fig_batterie, (ax_ete, ax_hiver, ax_cap) = plt.subplots(1, 3, figsize=(15, 4))
-   for ax, debut, titre in ((ax_ete, "2023-07-03", "Semaine d'été"), (ax_hiver, "2023-01-09", "Semaine d'hiver")):
-       t0 = pd.Timestamp(debut, tz="UTC")
-       s = serie20.loc[t0:t0 + pd.Timedelta(days=7)]
-       ax.plot(s.index, s["production"], color="orange", lw=1, label="production (kW)")
-       ax.plot(s.index, s["consommation"], color="grey", lw=1, label="consommation (kW)")
-       ax2 = ax.twinx()
-       ax2.fill_between(s.index, 100 * s["soc"], color="tab:green", alpha=0.3, label="état de charge (%)")
-       ax2.set_ylim(0, 100)
-       ax2.set_ylabel("état de charge (%)")
-       ax.set_title(f"{titre} — batterie de 20 kWh")
-       ax.set_ylabel("kW")
-       ax.tick_params(axis="x", labelrotation=45)
-       ax.legend(loc="upper left", fontsize=8)
-   ax_cap.plot(capacites, taux, marker="o")
-   ax_cap.set_xlabel("capacité de la batterie (kWh)")
-   ax_cap.set_ylabel("taux d'autoconsommation (%)")
-   ax_cap.set_title("Autoconsommation selon la capacité")
-   ax_cap.grid(alpha=0.3)
-   fig_batterie.tight_layout()
-   print("capacité (kWh) :", capacites)
-   print("autoconsommation (%) :", [round(float(t), 1) for t in taux])
-
-Sortie réelle :
-
-.. code-block:: text
-
-   capacité (kWh) : [0, 5, 10, 20, 50, 100, 200, 400]
-   autoconsommation (%) : [80.1, 80.5, 80.8, 81.5, 83.5, 86.8, 92.8, 97.1]
+   # Figure : semaines types (été, hiver) avec l'état de charge de la batterie de 20 kWh,
+   # et autoconsommation / autoproduction selon la capacité — un seul appel
+   fig_batterie = tracer_autoconsommation(etude.attrs["series"][20], etude=etude,
+                                          titre="batterie de 20 kWh")
 
 .. figure:: /009-pv-solaire/figures/009_pv_batterie.png
    :width: 100%
    :alt: État de charge d'une batterie de 20 kWh sur une semaine d'été et
          d'hiver, et taux d'autoconsommation selon la capacité
 
-   Figure produite par ``figures/generer_figures.py`` à partir des séries de
-   ``simuler_autoconsommation`` (colonnes ``production``, ``consommation``,
-   ``soc``) ; heures en UTC.
+   Figure produite par ``tracer_autoconsommation`` (bibliothèque) à partir de
+   l'étude ``etude_capacites`` ; semaines types par défaut : lundi suivant le
+   1er juillet et le 8 janvier ; heures en UTC.
 
 **Sur ce site, une petite batterie ne sert presque à rien** : 20 kWh ne font
 gagner que 1,4 point d'autoconsommation (80,1 → 81,5 %). Le surplus tombe le
@@ -767,9 +733,10 @@ Variante : doubler le champ, avec et sans batterie
 .. code-block:: python
 
    # variante : champ doublé (même toiture sur deux bâtiments), même profil, sans puis avec 20 kWh
+   simple = etude_capacites(ac_toiture / 1000, charge_kw, [0, 20], **hypotheses)
+   double = etude_capacites(2 * ac_toiture / 1000, charge_kw, [0, 20], **hypotheses)
    for cap in (0, 20):
-       _, b1 = simuler_autoconsommation(ac_toiture / 1000, charge_kw, batterie=batterie(cap) if cap else None)
-       _, b2 = simuler_autoconsommation(2 * ac_toiture / 1000, charge_kw, batterie=batterie(cap) if cap else None)
+       b1, b2 = simple.loc[cap], double.loc[cap]
        print(f"batterie {cap:2d} kWh : autoconsommation {100 * b1['taux_autoconsommation']:.1f} -> "
              f"{100 * b2['taux_autoconsommation']:.1f} %, autoproduction {100 * b1['taux_autoproduction']:.1f} -> "
              f"{100 * b2['taux_autoproduction']:.1f} %, injection {b1['injection_kwh'] / 1000:.1f} -> "
