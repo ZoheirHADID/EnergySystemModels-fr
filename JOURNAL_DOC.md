@@ -666,3 +666,21 @@
   faire ceci pour tout le guide, même en dehors de la partie hydraulique » →
   section K de la roadmap, un chapitre par tour.
 - Suivant : K1 — schémas du chapitre CTA.
+
+## 2026-09-28 — schémas du chapitre CTA (K1, demande de l'utilisateur)
+- Unité : K1 — schémas à icônes PyqtSimulator hors hydraulique, premier chapitre.
+- Fait : `_cadre` généralisé (nœuds amont/aval, fonction de lien, nœud du modèle) ;
+  6 schémas `003` — air neuf, batterie chaude, batterie froide (gouttes de
+  condensation), humidificateur, récupérateur à plaques et roue thermique (quatre
+  ports `Inlet1/Outlet1/Inlet2/Outlet2`). Icônes et titres des nœuds lus dans
+  `nodes/` (`air_input` « Air Supply », `heating_coil`…). Chaque schéma rappelle les
+  **unités non SI** des ports d'air. Unités vérifiées dans le code : `w_target`
+  écrit dans `Outlet.w` et divisé par 1000 pour la psychrométrie
+  (`CoolingCoil.py:46,58`) → g/kg d'air sec ; `FB` recalculé (`:56`), non présenté
+  comme entrée. Rendu contrôlé (planche Qt) : hachures débordantes et étiquette
+  masquée des récupérateurs — corrigées.
+- Banc : `batteries.rst` et `composants_cta.rst` **mesurées pour la première fois**
+  (elles étaient « passe statique ») → cran 2. `batteries.rst` publie
+  `Outlet.h 31.000`, absent de la sortie réelle : entrée B-CTA1.
+- Build : 0 warning.
+- Suivant : B-CTA1 (valeur publiée non conforme), puis K2 — schémas des cycles.

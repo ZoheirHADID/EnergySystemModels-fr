@@ -49,15 +49,22 @@ NOEUD_DU_SCHEMA = {
 }
 
 
-def _cadre(nom, titre, forme, parametres, note, ports=("Inlet", "Outlet"), hauteur=H):
-    """Source → forme → Sink, sur l'axe Y."""
+def _cadre(nom, titre, forme, parametres, note, ports=("Inlet", "Outlet"), hauteur=H,
+           amont=("input", "Source.Object()"), aval=("output", "Sink.Object()"),
+           lien="Fluid_connect", noeud=None):
+    """Composant amont → forme → composant aval, sur l'axe Y.
+
+    `amont` / `aval` : (nœud IHM dont on prend l'icône, libellé) ; `lien` : fonction
+    de connexion écrite sur les flèches ; `noeud` : nœud du modèle, sinon
+    ``NOEUD_DU_SCHEMA``.
+    """
     m = _entete(L, hauteur, titre)
-    m.append(_icone("input", 110, Y, 92, 60))
-    m += _lignes(64, Y + 66, ["Source.Object()"], 12)
+    m.append(_icone(amont[0], 110, Y, 92, 60))
+    m += _lignes(64, Y + 66, [amont[1]], 12)
     m.append(_port(156, Y, entree=False))
-    m.append(_icone("output", 850, Y, 92, 60))
-    m += _lignes(804, Y + 66, ["Sink.Object()"], 12)
-    noeud = NOEUD_DU_SCHEMA.get(nom)
+    m.append(_icone(aval[0], 850, Y, 92, 60))
+    m += _lignes(804, Y + 66, [aval[1]], 12)
+    noeud = noeud or NOEUD_DU_SCHEMA.get(nom)
     if noeud:
         cx = (XI + XO) / 2
         m.append(_icone(noeud, cx - 70, 40, 52, 52))
@@ -71,7 +78,7 @@ def _cadre(nom, titre, forme, parametres, note, ports=("Inlet", "Outlet"), haute
     m.append(_texte(XO + 4, Y - 44, ports[1], 12, TRAIT, "middle", MONO))
     for pts, xy in (([(163, Y), (321, Y)], (242, Y + 20)), ([(637, Y), (795, Y)], (716, Y + 20))):
         m.append(_polyligne(pts, FLUX, 2.0).replace("/>", ' marker-end="url(#fleche_flux)"/>'))
-        m.append(_texte(xy[0], xy[1], "Fluid_connect", 12, FLUX, "middle", MONO))
+        m.append(_texte(xy[0], xy[1], lien, 12, FLUX, "middle", MONO))
     m += _lignes(XI, Y + 72, parametres, 12, 17)
     m += _note(24, hauteur - 12 - 16 * len(note) - 12, L - 48, note, 12)
     return _ecrire(nom, m), _verifier_debordements(nom, m, L)
@@ -389,7 +396,127 @@ def coup_de_belier():
     return _ecrire("schema_coup_de_belier.svg", m), _verifier_debordements("schema_coup_de_belier.svg", m, L)
 
 
-FIGURES = [vanne_generique, vanne_isolement, vanne_soupape, vanne_boule, vanne_papillon,
+# --------------------------------------------------------------------------- #
+# Centrales de traitement d'air — ports AirPort, Air_connect
+# --------------------------------------------------------------------------- #
+AIR = "#e7f1f8"
+UNITES_AIR = ("Ports d'air (AirPort) : h en kJ/kg d'air sec et w en g/kg d'air sec — PAS en SI ;"
+              " F et F_dry en kg/s, P en Pa.")
+AIR_AMONT = ("air_input", "air amont")
+AIR_AVAL = ("air_output", "air aval")
+
+
+def _gaine(x0, x1, demi=26.0):
+    return [_rect(x0, Y - demi, x1 - x0, 2 * demi, AIR, TRAIT, 0, 2.2)]
+
+
+def _cadre_air(nom, titre, forme, parametres, note, noeud, hauteur=H):
+    return _cadre(nom, titre, forme, parametres, list(note) + [UNITES_AIR], hauteur=hauteur,
+                  amont=AIR_AMONT, aval=AIR_AVAL, lien="Air_connect", noeud=noeud)
+
+
+def _serpentin_batterie(couleur):
+    cx = (XI + XO) / 2
+    pts = [(cx - 40 + 10 * i, Y - 22 if i % 2 else Y + 22) for i in range(9)]
+    return [_polyligne(pts, couleur, 2.6)]
+
+
+def batterie_chaude():
+    forme = _gaine(XI, XO) + _serpentin_batterie("#c0392b")
+    return _cadre_air("schema_heatingcoil.svg", "Batterie chaude", forme,
+                      ["HeatingCoil.Object()", "To_target = 20    # °C, consigne de soufflage",
+                       "P_drop = 0        # Pa, perte de charge"],
+                      ["Chauffage sensible jusqu'à To_target : w ne change pas, l'humidité relative baisse."],
+                      "heating_coil")
+
+
+def batterie_froide():
+    cx = (XI + XO) / 2
+    forme = _gaine(XI, XO) + _serpentin_batterie("#2670a8") + [
+        _cercle(cx - 20, Y + 40, 3, "#2670a8"), _cercle(cx, Y + 44, 3, "#2670a8"),
+        _cercle(cx + 20, Y + 40, 3, "#2670a8")]
+    return _cadre_air("schema_coolingcoil.svg", "Batterie froide", forme,
+                      ["CoolingCoil.Object()", "T_sat = 7       # °C, température de batterie",
+                       "w_target = 8    # g/kg d'air sec, humidité visée", "T_target = 0    # °C"],
+                      ["Refroidissement avec déshumidification : l'eau condense sur la batterie",
+                       "(gouttes), w descend vers w_target, borné par la saturation à T_sat."],
+                      "cooling_coil", hauteur=360)
+
+
+def humidificateur():
+    cx = (XI + XO) / 2
+    forme = _gaine(XI, XO) + [_ligne(cx, Y - 26, cx, Y - 6, TRAIT, 2.4)]
+    for dx, dy in ((-12, 4), (0, 8), (12, 4), (-18, 14), (-6, 18), (6, 18), (18, 14)):
+        forme.append(_cercle(cx + dx, Y + dy, 2.4, "#2670a8"))
+    return _cadre_air("schema_humidifier.svg", "Humidificateur", forme,
+                      ["Humidifier.Object()", "HumidType = 'adiabatique'",
+                       "wo_target = 10         # g/kg d'air sec, humidité visée",
+                       "RH_out_target = 60     # %"],
+                      ["Ajout d'eau dans l'air ; en mode adiabatique, l'air se refroidit en s'humidifiant."],
+                      "humidificateur", hauteur=360)
+
+
+def air_neuf():
+    m = _entete(L, 300, "Air neuf")
+    m.append(_icone("air_input", 300, Y, 120, 78))
+    m.append(_port(366, Y, entree=False))
+    m.append(_texte(366, Y - 44, "Outlet", 12, TRAIT, "middle", MONO))
+    m.append(_polyligne([(373, Y), (560, Y)], FLUX, 2.0).replace("/>", ' marker-end="url(#fleche_flux)"/>'))
+    m.append(_texte(466, Y + 20, "Air_connect", 12, FLUX, "middle", MONO))
+    m.append(_port(568, Y, entree=True))
+    m.append(_texte(600, Y + 4, "vers la batterie, le mélange…", 12, AXE, "start"))
+    m.append(_texte(220, 36, "nœud de l'IHM « " + titre_du_noeud("air_input") + " »", 12, TRAIT, "start"))
+    m += _lignes(200, Y + 60, ["FreshAir.Object()", "T = None       # °C, à saisir",
+                               "RH = None      # %, à saisir", "F_m3h = None   # m3/h (ou F en kg/s)"], 12, 17)
+    m += _note(24, 300 - 12 - 16 * 1 - 12, L - 48, [UNITES_AIR], 12)
+    return _ecrire("schema_freshair.svg", m), _verifier_debordements("schema_freshair.svg", m, L)
+
+
+def _recuperateur(nom, titre, noeud, classe, roue):
+    hauteur = 400
+    m = _entete(L, hauteur, titre)
+    y1, y2 = 110.0, 250.0
+    cx = 480.0
+    for y, sens, lab in ((y1, 1, "air neuf"), (y2, -1, "air extrait")):
+        m.append(_rect(250, y - 22, 460, 44, AIR, TRAIT, 0, 2.2))
+        a, b = (250, 710) if sens > 0 else (710, 250)
+        m.append(_ligne(a + 30 * sens, y, b - 30 * sens, y, FLUX, 1.8,
+                        marqueurs=' marker-end="url(#fleche_flux)"'))
+        m.append(_texte(330, y - 30, lab, 12, AXE, "middle"))
+    if roue:
+        m.append(_cercle(cx, (y1 + y2) / 2, 58, "#ffffff", TRAIT, 2.4))
+        m.append(_ligne(cx - 58, (y1 + y2) / 2, cx + 58, (y1 + y2) / 2, TRAIT, 1.2))
+        m.append(_ligne(cx, (y1 + y2) / 2 - 58, cx, (y1 + y2) / 2 + 58, TRAIT, 1.2))
+    else:
+        m.append(_rect(cx - 50, y1 - 22, 100, y2 - y1 + 44, "#ffffff", TRAIT, 0, 2.4))
+        for k in range(-44, 26, 14):
+            m.append(_ligne(cx + k, y1 - 22, cx + k + 20, y2 + 22, TRAIT, 1.0))
+    for x, y, lab, entree in ((250, y1, "Inlet1", True), (710, y1, "Outlet1", False),
+                              (710, y2, "Inlet2", True), (250, y2, "Outlet2", False)):
+        m.append(_port(x, y, entree=entree))
+        m.append(_texte(x, y + 38, lab, 12, TRAIT, "middle", MONO))
+    m.append(_icone(noeud, 90, 60, 52, 52))
+    m.append(_texte(122, 56, "nœud « " + titre_du_noeud(noeud) + " »", 12, TRAIT, "start"))
+    m += _lignes(40, 300, [f"{classe}.Object()", "T_efficiency = 80    # %, efficacité en température",
+                           "T_target = 16        # °C"], 12, 17)
+    m += _note(24, hauteur - 12 - 16 * 2 - 12, L - 48,
+               ["Deux flux d'air, quatre ports : l'air neuf (1) se réchauffe sur l'air extrait (2).",
+                UNITES_AIR], 12)
+    return _ecrire(nom, m), _verifier_debordements(nom, m, L)
+
+
+def recuperateur_plaques():
+    return _recuperateur("schema_heatplateexchanger.svg", "Récupérateur à plaques", "heat_plate_exchanger",
+                         "Heat_plate_exchanger", roue=False)
+
+
+def roue_thermique():
+    return _recuperateur("schema_thermalwheelexchanger.svg", "Roue thermique", "thermal_wheel_exchanger",
+                         "Thermal_wheel_exchanger", roue=True)
+
+
+FIGURES = [air_neuf, batterie_chaude, batterie_froide, humidificateur, recuperateur_plaques,
+           roue_thermique, vanne_generique, vanne_isolement, vanne_soupape, vanne_boule, vanne_papillon,
            papillon_rectangulaire, clapet_anti_retour, clapet_volet, regulateur_dp, serpentin,
            confuseur, diffuseur, orifice, grille, plaque_perforee, lit_grains, entree, sortie_libre,
            methode_k, loi_des_noeuds, circuit_serie, coup_de_belier]

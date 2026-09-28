@@ -426,7 +426,12 @@ composant amont → forme du modèle → aval, **ports réels**, connexions
 (attribut `icon` du nœud), paramètres sous leur nom de code avec leur défaut, et
 aucune valeur calculée sauf mesurée. Un chapitre par tour :
 
-- `à faire` **K1 — CTA** (`003-ahu_modules`) : `FreshAir`, batteries chaude et
+- `à faire` **B-CTA1 — `003-ahu_modules/batteries.rst` publie une valeur non
+  conforme** (première mesure, 2026-09-28) : `Outlet.h (kJ/kg) 31.000` (ligne 144)
+  absent de la sortie réelle — cran 2. Défaut « valeur affichée ≠ sortie réelle »,
+  priorité 5 de la boucle : à remettre d'accord avec l'exécution.
+- `à faire` **B-CTA2 — `composants_cta.rst`** : sortie mesurée non publiée (cran 2).
+- `fait` (2026-09-28 ; 6 schémas à icônes, insérés sous le titre de chaque modèle) **K1 — CTA** (`003-ahu_modules`) : `FreshAir`, batteries chaude et
   froide, humidificateur, récupérateurs, `GenericAHU` ; ports `AirPort`,
   `Air_connect`, icônes `cta_*`. **Unités d'air non SI** à porter sur les schémas
   (h en kJ/kg d'air sec, w en g/kg d'air sec).

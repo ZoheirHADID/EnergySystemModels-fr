@@ -73,6 +73,13 @@ puissance thermique.
 Batterie chaude sensible — ``HeatingCoil``
 ------------------------------------------
 
+.. figure:: ../images/schema_heatingcoil.svg
+   :alt: Schéma de la batterie chaude HeatingCoil
+   :align: center
+   :width: 100%
+
+   Forme, ports et raccordement ; paramètres sous leur nom de code, avec leur valeur par défaut.
+
 **Rôle** — réchauffe l'air jusqu'à ``To_target`` sans modifier son humidité
 absolue (chauffage **sensible**, ``w`` constant). Si l'air entre déjà plus chaud
 que la consigne, la batterie reste inactive (``Q_th = 0``).
@@ -265,6 +272,13 @@ de 20 °C n'est pas atteinte), pour 21,7 kW, et l'eau ressort à 60,8 °C.
 
 Batterie froide avec déshumidification — ``CoolingCoil``
 --------------------------------------------------------
+
+.. figure:: ../images/schema_coolingcoil.svg
+   :alt: Schéma de la batterie froide CoolingCoil
+   :align: center
+   :width: 100%
+
+   Forme, ports et raccordement ; paramètres sous leur nom de code, avec leur valeur par défaut.
 
 **Rôle** — batterie froide qui **refroidit et déshumidifie**. Le modèle repose
 sur la **droite de saturation** : l'air non traité (bypass) se mélange à l'air

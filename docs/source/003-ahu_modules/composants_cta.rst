@@ -54,6 +54,13 @@ mise à jour de son port de sortie.
 Air neuf — ``FreshAir``
 -----------------------
 
+.. figure:: ../images/schema_freshair.svg
+   :alt: Schéma de l'air neuf FreshAir
+   :align: center
+   :width: 100%
+
+   Forme, ports et raccordement ; paramètres sous leur nom de code, avec leur valeur par défaut.
+
 **Rôle.** Point d'entrée d'air (air neuf, air repris, air extrait…). Convertit
 un couple température / humidité relative (et éventuellement un débit volumique)
 en état psychrométrique complet sur le port de sortie.
@@ -190,6 +197,13 @@ Si un seul flux est renseigné, la sortie reprend cet unique flux.
 Récupérateur à plaques — ``HeatRecovery.Heat_plate_exchanger``
 --------------------------------------------------------------
 
+.. figure:: ../images/schema_heatplateexchanger.svg
+   :alt: Schéma du récupérateur à plaques, quatre ports
+   :align: center
+   :width: 100%
+
+   Forme, ports et raccordement ; paramètres sous leur nom de code, avec leur valeur par défaut.
+
 **Rôle.** Échangeur air/air à plaques (récupération **sensible**). L'air neuf
 (flux 1) est préchauffé/rafraîchi par l'air extrait (flux 2) sans transfert
 d'humidité côté air neuf ; la condensation éventuelle est traitée côté air
@@ -304,6 +318,13 @@ sans condensation modélisée (:math:`w_{2o} = w_{2i}`). Entre les deux
 Récupérateur à roue — ``HeatRecovery.Thermal_wheel_exchanger``
 --------------------------------------------------------------
 
+.. figure:: ../images/schema_thermalwheelexchanger.svg
+   :alt: Schéma de la roue thermique, quatre ports
+   :align: center
+   :width: 100%
+
+   Forme, ports et raccordement ; paramètres sous leur nom de code, avec leur valeur par défaut.
+
 **Rôle.** Roue thermique (échangeur rotatif). Contrairement à la plaque, la roue
 transfère **chaleur et humidité** (échange enthalpique total). Le module
 distingue transfert total (``heat_transfer1/2``), transfert sensible
@@ -380,6 +401,13 @@ grandeurs calculées ``heat_transfer1/2``, ``sensible_heat_transfer1/2``,
 
 Humidificateur — ``Humidification.Humidifier``
 ----------------------------------------------
+
+.. figure:: ../images/schema_humidifier.svg
+   :alt: Schéma de l'humidificateur Humidifier
+   :align: center
+   :width: 100%
+
+   Forme, ports et raccordement ; paramètres sous leur nom de code, avec leur valeur par défaut.
 
 **Rôle.** Porte l'humidité absolue de l'air à une consigne ``wo_target``. Deux
 technologies : humidification **adiabatique** (à eau, enthalpie conservée) ou à

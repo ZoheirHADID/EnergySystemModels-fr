@@ -385,26 +385,36 @@
   },
   "docs/source/003-ahu_modules/batteries.rst": {
    "blocs": 5,
-   "empreinte": "0cac9f8fe21f7ae0",
-   "mesure": "2026-09-27T18:10",
-   "figures": [],
+   "empreinte": "f84302414db10f55",
+   "mesure": "2026-09-28T11:26",
+   "figures": [
+    "../images/schema_heatingcoil.svg",
+    "../images/schema_coolingcoil.svg"
+   ],
    "blocage": null,
-   "motif": "non exécutée (passe statique)",
-   "cran": null,
-   "nom": "non mesuré",
-   "cran_max": null,
+   "motif": "ligne publiée absente de la sortie réelle : 'Outlet.h (kJ/kg)          31.000'",
+   "extraits": null,
+   "cran": 2,
+   "nom": "exécuté",
+   "cran_max": 2,
    "recul": null
   },
   "docs/source/003-ahu_modules/composants_cta.rst": {
    "blocs": 7,
-   "empreinte": "64e31211a14dab46",
-   "mesure": "2026-09-27T18:10",
-   "figures": [],
+   "empreinte": "716766e8164425a2",
+   "mesure": "2026-09-28T11:26",
+   "figures": [
+    "../images/schema_freshair.svg",
+    "../images/schema_heatplateexchanger.svg",
+    "../images/schema_thermalwheelexchanger.svg",
+    "../images/schema_humidifier.svg"
+   ],
    "blocage": null,
-   "motif": "non exécutée (passe statique)",
-   "cran": null,
-   "nom": "non mesuré",
-   "cran_max": null,
+   "motif": "sortie mesurée non publiée dans la page",
+   "extraits": null,
+   "cran": 2,
+   "nom": "exécuté",
+   "cran_max": 2,
    "recul": null
   },
   "docs/source/003-ahu_modules/cta_air_neuf.rst": {
