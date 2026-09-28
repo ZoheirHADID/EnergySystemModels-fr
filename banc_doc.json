@@ -1018,9 +1018,9 @@
    "recul": null
   },
   "docs/source/006-pinch_analysis/index.rst": {
-   "blocs": 1,
-   "empreinte": "bca9d3e4de419946",
-   "mesure": "2026-09-27T18:10",
+   "blocs": 3,
+   "empreinte": "81c367bd8602661a",
+   "mesure": "2026-09-28T13:23",
    "figures": [
     "../images/006_pinch_base.svg",
     "../images/006_pinch_plot_composites.svg",
@@ -1028,10 +1028,11 @@
     "../images/006_pinch_plot_hen.svg"
    ],
    "blocage": null,
-   "motif": "non exécutée (passe statique)",
-   "cran": null,
-   "nom": "non mesuré",
-   "cran_max": null,
+   "motif": "",
+   "extraits": null,
+   "cran": 5,
+   "nom": "personnalisable",
+   "cran_max": 5,
    "recul": null
   },
   "docs/source/007-ipmvp/contexte.rst": {

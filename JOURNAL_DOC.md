@@ -929,3 +929,19 @@
 - Banc : `perte_pression_lineaire.rst` cran 4 → 5. Les 7 pages aérauliques au cran 5.
 - Build : 0 warning. Bug bibliothèque : aucun.
 - Suivant : K5 (schémas de principe : pincement, IPMVP, météo, achat, CEE).
+
+## 2026-09-28 13:50 — Analyse de pincement au cran 5 ; consigne « contenu avant images »
+- Retour utilisateur (en cours de tour) : « priorité au contenu laisser les images
+  non ajouter en dernier ». Appliqué : K5 (schémas) reporté en fin de feuille de
+  route ; les tours suivants portent sur le contenu (pages sans exemple, cran < 5).
+- Unité : `006-pinch_analysis/index.rst` (jamais mesurée ; schéma de principe déjà
+  présent sous le titre).
+- Fait : « Ce qu'on personnalise » (colonnes `dTmin2`, `mCp`, `Ti`/`To`,
+  `integration`, argument `U`) ; variante ΔTmin 20 °C → Qh,min **452,5 kW**,
+  Qc,min **102,5 kW**, récupération **547,5 kW** (+55 kW par utilité) ;
+  « Éprouver » : aucun garde-fou, un flux isotherme est accepté, classé `CS`,
+  ΔH = 0 (mesuré, dit au lecteur).
+- Banc : non mesuré → cran 4 (1ʳᵉ mesure) → cran 5.
+- Build : 0 warning. Bug bibliothèque : aucun inscrit (absence de validation
+  documentée comme comportement).
+- Suivant : contenu — prochaine page au cran < 5 ou non mesurée (banc --resume).

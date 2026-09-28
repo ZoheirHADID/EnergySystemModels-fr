@@ -458,7 +458,9 @@ aucune valeur calculée sauf mesurée. Un chapitre par tour :
   les 7 pages au cran 5)
   **K4 — aéraulique** (`005-aeraulic`) : gaine droite, coude, té,
   registres.
-- `à faire` **K5 — pincement, IPMVP, météo, achat d'énergie, CEE** : schémas de
+- `reporté en dernier` (consigne utilisateur 2026-09-28 : « priorité au contenu,
+  les images en dernier » ; pincement : schéma de principe déjà présent, page au
+  cran 5) **K5 — pincement, IPMVP, météo, achat d'énergie, CEE** : schémas de
   principe (flux chauds/froids ; baseline et période de suivi ; composantes d'une
   facture), là où il n'y a pas de composant à ports.
 

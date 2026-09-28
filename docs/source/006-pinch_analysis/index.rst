@@ -234,3 +234,94 @@ même quantité — c'est l'erreur de conception que l'analyse Pinch évite.
    20–40 °C en haute température. Plus ``ΔTmin`` est faible, moins on consomme
    d'utilités mais plus la surface d'échange (donc l'investissement) augmente ;
    l'optimum se trouve par analyse du coût total annualisé (TAC).
+
+Ce qu'on personnalise
+---------------------
+
+.. list-table::
+   :header-rows: 1
+
+   * - Paramètre
+     - Effet
+     - Valeur / plage
+   * - ``dTmin2`` (colonne, par flux)
+     - Moitié de l'écart minimal admis entre flux chaud et flux froid ; décale les
+       températures du flux. Plus il est grand, moins on récupère de chaleur mais
+       plus les échangeurs sont petits
+     - K ; ``ΔTmin = 2 × dTmin2`` (voir la note ci-dessus)
+   * - ``mCp`` (colonne)
+     - Débit de capacité thermique du flux : fixe sa puissance
+       ``mCp × (To − Ti)``
+     - kW/K
+   * - ``Ti``, ``To`` (colonnes)
+     - Températures initiale et finale ; ``Ti > To`` désigne un flux chaud
+     - °C
+   * - ``integration`` (colonne)
+     - ``False`` exclut le flux de l'analyse sans le retirer du tableau
+     - ``True`` (défaut si absente) / ``False``
+   * - ``U`` (argument de ``PinchAnalysis.Object``)
+     - Coefficient d'échange utilisé pour le produit ``UA`` des échangeurs proposés
+     - W/m²·K, défaut ``1000.0``
+
+Variante : les mêmes flux avec un ``ΔTmin`` de 20 °C au lieu de 10 °C.
+
+.. code-block:: python
+
+   import pandas as pd
+   from PinchAnalysis import PinchAnalysis
+
+   # variante : ΔTmin porté de 10 à 20 °C (dTmin2 = 10 K sur chaque flux)
+   df = pd.DataFrame({
+       'id': [1, 2, 3, 4],
+       'name': ['H1', 'H2', 'C1', 'C2'],
+       'Ti': [200, 125, 50, 45],
+       'To': [50, 45, 250, 195],
+       'mCp': [3.0, 2.5, 2.0, 4.0],
+       'dTmin2': [10, 10, 10, 10],
+       'integration': [True, True, True, True],
+   })
+   pinch = PinchAnalysis.Object(df)
+   print(f"Température de pincement (décalée) : {pinch.Pinch_Temperature} °C")
+   print(f"Utilité chaude minimale  Qh,min    : {pinch.Heating_duty} kW")
+   print(f"Utilité froide minimale  Qc,min    : {pinch.Cooling_duty} kW")
+   print(f"Chaleur récupérable                : {pinch.heat_recovery} kW")
+
+Sortie réelle :
+
+.. code-block:: text
+
+   Température de pincement (décalée) : 60 °C
+   Utilité chaude minimale  Qh,min    : 452.5 kW
+   Utilité froide minimale  Qc,min    : 102.5 kW
+   Chaleur récupérable                : 547.5 kW
+
+Doubler le ``ΔTmin`` coûte **55 kW** de plus sur chaque utilité : 452,5 kW de
+vapeur au lieu de 397,5 kW, 102,5 kW d'eau de refroidissement au lieu de 47,5 kW,
+et la récupération tombe de 602,5 à 547,5 kW. C'est le prix, en énergie, d'échangeurs
+plus petits.
+
+Éprouver le modèle
+------------------
+
+``PinchAnalysis.Object`` ne vérifie pas ses flux : aucun garde-fou. Un flux
+**isotherme** (``Ti = To``) est accepté, classé froid (``CS``) et porte une
+puissance nulle — c'est à vous d'écarter ces lignes (``integration = False``).
+
+.. code-block:: python
+
+   import pandas as pd
+   from PinchAnalysis import PinchAnalysis
+
+   # un flux isotherme (Ti = To) : ni chaud ni froid
+   df = pd.DataFrame({'id': [1, 2], 'name': ['H1', 'X'], 'Ti': [200, 80], 'To': [50, 80],
+                      'mCp': [3.0, 2.0], 'dTmin2': [5, 5], 'integration': [True, True]})
+   pinch = PinchAnalysis.Object(df)
+   print(pinch.stream_list[['name', 'Ti', 'To', 'StreamType', 'delta_H']])
+
+Sortie réelle :
+
+.. code-block:: text
+
+     name   Ti  To StreamType  delta_H
+   0   H1  200  50         HS   -450.0
+   1    X   80  80         CS      0.0
