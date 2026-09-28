@@ -634,12 +634,30 @@ def puits_fluide():
     return _ecrire("schema_sink.svg", m), _verifier_debordements("schema_sink.svg", m, L)
 
 
+def gaine_droite_air():
+    """Gaine d'air droite — `ThermodynamicCycles.Aeraulic.StraightPipe` (ports fluide)."""
+    forme = _gaine(XI, XO, 22.0) + [
+        _ligne(XI, Y + 36, XO, Y + 36, COTE, 1.2,
+               marqueurs=' marker-start="url(#fleche_cote)" marker-end="url(#fleche_cote)"'),
+        _texte((XI + XO) / 2, Y + 52, "L = 1.0   # m", 12, COTE, "middle", MONO),
+    ]
+    return _cadre("schema_straightpipe_air.svg", "Gaine d'air droite", forme,
+                  ["StraightPipe()   # classe exportée par Aeraulic",
+                   "shape = 'circular'  →  d_hyd  (m)",
+                   "shape = 'rectangular'  →  a × b  (m), d_hyd = 4S/p",
+                   "shape = 'oblong'  →  a ≥ b  (m)",
+                   "epsilon = 0.00009   # m, rugosité absolue"],
+                  ["Ports fluide (FluidPort, SI) : l'air vient d'une Source fluid='air', reliée par Fluid_connect — pas d'AirPort.",
+                   "Donner a et b sans shape bascule en 'rectangular' ; a < b en 'oblong' lève ValueError."],
+                  hauteur=400, noeud="aeraulic_straight_pipe")
+
+
 FIGURES = [compresseur, turbine, pompe, detendeur, evaporateur, condenseur, source_fluide,
            puits_fluide, air_neuf, batterie_chaude, batterie_froide, humidificateur, recuperateur_plaques,
            roue_thermique, vanne_generique, vanne_isolement, vanne_soupape, vanne_boule, vanne_papillon,
            papillon_rectangulaire, clapet_anti_retour, clapet_volet, regulateur_dp, serpentin,
            confuseur, diffuseur, orifice, grille, plaque_perforee, lit_grains, entree, sortie_libre,
-           methode_k, loi_des_noeuds, circuit_serie, coup_de_belier]
+           methode_k, loi_des_noeuds, circuit_serie, coup_de_belier, gaine_droite_air]
 
 
 def main() -> int:

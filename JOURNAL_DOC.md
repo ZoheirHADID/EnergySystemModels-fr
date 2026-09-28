@@ -823,3 +823,20 @@
 - Build : 0 warning. Bug bibliothèque : aucun (écarts `legacy`/Cengel déjà
   documentés dans le module).
 - Suivant : K4, aéraulique.
+
+## 2026-09-28 12:48 — K4 : gaine d'air droite (StraightPipe aéraulique)
+- Unité : K4 (première sous-entrée : `Aeraulic.StraightPipe`).
+- Fait : `gaine_droite_air()` dans `docs/generate_model_schemas.py` →
+  `schema_straightpipe_air.svg` (icône du nœud IHM « Conduit aeraulique », Source →
+  gaine → Sink, `L`, `shape`, `d_hyd` / `a × b`, `epsilon`) sous le titre.
+- Page mesurée pour la première fois : **l'exemple plantait** — `StraightPipe.Object()`
+  alors que `ThermodynamicCycles.Aeraulic` exporte directement la classe
+  (`from .StraightPipe import Object as StraightPipe`) → `StraightPipe()`.
+  Sortie publiée périmée (λ 0,0284, 1,24 Pa/m, rugosité réduite 0,00167) :
+  remplacée par la sortie mesurée (λ 0,0262, **1,15 Pa/m**, `epsilon` défaut
+  0,09 mm), phrase de lecture réécrite. Table : « défaut lisse » faux → `0.00009` ;
+  `shape` ajouté.
+- Banc : `perte_pression_lineaire.rst` non mesuré → cran 4.
+- Build : 0 warning. Bug bibliothèque : aucun.
+- Suivant : K4, coude / té / registres aérauliques (modèles sans page : EdgedBend,
+  TeeJunction, IrisDamper, BladeDamper, Obstruction, Filter).

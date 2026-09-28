@@ -3,6 +3,13 @@
 Gaine d'air droite — StraightPipe
 =================================
 
+.. figure:: ../images/schema_straightpipe_air.svg
+   :alt: Schéma de la gaine d'air droite : Source, StraightPipe, Sink, paramètres de section
+   :align: center
+   :width: 100%
+
+   Forme, ports et raccordement ; paramètres sous leur nom de code, avec leur valeur par défaut.
+
 5.1.1. Exemple d'utilisation de "StraightPipe"
 ----------------------------------------------
 
@@ -14,7 +21,7 @@ Gaine d'air droite — StraightPipe
     from ThermodynamicCycles.Connect import Fluid_connect
 
     SOURCE = Source.Object()
-    STRAIGHT_PIPE = StraightPipe.Object()
+    STRAIGHT_PIPE = StraightPipe()   # le paquet Aeraulic exporte la classe elle-même
     SINK = Sink.Object()
 
     SOURCE.fluid = "air"
@@ -43,20 +50,30 @@ Sortie réelle (``STRAIGHT_PIPE.df``) :
 .. code-block:: text
 
                                                   StraightPipe
-    Timestamp                       2026-07-05 00:02:28.698988
-    d_hyd                                                 0.12
-    viscosité dynamique (Pa.s)                        0.000018
+    Timestamp                       2026-09-28 12:36:49.519575
+    d_hyd (m)                                             0.12
+    d_iso (m)                                             0.12
+    d_equiv (m)                                           0.12
+    viscosite dynamique (Pa.s)                        0.000018
     masse volumique (kg/m3)                           1.209506
     section (m2)                                       0.01131
+    perimetre mouille (m)                             0.376991
     vitesse moyenne (m/s)                             2.947314
     Reynolds                                      23816.443735
-    rugosité réduite                                  0.001667
-    coefficient de perte de charge                    0.028368
-    perte de charge (Pa)                              1.241891
+    rugosite reduite                                   0.00075
+    coefficient de perte de charge                    0.026193
+    j lineaire (Pa/m)                                 1.146678
+    perte lineaire (Pa)                               1.146678
+    perte singuliere (Pa)                                  0.0
+    perte totale (Pa)                                 1.146678
+    P_in_Pa                                             100000
+    P_out_Pa                                      99998.853322
+    F_kgs                                             0.040317
 
 Pour ``d_hyd`` = 120 mm, ``L`` = 1 m et 120 m³/h d'air à 15 °C : vitesse ≈ 2,95 m/s,
-régime turbulent (Re ≈ 23 816), coefficient de perte de charge λ ≈ 0,0284 et
-**perte de charge linéaire ≈ 1,24 Pa/m**.
+régime turbulent (Re ≈ 23 816), rugosité par défaut ``epsilon`` = 0,09 mm (rugosité
+réduite 0,00075), coefficient de perte de charge λ ≈ 0,0262 et **perte de charge
+linéaire ≈ 1,15 Pa/m** (``j lineaire (Pa/m)``).
 
 5.1.3. Paramètres
 -----------------
@@ -77,8 +94,12 @@ régime turbulent (Re ≈ 23 816), coefficient de perte de charge λ ≈ 0,0284 
      - Longueur de gaine
      - m
    * - ``epsilon``
-     - Rugosité absolue de la paroi (défaut lisse)
+     - Rugosité absolue de la paroi (défaut ``0.00009``, acier galvanisé selon le code)
      - m
+   * - ``shape``
+     - ``'circular'`` (défaut), ``'rectangular'`` (``a × b``) ou ``'oblong'`` (``a ≥ b``) ;
+       ``a`` et ``b`` donnés sans ``shape`` basculent en rectangulaire
+     - —
 
 Le modèle calcule le nombre de Reynolds puis le coefficient de perte de charge λ
 (Colebrook pour le régime turbulent), et en déduit la perte de charge linéaire

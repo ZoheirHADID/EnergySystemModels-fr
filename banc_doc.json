@@ -914,14 +914,17 @@
   },
   "docs/source/005-aeraulic/perte_pression_lineaire.rst": {
    "blocs": 1,
-   "empreinte": "5efc25268474e0b6",
-   "mesure": "2026-09-27T18:10",
-   "figures": [],
+   "empreinte": "8b31d5f956675b17",
+   "mesure": "2026-09-28T12:36",
+   "figures": [
+    "../images/schema_straightpipe_air.svg"
+   ],
    "blocage": null,
-   "motif": "non exécutée (passe statique)",
-   "cran": null,
-   "nom": "non mesuré",
-   "cran_max": null,
+   "motif": "manque : table de personnalisation et variante exécutée",
+   "extraits": null,
+   "cran": 4,
+   "nom": "figure réelle",
+   "cran_max": 4,
    "recul": null
   },
   "docs/source/006-pinch_analysis/index.rst": {
