@@ -474,15 +474,18 @@
    "recul": null
   },
   "docs/source/004-hydraulic/coudes_tes_singularites.rst": {
-   "blocs": 1,
-   "empreinte": "a74505988e936ad6",
-   "mesure": "2026-09-27T18:10",
-   "figures": [],
+   "blocs": 3,
+   "empreinte": "a3d8b17ddb3064cc",
+   "mesure": "2026-09-28T09:21",
+   "figures": [
+    "../images/param_curvedbend.svg"
+   ],
    "blocage": null,
-   "motif": "non exécutée (passe statique)",
-   "cran": null,
-   "nom": "non mesuré",
-   "cran_max": null,
+   "motif": "",
+   "extraits": null,
+   "cran": 5,
+   "nom": "personnalisable",
+   "cran_max": 5,
    "recul": null
   },
   "docs/source/004-hydraulic/index.rst": {

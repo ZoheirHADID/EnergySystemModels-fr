@@ -316,3 +316,23 @@
   — son domaine de validité doit d'abord être éprouvé par exécution.
 - Suivant : G2 — schéma et domaine de `CurvedBend` dans
   `004-hydraulic/coudes_tes_singularites.rst`, ou A (pages `usage/` qui plantent).
+
+## 2026-09-28 — `004-hydraulic/coudes_tes_singularites.rst`, section `CurvedBend` (G2)
+- Unité : G2 — coude arrondi, schéma coté et domaine de validité.
+- Fait : section complète selon le squelette (à quoi ça sert, exemple minimal avec
+  `df`, table de personnalisation, variante rayon × angle, essai de domaine, sources),
+  schéma `param_curvedbend.svg` inséré. L'ancien exemple (`delta = 3.14159 / 2`, sans
+  sortie) est remplacé. **Correction de la roadmap par lecture du code** : hors de
+  0.5 ≤ R0/D0 < 3 le modèle ne lève **pas** d'exception, il pose `out_of_domain` et
+  `domain_note` ; la seule exception est `OutOfTableError` (régime 3e3 < Re < 1e4,
+  R0/D0 > 2). Le cartouche du schéma disait « R_0/d_hyd < 3 » et présentait `l0`
+  comme appliqué par le modèle : corrigé (borne 0.5, Re > 3e3, drapeau, `l0` =
+  condition de la source seulement). Le cartouche chevauchait la cote `l0` : hauteur
+  du dessin portée de 430 à 510.
+- Banc : `coudes_tes_singularites.rst` non mesurée → cran 5.
+- Exécution : 3 blocs (dont 1 variante à 6 cas, 1 essai à 2 cas) + contrôle de la
+  valeur `legacy` citée (0,0762) — `py -3.12`.
+- Build : 0 warning.
+- Bug bibliothèque : aucun.
+- Écarté : les autres singularités de la page (G2b, un modèle par tour).
+- Suivant : G2b (`EdgedBend`), ou A — les pages `usage/` qui plantent encore.

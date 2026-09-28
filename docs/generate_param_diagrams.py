@@ -170,7 +170,7 @@ def coude_courbe(nom="param_curvedbend.svg", delta_deg=90.0) -> Path:
     `delta` (radians dans le code), `K`, plus la longueur droite amont exigée par
     le diagramme 6.1 d'Idel'chik.
     """
-    L, H = 760.0, 430.0
+    L, H = 760.0, 510.0
     d = 46.0                    # diamètre à l'écran
     R = 96.0                    # rayon de courbure à l'écran
     x0, y0 = 90.0, 300.0        # début de la conduite amont, sur l'axe
@@ -262,8 +262,9 @@ def coude_courbe(nom="param_curvedbend.svg", delta_deg=90.0) -> Path:
 
     # Domaine de validité
     m += _note(90, H - 82, 580, [
-        "Domaine du diagramme 6.1 d'Idel'chik, appliqué par le modèle :",
-        "R_0/d_hyd < 3     ·     0 < delta ≤ 180°     ·     l0/d_hyd ≥ 10",
+        "Domaine du diagramme 6.1 d'Idel'chik :  0.5 ≤ R_0/d_hyd < 3  ·  delta ≤ 180°  ·  Re > 3e3",
+        "Hors domaine : out_of_domain = True et domain_note renseignée — pas d'exception.",
+        "l0/d_hyd ≥ 10 est une condition de la source : l0 n'est pas une entrée du modèle.",
         "delta se saisit en RADIANS (défaut math.pi/2) ; R_0 vaut 0.5*d_hyd si laissé à None.",
     ])
     return _ecrire(nom, m), _verifier_debordements(nom, m, L)

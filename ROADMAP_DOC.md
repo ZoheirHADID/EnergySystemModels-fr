@@ -339,9 +339,8 @@ le code**.
   `generate_diagrams.py` : lignes de cote, arcs d'angle, flèches d'écoulement,
   étiquettes portant le nom exact du paramètre. Sortie :
   `docs/source/images/param_<module>.svg`.
-- `en cours` — `param_curvedbend.svg` est généré mais **pas encore inséré** dans la
-  page ; le domaine de validité affiché reste à confronter au code par exécution
-  **G2 — premier cas : le coude hydraulique** (`CurvedBend`,
+- `fait` (2026-09-28, section `curved_bend` de `coudes_tes_singularites.rst`,
+  banc cran 5) **G2 — premier cas : le coude hydraulique** (`CurvedBend`,
   `004-hydraulic/coudes_tes_singularites.rst`). Paramètres réels relevés dans
   `ThermodynamicCycles/Hydraulic/CurvedBend.py` :
 
@@ -356,7 +355,13 @@ le code**.
   Le schéma doit aussi porter le **domaine de validité** du diagramme 6.1
   d'Idel'chik, que le modèle applique : ``R_0/d_hyd < 3``,
   ``0 < delta <= 180°``, et une longueur droite en amont ``l0/d_hyd >= 10``.
-  Hors domaine, le modèle lève une exception plutôt que d'extrapoler — le dire.
+  ~~Hors domaine, le modèle lève une exception~~ — **faux, mesuré le 2026-09-28** :
+  hors de 0.5 ≤ R0/D0 < 3 il calcule et pose `out_of_domain` + `domain_note` ;
+  seul le régime 3e3 < Re < 1e4 avec R0/D0 > 2 lève `OutOfTableError`. `l0`
+  n'est pas une entrée du modèle. La page et le schéma disent désormais cela.
+- `à faire` **G2b — même page, modèles voisins** : `EdgedBend`, `SuddenContraction`,
+  `SuddenExpansion`, `ConvergingTee`, `DivergingTee` n'y ont qu'une ligne de
+  tableau ; chacun à porter au squelette complet (un par tour).
 - `à faire` **G3 — étendre aux autres modèles géométriques**, par ordre d'utilité :
   tés convergent/divergent (répartition des débits, angles), contraction et
   élargissement brusques (rapport de sections), vanne TA (position d'ouverture),
