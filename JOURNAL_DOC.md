@@ -957,3 +957,20 @@
 - Banc : les deux pages cran 2 → 4. Plus aucune page au cran 1, 2 ou 3.
 - Build : 0 warning. Bug bibliothèque : aucun nouveau.
 - Suivant : pages non mesurées (36), en commençant par `002-thermodynamic_cycles`.
+
+## 2026-09-28 14:05 — Première mesure de 6 pages de cycles ; capteurs et signaux réparés
+- Unité : pages non mesurées de `002-thermodynamic_cycles` (contenu d'abord).
+- Mesure : `ballon_stratifie`, `dessalement_evaporation`, `echangeurs` → cran 2
+  (sorties à publier) ; `capteur_signaux` → cran 1 (`NameError: CIBLE`) ;
+  `combustion_moteurs` → cran 1 (`cantera` absent) ; `distillation` → cran 1
+  (`thermo` absent).
+- Fait : `capteur_signaux.rst` — l'exemple `SignalLink` visait une cible `CIBLE`
+  jamais définie ; ajout d'une cible réelle (seconde `Source` d'eau), lecture de
+  `list_model_signals`, impression de la consigne reçue (25 °C transmis).
+  Sorties réelles des 3 blocs publiées (capteur, lien, PID).
+- Banc : `capteur_signaux.rst` cran 1 → 4.
+- Build : 0 warning. Bug bibliothèque : aucun.
+- Écarté pour ce tour : `combustion_moteurs` et `distillation` dépendent de
+  paquets absents de la machine (`cantera`, `thermo`) — à examiner : dépendance
+  optionnelle de la bibliothèque ou exemple à réécrire.
+- Suivant : publier les sorties des 3 pages au cran 2.

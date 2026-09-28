@@ -108,6 +108,25 @@ Exemple
     print(valeur, SENSOR.unit)   # ~25.0 °C
     print(SENSOR.df)
 
+Sortie réelle :
+
+.. code-block:: text
+
+   24.999999999984084 °C
+                                   Sensor
+   Timestamp                         None
+   measurement_type           Température
+   value                             25.0
+   unit                                °C
+   temperature_degC                  25.0
+   pressure_bar                   1.01325
+   mass_flow_kgs                        1
+   volume_flow_m3h            3039.722886
+   normal_volume_flow_Nm3h    2784.081453
+   enthalpy_kJkg               424.436044
+   density_kgm3                  1.184318
+   relative_humidity_percent         None
+
 Signals
 -------
 
@@ -174,17 +193,35 @@ Exemple
 
 .. code-block:: python
 
+    # suite de l'exemple précédent : SENSOR a mesuré la température de SOURCE
     from ThermodynamicCycles.Signals import Signals
+    from ThermodynamicCycles.Source import Source
 
     # Lister les signaux disponibles sur un modèle
     signaux = Signals.list_model_signals(SENSOR)
+    print(signaux["temperature_degC"])
 
-    # Recopier la température lue par le capteur vers la consigne d'un autre nœud
+    # Nœud qui recevra la valeur : une seconde source d'eau
+    CIBLE = Source.Object()
+    CIBLE.fluid = "water"
+    CIBLE.Pi_bar = 2
+    CIBLE.F = 1
+    CIBLE.Ti_degC = 10
+
+    # Recopier la température lue par le capteur vers la consigne de CIBLE
     lien = Signals.SignalLink(
         source=SENSOR, src_attr="temperature_degC",
         target=CIBLE, tgt_attr="Ti_degC",
     )
     lien.propagate(recompute=True)   # injecte puis recalcule la cible
+    print("Ti_degC reçu par CIBLE :", CIBLE.Ti_degC)
+
+Sortie réelle :
+
+.. code-block:: text
+
+   24.999999999984084
+   Ti_degC reçu par CIBLE : 24.99999999995913
 
 PIDController
 -------------
@@ -263,3 +300,18 @@ Exemple
     commande = PID.calculate()  # signal de sortie borné [0, 1]
     print(commande, PID.error)
     print(PID.df)
+
+Sortie réelle :
+
+.. code-block:: text
+
+   0.09000000000000001 1.5
+                   PID
+   Timestamp       NaN
+   setpoint     20.000
+   measurement  18.500
+   error         1.500
+   output        0.090
+   p             0.075
+   i             0.015
+   d             0.000
