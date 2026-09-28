@@ -1,23 +1,18 @@
 Corps parallélépipédique — ParallelepipedicBody
 ===============================================
 
-.. figure:: ../images/param_parallelepipedicbody.svg
-   :alt: Schéma coté du corps parallélépipédique : L, W, H et les six faces
-   :align: center
-   :width: 100%
-
-   ``front`` et ``back`` mesurent ``W × H``, ``left`` et ``right`` ``L × H``,
-   ``top`` et ``bottom`` ``L × W``. Chaque face reçoit sa propre température
-   ``Tp`` dans ``faces_config`` ; les flux affichés sont ceux calculés par le
-   modèle sur l'exemple ci-dessous.
-
-Utilisation
------------
-
-.. image:: ../images/schema_corps_parallelepipede.svg
+.. figure:: ../images/schema_corps_parallelepipede.svg
    :alt: Corps parallélépipédique : flux calculé de chaque face
    :width: 100%
    :align: center
+
+   Simulation de l'exemple ci-dessous : flux de chaque face calculé par
+   ``ParallelepipedicBody``. ``front`` et ``back`` mesurent ``W × H``,
+   ``left`` et ``right`` ``L × H``, ``top`` et ``bottom`` ``L × W`` ; chaque
+   face reçoit sa propre température ``Tp`` dans ``faces_config``.
+
+Utilisation
+-----------
 
 .. code-block:: python
 

@@ -20,9 +20,8 @@
   "docs/source/001-heat_transfer/corps_parallelepipedique.rst": {
    "blocs": 1,
    "empreinte": "d1d3f5415305f6ca",
-   "mesure": "2026-09-28T17:06",
+   "mesure": "2026-09-28T18:24",
    "figures": [
-    "../images/param_parallelepipedicbody.svg",
     "../images/schema_corps_parallelepipede.svg"
    ],
    "blocage": null,
@@ -1829,9 +1828,8 @@
   "docs/source/transfert_chaleur.rst": {
    "blocs": 1,
    "empreinte": "1d20c3a00bbe8373",
-   "mesure": "2026-09-28T17:08",
+   "mesure": "2026-09-28T18:24",
    "figures": [
-    "images/param_plateheattransfer.svg",
     "images/schema_plaques_boite.svg"
    ],
    "blocage": null,
