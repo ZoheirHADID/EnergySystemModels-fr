@@ -45,16 +45,18 @@
   },
   "docs/source/001-heat_transfer/pipe_insulation_analysis.rst": {
    "blocs": 1,
-   "empreinte": "faf86ceccbd19f8a",
-   "mesure": "2026-09-27T18:10",
+   "empreinte": "2e8f02bc9fd6ee26",
+   "mesure": "2026-09-28T12:19",
    "figures": [
+    "../images/param_pipeinsulation.svg",
     "../images/001_heat_transfer_pipe_insulation.png"
    ],
    "blocage": null,
-   "motif": "non exécutée (passe statique)",
-   "cran": null,
-   "nom": "non mesuré",
-   "cran_max": null,
+   "motif": "manque : table de personnalisation et variante exécutée",
+   "extraits": null,
+   "cran": 4,
+   "nom": "figure réelle",
+   "cran_max": 4,
    "recul": null
   },
   "docs/source/002-thermodynamic_cycles/ballon_stratifie.rst": {

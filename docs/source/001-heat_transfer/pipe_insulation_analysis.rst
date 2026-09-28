@@ -1,6 +1,16 @@
 Isolation des tuyauteries — PipeInsulationAnalysis
 ==================================================
 
+.. figure:: ../images/param_pipeinsulation.svg
+   :alt: Schéma coté de la tuyauterie isolée : di, de, insulation_thickness, L_tube, T_fluid, Tc
+   :align: center
+   :width: 100%
+
+   ``DN`` fixe les diamètres intérieur ``di`` et extérieur ``de`` de l'acier ;
+   ``insulation_thickness`` s'ajoute autour. Le flux ``Q`` part de la surface de
+   l'isolant (température ``Tc``) vers l'ambiance, par convection naturelle et
+   rayonnement. Valeurs calculées par le modèle sur l'exemple ci-dessous.
+
 Utilisation
 -----------
 

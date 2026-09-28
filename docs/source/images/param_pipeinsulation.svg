@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="860" height="560" viewBox="0 0 860 560" role="img" aria-label="Paramétrage d'une tuyauterie isolée : DN, insulation_thickness, L_tube">
+<title>Paramétrage d'une tuyauterie isolée : DN, insulation_thickness, L_tube</title>
+<defs><marker id="fleche" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-end"><path d="M 0 0 L 10 5 L 0 10 z" fill="#1f2933"/></marker><marker id="fleche_cote" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-end"><path d="M 0 0 L 10 5 L 0 10 z" fill="#b46a00"/></marker><marker id="fleche_flux" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-end"><path d="M 0 0 L 10 5 L 0 10 z" fill="#2670a8"/></marker></defs>
+<rect width="860" height="560" fill="#ffffff"/>
+<text x="200.0" y="40.0" fill="#1f2933" text-anchor="middle" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="14" font-weight="600">coupe</text>
+<circle cx="200.0" cy="250.0" r="118.2" fill="#fff3b0" stroke="#1f2933" stroke-width="1.4"/>
+<circle cx="200.0" cy="250.0" r="62.2" fill="#9aa5b1" stroke="#1f2933" stroke-width="1.4"/>
+<circle cx="200.0" cy="250.0" r="56.6" fill="#cfe8f6" stroke="#1f2933" stroke-width="1.2"/>
+<text x="200.0" y="254.0" fill="#1f2933" text-anchor="middle" font-family="Consolas, Courier New, monospace" font-size="12">T_fluid = 70</text>
+<line x1="143.4" y1="101.8" x2="256.6" y2="101.8" stroke="#b46a00" stroke-width="1.2" marker-start="url(#fleche_cote)" marker-end="url(#fleche_cote)"/>
+<text x="200.0" y="101.8" fill="#b46a00" text-anchor="middle" font-family="Consolas, Courier New, monospace" font-size="13"></text>
+<text x="200.0" y="93.8" fill="#b46a00" text-anchor="middle" font-family="Consolas, Courier New, monospace" font-size="12">di = 0.0809 m</text>
+<line x1="137.8" y1="394.2" x2="262.2" y2="394.2" stroke="#b46a00" stroke-width="1.2" marker-start="url(#fleche_cote)" marker-end="url(#fleche_cote)"/>
+<text x="200.0" y="394.2" fill="#b46a00" text-anchor="middle" font-family="Consolas, Courier New, monospace" font-size="13"></text>
+<text x="200.0" y="414.2" fill="#b46a00" text-anchor="middle" font-family="Consolas, Courier New, monospace" font-size="12">de = 0.0889 m  (DN 80)</text>
+<line x1="262.2" y1="250.0" x2="318.2" y2="250.0" stroke="#b46a00" stroke-width="1.2" marker-start="url(#fleche_cote)" marker-end="url(#fleche_cote)"/>
+<text x="290.2" y="250.0" fill="#b46a00" text-anchor="middle" font-family="Consolas, Courier New, monospace" font-size="13"></text>
+<line x1="318.2" y1="250.0" x2="348.2" y2="210.0" stroke="#b46a00" stroke-width="1.0"/>
+<text x="350.2" y="206.0" fill="#b46a00" text-anchor="start" font-family="Consolas, Courier New, monospace" font-size="12">insulation_thickness</text>
+<text x="350.2" y="222.0" fill="#b46a00" text-anchor="start" font-family="Consolas, Courier New, monospace" font-size="12">= 0.04 m</text>
+<text x="350.2" y="280.0" fill="#c0392b" text-anchor="start" font-family="Consolas, Courier New, monospace" font-size="12">Tc = 28.9 °C</text>
+<text x="350.2" y="296.0" fill="#c0392b" text-anchor="start" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11">(surface de l'isolant)</text>
+<text x="645.0" y="40.0" fill="#1f2933" text-anchor="middle" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="14" font-weight="600">vue longitudinale</text>
+<rect x="470.0" y="216.0" width="350.0" height="68.0" rx="0" fill="#fff3b0" stroke="#1f2933" stroke-width="1.2"/>
+<rect x="470.0" y="234.0" width="350.0" height="32.0" rx="0" fill="#cfe8f6" stroke="#1f2933" stroke-width="1.2"/>
+<line x1="490.0" y1="250.0" x2="800.0" y2="250.0" stroke="#2670a8" stroke-width="2.0" marker-end="url(#fleche_flux)"/>
+<text x="462.0" y="254.0" fill="#2670a8" text-anchor="end" font-family="Consolas, Courier New, monospace" font-size="12">F_m3h = 20</text>
+<line x1="470.0" y1="310.0" x2="820.0" y2="310.0" stroke="#b46a00" stroke-width="1.2" marker-start="url(#fleche_cote)" marker-end="url(#fleche_cote)"/>
+<text x="645.0" y="310.0" fill="#b46a00" text-anchor="middle" font-family="Consolas, Courier New, monospace" font-size="13"></text>
+<text x="645.0" y="330.0" fill="#b46a00" text-anchor="middle" font-family="Consolas, Courier New, monospace" font-size="12">L_tube = 500 m</text>
+<text x="470.0" y="356.0" fill="#1f2933" text-anchor="start" font-family="Consolas, Courier New, monospace" font-size="11">material = 'Acier' : k_pipe = 50</text>
+<text x="470.0" y="372.0" fill="#1f2933" text-anchor="start" font-family="Consolas, Courier New, monospace" font-size="11">insulation : k_insulation = 0.04</text>
+<line x1="540.0" y1="212.0" x2="540.0" y2="172.0" stroke="#c0392b" stroke-width="1.6" marker-end="url(#fleche)"/>
+<line x1="645.0" y1="212.0" x2="645.0" y2="172.0" stroke="#c0392b" stroke-width="1.6" marker-end="url(#fleche)"/>
+<line x1="750.0" y1="212.0" x2="750.0" y2="172.0" stroke="#c0392b" stroke-width="1.6" marker-end="url(#fleche)"/>
+<text x="645.0" y="162.0" fill="#c0392b" text-anchor="middle" font-family="Consolas, Courier New, monospace" font-size="12">Q = 8050 W  vers Tamb = 20 °C</text>
+<rect x="40.0" y="450.0" width="780.0" height="60.0" rx="4" fill="#f4f6f8" stroke="#c9d1d9" stroke-width="1.0"/>
+<text x="50.0" y="470.0" fill="#1f2933" text-anchor="start" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12">T_fluid est constante sur toute la longueur : le modèle ne calcule pas le refroidissement du fluide.</text>
+<text x="50.0" y="486.0" fill="#1f2933" text-anchor="start" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12">Q = convection naturelle + rayonnement (emissivity = 0.01) depuis la surface de l'isolant.</text>
+<text x="50.0" y="502.0" fill="#1f2933" text-anchor="start" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12">DN, material et insulation sont lus dans des tables du module ; une valeur absente lève ValueError.</text>
+</svg>

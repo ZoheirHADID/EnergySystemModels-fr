@@ -786,3 +786,14 @@
 - Banc : `composite_wall_heat_transfer.rst` non mesuré → cran 4.
 - Build : 0 warning. Bug bibliothèque : aucun.
 - Suivant : K3, tuyauterie isolée (`PipeInsulationAnalysis`).
+
+## 2026-09-28 12:25 — K3 : schéma coté de la tuyauterie isolée
+- Unité : K3 (`PipeInsulationAnalysis`).
+- Fait : `tuyauterie_isolee()` dans `docs/generate_param_diagrams.py` →
+  `param_pipeinsulation.svg` : coupe (`di`, `de` lus dans la table DN,
+  `insulation_thickness`, `Tc`) et vue longitudinale (`L_tube`, `F_m3h`, `Q` vers
+  `Tamb`), valeurs relues sur l'objet après `calculate()`. Note : `T_fluid`
+  constante sur la longueur, `emissivity` 0,01 par défaut. Figure sous le titre.
+- Banc : `pipe_insulation_analysis.rst` non mesuré → cran 4 (sortie publiée conforme).
+- Build : 0 warning. Bug bibliothèque : aucun.
+- Suivant : K3, corps parallélépipédique.

@@ -713,6 +713,67 @@ def mur_composite(nom="param_compositewall.svg") -> Path:
     return _ecrire(nom, m), _verifier_debordements(nom, m, L)
 
 
+def tuyauterie_isolee(nom="param_pipeinsulation.svg") -> Path:
+    """Paramétrage de `HeatTransfer.PipeInsulationAnalysis` : coupe et vue longitudinale.
+
+    Diamètres, températures et flux sont ceux que **calcule la bibliothèque** sur
+    l'exemple de la page, relus sur l'objet après `calculate()`.
+    """
+    from HeatTransfer import PipeInsulationAnalysis
+
+    pipe = PipeInsulationAnalysis.Object(
+        fluid='water', T_fluid=70, F_m3h=20, DN=80, L_tube=500, material='Acier',
+        insulation='laine minérale', insulation_thickness=0.04, Tamb=20)
+    pipe.calculate()
+
+    L, H = 860.0, 560.0
+    cx, cy = 200.0, 250.0
+    k = 1400.0                               # px par mètre de rayon
+    r_i, r_e, r_iso = pipe.di / 2 * k, pipe.de / 2 * k, pipe.de_with_insulation / 2 * k
+
+    m = _entete(L, H, "Paramétrage d'une tuyauterie isolée : DN, insulation_thickness, L_tube")
+    m.append(_texte(cx, 40, "coupe", 14, TRAIT, "middle", gras=True))
+    m.append(_cercle(cx, cy, r_iso, "#fff3b0", TRAIT, 1.4))
+    m.append(_cercle(cx, cy, r_e, "#9aa5b1", TRAIT, 1.4))
+    m.append(_cercle(cx, cy, r_i, EAU, TRAIT, 1.2))
+    m.append(_texte(cx, cy + 4, f"T_fluid = {pipe.Tfluid}", 12, TRAIT, "middle", MONO))
+    # cotes radiales
+    m += _cote_droite(cx - r_i, cy - r_iso - 30, cx + r_i, cy - r_iso - 30, "", 0)
+    m.append(_texte(cx, cy - r_iso - 38, f"di = {pipe.di} m", 12, COTE, "middle", MONO))
+    m += _cote_droite(cx - r_e, cy + r_iso + 26, cx + r_e, cy + r_iso + 26, "", 0)
+    m.append(_texte(cx, cy + r_iso + 46, f"de = {pipe.de} m  (DN 80)", 12, COTE, "middle", MONO))
+    m += _cote_droite(cx + r_e, cy, cx + r_iso, cy, "", 0)
+    m.append(_ligne(cx + r_iso, cy, cx + r_iso + 30, cy - 40, COTE, 1.0))
+    m.append(_texte(cx + r_iso + 32, cy - 44, "insulation_thickness", 12, COTE, police=MONO))
+    m.append(_texte(cx + r_iso + 32, cy - 28, f"= {pipe.insulation_thickness} m", 12, COTE, police=MONO))
+    m.append(_texte(cx + r_iso + 32, cy + 30, f"Tc = {pipe.Tc:.1f} °C", 12, "#c0392b", police=MONO))
+    m.append(_texte(cx + r_iso + 32, cy + 46, "(surface de l'isolant)", 11, "#c0392b"))
+
+    # vue longitudinale
+    x0, x1, yl = 470.0, 820.0, 250.0
+    e_iso, e_tub = 34.0, 16.0
+    m.append(_texte((x0 + x1) / 2, 40, "vue longitudinale", 14, TRAIT, "middle", gras=True))
+    m.append(_rect(x0, yl - e_iso, x1 - x0, 2 * e_iso, "#fff3b0", TRAIT, 0, 1.2))
+    m.append(_rect(x0, yl - e_tub, x1 - x0, 2 * e_tub, EAU, TRAIT, 0, 1.2))
+    m.append(_ligne(x0 + 20, yl, x1 - 20, yl, FLUX, 2.0, marqueurs=' marker-end="url(#fleche_flux)"'))
+    m.append(_texte(x0 - 8, yl + 4, f"F_m3h = {pipe.F_m3h}", 12, FLUX, "end", MONO))
+    m += _cote_droite(x0, yl + e_iso + 26, x1, yl + e_iso + 26, "", 0)
+    m.append(_texte((x0 + x1) / 2, yl + e_iso + 46, f"L_tube = {pipe.L_tube} m", 12, COTE, "middle", MONO))
+    m.append(_texte(x0, yl + e_iso + 72, f"material = {pipe.material!r} : k_pipe = {pipe.k_pipe}", 11, TRAIT, police=MONO))
+    m.append(_texte(x0, yl + e_iso + 88, f"insulation : k_insulation = {pipe.k_insulation}", 11, TRAIT, police=MONO))
+    for x in (x0 + 70, (x0 + x1) / 2, x1 - 70):
+        m.append(_ligne(x, yl - e_iso - 4, x, yl - e_iso - 44, "#c0392b", 1.6,
+                        marqueurs=' marker-end="url(#fleche)"'))
+    m.append(_texte((x0 + x1) / 2, yl - e_iso - 54, f"Q = {pipe.q_total:.0f} W  vers Tamb = {pipe.Tamb} °C", 12, "#c0392b", "middle", MONO))
+
+    m += _note(40, H - 110, 780, [
+        "T_fluid est constante sur toute la longueur : le modèle ne calcule pas le refroidissement du fluide.",
+        f"Q = convection naturelle + rayonnement (emissivity = {pipe.emissivity}) depuis la surface de l'isolant.",
+        "DN, material et insulation sont lus dans des tables du module ; une valeur absente lève ValueError.",
+    ])
+    return _ecrire(nom, m), _verifier_debordements(nom, m, L)
+
+
 FIGURES = {
     "assemblage_curvedbend.svg": assemblage_coude_courbe,
     "assemblage_edgedbend.svg": assemblage_coude_vif,
@@ -724,6 +785,7 @@ FIGURES = {
     "param_fluid_connect.svg": connexion_fluide,
     "param_ports_unites.svg": familles_de_ports,
     "param_compositewall.svg": mur_composite,
+    "param_pipeinsulation.svg": tuyauterie_isolee,
 }
 
 

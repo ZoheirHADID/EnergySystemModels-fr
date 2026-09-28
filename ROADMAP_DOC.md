@@ -448,8 +448,9 @@ aucune valeur calculée sauf mesurée. Un chapitre par tour :
   IHM « Machine frigorifique » par `docs/generate_scene_exports.py`) **K2 — cycles thermodynamiques** (`002-thermodynamic_cycles`) :
   `Source`, `Sink`, compresseur, turbine, pompe, évaporateur, condenseur, détendeur,
   échangeurs, chiller (cycle assemblé).
-- `en cours` (2026-09-28 : mur composite fait — `param_compositewall.svg`, profil
-  calculé par la bibliothèque ; reste : tuyauterie isolée, corps parallélépipédique, plaque)
+- `en cours` (2026-09-28 : mur composite et tuyauterie isolée faits —
+  `param_compositewall.svg`, `param_pipeinsulation.svg`, valeurs calculées par la
+  bibliothèque ; reste : corps parallélépipédique, plaque)
   **K3 — transfert de chaleur** (`001-heat_transfer`) : mur composite,
   tuyauterie isolée, corps parallélépipédique, plaque — schémas cotés (couches,
   épaisseurs, rayons) sous les noms du code.
