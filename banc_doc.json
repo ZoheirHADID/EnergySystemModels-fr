@@ -699,18 +699,18 @@
   },
   "docs/source/004-hydraulic/perte_pression_lineaire.rst": {
    "blocs": 1,
-   "empreinte": "faaaea04b202ba47",
-   "mesure": "2026-09-28T10:49",
+   "empreinte": "8346b5ee7f1627d2",
+   "mesure": "2026-09-28T13:28",
    "figures": [
     "../images/004_hydraulic_straight_pipe.png",
     "../images/004_hydraulic_straight_pipe_courbe_reseau.png"
    ],
    "blocage": null,
-   "motif": "sortie mesurée non publiée dans la page",
+   "motif": "manque : table de personnalisation et variante exécutée",
    "extraits": null,
-   "cran": 2,
-   "nom": "exécuté",
-   "cran_max": 2,
+   "cran": 4,
+   "nom": "figure réelle",
+   "cran_max": 4,
    "recul": null
   },
   "docs/source/004-hydraulic/propagation_pression.rst": {
@@ -819,15 +819,15 @@
   },
   "docs/source/004-hydraulic/valve_3_voies.rst": {
    "blocs": 1,
-   "empreinte": "c721d6125f63b405",
-   "mesure": "2026-09-28T10:50",
+   "empreinte": "fde48ac4fc5ba30d",
+   "mesure": "2026-09-28T13:28",
    "figures": [],
    "blocage": null,
-   "motif": "sortie mesurée non publiée dans la page",
+   "motif": "manque : table de personnalisation et variante exécutée",
    "extraits": null,
-   "cran": 2,
-   "nom": "exécuté",
-   "cran_max": 2,
+   "cran": 4,
+   "nom": "figure réelle",
+   "cran_max": 4,
    "recul": null
   },
   "docs/source/004-hydraulic/vanne_boule.rst": {

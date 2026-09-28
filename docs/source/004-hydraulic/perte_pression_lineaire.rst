@@ -47,6 +47,59 @@ Utilisation
     # Tracer la courbe de réseau avec le point de fonctionnement
     STRAIGHT_PIPE.Plot()
 
+Sortie réelle :
+
+.. code-block:: text
+
+   StraightPipe: P_entrée détectée 200000.000 bar → calcul P_sortie
+   Détection d'un changement de Outlet.P. Recalcul en cours...
+   Détection d'un changement de Outlet.P. Recalcul en cours...
+                                      Source
+   Timestamp      2026-09-28 13:28:15.545515
+   fluid                               water
+   Ti_degC                              25.0
+   Pi_bar                                  2
+   F_Sm3h                                8.0
+   F_Nm3h                               None
+   F_m3h                                 8.0
+   F_kgh                            7976.737
+   F_kgs                               2.216
+   F_m3s                               0.002
+   F_Sm3s                              0.002
+   self.Outlet.h               105011.491495
+                                  StraightPipe
+   Timestamp        2026-09-28 13:28:15.559597
+   fluid                                 water
+   Ti_degC                                25.0
+   Inlet.F (kg/s)                        2.216
+   Inlet.h (j/kg)                     105011.0
+   Outlet.h (j/kg)                    105011.0
+   A (m2)                                0.002
+   V (m/s)                               1.132
+   Re                                  63397.0
+   delta_P(Pa)                        136626.9
+   Inlet.P(Pa)                          200000
+   Outlet.P(Pa)                        63373.0
+                                        Sink
+   Timestamp      2026-09-28 13:28:15.606531
+   fluid                               water
+   F_kgs                               2.216
+   Inlet.P(Pa)                       63373.1
+   Inlet.P(bar)                          0.6
+   Inlet.h(J/kg)                    105011.0
+   H(W)                             232680.0
+   fluid_quality                      liquid
+   Q                               -0.113929
+   D (kg/m3)                           997.0
+   F_Sm3h                                8.0
+   F_m3h                                 8.0
+   F_kgh                              7977.0
+
+Les trois premières lignes sont imprimées par la bibliothèque elle-même à chaque
+recalcul. La première étiquette « bar » une pression qui est en **pascals**
+(200000 Pa = 2 bar) : défaut d'affichage connu, sans effet sur le calcul — les
+tableaux ``df`` donnent les bonnes unités.
+
 **Source** :
 
 - Fluide : water

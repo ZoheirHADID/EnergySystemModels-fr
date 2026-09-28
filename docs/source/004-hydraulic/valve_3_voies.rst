@@ -160,6 +160,13 @@ Utilisation
     print(sizing["verdict"], "| a =", round(sizing["authority"], 2),
           "| DN conseillé :", sizing["recommended_DN"])
 
+Sortie réelle :
+
+.. code-block:: text
+
+   Ouverture 50.0 %, Kvs=30, dP=0.2592 bar
+   surdimensionnee | a = 0.88 | DN conseillé : DN80
+
 .. note::
    Le mélange (débit + enthalpie) et la régulation de :math:`\alpha` (depuis la
    température cible) sont calculés **dans le modèle backend**. Voir aussi la

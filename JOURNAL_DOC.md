@@ -945,3 +945,15 @@
 - Build : 0 warning. Bug bibliothèque : aucun inscrit (absence de validation
   documentée comme comportement).
 - Suivant : contenu — prochaine page au cran < 5 ou non mesurée (banc --resume).
+
+## 2026-09-28 13:57 — Hydraulique : sorties réelles de la conduite droite et de la vanne 3 voies
+- Unité : B (pages au cran 2, « sortie mesurée non publiée ») — contenu d'abord.
+- Fait : sorties réelles publiées par `tools/publier_sorties.py` sous l'exemple de
+  `004-hydraulic/perte_pression_lineaire.rst` (Source / StraightPipe / Sink :
+  ΔP 136 626,9 Pa, P sortie 63 373 Pa — la prose tapée à la main concordait) et de
+  `004-hydraulic/valve_3_voies.rst` (ouverture 50 %, Kvs 30, ΔP 0,2592 bar, DN80
+  conseillé). Note au lecteur sur les traces imprimées par `StraightPipe`
+  (« 200000.000 bar » sur des pascals — entrée existante de `BUGS_LIB.md`).
+- Banc : les deux pages cran 2 → 4. Plus aucune page au cran 1, 2 ou 3.
+- Build : 0 warning. Bug bibliothèque : aucun nouveau.
+- Suivant : pages non mesurées (36), en commençant par `002-thermodynamic_cycles`.
