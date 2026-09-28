@@ -727,12 +727,35 @@ def registre_iris():
                   hauteur=400, noeud="aeraulic_iris_damper")
 
 
+def registre_lames():
+    """Registre à lames — `ThermodynamicCycles.Aeraulic.BladeDamper` : tables ASHRAE."""
+    cx = (XI + XO) / 2
+    forme = _gaine(XI, XO, 26.0)
+    # trois lames opposées, inclinées de theta_deg autour de leur axe
+    for i, sens in ((-1, 1), (0, -1), (1, 1)):
+        yc = Y + i * 17
+        forme.append(_ligne(cx - 7 * sens, yc - 6, cx + 7 * sens, yc + 6, TRAIT, 2.6))
+        forme.append(_cercle(cx, yc, 2.2, TRAIT))
+    forme.append('<path d="M %.1f %.1f A 24 24 0 0 1 %.1f %.1f" fill="none" stroke="%s" stroke-width="1.2"/>'
+                 % (cx + 24, Y - 17, cx + 22, Y - 7, COTE))
+    forme.append(_texte(cx, Y + 46, "theta_deg : angle de fermeture des lames", 12, COTE, "middle", MONO))
+    return _cadre("schema_bladedamper_air.svg", "Registre à lames", forme,
+                  ["BladeDamper()",
+                   "a × b (m)  ou  d_hyd (m)",
+                   "ashrae_code = 'CR9-4'   # CD9-1, CR9-1, CR9-3, CR9-4…",
+                   "theta_deg = 0.0   # angle de FERMETURE, 0 = ouvert",
+                   "d_ratio / aspect_ratio / l_over_r   # selon la table"],
+                  ["Coefficient lu dans les tables de registres ASHRAE (ch. 34) : aucune corrélation par défaut.",
+                   "Registre fermé : ClosedFittingError et is_closed = True, jamais un coefficient fictif."],
+                  hauteur=420, noeud="aeraulic_damper")
+
+
 FIGURES = [compresseur, turbine, pompe, detendeur, evaporateur, condenseur, source_fluide,
            puits_fluide, air_neuf, batterie_chaude, batterie_froide, humidificateur, recuperateur_plaques,
            roue_thermique, vanne_generique, vanne_isolement, vanne_soupape, vanne_boule, vanne_papillon,
            papillon_rectangulaire, clapet_anti_retour, clapet_volet, regulateur_dp, serpentin,
            confuseur, diffuseur, orifice, grille, plaque_perforee, lit_grains, entree, sortie_libre,
-           methode_k, loi_des_noeuds, circuit_serie, coup_de_belier, gaine_droite_air, coude_air, te_air, registre_iris]
+           methode_k, loi_des_noeuds, circuit_serie, coup_de_belier, gaine_droite_air, coude_air, te_air, registre_iris, registre_lames]
 
 
 def main() -> int:

@@ -957,6 +957,21 @@
    "cran_max": 5,
    "recul": null
   },
+  "docs/source/005-aeraulic/registre_lames.rst": {
+   "blocs": 3,
+   "empreinte": "994ee55e857d0dae",
+   "mesure": "2026-09-28T13:01",
+   "figures": [
+    "../images/schema_bladedamper_air.svg"
+   ],
+   "blocage": null,
+   "motif": "",
+   "extraits": null,
+   "cran": 5,
+   "nom": "personnalisable",
+   "cran_max": 5,
+   "recul": null
+  },
   "docs/source/005-aeraulic/te_aeraulique.rst": {
    "blocs": 3,
    "empreinte": "09d57196d28e7919",

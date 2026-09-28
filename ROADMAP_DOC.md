@@ -453,8 +453,8 @@ aucune valeur calculée sauf mesurée. Un chapitre par tour :
   **K3 — transfert de chaleur** (`001-heat_transfer`) : mur composite,
   tuyauterie isolée, corps parallélépipédique, plaque — schémas cotés (couches,
   épaisseurs, rayons) sous les noms du code.
-- `en cours` (2026-09-28 : gaine droite (cran 4), coude, té et registre iris (pages créées,
-  cran 5) faits ; reste : registre à lames, obstruction, filtre, sans page)
+- `en cours` (2026-09-28 : gaine droite (cran 4), coude, té, registres iris et à lames
+  (pages créées, cran 5) faits ; reste : obstruction, filtre, sans page)
   **K4 — aéraulique** (`005-aeraulic`) : gaine droite, coude, té,
   registres.
 - `à faire` **K5 — pincement, IPMVP, météo, achat d'énergie, CEE** : schémas de

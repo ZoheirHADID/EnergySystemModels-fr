@@ -879,3 +879,15 @@
 - Banc : `registre_iris.rst` (nouvelle) → cran 5.
 - Build : 0 warning. Bug bibliothèque : aucun.
 - Suivant : K4, registre à lames (`BladeDamper`).
+
+## 2026-09-28 13:20 — K4 : page du registre à lames (Aeraulic.BladeDamper)
+- Unité : K4 (sous-entrée : `Aeraulic.BladeDamper`, sans page jusqu'ici).
+- Fait : `005-aeraulic/registre_lames.rst` créée, ajoutée au sommaire. Schéma
+  `schema_bladedamper_air.svg` (icône du nœud « Registre à lames »). Tables ASHRAE
+  seules (CD9-1, CR9-1, CR9-3/4, coupe-feu), `theta_deg` = angle de FERMETURE.
+  Exemple CR9-4 500 × 400, 3600 m³/h, 20° → Co 2,91, **43,8 Pa** ; variante 45° →
+  Co 45,97, **692 Pa** ; refus du registre fermé (CD9-1, D/Do = 1, 90°) :
+  `ClosedFittingError`, `is_closed = True` (message réel publié).
+- Banc : `registre_lames.rst` (nouvelle) → cran 5.
+- Build : 0 warning. Bug bibliothèque : aucun.
+- Suivant : K4, obstruction (`Obstruction`) puis filtre (`Filter`).

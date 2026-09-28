@@ -11,3 +11,4 @@ Modèles aérauliques
    coude_aeraulique
    te_aeraulique
    registre_iris
+   registre_lames
