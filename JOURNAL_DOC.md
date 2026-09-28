@@ -1081,3 +1081,23 @@
 - Build : 0 warning. Bug bibliothèque : aucun.
 - Suivant : pages non mesurées restantes (IPMVP, météo, PV, achat d'énergie, CEE,
   électrique).
+
+## 2026-09-28 16:15 — IPMVP : mesure des économies rendue autonome ; 5 pages mesurées
+- Mesure : `007-ipmvp/exemples` et `mesure_economies` → cran 1 (`FileNotFoundError:
+  src/IPMVP/IPMVP_input.xlsx`, chemin du dépôt privé ; le classeur n'est **pas**
+  livré par PyPI, `package_data` = `*.ini`, `*.json`) ; `008-meteo/degres_jours` →
+  cran 2 (sortie à remettre d'accord) ; `meteociel` → cran 1 (dépassement de 600 s,
+  accès réseau) ; `openweathermap` → cran 2 (sortie non publiée).
+- Fait (`mesure_economies.rst`) : données mensuelles construites dans l'exemple
+  (DJU saisonniers, consommation linéaire en DJU, −18 % exact après oct. 2021).
+  Mesuré : ANTE-POST **22,08 %**, POST-ANTE **18,09 %** ; incertitude 60 mois
+  234 139 ± 3 765 kWh, 12 mois 46 828 ± 1 684 kWh. Section « Résultats » réécrite
+  sur ces valeurs (les chiffres de l'ancien classeur sont retirés). Constaté dans le
+  code (`IPMVP.py:688`) : ANTE-POST est rapporté au **mesuré**, pas à la référence
+  ajustée → avertissement au lecteur + entrée `BUGS_LIB.md`. Sortie de 192 lignes
+  tronquée (`…`) au rapport imprimé par la bibliothèque.
+- Banc : `mesure_economies` cran 1 → 4.
+- Reporté (images en dernier) : `007_ipmvp_savings.png` vient de l'ancien classeur,
+  à régénérer sur les données de l'exemple.
+- Build : 0 warning.
+- Suivant : `007-ipmvp/exemples.rst` (même lecture de classeur).

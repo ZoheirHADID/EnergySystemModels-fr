@@ -10,16 +10,20 @@ Code à copier
 
 .. code-block:: python
 
+   import numpy as np
    import pandas as pd
    from datetime import datetime
    from IPMVP.IPMVP import Mathematical_Models, incertitude_savings
 
-   # --- Données + ajustement (voir chapitre Exemple complet) ---
-   df = pd.read_excel("src/IPMVP/IPMVP_input.xlsx")
-   df["Mois"] = pd.to_datetime(df["Mois"])
-   df = df.set_index("Mois")
-   col_conso = [c for c in df.columns if c.lower().startswith("consommation")][0]
-   X, y = df[["DJU"]], df[col_conso]
+   # --- Données mensuelles construites ici (aucun fichier à fournir) ---
+   mois = pd.date_range("2016-09-01", "2022-10-01", freq="MS")
+   dju_type = [150, 290, 420, 480, 400, 330, 210, 110, 30, 0, 0, 40]   # DJU sept. -> août
+   dju = np.array([dju_type[(m.month - 9) % 12] for m in mois], dtype=float)
+   dju *= 1 + 0.08 * np.sin(np.arange(len(mois)) * 1.7)                  # variabilité d'une année à l'autre
+   conso = 12000 + 45 * dju + 400 * np.cos(np.arange(len(mois)) * 2.3)  # kWh/mois
+   conso[mois >= datetime(2021, 10, 1)] *= 0.82                           # -18 % après travaux
+   df = pd.DataFrame({"DJU": dju, "Consommation [kWh]": conso}, index=mois)
+   X, y = df[["DJU"]], df["Consommation [kWh]"]
 
    res = Mathematical_Models(
        y, X,
@@ -51,36 +55,51 @@ Code à copier
    print("contrat  (60 mois) :", inc["contrat"])
    print("reporting (12 mois) :", inc["reporting"])
 
+Sortie réelle :
+
+.. code-block:: text
+
+   …
+   === ÉCONOMIES ANTE-POST / POST-ANTE (df_savings) ===
+                             ANTE-POST   POST-ANTE
+   Relevé de consommation    227992.77  1235735.84
+   Prédiction                278336.03  1012220.85
+   pourcentage d'économie>0      22.08       18.09
+
+   Économie ANTE-POST (%) : 22.08
+   Économie POST-ANTE (%) : 18.09
+
+   === INCERTITUDE PROPAGÉE (incertitude_savings) ===
+   contrat  (60 mois) : {'mois': 60, 'economie_kwh': 234139.42254647537, 'precision_absolue_kwh': 3764.666590105374, 'precision_relative': 0.01607873868125778}
+   reporting (12 mois) : {'mois': 12, 'economie_kwh': 46827.88450929507, 'precision_absolue_kwh': 1683.6100816195906, 'precision_relative': 0.03595315268374772}
+
 Résultats
 ---------
 
-``df_savings`` — les deux approches de calcul :
-
-.. code-block:: text
-
-                              ANTE-POST    POST-ANTE
-   Relevé de consommation    3914387.73  19655625.79
-   Prédiction                4624795.55  16156026.80
-   pourcentage d'économie>0       18.15        17.80
+Les données ont été construites avec une baisse **exacte de 18 %** de la
+consommation à partir d'octobre 2021 : c'est ce qui permet de lire les deux
+pourcentages de ``df_savings`` (sortie ci-dessus).
 
 * **ANTE-POST** : modèle établi sur la **référence**, appliqué à la période de
-  suivi → économie = prédiction − mesuré = **18,15 %**.
+  suivi. Le code calcule ``(prédiction − mesuré) / mesuré`` : l'économie est
+  rapportée à la consommation **mesurée après travaux**, d'où **22,08 %** pour
+  une baisse réelle de 18 % (rapportée à la prédiction, elle vaudrait
+  (278 336 − 227 993) / 278 336 = 18,09 %).
 * **POST-ANTE** : modèle établi sur la période de **suivi**, appliqué à la
-  référence (utile si la référence est trop courte pour un modèle fiable) →
-  **17,80 %**.
+  référence (utile si la référence est trop courte pour un modèle fiable) :
+  ``(mesuré − prédiction) / mesuré`` sur la référence → **18,09 %**.
 
-``incertitude_savings`` — précision de l'économie annoncée (niveau 90 %) :
+.. warning::
 
-.. code-block:: text
+   Les deux pourcentages n'ont pas la même base. Pour annoncer une économie
+   rapportée à la référence ajustée (convention usuelle), recalculez-la depuis les
+   lignes ``Relevé de consommation`` et ``Prédiction`` de ``df_savings``.
 
-   contrat  (60 mois) : {'mois': 60, 'economie_kwh': 5335141.89,
-                         'precision_absolue_kwh': 3078077.25, 'precision_relative': 0.577}
-   reporting (12 mois) : {'mois': 12, 'economie_kwh': 1067028.38,
-                         'precision_absolue_kwh': 1376557.99, 'precision_relative': 1.290}
-
-La précision relative s'améliore avec la durée cumulée (0,58 sur 60 mois contre
-1,29 sur 12 mois) : plus la période d'observation est longue, plus l'économie
-annoncée est robuste au sens IPMVP.
+``incertitude_savings`` — précision de l'économie annoncée (niveau 90 %) : sur
+60 mois, 234 139 kWh à ± 3 765 kWh (précision relative 0,016) ; sur 12 mois,
+46 828 kWh à ± 1 684 kWh (0,036). La précision relative s'améliore avec la durée
+cumulée : plus la période d'observation est longue, plus l'économie annoncée est
+robuste au sens IPMVP.
 
 Figure produite
 ---------------

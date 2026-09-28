@@ -212,6 +212,19 @@
 - **Traitement dans le guide** : l'exemple fixe `V_s_comp = 0.06` (3,68 kg/s d'air,
   1050 °C en chambre, 398,4 kW nets) et le dit en commentaire.
 
+## `IPMVP.Mathematical_Models` — pourcentage ANTE-POST rapporté au mesuré, pas à la référence ajustée
+
+- **Page concernée** : `docs/source/007-ipmvp/mesure_economies.rst`.
+- **Constat** (2026-09-28) : `src/IPMVP/IPMVP.py:688`,
+  `savings_post = (sum_report_prediction - sum_report) / sum_report * 100` — la base
+  est la consommation mesurée en suivi. Sur des données construites avec une baisse
+  exacte de 18 %, `df_savings` affiche **22,08 %** (ANTE-POST) contre 18,09 %
+  (POST-ANTE) ; rapportée à la prédiction, l'économie ANTE-POST vaudrait 18,09 %.
+- **Nature** : écart de convention (IPMVP rapporte usuellement l'économie à la
+  consommation de référence ajustée) ; les deux colonnes n'ont pas la même base.
+- **Traitement dans le guide** : calcul décrit tel qu'il est codé, avertissement et
+  recalcul possible depuis `df_savings`.
+
 ## Corrigés depuis, dans le dépôt source — ne pas rouvrir
 
 - **`FluidPort.set_humid_gas_mixture()` acceptait une espèce hors table en
