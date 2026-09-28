@@ -82,14 +82,16 @@
   "docs/source/002-thermodynamic_cycles/chiller.rst": {
    "blocs": 2,
    "empreinte": "986498beba54e77a",
-   "mesure": "2026-09-27T18:16",
+   "mesure": "2026-09-28T12:06",
    "figures": [
     "../images/002_chiller_cycle.svg",
+    "../images/scene_machine_frigorifique.svg",
     "../images/002_chiller_plot_ts.svg",
     "../images/002_chiller_plot_parametric.svg"
    ],
    "blocage": null,
    "motif": "manque : table de personnalisation et variante exécutée",
+   "extraits": null,
    "cran": 4,
    "nom": "figure réelle",
    "cran_max": 4,

@@ -756,3 +756,19 @@
   Avertissement dans la page, entrée dans `BUGS_LIB.md`.
 - Build : 0 warning (`-E`).
 - Suivant : K2 (cycle complet du groupe froid, par export d'une scène IHM).
+
+## 2026-09-28 12:06 — K2 : cycle du groupe froid, export d'une scène IHM réelle
+- Unité : K2 (reste : cycle assemblé du chiller).
+- Fait : `docs/generate_scene_exports.py` — rend une scène livrée de
+  `PyqtSimulator/json/` en SVG, hors écran, par le chemin de l'action « Exporter la
+  scène en SVG… », depuis un répertoire temporaire (journal de l'IHM hors `$LIB`).
+  Première scène : « 2 - Froid et cryogenie / Machine frigorifique » →
+  `scene_machine_frigorifique.svg`, placé sous le titre de `chiller.rst`, légende
+  tirée des paramètres de la scène (12 bar, sous-refroidissement 5 K, 1 bar,
+  surchauffe 5 K).
+- Banc : `chiller.rst` cran inchangé (figure d'origine reconnue).
+- Build : 0 warning.
+- Bug bibliothèque : aucun. `$LIB` inchangé.
+- Écarté : titres des nœuds absents du rendu SVG de la scène (l'IHM ne les dessine
+  pas dans l'export) — la légende les nomme.
+- Suivant : K3 (transfert de chaleur).

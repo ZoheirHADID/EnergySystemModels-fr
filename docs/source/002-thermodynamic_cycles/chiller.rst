@@ -12,6 +12,16 @@ Le module ``Chiller`` modélise un cycle frigorifique complet : évaporateur, co
    Le fluide frigorigène traverse successivement l'évaporateur, le
    compresseur, le désurchauffeur, le condenseur et le détendeur.
 
+.. figure:: ../images/scene_machine_frigorifique.svg
+   :alt: Scène « Machine frigorifique » de l'IHM PyqtSimulator
+   :align: center
+   :width: 100%
+
+   Le même cycle dans l'IHM : scène livrée « 2 - Froid et cryogenie / Machine
+   frigorifique », exportée telle quelle. De gauche à droite : source de R134a
+   vapeur BP, compresseur (12 bar), condenseur (sous-refroidissement 5 K),
+   détendeur (1 bar), évaporateur (surchauffe 5 K), sortie.
+
 Paramètres
 ----------
 

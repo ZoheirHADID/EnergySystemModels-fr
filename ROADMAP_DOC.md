@@ -443,9 +443,9 @@ aucune valeur calculée sauf mesurée. Un chapitre par tour :
   défaut du givre inscrit dans `BUGS_LIB.md`) **B-CYC — sorties à publier** (première mesure, 2026-09-28) :
   `pompe.rst`, `detente_distributeurs.rst`, `condenseur_evaporateur.rst` — exemples
   exécutés sans sortie publiée (cran 2). Même méthode que `composants_cta.rst`.
-- `en cours` (2026-09-28 : 8 schémas — compresseur, turbine, pompe, détendeur,
-  évaporateur, condenseur, source, puits ; reste : cycle complet du groupe froid,
-  par export d'une scène réelle de l'IHM) **K2 — cycles thermodynamiques** (`002-thermodynamic_cycles`) :
+- `fait` (2026-09-28 : 8 schémas — compresseur, turbine, pompe, détendeur,
+  évaporateur, condenseur, source, puits ; cycle du groupe froid exporté de la scène
+  IHM « Machine frigorifique » par `docs/generate_scene_exports.py`) **K2 — cycles thermodynamiques** (`002-thermodynamic_cycles`) :
   `Source`, `Sink`, compresseur, turbine, pompe, évaporateur, condenseur, détendeur,
   échangeurs, chiller (cycle assemblé).
 - `à faire` **K3 — transfert de chaleur** (`001-heat_transfer`) : mur composite,
