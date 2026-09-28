@@ -131,9 +131,7 @@ def fiche_module(chemin: str) -> str:
 
 PAGES = {
     # fichier : (titre, ancre, introduction, [("objet"|"module", nom), ...])
-    "vanne_isolement.rst": ("Vanne d'isolement", "gate_valve",
-        "Vanne d'isolement à opercule (gate valve).",
-        [("objet", "GateValve")]),
+    # vanne_isolement.rst : page rédigée avec exemples exécutés (2026-09-28), plus générée.
     "vanne_soupape.rst": ("Vanne à soupape", "globe_valve",
         "Vanne à soupape (globe), d'arrêt ou de régulation.",
         [("objet", "GlobeValve")]),

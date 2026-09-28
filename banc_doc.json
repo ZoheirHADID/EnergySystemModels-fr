@@ -816,18 +816,18 @@
    "recul": null
   },
   "docs/source/004-hydraulic/vanne_isolement.rst": {
-   "blocs": 1,
-   "empreinte": "5e6837432f34f752",
-   "mesure": "2026-09-28T10:57",
+   "blocs": 3,
+   "empreinte": "0292ee78ff1f1f76",
+   "mesure": "2026-09-28T11:10",
    "figures": [
     "../images/schema_gatevalve.svg"
    ],
    "blocage": null,
-   "motif": "manque : table de personnalisation et variante exécutée",
+   "motif": "",
    "extraits": null,
-   "cran": 4,
-   "nom": "figure réelle",
-   "cran_max": 4,
+   "cran": 5,
+   "nom": "personnalisable",
+   "cran_max": 5,
    "recul": null
   },
   "docs/source/004-hydraulic/vanne_papillon.rst": {

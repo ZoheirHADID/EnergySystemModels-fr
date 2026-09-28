@@ -619,3 +619,20 @@
 - Banc : aucun recul. Build : 0 warning (`-E`).
 - Bibliothèque : lue seulement (icônes). Son arbre montre des modifications `CEE`
   qui ne viennent pas de cette boucle ; rien n'y a été touché.
+
+## 2026-09-28 — `004-hydraulic/vanne_isolement.rst` (I2, GateValve)
+- Unité : I2 — premier exemple exécuté d'une fiche générée (`GateValve`, 2 scènes IHM).
+- Fait : page rédigée selon le squelette (schéma à icônes, exemple, table de
+  personnalisation, variante passage × source × ouverture, essai de domaine, limites,
+  tableau complet des entrées repris du générateur). Retirée de
+  `tools/fiches_hydrauliques.py` pour ne plus être écrasée. Mesuré : passage intégral
+  −43 % ; **`'legacy'` ζ 0,525 contre `'crane'` ζ 0,152, ×3,45** ; mi-ouverture ×5,35 ;
+  `bore_type='inconnu'` accepté (ζ = standard) ; ouverture 0 → ζ 52,5, 27 258 Pa.
+- Tour précédent : aucune exécution possible (contrôle de sécurité sans verdict,
+  Bash et PowerShell) — tour laissé vide plutôt que de publier un exemple non exécuté.
+- Banc : `vanne_isolement.rst` cran 4 → 5.
+- Build : 0 warning.
+- Bug bibliothèque : **nouvelle entrée** `GateValve` (écart Crane ×3,45, repli
+  silencieux de `bore_type`, loi d'ouverture sans source).
+- Bibliothèque : arbre modifié par un tiers (`src/CEE/…`, `test/CEE/…`) — non touché.
+- Suivant : I2 — `CheckValve` (2 scènes) ou `DpRegulator` (2 scènes).

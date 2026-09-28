@@ -409,7 +409,7 @@ re-vérifier par exécution avant rédaction.
   forme + ports + connexions par page de l'index hydraulique, et un schéma de la loi
   des nœuds.
 - `en cours` **I2 — pages des modèles marqués *à documenter*** dans l'index (21
-  entrées ; fait : `GeneralValve` → `vanne_generique.rst`, cran 5, 2026-09-28 ; reste 20) : un modèle par tour, selon le squelette de page ; l'index se met à
+  entrées ; fait : `GeneralValve` → `vanne_generique.rst`, `GateValve` → `vanne_isolement.rst`, cran 5, 2026-09-28 ; les autres ont une fiche générée, cran 4) : un modèle par tour, selon le squelette de page ; l'index se met à
   jour à chaque page créée.
 
 - `fait` (2026-09-28) **I7 — icônes PyqtSimulator dans les schémas d'assemblage** (demande de

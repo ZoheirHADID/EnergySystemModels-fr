@@ -116,6 +116,26 @@
   {self.Inlet.P:.3f} bar` — la valeur est en Pa : 500000.000 pour 5 bar).
 - **Traitement dans le guide** : sortie publiée telle quelle, note au lecteur.
 
+## `Hydraulic.GateValve` — coefficients par défaut 3,45 fois Crane ; `bore_type` inconnu accepté en silence
+
+- **Page concernée** : `docs/source/004-hydraulic/vanne_isolement.rst` (les trois
+  écarts y sont dits au lecteur, mesures à l'appui).
+- **Reproduction** (2026-09-28) : eau 15 °C, 3 bar, 2 kg/s, DN50, passage standard,
+  grande ouverte → `source='legacy'` : ζ = 0,525 (272,6 Pa) ; `source='crane'` :
+  ζ = 0,152 (78,9 Pa).
+- **Trace** :
+  - `GateValve.py:56-59` — `coeff_base` standard K1 = 0,7, K∞ = 0,35, attribués en
+    docstring à « Hooper 1988, CRANE TP410 » sans page ; la voie `'crane'`
+    (`:174-180`, K = n·f_T, TP-410 éd. 2009 p. A-28/A-29) est celle que le code
+    appelle « source primaire ». Écart ×3,45 sur la même vanne.
+  - `:98` — `coeff_base.get(self.bore_type, coeff_base['standard'])` : un
+    `bore_type` inconnu retombe sur `'standard'` sans exception (invariant n° 2).
+  - `:156-169` — loi d'ouverture `ouverture**2.5 + 0.01`, commentée « typique pour
+    vannes papillon », sans citation (invariant n° 1) ; `ouverture = 0` → ×100,
+    la vanne n'est jamais fermée.
+- **Traitement dans le guide** : page publiée, écarts dits, `source='crane'`
+  recommandé pour une perte réelle.
+
 ## Corrigés depuis, dans le dépôt source — ne pas rouvrir
 
 - **`FluidPort.set_humid_gas_mixture()` acceptait une espèce hors table en
