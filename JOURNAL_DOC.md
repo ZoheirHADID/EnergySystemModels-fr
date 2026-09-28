@@ -891,3 +891,17 @@
 - Banc : `registre_lames.rst` (nouvelle) → cran 5.
 - Build : 0 warning. Bug bibliothèque : aucun.
 - Suivant : K4, obstruction (`Obstruction`) puis filtre (`Filter`).
+
+## 2026-09-28 13:28 — K4 : page de l'obstruction en gaine (Aeraulic.Obstruction)
+- Unité : K4 (sous-entrée : `Aeraulic.Obstruction`, sans page jusqu'ici).
+- Fait : `005-aeraulic/obstruction.rst` créée, ajoutée au sommaire. Schéma
+  `schema_obstruction_air.svg` (icône du nœud « Obstruction en gaine »). Tables
+  ASHRAE CD6-1 / CR6-1 / CD6-4 ; taux de vide `n`, `A1/Ao`. Exemple CD6-1, Ø 315,
+  2000 m³/h, n = 0,7 → Co 0,58, **17,8 Pa** (cohérent avec Idel'chik : 0,574) ;
+  variante n = 0,5 → Co 1,65, **50,5 Pa** ; refus de CR6-1 sur une section ronde
+  (`ValueError`). La coquille de cellule CR6-1 relevée par le module lui-même est
+  dite au lecteur (valeur imprimée conservée, non corrigée).
+- Banc : `obstruction.rst` (nouvelle) → cran 5.
+- Build : 0 warning. Bug bibliothèque : aucun nouveau (coquille de table déjà
+  documentée dans le module).
+- Suivant : K4, filtre (`Filter`), dernier modèle aéraulique sans page.

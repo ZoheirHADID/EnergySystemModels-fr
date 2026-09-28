@@ -750,12 +750,32 @@ def registre_lames():
                   hauteur=420, noeud="aeraulic_damper")
 
 
+def obstruction_air():
+    """Obstruction — `ThermodynamicCycles.Aeraulic.Obstruction` : écran ou grille en travers."""
+    cx = (XI + XO) / 2
+    forme = _gaine(XI, XO, 26.0)
+    # écran : trait vertical percé (taux de vide n)
+    for k in range(7):
+        y0 = Y - 24 + k * 7
+        forme.append(_ligne(cx, y0, cx, y0 + 4, TRAIT, 3.0))
+    forme.append(_texte(cx, Y + 46, "free_area_ratio = n  (1 = rien ne bouche)", 12, COTE, "middle", MONO))
+    return _cadre("schema_obstruction_air.svg", "Obstruction en gaine", forme,
+                  ["Obstruction()",
+                   "d_hyd (m)  ou  a × b (m)",
+                   "ashrae_code = 'CD6-1'   # CR6-1, CD6-4",
+                   "free_area_ratio   # n, taux de vide de l'écran",
+                   "area_ratio        # A1/Ao, section écran / conduit"],
+                  ["Coefficient lu dans les tables d'écrans ASHRAE (ch. 34) ; CD6-4 (conduit déprimé) : Co = 0,24 sans entrée.",
+                   "Le code doit correspondre à la section : CD6-* rond, CR6-* rectangulaire, sinon ValueError."],
+                  hauteur=420, noeud="aeraulic_obstruction")
+
+
 FIGURES = [compresseur, turbine, pompe, detendeur, evaporateur, condenseur, source_fluide,
            puits_fluide, air_neuf, batterie_chaude, batterie_froide, humidificateur, recuperateur_plaques,
            roue_thermique, vanne_generique, vanne_isolement, vanne_soupape, vanne_boule, vanne_papillon,
            papillon_rectangulaire, clapet_anti_retour, clapet_volet, regulateur_dp, serpentin,
            confuseur, diffuseur, orifice, grille, plaque_perforee, lit_grains, entree, sortie_libre,
-           methode_k, loi_des_noeuds, circuit_serie, coup_de_belier, gaine_droite_air, coude_air, te_air, registre_iris, registre_lames]
+           methode_k, loi_des_noeuds, circuit_serie, coup_de_belier, gaine_droite_air, coude_air, te_air, registre_iris, registre_lames, obstruction_air]
 
 
 def main() -> int:

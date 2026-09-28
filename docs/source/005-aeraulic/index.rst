@@ -12,3 +12,4 @@ Modèles aérauliques
    te_aeraulique
    registre_iris
    registre_lames
+   obstruction

@@ -927,6 +927,21 @@
    "cran_max": 0,
    "recul": null
   },
+  "docs/source/005-aeraulic/obstruction.rst": {
+   "blocs": 3,
+   "empreinte": "ea4d2920ebfe7d68",
+   "mesure": "2026-09-28T13:06",
+   "figures": [
+    "../images/schema_obstruction_air.svg"
+   ],
+   "blocage": null,
+   "motif": "",
+   "extraits": null,
+   "cran": 5,
+   "nom": "personnalisable",
+   "cran_max": 5,
+   "recul": null
+  },
   "docs/source/005-aeraulic/perte_pression_lineaire.rst": {
    "blocs": 1,
    "empreinte": "8b31d5f956675b17",
