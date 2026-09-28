@@ -3,6 +3,13 @@
 Vanne générique (Kv)
 ====================
 
+.. figure:: ../images/schema_generalvalve.svg
+   :alt: Schéma de la vanne générique : Source, vanne, Sink
+   :align: center
+   :width: 100%
+
+   Forme, ports et paramètres de ``GeneralValve`` ; la perte suit la définition du Kv.
+
 À quoi ça sert
 --------------
 
@@ -12,13 +19,6 @@ grande ouverte sous 1 bar de perte. C'est le modèle à prendre pour une vanne 2
 voies de régulation, une vanne de réglage quelconque ou tout organe dont le
 constructeur publie un Kv. Il sait aussi, si on lui donne les données du
 constructeur, détecter la cavitation et l'écoulement bloqué.
-
-.. figure:: ../images/schema_generalvalve.svg
-   :alt: Schéma de la vanne générique : Source, vanne, Sink
-   :align: center
-   :width: 100%
-
-   Forme, ports et paramètres de ``GeneralValve`` ; la perte suit la définition du Kv.
 
 Ne vous en servez pas pour une vanne d'équilibrage IMI TA (:doc:`TA_valve`, qui
 porte les tables Kv du fabricant) ni pour une vanne 3 voies

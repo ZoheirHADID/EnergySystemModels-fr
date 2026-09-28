@@ -3,6 +3,22 @@
 Élargissement de section
 ========================
 
+.. figure:: ../images/assemblage_suddenexpansion.svg
+   :alt: Source, élargissement brusque SuddenExpansion et Sink
+   :align: center
+   :width: 100%
+
+   Élargissement brusque : les rôles s'inversent — ``d_hyd_small`` en amont,
+   ``d_hyd_large`` en aval. Mesuré : la pression **remonte** de 85 Pa.
+
+.. figure:: ../images/schema_gradualexpansion.svg
+   :alt: Schéma de GradualExpansion : forme, ports et connexions
+   :align: center
+   :width: 100%
+
+   Forme, ports et raccordement de ``GradualExpansion`` ; paramètres sous leur
+   nom de code, avec leur valeur par défaut.
+
 Passage d'un petit diamètre à un grand : brusque (``SuddenExpansion``) ou
 progressif, par un diffuseur conique (``GradualExpansion``). La vitesse chute
 et la pression statique **remonte**, diminuée de la perte.
@@ -48,14 +64,6 @@ et la pression statique **remonte**, diminuée de la perte.
 
 Lignes du ``df`` de sortie : ``fluid``, ``F_kgs``, ``d_small_mm``, ``d_large_mm``, ``V_small_ms``, ``V_large_ms``, ``correlation``, ``Re_small``, ``darcy_factor``, ``ksi_loc_base``, ``ksi_loc``, ``dP_friction_Pa``, ``dP_static_Pa``.
 
-.. figure:: ../images/assemblage_suddenexpansion.svg
-   :alt: Source, élargissement brusque SuddenExpansion et Sink
-   :align: center
-   :width: 100%
-
-   Élargissement brusque : les rôles s'inversent — ``d_hyd_small`` en amont,
-   ``d_hyd_large`` en aval. Mesuré : la pression **remonte** de 85 Pa.
-
 .. figure:: ../images/004_suddenexpansion_courbe_reseau.svg
    :alt: Courbe de réseau de l'élargissement brusque
    :align: center
@@ -70,14 +78,6 @@ Lignes du ``df`` de sortie : ``fluid``, ``F_kgs``, ``d_small_mm``, ``d_large_mm`
    ``ThermodynamicCycles.Hydraulic.network_plot``. La méthode ``modele.Plot()``
    lève aujourd'hui un ``TypeError`` pour ce modèle (arguments ``info``,
    ``curve_label`` ou ``regime`` refusés) : utilisez ces deux fonctions à la place.
-
-.. figure:: ../images/schema_gradualexpansion.svg
-   :alt: Schéma de GradualExpansion : forme, ports et connexions
-   :align: center
-   :width: 100%
-
-   Forme, ports et raccordement de ``GradualExpansion`` ; paramètres sous leur
-   nom de code, avec leur valeur par défaut.
 
 ``GradualExpansion`` — diffuseur conique (elargissement progressif).
 

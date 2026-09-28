@@ -3,6 +3,14 @@
 Vanne d'isolement
 =================
 
+.. figure:: ../images/schema_gatevalve.svg
+   :alt: Schéma de GateValve : forme, ports et connexions
+   :align: center
+   :width: 100%
+
+   Forme, ports et raccordement de ``GateValve`` ; paramètres sous leur
+   nom de code, avec leur valeur par défaut.
+
 À quoi ça sert
 --------------
 
@@ -12,14 +20,6 @@ Grande ouverte, elle perd peu ; c'est ce que ce modèle sert à quantifier dans 
 bilan de réseau. Ce n'est **pas** un organe de réglage : pour régler un débit,
 voir :doc:`vanne_generique` ou :doc:`TA_valve`. Dans ``PyqtSimulator``, c'est le
 nœud **« Vanne d'isolement (Gate) »**.
-
-.. figure:: ../images/schema_gatevalve.svg
-   :alt: Schéma de GateValve : forme, ports et connexions
-   :align: center
-   :width: 100%
-
-   Forme, ports et raccordement de ``GateValve`` ; paramètres sous leur
-   nom de code, avec leur valeur par défaut.
 
 Exemple minimal
 ---------------

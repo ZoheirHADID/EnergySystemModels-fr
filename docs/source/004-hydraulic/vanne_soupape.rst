@@ -3,13 +3,6 @@
 Vanne à soupape
 ===============
 
-Vanne à soupape (globe), d'arrêt ou de régulation.
-
-.. note::
-   Fiche relevée dans le code de la bibliothèque (entrées, valeurs par défaut et
-   unités telles qu'écrites dans ``__init__``). L'exemple exécuté, avec sa
-   sortie réelle et sa variante, reste à écrire pour ce modèle.
-
 .. figure:: ../images/schema_globevalve.svg
    :alt: Schéma de GlobeValve : forme, ports et connexions
    :align: center
@@ -17,6 +10,13 @@ Vanne à soupape (globe), d'arrêt ou de régulation.
 
    Forme, ports et raccordement de ``GlobeValve`` ; paramètres sous leur
    nom de code, avec leur valeur par défaut.
+
+Vanne à soupape (globe), d'arrêt ou de régulation.
+
+.. note::
+   Fiche relevée dans le code de la bibliothèque (entrées, valeurs par défaut et
+   unités telles qu'écrites dans ``__init__``). L'exemple exécuté, avec sa
+   sortie réelle et sa variante, reste à écrire pour ce modèle.
 
 ``GlobeValve`` — Vanne globe (d'arrêt ou régulation).
 

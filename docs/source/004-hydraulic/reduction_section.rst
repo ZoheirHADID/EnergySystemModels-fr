@@ -3,6 +3,22 @@
 Réduction de section
 ====================
 
+.. figure:: ../images/assemblage_suddencontraction.svg
+   :alt: Source, rétrécissement brusque SuddenContraction et Sink
+   :align: center
+   :width: 100%
+
+   Rétrécissement brusque : ``d_hyd_large`` est le diamètre **amont** (``Inlet``),
+   ``d_hyd_small`` le diamètre **aval** (``Outlet``).
+
+.. figure:: ../images/schema_gradualcontraction.svg
+   :alt: Schéma de GradualContraction : forme, ports et connexions
+   :align: center
+   :width: 100%
+
+   Forme, ports et raccordement de ``GradualContraction`` ; paramètres sous leur
+   nom de code, avec leur valeur par défaut.
+
 Passage d'un grand diamètre à un petit : brusque (``SuddenContraction``) ou
 progressif, par un confuseur conique (``GradualContraction``). La pression
 statique chute : perte par frottement et hausse de la pression dynamique.
@@ -48,14 +64,6 @@ statique chute : perte par frottement et hausse de la pression dynamique.
 
 Lignes du ``df`` de sortie : ``fluid``, ``F_kgs``, ``d_small_mm``, ``d_large_mm``, ``V_small_ms``, ``V_large_ms``, ``correlation``, ``Re_large``, ``darcy_factor``, ``ksi_loc_base``, ``ksi_loc``, ``dP_friction_Pa``, ``dP_static_Pa``.
 
-.. figure:: ../images/assemblage_suddencontraction.svg
-   :alt: Source, rétrécissement brusque SuddenContraction et Sink
-   :align: center
-   :width: 100%
-
-   Rétrécissement brusque : ``d_hyd_large`` est le diamètre **amont** (``Inlet``),
-   ``d_hyd_small`` le diamètre **aval** (``Outlet``).
-
 .. figure:: ../images/004_suddencontraction_courbe_reseau.svg
    :alt: Courbe de réseau du rétrécissement brusque
    :align: center
@@ -70,14 +78,6 @@ Lignes du ``df`` de sortie : ``fluid``, ``F_kgs``, ``d_small_mm``, ``d_large_mm`
    ``ThermodynamicCycles.Hydraulic.network_plot``. La méthode ``modele.Plot()``
    lève aujourd'hui un ``TypeError`` pour ce modèle (arguments ``info``,
    ``curve_label`` ou ``regime`` refusés) : utilisez ces deux fonctions à la place.
-
-.. figure:: ../images/schema_gradualcontraction.svg
-   :alt: Schéma de GradualContraction : forme, ports et connexions
-   :align: center
-   :width: 100%
-
-   Forme, ports et raccordement de ``GradualContraction`` ; paramètres sous leur
-   nom de code, avec leur valeur par défaut.
 
 ``GradualContraction`` — confuseur conique (retrecissement progressif).
 

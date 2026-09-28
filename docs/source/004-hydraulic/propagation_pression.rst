@@ -3,6 +3,13 @@
 Propagation de pression
 =======================
 
+.. figure:: ../images/param_fluid_connect.svg
+   :alt: Fluid_connect déplace l'état vers l'aval et la pression vers l'amont
+   :align: center
+   :width: 100%
+
+   Une connexion travaille dans les deux sens : l'état descend vers l'aval, la pression remonte.
+
 Les modèles hydrauliques se comportent comme un **circuit électrique**, avec une
 correspondance directe :
 
@@ -25,13 +32,6 @@ correspondance directe :
    * - Circuit série
      - Résistances en série
      - **Loi des mailles (KVL)** : :math:`\sum \Delta P = P_{\text{amont}} - P_{\text{aval}}`
-
-.. figure:: ../images/param_fluid_connect.svg
-   :alt: Fluid_connect déplace l'état vers l'aval et la pression vers l'amont
-   :align: center
-   :width: 100%
-
-   Une connexion travaille dans les deux sens : l'état descend vers l'aval, la pression remonte.
 
 Sens de propagation
 -------------------

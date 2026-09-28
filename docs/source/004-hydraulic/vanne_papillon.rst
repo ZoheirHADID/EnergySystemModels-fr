@@ -3,13 +3,6 @@
 Vanne papillon
 ==============
 
-Vanne papillon, en section circulaire ou rectangulaire.
-
-.. note::
-   Fiche relevée dans le code de la bibliothèque (entrées, valeurs par défaut et
-   unités telles qu'écrites dans ``__init__``). L'exemple exécuté, avec sa
-   sortie réelle et sa variante, reste à écrire pour ce modèle.
-
 .. figure:: ../images/schema_butterflyvalve.svg
    :alt: Schéma de ButterflyValve : forme, ports et connexions
    :align: center
@@ -17,6 +10,21 @@ Vanne papillon, en section circulaire ou rectangulaire.
 
    Forme, ports et raccordement de ``ButterflyValve`` ; paramètres sous leur
    nom de code, avec leur valeur par défaut.
+
+.. figure:: ../images/schema_rectangularbutterflyvalve.svg
+   :alt: Schéma de RectangularButterflyValve : forme, ports et connexions
+   :align: center
+   :width: 100%
+
+   Forme, ports et raccordement de ``RectangularButterflyValve`` ; paramètres sous leur
+   nom de code, avec leur valeur par défaut.
+
+Vanne papillon, en section circulaire ou rectangulaire.
+
+.. note::
+   Fiche relevée dans le code de la bibliothèque (entrées, valeurs par défaut et
+   unités telles qu'écrites dans ``__init__``). L'exemple exécuté, avec sa
+   sortie réelle et sa variante, reste à écrire pour ce modèle.
 
 ``ButterflyValve`` — Vanne papillon (butterfly valve).
 
@@ -62,14 +70,6 @@ Vanne papillon, en section circulaire ou rectangulaire.
      - Coefficient turbulent
 
 Lignes du ``df`` de sortie : ``fluid``, ``Center type``, ``Ouverture (%)``, ``Angle (°)``, ``V (m/s)``, ``Re``, ``ζ (-)``, ``ΔP (Pa)``, ``P_in (Pa)``, ``P_out (Pa)``.
-
-.. figure:: ../images/schema_rectangularbutterflyvalve.svg
-   :alt: Schéma de RectangularButterflyValve : forme, ports et connexions
-   :align: center
-   :width: 100%
-
-   Forme, ports et raccordement de ``RectangularButterflyValve`` ; paramètres sous leur
-   nom de code, avec leur valeur par défaut.
 
 ``RectangularButterflyValve`` — vanne papillon rectangulaire (Idelchik 9.18).
 

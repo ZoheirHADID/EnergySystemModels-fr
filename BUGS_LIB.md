@@ -159,6 +159,20 @@
     (×2,53) ; clapet à battant : 1,9 contre 2,0.
 - **Traitement dans le guide** : page publiée, comportements dits.
 
+## `AHU.Humidification.Humidifier` — humidité relative > 100 % publiée sans refus
+
+- **Page concernée** : `docs/source/003-ahu_modules/composants_cta.rst` (l'exemple
+  publié jusqu'ici visait 8 g/kg et affichait RH = 153 % ; remplacé par une cible
+  atteignable, le cas impossible est montré à part).
+- **Reproduction** (2026-09-28) : air 18 °C / 20 % HR (w = 2,545 g/kg), 10 000 m³/h,
+  `HumidType='adiabatique'` → `wo_target` 5 : RH 58,1 % ; 6 : 82,1 % ; **7 : 113,2 % ;
+  8 : 153,2 %** (T = 4,46 °C).
+- **Trace** : `src/AHU/Humidification/Humidifier.py:62-84` — le système (`Pv_sat`,
+  `T`, `RH`) est résolu à `wo_target` imposé le long de l'enthalpie constante, sans
+  vérifier que `wo_target` reste sous la saturation (invariant n° 2).
+- **Traitement dans le guide** : comportement montré par un bloc exécuté ; le
+  lecteur est invité à vérifier `Outlet.RH < 100 %`.
+
 ## Corrigés depuis, dans le dépôt source — ne pas rouvrir
 
 - **`FluidPort.set_humid_gas_mixture()` acceptait une espèce hors table en

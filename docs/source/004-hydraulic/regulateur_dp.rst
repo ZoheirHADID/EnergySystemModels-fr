@@ -3,6 +3,14 @@
 Régulateur de pression différentielle
 =====================================
 
+.. figure:: ../images/schema_dpregulator.svg
+   :alt: Schéma de DpRegulator : forme, ports et connexions
+   :align: center
+   :width: 100%
+
+   Forme, ports et raccordement de ``DpRegulator`` ; paramètres sous leur
+   nom de code, avec leur valeur par défaut.
+
 À quoi ça sert
 --------------
 
@@ -20,14 +28,6 @@ ouvert. Tant que la pression le permet, il régule ; sinon il s'ouvre en grand.
 Dans ``PyqtSimulator``, c'est le nœud **« Régulateur de Δp »**, présent dans les
 scènes *Régulateur de pression différentielle (STAP)* et *Usine — réseau
 industriel maillé*.
-
-.. figure:: ../images/schema_dpregulator.svg
-   :alt: Schéma de DpRegulator : forme, ports et connexions
-   :align: center
-   :width: 100%
-
-   Forme, ports et raccordement de ``DpRegulator`` ; paramètres sous leur
-   nom de code, avec leur valeur par défaut.
 
 Exemple minimal
 ---------------

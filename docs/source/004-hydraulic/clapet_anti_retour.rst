@@ -3,6 +3,14 @@
 Clapet anti-retour
 ==================
 
+.. figure:: ../images/schema_checkvalve.svg
+   :alt: Schéma de CheckValve : forme, ports et connexions
+   :align: center
+   :width: 100%
+
+   Forme, ports et raccordement de ``CheckValve`` ; paramètres sous leur
+   nom de code, avec leur valeur par défaut.
+
 À quoi ça sert
 --------------
 
@@ -14,14 +22,6 @@ blocage d'un écoulement inverse (voir « Éprouver le modèle »). Dans
 ``PyqtSimulator``, c'est le nœud **« Clapet anti-retour »**, présent dans trois
 scènes : *Pompes en parallèle avec clapets*, *Usine — réseau industriel maillé* et
 *Remplissage régulé par niveau*.
-
-.. figure:: ../images/schema_checkvalve.svg
-   :alt: Schéma de CheckValve : forme, ports et connexions
-   :align: center
-   :width: 100%
-
-   Forme, ports et raccordement de ``CheckValve`` ; paramètres sous leur
-   nom de code, avec leur valeur par défaut.
 
 Exemple minimal
 ---------------

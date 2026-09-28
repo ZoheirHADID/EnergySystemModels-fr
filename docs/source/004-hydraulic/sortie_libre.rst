@@ -3,13 +3,6 @@
 Sortie libre
 ============
 
-Perte à la sortie libre d'un tube ou d'un canal.
-
-.. note::
-   Fiche relevée dans le code de la bibliothèque (entrées, valeurs par défaut et
-   unités telles qu'écrites dans ``__init__``). L'exemple exécuté, avec sa
-   sortie réelle et sa variante, reste à écrire pour ce modèle.
-
 .. figure:: ../images/schema_freedischarge.svg
    :alt: Schéma de FreeDischarge : forme, ports et connexions
    :align: center
@@ -17,6 +10,13 @@ Perte à la sortie libre d'un tube ou d'un canal.
 
    Forme, ports et raccordement de ``FreeDischarge`` ; paramètres sous leur
    nom de code, avec leur valeur par défaut.
+
+Perte à la sortie libre d'un tube ou d'un canal.
+
+.. note::
+   Fiche relevée dans le code de la bibliothèque (entrées, valeurs par défaut et
+   unités telles qu'écrites dans ``__init__``). L'exemple exécuté, avec sa
+   sortie réelle et sa variante, reste à écrire pour ce modèle.
 
 ``FreeDischarge`` — sortie libre de tube/canal (Idelchik, section 11).
 

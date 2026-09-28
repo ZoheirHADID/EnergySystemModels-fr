@@ -3,13 +3,6 @@
 Serpentin
 =========
 
-Tube lisse enroulé à grand rayon de courbure (R_0/d_hyd ≥ 3), au-delà du domaine du coude.
-
-.. note::
-   Fiche relevée dans le code de la bibliothèque (entrées, valeurs par défaut et
-   unités telles qu'écrites dans ``__init__``). L'exemple exécuté, avec sa
-   sortie réelle et sa variante, reste à écrire pour ce modèle.
-
 .. figure:: ../images/schema_coil.svg
    :alt: Schéma de Coil : forme, ports et connexions
    :align: center
@@ -17,6 +10,13 @@ Tube lisse enroulé à grand rayon de courbure (R_0/d_hyd ≥ 3), au-delà du do
 
    Forme, ports et raccordement de ``Coil`` ; paramètres sous leur
    nom de code, avec leur valeur par défaut.
+
+Tube lisse enroulé à grand rayon de courbure (R_0/d_hyd ≥ 3), au-delà du domaine du coude.
+
+.. note::
+   Fiche relevée dans le code de la bibliothèque (entrées, valeurs par défaut et
+   unités telles qu'écrites dans ``__init__``). L'exemple exécuté, avec sa
+   sortie réelle et sa variante, reste à écrire pour ce modèle.
 
 ``Coil`` — Serpentin lisse a grand rayon de courbure (Idel'chik, Diagramme 6.2).
 

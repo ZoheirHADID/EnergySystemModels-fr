@@ -430,7 +430,11 @@ aucune valeur calculée sauf mesurée. Un chapitre par tour :
   conforme** (première mesure, 2026-09-28) : `Outlet.h (kJ/kg) 31.000` (ligne 144)
   absent de la sortie réelle — cran 2. Défaut « valeur affichée ≠ sortie réelle »,
   priorité 5 de la boucle : à remettre d'accord avec l'exécution.
-- `à faire` **B-CTA2 — `composants_cta.rst`** : sortie mesurée non publiée (cran 2).
+- `fait` (2026-09-28 ; cran 2 → 4) **B-CTA2 — `composants_cta.rst`** : sortie mesurée non publiée (cran 2).
+- `fait` **J3 — schéma juste après le titre** (demande de l'utilisateur,
+  2026-09-28) : `tools/schemas_en_tete.py` (idempotent) a remonté 28 schémas dans
+  21 pages sous le titre du modèle illustré ; `tools/fiches_hydrauliques.py` produit
+  le même ordre (régénération identique octet pour octet).
 - `fait` (2026-09-28 ; 6 schémas à icônes, insérés sous le titre de chaque modèle) **K1 — CTA** (`003-ahu_modules`) : `FreshAir`, batteries chaude et
   froide, humidificateur, récupérateurs, `GenericAHU` ; ports `AirPort`,
   `Air_connect`, icônes `cta_*`. **Unités d'air non SI** à porter sur les schémas

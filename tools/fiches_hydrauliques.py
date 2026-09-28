@@ -184,9 +184,11 @@ PAGES = {
 
 def page(fichier: str) -> str:
     titre, ancre, intro, contenu = PAGES[fichier]
-    blocs = [f".. _{ancre}:", "", titre, "=" * len(titre), "", intro, "", AVERTISSEMENT]
+    # Les schémas d'abord, juste sous le titre (règle de l'utilisateur, 2026-09-28).
+    schemas = "".join(figure_schema(nom) for _, nom in contenu)
+    blocs = [f".. _{ancre}:", "", titre, "=" * len(titre), "", schemas + intro, "", AVERTISSEMENT]
     for genre, nom in contenu:
-        blocs.append(figure_schema(nom) + (fiche_objet(nom) if genre == "objet" else fiche_module(nom)))
+        blocs.append(fiche_objet(nom) if genre == "objet" else fiche_module(nom))
     blocs.append("Voir :doc:`index` pour la liste de tous les modèles hydrauliques.\n")
     return "\n".join(blocs)
 

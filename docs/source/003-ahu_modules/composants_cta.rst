@@ -137,6 +137,12 @@ Débit d'air sec :
    fa.calculate()
    print(fa.Outlet.T, fa.Outlet.w, fa.Outlet.h, fa.Outlet.F)
 
+Sortie réelle :
+
+.. code-block:: text
+
+   -5.0 1.979 -0.099 3.644504818131823
+
 .. _composants_cta_airmix:
 
 Mélange air neuf / air repris — ``AirMix``
@@ -191,6 +197,12 @@ Si un seul flux est renseigné, la sortie reprend cet unique flux.
    mx.Inlet2 = repris.Outlet
    mx.calculate()
    print(mx.Outlet.T, mx.Outlet.w, mx.Outlet.F)
+
+Sortie réelle :
+
+.. code-block:: text
+
+   12.03 5.069486167212098 3.4206027177893485
 
 .. _composants_cta_plate:
 
@@ -313,6 +325,14 @@ sans condensation modélisée (:math:`w_{2o} = w_{2i}`). Entre les deux
    hx.calculate()
    print(hx.Outlet1.T, hx.heat_transfer, hx.h_efficiency)
 
+Sortie réelle :
+
+.. code-block:: text
+
+   hiver
+   condensation
+   13.22 66.89734277373128 47.39700554449382
+
 .. _composants_cta_wheel:
 
 Récupérateur à roue — ``HeatRecovery.Thermal_wheel_exchanger``
@@ -396,6 +416,12 @@ grandeurs calculées ``heat_transfer1/2``, ``sensible_heat_transfer1/2``,
    wheel.Inlet2 = extrait.Outlet
    wheel.calculate()
    print(wheel.Outlet1.T, wheel.Outlet1.w, wheel.delta_mw1)
+
+Sortie réelle :
+
+.. code-block:: text
+
+   13.22 6.22 15.425817241376377
 
 .. _composants_cta_humidifier:
 
@@ -502,10 +528,47 @@ Le port de sortie prend :math:`w_{out} = w_{target}`,
 
    hmd = Humidifier()
    hmd.HumidType = "adiabatique"
-   hmd.wo_target = 8
+   hmd.wo_target = 5          # g/kg d'air sec, atteignable (voir ci-dessous)
    hmd.Inlet = amont.Outlet
    hmd.calculate()
    print(hmd.Outlet.T, hmd.Outlet.RH, hmd.F_water, hmd.Q_th)
+
+Sortie réelle :
+
+.. code-block:: text
+
+   11.87 58.11 0.008216740601793176 0.0
+
+**Au-delà de la saturation, aucun garde-fou.** En humidification adiabatique,
+l'air suit une enthalpie constante et se refroidit en s'humidifiant ; il finit
+par saturer. Le modèle ne le vérifie pas : il résout ses équations et publie une
+humidité relative supérieure à 100 %, physiquement impossible.
+
+.. code-block:: python
+
+   from AHU.Humidification.Humidifier import Object as Humidifier
+   from AHU.FreshAir.FreshAir import Object as FreshAir
+
+   # Éprouver le modèle : cibles croissantes depuis de l'air à 18 °C / 20 % HR
+   for wo in (5, 6, 7, 8):          # g/kg d'air sec
+       amont = FreshAir(); amont.T = 18; amont.RH = 20; amont.F_m3h = 10000; amont.calculate()
+       hmd = Humidifier(); hmd.HumidType = "adiabatique"; hmd.wo_target = wo
+       hmd.Inlet = amont.Outlet
+       hmd.calculate()
+       print(f"wo_target = {wo} g/kg -> T = {hmd.Outlet.T:5.2f} °C, RH = {hmd.Outlet.RH:6.2f} %")
+
+Sortie réelle :
+
+.. code-block:: text
+
+   wo_target = 5 g/kg -> T = 11.87 °C, RH =  58.11 %
+   wo_target = 6 g/kg -> T =  9.39 °C, RH =  82.13 %
+   wo_target = 7 g/kg -> T =  6.92 °C, RH = 113.17 %
+   wo_target = 8 g/kg -> T =  4.46 °C, RH = 153.15 %
+
+Depuis 18 °C / 20 % HR (2,545 g/kg), la saturation est franchie entre 6 et
+7 g/kg : au-delà, les résultats n'ont pas de sens physique. Vérifiez toujours
+que ``Outlet.RH`` reste sous 100 %.
 
 .. _composants_cta_airsensor:
 
@@ -594,6 +657,12 @@ Les autres mesures sont des recopies directes du port :
    capteur.measurement_type = "Débit volumique"
    debit = capteur.calculate()
    print(debit, capteur.unit)   # m³/h
+
+Sortie réelle :
+
+.. code-block:: text
+
+   5000.0 m³/h
 
 .. _composants_cta_building:
 
@@ -728,3 +797,9 @@ Puissances et énergies stockées :
    for _ in range(60):             # 60 pas de 60 s = 1 h
        local.calculate(dt=60)
    print(local.T_int, local.Q_total, local.E_mur)
+Sortie réelle :
+
+.. code-block:: text
+
+   18.18538828587805 -162763.9071177696 -171.27880431530977
+

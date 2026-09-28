@@ -3,6 +3,22 @@
 Té / jonction 3 ports
 =====================
 
+.. figure:: ../images/assemblage_convergingtee.svg
+   :alt: Deux Sources vers un té convergent ConvergingTee, puis un Sink
+   :align: center
+   :width: 100%
+
+   Té convergent : **deux** composants amont, un sur le passage droit
+   (``Inlet_St``), un sur la branche (``Inlet_S``) ; les débits s'additionnent.
+
+.. figure:: ../images/assemblage_divergingtee.svg
+   :alt: Une Source vers un té divergent DivergingTee, puis deux Sinks
+   :align: center
+   :width: 100%
+
+   Té divergent : le débit de la branche s'**impose** par ``Outlet_S.F`` ; le passage
+   droit ``Outlet_St`` reçoit le reste (1,5 − 0,5 = 1,0 kg/s, mesuré).
+
 Deux modèles à trois ports : le té **convergent** réunit deux courants, le té
 **divergent** en partage un. Bilan de masse sur les trois ports ; le té
 convergent mélange aussi les enthalpies.
@@ -94,14 +110,6 @@ Lignes du ``df`` de sortie : ``fluid``, ``F_St_kgs``, ``F_S_kgs``, ``F_C_kgs``, 
 
 Lignes du ``df`` de sortie : ``fluid``, ``F_C_kgs``, ``F_St_kgs``, ``F_S_kgs``, ``q_ratio``, ``Fs_Fc``, ``V_C_ms``, ``correlation``, ``ksi_St``, ``ksi_S``, ``dP_C_St_Pa``, ``dP_C_S_Pa``, ``alpha_deg``.
 
-.. figure:: ../images/assemblage_convergingtee.svg
-   :alt: Deux Sources vers un té convergent ConvergingTee, puis un Sink
-   :align: center
-   :width: 100%
-
-   Té convergent : **deux** composants amont, un sur le passage droit
-   (``Inlet_St``), un sur la branche (``Inlet_S``) ; les débits s'additionnent.
-
 .. figure:: ../images/004_convergingtee_courbe_reseau.svg
    :alt: Courbes de réseau du té convergent
    :align: center
@@ -109,14 +117,6 @@ Lignes du ``df`` de sortie : ``fluid``, ``F_C_kgs``, ``F_St_kgs``, ``F_S_kgs``, 
 
    Courbes de réseau du té convergent : une courbe par chemin, passage droit et
    branche vers le collecteur.
-
-.. figure:: ../images/assemblage_divergingtee.svg
-   :alt: Une Source vers un té divergent DivergingTee, puis deux Sinks
-   :align: center
-   :width: 100%
-
-   Té divergent : le débit de la branche s'**impose** par ``Outlet_S.F`` ; le passage
-   droit ``Outlet_St`` reçoit le reste (1,5 − 0,5 = 1,0 kg/s, mesuré).
 
 .. figure:: ../images/004_divergingtee_courbe_reseau.svg
    :alt: Courbes de réseau du té divergent

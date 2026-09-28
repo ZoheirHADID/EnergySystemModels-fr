@@ -3,6 +3,14 @@
 Coude
 =====
 
+.. figure:: ../images/assemblage_edgedbend.svg
+   :alt: Source, coude vif EdgedBend et Sink reliés par Fluid_connect
+   :align: center
+   :width: 100%
+
+   Assemblage d'un coude vif : ``Inlet`` reçoit la sortie de la ``Source``, ``Outlet``
+   alimente le ``Sink``. Paramètres par défaut du code, résultat exécuté en cartouche.
+
 Deux modèles : le coude **cintré** (``CurvedBend``, rayon de courbure et angle)
 et le coude **vif** (``EdgedBend``, angle soudé). Tous deux suivent la loi
 :math:`\Delta P = \xi \cdot \tfrac{1}{2}\rho V^2`.
@@ -42,14 +50,6 @@ et le coude **vif** (``EdgedBend``, angle soudé). Tous deux suivent la loi
 
 Lignes du ``df`` de sortie : ``fluid``, ``F_kgs``, ``d_hyd_mm``, ``delta_deg``, ``V_ms``, ``Re``, ``ksi_loc_base``, ``ksi_loc``, ``dP_Pa``, ``dP_mbar``.
 
-.. figure:: ../images/assemblage_edgedbend.svg
-   :alt: Source, coude vif EdgedBend et Sink reliés par Fluid_connect
-   :align: center
-   :width: 100%
-
-   Assemblage d'un coude vif : ``Inlet`` reçoit la sortie de la ``Source``, ``Outlet``
-   alimente le ``Sink``. Paramètres par défaut du code, résultat exécuté en cartouche.
-
 .. figure:: ../images/004_edgedbend_courbe_reseau.svg
    :alt: Courbe de réseau du coude vif
    :align: center
@@ -76,6 +76,21 @@ Lignes du ``df`` de sortie : ``fluid``, ``F_kgs``, ``d_hyd_mm``, ``delta_deg``, 
 Coude arrondi — ``CurvedBend``
 ------------------------------
 
+.. figure:: ../images/param_curvedbend.svg
+   :alt: Coude courbe coté : d_hyd, R_0 mesuré à l'axe, delta, K, aspect_ratio et domaine de validité
+   :align: center
+   :width: 100%
+
+   Où se mesure chaque paramètre de ``CurvedBend``. ``R_0`` se prend **à
+   l'axe** de la conduite, et ``delta`` se saisit en **radians**.
+
+.. figure:: ../images/assemblage_curvedbend.svg
+   :alt: Source, coude courbe CurvedBend et Sink reliés par Fluid_connect
+   :align: center
+   :width: 100%
+
+   L'assemblage de l'exemple ci-dessous : mêmes valeurs, même résultat.
+
 À quoi ça sert
 ~~~~~~~~~~~~~~
 
@@ -94,26 +109,11 @@ deux coudes rapprochés interagissent, et le modèle ne le sait pas.
 Dans ``PyqtSimulator``, le même modèle est le nœud **« Coude courbe »** de la
 palette.
 
-.. figure:: ../images/param_curvedbend.svg
-   :alt: Coude courbe coté : d_hyd, R_0 mesuré à l'axe, delta, K, aspect_ratio et domaine de validité
-   :align: center
-   :width: 100%
-
-   Où se mesure chaque paramètre de ``CurvedBend``. ``R_0`` se prend **à
-   l'axe** de la conduite, et ``delta`` se saisit en **radians**.
-
 Exemple minimal
 ~~~~~~~~~~~~~~~
 
 Le coude reçoit son état de l'amont par ``Fluid_connect`` (voir
 :doc:`../ports_connexions`).
-
-.. figure:: ../images/assemblage_curvedbend.svg
-   :alt: Source, coude courbe CurvedBend et Sink reliés par Fluid_connect
-   :align: center
-   :width: 100%
-
-   L'assemblage de l'exemple ci-dessous : mêmes valeurs, même résultat.
 
 .. code-block:: python
 

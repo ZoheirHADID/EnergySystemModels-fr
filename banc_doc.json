@@ -400,9 +400,9 @@
    "recul": null
   },
   "docs/source/003-ahu_modules/composants_cta.rst": {
-   "blocs": 7,
-   "empreinte": "716766e8164425a2",
-   "mesure": "2026-09-28T11:26",
+   "blocs": 8,
+   "empreinte": "409e5cc6d408d862",
+   "mesure": "2026-09-28T11:37",
    "figures": [
     "../images/schema_freshair.svg",
     "../images/schema_heatplateexchanger.svg",
@@ -410,11 +410,11 @@
     "../images/schema_humidifier.svg"
    ],
    "blocage": null,
-   "motif": "sortie mesurée non publiée dans la page",
+   "motif": "manque : table de personnalisation et variante exécutée",
    "extraits": null,
-   "cran": 2,
-   "nom": "exécuté",
-   "cran_max": 2,
+   "cran": 4,
+   "nom": "figure réelle",
+   "cran_max": 4,
    "recul": null
   },
   "docs/source/003-ahu_modules/cta_air_neuf.rst": {
@@ -515,7 +515,7 @@
   "docs/source/004-hydraulic/coudes_tes_singularites.rst": {
    "blocs": 4,
    "empreinte": "dfe7e153c90156c3",
-   "mesure": "2026-09-28T11:00",
+   "mesure": "2026-09-28T11:39",
    "figures": [
     "../images/assemblage_edgedbend.svg",
     "../images/004_edgedbend_courbe_reseau.svg",
@@ -716,7 +716,7 @@
   "docs/source/004-hydraulic/regulateur_dp.rst": {
    "blocs": 3,
    "empreinte": "8fdf3bbb031e807b",
-   "mesure": "2026-09-28T11:20",
+   "mesure": "2026-09-28T11:39",
    "figures": [
     "../images/schema_dpregulator.svg"
    ],
@@ -816,7 +816,7 @@
   "docs/source/004-hydraulic/vanne_generique.rst": {
    "blocs": 3,
    "empreinte": "b2179dcfcb1bce8d",
-   "mesure": "2026-09-28T11:01",
+   "mesure": "2026-09-28T11:38",
    "figures": [
     "../images/schema_generalvalve.svg",
     "../images/004_generalvalve_courbe.svg"

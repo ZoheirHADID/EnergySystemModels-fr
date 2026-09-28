@@ -3,13 +3,6 @@
 Singularité quelconque — méthodes 2K et 3K
 ==========================================
 
-Quand un raccord n'a pas de modèle dédié, on le chiffre par ses coefficients publiés : méthode 2K de Hooper, méthode 3K de Darby, ou données Crane TP-410.
-
-.. note::
-   Fiche relevée dans le code de la bibliothèque (entrées, valeurs par défaut et
-   unités telles qu'écrites dans ``__init__``). L'exemple exécuté, avec sa
-   sortie réelle et sa variante, reste à écrire pour ce modèle.
-
 .. figure:: ../images/schema_methodes_k.svg
    :alt: Schéma de HooperMethod2K : forme, ports et connexions
    :align: center
@@ -17,6 +10,13 @@ Quand un raccord n'a pas de modèle dédié, on le chiffre par ses coefficients 
 
    Forme, ports et raccordement de ``HooperMethod2K`` ; paramètres sous leur
    nom de code, avec leur valeur par défaut.
+
+Quand un raccord n'a pas de modèle dédié, on le chiffre par ses coefficients publiés : méthode 2K de Hooper, méthode 3K de Darby, ou données Crane TP-410.
+
+.. note::
+   Fiche relevée dans le code de la bibliothèque (entrées, valeurs par défaut et
+   unités telles qu'écrites dans ``__init__``). L'exemple exécuté, avec sa
+   sortie réelle et sa variante, reste à écrire pour ce modèle.
 
 ``HooperMethod2K`` — Singularité hydraulique utilisant la méthode 2K de Hooper.
 

@@ -700,3 +700,22 @@
 - Bug bibliothèque : aucun.
 - Suivant : B-CTA2 (`composants_cta.rst`, sorties non publiées), puis K2 — schémas
   des cycles.
+
+## 2026-09-28 — `composants_cta.rst` (B-CTA2) + schémas en tête (retour utilisateur)
+- Unités : B-CTA2 ; retour utilisateur en cours de tour — « mettre le schéma juste
+  après le titre à chaque fois ».
+- Fait :
+  - `composants_cta.rst` : les 7 exemples n'avaient aucune sortie publiée ; chacune
+    est désormais insérée **par exécution** (script, aucune recopie). L'exemple de
+    l'humidificateur visait 8 g/kg et produisait **RH = 153 %** : cible ramenée à
+    5 g/kg (11,87 °C, 58,1 %), et le cas impossible montré par un bloc exécuté
+    (saturation franchie entre 6 et 7 g/kg).
+  - `tools/schemas_en_tete.py` : 28 schémas remontés sous le titre du modèle
+    (titre de page, ou de section pour les pages à plusieurs modèles ; sous-titres
+    du squelette ignorés ; courbes de résultats laissées près de leur exemple).
+    Générateur de fiches aligné. Mémoire enregistrée pour les pages futures.
+- Banc : `composants_cta.rst` cran 2 → 4 ; aucune page reculée (blocs de code
+  inchangés par le déplacement).
+- Build : 0 warning.
+- Bug bibliothèque : **nouvelle entrée** `Humidifier` (RH > 100 % sans refus).
+- Suivant : K2 — schémas des cycles thermodynamiques, placés sous les titres.

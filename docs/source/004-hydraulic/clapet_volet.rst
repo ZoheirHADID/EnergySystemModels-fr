@@ -3,13 +3,6 @@
 Clapet à volet mobile
 =====================
 
-Clapet à volet mobile.
-
-.. note::
-   Fiche relevée dans le code de la bibliothèque (entrées, valeurs par défaut et
-   unités telles qu'écrites dans ``__init__``). L'exemple exécuté, avec sa
-   sortie réelle et sa variante, reste à écrire pour ce modèle.
-
 .. figure:: ../images/schema_movableflap.svg
    :alt: Schéma de MovableFlap : forme, ports et connexions
    :align: center
@@ -17,6 +10,13 @@ Clapet à volet mobile.
 
    Forme, ports et raccordement de ``MovableFlap`` ; paramètres sous leur
    nom de code, avec leur valeur par défaut.
+
+Clapet à volet mobile.
+
+.. note::
+   Fiche relevée dans le code de la bibliothèque (entrées, valeurs par défaut et
+   unités telles qu'écrites dans ``__init__``). L'exemple exécuté, avec sa
+   sortie réelle et sa variante, reste à écrire pour ce modèle.
 
 ``MovableFlap`` — clapet mobile.
 
