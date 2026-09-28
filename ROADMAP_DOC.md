@@ -63,7 +63,7 @@ page par page.
 
 ## A. Assainir ce qui est faux
 
-- `en cours` **A1 — API inexistante dans `docs/source/usage/`**. Traitement
+- `fait` (2026-09-28 — plus aucune page au cran 1) **A1 — API inexistante dans `docs/source/usage/`**. Traitement
   retenu : ces pages deviennent un **parcours de lecture** (prose courte +
   renvois `:doc:` vers les chapitres), pas un second guide d'API.
   - `fait` `section-1-achat-facturation.rst` (2026-09-27) : 309 lignes d'API
@@ -99,7 +99,12 @@ page par page.
     `section-1`, `section-3` et `section-6-autres` corrigées le 2026-09-28.
   - `à faire` **E-noyau** : documenter l'API `energysystemmodels` (SystemModel,
     solveurs) — module réel sans page.
-  - `à faire` `section-5-usages-finaux.rst` (11, dont `BuildingModel` et `RC_Model`).
+  - `fait` `section-5-usages-finaux.rst` (2026-09-28) : aiguillage vers 003, 006,
+    007. `RC_Model` / `RC_Model_Advanced` remplacés par le **vrai** modèle
+    `AHU.Building.BuildingRC` (deux nœuds `T_int`, `T_mur`) ; `GenericAHU`
+    corrigé — il n'existe pas de classe de ce nom, les CTA complètes sont
+    `AirRecyclingAHU` et `AirRecoveryAHU` (`from AHU.GenericAHU.<...> import
+    Object`). Cran 1 → 0.
     Table de correspondance vérifiée dans
     `SPRINT_BACKLOG_doc_imports_cleanup.md`. `section-6-autres.rst` est déjà
     propre.

@@ -492,3 +492,20 @@
 - Build : 0 warning.
 - Bug bibliothèque : aucun.
 - Suivant : `usage/section-5-usages-finaux.rst`, dernière page qui plante.
+
+## 2026-09-28 — `usage/section-5-usages-finaux.rst` (A1 clos)
+- Unité : A1 — dernière page `usage/` qui plantait.
+- Fait : parcours de lecture vers AHU, pincement, IPMVP. Les classes inventées
+  `RC_Model` / `RC_Model_Advanced` renvoient désormais au **modèle réel**
+  `AHU.Building.BuildingRC` (déjà décrit dans `composants_cta.rst`). Deux imports
+  de l'ancienne page confrontés à l'exécution : `from AHU.GenericAHU import
+  GenericAHU` **échoue** (le paquet n'expose que `AirRecyclingAHU` et
+  `AirRecoveryAHU`) — corrigé ; `Stream` existe, mais seulement dans un script de
+  reproduction interne (`HEN_superstructure/reproduce_yegrossmann1990.py`), donc
+  retiré de la liste des classes « inexistantes » plutôt qu'affirmé faux.
+  9 imports vérifiés.
+- Banc : cran 1 → 0. **Pages qui plantent : 1 → 0** — A1 est clos.
+- Build : 0 warning.
+- Bug bibliothèque : aucun.
+- Suivant : A1 clos. Prochaines priorités : I2 (pages des modèles hydrauliques
+  *à documenter*, un par tour) et les pages au cran 4 à porter au cran 5.

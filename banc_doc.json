@@ -1065,18 +1065,16 @@
    "recul": null
   },
   "docs/source/usage/section-5-usages-finaux.rst": {
-   "blocs": 14,
-   "empreinte": "dbce832f3d6ab160",
-   "mesure": "2026-09-27T18:10",
-   "figures": [
-    "../images/003_ahu_fresh_air.png",
-    "../images/003_ahu_fresh_air_figure1.png"
-   ],
+   "blocs": 0,
+   "empreinte": "65888b680e885548",
+   "mesure": "2026-09-28T10:07",
+   "figures": [],
    "blocage": null,
-   "motif": "API inexistante : BuildingModel, RC_Model, energysystemmodels.",
-   "cran": 1,
-   "nom": "plante",
-   "cran_max": 1,
+   "motif": "page de prose ou d'index",
+   "extraits": null,
+   "cran": 0,
+   "nom": "sans exemple",
+   "cran_max": 0,
    "recul": null
   },
   "docs/source/usage/section-6-autres.rst": {
