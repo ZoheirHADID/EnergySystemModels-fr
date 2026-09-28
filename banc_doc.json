@@ -124,18 +124,18 @@
   },
   "docs/source/002-thermodynamic_cycles/condenseur_evaporateur.rst": {
    "blocs": 3,
-   "empreinte": "ce4d0e764e20be49",
-   "mesure": "2026-09-28T11:46",
+   "empreinte": "4b349d7a4dc71179",
+   "mesure": "2026-09-28T12:01",
    "figures": [
     "../images/schema_condenser.svg",
     "../images/schema_evaporator.svg"
    ],
    "blocage": null,
-   "motif": "sortie mesurée non publiée dans la page",
+   "motif": "manque : table de personnalisation et variante exécutée",
    "extraits": null,
-   "cran": 2,
-   "nom": "exécuté",
-   "cran_max": 2,
+   "cran": 4,
+   "nom": "figure réelle",
+   "cran_max": 4,
    "recul": null
   },
   "docs/source/002-thermodynamic_cycles/dessalement_evaporation.rst": {
@@ -152,17 +152,17 @@
   },
   "docs/source/002-thermodynamic_cycles/detente_distributeurs.rst": {
    "blocs": 4,
-   "empreinte": "3e580b44fa4be839",
-   "mesure": "2026-09-28T11:46",
+   "empreinte": "a42d06592d6902c4",
+   "mesure": "2026-09-28T12:01",
    "figures": [
     "../images/schema_expansion_valve.svg"
    ],
    "blocage": null,
-   "motif": "sortie mesurée non publiée dans la page",
+   "motif": "manque : table de personnalisation et variante exécutée",
    "extraits": null,
-   "cran": 2,
-   "nom": "exécuté",
-   "cran_max": 2,
+   "cran": 4,
+   "nom": "figure réelle",
+   "cran_max": 4,
    "recul": null
   },
   "docs/source/002-thermodynamic_cycles/distillation.rst": {
@@ -326,17 +326,17 @@
   },
   "docs/source/002-thermodynamic_cycles/pompe.rst": {
    "blocs": 2,
-   "empreinte": "65712ebab59a667d",
-   "mesure": "2026-09-28T11:46",
+   "empreinte": "fe2d6d0225095e54",
+   "mesure": "2026-09-28T12:01",
    "figures": [
     "../images/schema_pump.svg"
    ],
    "blocage": null,
-   "motif": "sortie mesurée non publiée dans la page",
+   "motif": "manque : table de personnalisation et variante exécutée",
    "extraits": null,
-   "cran": 2,
-   "nom": "exécuté",
-   "cran_max": 2,
+   "cran": 4,
+   "nom": "figure réelle",
+   "cran_max": 4,
    "recul": null
   },
   "docs/source/002-thermodynamic_cycles/raccords_fittings.rst": {

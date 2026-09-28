@@ -439,7 +439,8 @@ aucune valeur calculée sauf mesurée. Un chapitre par tour :
   froide, humidificateur, récupérateurs, `GenericAHU` ; ports `AirPort`,
   `Air_connect`, icônes `cta_*`. **Unités d'air non SI** à porter sur les schémas
   (h en kJ/kg d'air sec, w en g/kg d'air sec).
-- `à faire` **B-CYC — sorties à publier** (première mesure, 2026-09-28) :
+- `fait` (2026-09-28 : 8 sorties réelles publiées par `tools/publier_sorties.py` ; 3 pages cran 2 → 4 ;
+  défaut du givre inscrit dans `BUGS_LIB.md`) **B-CYC — sorties à publier** (première mesure, 2026-09-28) :
   `pompe.rst`, `detente_distributeurs.rst`, `condenseur_evaporateur.rst` — exemples
   exécutés sans sortie publiée (cran 2). Même méthode que `composants_cta.rst`.
 - `en cours` (2026-09-28 : 8 schémas — compresseur, turbine, pompe, détendeur,

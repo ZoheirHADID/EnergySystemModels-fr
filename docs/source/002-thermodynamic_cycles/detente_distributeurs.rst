@@ -126,6 +126,19 @@ Exemple
     print(detendeur.df)
     print("Q_exp =", detendeur.Q_exp, "W")          # ~ 0 (isenthalpique)
 
+Sortie réelle :
+
+.. code-block:: text
+
+                           Expansion_Valve
+   Timestamp    2026-09-28 11:58:04.096158
+   fluid                             R134a
+   Outlet.F                            1.0
+   To(°C)                         5.028072
+   Ho (kJ/kg)                   256.409166
+   So(kJ/kg-K)                    1.202842
+   Q_exp = 0.0 W
+
 .. note::
    L'enthalpie ``Inlet.h`` (et la pression ``Outlet.P``) doivent être fixées avant
    ``calculate()``. Dans un cycle complet (voir :ref:`chiller`), ces valeurs sont
@@ -218,6 +231,17 @@ débit source est ``None``, il est ramené à ``0.0``).
     v.calculate()
     print(v.df)        # route = "P->A"
 
+Sortie réelle :
+
+.. code-block:: text
+
+             DCV_3_2
+   Timestamp    None
+   route        P->A
+   u           False
+   F_kgs         1.2
+   P_bar         3.0
+
 .. _dcv_4_2:
 
 DCV 4/2 — 4 voies, 2 positions (``DCV_4_2``)
@@ -293,6 +317,16 @@ retour recopie son état vers ``Outlet_T`` (débit ``None`` ramené à ``0.0``).
     v.u = False        # P -> A (alimentation), B -> T (retour)
     v.calculate()
     print(v.df)        # route = "P->A, B->T"
+
+Sortie réelle :
+
+.. code-block:: text
+
+                    DCV_4_2
+   Timestamp           None
+   route         P->A, B->T
+   u                  False
+   F_supply_kgs         0.3
 
 .. _dcv_4_3_b:
 
@@ -374,6 +408,21 @@ ports bloqués). Dans les positions ``+1`` / ``-1``, le routage recopie ``fluid`
     v.u = 0            # centre fermé : tous débits nuls
     v.calculate()
     print(v.df)        # route = "centre bloque"
+
+Sortie réelle :
+
+.. code-block:: text
+
+                  DCV_4_3_B
+   Timestamp           None
+   route         P->A, B->T
+   u                      1
+   F_supply_kgs         0.3
+                     DCV_4_3_B
+   Timestamp              None
+   route         centre bloque
+   u                         0
+   F_supply_kgs            0.3
 
 .. note::
    Les distributeurs directionnels sont des modèles de **routage logique** : ils

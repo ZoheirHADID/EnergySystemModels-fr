@@ -236,6 +236,27 @@ Exemple (Source → Pompe, courbe caractéristique)
     print(pump.df)               # F_m3h, hmt, delta_p, Qpump, eta
     pump.plot_pump_curve()       # courbe HMT/ΔP + rendement, point de fonctionnement
 
+Sortie réelle :
+
+.. code-block:: text
+
+   [SOURCE-CALLBACK] flow update: 5.000 -> 5.731 kg/s
+      New volumetric flow: 20.67 m3/h
+                                       Pump
+   Timestamp     2026-09-28 11:57:48.262405
+   pump_fluid                         water
+   pump_F_kgs                      5.731113
+   pump_F_m3h                     20.669077
+   hmt(m)                         30.635984
+   delta_p (Pa)                    300000.0
+   Qpump(KW)                       2.751426
+   self.eta                        0.626011
+
+Les deux premières lignes sont imprimées par la bibliothèque elle-même : la
+pompe a recalé le débit de la source (5 → 5,731 kg/s) sur le point de
+fonctionnement de sa courbe à ΔP = 3 bar. C'est ce débit recalé qu'on lit ensuite
+dans ``pump_F_kgs``.
+
 Pour un **cycle de puissance** (mode thermodynamique), fixer plutôt
 ``pump.IsenEff = 0.75`` (et éventuellement ``pump.F_impose`` pour un débit
 imposé) avant ``pump.calculate()`` : la température de refoulement ``To`` et la

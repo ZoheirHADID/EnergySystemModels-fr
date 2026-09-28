@@ -173,6 +173,22 @@
 - **Traitement dans le guide** : comportement montré par un bloc exécuté ; le
   lecteur est invité à vérifier `Outlet.RH < 100 %`.
 
+## `Frost.FrostedFinnedTubeHEX` — chaleur latente retranchée comme sensible : air trop froid, HR_out > 1
+
+- **Page concernée** : `docs/source/002-thermodynamic_cycles/condenseur_evaporateur.rst`
+  (exemple de la batterie givrante).
+- **Reproduction** (2026-09-28) : exemple publié de la page — `Q_sens_W` 2442,55,
+  `Q_lat_W` 952,48, `Q_total_W` 3395,03 ; air 12,85 °C → **−2,49 °C**, `HR_out`
+  **1,8925** (humidité relative de 189 %).
+- **Trace** : `src/ThermodynamicCycles/Frost/FrostedFinnedTubeHEX.py:275`,
+  `T_out_air = T_in_air - Q_total / (m_a * Cp_air_humid)`. La chaleur latente
+  (givre déposé) ne refroidit pas l'air sec : seule `Q_sens` devrait abaisser la
+  température. Avec `Q_sens` seule, la chute vaut 15,34 × 2442,55 / 3395,03 ≈ 11,0 K,
+  soit ≈ +1,8 °C en sortie. L'`HR_out` > 1 découle de la température trop basse.
+- **Traitement dans le guide** : sortie publiée telle quelle, avec une note au
+  lecteur ; `Tair_out_degC` et `HR_out` ne sont pas à reprendre dans un
+  dimensionnement.
+
 ## Corrigés depuis, dans le dépôt source — ne pas rouvrir
 
 - **`FluidPort.set_humid_gas_mixture()` acceptait une espèce hors table en

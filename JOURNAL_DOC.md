@@ -742,3 +742,17 @@
 - Écarté : le cycle complet du groupe froid — c'est un assemblage ; son schéma
   viendra de l'export d'une scène réelle de l'IHM (règle de la boucle).
 - Suivant : B-CYC, puis le cycle du groupe froid.
+
+## 2026-09-28 — B-CYC : sorties réelles des pages pompe, détendeurs, condenseur/évaporateur
+
+- Outil : `tools/publier_sorties.py` — exécute chaque bloc Python sans sortie
+  publiée (seul, sinon précédé des blocs de la page) et insère la sortie réelle
+  dessous, à l'indentation de la directive.
+- `pompe.rst` (1 sortie), `detente_distributeurs.rst` (4), `condenseur_evaporateur.rst`
+  (3) : cran 2 → 4 chacune.
+- Note au lecteur sur la trace `[SOURCE-CALLBACK]` de la pompe (débit recalé).
+- Défaut mesuré : `FrostedFinnedTubeHEX.py:275` retranche `Q_total` (latent compris)
+  de la température d'air → −2,49 °C et HR_out 1,89 au lieu de ≈ +1,8 °C.
+  Avertissement dans la page, entrée dans `BUGS_LIB.md`.
+- Build : 0 warning (`-E`).
+- Suivant : K2 (cycle complet du groupe froid, par export d'une scène IHM).

@@ -134,6 +134,23 @@ Exemple
     print(COND.df)
     print("Chaleur rejetée :", COND.Q_cond / 1000, "kW")
 
+Sortie réelle :
+
+.. code-block:: text
+
+                                     Condenser
+   Timestamp        2026-09-28 11:58:42.048852
+   fluid                                 R134a
+   Outlet.F                           1.173403
+   Tl_sat(°C)                        39.387631
+   Hl_sat(kJ/kg)                    255.495856
+   Sl_sat(kJ/kg-K)                    1.187603
+   To(°C)                            36.387631
+   Ho(kJ/kg)                        251.038846
+   So(kJ/kg-K)                        1.173274
+   Q_cond(kW)                       229.682179
+   Chaleur rejetée : 229.6821787287314 kW
+
 .. _evaporateur:
 
 Evaporator (Évaporateur)
@@ -266,6 +283,24 @@ Exemple
     import matplotlib.pyplot as plt
     plt.plot(EVAP.Qevap_i, EVAP.Tfluid_i)
     plt.show()
+
+Sortie réelle :
+
+.. code-block:: text
+
+                                 Evaporator
+   Timestamp     2026-09-28 11:58:52.996101
+   fluid                              R134a
+   Outlet.F                               1
+   Pevap(bar)                           3.0
+   Tsv(°C)                         0.672064
+   Hsv(kJ/kg)                     398.99515
+   Ssv(kJ/kg-K)                    1.726715
+   To(°C)                          5.672064
+   Ho(kJ/kg)                     403.476789
+   So(kJ/kg-K)                     1.742935
+   Q_evap(kW)                    203.475164
+   Puissance frigorifique : 203.47516440325376 kW
 
 .. _evaporative_cooler:
 
@@ -503,6 +538,53 @@ Exemple
     print("Épaisseur de givre :", hx.delta_f * 1000, "mm")
     print("Masse de givre cumulée :", hx.Frost * 1000, "g")
     print("Perte de charge air :", hx.dP_air, "Pa")
+
+Sortie réelle :
+
+.. code-block:: text
+
+                  FrostedFinnedTubeHEX
+   Timestamp                       NaN
+   delta_f_mm                 0.930070
+   rho_f                     39.446217
+   Frost_g                  941.302929
+   Tair_in_degC              12.850000
+   Tair_out_degC             -2.489896
+   Tref_in_degC             -40.000000
+   Tref_out_degC            -37.781029
+   Ts_givre_degC            -20.833687
+   Tp_paroi_degC            -22.425069
+   HR_in                      0.800000
+   HR_out                     1.892545
+   S_super                    0.919686
+   Le_f                       1.451934
+   V_face                     0.177901
+   V_max                      0.882836
+   Re_d_air                1476.044134
+   Re_ref                   187.824470
+   h_a_W_m2K                  2.807023
+   h_m_kg_m2s                 0.001922
+   h_i_W_m2K                200.856852
+   Q_sens_W                2442.550695
+   Q_lat_W                  952.475143
+   Q_total_W               3395.025838
+   dP_air_Pa                  1.074960
+   m_f_mg_s                 336.029333
+   A_T_m2                     1.614574
+   s_mm                       0.408248
+   Y_eff_mm                   2.131752
+   Épaisseur de givre : 0.930069941947541 mm
+   Masse de givre cumulée : 941.3029286820102 g
+   Perte de charge air : 1.0749603974611779 Pa
+
+.. warning::
+
+   ``Tair_out_degC`` (−2,49 °C) et ``HR_out`` (1,89, soit 189 % d'humidité
+   relative) sont **faux** dans cette version du modèle : la température de sortie
+   d'air est calculée avec ``Q_total_W``, chaleur latente du givre comprise, alors
+   que seule ``Q_sens_W`` refroidit l'air. Avec la seule part sensible, l'air
+   sortirait vers +1,8 °C. Les autres grandeurs (givre, flux, perte de charge) ne
+   sont pas concernées. Ne reprenez pas ces deux valeurs dans un dimensionnement.
 
 CroissanceDuGivre (modèle 1D autonome)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
