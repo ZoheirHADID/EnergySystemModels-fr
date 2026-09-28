@@ -772,3 +772,17 @@
 - Écarté : titres des nœuds absents du rendu SVG de la scène (l'IHM ne les dessine
   pas dans l'export) — la légende les nomme.
 - Suivant : K3 (transfert de chaleur).
+
+## 2026-09-28 12:15 — K3 : schéma coté du mur composite
+- Unité : K3 (première sous-entrée : `CompositeWall`).
+- Fait : `mur_composite()` dans `docs/generate_param_diagrams.py` → `param_compositewall.svg` :
+  couches dans l'ordre d'`add_layer` (extérieur → intérieur), `thickness` cotées,
+  λ du tableau `MATERIALS`, `Te`/`he`, `Ti`/`hi`, flux `Q`, profil de température
+  **calculé par `CompositeWall` au moment de la génération** (pas de valeur tapée).
+  Figure placée sous le titre de `composite_wall_heat_transfer.rst`.
+- Exemple : `print(wall.df)` tronquait les colonnes (`...`), la sortie publiée ne
+  correspondait donc plus ; remplacé par `print(wall.df.to_string())`, dont la
+  sortie mesurée est identique au tableau publié.
+- Banc : `composite_wall_heat_transfer.rst` non mesuré → cran 4.
+- Build : 0 warning. Bug bibliothèque : aucun.
+- Suivant : K3, tuyauterie isolée (`PipeInsulationAnalysis`).

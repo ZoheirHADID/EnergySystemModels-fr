@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="820" height="560" viewBox="0 0 820 560" role="img" aria-label="Paramétrage d'un mur composite : couches, he, hi, Te, Ti">
+<title>Paramétrage d'un mur composite : couches, he, hi, Te, Ti</title>
+<defs><marker id="fleche" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-end"><path d="M 0 0 L 10 5 L 0 10 z" fill="#1f2933"/></marker><marker id="fleche_cote" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-end"><path d="M 0 0 L 10 5 L 0 10 z" fill="#b46a00"/></marker><marker id="fleche_flux" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-end"><path d="M 0 0 L 10 5 L 0 10 z" fill="#2670a8"/></marker></defs>
+<rect width="820" height="560" fill="#ffffff"/>
+<text x="40.0" y="40.0" fill="#1f2933" text-anchor="start" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="14" font-weight="600">extérieur</text>
+<text x="655.0" y="40.0" fill="#1f2933" text-anchor="end" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="14" font-weight="600">intérieur</text>
+<rect x="190.0" y="110.0" width="220.0" height="270.0" rx="0" fill="#c9c3b8" stroke="#1f2933" stroke-width="1.4"/>
+<line x1="190.0" y1="406.0" x2="410.0" y2="406.0" stroke="#b46a00" stroke-width="1.2" marker-start="url(#fleche_cote)" marker-end="url(#fleche_cote)"/>
+<text x="300.0" y="406.0" fill="#b46a00" text-anchor="middle" font-family="Consolas, Courier New, monospace" font-size="13"></text>
+<line x1="190.0" y1="398.0" x2="190.0" y2="414.0" stroke="#b46a00" stroke-width="1.0"/>
+<line x1="410.0" y1="398.0" x2="410.0" y2="414.0" stroke="#b46a00" stroke-width="1.0"/>
+<text x="300.0" y="428.0" fill="#b46a00" text-anchor="middle" font-family="Consolas, Courier New, monospace" font-size="12">0.20</text>
+<text x="300.0" y="446.0" fill="#1f2933" text-anchor="middle" font-family="Consolas, Courier New, monospace" font-size="11">λ=1.4</text>
+<text x="300.0" y="98.0" fill="#7b8794" text-anchor="middle" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11">couche 1</text>
+<rect x="410.0" y="110.0" width="55.0" height="270.0" rx="0" fill="#fff3b0" stroke="#1f2933" stroke-width="1.4"/>
+<line x1="410.0" y1="406.0" x2="465.0" y2="406.0" stroke="#b46a00" stroke-width="1.2" marker-start="url(#fleche_cote)" marker-end="url(#fleche_cote)"/>
+<text x="437.5" y="406.0" fill="#b46a00" text-anchor="middle" font-family="Consolas, Courier New, monospace" font-size="13"></text>
+<line x1="410.0" y1="398.0" x2="410.0" y2="414.0" stroke="#b46a00" stroke-width="1.0"/>
+<line x1="465.0" y1="398.0" x2="465.0" y2="414.0" stroke="#b46a00" stroke-width="1.0"/>
+<text x="437.5" y="428.0" fill="#b46a00" text-anchor="middle" font-family="Consolas, Courier New, monospace" font-size="12">0.05</text>
+<text x="437.5" y="462.0" fill="#1f2933" text-anchor="middle" font-family="Consolas, Courier New, monospace" font-size="11">λ=0.03</text>
+<text x="437.5" y="82.0" fill="#7b8794" text-anchor="middle" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11">couche 2</text>
+<rect x="465.0" y="110.0" width="40.0" height="270.0" rx="0" fill="#eef0f2" stroke="#1f2933" stroke-width="1.4"/>
+<line x1="465.0" y1="406.0" x2="505.0" y2="406.0" stroke="#b46a00" stroke-width="1.2" marker-start="url(#fleche_cote)" marker-end="url(#fleche_cote)"/>
+<text x="485.0" y="406.0" fill="#b46a00" text-anchor="middle" font-family="Consolas, Courier New, monospace" font-size="13"></text>
+<line x1="465.0" y1="398.0" x2="465.0" y2="414.0" stroke="#b46a00" stroke-width="1.0"/>
+<line x1="505.0" y1="398.0" x2="505.0" y2="414.0" stroke="#b46a00" stroke-width="1.0"/>
+<text x="485.0" y="428.0" fill="#b46a00" text-anchor="middle" font-family="Consolas, Courier New, monospace" font-size="12">0.02</text>
+<text x="485.0" y="446.0" fill="#1f2933" text-anchor="middle" font-family="Consolas, Courier New, monospace" font-size="11">λ=0.5</text>
+<text x="485.0" y="98.0" fill="#7b8794" text-anchor="middle" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11">couche 3</text>
+<text x="190.0" y="496.0" fill="#b46a00" text-anchor="start" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12">thickness (m) · couches ajoutées de l'extérieur vers l'intérieur</text>
+<polyline points="60.00,380.00 190.00,374.18 410.00,355.07 465.00,132.08 505.00,126.72 635.00,110.00" fill="none" stroke="#c0392b" stroke-width="2.4" stroke-linejoin="round"/>
+<circle cx="190.0" cy="374.2" r="3.5" fill="#c0392b"/>
+<circle cx="410.0" cy="355.1" r="3.5" fill="#c0392b"/>
+<circle cx="465.0" cy="132.1" r="3.5" fill="#c0392b"/>
+<circle cx="505.0" cy="126.7" r="3.5" fill="#c0392b"/>
+<text x="40.0" y="340.0" fill="#1f2933" text-anchor="start" font-family="Consolas, Courier New, monospace" font-size="13">Te = -10 °C</text>
+<text x="40.0" y="358.0" fill="#1f2933" text-anchor="start" font-family="Consolas, Courier New, monospace" font-size="13">he = 23</text>
+<text x="655.0" y="80.0" fill="#1f2933" text-anchor="end" font-family="Consolas, Courier New, monospace" font-size="13">Ti = 20 °C</text>
+<text x="655.0" y="98.0" fill="#1f2933" text-anchor="end" font-family="Consolas, Courier New, monospace" font-size="13">hi = 8</text>
+<text x="196.0" y="366.2" fill="#c0392b" text-anchor="start" font-family="Consolas, Courier New, monospace" font-size="11">-9.4</text>
+<text x="416.0" y="347.1" fill="#c0392b" text-anchor="start" font-family="Consolas, Courier New, monospace" font-size="11">-7.2</text>
+<text x="457.0" y="136.1" fill="#c0392b" text-anchor="end" font-family="Consolas, Courier New, monospace" font-size="11">17.5</text>
+<text x="511.0" y="144.7" fill="#c0392b" text-anchor="start" font-family="Consolas, Courier New, monospace" font-size="11">18.1</text>
+<line x1="645.0" y1="285.0" x2="50.0" y2="285.0" stroke="#2670a8" stroke-width="2.0" marker-end="url(#fleche_flux)"/>
+<text x="645.0" y="277.0" fill="#2670a8" text-anchor="end" font-family="Consolas, Courier New, monospace" font-size="13">Q = 148.7 W</text>
+<rect x="40.0" y="502.0" width="740.0" height="44.0" rx="4" fill="#f4f6f8" stroke="#c9d1d9" stroke-width="1.0"/>
+<text x="50.0" y="522.0" fill="#1f2933" text-anchor="start" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12">he, hi en W/m².K  ·  A = 10 m²  ·  R_total = 1/he + Σ thickness/λ + 1/hi = 2.018 m².K/W  ·  Q = A·(Ti−Te)/R_total</text>
+<text x="50.0" y="538.0" fill="#1f2933" text-anchor="start" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12">material='Air' : lame d'air, résistance lue dans une table par tranche d'épaisseur (non citée).</text>
+</svg>

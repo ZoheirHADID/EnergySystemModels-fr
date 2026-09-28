@@ -632,6 +632,87 @@ def assemblage_te_divergent(nom="assemblage_divergingtee.svg"):
     return _te(nom, "Assemblage d'un té divergent", convergent=False)
 
 
+# --------------------------------------------------------------------------- #
+# Transfert de chaleur — le mur composite
+# --------------------------------------------------------------------------- #
+
+MUR_COULEURS = {"Parpaings creux": "#c9c3b8", "Polystyrène": "#fff3b0", "Plâtre": "#eef0f2"}
+
+
+def mur_composite(nom="param_compositewall.svg") -> Path:
+    """Paramétrage de `HeatTransfer.CompositeWall` : couches, convections, profil.
+
+    Le profil de température est celui que **calcule la bibliothèque** sur
+    l'exemple de la page (`wall.df`), pas un tracé à la main.
+    """
+    from HeatTransfer import CompositeWall
+
+    wall = CompositeWall.Object(he=23, hi=8, Ti=20, Te=-10, A=10)
+    couches = [(0.20, "Parpaings creux"), (0.05, "Polystyrène"), (0.02, "Plâtre")]
+    for e, mat in couches:
+        wall.add_layer(thickness=e, material=mat)
+    wall.calculate()
+    df = wall.df
+
+    L, H = 820.0, 560.0
+    haut, bas = 110.0, 380.0                # paroi à l'écran
+    x_ext, x0 = 40.0, 190.0                 # air extérieur, face extérieure
+    largeurs = [max(40.0, e * 1100) for e, _ in couches]
+    xs = [x0]
+    for w in largeurs:
+        xs.append(xs[-1] + w)
+    x_int = xs[-1] + 150.0
+
+    def y_de(T):                            # -10 °C en bas, 20 °C en haut
+        return bas - (T - wall.Te) / (wall.Ti - wall.Te) * (bas - haut)
+
+    m = _entete(L, H, "Paramétrage d'un mur composite : couches, he, hi, Te, Ti")
+    m.append(_texte(x_ext, 40, "extérieur", 14, TRAIT, gras=True))
+    m.append(_texte(x_int, 40, "intérieur", 14, TRAIT, "end", gras=True))
+    for i, ((e, mat), w) in enumerate(zip(couches, largeurs)):
+        x = xs[i]
+        m.append(_rect(x, haut, w, bas - haut, MUR_COULEURS[mat], TRAIT, 0, 1.4))
+        m += _cote_droite(x, bas + 26, x + w, bas + 26, "", 0)
+        m.append(_ligne(x, bas + 18, x, bas + 34, COTE, 1.0))
+        m.append(_ligne(x + w, bas + 18, x + w, bas + 34, COTE, 1.0))
+        m.append(_texte(x + w / 2, bas + 48, f"{e:.2f}", 12, COTE, "middle", MONO))
+        lam = wall.MATERIALS[mat]
+        m.append(_texte(x + w / 2, bas + 66 + 16 * (i % 2), f"λ={lam}", 11, TRAIT, "middle", MONO))
+        m.append(_texte(x + w / 2, haut - 12 - 16 * (i % 2), f"couche {i + 1}", 11, AXE, "middle"))
+    m.append(_texte(x0, bas + 116, "thickness (m) · couches ajoutées de l'extérieur vers l'intérieur", 12, COTE, "start"))
+
+    # profil de température : air ext., interfaces, air int.
+    T = [wall.Te] + list(df["Température sortie (°C)"])
+    pts = [(x_ext + 20, y_de(T[0])), (x0, y_de(T[1]))]
+    for i in range(len(couches)):
+        pts.append((xs[i + 1], y_de(T[i + 2])))
+    pts.append((x_int - 20, y_de(T[-1])))
+    m.append(_polyligne(pts, "#c0392b", 2.4))
+    for x, y in pts[1:-1]:
+        m.append(f'<circle cx="{x:.1f}" cy="{y:.1f}" r="3.5" fill="#c0392b"/>')
+    m.append(_texte(x_ext, y_de(T[0]) - 40, f"Te = {wall.Te} °C", 13, TRAIT, police=MONO))
+    m.append(_texte(x_ext, y_de(T[0]) - 22, f"he = {wall.he}", 13, TRAIT, police=MONO))
+    m.append(_texte(x_int, y_de(T[-1]) - 30, f"Ti = {wall.Ti} °C", 13, TRAIT, "end", MONO))
+    m.append(_texte(x_int, y_de(T[-1]) - 12, f"hi = {wall.hi}", 13, TRAIT, "end", MONO))
+    for i in range(1, len(pts) - 1):
+        x, y = pts[i]
+        if i == len(pts) - 3:               # face intérieure de l'isolant : à gauche du point
+            m.append(_texte(x - 8, y + 4, f"{T[i]:.1f}", 11, "#c0392b", "end", MONO))
+        else:
+            m.append(_texte(x + 6, y + 18 if i == len(pts) - 2 else y - 8, f"{T[i]:.1f}", 11, "#c0392b", police=MONO))
+
+    # flux
+    yq = (haut + bas) / 2 + 40
+    m.append(_ligne(x_int - 10, yq, x_ext + 10, yq, FLUX, 2.0, marqueurs=' marker-end="url(#fleche_flux)"'))
+    m.append(_texte(x_int - 10, yq - 8, f"Q = {wall.Q:.1f} W", 13, FLUX, "end", MONO))
+
+    m += _note(40, H - 58, 740, [
+        f"he, hi en W/m².K  ·  A = {wall.A} m²  ·  R_total = 1/he + Σ thickness/λ + 1/hi = {wall.R_total:.3f} m².K/W  ·  Q = A·(Ti−Te)/R_total",
+        "material='Air' : lame d'air, résistance lue dans une table par tranche d'épaisseur (non citée).",
+    ])
+    return _ecrire(nom, m), _verifier_debordements(nom, m, L)
+
+
 FIGURES = {
     "assemblage_curvedbend.svg": assemblage_coude_courbe,
     "assemblage_edgedbend.svg": assemblage_coude_vif,
@@ -642,6 +723,7 @@ FIGURES = {
     "param_curvedbend.svg": coude_courbe,
     "param_fluid_connect.svg": connexion_fluide,
     "param_ports_unites.svg": familles_de_ports,
+    "param_compositewall.svg": mur_composite,
 }
 
 
