@@ -942,6 +942,21 @@
    "cran_max": 4,
    "recul": null
   },
+  "docs/source/005-aeraulic/te_aeraulique.rst": {
+   "blocs": 3,
+   "empreinte": "09d57196d28e7919",
+   "mesure": "2026-09-28T12:51",
+   "figures": [
+    "../images/schema_teejunction_air.svg"
+   ],
+   "blocage": null,
+   "motif": "",
+   "extraits": null,
+   "cran": 5,
+   "nom": "personnalisable",
+   "cran_max": 5,
+   "recul": null
+  },
   "docs/source/006-pinch_analysis/index.rst": {
    "blocs": 1,
    "empreinte": "bca9d3e4de419946",

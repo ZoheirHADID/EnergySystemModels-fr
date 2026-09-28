@@ -853,3 +853,17 @@
 - Banc : `coude_aeraulique.rst` (nouvelle) → cran 5.
 - Build : 0 warning. Bug bibliothèque : aucun.
 - Suivant : K4, té aéraulique (`TeeJunction`).
+
+## 2026-09-28 13:05 — K4 : page du té aéraulique (Aeraulic.TeeJunction)
+- Unité : K4 (sous-entrée : `Aeraulic.TeeJunction`, sans page jusqu'ici).
+- Fait : `005-aeraulic/te_aeraulique.rst` créée, ajoutée au sommaire. Schéma
+  `schema_teejunction_air.svg` (icône du nœud « Té aéraulique (une voie) ») : deux
+  ports, une voie calculée selon `mode`. Exemple dérivation Ø 200 mm, 600 m³/h →
+  xi 1,8 constant, **30,5 Pa** ; variante `model='ashrae'`, `SD5-1`, Qb/Qc 0,3,
+  Ab/Ac 0,5, As/Ac 1,0 → Cb 1,37, **23,2 Pa**, avec la mention « hors table » (valeur
+  bornée) dite au lecteur ; refus de Qb/Qc = 1 (`ValueError`, message réel).
+- Mesuré au passage : `SD5-1` exige `area_ratio_straight` et le dit par une
+  `ValueError` explicite — c'est le comportement documenté dans la table.
+- Banc : `te_aeraulique.rst` (nouvelle) → cran 5.
+- Build : 0 warning. Bug bibliothèque : aucun.
+- Suivant : K4, registres (`IrisDamper`, `BladeDamper`).

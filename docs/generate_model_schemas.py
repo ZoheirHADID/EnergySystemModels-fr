@@ -681,12 +681,39 @@ def coude_air():
                   hauteur=400, noeud="aeraulic_bend")
 
 
+def te_air():
+    """Té aéraulique — `ThermodynamicCycles.Aeraulic.TeeJunction` : un composant = une voie."""
+    cx = (XI + XO) / 2
+    d = 22.0
+    haut = Y - 62
+    corps = [(XI, Y + d), (XO, Y + d), (XO, Y - d), (cx + d, Y - d), (cx + d, haut),
+             (cx - d, haut), (cx - d, Y - d), (XI, Y - d)]
+    chaine = " ".join(f"{x:.1f},{y:.1f}" for x, y in corps)
+    forme = [
+        f'<polygon points="{chaine}" fill="{AIR}" stroke="{TRAIT}" stroke-width="2.2"/>',
+        _polyligne([(XI + 16, Y + 6), (XO - 16, Y + 6)], AXE, 1.2, "5,4").replace(
+            "/>", ' marker-end="url(#fleche_flux)"/>'),
+        _texte(XO - 20, Y + 44, "mode='straight'", 11, AXE, "end", MONO),
+        _polyligne([(XI + 16, Y - 6), (cx, Y - 6), (cx, haut + 6)], FLUX, 1.8).replace(
+            "/>", ' marker-end="url(#fleche_flux)"/>'),
+        _texte(cx + d + 8, haut - 2, "mode='branch' (défaut)", 11, FLUX, "start", MONO),
+    ]
+    return _cadre("schema_teejunction_air.svg", "Té aéraulique", forme,
+                  ["TeeJunction()",
+                   "d_hyd (m)  : section de la voie calculée",
+                   "model = 'constant'  →  xi_branch = 1.8, xi_straight = 0.6",
+                   "model = 'ashrae'  →  ashrae_code, q_ratio_branch, area_ratio_*"],
+                  ["Deux ports seulement : le composant chiffre UNE voie (dérivation ou passage direct), celle de mode.",
+                   "Pour un réseau ramifié, on inscrit un TeeJunction par voie, chacun avec son propre débit."],
+                  hauteur=420, noeud="aeraulic_tee")
+
+
 FIGURES = [compresseur, turbine, pompe, detendeur, evaporateur, condenseur, source_fluide,
            puits_fluide, air_neuf, batterie_chaude, batterie_froide, humidificateur, recuperateur_plaques,
            roue_thermique, vanne_generique, vanne_isolement, vanne_soupape, vanne_boule, vanne_papillon,
            papillon_rectangulaire, clapet_anti_retour, clapet_volet, regulateur_dp, serpentin,
            confuseur, diffuseur, orifice, grille, plaque_perforee, lit_grains, entree, sortie_libre,
-           methode_k, loi_des_noeuds, circuit_serie, coup_de_belier, gaine_droite_air, coude_air]
+           methode_k, loi_des_noeuds, circuit_serie, coup_de_belier, gaine_droite_air, coude_air, te_air]
 
 
 def main() -> int:
