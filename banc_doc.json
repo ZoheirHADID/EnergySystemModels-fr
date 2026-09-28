@@ -660,15 +660,15 @@
   },
   "docs/source/007-ipmvp/modeles_mathematiques.rst": {
    "blocs": 4,
-   "empreinte": "fbca4b45c1a0e665",
-   "mesure": "2026-09-28T10:28",
+   "empreinte": "921eb763cdf7f325",
+   "mesure": "2026-09-28T10:37",
    "figures": [],
    "blocage": null,
-   "motif": "bloc 1 : NameError: name 'df' is not defined",
-   "extraits": 1,
-   "cran": 1,
-   "nom": "plante",
-   "cran_max": 1,
+   "motif": "page de développement : 4 extraits, imports vérifiés",
+   "extraits": 4,
+   "cran": 0,
+   "nom": "sans exemple",
+   "cran_max": 0,
    "recul": null
   },
   "docs/source/008-meteo/degres_jours.rst": {

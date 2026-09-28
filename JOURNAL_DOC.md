@@ -553,3 +553,21 @@
 - Banc : aucun bloc de code modifié, aucun cran touché.
 - Build : 0 warning (build complet `-E`).
 - Suivant : A4 (`modeles_mathematiques.rst`, seule page qui plante).
+
+## 2026-09-28 — `007-ipmvp/modeles_mathematiques.rst` (A4)
+- Unité : A4 — seule page au cran 1.
+- Fait : page de **référence** (signature, fragments `X = df[...]`,
+  `incertitude_savings(rmse, …)`), pas d'exemple exécutable — celui-ci vit dans
+  `exemples.rst`. Les trois fragments sont annoncés « à titre d'illustration » /
+  « signature d'appel » : le banc n'en vérifie que les imports. Confrontation au
+  code : la signature réelle a un 13e paramètre, `conformite_sur_valeurs_arrondies=True`,
+  ajouté et documenté ; et, par défaut, R² et CV(RMSE) sont **arrondis avant le
+  verdict** (`IPMVP.py:406-446`) : seuils effectifs 0,745 et 0,205, dits en
+  avertissement. Mesuré : R² 0,7451 / CV 0,2049 → conforme arrondi, non conforme
+  brut.
+- Banc : cran 1 → 0. **Plus aucune page au cran 1.**
+- Build : 0 warning (`-E`).
+- Bug bibliothèque : aucun nouveau (l'écart d'arrondi est documenté dans le code
+  même, et désactivable).
+- Suivant : I2 — prochain modèle hydraulique sans page (`GateValve`, `CheckValve`,
+  `DpRegulator`).

@@ -392,7 +392,7 @@ re-vérifier par exécution avant rédaction.
   CEE : titre surligné) ; chapitre des cycles titré ; nomenclatures distinguées et
   placées en fin de chapitre ; `PlateHeatTransfer` rangé dans le transfert de
   chaleur ; légendes des toctree de chapitre retirées.
-- `à faire` **A4 — `007-ipmvp/modeles_mathematiques.rst` plante** (mesuré le
+- `fait` (2026-09-28 ; cran 1 → 0, page de référence, 4 extraits aux imports vérifiés) **A4 — `007-ipmvp/modeles_mathematiques.rst` plante** (mesuré le
   2026-09-28, première mesure de la page) : bloc 1, `NameError: name 'df' is not
   defined`. Priorité : c'est la seule page au cran 1.
 - `en cours` **I2 — pages des modèles marqués *à documenter*** dans l'index (21

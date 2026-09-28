@@ -24,6 +24,7 @@ Signature
        site="****",
        imposed_intercept=None,
        niveau_confiance=0.8,
+       conformite_sur_valeurs_arrondies=True,
    )
    (y_pred, df, conformite, table_incertitude,
     y_pred_report, df_report, conformite_report,
@@ -45,7 +46,10 @@ Paramètres
   le résidu :math:`y - b_0`, puis l'ordonnée est fixée à :math:`b_0` ;
 * **niveau_confiance** : niveau de confiance du calcul d'incertitude
   (**défaut 0,8**). Pilote la statistique de Student et donc la
-  ``precision_absolue`` / ``precision_relative`` de ``table_incertitude``.
+  ``precision_absolue`` / ``precision_relative`` de ``table_incertitude`` ;
+* **conformite_sur_valeurs_arrondies** (**défaut** ``True``) : le verdict de
+  conformité est rendu sur R² et CV(RMSE) **arrondis à deux décimales**. Passez
+  ``False`` pour juger sur les valeurs brutes (voir la note plus bas).
 
 Valeurs de retour
 -----------------
@@ -85,8 +89,16 @@ Seuils de référence ASHRAE : ≤ 15 % (mensuel) / ≤ 30 % (horaire).
 
 .. note::
    Ces indicateurs sont fournis dans le ``DataFrame`` ``conformite`` retourné,
-   avec le verdict ``conformité IPMVP``. Le seuil ``cv_remse`` **codé dans le
-   module** est unique (0,2 = 20 %), sans distinction mensuel/horaire.
+   avec le verdict ``conformité IPMVP``. Les seuils **codés dans le module**
+   sont uniques : ``SEUIL_R2 = 0.75`` et ``SEUIL_CV_RMSE = 0.20``, sans
+   distinction mensuel/horaire.
+
+.. warning::
+   Avec le défaut ``conformite_sur_valeurs_arrondies=True``, R² et CV(RMSE) sont
+   arrondis à deux décimales **avant** d'être comparés aux seuils. Les seuils
+   effectifs deviennent donc **0,745** pour R² (un modèle à R² = 0,7451 est
+   déclaré conforme) et **0,205** pour CV(RMSE). Le code le signale lui-même ;
+   ``conformite_sur_valeurs_arrondies=False`` rend le verdict au critère annoncé.
 
 Détection des valeurs aberrantes
 --------------------------------
@@ -104,7 +116,8 @@ Variables explicatives (X)
 
 Le plus souvent, ``X`` contient les **degrés-jours unifiés (DJU)**. Le module
 calcule les DJU par la méthode COSTIC (voir :doc:`../008-meteo/degres_jours`) ;
-on peut aussi ajouter d'autres variables selon le contexte :
+on peut aussi ajouter d'autres variables selon le contexte. À titre
+d'illustration (``df`` est votre table de mesures) :
 
 .. code-block:: python
 
@@ -118,7 +131,7 @@ Granularité temporelle
 
 ``Mathematical_Models`` s'applique à des données horaires, journalières ou
 mensuelles. Les données **mensuelles** offrent le meilleur compromis
-précision/simplicité pour la plupart des projets M&V.
+précision/simplicité pour la plupart des projets M&V. À titre d'illustration :
 
 .. code-block:: python
 
@@ -131,7 +144,8 @@ Incertitude propagée des économies
 
 La fonction ``incertitude_savings`` propage l'erreur-type du modèle de
 référence (``rmse``, ``ddof``, moyenne de consommation) sur une durée de
-contrat et une période de reporting, selon le protocole IPMVP :
+contrat et une période de reporting, selon le protocole IPMVP. Signature
+d'appel (``rmse``, ``ddof`` et ``moyenne`` viennent du modèle de référence) :
 
 .. code-block:: python
 
