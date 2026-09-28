@@ -271,7 +271,7 @@ Les attributs du modèle et les champs du nœud « PID » qui les renseignent :
      - Période d'échantillonnage. Les gains ne valent que pour ce pas.
    * - ``reverse_action``
      - Sens d'action PID
-     - ``False`` / **Inverse**
+     - ``False`` / Direct
      - Direct : ouvrir fait monter la mesure (débit, chauffage). Inverse :
        ouvrir la fait baisser (refroidissement).
    * - ``out_min`` / ``out_max``
@@ -354,11 +354,12 @@ Pièges
 ------
 
 .. warning::
-   **Le nœud « PID » démarre en action « Inverse ».** Le modèle Python, lui, est
-   en action directe par défaut (``reverse_action = False``). Pour régler un
-   **débit** ou un **chauffage** avec une vanne qui s'ouvre, passez le champ
-   « Sens d'action PID » à **Direct** — c'est ce que fait l'exemple livré. En
-   « Inverse », la vanne se ferme quand le débit manque.
+   **Choisir le sens d'action.** Le nœud « PID » et le modèle Python partent en
+   action **Direct** (``reverse_action = False``) : ouvrir la vanne fait monter
+   la mesure (débit, chauffage). Pour un **refroidissement** ou toute boucle où
+   ouvrir fait **baisser** la mesure, passez « Sens d'action PID » à
+   **Inverse** ; sinon la vanne se ferme quand la mesure est trop haute.
+   (Avant le 28/09/2026, le nœud partait en « Inverse » par défaut ; corrigé.)
 
 .. warning::
    **Le PID ne compte pas au-delà de 60 s entre deux appels.** Quand

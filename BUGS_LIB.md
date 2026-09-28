@@ -450,20 +450,6 @@
 - **Traitement dans le guide** : avertissement ; l'exemple publié échantillonne
   à 60 s pile.
 
-## Nœud IHM « PID » — action « Inverse » par défaut, contraire au modèle et à l'usage courant
-
-- **Page concernée** : `docs/source/013-simulation-temporelle/regulation_pid.rst`.
-- **Constat** (2026-09-28) : `src/PyqtSimulator/nodes/signal_generators.py`,
-  `CHOICES = [..., ("action", "Sens d'action PID", ["Direct", "Inverse"], "Inverse")]`,
-  et `energysystemmodels/adapters/nodal_network.py`, `pid_loops` :
-  `p.get("choice_action", "Inverse")`. Le modèle `PIDController` est en action
-  directe par défaut (`reverse_action = False`) et sa docstring dit qu'« une
-  vanne qui règle un débit en s'ouvrant demande l'action DIRECTE ».
-- **Nature** : un PID posé sur une boucle de débit ou de chauffage ferme la vanne
-  quand la mesure manque ; l'exemple livré fonctionne parce qu'il force
-  « Direct ».
-- **Traitement dans le guide** : avertissement en tête des pièges.
-
 ## `Tank.StratifiedStorageTank` — `N = 3` accepté avec une couche de volume négatif, `N = 4` lève `ZeroDivisionError`
 
 - **Pages concernées** : `docs/source/013-simulation-temporelle/ballon_stratifie_temps.rst`,
@@ -804,6 +790,11 @@
 
 ## Corrigés depuis, dans le dépôt source — ne pas rouvrir
 
+- **Nœud IHM « PID » — action « Inverse » par défaut** (corrigé le 2026-09-28) :
+  `signal_generators.py` (choix du nœud et repli) et `nodal_network.pid_loops`
+  partent désormais en « Direct », comme `PIDController` ; tests
+  `test/Hydraulic/test_regulation_pid.py` (scène livrée sans choix d'action :
+  9 m³/h atteints comme en « Direct »).
 - **`PV` — aucun modèle de stockage par batterie, aucun bilan d'autoconsommation**
   (manque relevé puis comblé le 2026-09-28, tests `test/PV/test_PV_batterie.py`).
   `PV.StockageBatterie.Batterie` (réservoir d'énergie : capacité, puissances,
