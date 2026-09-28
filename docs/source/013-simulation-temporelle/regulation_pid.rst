@@ -362,12 +362,14 @@ Pièges
    (Avant le 28/09/2026, le nœud partait en « Inverse » par défaut ; corrigé.)
 
 .. warning::
-   **Le PID ne compte pas au-delà de 60 s entre deux appels.** Quand
-   ``Timestamp`` est renseigné, l'écart entre deux appels sert de pas, mais il
-   est **plafonné à 60 s**, et un horodatage ``datetime`` (celui des autres
-   modèles) est ignoré au profit de ``dt``. Pour un régulateur horaire,
-   laissez ``Timestamp`` à ``None`` et fixez ``dt`` à la main (défaut consigné
-   dans ``BUGS_LIB.md``).
+   **Le pas d'intégration suit ``Timestamp``.** Quand ``Timestamp`` est
+   renseigné, l'écart **réel** entre deux appels sert de pas, sans plafond :
+   nombre de secondes, ``datetime`` ou ``pandas.Timestamp`` (convertis en
+   secondes). Un même instant rappelé recalcule la sortie **sans intégrer** ;
+   un horodatage qui **recule**, illisible, ou un mélange nombres / dates lève
+   une ``ValueError`` (``reset()`` pour repartir de zéro). Sans ``Timestamp``,
+   chaque appel compte ``dt``. (Avant le 28/09/2026, l'écart était plafonné à
+   60 s et une date était ignorée ; corrigé.)
 
 - En simulation temporelle, le PID ne pilote qu'une **vanne générique** (champ
   ``ouverture``) et ne lit qu'une **pression ou un débit** : le réseau nodal est

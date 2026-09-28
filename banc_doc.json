@@ -1612,7 +1612,7 @@
   "docs/source/013-simulation-temporelle/regulation_pid.rst": {
    "blocs": 4,
    "empreinte": "8129e54dc7ee4a4f",
-   "mesure": "2026-09-28T17:27",
+   "mesure": "2026-09-28T17:52",
    "figures": [
     "../images/schema_boucle_pid.svg",
     "../images/scene_regulation_debit_pid.svg",

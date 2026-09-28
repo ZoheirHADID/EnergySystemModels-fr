@@ -432,24 +432,6 @@
 - **Nature** : refus propres, mais catalogue IHM proposant deux codes inutilisables.
 - **Traitement dans le guide** : refus de SR7-17 exécuté ; ER7-1 et l'inversion en pièges.
 
-## `Signals.PIDController` — pas de temps plafonné à 60 s, horodatage `datetime` ignoré, en silence
-
-- **Pages concernées** : `docs/source/013-simulation-temporelle/regulation_pid.rst`
-  (avertissement « Le PID ne compte pas au-delà de 60 s »).
-- **Reproduction** (mesurée le 2026-09-28) : `Kp = 0`, `Ki = 0.001`,
-  `setpoint = 1`, `measurement = 0`, trois appels avec `Timestamp = 0, 300, 600`
-  (et `dt = 300`) → `integral = 420` au lieu de 900 ; avec `Timestamp` horaire
-  (0, 3600, 7200) → 3720 au lieu de 10 800. Avec `Timestamp` en
-  `pandas.Timestamp` (convention des autres modèles) espacés d'une heure →
-  `integral = 3`, c'est-à-dire `dt = 1 s` par défaut.
-- **Trace** : `src/ThermodynamicCycles/Signals/PIDController.py`, `_resolve_dt` :
-  `return min(max(dt, 1e-6), 60.0)` ; `float(now) - float(prev)` lève sur un
-  `datetime`, l'exception est avalée et `dt` par défaut est rendu.
-- **Nature** : un régulateur échantillonné à plus de 60 s (régulation horaire
-  d'un stockage, d'une consigne de chauffage) intègre faux sans message.
-- **Traitement dans le guide** : avertissement ; l'exemple publié échantillonne
-  à 60 s pile.
-
 ## `Tank.StratifiedStorageTank` — `N = 3` accepté avec une couche de volume négatif, `N = 4` lève `ZeroDivisionError`
 
 - **Pages concernées** : `docs/source/013-simulation-temporelle/ballon_stratifie_temps.rst`,
@@ -790,6 +772,13 @@
 
 ## Corrigés depuis, dans le dépôt source — ne pas rouvrir
 
+- **`Signals.PIDController` — pas plafonné à 60 s, horodatage `datetime` ignoré**
+  (corrigé le 2026-09-28) : `_resolve_dt` prend l'écart réel sans plafond,
+  convertit dates et `pandas.Timestamp` en secondes, n'intègre pas un même
+  instant rappelé et lève sur un temps qui recule, un horodatage illisible ou
+  un mélange nombres / dates. Tests `test/Hydraulic/test_regulation_pid.py`
+  (0 / 3 600 / 7 200 s -> 10 800 au lieu de 3 720 ; dates horaires -> 10 800
+  au lieu de 3).
 - **Nœud IHM « PID » — action « Inverse » par défaut** (corrigé le 2026-09-28) :
   `signal_generators.py` (choix du nœud et repli) et `nodal_network.pid_loops`
   partent désormais en « Direct », comme `PIDController` ; tests
