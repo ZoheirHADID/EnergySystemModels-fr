@@ -704,16 +704,18 @@
    "recul": null
   },
   "docs/source/004-hydraulic/regulateur_dp.rst": {
-   "blocs": 1,
-   "empreinte": "75c881c83c2c5119",
-   "mesure": "2026-09-28T10:49",
-   "figures": [],
+   "blocs": 3,
+   "empreinte": "8fdf3bbb031e807b",
+   "mesure": "2026-09-28T11:20",
+   "figures": [
+    "../images/schema_dpregulator.svg"
+   ],
    "blocage": null,
-   "motif": "manque : table de personnalisation et variante exécutée",
+   "motif": "",
    "extraits": null,
-   "cran": 4,
-   "nom": "figure réelle",
-   "cran_max": 4,
+   "cran": 5,
+   "nom": "personnalisable",
+   "cran_max": 5,
    "recul": null
   },
   "docs/source/004-hydraulic/resolution_circuit.rst": {

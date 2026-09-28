@@ -650,3 +650,19 @@
 - Bug bibliothèque : **nouvelle entrée** `CheckValve`.
 - Bibliothèque : arbre modifié par un tiers (`CEE`) — non touché.
 - Suivant : I2 — `DpRegulator` (2 scènes).
+
+## 2026-09-28 — `004-hydraulic/regulateur_dp.rst` (I2, DpRegulator) + nouvelle demande
+- Unité : I2 — `DpRegulator` (2 scènes IHM).
+- Fait : page selon le squelette. Mesuré : STAP-DN25, Kv max 6,3 ; régulation tenue
+  exactement (P_out − p_return = consigne, 20 puis 40 kPa) ; retour à 2,79 bar →
+  régulateur grand ouvert, `regulating = False`, différentiel 12 557 Pa sous la
+  consigne ; `p_return = None` → grand ouvert, `regulating = None` ; `dn` inconnu et
+  Kv nul refusés par `ValueError`. Modèle sans défaut relevé : aucune entrée de bug.
+  `STAP-DN15`, cité en exemple, vérifié au catalogue (21 types).
+- Banc : `regulateur_dp.rst` cran 4 → 5.
+- Build : 0 warning.
+- Bug bibliothèque : aucun.
+- **Retour utilisateur** (en cours de tour) : « les schémas sont bien faits, bravo ;
+  faire ceci pour tout le guide, même en dehors de la partie hydraulique » →
+  section K de la roadmap, un chapitre par tour.
+- Suivant : K1 — schémas du chapitre CTA.

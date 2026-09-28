@@ -409,13 +409,38 @@ re-vérifier par exécution avant rédaction.
   forme + ports + connexions par page de l'index hydraulique, et un schéma de la loi
   des nœuds.
 - `en cours` **I2 — pages des modèles marqués *à documenter*** dans l'index (21
-  entrées ; fait : `GeneralValve` → `vanne_generique.rst`, `GateValve` → `vanne_isolement.rst`, `CheckValve` → `clapet_anti_retour.rst`, cran 5, 2026-09-28 ; les autres ont une fiche générée, cran 4) : un modèle par tour, selon le squelette de page ; l'index se met à
+  entrées ; fait : `GeneralValve` → `vanne_generique.rst`, `GateValve` → `vanne_isolement.rst`, `CheckValve` → `clapet_anti_retour.rst`, `DpRegulator` → `regulateur_dp.rst`, cran 5, 2026-09-28 ; les autres ont une fiche générée, cran 4) : un modèle par tour, selon le squelette de page ; l'index se met à
   jour à chaque page créée.
 
 - `fait` (2026-09-28) **I7 — icônes PyqtSimulator dans les schémas d'assemblage** (demande de
   l'utilisateur, 2026-09-28) : dessiner Source, Sink et le modèle avec les icônes
   réelles de `src/PyqtSimulator/nodes/icons/`, pour que le schéma du guide
   ressemble à ce que l'utilisateur voit dans l'IHM.
+
+## K. Schémas dans tout le guide — demande de l'utilisateur (2026-09-28)
+
+« Les schémas sont bien faits, bravo. Faire ceci pour tout le guide, même en dehors
+de la partie hydraulique. » Même facture que `docs/generate_model_schemas.py` :
+composant amont → forme du modèle → aval, **ports réels**, connexions
+(`Fluid_connect` / `Air_connect`), **icônes réelles de la palette PyqtSimulator**
+(attribut `icon` du nœud), paramètres sous leur nom de code avec leur défaut, et
+aucune valeur calculée sauf mesurée. Un chapitre par tour :
+
+- `à faire` **K1 — CTA** (`003-ahu_modules`) : `FreshAir`, batteries chaude et
+  froide, humidificateur, récupérateurs, `GenericAHU` ; ports `AirPort`,
+  `Air_connect`, icônes `cta_*`. **Unités d'air non SI** à porter sur les schémas
+  (h en kJ/kg d'air sec, w en g/kg d'air sec).
+- `à faire` **K2 — cycles thermodynamiques** (`002-thermodynamic_cycles`) :
+  `Source`, `Sink`, compresseur, turbine, pompe, évaporateur, condenseur, détendeur,
+  échangeurs, chiller (cycle assemblé).
+- `à faire` **K3 — transfert de chaleur** (`001-heat_transfer`) : mur composite,
+  tuyauterie isolée, corps parallélépipédique, plaque — schémas cotés (couches,
+  épaisseurs, rayons) sous les noms du code.
+- `à faire` **K4 — aéraulique** (`005-aeraulic`) : gaine droite, coude, té,
+  registres.
+- `à faire` **K5 — pincement, IPMVP, météo, achat d'énergie, CEE** : schémas de
+  principe (flux chauds/froids ; baseline et période de suivi ; composantes d'une
+  facture), là où il n'y a pas de composant à ports.
 
 ## G. Schémas de paramétrage — demande de l'utilisateur (2026-09-27)
 

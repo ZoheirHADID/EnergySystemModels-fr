@@ -145,10 +145,7 @@ PAGES = {
     "clapet_volet.rst": ("Clapet à volet mobile", "movable_flap",
         "Clapet à volet mobile.",
         [("objet", "MovableFlap")]),
-    "regulateur_dp.rst": ("Régulateur de pression différentielle", "dp_regulator",
-        "Régulateur qui maintient une pression différentielle constante sur un circuit "
-        "(type STAP / STAM).",
-        [("objet", "DpRegulator")]),
+    # regulateur_dp.rst : page rédigée avec exemples exécutés (2026-09-28), plus générée.
     "dimensionnement_vannes.rst": ("Dimensionnement des vannes de régulation", "control_valve",
         "Fonctions de dimensionnement normalisé des vannes de régulation : conversions "
         "Cv/Kv, facteurs de récupération, cavitation, écoulement bloqué.",
