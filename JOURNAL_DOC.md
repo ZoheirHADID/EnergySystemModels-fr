@@ -1048,3 +1048,21 @@
   sans arbitrage).
 - Écarté : `combustion_moteurs` — `cantera` n'est **pas** une dépendance déclarée
   (`Combustion/Combustor_cantera.py` est optionnel) : à traiter au prochain tour.
+
+## 2026-09-28 15:35 — Combustion et moteurs : page débloquée, deux défauts inscrits
+- Unité : `002-thermodynamic_cycles/combustion_moteurs.rst` (cran 1).
+- Constat 1 : `Combustor_cantera` importe `cantera`, **non déclaré** dans
+  `install_requires` → `ModuleNotFoundError` chez le lecteur. Installé comme outil de
+  mesure (cantera 3.2.0) ; note « installez `cantera` à part » ajoutée ; entrée
+  `BUGS_LIB.md`.
+- Constat 2 : exemple `GasTurbine` en `ValueError` CoolProp — défauts incohérents
+  (cylindrée 1e-4 m³ → 6 g/s d'air pour 70 g/s de combustible, h = 40,3 MJ/kg en
+  chambre). Exemple corrigé : `V_s_comp = 0.06` → 3,68 kg/s d'air, 1050 °C,
+  **398,4 kW nets, rendement 13,2 %** ; entrée `BUGS_LIB.md` (défauts + absence de
+  garde sur la richesse).
+- Sorties réelles publiées (4 blocs) ; rapport Cantera de 150+ lignes tronqué
+  (``…``) avec note sur les traces de mise au point de la bibliothèque (PCI 50,03 /
+  PCS 55,51 MJ/kg pour CH4).
+- Banc : cran 1 → 4. Plus aucune page de cycles au cran 1.
+- Build : 0 warning.
+- Suivant : `003-ahu_modules` non mesurées (air humide, CTA air neuf, CTA générique).

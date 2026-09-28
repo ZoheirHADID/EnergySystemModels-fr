@@ -107,15 +107,15 @@
   },
   "docs/source/002-thermodynamic_cycles/combustion_moteurs.rst": {
    "blocs": 4,
-   "empreinte": "ec191cf458bfd218",
-   "mesure": "2026-09-28T13:32",
+   "empreinte": "1bcfe7861c0433bf",
+   "mesure": "2026-09-28T14:25",
    "figures": [],
    "blocage": null,
-   "motif": "bloc 1 : ModuleNotFoundError: No module named 'cantera'",
+   "motif": "manque : table de personnalisation et variante exécutée",
    "extraits": null,
-   "cran": 1,
-   "nom": "plante",
-   "cran_max": 1,
+   "cran": 4,
+   "nom": "figure réelle",
+   "cran_max": 4,
    "recul": null
   },
   "docs/source/002-thermodynamic_cycles/compressor.rst": {

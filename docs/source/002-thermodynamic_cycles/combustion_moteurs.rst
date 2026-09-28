@@ -117,6 +117,12 @@ multipliée par le débit massique total :math:`\dot m = \dot m_{fuel} + \dot m_
 
 **Exemple.**
 
+.. note::
+
+   ``Combustor_cantera`` a besoin du paquet ``cantera``, qui **n'est pas installé**
+   par ``pip install energysystemmodels`` : installez-le à part
+   (``pip install cantera``), sinon l'import échoue avec ``ModuleNotFoundError``.
+
 .. code-block:: python
 
     from ThermodynamicCycles.Combustion import Combustor_cantera
@@ -145,6 +151,153 @@ multipliée par le débit massique total :math:`\dot m = \dot m_{fuel} + \dot m_
     COMB.calculate()
 
     print(COMB.df)   # PCI/PCS, Q_comb, débits molaires O2/N2
+
+Sortie réelle :
+
+.. code-block:: text
+
+   ---------------------------------------- 1
+   ------------------------------------------- 1 0.0160428
+   M_air=================== 0.028850397200000003
+   oxidizer_mols============== 596.1789669918304
+   self.AIR_EXCESS,self.phi,self.products_O2_molRatio None None None
+   h1================================================ -256741.2493959029
+   Fuel composition: CH4:62.33
+   Oxidizer composition: O2:125.2,N2:470.98
+   State after equilibration: T = 2223.01 K, P = 101325.00 Pa, rho = 0.15 kg/m³
+   Phi recalculé après équilibrage = 0.996
+   …
+   Chaleur perdue (jusqu'à 210°C): 47374.95 kW
+                                      Source
+   Timestamp      2026-09-28 14:24:00.372799
+   fluid                             methane
+   Ti_degC                              -5.0
+   Pi_bar                               1.04
+   F_Sm3h                             5295.4
+   F_Nm3h                        5017.709888
+   F_m3h                              4783.1
+   F_kgh                                3600
+   F_kgs                                   1
+   F_m3s                               1.329
+   F_Sm3s                              1.471
+   self.Outlet.h               843900.310279
+                                      Source
+   Timestamp      2026-09-28 14:24:00.385815
+   fluid                                 air
+   Ti_degC                              15.0
+   Pi_bar                               1.21
+   F_Sm3h                            50524.7
+   F_Nm3h                       47886.200992
+   F_m3h                             42192.4
+   F_kgh                             61920.0
+   F_kgs                                17.2
+   F_m3s                               11.72
+   F_Sm3s                             14.035
+   self.Outlet.h               414325.350045
+                                             Source
+   Timestamp                    2026-09-28 14:23:59
+   fuel_name                                    CH4
+   oxidizer_name                       O2:2,N2:7.52
+   comb_LHV (MJ/kg)                       50.025488
+   comb_HHV (MJ/kg)                       55.511325
+   Total_Latent_heat_MJ_kgFuel             5.485837
+   LHV_kWh_Nm3                             9.969785
+   HHV_kWh_Nm3                             11.06308
+   LHV_kWh_Sm3                             9.284728
+   HHV_kWh_Sm3                            10.302899
+   Q_comb_LHV (kW)                     50025.488116
+   Q_comb_HHV (kW)                     55511.324751
+   oxidizer (mol/s)                      596.178967
+   N2_mols (mol/s)                       470.981384
+   O2_mols (mol/s)                       125.197583
+   oxidizer (kg/s)                             17.2
+   N2_F_kgs (kg/s)                        13.193828
+   O2_F_kgs (kg/s)                         4.006172
+   ---------------------------------------- 1
+   ------------------------------------------- 1 0.0160428
+   M_air=================== 0.028850397200000003
+   oxidizer_mols============== 596.1789669918304
+   self.AIR_EXCESS,self.phi,self.products_O2_molRatio None None None
+   h1================================================ -256741.2493959029
+   Fuel composition: CH4:62.33
+   Oxidizer composition: O2:125.2,N2:470.98
+   State after equilibration: T = 2223.01 K, P = 101325.00 Pa, rho = 0.15 kg/m³
+   Phi recalculé après équilibrage = 0.996
+
+     gri30:
+
+          temperature   2223 K
+             pressure   1.0133e+05 Pa
+              density   0.15045 kg/m^3
+     mean mol. weight   27.443 kg/kmol
+      phase of matter   gas
+
+                             1 kg             1 kmol     
+                        ---------------   ---------------
+             enthalpy       -2.5345e+05       -6.9556e+06  J
+      internal energy       -9.2695e+05       -2.5439e+07  J
+              entropy            9869.8        2.7086e+05  J/K
+       Gibbs function       -2.2194e+07       -6.0908e+08  J
+    heat capacity c_p            1513.1             41526  J/K
+    heat capacity c_v            1210.2             33211  J/K
+
+                         mass frac. Y      mole frac. X     chem. pot. / RT
+                        ---------------   ---------------   ---------------
+                   H2        0.00024925         0.0033929           -25.507
+                    H        1.3718e-05        0.00037347           -12.753
+                    O        0.00012911        0.00022146            -17.22
+                   O2         0.0058642         0.0050295            -34.44
+                   OH         0.0017993         0.0029035           -29.973
+                  H2O           0.12009           0.18294           -42.727
+                  HO2        6.3313e-07        5.2642e-07           -47.193
+                 H2O2        5.8557e-08        4.7245e-08           -59.946
+                   CO         0.0086604         0.0084852            -38.82
+                  CO2           0.13711            0.0855           -56.039
+                  HCO        7.6283e-10        7.2143e-10           -51.573
+                 CH2O         1.283e-11        1.1727e-11           -64.326
+                    N         7.063e-09        1.3838e-08           -13.818
+                   NH         1.226e-09        2.2409e-09           -26.572
+                  NH2        5.1142e-10        8.7594e-10           -39.325
+                  NH3        1.5283e-09        2.4626e-09           -52.079
+                  NNH        7.6419e-10        7.2262e-10            -40.39
+                   NO         0.0021425         0.0019595           -31.038
+                  NO2        6.3051e-07        3.7612e-07           -48.258
+                  N2O        1.6683e-07        1.0402e-07           -44.857
+                  HNO        3.8266e-08         3.386e-08           -43.792
+                   CN        5.6216e-14        5.9296e-14           -35.418
+                  HCN        1.6451e-11        1.6705e-11           -48.172
+                 HOCN         1.615e-12        1.0301e-12           -65.391
+                 HNCO         5.552e-10        3.5413e-10           -65.391
+                  NCO        2.1982e-11        1.4357e-11           -52.638
+                   N2           0.72394           0.70919           -27.637
+        [  +26 minor]        2.4876e-16        2.4069e-16  
+
+   None
+   Chaleur perdue (jusqu'à 210°C): 47374.95 kW
+                                             Source
+   Timestamp                    2026-09-28 14:24:00
+   fuel_name                                    CH4
+   oxidizer_name                       O2:2,N2:7.52
+   comb_LHV (MJ/kg)                       50.025488
+   comb_HHV (MJ/kg)                       55.511325
+   Total_Latent_heat_MJ_kgFuel             5.485837
+   LHV_kWh_Nm3                             9.969785
+   HHV_kWh_Nm3                             11.06308
+   LHV_kWh_Sm3                             9.284728
+   HHV_kWh_Sm3                            10.302899
+   Q_comb_LHV (kW)                     50025.488116
+   Q_comb_HHV (kW)                     55511.324751
+   oxidizer (mol/s)                      596.178967
+   N2_mols (mol/s)                       470.981384
+   O2_mols (mol/s)                       125.197583
+   oxidizer (kg/s)                             17.2
+   N2_F_kgs (kg/s)                        13.193828
+   O2_F_kgs (kg/s)                         4.006172
+
+Les premières lignes (``M_air=``, ``h1=``…) sont des traces de mise au point
+imprimées par la bibliothèque elle-même ; le rapport d'équilibre Cantera complet
+(plus de 150 lignes) est tronqué ici (``…``). Les grandeurs utiles sont dans
+``COMB.df`` : PCI 50,03 MJ/kg et PCS 55,51 MJ/kg pour le méthane.
 
 Index du DataFrame ``COMB.df`` : ``comb_LHV (MJ/kg)``, ``comb_HHV (MJ/kg)``,
 ``Total_Latent_heat_MJ_kgFuel``, ``LHV_kWh_Nm3``, ``HHV_kWh_Nm3``,
@@ -248,6 +401,26 @@ Repère gaz parfait (avec :math:`\gamma = c_p/c_v` de l'air à l'admission) :
     print(eng.df)
     print(f"Rendement : {eng.eta*100:.1f} %  (ideal {eng.eta_ideal*100:.1f} %)")
 
+Sortie réelle :
+
+.. code-block:: text
+
+                     ReciprocatingEngine
+   Timestamp                        None
+   cycle                            otto
+   taux_compression                 10.0
+   Rendement_%                    54.726
+   Rendement_ideal_%              60.349
+   W_net_kJ_kg                   664.397
+   Q_in_kJ_kg                   1214.046
+   T2_degC                         456.2
+   P2_bar                          24.69
+   P3_bar                          70.39
+   T3_degC                        1800.0
+   T4_degC                         730.6
+   rapport_coupure                   1.0
+   Rendement : 54.7 %  (ideal 60.3 %)
+
 Index du DataFrame ``eng.df`` : ``cycle``, ``taux_compression``, ``Rendement_%``,
 ``Rendement_ideal_%``, ``W_net_kJ_kg``, ``Q_in_kJ_kg``, ``T2_degC``, ``P2_bar``,
 ``P3_bar``, ``T3_degC``, ``T4_degC``, ``rapport_coupure``.
@@ -349,10 +522,28 @@ des sous-composants. La turbine détend les gaz de la pression chambre jusqu'à
     gt.m_fuel = 0.07
     gt.LHV = 43e6
     gt.f_rotor = 50.0
+    gt.V_s_comp = 0.06           # m³ par tour : ~3,7 kg/s d'air (défaut 1e-4 : 6 g/s seulement)
     gt.calculate()
 
     print(gt.df)
     print(f"Puissance nette : {gt.P_ext/1000:.1f} kW, rendement {gt.eta_thermal*100:.1f} %")
+
+Sortie réelle :
+
+.. code-block:: text
+
+                      GasTurbine
+   Timestamp                None
+   fluid                     air
+   m_air_kgs             3.67571
+   m_fuel_kgs               0.07
+   T_combustor_degC   1050.15017
+   P_compr_kW        1222.792505
+   P_fuel_kW              3010.0
+   P_turbine_kW      1621.236578
+   P_net_kW           398.444073
+   eta_thermal          0.132373
+   Puissance nette : 398.4 kW, rendement 13.2 %
 
 Index du DataFrame ``gt.df`` : ``fluid``, ``m_air_kgs``, ``m_fuel_kgs``,
 ``T_combustor_degC``, ``P_compr_kW``, ``P_fuel_kW``, ``P_turbine_kW``,
@@ -481,6 +672,23 @@ Fonctions module (coût de la séparation de l'O2, *ASU* cryogénique) :
     print(oxy.df)
     print(f"T flamme : {oxy.T_flame_degC:.0f} °C, "
           f"CO2 capturé : {oxy.mdot_CO2_captured:.3f} kg/s")
+
+Sortie réelle :
+
+.. code-block:: text
+
+                     OxyCombustion
+   Timestamp                  None
+   fuel                    methane
+   fuel_kg_h               57.7548
+   O2_kg_s                   0.064
+   Q_comb_MW                0.8023
+   T_flame_degC             2238.0
+   flue_kg_s                  0.28
+   CO2_captured_kg_s         0.044
+   flue_CO2_%mass            87.13
+   flue_H2O_%mass            12.87
+   T flamme : 2238 °C, CO2 capturé : 0.044 kg/s
 
 Index du DataFrame ``oxy.df`` : ``fuel``, ``fuel_kg_h``, ``O2_kg_s``,
 ``Q_comb_MW``, ``T_flame_degC``, ``flue_kg_s``, ``CO2_captured_kg_s``,

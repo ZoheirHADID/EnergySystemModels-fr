@@ -189,6 +189,29 @@
   lecteur ; `Tair_out_degC` et `HR_out` ne sont pas à reprendre dans un
   dimensionnement.
 
+## `Combustion.Combustor_cantera` — `cantera` importé sans être déclaré
+
+- **Page concernée** : `docs/source/002-thermodynamic_cycles/combustion_moteurs.rst`.
+- **Constat** (2026-09-28) : `src/ThermodynamicCycles/Combustion/Combustor_cantera.py:2`
+  fait `import cantera as ct` sans condition, mais `cantera` est absent de
+  `install_requires` (`setup.py:82`). Un lecteur qui fait `pip install
+  energysystemmodels` obtient `ModuleNotFoundError: No module named 'cantera'`.
+- **Traitement dans le guide** : note « installez `cantera` à part » avant l'exemple.
+
+## `GasTurbine` — valeurs par défaut incohérentes (6 g/s d'air pour 70 g/s de combustible)
+
+- **Page concernée** : `docs/source/002-thermodynamic_cycles/combustion_moteurs.rst`.
+- **Reproduction** (2026-09-28) : `GasTurbine()` avec ses défauts (`V_s_comp = 1e-4`
+  m³, `f_rotor = 50` Hz, `m_fuel = 0.07` kg/s) → le compresseur volumétrique débite
+  **0,0061 kg/s** d'air ; la chambre reçoit 11 fois plus de combustible que d'air,
+  `h` de sortie = 40,3 MJ/kg, et `ThermoPropsSI` lève `ValueError: unable to solve
+  1phase PY flash … PropsSI("T","P",800000,"H",40286658.71,"air")`
+  (`GasTurbine/Combustor.py:68`).
+- **Nature** : défauts incompatibles entre eux, et aucune garde nommée sur la
+  richesse ou la température de chambre (invariant n° 2).
+- **Traitement dans le guide** : l'exemple fixe `V_s_comp = 0.06` (3,68 kg/s d'air,
+  1050 °C en chambre, 398,4 kW nets) et le dit en commentaire.
+
 ## Corrigés depuis, dans le dépôt source — ne pas rouvrir
 
 - **`FluidPort.set_humid_gas_mixture()` acceptait une espèce hors table en
