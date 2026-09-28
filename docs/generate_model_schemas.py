@@ -770,12 +770,31 @@ def obstruction_air():
                   hauteur=420, noeud="aeraulic_obstruction")
 
 
+def filtre_air():
+    """Filtre CTA — `ThermodynamicCycles.Aeraulic.Filter` : loi de fabricant ΔP ∝ Qv^n."""
+    cx = (XI + XO) / 2
+    forme = _gaine(XI, XO, 26.0)
+    # média plissé
+    pts = [(cx - 14 + (6 if k % 2 else -6), Y - 24 + k * 6) for k in range(9)]
+    forme.append(_polyligne(pts, TRAIT, 1.8))
+    forme.append(_texte(cx, Y + 46, "ΔP = delta_P_nominal · (Qv / qv_nominal_m3_h)^exponent", 12, COTE, "middle", MONO))
+    return _cadre("schema_filter_air.svg", "Filtre (CTA)", forme,
+                  ["Filter()",
+                   "a × b (m)  ou  d_hyd (m)   # vitesse affichée",
+                   "delta_P_nominal = 120.0   # Pa",
+                   "qv_nominal_m3_h = 1000.0  # m³/h",
+                   "exponent = 2.0"],
+                  ["Le point nominal (ΔP, débit) se lit sur la fiche du fabricant : le modèle ne connaît pas le média.",
+                   "Pas de modèle d'encrassement : pour un filtre sale, on saisit sa perte de charge finale."],
+                  hauteur=420, noeud="aeraulic_filter")
+
+
 FIGURES = [compresseur, turbine, pompe, detendeur, evaporateur, condenseur, source_fluide,
            puits_fluide, air_neuf, batterie_chaude, batterie_froide, humidificateur, recuperateur_plaques,
            roue_thermique, vanne_generique, vanne_isolement, vanne_soupape, vanne_boule, vanne_papillon,
            papillon_rectangulaire, clapet_anti_retour, clapet_volet, regulateur_dp, serpentin,
            confuseur, diffuseur, orifice, grille, plaque_perforee, lit_grains, entree, sortie_libre,
-           methode_k, loi_des_noeuds, circuit_serie, coup_de_belier, gaine_droite_air, coude_air, te_air, registre_iris, registre_lames, obstruction_air]
+           methode_k, loi_des_noeuds, circuit_serie, coup_de_belier, gaine_droite_air, coude_air, te_air, registre_iris, registre_lames, obstruction_air, filtre_air]
 
 
 def main() -> int:

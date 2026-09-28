@@ -905,3 +905,17 @@
 - Build : 0 warning. Bug bibliothèque : aucun nouveau (coquille de table déjà
   documentée dans le module).
 - Suivant : K4, filtre (`Filter`), dernier modèle aéraulique sans page.
+
+## 2026-09-28 13:35 — K4 : page du filtre de CTA (Aeraulic.Filter), K4 fait
+- Unité : K4 (dernière sous-entrée : `Aeraulic.Filter`).
+- Fait : `005-aeraulic/filtre.rst` créée, ajoutée au sommaire. Schéma
+  `schema_filter_air.svg` (icône du nœud « Filtre (CTA) »). Loi
+  `ΔP = delta_P_nominal · (Qv/qv_nominal_m3_h)^exponent` relevée dans le code ; pas de
+  modèle d'encrassement, pas de source citée : dit au lecteur. Exemple 150 Pa à
+  5000 m³/h, débit 4000 m³/h → **96 Pa** ; variante filtre encrassé (300 Pa nominal)
+  → **192 Pa** ; refus de `qv_nominal_m3_h = 0` (`ValueError`).
+- Banc : `filtre.rst` (nouvelle) → cran 5.
+- Build : 0 warning. Bug bibliothèque : aucun.
+- Bilan K4 : 7 modèles aérauliques documentés et schématisés ; 6 pages au cran 5,
+  `perte_pression_lineaire.rst` au cran 4.
+- Suivant : K5 (schémas de principe hors modèles à ports) ou gaine droite au cran 5.

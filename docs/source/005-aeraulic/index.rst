@@ -13,3 +13,4 @@ Modèles aérauliques
    registre_iris
    registre_lames
    obstruction
+   filtre
