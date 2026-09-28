@@ -17,9 +17,7 @@ pas de temps).
 .. note::
    Il n'existe **pas** de classe ``GenericAHU`` ni de méthodes ``create_template``
    / ``run_simulation`` : on instancie directement ``AirRecyclingAHU`` ou
-   ``AirRecoveryAHU`` avec un ``config`` (dict) et un ``data`` (DataFrame). Un
-   utilitaire ``test/AHU/utility_create_template_GenericAHU.py`` permet de générer
-   un gabarit Excel si besoin.
+   ``AirRecoveryAHU`` avec un ``config`` (dict) et un ``data`` (DataFrame).
 
 Mode recyclage — ``AirRecyclingAHU``
 ------------------------------------
@@ -94,20 +92,21 @@ Mode recyclage — ``AirRecyclingAHU``
    ahu.calculate()
    print(ahu.df.shape)                       # (12, 72)
    print(ahu.df[["Timestamp", "MXA_Outlet_T[°C]", "HC_Q_th[kW]",
-                 "CC_Q_th[kW]", "POSTHC_Outlet_T[°C]", "POSTHC_Q_th[kW]"]].head(2))
+                 "CC_Q_th[kW]", "POSTHC_Outlet_T[°C]", "POSTHC_Q_th[kW]"]].head(2).to_string())
 
-Sortie réelle (extrait ; ``ahu.df`` compte **72 colonnes**) :
+Sortie réelle :
 
 .. code-block:: text
 
    (12, 72)
-                Timestamp  MXA_Outlet_T[°C]  HC_Q_th[kW]  CC_Q_th[kW]  POSTHC_Outlet_T[°C]  POSTHC_Q_th[kW]
-   0  2024-01-15 00:00:00             12.01        20.62          0.0                 18.0            11.41
-   1  2024-01-15 01:00:00             12.01        20.62          0.0                 18.0            11.41
+               Timestamp  MXA_Outlet_T[°C]  HC_Q_th[kW]  CC_Q_th[kW]  POSTHC_Outlet_T[°C]  POSTHC_Q_th[kW]
+   0 2024-01-15 00:00:00             12.03        20.63         -0.0                 18.0            11.48
+   1 2024-01-15 01:00:00             12.03        20.63         -0.0                 18.0            11.48
 
-Pour l'heure 0 (air neuf à −5 °C, 70 % recyclé) : l'air mélangé sort à 12,01 °C
-(``MXA``), la batterie chaude fournit 20,62 kW (``HC_Q_th``), et le
-post-chauffage 11,41 kW pour atteindre la consigne de soufflage 18 °C
+
+Pour l'heure 0 (air neuf à −5 °C, 70 % recyclé) : l'air mélangé sort à 12,03 °C
+(``MXA``), la batterie chaude fournit 20,63 kW (``HC_Q_th``), et le
+post-chauffage 11,48 kW pour atteindre la consigne de soufflage 18 °C
 (``POSTHC_Outlet_T``).
 
 Mode récupération — ``AirRecoveryAHU``
@@ -130,11 +129,21 @@ La ``config`` remplace ``recycling`` par ``exchange_type`` / ``heat_exchanger`` 
        "humidifier_type": "adiabatique", "post_heating_coil": True,
        "heat_exchanger": False,   # échangeur air/air (désactivé ici)
    }
-   # data : colonnes ci-dessus + Fresh/Extracted Air [m3/h], Extracted Air [T°C]/[HR %],
-   #        Heat exchanger efficiency [%]
+   # Même `data` que l'exemple précédent, complété des colonnes de l'air extrait
+   data["Fresh Air [m3/h]"] = 10000              # débit d'air neuf [m³/h]
+   data["Extracted Air [m3/h]"] = 10000          # débit d'air extrait [m³/h]
+   data["Extracted Air [T°C]"] = 20.0            # °C
+   data["Extracted Air [HR %]"] = 45.0           # %
+   data["Heat exchanger efficiency [%]"] = 75    # utile si heat_exchanger=True
    ahu = AirRecoveryAHU(config=config, data=data)
    ahu.calculate()
    print(ahu.df.shape)   # (12, 54)
+
+Sortie réelle :
+
+.. code-block:: text
+
+   (12, 54)
 
 Colonnes de résultats
 ---------------------

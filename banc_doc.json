@@ -420,13 +420,14 @@
   "docs/source/003-ahu_modules/air_humide.rst": {
    "blocs": 2,
    "empreinte": "82b3b164e72486ab",
-   "mesure": "2026-09-27T18:10",
+   "mesure": "2026-09-28T14:29",
    "figures": [],
    "blocage": null,
-   "motif": "non exécutée (passe statique)",
-   "cran": null,
-   "nom": "non mesuré",
-   "cran_max": null,
+   "motif": "manque : table de personnalisation et variante exécutée",
+   "extraits": null,
+   "cran": 4,
+   "nom": "figure réelle",
+   "cran_max": 4,
    "recul": null
   },
   "docs/source/003-ahu_modules/batteries.rst": {
@@ -466,28 +467,30 @@
   "docs/source/003-ahu_modules/cta_air_neuf.rst": {
    "blocs": 1,
    "empreinte": "b4431059ec5773d5",
-   "mesure": "2026-09-27T18:10",
+   "mesure": "2026-09-28T14:29",
    "figures": [
     "../images/003_ahu_fresh_air.png",
     "../images/003_ahu_fresh_air_figure1.png"
    ],
    "blocage": null,
-   "motif": "non exécutée (passe statique)",
-   "cran": null,
-   "nom": "non mesuré",
-   "cran_max": null,
+   "motif": "manque : table de personnalisation et variante exécutée",
+   "extraits": null,
+   "cran": 4,
+   "nom": "figure réelle",
+   "cran_max": 4,
    "recul": null
   },
   "docs/source/003-ahu_modules/generic_ahu.rst": {
    "blocs": 2,
-   "empreinte": "bfc889ef0aa40607",
-   "mesure": "2026-09-27T18:10",
+   "empreinte": "a512140a967d46be",
+   "mesure": "2026-09-28T14:31",
    "figures": [],
    "blocage": null,
-   "motif": "non exécutée (passe statique)",
-   "cran": null,
-   "nom": "non mesuré",
-   "cran_max": null,
+   "motif": "manque : table de personnalisation et variante exécutée",
+   "extraits": null,
+   "cran": 4,
+   "nom": "figure réelle",
+   "cran_max": 4,
    "recul": null
   },
   "docs/source/003-ahu_modules/index.rst": {

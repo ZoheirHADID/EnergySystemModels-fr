@@ -1066,3 +1066,18 @@
 - Banc : cran 1 → 4. Plus aucune page de cycles au cran 1.
 - Build : 0 warning.
 - Suivant : `003-ahu_modules` non mesurées (air humide, CTA air neuf, CTA générique).
+
+## 2026-09-28 15:50 — CTA : 3 pages mesurées ; CTA générique réparée
+- Mesure : `air_humide`, `cta_air_neuf` → cran 4 d'emblée ; `generic_ahu` → cran 1.
+- `generic_ahu.rst` : l'exemple `AirRecoveryAHU` se contentait d'un commentaire
+  (« colonnes ci-dessus + Fresh/Extracted Air… ») sans ajouter les colonnes → chaque
+  ligne échouait et la classe levait `RuntimeError: … aucun point de sortie valide`.
+  Colonnes ajoutées pour de vrai (débits 10 000 m³/h, air extrait 20 °C / 45 %,
+  efficacité 75 %) → `(12, 54)`. Sortie du 1er exemple remesurée (pandas tronquait :
+  `to_string()`) — valeurs changées : MXA 12,03 °C (était 12,01), HC 20,63 kW (20,62),
+  post-chauffage 11,48 kW (11,41) ; prose alignée. Renvoi vers un fichier `test/` du
+  dépôt privé retiré (inaccessible au lecteur).
+- Banc : `generic_ahu` cran 1 → 4 ; `air_humide`, `cta_air_neuf` non mesurées → 4.
+- Build : 0 warning. Bug bibliothèque : aucun.
+- Suivant : pages non mesurées restantes (IPMVP, météo, PV, achat d'énergie, CEE,
+  électrique).
