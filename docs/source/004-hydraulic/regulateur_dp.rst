@@ -10,6 +10,14 @@ Régulateur qui maintient une pression différentielle constante sur un circuit 
    unités telles qu'écrites dans ``__init__``). L'exemple exécuté, avec sa
    sortie réelle et sa variante, reste à écrire pour ce modèle.
 
+.. figure:: ../images/schema_dpregulator.svg
+   :alt: Schéma de DpRegulator : forme, ports et connexions
+   :align: center
+   :width: 100%
+
+   Forme, ports et raccordement de ``DpRegulator`` ; paramètres sous leur
+   nom de code, avec leur valeur par défaut.
+
 ``DpRegulator`` — regulateur de pression differentielle (STAP / STAM IMI TA).
 
 .. code-block:: python

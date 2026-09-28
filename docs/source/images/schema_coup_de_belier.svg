@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="300" viewBox="0 0 960 300" role="img" aria-label="Coup de bélier">
+<title>Coup de bélier</title>
+<defs><marker id="fleche" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-end"><path d="M 0 0 L 10 5 L 0 10 z" fill="#1f2933"/></marker><marker id="fleche_cote" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-end"><path d="M 0 0 L 10 5 L 0 10 z" fill="#b46a00"/></marker><marker id="fleche_flux" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-end"><path d="M 0 0 L 10 5 L 0 10 z" fill="#2670a8"/></marker></defs>
+<rect width="960" height="300" fill="#ffffff"/>
+<rect x="40.0" y="60.0" width="60.0" height="140.0" rx="0" fill="#dde6ee" stroke="#1f2933" stroke-width="2.0"/>
+<text x="70.0" y="220.0" fill="#7b8794" text-anchor="middle" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11">réservoir</text>
+<rect x="100.0" y="116.0" width="600.0" height="28.0" rx="0" fill="#cfe8f6" stroke="#1f2933" stroke-width="2.0"/>
+<polyline points="700.00,128.00 734.00,150.00 700.00,172.00 700.00,128.00" fill="#ffffff" stroke="#1f2933" stroke-width="2.2" stroke-linejoin="round"/>
+<polyline points="768.00,128.00 734.00,150.00 768.00,172.00 768.00,128.00" fill="#ffffff" stroke="#1f2933" stroke-width="2.2" stroke-linejoin="round"/>
+<text x="734.0" y="96.0" fill="#1f2933" text-anchor="middle" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12">fermeture</text>
+<polyline points="640.00,102.00 630.00,110.00 640.00,118.00" fill="none" stroke="#b46a00" stroke-width="2.0" stroke-linejoin="round"/>
+<polyline points="600.00,102.00 590.00,110.00 600.00,118.00" fill="none" stroke="#b46a00" stroke-width="2.0" stroke-linejoin="round"/>
+<polyline points="560.00,102.00 550.00,110.00 560.00,118.00" fill="none" stroke="#b46a00" stroke-width="2.0" stroke-linejoin="round"/>
+<polyline points="520.00,102.00 510.00,110.00 520.00,118.00" fill="none" stroke="#b46a00" stroke-width="2.0" stroke-linejoin="round"/>
+<text x="560.0" y="90.0" fill="#b46a00" text-anchor="middle" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12">onde de surpression</text>
+<rect x="24.0" y="244.0" width="912.0" height="44.0" rx="4" fill="#f4f6f8" stroke="#c9d1d9" stroke-width="1.0"/>
+<text x="34.0" y="264.0" fill="#1f2933" text-anchor="start" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12">Fermer une vanne arrête la colonne de liquide : une onde de surpression remonte la conduite</text>
+<text x="34.0" y="280.0" fill="#1f2933" text-anchor="start" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12">à la vitesse du son dans le liquide (fonctions wave_speed, joukowsky_head du module transient).</text>
+</svg>

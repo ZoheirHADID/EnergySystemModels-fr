@@ -3,6 +3,13 @@
 Loi des nœuds hydrauliques
 ==========================
 
+.. figure:: ../images/schema_loi_des_noeuds.svg
+   :alt: Deux courants entrent dans un nœud, un seul en sort
+   :align: center
+   :width: 100%
+
+   Les trois règles d'un nœud : une pression, la somme des débits, le mélange des enthalpies.
+
 Lorsqu'on connecte des ports (``Fluid_connect``), ils forment un **nœud
 hydraulique**. La loi de nœud (``Connect._apply_kirchhoff_law``) impose :
 

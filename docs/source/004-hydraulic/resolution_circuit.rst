@@ -11,6 +11,13 @@ de composants : la pression imposée en aval remonte de composant en composant
 Circuit série : deux tubes entre une source et un puits
 -------------------------------------------------------
 
+.. figure:: ../images/schema_circuit_serie.svg
+   :alt: Circuit série : source, deux tubes, puits, pressions mesurées
+   :align: center
+   :width: 100%
+
+   Le circuit de l'exemple ci-dessous, avec les pressions **mesurées** à son exécution.
+
 .. code-block:: python
 
    from ThermodynamicCycles.Source import Source

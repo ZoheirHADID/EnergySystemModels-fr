@@ -592,3 +592,15 @@
 - Bug bibliothèque : **nouvelle entrée** — traces de `StraightPipe` étiquetées « bar »
   sur des Pa.
 - Suivant : I6 — schémas SVG (nouvelle demande de l'utilisateur).
+
+## 2026-09-28 — schémas des modèles hydrauliques (demande de l'utilisateur)
+- Unité : « schématiser pour expliquer les modèles… formes, connexions ».
+- Fait : `docs/generate_model_schemas.py`, 22 SVG — 19 modèles (forme, ports réels,
+  paramètres sous leur nom de code avec leur défaut relevé dans `__init__`) et 3 de
+  principe (loi des nœuds ; circuit série avec les pressions **mesurées** de
+  l'exemple exécuté ; coup de bélier). Insertion automatique par
+  `tools/fiches_hydrauliques.py` quand le schéma existe, manuelle pour 6 pages
+  rédigées. Rendu contrôlé par une planche Qt hors écran.
+- Banc : aucun recul (coude et vanne générique au cran 5, fiches au cran 4).
+- Build : 0 warning (`-E`).
+- Suivant : I7 — icônes PyqtSimulator dans les schémas (nouvelle demande).

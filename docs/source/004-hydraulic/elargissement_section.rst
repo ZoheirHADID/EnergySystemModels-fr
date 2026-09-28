@@ -71,6 +71,14 @@ Lignes du ``df`` de sortie : ``fluid``, ``F_kgs``, ``d_small_mm``, ``d_large_mm`
    lève aujourd'hui un ``TypeError`` pour ce modèle (arguments ``info``,
    ``curve_label`` ou ``regime`` refusés) : utilisez ces deux fonctions à la place.
 
+.. figure:: ../images/schema_gradualexpansion.svg
+   :alt: Schéma de GradualExpansion : forme, ports et connexions
+   :align: center
+   :width: 100%
+
+   Forme, ports et raccordement de ``GradualExpansion`` ; paramètres sous leur
+   nom de code, avec leur valeur par défaut.
+
 ``GradualExpansion`` — diffuseur conique (elargissement progressif).
 
 .. code-block:: python

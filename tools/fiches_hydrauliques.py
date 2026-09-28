@@ -58,6 +58,25 @@ def _cellule(texte: str) -> str:
     return texte.replace("|", "\\|")
 
 
+IMAGES = RACINE / "docs" / "source" / "images"
+#: Schémas produits par ``docs/generate_model_schemas.py`` qui ne suivent pas le
+#: nommage ``schema_<modele>.svg``.
+SCHEMAS_PARTICULIERS = {"HooperMethod2K": "schema_methodes_k.svg",
+                        "ThermodynamicCycles.Hydraulic.transient": "schema_coup_de_belier.svg"}
+
+
+def figure_schema(nom: str) -> str:
+    """Directive ``figure`` du schéma du modèle, s'il existe ; sinon chaîne vide."""
+    fichier = SCHEMAS_PARTICULIERS.get(nom, f"schema_{nom.split('.')[-1].lower()}.svg")
+    if not (IMAGES / fichier).exists():
+        return ""
+    return (f".. figure:: ../images/{fichier}\n"
+            f"   :alt: Schéma de {nom.split('.')[-1]} : forme, ports et connexions\n"
+            "   :align: center\n   :width: 100%\n\n"
+            f"   Forme, ports et raccordement de ``{nom.split('.')[-1]}`` ; paramètres sous leur\n"
+            "   nom de code, avec leur valeur par défaut.\n\n")
+
+
 def fiche_objet(nom: str) -> str:
     """Fiche d'un modèle à ``Object()`` de ``ThermodynamicCycles.Hydraulic``."""
     r = INVENTAIRE[f"ThermodynamicCycles.Hydraulic.{nom}.Object"]
@@ -174,7 +193,7 @@ def page(fichier: str) -> str:
     titre, ancre, intro, contenu = PAGES[fichier]
     blocs = [f".. _{ancre}:", "", titre, "=" * len(titre), "", intro, "", AVERTISSEMENT]
     for genre, nom in contenu:
-        blocs.append(fiche_objet(nom) if genre == "objet" else fiche_module(nom))
+        blocs.append(figure_schema(nom) + (fiche_objet(nom) if genre == "objet" else fiche_module(nom)))
     blocs.append("Voir :doc:`index` pour la liste de tous les modèles hydrauliques.\n")
     return "\n".join(blocs)
 

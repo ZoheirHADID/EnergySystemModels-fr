@@ -503,7 +503,7 @@
   "docs/source/004-hydraulic/coudes_tes_singularites.rst": {
    "blocs": 4,
    "empreinte": "dfe7e153c90156c3",
-   "mesure": "2026-09-28T10:47",
+   "mesure": "2026-09-28T10:56",
    "figures": [
     "../images/assemblage_edgedbend.svg",
     "../images/004_edgedbend_courbe_reseau.svg",
@@ -548,10 +548,11 @@
   "docs/source/004-hydraulic/elargissement_section.rst": {
    "blocs": 2,
    "empreinte": "ad5d49c396c85fc1",
-   "mesure": "2026-09-28T10:48",
+   "mesure": "2026-09-28T10:57",
    "figures": [
     "../images/assemblage_suddenexpansion.svg",
-    "../images/004_suddenexpansion_courbe_reseau.svg"
+    "../images/004_suddenexpansion_courbe_reseau.svg",
+    "../images/schema_gradualexpansion.svg"
    ],
    "blocage": null,
    "motif": "manque : table de personnalisation et variante exécutée",
@@ -642,8 +643,10 @@
   "docs/source/004-hydraulic/orifice.rst": {
    "blocs": 1,
    "empreinte": "9725f2809f29c1fe",
-   "mesure": "2026-09-28T10:48",
-   "figures": [],
+   "mesure": "2026-09-28T10:57",
+   "figures": [
+    "../images/schema_orifice.svg"
+   ],
    "blocage": null,
    "motif": "manque : table de personnalisation et variante exécutée",
    "extraits": null,
@@ -684,10 +687,11 @@
   "docs/source/004-hydraulic/reduction_section.rst": {
    "blocs": 3,
    "empreinte": "9aa43fdc823aed15",
-   "mesure": "2026-09-28T10:49",
+   "mesure": "2026-09-28T10:57",
    "figures": [
     "../images/assemblage_suddencontraction.svg",
-    "../images/004_suddencontraction_courbe_reseau.svg"
+    "../images/004_suddencontraction_courbe_reseau.svg",
+    "../images/schema_gradualcontraction.svg"
    ],
    "blocage": null,
    "motif": "manque : table de personnalisation et variante exécutée",
@@ -713,8 +717,10 @@
   "docs/source/004-hydraulic/resolution_circuit.rst": {
    "blocs": 2,
    "empreinte": "0e170ee0a880c55a",
-   "mesure": "2026-09-28T10:49",
-   "figures": [],
+   "mesure": "2026-09-28T10:57",
+   "figures": [
+    "../images/schema_circuit_serie.svg"
+   ],
    "blocage": null,
    "motif": "manque : table de personnalisation et variante exécutée",
    "extraits": null,
@@ -796,8 +802,9 @@
   "docs/source/004-hydraulic/vanne_generique.rst": {
    "blocs": 3,
    "empreinte": "b2179dcfcb1bce8d",
-   "mesure": "2026-09-28T10:50",
+   "mesure": "2026-09-28T10:56",
    "figures": [
+    "../images/schema_generalvalve.svg",
     "../images/004_generalvalve_courbe.svg"
    ],
    "blocage": null,
@@ -811,8 +818,10 @@
   "docs/source/004-hydraulic/vanne_isolement.rst": {
    "blocs": 1,
    "empreinte": "5e6837432f34f752",
-   "mesure": "2026-09-28T10:51",
-   "figures": [],
+   "mesure": "2026-09-28T10:57",
+   "figures": [
+    "../images/schema_gatevalve.svg"
+   ],
    "blocage": null,
    "motif": "manque : table de personnalisation et variante exécutée",
    "extraits": null,

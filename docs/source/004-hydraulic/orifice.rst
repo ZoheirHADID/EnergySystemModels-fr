@@ -10,6 +10,14 @@ Diaphragme ou orifice dans une conduite, mince ou épais.
    unités telles qu'écrites dans ``__init__``). L'exemple exécuté, avec sa
    sortie réelle et sa variante, reste à écrire pour ce modèle.
 
+.. figure:: ../images/schema_orifice.svg
+   :alt: Schéma de Orifice : forme, ports et connexions
+   :align: center
+   :width: 100%
+
+   Forme, ports et raccordement de ``Orifice`` ; paramètres sous leur
+   nom de code, avec leur valeur par défaut.
+
 ``Orifice`` — Singularité d'orifice : contraction + éventuellement tube + expansion.
 
 .. code-block:: python

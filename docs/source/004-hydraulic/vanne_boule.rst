@@ -10,6 +10,14 @@ Vanne à boule (quart de tour).
    unités telles qu'écrites dans ``__init__``). L'exemple exécuté, avec sa
    sortie réelle et sa variante, reste à écrire pour ce modèle.
 
+.. figure:: ../images/schema_ballvalve.svg
+   :alt: Schéma de BallValve : forme, ports et connexions
+   :align: center
+   :width: 100%
+
+   Forme, ports et raccordement de ``BallValve`` ; paramètres sous leur
+   nom de code, avec leur valeur par défaut.
+
 ``BallValve`` — Vanne à boule (ball valve).
 
 .. code-block:: python

@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="330" viewBox="0 0 960 330" role="img" aria-label="Sortie libre">
+<title>Sortie libre</title>
+<defs><marker id="fleche" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-end"><path d="M 0 0 L 10 5 L 0 10 z" fill="#1f2933"/></marker><marker id="fleche_cote" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-end"><path d="M 0 0 L 10 5 L 0 10 z" fill="#b46a00"/></marker><marker id="fleche_flux" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-end"><path d="M 0 0 L 10 5 L 0 10 z" fill="#2670a8"/></marker></defs>
+<rect width="960" height="330" fill="#ffffff"/>
+<circle cx="110.0" cy="150.0" r="46.0" fill="#87c9ea" stroke="none" stroke-width="0.0"/>
+<text x="64.0" y="216.0" fill="#1f2933" text-anchor="start" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="13" font-weight="600">Source.Object()</text>
+<circle cx="156.0" cy="150.0" r="7.0" fill="#ffffff" stroke="#e8793a" stroke-width="4"/>
+<circle cx="850.0" cy="150.0" r="46.0" fill="#e8793a" stroke="none" stroke-width="0.0"/>
+<text x="804.0" y="216.0" fill="#1f2933" text-anchor="start" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="13" font-weight="600">Sink.Object()</text>
+<circle cx="804.0" cy="150.0" r="7.0" fill="#ffffff" stroke="#1d5f86" stroke-width="4"/>
+<rect x="330.0" y="134.0" width="240.0" height="32.0" rx="0" fill="#cfe8f6" stroke="none" stroke-width="0"/>
+<line x1="330.0" y1="134.0" x2="570.0" y2="134.0" stroke="#1f2933" stroke-width="2.4"/>
+<line x1="330.0" y1="166.0" x2="570.0" y2="166.0" stroke="#1f2933" stroke-width="2.4"/>
+<line x1="574.0" y1="140.0" x2="614.0" y2="128.0" stroke="#2670a8" stroke-width="1.8" marker-end="url(#fleche_flux)"/>
+<line x1="574.0" y1="150.0" x2="620.0" y2="150.0" stroke="#2670a8" stroke-width="1.8" marker-end="url(#fleche_flux)"/>
+<line x1="574.0" y1="160.0" x2="614.0" y2="172.0" stroke="#2670a8" stroke-width="1.8" marker-end="url(#fleche_flux)"/>
+<text x="596.0" y="120.0" fill="#2670a8" text-anchor="middle" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11">jet libre</text>
+<circle cx="330.0" cy="150.0" r="7.0" fill="#ffffff" stroke="#1d5f86" stroke-width="4"/>
+<circle cx="630.0" cy="150.0" r="7.0" fill="#ffffff" stroke="#e8793a" stroke-width="4"/>
+<text x="326.0" y="106.0" fill="#1f2933" text-anchor="middle" font-family="Consolas, Courier New, monospace" font-size="12">Inlet</text>
+<text x="634.0" y="106.0" fill="#1f2933" text-anchor="middle" font-family="Consolas, Courier New, monospace" font-size="12">Outlet</text>
+<polyline points="163.00,150.00 321.00,150.00" fill="none" stroke="#2670a8" stroke-width="2.0" stroke-linejoin="round" marker-end="url(#fleche_flux)"/>
+<text x="242.0" y="170.0" fill="#2670a8" text-anchor="middle" font-family="Consolas, Courier New, monospace" font-size="12">Fluid_connect</text>
+<polyline points="637.00,150.00 795.00,150.00" fill="none" stroke="#2670a8" stroke-width="2.0" stroke-linejoin="round" marker-end="url(#fleche_flux)"/>
+<text x="716.0" y="170.0" fill="#2670a8" text-anchor="middle" font-family="Consolas, Courier New, monospace" font-size="12">Fluid_connect</text>
+<text x="330.0" y="222.0" fill="#1f2933" text-anchor="start" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="13" font-weight="600">FreeDischarge.Object()</text>
+<text x="330.0" y="239.0" fill="#1f2933" text-anchor="start" font-family="Consolas, Courier New, monospace" font-size="12">d_hyd = 0.1                   # m</text>
+<text x="330.0" y="256.0" fill="#1f2933" text-anchor="start" font-family="Consolas, Courier New, monospace" font-size="12">velocity_profile = 'uniform'  # ou 'power_law'</text>
+<rect x="24.0" y="290.0" width="912.0" height="28.0" rx="4" fill="#f4f6f8" stroke="#c9d1d9" stroke-width="1.0"/>
+<text x="34.0" y="310.0" fill="#1f2933" text-anchor="start" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12">La conduite débouche à l'air libre : l'énergie cinétique du jet est perdue.</text>
+</svg>

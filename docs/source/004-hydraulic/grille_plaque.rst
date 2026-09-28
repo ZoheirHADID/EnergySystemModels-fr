@@ -10,6 +10,14 @@ Grille, tamis ou tôle perforée placés dans l'écoulement.
    unités telles qu'écrites dans ``__init__``). L'exemple exécuté, avec sa
    sortie réelle et sa variante, reste à écrire pour ce modèle.
 
+.. figure:: ../images/schema_screengrid.svg
+   :alt: Schéma de ScreenGrid : forme, ports et connexions
+   :align: center
+   :width: 100%
+
+   Forme, ports et raccordement de ``ScreenGrid`` ; paramètres sous leur
+   nom de code, avec leur valeur par défaut.
+
 ``ScreenGrid`` — grille/ecran/perfore uniforme.
 
 .. code-block:: python
@@ -54,6 +62,14 @@ Grille, tamis ou tôle perforée placés dans l'écoulement.
      - —
 
 Lignes du ``df`` de sortie : ``fluid``, ``F_kgs``, ``d_hyd_mm``, ``porosity``, ``shape_factor``, ``V_ms``, ``Re``, ``ksi_loc_base``, ``ksi_loc``, ``dP_Pa``, ``dP_mbar``.
+
+.. figure:: ../images/schema_thickgridplate.svg
+   :alt: Schéma de ThickGridPlate : forme, ports et connexions
+   :align: center
+   :width: 100%
+
+   Forme, ports et raccordement de ``ThickGridPlate`` ; paramètres sous leur
+   nom de code, avec leur valeur par défaut.
 
 ``ThickGridPlate`` — grille epaisse/plaque perforee.
 

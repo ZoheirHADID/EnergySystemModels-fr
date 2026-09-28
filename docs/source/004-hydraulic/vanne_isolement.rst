@@ -10,6 +10,14 @@ Vanne d'isolement à opercule (gate valve).
    unités telles qu'écrites dans ``__init__``). L'exemple exécuté, avec sa
    sortie réelle et sa variante, reste à écrire pour ce modèle.
 
+.. figure:: ../images/schema_gatevalve.svg
+   :alt: Schéma de GateValve : forme, ports et connexions
+   :align: center
+   :width: 100%
+
+   Forme, ports et raccordement de ``GateValve`` ; paramètres sous leur
+   nom de code, avec leur valeur par défaut.
+
 ``GateValve`` — Vanne d'isolement (gate valve).
 
 .. code-block:: python

@@ -10,6 +10,14 @@ Quand un raccord n'a pas de modèle dédié, on le chiffre par ses coefficients 
    unités telles qu'écrites dans ``__init__``). L'exemple exécuté, avec sa
    sortie réelle et sa variante, reste à écrire pour ce modèle.
 
+.. figure:: ../images/schema_methodes_k.svg
+   :alt: Schéma de HooperMethod2K : forme, ports et connexions
+   :align: center
+   :width: 100%
+
+   Forme, ports et raccordement de ``HooperMethod2K`` ; paramètres sous leur
+   nom de code, avec leur valeur par défaut.
+
 ``HooperMethod2K`` — Singularité hydraulique utilisant la méthode 2K de Hooper.
 
 .. code-block:: python

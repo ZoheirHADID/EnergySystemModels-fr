@@ -404,13 +404,18 @@ re-vérifier par exécution avant rédaction.
   nœuds, Résolution d'un circuit (exemple série désormais **exécuté et publié**).
   16 pages-fiches générées par `tools/fiches_hydrauliques.py` (relevé du code, sans
   valeur calculée). Plus aucun « à documenter » dans l'index.
-- `à faire` **I6 — schémas SVG de chaque modèle** (demande de l'utilisateur,
+- `fait` (2026-09-28 ; 22 schémas par `docs/generate_model_schemas.py`, insérés dans 20 pages) **I6 — schémas SVG de chaque modèle** (demande de l'utilisateur,
   « schématiser pour expliquer les formes, les connexions ») : un schéma
   forme + ports + connexions par page de l'index hydraulique, et un schéma de la loi
   des nœuds.
 - `en cours` **I2 — pages des modèles marqués *à documenter*** dans l'index (21
   entrées ; fait : `GeneralValve` → `vanne_generique.rst`, cran 5, 2026-09-28 ; reste 20) : un modèle par tour, selon le squelette de page ; l'index se met à
   jour à chaque page créée.
+
+- `à faire` **I7 — icônes PyqtSimulator dans les schémas d'assemblage** (demande de
+  l'utilisateur, 2026-09-28) : dessiner Source, Sink et le modèle avec les icônes
+  réelles de `src/PyqtSimulator/nodes/icons/`, pour que le schéma du guide
+  ressemble à ce que l'utilisateur voit dans l'IHM.
 
 ## G. Schémas de paramétrage — demande de l'utilisateur (2026-09-27)
 

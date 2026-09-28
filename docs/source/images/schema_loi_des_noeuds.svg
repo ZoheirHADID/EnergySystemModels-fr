@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="330" viewBox="0 0 960 330" role="img" aria-label="Loi des nœuds hydrauliques">
+<title>Loi des nœuds hydrauliques</title>
+<defs><marker id="fleche" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-end"><path d="M 0 0 L 10 5 L 0 10 z" fill="#1f2933"/></marker><marker id="fleche_cote" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-end"><path d="M 0 0 L 10 5 L 0 10 z" fill="#b46a00"/></marker><marker id="fleche_flux" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-end"><path d="M 0 0 L 10 5 L 0 10 z" fill="#2670a8"/></marker></defs>
+<rect width="960" height="330" fill="#ffffff"/>
+<polyline points="160.00,80.00 466.00,150.00" fill="none" stroke="#2670a8" stroke-width="2.4" stroke-linejoin="round" marker-end="url(#fleche_flux)"/>
+<text x="160.0" y="68.0" fill="#1f2933" text-anchor="start" font-family="Consolas, Courier New, monospace" font-size="13">F1, h1</text>
+<polyline points="160.00,220.00 466.00,150.00" fill="none" stroke="#2670a8" stroke-width="2.4" stroke-linejoin="round" marker-end="url(#fleche_flux)"/>
+<text x="160.0" y="208.0" fill="#1f2933" text-anchor="start" font-family="Consolas, Courier New, monospace" font-size="13">F2, h2</text>
+<polyline points="494.00,150.00 800.00,150.00" fill="none" stroke="#2670a8" stroke-width="2.4" stroke-linejoin="round" marker-end="url(#fleche_flux)"/>
+<text x="790.0" y="138.0" fill="#1f2933" text-anchor="end" font-family="Consolas, Courier New, monospace" font-size="13">F = F1 + F2</text>
+<circle cx="480.0" cy="150.0" r="14.0" fill="#1f2933" stroke="none" stroke-width="0.0"/>
+<text x="480.0" y="126.0" fill="#b46a00" text-anchor="middle" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12">nœud : une seule pression P</text>
+<rect x="24.0" y="258.0" width="912.0" height="60.0" rx="4" fill="#f4f6f8" stroke="#c9d1d9" stroke-width="1.0"/>
+<text x="34.0" y="278.0" fill="#1f2933" text-anchor="start" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12">1. Pression unique au nœud : tous les ports raccordés partagent P.</text>
+<text x="34.0" y="294.0" fill="#1f2933" text-anchor="start" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12">2. Conservation du débit : F sortant = F1 + F2.</text>
+<text x="34.0" y="310.0" fill="#1f2933" text-anchor="start" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12">3. Mélange : h = (F1·h1 + F2·h2) / (F1 + F2) — un mélangeur n'est qu'un nœud.</text>
+</svg>

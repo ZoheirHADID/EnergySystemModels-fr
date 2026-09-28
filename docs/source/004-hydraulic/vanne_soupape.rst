@@ -10,6 +10,14 @@ Vanne à soupape (globe), d'arrêt ou de régulation.
    unités telles qu'écrites dans ``__init__``). L'exemple exécuté, avec sa
    sortie réelle et sa variante, reste à écrire pour ce modèle.
 
+.. figure:: ../images/schema_globevalve.svg
+   :alt: Schéma de GlobeValve : forme, ports et connexions
+   :align: center
+   :width: 100%
+
+   Forme, ports et raccordement de ``GlobeValve`` ; paramètres sous leur
+   nom de code, avec leur valeur par défaut.
+
 ``GlobeValve`` — Vanne globe (d'arrêt ou régulation).
 
 .. code-block:: python

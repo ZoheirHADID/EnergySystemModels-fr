@@ -10,6 +10,14 @@ Clapet qui laisse passer le fluide dans un seul sens.
    unités telles qu'écrites dans ``__init__``). L'exemple exécuté, avec sa
    sortie réelle et sa variante, reste à écrire pour ce modèle.
 
+.. figure:: ../images/schema_checkvalve.svg
+   :alt: Schéma de CheckValve : forme, ports et connexions
+   :align: center
+   :width: 100%
+
+   Forme, ports et raccordement de ``CheckValve`` ; paramètres sous leur
+   nom de code, avec leur valeur par défaut.
+
 ``CheckValve`` — Clapet anti-retour avec perte de charge dépendante du type.
 
 .. code-block:: python

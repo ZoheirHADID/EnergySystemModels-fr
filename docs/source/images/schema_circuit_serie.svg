@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="330" viewBox="0 0 960 330" role="img" aria-label="Circuit série résolu">
+<title>Circuit série résolu</title>
+<defs><marker id="fleche" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-end"><path d="M 0 0 L 10 5 L 0 10 z" fill="#1f2933"/></marker><marker id="fleche_cote" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-end"><path d="M 0 0 L 10 5 L 0 10 z" fill="#b46a00"/></marker><marker id="fleche_flux" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-end"><path d="M 0 0 L 10 5 L 0 10 z" fill="#2670a8"/></marker></defs>
+<rect width="960" height="330" fill="#ffffff"/>
+<circle cx="90.0" cy="140.0" r="40.0" fill="#87c9ea" stroke="none" stroke-width="0.0"/>
+<circle cx="870.0" cy="140.0" r="40.0" fill="#e8793a" stroke="none" stroke-width="0.0"/>
+<rect x="190.0" y="126.0" width="230.0" height="28.0" rx="0" fill="#cfe8f6" stroke="#1f2933" stroke-width="2.0"/>
+<text x="305.0" y="176.0" fill="#1f2933" text-anchor="middle" font-family="Consolas, Courier New, monospace" font-size="12">p1 : StraightPipe, L = 10 m</text>
+<rect x="540.0" y="126.0" width="230.0" height="28.0" rx="0" fill="#cfe8f6" stroke="#1f2933" stroke-width="2.0"/>
+<text x="655.0" y="176.0" fill="#1f2933" text-anchor="middle" font-family="Consolas, Courier New, monospace" font-size="12">p2 : StraightPipe, L = 20 m</text>
+<line x1="130.0" y1="140.0" x2="186.0" y2="140.0" stroke="#2670a8" stroke-width="2.0" marker-end="url(#fleche_flux)"/>
+<line x1="424.0" y1="140.0" x2="536.0" y2="140.0" stroke="#2670a8" stroke-width="2.0" marker-end="url(#fleche_flux)"/>
+<line x1="774.0" y1="140.0" x2="826.0" y2="140.0" stroke="#2670a8" stroke-width="2.0" marker-end="url(#fleche_flux)"/>
+<circle cx="480.0" cy="140.0" r="8.0" fill="#1f2933" stroke="none" stroke-width="0.0"/>
+<text x="90.0" y="88.0" fill="#b46a00" text-anchor="middle" font-family="Consolas, Courier New, monospace" font-size="13">301 960,6 Pa</text>
+<text x="480.0" y="88.0" fill="#b46a00" text-anchor="middle" font-family="Consolas, Courier New, monospace" font-size="13">301 307 Pa</text>
+<text x="870.0" y="88.0" fill="#b46a00" text-anchor="middle" font-family="Consolas, Courier New, monospace" font-size="13">300 000 Pa imposé</text>
+<text x="90.0" y="200.0" fill="#1f2933" text-anchor="middle" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12">Source</text>
+<text x="870.0" y="200.0" fill="#1f2933" text-anchor="middle" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12">Sink</text>
+<line x1="870.0" y1="70.0" x2="90.0" y2="70.0" stroke="#b46a00" stroke-width="1.2" stroke-dasharray="5 4" marker-end="url(#fleche_cote)"/>
+<text x="480.0" y="62.0" fill="#b46a00" text-anchor="middle" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12">la pression imposée en aval remonte vers l'amont</text>
+<rect x="24.0" y="274.0" width="912.0" height="44.0" rx="4" fill="#f4f6f8" stroke="#c9d1d9" stroke-width="1.0"/>
+<text x="34.0" y="294.0" fill="#1f2933" text-anchor="start" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12">Mesuré (eau 15 °C, 1 kg/s, DN50) : ΔP1 + ΔP2 = 1960,2 Pa = P_source − P_sink ;</text>
+<text x="34.0" y="310.0" fill="#1f2933" text-anchor="start" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12">même débit dans les deux tubes ; une seule pression au nœud (à 0,2 Pa près).</text>
+</svg>
