@@ -139,10 +139,17 @@ Sortie réelle (air neuf 5 °C / 80 % HR, 3000 m³/h) :
 
 .. code-block:: text
 
+                        HeatingCoil
+   ID                         2.000
    Outlet.T (C)              20.000
    Outlet.RH (%)             29.800
-   Outlet.h (kJ/kg)          31.000
+   Outlet.F (kg/s)            1.053
+   Outlet.F_dry (kg/s)        1.048
+   Outlet.P (Pa)         101325.000
+   Outlet.P/10^5 (bar)        1.000
+   Outlet.h (kJ/kg)          31.100
    Outlet.w (g/kgdry)         4.314
+   Outlet.Pv_sat (Pa)      2338.800
    Q_th (kW)                 15.900
 
 L'humidité absolue reste à 4,314 g/kg (chauffage sensible) ; la HR chute de 80 %
@@ -258,10 +265,17 @@ Sortie réelle (air 5 °C / 90 % HR, 5000 m³/h ; eau 80 °C, 1 m³/h ; S=10, U=
 
 .. code-block:: text
 
+                        HeatingCoilNUT
+   ID                            2.000
    Outlet.T (C)                 17.400
    Outlet.RH (%)                39.600
-   Outlet.h (kJ/kg)             29.700
+   Outlet.F (kg/s)               1.754
+   Outlet.F_dry (kg/s)           1.745
+   Outlet.P (Pa)            101325.000
+   Outlet.P/10^5 (bar)           1.000
+   Outlet.h (kJ/kg)             29.800
    Outlet.w (g/kgdry)            4.858
+   Outlet.Pv_sat (Pa)         1982.600
    Q_th (kW)                    21.700
    NUT (-)                       0.980
    Effectiveness (-)             0.570
@@ -367,16 +381,20 @@ Sortie réelle :
 
 .. code-block:: text
 
+                        CoolingCoil
    Outlet.T (C)              11.200
-   Outlet.RH (%)             96.600
-   Outlet.h (kJ/kg)          31.400
+   Outlet.RH (%)             96.500
+   Outlet.F (kg/s)            1.586
+   Outlet.F_dry (kg/s)        1.573
+   Outlet.P (Pa)         101325.000
+   Outlet.h (kJ/kg)          31.500
    Outlet.w (g/kgdry)         8.000
-   Q_th (kW)                -62.000
+   Q_th (kW)                -62.500
    Eff                        0.818
    FB                         0.182
 
 L'humidité passe de 16,0 à 8,0 g/kg (déshumidification), l'air ressort à 11,2 °C
-proche de la saturation (96,6 % HR) ; la batterie extrait 62 kW pour une
+proche de la saturation (96,5 % HR) ; la batterie extrait 62,5 kW pour une
 efficacité de 0,818 (facteur de bypass 0,182).
 
 Batterie froide sensible (consigne T) — ``CoolingCoil_Tc``

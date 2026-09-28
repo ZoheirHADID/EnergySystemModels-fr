@@ -684,3 +684,19 @@
   `Outlet.h 31.000`, absent de la sortie réelle : entrée B-CTA1.
 - Build : 0 warning.
 - Suivant : B-CTA1 (valeur publiée non conforme), puis K2 — schémas des cycles.
+
+## 2026-09-28 — `003-ahu_modules/batteries.rst` : sorties remises d'accord (B-CTA1)
+- Unité : B-CTA1 — valeurs publiées non conformes (priorité 5 : le lecteur fait
+  confiance au chiffre).
+- Fait : les 5 blocs exécutés et comparés un à un à leur sortie publiée (script
+  `diffpage.py`, qui réutilise le lecteur de blocs du banc). **Cinq valeurs
+  fausses sur trois blocs** : batterie chaude `Outlet.h` 31,000 → 31,100 ;
+  batterie NUT `Outlet.h` 29,700 → 29,800 ; batterie froide `RH` 96,600 → 96,500,
+  `h` 31,400 → 31,500, `Q_th` −62,000 → −62,500. Sorties republiées **complètes**
+  (elles étaient tronquées sans le dire). Prose alignée (96,5 % HR, 62,5 kW) ;
+  « 16,0 g/kg » en entrée vérifié par exécution (16,042).
+- Banc : `batteries.rst` cran 2 → 4.
+- Build : 0 warning.
+- Bug bibliothèque : aucun.
+- Suivant : B-CTA2 (`composants_cta.rst`, sorties non publiées), puis K2 — schémas
+  des cycles.

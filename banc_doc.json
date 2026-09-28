@@ -385,18 +385,18 @@
   },
   "docs/source/003-ahu_modules/batteries.rst": {
    "blocs": 5,
-   "empreinte": "f84302414db10f55",
-   "mesure": "2026-09-28T11:26",
+   "empreinte": "709c7699181fd853",
+   "mesure": "2026-09-28T11:31",
    "figures": [
     "../images/schema_heatingcoil.svg",
     "../images/schema_coolingcoil.svg"
    ],
    "blocage": null,
-   "motif": "ligne publiée absente de la sortie réelle : 'Outlet.h (kJ/kg)          31.000'",
+   "motif": "manque : table de personnalisation et variante exécutée",
    "extraits": null,
-   "cran": 2,
-   "nom": "exécuté",
-   "cran_max": 2,
+   "cran": 4,
+   "nom": "figure réelle",
+   "cran_max": 4,
    "recul": null
   },
   "docs/source/003-ahu_modules/composants_cta.rst": {

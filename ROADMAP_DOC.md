@@ -426,7 +426,7 @@ composant amont → forme du modèle → aval, **ports réels**, connexions
 (attribut `icon` du nœud), paramètres sous leur nom de code avec leur défaut, et
 aucune valeur calculée sauf mesurée. Un chapitre par tour :
 
-- `à faire` **B-CTA1 — `003-ahu_modules/batteries.rst` publie une valeur non
+- `fait` (2026-09-28 ; cran 2 → 4, 5 valeurs corrigées sur 3 blocs ; reste : table de personnalisation + variante pour le cran 5) **B-CTA1 — `003-ahu_modules/batteries.rst` publie une valeur non
   conforme** (première mesure, 2026-09-28) : `Outlet.h (kJ/kg) 31.000` (ligne 144)
   absent de la sortie réelle — cran 2. Défaut « valeur affichée ≠ sortie réelle »,
   priorité 5 de la boucle : à remettre d'accord avec l'exécution.
