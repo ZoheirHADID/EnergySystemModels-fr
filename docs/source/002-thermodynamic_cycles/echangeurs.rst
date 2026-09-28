@@ -152,6 +152,12 @@ Sorties principales : ``Qth`` (W), ``Eff`` (ε), ``NUT``, ``R``, ``Cmin``,
     hex.calculate()
     print("NUT =", hex.NUT, " eff =", hex.Eff, " Qth =", hex.Qth, "W")
 
+Sortie réelle :
+
+.. code-block:: text
+
+   NUT = 1.1950141358690467  eff = 0.5448707182655325  Qth = 136786.0099501253 W
+
 TwoStreamLMTDInverseDesignHEX — DTLM inverse
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -276,6 +282,12 @@ Prend en charge un fluide « gaz humide » (``fluid = "humid_gas_mixture"`` avec
     heater.To = 60          # consigne de sortie 60 °C -> Qth déduit
     heater.calculate()
     print("Qth =", heater.Qth, "W")
+
+Sortie réelle :
+
+.. code-block:: text
+
+   Qth = 83620.69633776524 W
 
 SingleStreamWallTemperatureHEX — surface contre paroi
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -508,6 +520,14 @@ Sorties : ``Q_she_W`` (W), ``T_rich_out_degC``, ``T_poor_out_degC``, DataFrame
     print("T_poor_out =", she.T_poor_out_degC, "°C")
     print("Q_she =", she.Q_she_W, "W")
 
+Sortie réelle :
+
+.. code-block:: text
+
+   T_rich_out = 73.5 °C
+   T_poor_out = 51.78152063607045 °C
+   Q_she = 8744.764508859927 W
+
 .. _echangeurs-desuperheater:
 
 Desuperheater — désurchauffeur
@@ -565,6 +585,13 @@ fixée, et la chaleur de désurchauffe est le solde enthalpique :
     ds.calculate()
     print("Tsat =", ds.Tsv - 273.15, "°C")
     print("Qdesurch =", ds.Qdesurch / 1000, "kW")
+
+Sortie réelle :
+
+.. code-block:: text
+
+   Tsat = 39.3876313410355 °C
+   Qdesurch = 21.6194702891864 kW
 
 .. note::
 

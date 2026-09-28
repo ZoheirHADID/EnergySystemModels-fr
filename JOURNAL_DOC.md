@@ -974,3 +974,15 @@
   paquets absents de la machine (`cantera`, `thermo`) — à examiner : dépendance
   optionnelle de la bibliothèque ou exemple à réécrire.
 - Suivant : publier les sorties des 3 pages au cran 2.
+
+## 2026-09-28 14:12 — Cycles : sorties réelles du ballon stratifié, du dessalement/évaporation, des échangeurs
+- Unité : B (pages au cran 2) — contenu d'abord.
+- Fait : 10 sorties réelles publiées par `tools/publier_sorties.py` —
+  `ballon_stratifie.rst` (profil 69,9 → 69,3 °C, 289,25 kWh stockés),
+  `dessalement_evaporation.rst` (5 blocs : évaporateur, MVR 22,36 kW, osmose inverse
+  4,4 kWh/m³, MED GOR 1,85, séchoir 2667 kJ/kg — dans la plage 2500–2700 annoncée par
+  la prose), `echangeurs.rst` (4 blocs : NUT 1,195 / efficacité 0,545 / 136,8 kW, etc.).
+  Relu : aucune trace parasite, aucune valeur en contradiction avec la prose.
+- Banc : les trois pages cran 2 → 4.
+- Build : 0 warning. Bug bibliothèque : aucun.
+- Suivant : mesurer les 10 pages de cycles restantes non mesurées.

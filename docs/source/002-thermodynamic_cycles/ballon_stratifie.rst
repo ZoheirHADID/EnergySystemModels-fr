@@ -134,6 +134,13 @@ Utilisation
     print("Profil (°C) :", [round(t, 1) for t in ballon.T_degC])
     print("Énergie stockée cumulée :", round(ballon.cumul_Qstr_kWh, 2), "kWh")
 
+Sortie réelle :
+
+.. code-block:: text
+
+   Profil (°C) : [69.9, 69.8, 69.8, 69.8, 69.8, 69.7, 69.7, 69.7, 69.6, 69.3]
+   Énergie stockée cumulée : 289.25 kWh
+
 .. note::
    **Cohérence énergétique** : l'énergie stockée absolue ``Delta_u_kWh`` est
    pondérée par les **volumes réels** des couches (:math:`V_i`), et non plus par

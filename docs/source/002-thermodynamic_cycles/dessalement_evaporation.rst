@@ -153,6 +153,15 @@ Sorties principales : ``mdot_concentrate``, ``mdot_vapor``, ``mdot_steam``,
     print("Économie     :", round(evap.economy, 2))
     print("ESC          :", round(evap.ESC_kWh_per_t, 0), "kWh/t")
 
+Sortie réelle :
+
+.. code-block:: text
+
+   Eau évaporée : 0.8 kg/s
+   Vapeur vive  : 0.31 kg/s
+   Économie     : 2.58
+   ESC          : 214.0 kWh/t
+
 MVR (recompression mécanique de vapeur)
 ---------------------------------------
 
@@ -225,6 +234,14 @@ Sorties principales : ``P_discharge_bar``, ``T_suction_degC``, ``dh_comp_kJ_kg``
     print("Refoulement  :", round(mvr.P_discharge_bar, 3), "bar")
     print("Compression  :", round(mvr.W_comp_kW, 2), "kW")
     print("h23/h45      :", round(mvr.ratio_h23_h45 * 100, 1), "%")
+
+Sortie réelle :
+
+.. code-block:: text
+
+   Refoulement  : 1.213 bar
+   Compression  : 22.36 kW
+   h23/h45      : 2.0 %
 
 ReverseOsmosis (osmose inverse)
 -------------------------------
@@ -330,6 +347,14 @@ Sorties principales : ``pi_feed_bar``, ``pi_permeate_bar``, ``dpi_bar``,
     print("Compression     :", round(ro.W_comp_kW, 1), "kW")
     print("Conso spécifique:", round(ro.W_specific_kWh_per_m3, 2), "kWh/m3")
 
+Sortie réelle :
+
+.. code-block:: text
+
+   Pi alimentation : 29.7 bar
+   Compression     : 15.9 kW
+   Conso spécifique: 4.4 kWh/m3
+
 MSF (dessalement flash multi-étage)
 -----------------------------------
 
@@ -409,6 +434,15 @@ Sorties principales : ``mdot_brine_recycle``, ``mdot_steam``, ``GOR``, ``OSC``,
     print("Vapeur vive     :", round(msf.mdot_steam, 3), "kg/s")
     print("Saumure recirc. :", round(msf.mdot_brine_recycle, 2), "kg/s")
     print("ESC             :", round(msf.ESC_kWh_per_t, 0), "kWh/t")
+
+Sortie réelle :
+
+.. code-block:: text
+
+   GOR             : 1.85
+   Vapeur vive     : 0.54 kg/s
+   Saumure recirc. : 11.41 kg/s
+   ESC             : 300.0 kWh/t
 
 SprayDryer (séchage par atomisation)
 ------------------------------------
@@ -505,3 +539,11 @@ Sorties principales : ``mdot_evaporated``, ``mdot_powder``, ``w_out``,
     print("Air sortie      :", round(dryer.T_air_out_degC, 1), "°C, HR",
           round(dryer.RH_out_pct, 1), "%")
     print("Conso spécifique:", round(dryer.specific_consumption_kJ_kg, 0), "kJ/kg")
+
+Sortie réelle :
+
+.. code-block:: text
+
+   Eau évaporée    : 70.4 g/s
+   Air sortie      : 89.1 °C, HR 8.3 %
+   Conso spécifique: 2667.0 kJ/kg
