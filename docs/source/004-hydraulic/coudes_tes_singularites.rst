@@ -24,6 +24,14 @@ Coudes
    * - ``Hydraulic.EdgedBend``
      - coude **à angle vif** : :math:`\xi` local selon l'angle.
 
+.. figure:: ../images/assemblage_edgedbend.svg
+   :alt: Source, coude vif EdgedBend et Sink reliés par Fluid_connect
+   :align: center
+   :width: 100%
+
+   Assemblage d'un coude vif : ``Inlet`` reçoit la sortie de la ``Source``, ``Outlet``
+   alimente le ``Sink``. Paramètres par défaut du code, résultat exécuté en cartouche.
+
 Singularités de section
 -----------------------
 
@@ -39,6 +47,22 @@ Singularités de section
    * - ``Hydraulic.SuddenExpansion``
      - **élargissement** brusque : la pression statique **remonte** (récupération
        cinétique) diminuée du frottement — signe géré correctement.
+
+.. figure:: ../images/assemblage_suddencontraction.svg
+   :alt: Source, rétrécissement brusque SuddenContraction et Sink
+   :align: center
+   :width: 100%
+
+   Rétrécissement brusque : ``d_hyd_large`` est le diamètre **amont** (``Inlet``),
+   ``d_hyd_small`` le diamètre **aval** (``Outlet``).
+
+.. figure:: ../images/assemblage_suddenexpansion.svg
+   :alt: Source, élargissement brusque SuddenExpansion et Sink
+   :align: center
+   :width: 100%
+
+   Élargissement brusque : les rôles s'inversent — ``d_hyd_small`` en amont,
+   ``d_hyd_large`` en aval. Mesuré : la pression **remonte** de 85 Pa.
 
 Tés (jonctions 3 ports)
 -----------------------
@@ -57,6 +81,22 @@ Tés (jonctions 3 ports)
    * - ``Hydraulic.DivergingTee``
      - **té divergent** : 1 entrée ``Inlet`` → 2 sorties (``Outlet_St`` axe,
        ``Outlet_S`` branche). Bilan masse :math:`F_{St}=F_C-F_S`.
+
+.. figure:: ../images/assemblage_convergingtee.svg
+   :alt: Deux Sources vers un té convergent ConvergingTee, puis un Sink
+   :align: center
+   :width: 100%
+
+   Té convergent : **deux** composants amont, un sur le passage droit
+   (``Inlet_St``), un sur la branche (``Inlet_S``) ; les débits s'additionnent.
+
+.. figure:: ../images/assemblage_divergingtee.svg
+   :alt: Une Source vers un té divergent DivergingTee, puis deux Sinks
+   :align: center
+   :width: 100%
+
+   Té divergent : le débit de la branche s'**impose** par ``Outlet_S.F`` ; le passage
+   droit ``Outlet_St`` reçoit le reste (1,5 − 0,5 = 1,0 kg/s, mesuré).
 
 .. note::
    Ces modèles sont **bidirectionnels** : si la pression d'une sortie est imposée
@@ -99,6 +139,13 @@ Exemple minimal
 
 Le coude reçoit son état de l'amont par ``Fluid_connect`` (voir
 :doc:`../ports_connexions`).
+
+.. figure:: ../images/assemblage_curvedbend.svg
+   :alt: Source, coude courbe CurvedBend et Sink reliés par Fluid_connect
+   :align: center
+   :width: 100%
+
+   L'assemblage de l'exemple ci-dessous : mêmes valeurs, même résultat.
 
 .. code-block:: python
 

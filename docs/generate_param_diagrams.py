@@ -14,7 +14,8 @@ Usage :
     python docs/generate_param_diagrams.py            # tout régénérer
     python docs/generate_param_diagrams.py --liste    # ce que le script produit
 
-Sortie : ``docs/source/images/param_*.svg``.
+Sortie : ``docs/source/images/param_*.svg`` (schémas cotés) et
+``assemblage_*.svg`` (Source → modèle → Sink, assemblages exécutés).
 """
 
 from __future__ import annotations
@@ -355,7 +356,239 @@ def familles_de_ports(nom="param_ports_unites.svg") -> Path:
     return _ecrire(nom, m), _verifier_debordements(nom, m, L)
 
 
+# --------------------------------------------------------------------------- #
+# 4. Assemblages Source → singularité → Sink
+# --------------------------------------------------------------------------- #
+# Même lecture que les figures « Utilisation » de TA_valve.rst et
+# perte_pression_lineaire.rst : le composant amont, le modèle, le puits aval,
+# reliés par Fluid_connect, avec les paramètres écrits sous leur nom de code.
+# Chaque assemblage dessiné ici a été EXÉCUTÉ tel quel (cf. JOURNAL_DOC.md,
+# 2026-09-28) ; le cartouche porte le résultat mesuré.
+
+BLEU_SOURCE = "#87c9ea"
+ORANGE_PUITS = "#e8793a"
+EAU = "#cfe8f6"
+PORT_IN = "#1d5f86"        # port d'entrée (Inlet)
+PORT_OUT = "#e8793a"       # port de sortie (Outlet)
+
+
+def _cercle(x, y, r, remplissage, bordure="none", epaisseur=0.0) -> str:
+    return (f'<circle cx="{x:.1f}" cy="{y:.1f}" r="{r:.1f}" fill="{remplissage}" '
+            f'stroke="{bordure}" stroke-width="{epaisseur}"/>')
+
+
+def _port(x, y, entree: bool) -> str:
+    return _cercle(x, y, 7, "#ffffff", PORT_IN if entree else PORT_OUT, 4)
+
+
+def _lignes(x, y, lignes, taille=13, pas=18, couleur=TRAIT) -> list[str]:
+    sortie = []
+    for i, l in enumerate(lignes):
+        sortie.append(_texte(x, y + i * pas, l, taille if i else taille + 1, couleur,
+                             "start", MONO if i else POLICE, gras=(i == 0)))
+    return sortie
+
+
+def _connexion(points, etiquette_xy) -> list[str]:
+    return [_polyligne(points, FLUX, 2.0).replace("/>", ' marker-end="url(#fleche_flux)"/>'),
+            _texte(etiquette_xy[0], etiquette_xy[1], "Fluid_connect", 12, FLUX, "middle", MONO)]
+
+
+def _assemblage(nom, titre, sources, puits, composant, connexions, etiquettes,
+                note, L=960.0, H=360.0) -> Path:
+    """Dessine un assemblage : `sources`/`puits` = [(x, y, lignes, port_xy)],
+    `composant` = marques SVG du modèle, `connexions` = [(points, xy_etiquette)],
+    `etiquettes` = [(x, y, lignes)] (paramètres et noms de ports)."""
+    m = _entete(L, H, titre)
+    for x, y, lignes, (px, py) in sources:
+        m.append(_cercle(x, y, 46, BLEU_SOURCE))
+        m += _lignes(x - 46, y + 66, lignes, 12, 16)
+        m.append(_port(px, py, entree=False))
+    for x, y, lignes, (px, py) in puits:
+        m.append(_cercle(x, y, 46, ORANGE_PUITS))
+        m += _lignes(x - 46, y + 66, lignes, 12, 16)
+        m.append(_port(px, py, entree=True))
+    m += composant
+    for points, xy in connexions:
+        m += _connexion(points, xy)
+    for x, y, lignes in etiquettes:
+        m += _lignes(x, y, lignes, 12, 17)
+    m += _note(24, H - 12 - 16 * len(note) - 12, L - 48, note, 12)
+    return _ecrire(nom, m), _verifier_debordements(nom, m, L)
+
+
+SOURCE_EAU = ["Source.Object()", 'fluid = "water"', "Ti_degC = 15", "Pi_bar = 3.0", "F = 1.0"]
+
+
+def _deux_ports_droits(nom, titre, modele, d_amont, d_aval, lignes_modele, note):
+    """Rétrécissement ou élargissement brusque, entre une Source et un Sink."""
+    y = 150.0
+    x_in, x_mid, x_out = 330.0, 480.0, 630.0
+    comp = [
+        _rect(x_in, y - d_amont, x_mid - x_in, 2 * d_amont, EAU, "none", 0, 0),
+        _rect(x_mid, y - d_aval, x_out - x_mid, 2 * d_aval, EAU, "none", 0, 0),
+        _polyligne([(x_in, y - d_amont), (x_mid, y - d_amont), (x_mid, y - d_aval), (x_out, y - d_aval)], TRAIT, 2.4),
+        _polyligne([(x_in, y + d_amont), (x_mid, y + d_amont), (x_mid, y + d_aval), (x_out, y + d_aval)], TRAIT, 2.4),
+        _ligne(x_in, y, x_out, y, AXE, 1.0, pointille="10 4 2 4"),
+        _port(x_in, y, entree=True), _port(x_out, y, entree=False),
+    ]
+    return _assemblage(
+        nom, titre,
+        sources=[(110, y, SOURCE_EAU, (156, y))],
+        puits=[(850, y, ["Sink.Object()"], (804, y))],
+        composant=comp,
+        connexions=[([(163, y), (321, y)], (242, y + 20)),
+                    ([(637, y), (795, y)], (716, y + 20))],
+        etiquettes=[(x_in, y + max(d_amont, d_aval) + 26, [modele] + lignes_modele),
+                    (x_in - 6, y - max(d_amont, d_aval) - 12, ["Inlet"]),
+                    (x_out - 40, y - max(d_amont, d_aval) - 12, ["Outlet"])],
+        note=note)
+
+
+def assemblage_retrecissement(nom="assemblage_suddencontraction.svg"):
+    """Source → SuddenContraction → Sink, paramètres du code."""
+    return _deux_ports_droits(
+        nom, "Assemblage d'un rétrécissement brusque", "SuddenContraction.Object()", 40, 16,
+        ["d_hyd_large = 0.1    # m, amont (Inlet)", "d_hyd_small = 0.04   # m, aval (Outlet)"],
+        ["Exécuté (eau 15 °C, 3 bar, 1 kg/s, diamètres par défaut) : Inlet.P = 300 000 Pa, "
+         "Outlet.P = 299 552,2 Pa."])
+
+
+def assemblage_elargissement(nom="assemblage_suddenexpansion.svg"):
+    """Source → SuddenExpansion → Sink, paramètres du code."""
+    return _deux_ports_droits(
+        nom, "Assemblage d'un élargissement brusque", "SuddenExpansion.Object()", 16, 40,
+        ["d_hyd_small = 0.04   # m, amont (Inlet)", "d_hyd_large = 0.1    # m, aval (Outlet)"],
+        ["Exécuté (eau 15 °C, 3 bar, 1 kg/s, diamètres par défaut) : Inlet.P = 300 000 Pa, "
+         "Outlet.P = 300 085,2 Pa —",
+         "la pression statique REMONTE : la vitesse chute, l'énergie cinétique se convertit "
+         "en pression, moins la perte."])
+
+
+def _coude(nom, titre, modele, lignes_modele, note, arrondi: bool, source=SOURCE_EAU):
+    """Coude à 90° : entrée à gauche, sortie vers le haut, puits à droite."""
+    y, demi = 190.0, 16.0
+    x_in, x_coin = 330.0, 470.0
+    y_out = 70.0
+    if arrondi:
+        R = 60.0
+        cx, cy = x_coin - R, y - R          # centre de courbure
+        arc = [(cx + R * math.sin(t), cy + R * math.cos(t))
+               for t in [i * (math.pi / 2) / 24 for i in range(25)]]
+        axe = [(x_in, y)] + arc + [(x_coin, y_out)]
+        parois = []
+        for c in (+1, -1):
+            r = R + c * demi
+            parois.append(_polyligne(
+                [(x_in, y + c * demi)]
+                + [(cx + r * math.sin(t), cy + r * math.cos(t))
+                   for t in [i * (math.pi / 2) / 24 for i in range(25)]]
+                + [(x_coin + c * demi, y_out)], TRAIT, 2.4))
+    else:
+        axe = [(x_in, y), (x_coin, y), (x_coin, y_out)]
+        parois = [_polyligne([(x_in, y - demi), (x_coin - demi, y - demi), (x_coin - demi, y_out)], TRAIT, 2.4),
+                  _polyligne([(x_in, y + demi), (x_coin + demi, y + demi), (x_coin + demi, y_out)], TRAIT, 2.4)]
+    comp = parois + [_polyligne(axe, AXE, 1.0, pointille="10 4 2 4"),
+                     _port(x_in, y, entree=True), _port(x_coin, y_out, entree=False)]
+    return _assemblage(
+        nom, titre,
+        sources=[(110, y, source, (156, y))],
+        puits=[(850, y, ["Sink.Object()"], (850, y - 46))],
+        composant=comp,
+        connexions=[([(163, y), (321, y)], (242, y + 20)),
+                    ([(x_coin, y_out - 8), (x_coin, 30), (850, 30), (850, y - 55)], (660, 22))],
+        etiquettes=[(520, 110, [modele] + lignes_modele),
+                    (x_in - 6, y - demi - 12, ["Inlet"]),
+                    (x_coin + 14, y_out + 4, ["Outlet"])],
+        note=note, H=420.0)
+
+
+def assemblage_coude_courbe(nom="assemblage_curvedbend.svg"):
+    """Source → CurvedBend → Sink, valeurs de l'exemple minimal de la page."""
+    return _coude(
+        nom, "Assemblage d'un coude courbe", "CurvedBend.Object()",
+        ["d_hyd = 0.05              # m", "R_0 = 1.5 * COUDE.d_hyd   # m, à l'axe",
+         "delta = math.radians(90)  # rad", "K = 0.045e-3              # m"],
+        ["Exécuté (exemple minimal de la page : eau 60 °C, 3 bar, 2 kg/s) : dP_Pa = 170,4 ; "
+         "P_out_Pa = 299 829,6."],
+        arrondi=True,
+        source=["Source.Object()", 'fluid = "water"', "Ti_degC = 60", "Pi_bar = 3.0", "F = 2.0"])
+
+
+def assemblage_coude_vif(nom="assemblage_edgedbend.svg"):
+    """Source → EdgedBend → Sink, paramètres par défaut du code."""
+    return _coude(
+        nom, "Assemblage d'un coude vif", "EdgedBend.Object()",
+        ["d_hyd = 0.04          # m (défaut)", "delta = math.pi / 2   # rad (défaut, 90°)"],
+        ["Exécuté (eau 15 °C, 3 bar, 1 kg/s, paramètres par défaut) : Inlet.P = 300 000 Pa, "
+         "Outlet.P = 299 687,1 Pa."],
+        arrondi=False)
+
+
+def _te(nom, titre, convergent: bool):
+    """Té à 90° : passage droit horizontal, branche vers le bas."""
+    y, demi = 150.0, 16.0
+    x_g, x_b, x_d = 330.0, 480.0, 630.0
+    y_b = 262.0
+    comp = [
+        _polyligne([(x_g, y - demi), (x_d, y - demi)], TRAIT, 2.4),
+        _polyligne([(x_g, y + demi), (x_b - demi, y + demi), (x_b - demi, y_b)], TRAIT, 2.4),
+        _polyligne([(x_d, y + demi), (x_b + demi, y + demi), (x_b + demi, y_b)], TRAIT, 2.4),
+        _ligne(x_g, y, x_d, y, AXE, 1.0, pointille="10 4 2 4"),
+        _ligne(x_b, y, x_b, y_b, AXE, 1.0, pointille="10 4 2 4"),
+    ]
+    if convergent:
+        comp += [_port(x_g, y, True), _port(x_b, y_b, True), _port(x_d, y, False)]
+        sources = [(110, y, ["Source.Object()", "F = 1.0   # kg/s"], (156, y)),
+                   (110, 330, ["Source.Object()", "F = 0.5   # kg/s"], (156, 330))]
+        puits = [(850, y, ["Sink.Object()"], (804, y))]
+        connexions = [([(163, y), (321, y)], (242, y + 20)),
+                      ([(163, 330), (x_b, 330), (x_b, y_b + 9)], (320, 350)),
+                      ([(637, y), (795, y)], (716, y + 20))]
+        etiquettes = [(520, 226, ["ConvergingTee.Object()", "d_hyd = 0.04        # m",
+                                  "d_hyd_side = None   # = d_hyd", "alpha = math.pi / 2 # rad"]),
+                      (x_g - 20, y - demi - 12, ["Inlet_St"]), (x_b - 70, y_b + 4, ["Inlet_S"]),
+                      (x_d - 44, y - demi - 12, ["Outlet"])]
+        note = ["Exécuté (eau 15 °C, 3 bar ; 1 kg/s sur Inlet_St, 0,5 kg/s sur Inlet_S) : "
+                "Outlet.F = 1,5 kg/s ;",
+                "dP_St_to_C = 289,2 Pa (passage droit), dP_S_to_C = 95,1 Pa (branche). "
+                "Les débits s'additionnent, les enthalpies se mélangent."]
+    else:
+        comp += [_port(x_g, y, True), _port(x_b, y_b, False), _port(x_d, y, False)]
+        sources = [(110, y, ["Source.Object()", "F = 1.5   # kg/s"], (156, y))]
+        puits = [(850, y, ["Sink.Object()"], (804, y)),
+                 (850, 330, ["Sink.Object()"], (804, 330))]
+        connexions = [([(163, y), (321, y)], (242, y + 20)),
+                      ([(637, y), (795, y)], (716, y + 20)),
+                      ([(x_b, y_b + 8), (x_b, 330), (795, 330)], (660, 350))]
+        etiquettes = [(520, 226, ["DivergingTee.Object()", "d_hyd = 0.04          # m",
+                                  "alpha = math.pi / 2   # rad", "Outlet_S.F = 0.5      # kg/s imposé"]),
+                      (x_g - 6, y - demi - 12, ["Inlet"]), (x_b - 84, y_b + 4, ["Outlet_S"]),
+                      (x_d - 60, y - demi - 12, ["Outlet_St"])]
+        note = ["Exécuté (eau 15 °C, 3 bar, 1,5 kg/s ; Outlet_S.F = 0,5 kg/s imposé) : "
+                "Outlet_St.F = 1,0 kg/s ;",
+                "dP_C_to_S = 736,8 Pa (branche) ; dP_C_to_St = -52,8 Pa : le passage droit "
+                "REGAGNE de la pression, sa vitesse ayant baissé."]
+    return _assemblage(nom, titre, sources, puits, comp, connexions, etiquettes, note, H=500.0)
+
+
+def assemblage_te_convergent(nom="assemblage_convergingtee.svg"):
+    """Deux Sources → ConvergingTee → Sink."""
+    return _te(nom, "Assemblage d'un té convergent", convergent=True)
+
+
+def assemblage_te_divergent(nom="assemblage_divergingtee.svg"):
+    """Source → DivergingTee → deux Sinks."""
+    return _te(nom, "Assemblage d'un té divergent", convergent=False)
+
+
 FIGURES = {
+    "assemblage_curvedbend.svg": assemblage_coude_courbe,
+    "assemblage_edgedbend.svg": assemblage_coude_vif,
+    "assemblage_suddencontraction.svg": assemblage_retrecissement,
+    "assemblage_suddenexpansion.svg": assemblage_elargissement,
+    "assemblage_convergingtee.svg": assemblage_te_convergent,
+    "assemblage_divergingtee.svg": assemblage_te_divergent,
     "param_curvedbend.svg": coude_courbe,
     "param_fluid_connect.svg": connexion_fluide,
     "param_ports_unites.svg": familles_de_ports,

@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="420" viewBox="0 0 960 420" role="img" aria-label="Assemblage d'un coude courbe">
+<title>Assemblage d'un coude courbe</title>
+<defs><marker id="fleche" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-end"><path d="M 0 0 L 10 5 L 0 10 z" fill="#1f2933"/></marker><marker id="fleche_cote" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-end"><path d="M 0 0 L 10 5 L 0 10 z" fill="#b46a00"/></marker><marker id="fleche_flux" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-end"><path d="M 0 0 L 10 5 L 0 10 z" fill="#2670a8"/></marker></defs>
+<rect width="960" height="420" fill="#ffffff"/>
+<circle cx="110.0" cy="190.0" r="46.0" fill="#87c9ea" stroke="none" stroke-width="0.0"/>
+<text x="64.0" y="256.0" fill="#1f2933" text-anchor="start" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="13" font-weight="600">Source.Object()</text>
+<text x="64.0" y="272.0" fill="#1f2933" text-anchor="start" font-family="Consolas, Courier New, monospace" font-size="12">fluid = &quot;water&quot;</text>
+<text x="64.0" y="288.0" fill="#1f2933" text-anchor="start" font-family="Consolas, Courier New, monospace" font-size="12">Ti_degC = 60</text>
+<text x="64.0" y="304.0" fill="#1f2933" text-anchor="start" font-family="Consolas, Courier New, monospace" font-size="12">Pi_bar = 3.0</text>
+<text x="64.0" y="320.0" fill="#1f2933" text-anchor="start" font-family="Consolas, Courier New, monospace" font-size="12">F = 2.0</text>
+<circle cx="156.0" cy="190.0" r="7.0" fill="#ffffff" stroke="#e8793a" stroke-width="4"/>
+<circle cx="850.0" cy="190.0" r="46.0" fill="#e8793a" stroke="none" stroke-width="0.0"/>
+<text x="804.0" y="256.0" fill="#1f2933" text-anchor="start" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="13" font-weight="600">Sink.Object()</text>
+<circle cx="850.0" cy="144.0" r="7.0" fill="#ffffff" stroke="#1d5f86" stroke-width="4"/>
+<polyline points="330.00,206.00 410.00,206.00 414.97,205.84 419.92,205.35 424.83,204.54 429.67,203.41 434.43,201.97 439.08,200.21 443.61,198.16 448.00,195.82 452.22,193.19 456.27,190.29 460.11,187.14 463.74,183.74 467.14,180.11 470.29,176.27 473.19,172.22 475.82,168.00 478.16,163.61 480.21,159.08 481.97,154.43 483.41,149.67 484.54,144.83 485.35,139.92 485.84,134.97 486.00,130.00 486.00,70.00" fill="none" stroke="#1f2933" stroke-width="2.4" stroke-linejoin="round"/>
+<polyline points="330.00,174.00 410.00,174.00 412.88,173.91 415.74,173.62 418.58,173.15 421.39,172.50 424.14,171.66 426.84,170.65 429.46,169.46 432.00,168.11 434.45,166.58 436.79,164.91 439.01,163.08 441.11,161.11 443.08,159.01 444.91,156.79 446.58,154.45 448.11,152.00 449.46,149.46 450.65,146.84 451.66,144.14 452.50,141.39 453.15,138.58 453.62,135.74 453.91,132.88 454.00,130.00 454.00,70.00" fill="none" stroke="#1f2933" stroke-width="2.4" stroke-linejoin="round"/>
+<polyline points="330.00,190.00 410.00,190.00 413.92,189.87 417.83,189.49 421.71,188.85 425.53,187.96 429.29,186.82 432.96,185.43 436.54,183.81 440.00,181.96 443.33,179.89 446.53,177.60 449.56,175.11 452.43,172.43 455.11,169.56 457.60,166.53 459.89,163.33 461.96,160.00 463.81,156.54 465.43,152.96 466.82,149.29 467.96,145.53 468.85,141.71 469.49,137.83 469.87,133.92 470.00,130.00 470.00,70.00" fill="none" stroke="#7b8794" stroke-width="1.0" stroke-dasharray="10 4 2 4" stroke-linejoin="round"/>
+<circle cx="330.0" cy="190.0" r="7.0" fill="#ffffff" stroke="#1d5f86" stroke-width="4"/>
+<circle cx="470.0" cy="70.0" r="7.0" fill="#ffffff" stroke="#e8793a" stroke-width="4"/>
+<polyline points="163.00,190.00 321.00,190.00" fill="none" stroke="#2670a8" stroke-width="2.0" stroke-linejoin="round" marker-end="url(#fleche_flux)"/>
+<text x="242.0" y="210.0" fill="#2670a8" text-anchor="middle" font-family="Consolas, Courier New, monospace" font-size="12">Fluid_connect</text>
+<polyline points="470.00,62.00 470.00,30.00 850.00,30.00 850.00,135.00" fill="none" stroke="#2670a8" stroke-width="2.0" stroke-linejoin="round" marker-end="url(#fleche_flux)"/>
+<text x="660.0" y="22.0" fill="#2670a8" text-anchor="middle" font-family="Consolas, Courier New, monospace" font-size="12">Fluid_connect</text>
+<text x="540.0" y="110.0" fill="#1f2933" text-anchor="start" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="13" font-weight="600">CurvedBend.Object()</text>
+<text x="540.0" y="127.0" fill="#1f2933" text-anchor="start" font-family="Consolas, Courier New, monospace" font-size="12">d_hyd = 0.05              # m</text>
+<text x="540.0" y="144.0" fill="#1f2933" text-anchor="start" font-family="Consolas, Courier New, monospace" font-size="12">R_0 = 1.5 * COUDE.d_hyd   # m, à l'axe</text>
+<text x="540.0" y="161.0" fill="#1f2933" text-anchor="start" font-family="Consolas, Courier New, monospace" font-size="12">delta = math.radians(90)  # rad</text>
+<text x="540.0" y="178.0" fill="#1f2933" text-anchor="start" font-family="Consolas, Courier New, monospace" font-size="12">K = 0.045e-3              # m</text>
+<text x="324.0" y="162.0" fill="#1f2933" text-anchor="start" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="13" font-weight="600">Inlet</text>
+<text x="484.0" y="74.0" fill="#1f2933" text-anchor="start" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="13" font-weight="600">Outlet</text>
+<rect x="24.0" y="380.0" width="912.0" height="28.0" rx="4" fill="#f4f6f8" stroke="#c9d1d9" stroke-width="1.0"/>
+<text x="34.0" y="400.0" fill="#1f2933" text-anchor="start" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12">Exécuté (exemple minimal de la page : eau 60 °C, 3 bar, 2 kg/s) : dP_Pa = 170,4 ; P_out_Pa = 299 829,6.</text>
+</svg>

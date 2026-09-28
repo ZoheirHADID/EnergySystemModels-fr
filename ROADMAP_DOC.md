@@ -351,6 +351,17 @@ re-vérifier par exécution avant rédaction.
   **17 scènes réelles** de `json/3 - Hydraulique`, avec les modèles relevés dans
   chaque fichier. La page « Propagation de pression et loi des nœuds » est
   **conservée intégralement** (consigne de l'utilisateur) et placée en tête.
+- `fait` **I3 — schémas d'assemblage dans `coudes_tes_singularites.rst`** (demande
+  de l'utilisateur, 2026-09-28, « comme la vanne TA et le tube droit ») : six
+  schémas Source → modèle → Sink (`assemblage_*.svg`, générés par
+  `docs/generate_param_diagrams.py`) pour `CurvedBend`, `EdgedBend`,
+  `SuddenContraction`, `SuddenExpansion`, `ConvergingTee`, `DivergingTee`. Chaque
+  assemblage dessiné a été **exécuté** ; son résultat mesuré est en cartouche.
+  Page toujours au cran 5.
+- `à faire` **I4 — courbes de réseau** des six singularités de la page, comme
+  `004_TA_valve-courbe-reseau.png` : chaque modèle a une méthode `Plot()`
+  (`network_plot.plot_pressure_network`), donc une figure « modèle » légitime, à
+  produire par `docs/generate_model_plots.py`.
 - `à faire` **I2 — pages des modèles marqués *à documenter*** dans l'index (21
   entrées) : un modèle par tour, selon le squelette de page ; l'index se met à
   jour à chaque page créée.

@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="420" viewBox="0 0 960 420" role="img" aria-label="Assemblage d'un coude vif">
+<title>Assemblage d'un coude vif</title>
+<defs><marker id="fleche" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-end"><path d="M 0 0 L 10 5 L 0 10 z" fill="#1f2933"/></marker><marker id="fleche_cote" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-end"><path d="M 0 0 L 10 5 L 0 10 z" fill="#b46a00"/></marker><marker id="fleche_flux" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-end"><path d="M 0 0 L 10 5 L 0 10 z" fill="#2670a8"/></marker></defs>
+<rect width="960" height="420" fill="#ffffff"/>
+<circle cx="110.0" cy="190.0" r="46.0" fill="#87c9ea" stroke="none" stroke-width="0.0"/>
+<text x="64.0" y="256.0" fill="#1f2933" text-anchor="start" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="13" font-weight="600">Source.Object()</text>
+<text x="64.0" y="272.0" fill="#1f2933" text-anchor="start" font-family="Consolas, Courier New, monospace" font-size="12">fluid = &quot;water&quot;</text>
+<text x="64.0" y="288.0" fill="#1f2933" text-anchor="start" font-family="Consolas, Courier New, monospace" font-size="12">Ti_degC = 15</text>
+<text x="64.0" y="304.0" fill="#1f2933" text-anchor="start" font-family="Consolas, Courier New, monospace" font-size="12">Pi_bar = 3.0</text>
+<text x="64.0" y="320.0" fill="#1f2933" text-anchor="start" font-family="Consolas, Courier New, monospace" font-size="12">F = 1.0</text>
+<circle cx="156.0" cy="190.0" r="7.0" fill="#ffffff" stroke="#e8793a" stroke-width="4"/>
+<circle cx="850.0" cy="190.0" r="46.0" fill="#e8793a" stroke="none" stroke-width="0.0"/>
+<text x="804.0" y="256.0" fill="#1f2933" text-anchor="start" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="13" font-weight="600">Sink.Object()</text>
+<circle cx="850.0" cy="144.0" r="7.0" fill="#ffffff" stroke="#1d5f86" stroke-width="4"/>
+<polyline points="330.00,174.00 454.00,174.00 454.00,70.00" fill="none" stroke="#1f2933" stroke-width="2.4" stroke-linejoin="round"/>
+<polyline points="330.00,206.00 486.00,206.00 486.00,70.00" fill="none" stroke="#1f2933" stroke-width="2.4" stroke-linejoin="round"/>
+<polyline points="330.00,190.00 470.00,190.00 470.00,70.00" fill="none" stroke="#7b8794" stroke-width="1.0" stroke-dasharray="10 4 2 4" stroke-linejoin="round"/>
+<circle cx="330.0" cy="190.0" r="7.0" fill="#ffffff" stroke="#1d5f86" stroke-width="4"/>
+<circle cx="470.0" cy="70.0" r="7.0" fill="#ffffff" stroke="#e8793a" stroke-width="4"/>
+<polyline points="163.00,190.00 321.00,190.00" fill="none" stroke="#2670a8" stroke-width="2.0" stroke-linejoin="round" marker-end="url(#fleche_flux)"/>
+<text x="242.0" y="210.0" fill="#2670a8" text-anchor="middle" font-family="Consolas, Courier New, monospace" font-size="12">Fluid_connect</text>
+<polyline points="470.00,62.00 470.00,30.00 850.00,30.00 850.00,135.00" fill="none" stroke="#2670a8" stroke-width="2.0" stroke-linejoin="round" marker-end="url(#fleche_flux)"/>
+<text x="660.0" y="22.0" fill="#2670a8" text-anchor="middle" font-family="Consolas, Courier New, monospace" font-size="12">Fluid_connect</text>
+<text x="540.0" y="110.0" fill="#1f2933" text-anchor="start" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="13" font-weight="600">EdgedBend.Object()</text>
+<text x="540.0" y="127.0" fill="#1f2933" text-anchor="start" font-family="Consolas, Courier New, monospace" font-size="12">d_hyd = 0.04          # m (défaut)</text>
+<text x="540.0" y="144.0" fill="#1f2933" text-anchor="start" font-family="Consolas, Courier New, monospace" font-size="12">delta = math.pi / 2   # rad (défaut, 90°)</text>
+<text x="324.0" y="162.0" fill="#1f2933" text-anchor="start" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="13" font-weight="600">Inlet</text>
+<text x="484.0" y="74.0" fill="#1f2933" text-anchor="start" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="13" font-weight="600">Outlet</text>
+<rect x="24.0" y="380.0" width="912.0" height="28.0" rx="4" fill="#f4f6f8" stroke="#c9d1d9" stroke-width="1.0"/>
+<text x="34.0" y="400.0" fill="#1f2933" text-anchor="start" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12">Exécuté (eau 15 °C, 3 bar, 1 kg/s, paramètres par défaut) : Inlet.P = 300 000 Pa, Outlet.P = 299 687,1 Pa.</text>
+</svg>

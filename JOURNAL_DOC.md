@@ -427,3 +427,25 @@
 - Bug bibliothèque : **nouvelle entrée** — `examples_usage.py` et
   `examples_vannes.py` plantent à l'exécution.
 - Suivant : schémas dans `coudes_tes_singularites.rst` (demande de l'utilisateur).
+
+## 2026-09-28 — schémas d'assemblage dans `coudes_tes_singularites.rst` (retour utilisateur)
+- Unité : retour utilisateur — « ajouter des schémas comme la vanne TA et le
+  StraightPipe ».
+- Fait : nouvelle famille de figures `assemblage_*.svg` dans
+  `docs/generate_param_diagrams.py`, au style des figures TA / tube droit (Source
+  bleue, Sink orange, ports d'entrée bleus et de sortie orange, `Fluid_connect`,
+  paramètres sous leur nom de code). Six modèles. Les six assemblages ont d'abord
+  été **exécutés** (eau 15 °C, 3 bar) : coude vif 300 000 → 299 687,1 Pa ;
+  rétrécissement → 299 552,2 Pa ; élargissement → 300 085,2 Pa (la pression
+  remonte) ; té convergent 1 + 0,5 → 1,5 kg/s, dP 289,2 / 95,1 Pa ; té divergent
+  `Outlet_S.F = 0,5` imposé → `Outlet_St.F = 1,0`, dP −52,8 / 736,8 Pa. Ports réels
+  relevés dans le code (`Inlet_St`/`Inlet_S`, `Outlet_St`/`Outlet_S`), débit de
+  branche imposé relevé en `DivergingTee.py:202`. Rendu contrôlé par Qt hors écran :
+  un premier jet croisait les parois du coude courbe (rayons inversés) et faisait
+  chevaucher étiquettes de port et paramètres des tés — corrigé.
+- Banc : `coudes_tes_singularites.rst` cran 5 → 5 (7 figures, toutes présentes).
+- Build : 0 warning.
+- Bug bibliothèque : aucun (noté : `SuddenContraction`/`SuddenExpansion` n'ont pas
+  d'attribut `delta_P`, mais `delta_P_friction` et `delta_P_static` — à dire dans
+  leur future page).
+- Suivant : I4 — courbes de réseau par `Plot()` ; puis A1 (usage/section-4, -5).
