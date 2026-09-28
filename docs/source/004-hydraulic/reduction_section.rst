@@ -75,9 +75,9 @@ Lignes du ``df`` de sortie : ``fluid``, ``F_kgs``, ``d_small_mm``, ``d_large_mm`
    **D'où viennent les courbes de réseau.** Elles sont tracées par la bibliothèque,
    par le chemin qu'emprunte le nœud de l'IHM : ``compute_network_curve(modele,
    **modele.network_plot_kwargs())`` puis ``render_network_figure``, importés de
-   ``ThermodynamicCycles.Hydraulic.network_plot``. La méthode ``modele.Plot()``
-   lève aujourd'hui un ``TypeError`` pour ce modèle (arguments ``info``,
-   ``curve_label`` ou ``regime`` refusés) : utilisez ces deux fonctions à la place.
+   ``ThermodynamicCycles.Hydraulic.network_plot``. ``modele.Plot()`` trace la même figure dans une fenêtre
+   autonome (``Plot()`` levait ``TypeError`` jusqu'à la version de la
+   bibliothèque du 28/09/2026 ; corrigé).
 
 ``GradualContraction`` — confuseur conique (retrecissement progressif).
 

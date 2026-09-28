@@ -59,7 +59,7 @@ Familles de la palette :
    * - Séparation
      - 8
    * - Échange thermique
-     - 14
+     - 13
    * - Réacteurs
      - 5
    * - Production d'utilité
@@ -75,7 +75,7 @@ Familles de la palette :
    * - Utilitaires et outils
      - 4
    * - Autres modèles
-     - 5
+     - 6
 
 Courants et mesures
 -------------------
@@ -487,10 +487,10 @@ Libellé de la palette : « Aeraulique (reseau air) » — 8 nœud(s).
        ``fan_system_effect.py``
      - Nœud Effet de système ventilateur (ASHRAE 2001 SI, ch.34, familles 7).
 
-       *Réglages* : Section au ventilateur Ao (m²), Vitesse au ventilateur Vo (m/s), Masse volumique (kg/m³), Longueur réelle du raccordement L (m), l/Do (-, 0 = sans objet), r/Do (-, 0 = sans objet), ab/Ao (-, 0 = sans objet), Rapport de sections (-, 0 = sans objet), … (10 au total)
+       *Réglages* : Section au ventilateur Ao (m²), Vitesse au ventilateur Vo (m/s), Masse volumique (kg/m³), Longueur réelle du raccordement L (m), l/Do (-, 0 = sans objet), r/Do (-, 0 = sans objet), ab/Ao (-, 0 = sans objet), Rapport de sections A1/Ao (SR7-2) (-, 0 = sans objet), … (11 au total)
      - aucun port matière ; prise de signal
-     - ``ThermodynamicCycles.Aeraulic.FanSystemEffect``, ``ThermodynamicCycles.Aeraulic.ashrae_fittings``
-     - :doc:`../005-aeraulic/effet_systeme`, :doc:`../005-aeraulic/registre_lames`
+     - ``ThermodynamicCycles.Aeraulic.FanSystemEffect``
+     - :doc:`../005-aeraulic/effet_systeme`
 
 Hydraulique
 -----------
@@ -811,7 +811,7 @@ Libellé de la palette : « Operations de separation » — 8 nœud(s).
 Échange thermique
 -----------------
 
-Libellé de la palette : « Echange thermique » — 14 nœud(s).
+Libellé de la palette : « Echange thermique » — 13 nœud(s).
 
 .. list-table::
    :header-rows: 1
@@ -937,15 +937,6 @@ Libellé de la palette : « Echange thermique » — 14 nœud(s).
      - 2 entrée(s) / 2 sortie(s), fluide ; prise de signal
      - ``ThermodynamicCycles.AbsorptionChiller.WorkingPairs``, ``ThermodynamicCycles.SolutionHEX.SolutionHEX``
      - :doc:`../002-thermodynamic_cycles/froid_absorption`, :doc:`../002-thermodynamic_cycles/echangeurs`
-   * - |ic_942| **Séchage par atomisation**
-
-       ``spray_dryer.py``
-     - Nœud Séchage par atomisation — tour de séchage air chaud / produit pulvérisé.
-
-       *Réglages* : Produit liquide entrant (kg/s), Matière sèche entrée (-), Matière sèche poudre (-), T° produit entrée (°C), Air sec (kg/s), Humidité absolue entrée (kg/kg), T° air entrée (°C), Pression (bar), … (9 au total)
-     - aucun port matière ; prise de signal
-     - ``ThermodynamicCycles.SprayDryer.SprayDryer``
-     - :doc:`../002-thermodynamic_cycles/dessalement_evaporation`
 
 Réacteurs
 ---------
@@ -1348,7 +1339,7 @@ Libellé de la palette : « Utilitaires et outils » — 4 nœud(s).
 Autres modèles
 --------------
 
-Libellé de la palette : « Autres modeles » — 5 nœud(s).
+Libellé de la palette : « Autres modeles » — 6 nœud(s).
 
 .. list-table::
    :header-rows: 1
@@ -1404,6 +1395,15 @@ Libellé de la palette : « Autres modeles » — 5 nœud(s).
      - aucun port matière ; prise de signal
      - ``ThermodynamicCycles.Gasifier.Gasifier``
      - :doc:`../002-thermodynamic_cycles/hydrogene_piles`
+   * - |ic_942| **Séchage par atomisation**
+
+       ``spray_dryer.py``
+     - Nœud Séchage par atomisation — tour de séchage air chaud / produit pulvérisé.
+
+       *Réglages* : Produit liquide entrant (kg/s), Matière sèche entrée (-), Matière sèche poudre (-), T° produit entrée (°C), Air sec (kg/s), Humidité absolue entrée (kg/kg), T° air entrée (°C), Pression (bar), … (9 au total)
+     - aucun port matière ; prise de signal
+     - ``ThermodynamicCycles.SprayDryer.SprayDryer``
+     - :doc:`../002-thermodynamic_cycles/dessalement_evaporation`
 
 Voir aussi
 ----------
@@ -1585,8 +1585,6 @@ Voir aussi
    :width: 28px
 .. |ic_900| image:: ../images/icones_ihm/solution_hex.svg
    :width: 28px
-.. |ic_942| image:: ../images/icones_ihm/spray_dryer.svg
-   :width: 28px
 .. |ic_610| image:: ../images/icones_ihm/combustor.svg
    :width: 28px
 .. |ic_740| image:: ../images/icones_ihm/electrolyzer.svg
@@ -1662,4 +1660,6 @@ Voir aussi
 .. |ic_934| image:: ../images/icones_ihm/check_valve.svg
    :width: 28px
 .. |ic_940| image:: ../images/icones_ihm/gasifier.svg
+   :width: 28px
+.. |ic_942| image:: ../images/icones_ihm/spray_dryer.svg
    :width: 28px

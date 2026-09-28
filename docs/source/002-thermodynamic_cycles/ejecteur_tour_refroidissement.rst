@@ -258,6 +258,9 @@ Le chaînage se fait **à la main** : ces trois modèles ne se relient pas par
     print(f"Diffuseur : P sortie = {diffuseur.P_out / 1e5:.3f} bar")
     print(f"Entraînement = {chambre.Inlet_secondary.F / tuyere.m_flow:.3f} ; "
           f"compression = {diffuseur.P_out / P_evap:.3f}")
+    print(f"T sorties : tuyère {tuyere.Outlet.T - 273.15:.2f} °C, "
+          f"chambre {chambre.Outlet.T - 273.15:.2f} °C, "
+          f"diffuseur {diffuseur.Outlet.T - 273.15:.2f} °C")
 
 Sortie réelle :
 
@@ -267,6 +270,7 @@ Sortie réelle :
    Chambre   : v2 = 41.1 m/s, débit total = 0.0616 kg/s
    Diffuseur : P sortie = 3.176 bar
    Entraînement = 0.480 ; compression = 1.059
+   T sorties : tuyère 0.67 °C, chambre 0.67 °C, diffuseur 2.26 °C
 
 Le liquide saturé à 10 bar se vaporise à 26 % dans la tuyère et en sort à
 76 m/s. En entraînant 0,02 kg/s de vapeur, le jet ralentit à 41 m/s ; le
@@ -345,25 +349,30 @@ Pièges (éjecteur)
 ~~~~~~~~~~~~~~~~~
 
 - **La pression de sortie de la tuyère se fournit** : ``Nozzle`` lit
-  ``Outlet.P`` et ne le calcule pas ; laissé à ``None``, le calcul lève un ``TypeError``
-  brut de CoolProp (``PropsSI(): incompatible function arguments``), qui ne
-  nomme pas l'entrée manquante. Dans ``Ejector``, c'est ``Inlet_secondary.P`` qui la fixe.
-- **La vitesse ne voyage pas par le port** : ``Mixing_Chamber.v_1`` vaut 100 m/s
-  par défaut. Oublier ``chambre.v_1 = tuyere.v_1`` ne lève rien et donne un
-  mélange calculé avec une vitesse arbitraire. Même chose pour
-  ``Diffuser.v_3``.
-- **Les ports de sortie ne portent que P, h et F** : ``Outlet.T`` reste
-  ``None`` sur les trois étages (aucun appel de ``calculate_properties``).
-  La température se recalcule avec ``PropsSI("T", "P", …, "H", …)``.
+  ``Outlet.P`` et ne le calcule pas ; laissé à ``None``, le calcul lève une
+  ``ValueError`` qui nomme l'entrée manquante (« Outlet.P (pression aval) »)
+  — c'était un ``TypeError`` brut de CoolProp jusqu'au 28/09/2026. Une pression
+  aval supérieure ou égale à l'amont est refusée de même. Dans ``Ejector``,
+  c'est ``Inlet_secondary.P`` qui la fixe.
+- **La vitesse ne voyage pas par le port** : il faut recopier
+  ``chambre.v_1 = tuyere.v_1`` puis ``diffuseur.v_3 = chambre.v_3``. Depuis le
+  28/09/2026, ``Mixing_Chamber.v_1`` et ``Diffuser.v_3`` n'ont plus de valeur par
+  défaut (100 m/s étaient utilisés en silence) : un oubli lève ``ValueError``.
+  ``Ejector`` fait la recopie lui-même.
+- **Températures des sorties** : les trois étages (et ``Ejector``) calculent
+  désormais ``Outlet.T`` (``calculate_properties``) ; elle restait ``None``
+  jusqu'au 28/09/2026. Dans le dôme, c'est la température de saturation.
 - **Pas d'onde de choc** : le modèle prend ``v_3 = v_2`` (sa docstring le dit),
   les pertes du mélange sont toutes portées par ``epsilon_m``. Les taux de
   compression obtenus sont donc ceux d'un éjecteur **subsonique** idéalisé,
   modestes (quelques pour cent ici) ; ils ne se comparent pas à un catalogue
   d'éjecteurs supersoniques.
-- **Repli silencieux du diffuseur** : si la recherche de ``P_out`` par
-  ``brentq`` échoue, une exception quelconque est avalée et ``P_out`` est
-  estimée par une formule incompressible
-  (:math:`P_a + \rho\,\varepsilon_d\,v_3^2/2`), sans avertissement.
+- **Plus de repli silencieux dans le diffuseur** : jusqu'au 28/09/2026, un échec
+  de la recherche de ``P_out`` par ``brentq`` était avalé et ``P_out`` estimée
+  par une formule incompressible
+  (:math:`P_a + \rho\,\varepsilon_d\,v_3^2/2`), sans avertissement. Un échec
+  lève maintenant ``RuntimeError`` (« pression de sortie introuvable »), avec la
+  cause d'origine.
 
 
 Tour de refroidissement (CoolingTower)

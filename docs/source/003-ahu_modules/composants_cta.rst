@@ -539,10 +539,11 @@ Sortie réelle :
 
    11.87 58.11 0.008216740601793176 0.0
 
-**Au-delà de la saturation, aucun garde-fou.** En humidification adiabatique,
+**Au-delà de la saturation, une exception.** En humidification adiabatique,
 l'air suit une enthalpie constante et se refroidit en s'humidifiant ; il finit
-par saturer. Le modèle ne le vérifie pas : il résout ses équations et publie une
-humidité relative supérieure à 100 %, physiquement impossible.
+par saturer. Une consigne ``wo_target`` qui mènerait au-delà de 100 % d'humidité
+relative lève une ``ValueError`` qui chiffre l'état impossible (jusqu'au
+28/09/2026, le modèle publiait sans alerte une HR de 113 % ou 153 %).
 
 .. code-block:: python
 
@@ -554,8 +555,11 @@ humidité relative supérieure à 100 %, physiquement impossible.
        amont = FreshAir(); amont.T = 18; amont.RH = 20; amont.F_m3h = 10000; amont.calculate()
        hmd = Humidifier(); hmd.HumidType = "adiabatique"; hmd.wo_target = wo
        hmd.Inlet = amont.Outlet
-       hmd.calculate()
-       print(f"wo_target = {wo} g/kg -> T = {hmd.Outlet.T:5.2f} °C, RH = {hmd.Outlet.RH:6.2f} %")
+       try:
+           hmd.calculate()
+           print(f"wo_target = {wo} g/kg -> T = {hmd.Outlet.T:5.2f} °C, RH = {hmd.Outlet.RH:6.2f} %")
+       except ValueError as err:
+           print(f"wo_target = {wo} g/kg -> ValueError : {err}")
 
 Sortie réelle :
 
@@ -563,12 +567,15 @@ Sortie réelle :
 
    wo_target = 5 g/kg -> T = 11.87 °C, RH =  58.11 %
    wo_target = 6 g/kg -> T =  9.39 °C, RH =  82.13 %
-   wo_target = 7 g/kg -> T =  6.92 °C, RH = 113.17 %
-   wo_target = 8 g/kg -> T =  4.46 °C, RH = 153.15 %
+   wo_target = 7 g/kg -> ValueError : Humidifier (adiabatique) : wo_target = 7 g/kg n'est pas atteignable depuis l'air d'entrée (w = 2.545 g/kg, h = 24.56 kJ/kg) : la sortie serait à HR = 113.2 % (T = 6.92 °C), au-delà de la saturation. Réduisez wo_target ou réchauffez l'air en amont.
+   wo_target = 8 g/kg -> ValueError : Humidifier (adiabatique) : wo_target = 8 g/kg n'est pas atteignable depuis l'air d'entrée (w = 2.545 g/kg, h = 24.56 kJ/kg) : la sortie serait à HR = 153.2 % (T = 4.46 °C), au-delà de la saturation. Réduisez wo_target ou réchauffez l'air en amont.
 
 Depuis 18 °C / 20 % HR (2,545 g/kg), la saturation est franchie entre 6 et
-7 g/kg : au-delà, les résultats n'ont pas de sens physique. Vérifiez toujours
-que ``Outlet.RH`` reste sous 100 %.
+7 g/kg. Pour aller plus loin, réchauffez l'air en amont (batterie chaude) ou
+passez en humidification ``"vapeur"``, qui apporte aussi de l'enthalpie. Dans
+une CTA complète (:doc:`generic_ahu`), une ligne dont la consigne est
+inatteignable apparaît avec des ``NaN`` et son message dans la colonne
+``Erreur``.
 
 .. _composants_cta_airsensor:
 
@@ -826,26 +833,20 @@ remplacés** par ceux de cette page :
        préfixés par ``self.``, ports non rafraîchis (pas d'``update_properties``).
    * - ``AHU.FreshAir.Old.AirMix``
      - ``AHU.FreshAir.AirMix`` (:ref:`composants_cta_airmix`)
-     - **Mélange faux** : le débit d'air sec y est ``F/(1 + w)`` avec ``w`` en
-       g/kg, au lieu de ``F/(1 + w/1000)``. Pas de ``df`` ; attributs ``T``,
-       ``RH``, ``F`` sans effet sur le mélange.
+     - Débit d'air sec en ``F/(1 + w)`` avec ``w`` en g/kg jusqu'au
+       28/09/2026 (mélange faux), ``F/(1 + w/1000)`` depuis. Pas de ``df`` ;
+       attributs ``T``, ``RH``, ``F`` sans effet sur le mélange.
    * - ``AHU.Humidification.Old.Humidifier``
      - ``AHU.Humidification.Humidifier`` (section *Humidificateur*
        ci-dessus)
      - Même calcul ; pas de ``df``, ``Outlet.F_dry`` non renseigné.
 
-Les deux lignes fautives de l'ancien mélangeur (extrait de
-``AHU/FreshAir/Old/AirMix.py``) :
-
-.. code-block:: python
-
-   self.F_dry1=self.Inlet1.F/(1+self.Inlet1.w)
-   self.F_dry2=self.Inlet2.F/(1+self.Inlet2.w)
-
-Avec ``w`` en g/kg, le dénominateur vaut 3 pour un air neuf d'hiver et 7 pour
-l'air repris : les deux flux sont pondérés à tort, et la température du
-mélange sort fausse de plusieurs degrés (mesuré sur l'exemple ``AirMix``
-ci-dessus : 6,5 °C au lieu de 12,0 °C).
+L'ancien mélangeur (``AHU/FreshAir/Old/AirMix.py``) calculait le débit d'air
+sec en divisant par ``1 + w`` avec ``w`` en g/kg : le dénominateur valait 3
+pour un air neuf d'hiver et 7 pour l'air repris, et la température du mélange
+sortait fausse de plusieurs degrés (6,5 °C au lieu de 12,0 °C sur l'exemple
+``AirMix`` ci-dessus). La division par 1000 a été rétablie le 28/09/2026 dans
+les sources : les deux mélangeurs rendent désormais 12,03 °C.
 
 .. warning::
    **Ces modules ne sont pas livrés par PyPI.** Les dossiers ``Old`` n'ont pas

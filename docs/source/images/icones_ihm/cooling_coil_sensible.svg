@@ -1,14 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100" role="img" aria-label="Refroidissement">
-  <title>Refroidissement</title>
-  <desc>Batterie froide : même symbole que la batterie chaude (rectangle + diagonale) avec un signe « − » (moins) au lieu du « + ».</desc>
-  <g fill="none" stroke="#000000" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-    <!-- Corps de la batterie (rectangle), identique à la batterie chaude -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100" role="img" aria-label="Batterie froide sensible">
+  <title>Batterie froide sensible</title>
+  <desc>Batterie froide (signe −) repérée « S » : refroidissement sec, sans condensation.</desc>
+  <metadata>{"standard": "pictogramme ESM", "ref": "", "name": "Batterie froide sensible", "ports": []}</metadata>
+  <g fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
     <rect x="30.6" y="20.1" width="40.5" height="60.7"/>
-    <!-- Diagonale (serpentin) bas-gauche -> haut-droite -->
     <line x1="30.6" y1="80.8" x2="71.1" y2="20.1"/>
-    <!-- Signe « − » (froid), à l'emplacement du « + » de la batterie chaude -->
     <line x1="59.5" y1="71.0" x2="68.5" y2="71.0"/>
+    <text x="41" y="45" font-family="Segoe UI, Arial, sans-serif" font-weight="bold" font-size="17" fill="#000000" stroke="none" text-anchor="middle">S</text>
   </g>
 </svg>
-

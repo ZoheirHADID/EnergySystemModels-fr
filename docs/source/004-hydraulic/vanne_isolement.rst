@@ -65,8 +65,9 @@ Sortie réelle :
    F_kgs               2.0
 
 Lecture : à 1 m/s dans un DN50, la vanne coûte 272,6 Pa. Le modèle applique la
-méthode **2K de Hooper** : :math:`\zeta = K_1/Re + K_\infty \,(1 + 1/D_{in})`,
-avec ``D_in_pouces`` le diamètre nominal **en pouces**.
+forme **2K de Hooper** : :math:`\zeta = K_1/Re + K_\infty \,(1 + 1/D_{in})`,
+avec ``D_in_pouces`` le diamètre nominal **en pouces** — mais ses coefficients
+par défaut n'ont **pas de source retrouvée** (voir « Limites connues »).
 
 Ce qu'on personnalise
 ---------------------
@@ -87,7 +88,7 @@ Ce qu'on personnalise
      - origine des coefficients : ``'legacy'`` (défaut, Hooper 2K du code) ou
        ``'crane'`` (K = n·f_T, table Crane)
      - ``'legacy'``, ``'crane'``
-     - Crane TP-410, éd. 2009, p. A-28/A-29
+     - Crane TP-410, éd. 2009, p. A-28 (K = 8 f_T)
    * - ``D_in_pouces``
      - diamètre nominal en **pouces** ; entre dans le terme :math:`1 + 1/D_{in}`
      - 0,5 à 24
@@ -140,8 +141,9 @@ Ce que ça dit :
   contre 272,6 Pa) ;
 * **les deux sources ne sont pas d'accord** : pour la même vanne, les
   coefficients par défaut du code donnent ζ = 0,525, la table Crane ζ = 0,152 —
-  **3,45 fois moins**. Le code désigne ``'crane'`` comme la source primaire ;
-  préférez-la quand vous chiffrez une perte réelle ;
+  **3,45 fois moins**. Seule la valeur Crane est sourcée (p. A-28 : K = 8 f_T,
+  f_T = 0,019 en 2") ; préférez ``source = 'crane'`` quand vous chiffrez une
+  perte réelle ;
 * à mi-ouverture, la perte est multipliée par 5,4.
 
 Éprouver le modèle
@@ -170,25 +172,40 @@ Ce que ça dit :
    except ValueError as e:
        print("refusé :", e)
 
-   # 2) En mode 'legacy', un type de passage inconnu n'est PAS refusé : il retombe sur 'standard'
-   V = vanne(bore_type="inconnu"); V.calculate()
-   print("bore_type='inconnu' -> zeta =", round(V.zeta, 4), "(identique au passage standard)")
+   # 2) Un type de passage inconnu est refusé (il retombait sur 'standard' avant le 28/09/2026)
+   V = vanne(bore_type="inconnu")
+   try:
+       V.calculate()
+   except ValueError as e:
+       print("refusé :", e)
 
    # 3) « Fermée » n'est pas étanche : à ouverture 0, les coefficients sont multipliés par 100
    V = vanne(ouverture=0.0); V.calculate()
    print("ouverture 0 -> zeta =", round(V.zeta, 2), "; dP =", round(V.delta_P), "Pa")
+
+   # 4) Crane ne publie que la vanne grande ouverte : une ouverture partielle est refusée
+   V = vanne(source="crane", ouverture=0.5)
+   try:
+       V.calculate()
+   except ValueError as e:
+       print("refusé :", str(e).split(" ; ")[0])
 
 Sortie réelle :
 
 .. code-block:: text
 
    refusé : source 'autre' inconnue ; attendu 'legacy' ou 'crane'
-   bore_type='inconnu' -> zeta = 0.525 (identique au passage standard)
+   refusé : GateValve : bore_type 'inconnu' inconnu ; attendu l'un de ['full-bore', 'standard']
    ouverture 0 -> zeta = 52.5 ; dP = 27258 Pa
+   refusé : GateValve source='crane' : Crane TP-410 p. A-28 ne publie K que pour la vanne grande ouverte (beta = 1, theta = 0)
 
-* seule une ``source`` inconnue est refusée, par ``ValueError`` ;
-* un ``bore_type`` inconnu **n'est pas refusé** en mode ``'legacy'`` : il retombe
-  en silence sur ``'standard'``. Vérifiez l'orthographe (``'full-bore'``) ;
+* une ``source`` inconnue est refusée, par ``ValueError`` ;
+* un ``bore_type`` inconnu est refusé de même, en nommant les deux valeurs
+  admises. Jusqu'à la version de la bibliothèque du 28/09/2026, il retombait en
+  silence sur ``'standard'`` ;
+* avec ``source = 'crane'``, une ouverture partielle est refusée : Crane ne publie
+  que la vanne grande ouverte, et le code n'applique plus en silence la valeur
+  grande ouverte ;
 * ``ouverture = 0`` ne ferme pas la vanne : les coefficients sont multipliés par
   100 et le débit continue de passer. Pour isoler un tronçon dans un calcul,
   retirez-le du réseau.
@@ -201,7 +218,11 @@ Limites connues
   « typique pour vannes papillon ». Une vanne à opercule ne se règle pas ainsi :
   ne tirez pas de conclusion d'une ouverture partielle.
 * **Écart de facteur 3,45** entre les coefficients par défaut et Crane TP-410,
-  mesuré ci-dessus.
+  mesuré ci-dessus. Les coefficients par défaut (K1 = 0,7, K∞ = 0,35 ; 0,5 et
+  0,2 en passage intégral) étaient attribués à « Hooper 1988, CRANE TP410 » :
+  aucune des deux sources ne les contient, et le code le dit désormais. Le
+  défaut reste ``'legacy'`` pour ne pas déplacer les résultats existants ; le
+  basculer vers ``'crane'`` est une décision laissée aux mainteneurs.
 
 Toutes les entrées
 ------------------
@@ -243,5 +264,5 @@ Pour aller plus loin
 * :doc:`index` — tous les modèles hydrauliques.
 * :doc:`methodes_2k_3k` — la méthode 2K appliquée à un raccord quelconque.
 * :doc:`propagation_pression` — comment la perte se reporte dans le réseau.
-* Sources citées par le code : Crane TP-410, *Flow of Fluids Through Valves,
-  Fittings and Pipe* ; Hooper, W. B. (1988).
+* Source vérifiée : Crane TP-410, *Flow of Fluids Through Valves, Fittings and
+  Pipe*, éd. 2009, p. A-28 (vanne à opercule : K = 8 f_T) et p. A-27 (f_T).

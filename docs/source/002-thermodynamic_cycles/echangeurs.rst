@@ -229,10 +229,31 @@ Sortie réelle :
    débit froid déduit : 1.168 kg/s
 
 ``Qth`` est compté **négativement** : c'est la variation d'enthalpie du flux 1,
-qui cède. Si l'on renseigne aussi le débit froid, le modèle ne vérifie pas le
-bilan : avec 1 kg/s imposé des deux côtés, il rend le même ``UA`` alors que
-1 kg/s d'eau ne peut absorber que 125,6 kW entre 20 et 50 °C — laissez
-``Inlet2.F`` à ``None``.
+qui cède. Si l'on renseigne aussi le débit froid, le problème est
+**surdéterminé** (deux débits et deux températures de sortie) : le modèle
+vérifie alors le bilan du flux 2 et lève une ``ValueError`` s'il ne ferme pas
+à ``balance_rtol`` près (0,1 % par défaut). Avec 1 kg/s imposé des deux côtés :
+
+.. code-block:: python
+
+    surdet = TwoStreamSteadyHEX(mode="lmtd_inverse")
+    for port, T in ((surdet.Inlet1, 80), (surdet.Inlet2, 20)):
+        port.fluid, port.P, port.F = "water", 101325, 1.0      # deux débits imposés
+        port.h = ThermoPropsSI("H", "P", 101325, "T", T + 273.15, "water")
+    surdet.T1o, surdet.T2o = 45, 50
+    try:
+        surdet.calculate()
+    except ValueError as err:
+        print("ValueError :", err)
+
+Sortie réelle :
+
+.. code-block:: text
+
+   ValueError : LMTD inverse mode: energy balance not satisfied with both flows imposed -- stream 1 exchanges -146.540 kW, stream 2 125.411 kW (gap 21.129 kW > balance_rtol = 0.001). Set Inlet2.F = None to deduce it from the balance (1.16848 kg/s), or change T2o.
+
+Jusqu'au 28/09/2026, ce cas rendait le même ``UA`` sans alerte. Laissez
+``Inlet2.F`` à ``None`` : le débit est déduit du bilan.
 
 TwoStreamPinchConstrainedDesignHEX — pincement imposé
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -397,19 +418,20 @@ qui sert de contrôle.
     cp = ThermoPropsSI("C", "P", 101325, "T", 35 + 273.15, "water")   # cp moyen
     exact = 100 - (100 - 20) * math.exp(-paroi.U * paroi.A / (0.5 * cp))
     print(f"Q = {paroi.Q_flow_W / 1e3:.1f} kW   sortie {paroi.To_degC:.2f} °C   (exacte : {exact:.2f} °C)")
-    print("LMTD publiée :", paroi.LMTD)
+    print(f"LMTD publiée : {paroi.LMTD:.2f} K   (Q / UA = {paroi.Q_flow_W / (paroi.U * paroi.A):.2f} K)")
 
 Sortie réelle :
 
 .. code-block:: text
 
    Q = 63.6 kW   sortie 50.42 °C   (exacte : 50.43 °C)
-   LMTD publiée : None
+   LMTD publiée : 63.58 K   (Q / UA = 63.58 K)
 
-Le point fixe retrouve la solution exacte à 0,01 K près. En revanche l'attribut
-``LMTD`` reste ``None`` dès qu'il y a un débit : le code ne l'affecte que
-lorsque le débit est **nul** (condition inversée) — la DTLM se recalcule, si
-besoin, à partir de ``Ti_degC``, ``To_degC`` et ``T_wall_degC``.
+Le point fixe retrouve la solution exacte à 0,01 K près, et ``LMTD`` est la
+DTLM qui donne ``Q = U·A·LMTD``. Jusqu'au 28/09/2026, ``LMTD`` restait ``None``
+dès qu'il y avait un débit (condition inversée dans le code). Si le point fixe
+n'a pas convergé en ``max_iter`` itérations, ``calculate()`` lève désormais une
+``RuntimeError`` au lieu de publier la dernière itération.
 
 TwoStreamDiscretizedCounterflowHEX — contre-courant discrétisé
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -449,15 +471,21 @@ décroissant) et relaxés (:math:`\alpha = 0{,}5`) jusqu'à convergence :
      - ``1e-3``
      - tolérance (relative, échelle 4180 J/kg/K)
 
-Sorties : ``Q_total_W`` (W), ``T1_profile_degC`` / ``T2_profile_degC`` (profils
-le long de l'échangeur).
+Sorties : ``Q_total_W`` (W, **gain d'enthalpie du flux 1**, signé),
+``Q_flow_W`` (W, puissance transmise du chaud au froid, toujours positive),
+``hot_stream`` (1 ou 2 : le port qui porte le flux chaud), ``converged`` et
+``residual`` (statut mesuré du point fixe), ``T1_profile_degC`` /
+``T2_profile_degC`` (profils le long de l'échangeur).
 
-.. warning::
+.. note::
 
-   **Convention inverse de celle du cœur NUT** : ici le flux **1 est le flux
-   froid** (son enthalpie croît) et le flux **2 le flux chaud**. Brancher le
-   chaud sur ``Inlet1`` comme pour ``TwoStreamEffectivenessNTUHEX`` donne un
-   transfert du froid vers le chaud.
+   **Convention de signe.** Le transfert va toujours du plus chaud au plus
+   froid, quel que soit le port sur lequel on branche le flux chaud : le
+   branchement ne change que le **signe** de ``Q_total_W``, positif si le flux 1
+   est froid (branchement de l'exemple ci-dessous), négatif s'il est chaud
+   (convention du cœur NUT). Lisez ``Q_flow_W`` et ``hot_stream`` pour ne pas
+   dépendre du branchement. Un point fixe non convergé en ``max_iter``
+   itérations est signalé (``RuntimeWarning``, ``converged = False``).
 
 Exemple : les deux courants d'eau du NUT ci-dessus (80 °C et 20 °C, 1 kg/s
 chacun, UA = 5000 W/K), en 10 puis 50 mailles :
@@ -485,6 +513,26 @@ Sortie réelle :
    N = 50 : Q = 136.70 kW, froid -> 52.70 °C, chaud -> 47.35 °C
    NUT-ε (cp constant) : Q = 136.79 kW
 
+Branché comme le NUT (chaud sur ``Inlet1``), le même échangeur donne la même
+puissance, de signe opposé :
+
+.. code-block:: python
+
+    disc = TwoStreamDiscretizedCounterflowHEX()
+    for port, T in ((disc.Inlet1, 80), (disc.Inlet2, 20)):          # 1 = chaud, 2 = froid
+        port.fluid, port.P, port.F = "water", 101325, 1.0
+        port.h = ThermoPropsSI("H", "P", 101325, "T", T + 273.15, "water")
+    disc.U, disc.A, disc.N = 500.0, 10.0, 10
+    disc.calculate()
+    print(f"chaud sur Inlet1 : Q_total_W = {disc.Q_total_W / 1e3:.2f} kW, Q_flow_W = {disc.Q_flow_W / 1e3:.2f} kW, "
+          f"hot_stream = {disc.hot_stream}, converged = {disc.converged}")
+
+Sortie réelle :
+
+.. code-block:: text
+
+   chaud sur Inlet1 : Q_total_W = -136.70 kW, Q_flow_W = 136.70 kW, hot_stream = 1, converged = True
+
 Les deux méthodes s'accordent à 0,07 % ; l'écart vient des :math:`c_p`, pris aux
 entrées par le NUT et suivis maille par maille par la discrétisation. Dix
 mailles suffisent pour de l'eau ; la discrétisation se justifie quand le
@@ -509,7 +557,7 @@ ventilation (nombre et diamètre des ventilateurs, puissance électrique).
 
 Le modèle a **sa page** : :doc:`aerorefrigerant` — schéma de l'appareil, ports,
 méthode de calcul pas à pas, exemple exécuté, variante et pièges (paliers du
-nombre de rangs, barèmes hérités sans source).
+nombre de rangs ; barèmes de Feidt, Techniques de l'Ingénieur BE 8 940).
 
 Paramètres à personnaliser (NUT-ε)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

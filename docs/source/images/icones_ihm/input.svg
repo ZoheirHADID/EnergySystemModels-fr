@@ -1,1 +1,16 @@
-<svg width="290" height="165" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" overflow="hidden"><g transform="translate(-91 -451)"><path d="M92.5 494.5 300.5 494.5 300.5 455.5 378.5 533.5 300.5 611.501 300.5 572.501 92.5 572.501Z" stroke="#000000" stroke-width="3.4375" stroke-miterlimit="8" fill="none" fill-rule="evenodd"/><path d="M92.5 455.5 92.5003 611.405" stroke="#000000" stroke-width="3.4375" stroke-miterlimit="8" fill="none" fill-rule="evenodd"/></g></svg>
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100" role="img" aria-label="Source de fluide">
+  <title>Source de fluide</title>
+  <desc>Source d'un courant de fluide : cercle émetteur, flèche vers l'aval ; état fixé par P et T.</desc>
+  <metadata>{"standard": "pictogramme ESM", "ref": "", "name": "Source de fluide", "ports": [{"id": "port-e", "x": 92, "y": 42, "dir": "e", "role": "outlet"}]}</metadata>
+  <g fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="30" cy="42" r="16"/>
+    <line x1="46" y1="42" x2="86" y2="42"/>
+    <polygon points="24,33 24,51 39,42" fill="#000000"/>
+    <polygon points="92,42 85.6,38 85.6,46" fill="#000000"/>
+    <text x="30" y="80" font-family="Segoe UI, Arial, sans-serif" font-weight="bold" font-size="14" fill="#000000" stroke="none" text-anchor="middle">P,T</text>
+  </g>
+  <g class="ports">
+    <circle class="port" cx="92" cy="42" r="2.0" fill="#000000" stroke="none" data-port="port-e" data-dir="e" data-role="outlet"/>
+  </g>
+</svg>

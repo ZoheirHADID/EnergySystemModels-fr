@@ -1,1 +1,15 @@
-<svg width="290" height="165" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" overflow="hidden"><g transform="translate(-91 -671)"><path d="M92.5 714.5 300.5 714.5 300.5 675.5 378.5 753.5 300.5 831.501 300.5 792.501 92.5 792.501Z" stroke="#000000" stroke-width="3.4375" stroke-miterlimit="8" fill="none" fill-rule="evenodd"/><path d="M378.5 675.5 378.5 831.405" stroke="#000000" stroke-width="3.4375" stroke-miterlimit="8" fill="none" fill-rule="evenodd"/></g></svg>
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100" role="img" aria-label="Sortie de fluide">
+  <title>Sortie de fluide</title>
+  <desc>Puits : le courant aboutit dans une cible (cercle et point plein), fin de la ligne.</desc>
+  <metadata>{"standard": "pictogramme ESM", "ref": "", "name": "Sortie de fluide", "ports": [{"id": "port-w", "x": 8, "y": 50, "dir": "w", "role": "inlet"}]}</metadata>
+  <g fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <line x1="8" y1="50" x2="42" y2="50"/>
+    <circle cx="66" cy="50" r="16"/>
+    <polygon points="48,50 41.6,46 41.6,54" fill="#000000"/>
+    <circle cx="66" cy="50" r="6" fill="#000000"/>
+  </g>
+  <g class="ports">
+    <circle class="port" cx="8" cy="50" r="2.0" fill="#000000" stroke="none" data-port="port-w" data-dir="w" data-role="inlet"/>
+  </g>
+</svg>

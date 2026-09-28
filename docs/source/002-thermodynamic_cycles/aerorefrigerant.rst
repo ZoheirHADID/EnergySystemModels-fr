@@ -37,7 +37,14 @@ dimensionnement ; il rend
 Il ne calcule **pas** de coefficient d'échange à partir de la géométrie : ``U``
 est une valeur typique par famille de fluide (850 W/m².K pour l'eau, rapporté à
 la surface de **tube nu**), et la vitesse frontale de l'air est tabulée selon le
-nombre de rangs — deux barèmes hérités du code d'origine, sans source écrite.
+nombre de rangs. La méthode entière — baie de référence, barèmes, nombres
+:math:`R_1`, :math:`R_2`, :math:`R_3`, ventilation — est celle de R. Feidt,
+*Réfrigérants atmosphériques — Aéroréfrigérants directs secs*, Techniques de
+l'Ingénieur BE 8 940 (2010), §3.3 : ``U`` vient de son tableau 4 (milieu des
+plages : eau 800/900, hydrocarbure léger 460/620, gasoil léger 340/460 W/m².K),
+le nombre de rangs de son tableau 5 et la vitesse d'air de son tableau 6.
+Source retrouvée le 28/09/2026 ; ces barèmes étaient jusque-là présentés comme
+hérités du code sans source.
 
 Ports et connexions
 -------------------
@@ -247,9 +254,10 @@ Paramètres à personnaliser
      - ``None`` → déduit
      - rangs de tubes. Laissé à ``None``, déduit de l'écart
        :math:`T_{i,f} - T_{i,air}` : ≤ 10 K → 3 ; ≤ 50 K → 4 ; ≤ 90 K → 6 ;
-       au-delà → 7. Il fixe la vitesse d'air : 4 → 3,55 ; 5 → 3,1 ; 6 → 2,75 ;
-       7 → 2,5 m/s. Seuls 4 à 7 sont calculables (3 → ``ValueError``) ; une
-       valeur posée est respectée
+       ≤ 140 K → 7 ; au-delà, ``ValueError`` (Feidt, tableau 5 : « consulter
+       le fabricant »). Il fixe la vitesse d'air : 4 → 3,55 ; 5 → 3,1 ;
+       6 → 2,75 ; 7 → 2,5 m/s (tableau 6). Seuls 4 à 7 sont calculables
+       (3 → ``ValueError``) ; une valeur posée est respectée
      - 4 à 7
    * - ``pas_triangulaire`` / ``diametre_ext_tube``
      - ``63.5`` / ``25.4``
@@ -354,10 +362,10 @@ n'est pas redistribuée : le modèle ne recalcule pas la température de sortie
 d'eau obtenue avec la surface installée.
 
 **2. Le nombre de rangs change par paliers, et les paliers sont nets.** La règle
-(≤ 10 / 50 / 90 K) est appliquée à l'écart **lu sur les ports**, dont la
-température est recalculée par CoolProp : un cas nominalement sur une borne
-peut tomber d'un côté ou de l'autre à 10⁻¹¹ K près. Eau à 80 °C et air à 30 °C
-(50 K « pile ») :
+(≤ 10 / 50 / 90 / 140 K) est appliquée à l'écart **lu sur les ports**, dont la
+température est recalculée par CoolProp : l'écart porte un bruit de
+l'ordre de 10⁻¹¹ K. Le modèle l'arrondit au micro-kelvin avant d'appliquer la
+règle. Eau à 80 °C et air à 30 °C (50 K « pile ») :
 
 .. code-block:: python
 
@@ -375,13 +383,15 @@ Sortie réelle :
 
 .. code-block:: text
 
-   écart lu = 50.00000000002251 K -> 6 rangs
+   écart lu = 50.00000000002251 K -> 4 rangs
 
-La règle voudrait 4 rangs à 50 K ; l'arrondi en donne 6. Près d'une borne,
-**imposez** ``nb_rangs`` (4 à 7) : le modèle respecte une valeur posée. Le
-barème rangs → vitesse d'air et les valeurs de ``U`` sont hérités du code
-d'origine **sans source écrite** : ce sont des ordres de grandeur, à remplacer
-par les données du constructeur dès qu'on les a.
+À 50 K, la règle donne 4 rangs, bruit d'aller-retour compris (jusqu'au
+28/09/2026, ce bruit faisait basculer le cas sur 6 rangs). Le palier reste une
+marche : à 50,001 K, c'est 6 rangs. Aux bornes exactes, la source imprime
+« < 50 K » sans trancher l'égalité ; le modèle retient la classe inférieure.
+Près d'une borne, **imposez** ``nb_rangs`` (4 à 7) si vous voulez comparer les
+deux choix. Les barèmes sont des valeurs **conseillées** pour une présélection :
+remplacez ``U`` par la donnée du constructeur dès que vous l'avez.
 
 **3. Au-dessus de 100 °C, la pression de la source compte.** Le port lit
 température et :math:`c_p` à la pression de la source : une eau à 165 °C

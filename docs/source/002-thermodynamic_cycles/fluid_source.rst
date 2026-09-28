@@ -55,8 +55,12 @@ Le DataFrame contient : la température d'entrée ``Ti_degC`` [°C], la pression
 Sm³/s, et l'enthalpie de sortie ``Outlet.h`` [J/kg].
 
 .. note::
-   ``SOURCE.Ti_degC`` est **obligatoire** : sans elle, ``calculate()`` lève une
-   ``TypeError`` (température à ``None``).
+   ``SOURCE.fluid``, ``SOURCE.Pi_bar`` et ``SOURCE.Ti_degC`` sont **obligatoires** :
+   si l'un manque, ``calculate()`` lève ``Source.MissingInputError`` (une
+   ``ValueError``) qui nomme l'entrée absente, par exemple « entrée(s)
+   obligatoire(s) non renseignée(s) : Ti_degC ». Jusqu'à la version de la
+   bibliothèque du 28/09/2026, l'absence de ``Ti_degC`` finissait en
+   ``TypeError`` sur un ``None``.
 
 Paramètres possibles
 --------------------

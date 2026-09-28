@@ -215,15 +215,18 @@ degressif s'applique au-dela de ce seuil :
 
 Le tarif TP ajoute un **terme de distance** en plus de la souscription de capacite :
 
-.. warning::
-   Le calcul TP de la bibliothèque **ne s'exécute pas** : il lève
-   ``KeyError: 'prix_proportionnel_euro_kWh'`` (voir la section 4.4). Les formules
-   ci-dessous décrivent ce que le code prévoit, sans vérification possible.
+La bibliothèque calcule l'option TP depuis le 28/09/2026 (elle levait
+``KeyError`` auparavant). Les termes sont annuels, lus dans la grille ATRD
+(``souscription_annuelle_capacite_euro_kWh_j``, ``terme_annuel_distance_euro_m``),
+puis proratisés comme l'abonnement ; l'option TP n'a pas de terme
+proportionnel à la quantité :
 
 .. code-block:: text
 
-   Souscription = CJA x tarif_capacite x nb_jour  (EUR)
-   Terme_distance = distance_km x tarif_distance / 365 x nb_jour  (EUR)
+   Souscription_annuelle   = CJA (MWh/j) x 1000 x tarif_capacite (EUR/kWh/j/an)
+   Terme_distance_annuel   = distance (km) x 1000 x tarif_distance (EUR/m/an)
+   ATRD_fixe_total_annuel  = ATRD_fixe + Souscription_annuelle + Terme_distance_annuel
+   Montant de la facture   = annuel / 12 (facture de 28 à 35 jours), sinon annuel x nb_jour / 365
 
 .. list-table:: Historique des tarifs TP (capacite + distance)
    :header-rows: 1
@@ -1370,7 +1373,7 @@ renseignez-le dès qu'il figure sur une facture (voir la section 2.2).
      - Valeurs
      - Description
    * - ``type_tarif_acheminement``
-     - ``"T1"``, ``"T2"``, ``"T3"``, ``"T4"`` (``"TP"`` : voir les pièges)
+     - ``"T1"``, ``"T2"``, ``"T3"``, ``"T4"``, ``"TP"`` (TP : ``distance`` obligatoire)
      - Option tarifaire selon la CAR
    * - ``CAR_MWh``
      - ≥ 0
@@ -1407,17 +1410,22 @@ renseignez-le dès qu'il figure sur une facture (voir la section 2.2).
      - Niveau tarifaire régional NTR
    * - ``distance``
      - km ou ``None``
-     - Réservé au tarif TP
+     - Obligatoire pour le tarif TP (distance au réseau de transport)
 
 **Déclarer une facture gaz** (``input_Facture``) : ``start`` et ``end`` (date
 ou ``"AAAA-MM-JJ"``, bornes incluses), ``kWh_total`` (consommation de la
-période). Les grilles sont choisies d'après la **date de début** ; au-delà de
-35 jours, les termes fixes sont proratisés au jour, sinon comptés au douzième.
+période). Les grilles sont choisies d'après la **date de début**. Une seule
+règle de proratisation vaut pour tous les termes annuels (ATRD, ATRT,
+compensation de stockage, CTA, abonnement fournisseur) : une facture de 28 à
+35 jours en porte le douzième, toute autre durée le prorata au jour.
 
-**Déclarer les tarifs** (``input_Tarif``) : seul ``prix_kWh`` (EUR/kWh HT de la
-molécule) entre dans le calcul. ``abonnement_annuel_fournisseur``,
-``distribution_cta_rate`` et ``ticgn_rate`` sont acceptés mais **ignorés** : la
-CTA et l'accise viennent des fichiers de coefficients.
+**Déclarer les tarifs** (``input_Tarif``) : ``prix_kWh`` (EUR/kWh HT de la
+molécule) ; ``abonnement_annuel_fournisseur`` (EUR/an, proratisé, ajouté à la
+fourniture et à l'assiette TVA de l'abonnement) ; ``distribution_cta_rate``
+(taux de CTA part distribution) et ``ticgn_rate`` (accise, EUR/kWh) :
+``None`` par défaut = taux des fichiers de coefficients, une valeur saisie les
+remplace. Jusqu'au 28/09/2026 ces trois entrées étaient acceptées mais
+ignorées.
 
 4.3 Variante : réduire la capacité souscrite
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -1458,15 +1466,15 @@ un engagement de capacité, pas une estimation.
 1. **Grilles jusqu'en 2026.** Les coefficients ATRT s'arrêtent au
    31 mars 2026, les coefficients ATRD au 30 juin 2026 : une facture
    postérieure lève ``ValueError``.
-2. **Option TP inutilisable.** ``type_tarif_acheminement="TP"`` lève
-   ``KeyError: 'prix_proportionnel_euro_kWh'`` : le code attend des clés
-   (``tarif_capacite``, ``tarif_distance``, ``prix_proportionnel_euro_kWh``) que
-   la grille TP ne porte pas (défaut consigné dans ``BUGS_LIB.md``).
-3. **Libellés de TVA figés.** Depuis le 1er août 2025 la part fixe est taxée à
-   20 % et le calcul l'applique, mais ``df_totaux`` affiche toujours
-   « TVA 5,5% (fixe + CTA) ».
-4. **Seuils de proratisation différents.** Les termes ATRD et ATRT passent au
-   prorata au-delà de 35 jours, la CTA au-delà de 31 jours : une facture de
-   32 à 35 jours mélange les deux conventions.
+2. **Option TP : la distance est obligatoire.** ``type_tarif_acheminement="TP"``
+   sans ``distance`` lève une ``ValueError`` ; la distance se saisit en km, le
+   terme de la grille est en EUR par mètre et par an.
+3. **Libellés de TVA.** ``df_totaux`` affiche le taux appliqué : « TVA 20%
+   (fixe + CTA) » à partir du 1er août 2025 (le libellé restait « 5,5% »
+   avant le 28/09/2026).
+4. **Facture courte ou longue.** Hors de 28 à 35 jours, tous les termes
+   annuels sont proratisés au jour (avant le 28/09/2026, la CTA passait au
+   prorata dès 32 jours et l'ATRD au-delà de 35 : une facture de 32 à 35 jours
+   mélangeait les deux conventions).
 
 Voir aussi : :doc:`guide_audit_facture` (lecture des tableaux par section).

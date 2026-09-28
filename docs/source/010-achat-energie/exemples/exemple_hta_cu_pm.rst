@@ -23,6 +23,7 @@ mars 2025, environ 145 MWh.
        c_euro_kWh_HCH=0.10,
        c_euro_kWh_HPB=0.11,
        c_euro_kWh_HCB=0.09,
+       c_euro_kwh_CSPE_TICFE=0.02250,   # accise « haute puissance » (> 250 kVA), 02/2025
    )
 
    # Consommations du mois (kWh)
@@ -51,15 +52,18 @@ Sortie réelle (étapes intermédiaires ``euro_…`` résumées par « … ») :
    …
                          Ligne                    Formule  Entrée(s) Coefficient  Résultat Annuel
                     Fourniture                                                    15850.00
-          Acheminement (TURPE)                                                     4772.55
-        Taxes et contributions                                                      166.52
-                  = Total HTVA Fourniture + TURPE + Taxes                         20789.07
-                       TVA 20%           Total_HTVA x 20%                          4157.81
-                   = Total TTC                 HTVA + TVA                         24946.88
-           Coût HTVA (EUR/MWh)           Total_HTVA / MWh 145.00 MWh                143.37
+          Acheminement (TURPE)                                                     4771.23
+        Taxes et contributions                                                     3356.52
+                  = Total HTVA Fourniture + TURPE + Taxes                         23977.75
+                       TVA 20%           Total_HTVA x 20%                          4795.55
+                   = Total TTC                 HTVA + TVA                         28773.30
+           Coût HTVA (EUR/MWh)           Total_HTVA / MWh 145.00 MWh                165.36
      Coût fourniture (EUR/MWh)           Fourniture / MWh                           109.31
    Coût distribution (EUR/MWh)                TURPE / MWh                            32.91
-          Coût taxes (EUR/MWh)                Taxes / MWh                             1.15
+          Coût taxes (EUR/MWh)                Taxes / MWh                            23.15
+
+L'accise (145 000 kWh × 0,0225 = 3 262,50 EUR) représente 97 % des taxes ; la
+CTA en ajoute 94,02.
 
 Figures produites par l'exemple
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -100,7 +104,7 @@ Paramètres à personnaliser
      - selon la facture
    * - ``start``, ``end``
      - Période entière dans une grille CU_pm livrée
-     - 2017-08-01 à 2025-12-31
+     - 2017-08-01 à 2025-07-31
 
 Variante : réduire la puissance souscrite
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -130,8 +134,8 @@ Sortie réelle (étapes intermédiaires résumées par « … ») :
 .. code-block:: text
 
    …
-   300 kW: CS fixe annuel  4239.00 EUR/an  TURPE du mois  4772.55 EUR
-   250 kW: CS fixe annuel  3532.50 EUR/an  TURPE du mois  4712.55 EUR
+   300 kW: CS fixe annuel  4239.00 EUR/an  TURPE du mois  4771.23 EUR
+   250 kW: CS fixe annuel  3532.50 EUR/an  TURPE du mois  4711.23 EUR
    Économie sur la part fixe : 706.50 EUR/an
 
 La baisse ne vaut que si aucun dépassement n'apparaît ensuite : renseignez les
@@ -141,13 +145,15 @@ décider.
 Pièges
 ~~~~~~
 
-1. **Grille limitée à 2025.** La dernière grille CU_pm livrée s'arrête au
-   31 décembre 2025 ; une facture de 2026 lève ``AttributeError``.
-2. **Accise.** Sans ``c_euro_kwh_CSPE_TICFE``, le taux porté par la grille
-   s'applique (0,0005 EUR/kWh ici) : comparez-le à la ligne accise de votre
-   facture et saisissez le bon. Le total HTVA applique alors le taux saisi,
-   mais la ligne « Taxes et contributions » garde celui de la grille (défaut
-   consigné dans ``BUGS_LIB.md``).
+1. **Grille limitée au 31 juillet 2025.** Le TURPE 7 HTA-BT est entré en
+   vigueur le 1er août 2025 (délibération CRE n° 2025-78) et aucune grille
+   TURPE 7 CU_pm n'est livrée : une facture postérieure lève
+   ``GrilleTURPEIntrouvableError``, qui liste les grilles disponibles. La
+   grille TURPE 6 courait jusqu'au 31 décembre 2025 avant le 28/09/2026.
+2. **Accise.** Saisissez le taux de votre facture (ici 0,02250 EUR/kWh, tarif
+   « haute puissance » au 1er février 2025, impots.gouv.fr). Sans
+   ``c_euro_kwh_CSPE_TICFE``, le taux de la grille (0,0005 EUR/kWh) s'applique
+   et ``AcciseNonVerifieeWarning`` le signale.
 
 Voir aussi : :doc:`../contrat_electricite`, :doc:`exemple_hta_cu_pf`,
 :doc:`exemple_hta_lu_pm`.

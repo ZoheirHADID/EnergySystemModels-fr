@@ -1,20 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100" role="img" aria-label="Séparateur à décantation" data-iso-part="12" data-iso-ref="X2617">
-  <title>ISO 14617-12 — X2617 — Séparateur à décantation</title>
-  <desc>Séparateur à décantation.</desc>
-  <metadata>{&quot;standard&quot;: &quot;ISO 14617-12&quot;, &quot;ref&quot;: &quot;X2617&quot;, &quot;name&quot;: &quot;Séparateur à décantation&quot;, &quot;ports&quot;: [{&quot;id&quot;: &quot;port-w&quot;, &quot;x&quot;: 8, &quot;y&quot;: 34, &quot;dir&quot;: &quot;w&quot;, &quot;role&quot;: &quot;inlet&quot;}, {&quot;id&quot;: &quot;port-e&quot;, &quot;x&quot;: 92, &quot;y&quot;: 34, &quot;dir&quot;: &quot;e&quot;, &quot;role&quot;: &quot;outlet&quot;}, {&quot;id&quot;: &quot;port-s&quot;, &quot;x&quot;: 50, &quot;y&quot;: 92, &quot;dir&quot;: &quot;s&quot;, &quot;role&quot;: &quot;outlet&quot;}]}</metadata>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100" role="img" aria-label="Ballon de flash">
+  <title>Ballon de flash</title>
+  <desc>Ballon séparateur alimenté à travers une vanne de détente : vapeur en tête, liquide en pied (niveau en tirets).</desc>
+  <metadata>{"standard": "pictogramme ESM", "ref": "", "name": "Ballon de flash", "ports": [{"id": "port-w", "x": 8, "y": 50, "dir": "w", "role": "inlet"}, {"id": "port-n", "x": 50, "y": 8, "dir": "n", "role": "outlet"}, {"id": "port-s", "x": 50, "y": 92, "dir": "s", "role": "outlet"}]}</metadata>
   <g fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-    <polygon points="32,28 68,28 68,52 54,72 46,72 32,52"/>
-    <line x1="40" y1="40" x2="60" y2="40"/>
-    <line x1="32" y1="34" x2="8" y2="34"/>
-    <line x1="68" y1="34" x2="92" y2="34"/>
-    <line x1="50" y1="72" x2="50" y2="92"/>
+    <rect x="30" y="14" width="40" height="72" rx="14"/>
+    <line x1="50" y1="14" x2="50" y2="8"/>
+    <line x1="50" y1="86" x2="50" y2="92"/>
+    <line x1="8" y1="50" x2="11" y2="50"/>
+    <line x1="27" y1="50" x2="30" y2="50"/>
+    <polygon points="11,43 11,57 19,50"/>
+    <polygon points="27,43 27,57 19,50"/>
+    <line x1="34" y1="64" x2="66" y2="64" stroke-dasharray="4,3"/>
+    <circle cx="44" cy="36" r="2.2"/>
+    <circle cx="56" cy="30" r="2.2"/>
+    <circle cx="54" cy="42" r="2.2"/>
   </g>
   <g class="ports">
-    <circle class="port" cx="8" cy="34" r="2.0" fill="#000000" stroke="none" data-port="port-w" data-dir="w" data-role="inlet"/>
-    <circle class="port" cx="92" cy="34" r="2.0" fill="#000000" stroke="none" data-port="port-e" data-dir="e" data-role="outlet"/>
+    <circle class="port" cx="8" cy="50" r="2.0" fill="#000000" stroke="none" data-port="port-w" data-dir="w" data-role="inlet"/>
+    <circle class="port" cx="50" cy="8" r="2.0" fill="#000000" stroke="none" data-port="port-n" data-dir="n" data-role="outlet"/>
     <circle class="port" cx="50" cy="92" r="2.0" fill="#000000" stroke="none" data-port="port-s" data-dir="s" data-role="outlet"/>
   </g>
 </svg>
-
-

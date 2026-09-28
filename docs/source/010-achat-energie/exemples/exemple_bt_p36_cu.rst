@@ -18,12 +18,13 @@ sa facture de janvier 2025.
        pourcentage_ENR=0,
    )
 
-   # Prix du fournisseur (EUR/kWh HTVA)
+   # Prix du fournisseur (EUR/kWh HTVA) et accise lue sur la facture
    tarif = input_Tarif(
        c_euro_kWh_HPH=0.15,
        c_euro_kWh_HCH=0.13,
        c_euro_kWh_HPB=0.14,
        c_euro_kWh_HCB=0.12,
+       c_euro_kwh_CSPE_TICFE=0.02050,   # tarif « PME » de janvier 2025
    )
 
    # Consommations du mois (froid, éclairage, climatisation)
@@ -50,15 +51,19 @@ Sortie réelle :
 
                          Ligne                    Formule Entrée(s) Coefficient  Résultat Annuel
                     Fourniture                                                    2081.00
-          Acheminement (TURPE)                                                     935.07
-        Taxes et contributions                                                      40.49
-                  = Total HTVA Fourniture + TURPE + Taxes                         3056.56
-                       TVA 20%           Total_HTVA x 20%                          611.31
-                   = Total TTC                 HTVA + TVA                         3667.87
-           Coût HTVA (EUR/MWh)           Total_HTVA / MWh 14.70 MWh                207.93
+          Acheminement (TURPE)                                                     934.31
+        Taxes et contributions                                                     334.49
+                  = Total HTVA Fourniture + TURPE + Taxes                         3349.80
+                       TVA 20%           Total_HTVA x 20%                          669.96
+                   = Total TTC                 HTVA + TVA                         4019.76
+           Coût HTVA (EUR/MWh)           Total_HTVA / MWh 14.70 MWh                227.88
      Coût fourniture (EUR/MWh)           Fourniture / MWh                          141.56
-   Coût distribution (EUR/MWh)                TURPE / MWh                           63.61
-          Coût taxes (EUR/MWh)                Taxes / MWh                            2.75
+   Coût distribution (EUR/MWh)                TURPE / MWh                           63.56
+          Coût taxes (EUR/MWh)                Taxes / MWh                           22.75
+
+Les trois sections se somment au total HTVA : 2 081,00 + 934,31 + 334,49 =
+3 349,80 EUR. L'accise (14 700 kWh × 0,0205 = 301,35 EUR) fait l'essentiel des
+taxes ; la CTA en ajoute 33,14.
 
 Figures produites par l'exemple
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -100,6 +105,9 @@ Paramètres à personnaliser
    * - ``c_euro_kWh_<poste>``
      - Prix de fourniture du contrat
      - 0,10 à 0,25 EUR/kWh
+   * - ``c_euro_kwh_CSPE_TICFE``
+     - Accise (EUR/kWh) lue sur la facture ; ``None`` = taux de la grille, avec avertissement
+     - 0,0205 (01/2025), 0,02623 (PME, 02/2025)
    * - ``start``, ``end``
      - Période facturée, entière dans une grille livrée
      - 2014-01-01 à 2029-07-31
@@ -129,8 +137,8 @@ Sortie réelle :
 
 .. code-block:: text
 
-   CU: CS fixe annuel  1315.20 EUR/an  CS variable  783.21  TURPE du mois  935.07 EUR
-   LU: CS fixe annuel  2148.00 EUR/an  CS variable  663.56  TURPE du mois  886.15 EUR
+   CU: CS fixe annuel  1315.20 EUR/an  CS variable  783.21  TURPE du mois  934.31 EUR
+   LU: CS fixe annuel  2148.00 EUR/an  CS variable  663.56  TURPE du mois  885.39 EUR
 
 En janvier, LU coûte 48,92 EUR de moins : la part énergie baisse de 119,65 EUR,
 la part fixe monte de 832,80 EUR/an (70,73 EUR sur 31 jours). Le choix se fait
@@ -144,12 +152,17 @@ Pièges
    une puissance souscrite plus faible sur un poste suivant donne une part fixe
    négative, sans avertissement.
 2. **Accise.** Sans ``c_euro_kwh_CSPE_TICFE``, le taux porté par la grille
-   s'applique (0,0005 EUR/kWh ici) : comparez-le à la ligne accise de votre
-   facture et saisissez le bon. Le total HTVA applique alors le taux saisi,
-   mais la ligne « Taxes et contributions » garde celui de la grille (défaut
-   consigné dans ``BUGS_LIB.md``).
+   s'applique (0,0005 EUR/kWh ici) et ``AcciseNonVerifieeWarning`` le signale :
+   ces taux de grille ne sont pas sourcés. Saisissez celui de votre facture —
+   ici 0,02050 EUR/kWh, tarif des catégories « PME » et « haute puissance » en
+   janvier 2025 (impots.gouv.fr ; 0,02623 pour les PME à partir du
+   1er février 2025).
 3. **Période hors grille.** Une facture à cheval sur deux grilles (par exemple
    du 15 janvier au 14 février 2025) n'est couverte par aucune et lève
-   ``AttributeError`` : découpez-la.
+   ``GrilleTURPEIntrouvableError``, dont le message indique la date où la
+   découper (ici au 31 janvier). La bibliothèque ne proratise pas entre grilles.
+4. **Gestion et comptage au douzième.** Pour une facture de 28 à 31 jours, CG
+   et CC valent le douzième de l'annuel et le total TURPE est la somme des
+   lignes de ``calc.df_acheminement`` (depuis le 28/09/2026).
 
 Voir aussi : :doc:`../contrat_electricite`, :doc:`exemple_bt_m36_cu4`.

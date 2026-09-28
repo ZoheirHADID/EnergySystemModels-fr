@@ -518,14 +518,17 @@ Batterie froide « Expert » — ``CoolingCoil_Expert``
 
 **Rôle** — variante qui fixe l'état de sortie par une **humidité relative de
 sortie imposée** plutôt que par un facteur de bypass. En déshumidification
-(``w_in >= w_target >= w_sat``), elle cherche numériquement
-(``scipy.optimize.fsolve``) la température de sortie telle que l'air, ramené à
-``w_target``, sorte à ``Outlet_RH`` (90 % par défaut, 100 % si l'air entrant
-dépasse déjà 90 % HR) ; l'enthalpie de sortie vaut alors ``h(T_out, w_target)``.
-Deux autres cas sont prévus : refroidissement **sensible** jusqu'à ``T_target``
-quand l'air est déjà assez sec (``w_in <= w_target``), et **aucune action**
-sinon — y compris quand ``w_target`` est inférieur à ``w_sat``, l'humidité de
-l'air saturé à ``T_sat``.
+(``w_in >= w_target >= w_sat``), elle calcule la température de sortie telle
+que l'air, ramené à ``w_target``, sorte à ``Outlet_RH`` (90 % par défaut, 100 %
+si l'air entrant dépasse déjà 90 % HR) : la pression de vapeur saturante visée
+vaut ``Pv(w_target) / Outlet_RH``, et la température s'en déduit par inversion
+directe de ``Pv_sat(T)`` ; l'enthalpie de sortie vaut alors
+``h(T_out, w_target)``. Deux autres cas sont prévus : refroidissement
+**sensible** jusqu'à ``T_target`` quand l'air est déjà assez sec
+(``w_in <= w_target``), et **aucune action** quand l'air est plus sec et plus
+froid que les consignes. Une consigne ``w_target`` inférieure à ``w_sat``,
+l'humidité de l'air saturé à ``T_sat``, lève une ``ValueError`` : la batterie
+ne peut pas l'atteindre.
 
 Dans l'IHM, c'est le nœud **« Cooling Coil Expert »** (famille *Chaîne d'air*) :
 ses réglages sont la perte de charge **en bar** (convertie en Pa par le nœud),
@@ -556,9 +559,9 @@ la température d'eau glacée ``T_sat`` et le poids d'eau visé ``w_target``.
      - ``0``
      - Perte de charge air [Pa]
 
-**Le cas de déshumidification ne converge pas.** Sur l'air estival de
-l'exemple ``CoolingCoil`` ci-dessus (30 °C / 60 % HR, 16 g/kg), la batterie
-Expert, réglée comme la batterie standard, s'arrête :
+**Déshumidification.** Sur l'air estival de l'exemple ``CoolingCoil``
+ci-dessus (30 °C / 60 % HR, 16 g/kg), la batterie Expert, réglée comme la
+batterie standard :
 
 .. code-block:: python
 
@@ -568,29 +571,39 @@ Expert, réglée comme la batterie standard, s'arrête :
    CCE.w_target = 8      # g/kg d'air sec
    CCE.T_sat = 7         # °C
    Air_connect(CCE.Inlet, AN.Outlet)     # AN : air neuf 30 °C / 60 %, 5000 m3/h
-   try:
-       CCE.calculate()
-   except ValueError as exc:
-       print("ValueError :", exc)
+   CCE.calculate()
+   print(CCE.df)
 
 Sortie réelle :
 
 .. code-block:: text
 
-   ValueError : math domain error
+                        CoolingCoil_Expert
+   Outlet.T (C)                     12.300
+   Outlet.RH (%)                    90.000
+   Outlet.F (kg/s)                   1.586
+   Outlet.F_dry (kg/s)               1.573
+   Outlet.P (Pa)                101325.000
+   Outlet.h (kJ/kg)                 32.600
+   Outlet.w (g/kgdry)                8.000
+   Q_th (kW)                       -60.800
+   Eff                               0.818
+   FB                                0.182
 
-La recherche de ``fsolve`` part vers des températures absurdes (plus de
-1 300 °C sous zéro, mesuré) et la pression de vapeur saturante ne s'y calcule
-plus. La cause est dans ``air_humide.Air_RH``, que le système résout : elle
-**arrondit** l'humidité relative à deux décimales, ce qui rend la fonction en
-escalier et fausse les dérivées dont ``fsolve`` a besoin. Tous les cas de
-déshumidification essayés (30 °C / 60 %, 35 °C / 40 %, 25 °C / 95 %, avec
-``Outlet_RH`` à 90 ou 95 %) échouent de la même façon. Défaut consigné dans le
-suivi de la bibliothèque.
+L'air sort à 8 g/kg et 90 % HR, soit 12,3 °C, pour 60,8 kW extraits — à 2 kW
+près la puissance de ``CoolingCoil`` sur le même air. ``Eff`` est rapportée à
+la teneur en eau : ``(w_in − w_out)/(w_in − w_sat)``.
 
-**Le cas sensible calcule, avec une efficacité de signe faux.** Sur de l'air
-sec (30 °C / 20 % HR, 5,3 g/kg), la batterie refroidit bien jusqu'à
-``T_target`` :
+.. note::
+   Jusqu'au 28/09/2026, ce cas s'arrêtait sur ``ValueError: math domain
+   error`` : le point de sortie était cherché par ``fsolve`` sur
+   ``air_humide.Air_RH``, qui **arrondit** l'humidité relative à deux
+   décimales — une fonction en escalier sur laquelle la recherche divergeait
+   (plus de 1 300 °C sous zéro, mesuré). L'inversion directe de la pression de
+   vapeur saturante a remplacé la résolution numérique.
+
+**Refroidissement sensible.** Sur de l'air sec (30 °C / 20 % HR, 5,3 g/kg), la
+batterie refroidit jusqu'à ``T_target`` :
 
 .. code-block:: python
 
@@ -617,21 +630,35 @@ Sortie réelle :
    Outlet.h (kJ/kg)                 31.400
    Outlet.w (g/kgdry)                5.257
    Q_th (kW)                       -19.500
-   Eff                              -0.478
-   FB                                1.478
+   Eff                               0.522
+   FB                                0.478
 
-La sortie à 18 °C et la puissance sont justes (même calcul que
-``CoolingCoil_Tc``), mais ``Eff`` est calculée comme
-``(T_sat − T_target)/(T_in − T_sat)`` : elle sort **négative**, et le facteur de
-bypass ``FB = 1 − Eff`` dépasse 1. En déshumidification, ``Eff`` et ``FB`` ne
-sont pas recalculées du tout (elles garderaient leurs valeurs initiales 0,8 et
-0,2). Ne lisez pas ces deux grandeurs sur ce modèle.
+La sortie à 18 °C et la puissance sont celles de ``CoolingCoil_Tc``. ``Eff``
+suit la définition du facteur de bypass, ``T_out = T_sat + FB·(T_in − T_sat)``,
+soit ``Eff = (T_in − T_target)/(T_in − T_sat)`` = 12/23 = 0,522. Jusqu'au
+28/09/2026, ``Eff`` valait ``(T_sat − T_target)/(T_in − T_sat)`` = −0,478 et
+``FB`` dépassait 1 ; en déshumidification, elles restaient à 0,8 et 0,2.
 
-.. warning::
-   **Préférez** ``CoolingCoil`` **pour déshumidifier.** Il calcule la sortie par
-   la droite de saturation, sans résolution numérique, et rend une efficacité
-   cohérente. Réservez ``CoolingCoil_Expert`` au refroidissement sensible, en
-   lisant ``Outlet.T``, ``Outlet.w`` et ``Q_th`` — pas ``Eff``.
+**Consigne hors d'atteinte : une exception.** Avec une batterie à 11 °C, l'air
+saturé à son contact contient déjà 8,16 g/kg : 8 g/kg est inatteignable.
+
+.. code-block:: python
+
+   CCE = CoolingCoil_Expert.Object()
+   CCE.w_target = 8; CCE.T_sat = 11
+   Air_connect(CCE.Inlet, AN.Outlet)
+   try:
+       CCE.calculate()
+   except ValueError as exc:
+       print("ValueError :", exc)
+
+Sortie réelle :
+
+.. code-block:: text
+
+   ValueError : CoolingCoil_Expert : w_target = 8 g/kg est inférieure à la teneur en eau à saturation à T_sat = 11 °C (w_sat = 8.164 g/kg) : consigne de déshumidification inatteignable. Abaissez T_sat ou relevez w_target.
+
+``CoolingCoil``, lui, ne prévient pas dans ce cas (voir la variante plus bas).
 
 Paramètres à personnaliser
 --------------------------

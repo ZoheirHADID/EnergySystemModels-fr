@@ -28,6 +28,7 @@ est plus chère, la part énergie (coefficients *c*) moins chère qu'en CU.
        c_euro_kWh_HPB=0.11,
        c_euro_kWh_HCB=0.09,
        c_euro_kWh_ARENH=0.042,
+       c_euro_kwh_CSPE_TICFE=0.02250,   # accise « haute puissance » (> 250 kVA), 02/2025
    )
 
    # Consommations du mois (kWh)
@@ -56,15 +57,15 @@ Sortie réelle (étapes intermédiaires ``euro_…`` résumées par « … ») :
    …
                          Ligne                    Formule  Entrée(s) Coefficient  Résultat Annuel
                     Fourniture                                                    52600.00
-          Acheminement (TURPE)                                                     6989.96
-        Taxes et contributions                                                      505.25
-                  = Total HTVA Fourniture + TURPE + Taxes                         60095.21
-                       TVA 20%           Total_HTVA x 20%                         12019.04
-                   = Total TTC                 HTVA + TVA                         72114.25
-           Coût HTVA (EUR/MWh)           Total_HTVA / MWh 350.00 MWh                171.70
+          Acheminement (TURPE)                                                     6995.45
+        Taxes et contributions                                                     8205.25
+                  = Total HTVA Fourniture + TURPE + Taxes                         67800.70
+                       TVA 20%           Total_HTVA x 20%                         13560.14
+                   = Total TTC                 HTVA + TVA                         81360.84
+           Coût HTVA (EUR/MWh)           Total_HTVA / MWh 350.00 MWh                193.72
      Coût fourniture (EUR/MWh)           Fourniture / MWh                           150.29
-   Coût distribution (EUR/MWh)                TURPE / MWh                            19.97
-          Coût taxes (EUR/MWh)                Taxes / MWh                             1.44
+   Coût distribution (EUR/MWh)                TURPE / MWh                            19.99
+          Coût taxes (EUR/MWh)                Taxes / MWh                            23.44
 
 Figures produites par l'exemple
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -130,22 +131,23 @@ Sortie réelle (étapes intermédiaires résumées par « … ») :
 .. code-block:: text
 
    …
-   LU_pm: TURPE du mois  6989.96 EUR  soit 19.97 EUR/MWh
-   CU_pm: TURPE du mois 10636.22 EUR  soit 30.39 EUR/MWh
+   LU_pm: TURPE du mois  6995.45 EUR  soit 19.99 EUR/MWh
+   CU_pm: TURPE du mois 10641.68 EUR  soit 30.40 EUR/MWh
 
 À 350 MWh par mois sous 500 kW (environ 8 400 heures d'utilisation par an), la
-longue utilisation économise **3 646,26 EUR d'acheminement** sur le mois, soit
+longue utilisation économise **3 646,23 EUR d'acheminement** sur le mois, soit
 un tiers du TURPE : c'est l'option naturelle d'un site en continu.
 
 Pièges
 ~~~~~~
 
-1. **Aucune grille LU_pm entre août 2021 et janvier 2025.** Une facture de
-   2023 en LU_pm lève ``AttributeError`` : la bibliothèque n'en livre pas.
-2. **Accise.** Sans ``c_euro_kwh_CSPE_TICFE``, le taux porté par la grille
-   s'applique (0,0005 EUR/kWh ici) : comparez-le à la ligne accise de votre
-   facture et saisissez le bon. Le total HTVA applique alors le taux saisi,
-   mais la ligne « Taxes et contributions » garde celui de la grille (défaut
-   consigné dans ``BUGS_LIB.md``).
+1. **Aucune grille LU_pm entre août 2021 et janvier 2025, ni après
+   juillet 2025.** Une facture de 2023 ou de septembre 2025 en LU_pm lève
+   ``GrilleTURPEIntrouvableError``, dont le message liste les grilles livrées
+   (TURPE 5 2017-2021, TURPE 6 du 2025-02-01 au 2025-07-31).
+2. **Accise.** Saisissez le taux de votre facture (ici 0,02250 EUR/kWh, tarif
+   « haute puissance » au 1er février 2025, impots.gouv.fr). Sans
+   ``c_euro_kwh_CSPE_TICFE``, le taux de la grille (0,0005 EUR/kWh) s'applique
+   et ``AcciseNonVerifieeWarning`` le signale.
 
 Voir aussi : :doc:`../contrat_electricite`, :doc:`exemple_hta_cu_pm`.

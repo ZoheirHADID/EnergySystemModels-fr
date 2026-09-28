@@ -104,7 +104,7 @@ points exclus, jeux de données, statistiques intermédiaires — tronquées ici
                              ANTE-POST  POST-ANTE
    Relevé de consommation    355534.00  844411.00
    Prédiction                423204.74  708926.42
-   pourcentage d'économie>0      19.03      16.04
+   pourcentage d'économie>0      15.99      16.04
 
 Lecture des résultats
 ---------------------
@@ -118,10 +118,9 @@ Lecture des résultats
   coefficient a un ``stat_t`` supérieur au t de Student à 95 % : tout est ``True``.
 * **Incertitude** : à 80 % de confiance, un mois isolé est prédit à ± 1 100 kWh,
   soit ± 6 % de la consommation moyenne de référence.
-* **Économies** : la baisse construite est de 15 %. POST-ANTE l'estime à
-  **16,04 %** ; ANTE-POST affiche **19,03 %** parce que le code la rapporte à la
-  consommation **mesurée après travaux** — rapportée à la prédiction, elle vaut
-  (423 205 − 355 534) / 423 205 = 16,0 %. Voir :doc:`mesure_economies`.
+* **Économies** : la baisse construite est de 15 %. ANTE-POST l'estime à
+  **15,99 %**, (423 205 − 355 534) / 423 205, rapportée à la consommation de
+  référence ajustée ; POST-ANTE à **16,04 %**. Voir :doc:`mesure_economies`.
 
 Paramètres à personnaliser
 --------------------------
@@ -219,22 +218,25 @@ Sortie réelle :
                  valeur  conformité IPMVP
    r2              0.66             False
    cv_remse        0.29             False
-   stat_t_const    0.00             False
-   stat_t_DJU    100.10              True
+   stat_t_DJU     25.90              True
    Pente DJU  : 53.4 -> 77.2 kWh/DJU
    CV(RMSE)   : 0.05 -> 0.29
-   Économie ANTE-POST : 19.03 % -> -3.51 %
+   Économie ANTE-POST : 15.99 % -> -3.63 %
 
 **Forcer le talon à zéro sur un site qui en a un est une erreur grave** : la pente
 gonfle de 53 à 77 kWh/DJU pour compenser, le modèle devient non conforme
 (R² = 0,66, CV(RMSE) = 0,29), et l'économie de 15 % devient une **surconsommation
-de 3,5 %**. N'imposez une constante que si elle est physiquement connue (sous-comptage
+de 3,6 %**. N'imposez une constante que si elle est physiquement connue (sous-comptage
 dédié au chauffage, par exemple).
 
-.. warning::
-   Avec une constante imposée, ``stat_t_DJU`` (100,1) divise la pente du modèle
-   imposé par l'erreur-type d'un modèle **à constante libre** : cette statistique
-   n'est pas fiable. Défaut consigné dans ``BUGS_LIB.md``.
+.. note::
+   Avec une constante imposée, la constante n'est pas estimée : elle n'a ni
+   erreur-type ni ``stat_t``, et la table de conformité ne la juge plus. La
+   pente est jugée sur l'erreur-type du modèle **effectivement ajusté** (par
+   l'origine) : ``stat_t_DJU`` = 25,9. Jusqu'au 28/09/2026, elle empruntait
+   l'erreur-type d'un modèle à constante libre (100,1) et ``stat_t_const``
+   valait 0, déclaré non conforme. Écart restant : ``ddof`` (donc ``rmse`` et
+   ``cv_rmse``) compte encore la constante comme estimée (n − p − 1).
 
 Relevés journaliers : agréger avec la durée
 -------------------------------------------
@@ -301,11 +303,13 @@ Pièges
   La bibliothèque ne livre **aucun** fichier de données dans son paquet PyPI.
 * **L'exclusion des aberrants porte sur ``y`` seul**, calculée sur toutes les
   périodes à la fois ; le même mois est retiré de ``X``. Au défaut (8), le relevé
-  erroné de l'exemple (z = 4,3) aurait été **conservé**. Et seuls les relevés
-  **trop hauts** sont exclus : un mois à 0 kWh (compteur bloqué) reste dans le
-  modèle — retirez-le vous-même.
-* **Pourcentage ANTE-POST** : rapporté à la consommation mesurée après travaux, pas
-  à la référence ajustée — il surestime l'économie (19,03 % pour 16,0 %).
+  erroné de l'exemple (z = 4,3) aurait été **conservé**. Le seuil porte sur
+  l'écart **absolu** : un relevé anormalement **bas** (compteur bloqué, mois à
+  0 kWh) est exclu comme un relevé trop haut (avant le 28/09/2026, seuls les
+  relevés trop hauts l'étaient).
+* **Pourcentage ANTE-POST** : rapporté à la référence ajustée depuis le
+  28/09/2026 ; une version antérieure le rapportait à la consommation mesurée
+  après travaux et affichait ici 19,03 % au lieu de 15,99 %.
 * **Traces** : la fonction imprime de nombreuses lignes intermédiaires
   (``X_poly=``, ``serr====``…) ; ce ne sont pas des erreurs.
 

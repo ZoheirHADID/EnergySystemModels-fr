@@ -1,25 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100" role="img" aria-label="Échangeur à tubes rectilignes" data-iso-part="11" data-iso-ref="2511">
-  <title>ISO 14617-11 — 2511 — Échangeur à tubes rectilignes</title>
-  <desc>Échangeur thermique à faisceau de tubes rectilignes (plaques tubulaires fixes).</desc>
-  <metadata>{&quot;standard&quot;: &quot;ISO 14617-11&quot;, &quot;ref&quot;: &quot;2511&quot;, &quot;name&quot;: &quot;Échangeur à tubes rectilignes&quot;, &quot;ports&quot;: [{&quot;id&quot;: &quot;port-nw&quot;, &quot;x&quot;: 30, &quot;y&quot;: 8, &quot;dir&quot;: &quot;n&quot;, &quot;role&quot;: &quot;process&quot;}, {&quot;id&quot;: &quot;port-ne&quot;, &quot;x&quot;: 70, &quot;y&quot;: 8, &quot;dir&quot;: &quot;n&quot;, &quot;role&quot;: &quot;process&quot;}, {&quot;id&quot;: &quot;port-sw&quot;, &quot;x&quot;: 30, &quot;y&quot;: 92, &quot;dir&quot;: &quot;s&quot;, &quot;role&quot;: &quot;process&quot;}, {&quot;id&quot;: &quot;port-se&quot;, &quot;x&quot;: 70, &quot;y&quot;: 92, &quot;dir&quot;: &quot;s&quot;, &quot;role&quot;: &quot;process&quot;}]}</metadata>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100" role="img" aria-label="Évaporateur">
+  <title>Évaporateur</title>
+  <desc>Évaporateur : calandre contenant un faisceau chauffant, liquide en ébullition (bulles), vapeur sortant en haut.</desc>
+  <metadata>{"standard": "pictogramme ESM", "ref": "", "name": "Évaporateur", "ports": [{"id": "port-w", "x": 8, "y": 70, "dir": "w", "role": "inlet"}, {"id": "port-n", "x": 50, "y": 8, "dir": "n", "role": "outlet"}]}</metadata>
   <g fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-    <polygon points="14,36 86,36 86,64 14,64"/>
-    <line x1="22" y1="36" x2="22" y2="64"/>
-    <line x1="78" y1="36" x2="78" y2="64"/>
-    <line x1="22" y1="44" x2="78" y2="44"/>
-    <line x1="22" y1="50" x2="78" y2="50"/>
-    <line x1="22" y1="56" x2="78" y2="56"/>
-    <line x1="30" y1="36" x2="30" y2="8"/>
-    <line x1="70" y1="36" x2="70" y2="8"/>
-    <line x1="30" y1="64" x2="30" y2="92"/>
-    <line x1="70" y1="64" x2="70" y2="92"/>
+    <rect x="14" y="38" width="72" height="40" rx="18"/>
+    <line x1="50" y1="38" x2="50" y2="8"/>
+    <line x1="8" y1="70" x2="14" y2="70"/>
+    <path d="M 24 60 H 66 A 5 5 0 0 1 66 70 H 24"/>
+    <line x1="22" y1="52" x2="78" y2="52" stroke-dasharray="4,3"/>
+    <circle cx="34" cy="46" r="2.5"/>
+    <circle cx="50" cy="44" r="2.5"/>
+    <circle cx="64" cy="47" r="2.5"/>
+    <polygon points="50,12 46,18.4 54,18.4" fill="#000000"/>
   </g>
   <g class="ports">
-    <circle class="port" cx="30" cy="8" r="2.0" fill="#000000" stroke="none" data-port="port-nw" data-dir="n" data-role="process"/>
-    <circle class="port" cx="70" cy="8" r="2.0" fill="#000000" stroke="none" data-port="port-ne" data-dir="n" data-role="process"/>
-    <circle class="port" cx="30" cy="92" r="2.0" fill="#000000" stroke="none" data-port="port-sw" data-dir="s" data-role="process"/>
-    <circle class="port" cx="70" cy="92" r="2.0" fill="#000000" stroke="none" data-port="port-se" data-dir="s" data-role="process"/>
+    <circle class="port" cx="8" cy="70" r="2.0" fill="#000000" stroke="none" data-port="port-w" data-dir="w" data-role="inlet"/>
+    <circle class="port" cx="50" cy="8" r="2.0" fill="#000000" stroke="none" data-port="port-n" data-dir="n" data-role="outlet"/>
   </g>
 </svg>
-

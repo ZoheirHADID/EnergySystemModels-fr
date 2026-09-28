@@ -356,7 +356,7 @@ Dans ``PyqtSimulator``, c'est le nœud « Compresseur volumetrique » (sans acce
     ASP.fluid = "R134a"
     ASP.Pi_bar = 2.0
     ASP.Ti_degC = 0
-    ASP.F = 0.1                   # kg/s — ignoré par le compresseur, voir les pièges
+    ASP.F = 0.1                   # kg/s — remplacé par le débit de la cylindrée, voir plus bas
     with contextlib.redirect_stdout(io.StringIO()):
         ASP.calculate()
 
@@ -365,11 +365,11 @@ Dans ``PyqtSimulator``, c'est le nœud « Compresseur volumetrique » (sans acce
     CM.HP = 10e5                  # Pa, pression de refoulement
     CM.cyl = 0.0005               # m3 balayés par tour (0,5 L)
     CM.Tdischarge_target = None   # compresseur non refroidi (adiabatique)
-    with contextlib.redirect_stdout(io.StringIO()):   # calculate() imprime 9 lignes de mise au point
-        CM.calculate()
+    CM.calculate()                # n'imprime plus rien (depuis le 28/09/2026)
 
     print(CM.df.drop("Timestamp"))
     print(f"Débit imposé par la machine : {CM.F:.4f} kg/s (la source annonçait {ASP.F} kg/s)")
+    print(f"Port d'entrée : {CM.Inlet.F:.4f} kg/s ; débit amont remplacé : {CM.F_upstream} kg/s")
 
 Sortie réelle :
 
@@ -381,6 +381,7 @@ Sortie réelle :
     VolEff                             0.76
     Taux                                5.0
     F (kg/s)                         0.1813
+    F_amont remplace (kg/s)             0.1
     VitesseDeRotation (tr/min)       3000.0
     Inlet.P (bar)                       2.0
     HP (bar)                           10.0
@@ -391,6 +392,7 @@ Sortie réelle :
     Pth (W)                          6399.8
     Pel (W)                          8056.8
     Débit imposé par la machine : 0.1813 kg/s (la source annonçait 0.1 kg/s)
+    Port d'entrée : 0.1813 kg/s ; débit amont remplacé : 0.1 kg/s
 
 Au taux de 5, le rendement volumétrique tombe à 0,76 : sur 25 L/s balayés, seuls
 19 L/s de vapeur sont réellement aspirés. ``Pth`` est la puissance isentropique,
@@ -442,8 +444,7 @@ Personnaliser Compressor_m
     CM14.HP = 14e5
     CM14.cyl = 0.0005
     CM14.Tdischarge_target = None
-    with contextlib.redirect_stdout(io.StringIO()):
-        CM14.calculate()
+    CM14.calculate()
     print(f"Taux {CM.Taux:.1f} -> {CM14.Taux:.1f}")
     print(f"Rendement volumétrique {CM.VolEff:.3f} -> {CM14.VolEff:.3f}")
     print(f"Débit {CM.F:.4f} -> {CM14.F:.4f} kg/s")
@@ -460,14 +461,17 @@ Sortie réelle :
 
 .. warning::
 
-   - **Le débit de l'amont est ignoré** : ``CM.F`` est calculé par la cylindrée
-     et ``Outlet.F`` le reprend, sans que ``Inlet.F`` (0,1 kg/s ici) ne soit
-     corrigé ni signalé. Dans une chaîne, le débit change donc au passage du
-     compresseur ; c'est à vous d'accorder la source.
-   - ``calculate()`` **imprime** ses résultats intermédiaires (``self.eta_is=…``),
-     d'où le ``redirect_stdout`` de l'exemple.
-   - ``eta_vol`` devient négatif au-delà de :math:`\tau = a_0/a_1` (25 avec les
-     défauts) : aucune garde, le débit devient négatif.
+   - **Le débit est imposé par la cylindrée**, pas par l'amont. Depuis le
+     28/09/2026, ``calculate()`` aligne ``Inlet.F`` sur ce débit (le bilan de
+     masse du composant est tenu) et garde le débit que portait le port
+     d'entrée dans ``CM.F_upstream`` et dans la ligne ``F_amont remplace`` du
+     ``df`` : l'écart se lit, il n'est plus silencieux. La source amont, elle,
+     n'est pas modifiée ; c'est à vous de l'accorder.
+   - ``calculate()`` n'imprime plus ses résultats intermédiaires (il en
+     imprimait 9 lignes jusqu'au 28/09/2026).
+   - Au-delà de :math:`	au = a_0/a_1` (25 avec les défauts), le rendement
+     volumétrique deviendrait négatif : ``calculate()`` lève désormais
+     ``ValueError`` au lieu de rendre un débit négatif.
 
 Compresseur à rapport volumétrique — VolumetricCompressor
 ---------------------------------------------------------
@@ -520,23 +524,25 @@ Sortie réelle :
 
 .. code-block:: text
 
-               VolumetricCompressor
-    fluid                       air
-    f_rotor_Hz                 50.0
-    V_s_m3                    0.002
-    V_dot_m3h                 324.0
-    m_flow_kgs             0.106994
-    Ti_degC                    20.0
-    Tiso_degC            255.037315
-    To_degC              332.932629
-    P_ext_kW              34.273673
-    Pa_bar                      1.0
-    Pb_bar                      8.0
-    Rv                          3.0
-    Rv_optimal             4.426114
-    Pi_bar                 4.652844
-    eta_th                 0.931948
-    regime         sous-compression
+                   VolumetricCompressor
+    fluid                           air
+    f_rotor_Hz                     50.0
+    V_s_m3                        0.002
+    V_dot_m3h                     324.0
+    m_flow_kgs                 0.106994
+    F_upstream_kgs                  0.1
+    Ti_degC                        20.0
+    Tiso_degC                255.037315
+    To_degC                  332.932629
+    P_ext_kW                  34.273673
+    Pa_bar                          1.0
+    Pb_bar                          8.0
+    Rv                              3.0
+    Rv_optimal                 4.426114
+    Pi_bar                     4.652844
+    eta_th                     0.931948
+    regime             sous-compression
+    Q_losses_W                      0.0
 
 La vis de ``Rv = 3`` n'atteint que ``Pi_bar`` ≈ 4,65 bar en fin de compression
 interne ; l'air du réseau à 8 bar reflue dans la cellule à l'ouverture de la
@@ -602,10 +608,13 @@ sur un réseau réglé à 6 bar.
 
 .. warning::
 
-   - ``Q_losses`` est déclaré mais **jamais calculé** (reste ``None``) : le modèle
-     est adiabatique, toutes les pertes échauffent le gaz.
-   - Le débit massique réécrit ``Inlet.F`` : le débit de la source amont n'est pas
-     conservé.
+   - Le modèle est **adiabatique** : toutes les pertes échauffent le gaz, et
+     ``Q_losses`` vaut ``0.0`` après calcul (il était déclaré « si refroidi »
+     mais jamais affecté, et restait ``None``, jusqu'au 28/09/2026). Pour un
+     compresseur refroidi, voir ``Compressor_m`` (``Tdischarge_target``).
+   - Le débit massique est imposé par la cylindrée et réécrit ``Inlet.F`` ; le
+     débit que portait l'entrée reste lisible dans ``F_upstream`` (ligne
+     ``F_upstream_kgs`` du ``df``).
    - ``Rv <= 0`` lève ``ValueError`` ; quand l'équation d'état ne sait pas
      s'inverser en (s, v) (mélanges), ``P_i`` est estimée par l'exposant
      isentropique local et ``regime`` le signale.

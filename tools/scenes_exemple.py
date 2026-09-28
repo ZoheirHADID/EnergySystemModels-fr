@@ -195,6 +195,12 @@ def obs_co2(m):
             f"turbine (encore à {fr(_tsortie(m, 'Turbine 77 bar'), 0)} °C environ) part au refroidisseur.")
 
 
+def _temperature(etat) -> float:
+    """Température (°C) d'un état [fluide, F, P bar, h kJ/kg], lue au CoolProp."""
+    from CoolProp.CoolProp import PropsSI
+    return PropsSI("T", "P", etat[2] * 1e5, "H", etat[3] * 1e3, etat[0]) - 273.15
+
+
 def _tsortie(m: Mesure, turbine: str) -> float:
     """Température de sortie turbine, lue au CoolProp sur l'état (P, h) affiché."""
     from CoolProp.CoolProp import PropsSI
@@ -215,67 +221,82 @@ def obs_geothermie(m):
 
 
 def obs_rankine_centrale(m):
-    return ("**La scène ne calcule pas le cycle qu'elle annonce.** Son fichier est écrit dans "
-            "l'ancien format de sauvegarde (paramètres rangés en liste), que les nœuds actuels ne "
-            "relisent pas : la source repart sur ses valeurs par défaut — "
-            f"{m.noeud('Source')['valeur'][0]} à {fr(m.v('Source', 'Temp. effective (°C)'))} °C et "
-            f"{fr(m.v('Source', 'Pression effective (bar)'), 3)} bar au lieu de l'eau à 27 °C et "
-            "0,0356 bar inscrite dans le fichier — et le compresseur monte à "
-            f"{fr(m.noeud('Compresseur')['valeur'][2], 0)} bar au lieu de 128. Les valeurs "
-            "affichées sont donc celles d'un autre cycle. Défaut consigné ; pour un cycle de "
-            "Rankine qui tourne, voir :doc:`../002-thermodynamic_cycles/turbine`.")
+    wp = m.v("Compresseur", "Q_comp(kW)")
+    q = m.v("Evaporateur", "Q_evap (kW)")
+    wt = m.v("Turbine", "Q_turb(kW)")
+    qc = m.v("Condenseur", "Q_cond (kW)")
+    vapeur = m.noeud("Evaporateur")["valeur"]
+    return (f"Pour 1 kg/s d'eau, la « compression » du condensat à 128 bar (rendement 1) "
+            f"demande {fr(wp)} kW, l'évaporateur apporte {fr(q)} kW et sort la vapeur à "
+            f"{fr(_temperature(vapeur), 0)} °C, la turbine isentropique rend {fr(wt)} kW jusqu'à "
+            f"0,0356 bar et le condenseur rejette {fr(qc)} kW. **Rendement du cycle idéal : "
+            f"{fr(100 * (wt - wp) / q)} %** (travail net / chaleur apportée). Les nœuds *Sortie* "
+            "intercalés donnent l'état du fluide entre chaque organe. La scène était enregistrée "
+            "dans l'ancien format (réglages en liste, que les nœuds ne relisaient pas) : elle a été "
+            "réécrite le 28/09/2026, source réglée à 26 °C, sous la saturation "
+            f"({fr(_tsat(0.0356), 2)} °C à 0,0356 bar), pour que la pompe reçoive bien du liquide.")
 
 
-def _obs_rankine_vapeur(m, source, pompe, chaudiere, turbine):
+def _obs_rankine_vapeur(m, source, pompe, chaudiere, turbine, condenseur):
     p = m.v(source, "Pression effective (bar)")
     t = m.v(source, "Temp. effective (°C)")
-    return ("**La scène ne représente pas, en l'état, le cycle annoncé.** La source est réglée à "
-            f"{fr(t)} °C sous {fr(p, 3)} bar ; or l'eau bout à {fr(_tsat(p), 2)} °C sous cette "
-            "pression : la source délivre donc de la **vapeur** (enthalpie "
-            f"{fr(m.noeud(source)['valeur'][3], 0)} kJ/kg), pas du condensat. La pompe, qui impose "
-            f"le débit volumique de sa courbe ({fr(m.v(pompe, 'Débit de fonctionnement (m³/h)'))} m³/h), "
-            f"ne fait plus passer que {fr(m.noeud(pompe)['valeur'][1] * 3600, 2)} kg/h de vapeur et "
-            f"affiche une puissance de {fr(m.v(pompe, 'Puissance hydraulique (kW)'))} kW et un "
-            f"rendement de {fr(m.v(pompe, 'Rendement (-)'), 3)} — valeurs sans signification. "
-            f"La chaudière et la turbine calculent alors sur ce débit infime ({fr(m.v(chaudiere, 'Qth(kW)'), 3)} kW "
-            f"et {fr(m.v(turbine, 'Q_turb(kW)'), 3)} kW). Pour retrouver un cycle, régler la source "
-            "un ou deux degrés **sous** la température de saturation. Défaut consigné.")
+    wp = m.v(pompe, "Puissance hydraulique (kW)")
+    q = m.v(chaudiere, "Qth(kW)")
+    wt = m.v(turbine, "Q_turb(kW)")
+    return (f"Pour {fr(m.noeud(source)['valeur'][1], 0)} kg/s de condensat pris à {fr(t, 0)} °C sous "
+            f"{fr(p, 3)} bar (la saturation est à {fr(_tsat(p), 2)} °C : c'est bien du liquide), la "
+            f"pompe demande {fr(wp, 2)} kW pour {fr(m.v(pompe, 'HMT (m)'), 0)} m de hauteur, la "
+            f"chaudière apporte {fr(q)} kW, la turbine rend {fr(wt)} kW et le condenseur rejette "
+            f"{fr(m.v(condenseur, 'Q_cond (kW)'))} kW. **Rendement du cycle : "
+            f"{fr(100 * (wt - wp) / q)} %.** La pompe est réglée en « Débit imposé » : sur sa "
+            "courbe par défaut (2 à 30 m³/h, 44 m au plus), elle ne pourrait pas refouler à cette "
+            "pression. Scène corrigée le 28/09/2026 : la source était réglée au-dessus de la "
+            "saturation et délivrait de la vapeur à la pompe.")
 
 
 def obs_rankine_vapeur(m):
-    return _obs_rankine_vapeur(m, "Eau condensat", "Pompe -> 80 bar", "Chaudiere 450C", "Turbine 0.05 bar")
+    return _obs_rankine_vapeur(m, "Eau condensat", "Pompe -> 80 bar", "Chaudiere 450C",
+                               "Turbine 0.05 bar", "Condenseur")
 
 
 def obs_segs(m):
-    return _obs_rankine_vapeur(m, "Condensat 42C", "Pompe -> 100 bar", "Chaudiere solaire 371C", "Turbine")
+    return _obs_rankine_vapeur(m, "Condensat 42C", "Pompe -> 100 bar", "Chaudiere solaire 371C",
+                               "Turbine", "Condenseur 42C")
 
 
 def obs_tg_detaillee(m):
-    return ("**La scène ne calcule pas la turbine à gaz qu'elle dessine.** Comme « Rankine - "
-            "centrale a vapeur », elle est enregistrée dans l'ancien format : les deux sources "
-            f"repartent sur leur défaut ({m.noeud('Source')['valeur'][0]}, "
-            f"{fr(m.v('Source', 'Temp. effective (°C)'))} °C) au lieu de l'air à 15 °C et du "
-            "combustible à 20 bar inscrits dans le fichier, et le réchauffeur vise "
-            f"{fr(m.v('Heater_Cooler', 'Temp. sortie (°C)'))} °C au lieu de 1065 °C. La turbine "
-            f"n'affiche que {fr(m.v('Turbine', 'Q_turb(kW)'), 3)} kW. Défaut consigné ; la turbine "
-            "à gaz se calcule d'un bloc avec le nœud « Turbine à gaz » ou dans la scène "
-            "« Brayton - turbine a gaz ».")
+    wc = m.v("Compresseur", "Q_comp(kW)")
+    q = m.v("Heater_Cooler", "Qth(kW)")
+    wt = m.v("Turbine", "Q_turb(kW)")
+    return (f"1 kg/s d'air à 15 °C est comprimé à 16 bar ({fr(wc)} kW, sortie à "
+            f"{fr(m.v('Compresseur', 'Temp. sortie sans refroid. (°C)'), 0)} °C) ; le mélangeur "
+            "y ajoute 0,05 kg/s d'un second courant (le « combustible », représenté par de l'air "
+            f"à 20 bar) ; la chambre de combustion (un réchauffeur) apporte {fr(q)} kW pour "
+            f"atteindre 1065 °C, et la turbine rend {fr(wt)} kW jusqu'à 1 bar. Travail net "
+            f"{fr(wt - wc)} kW, **rendement {fr(100 * (wt - wc) / q)} %** — sans modèle de "
+            "combustion : pour le bilan d'une vraie combustion, voir le nœud « Turbine à gaz ». "
+            "Scène réécrite le 28/09/2026 depuis l'ancien format (réglages en liste, ignorés) ; la "
+            "perte de charge de −4 bar du fichier d'origine, qui faisait **monter** la pression "
+            "dans la chambre, a été ramenée à 0.")
 
 
 def obs_turboreacteur(m):
     wc = m.v("Compresseur", "Q_comp(kW)")
     wt = m.v("Turbine (gen. gaz)", "Q_turb(kW)")
+    f = m.v("Tuyere (poussee)", "Débit (kg/s)")
+    v = m.v("Tuyere (poussee)", "Vitesse sortie (m/s)")
     return (f"Le diffuseur relève la pression d'arrêt de 0,265 à {fr(m.v('Diffuseur (ram)', 'Pression sortie (bar)'), 3)} bar ; "
             f"le compresseur absorbe {fr(wc / 1000, 2)} MW, la combustion apporte "
             f"{fr(m.v('Combustion 1150C', 'Qth(kW)') / 1000, 2)} MW et la turbine du générateur de "
-            f"gaz rend {fr(wt / 1000, 2)} MW. **Deux réglages empêchent la poussée** : la turbine "
-            f"rend moins que ce que le compresseur consomme ({fr(wt / 1000, 2)} < {fr(wc / 1000, 2)} MW), "
-            "et la tuyère est réglée pour sortir à 3,0 bar alors que le gaz lui arrive à 2,4 bar — "
-            f"elle ne peut pas détendre vers une pression plus haute et affiche un débit de "
-            f"{fr(m.v('Tuyere (poussee)', 'Débit (kg/s)'), 1)} kg/s et une vitesse de "
-            f"{fr(m.v('Tuyere (poussee)', 'Vitesse sortie (m/s)'), 0)} m/s. Abaisser la pression de sortie "
-            "de la tuyère sous 2,4 bar (vers la pression ambiante, 0,265 bar) pour voir le jet. "
-            "Défaut de scène consigné.")
+            f"gaz, détendue jusqu'à 1,8 bar, rend {fr(wt / 1000, 2)} MW : **elle entraîne le "
+            f"compresseur** ({fr(wt / 1000, 2)} ≥ {fr(wc / 1000, 2)} MW). La tuyère détend le gaz "
+            f"jusqu'à la pression ambiante (0,265 bar) : **jet à {fr(v, 0)} m/s** pour "
+            f"{fr(f, 1)} kg/s, soit un débit de quantité de mouvement de {fr(f * v / 1000, 1)} kN "
+            "en sortie (la poussée nette en retranche le débit multiplié par la vitesse de vol, "
+            "que la scène ne donne pas). Scène corrigée le 28/09/2026 : la tuyère visait 3,0 bar "
+            "en aval d'une turbine qui sortait à 2,4 bar (débit nul), la turbine ne couvrait pas "
+            "le compresseur, et la section de tuyère (0,001 m²) ne laissait passer que 0,1 kg/s ; "
+            "elle vaut désormais 0,2688 m².")
 
 
 def obs_absorption(m):
@@ -291,15 +312,26 @@ def obs_absorption(m):
 
 
 def obs_bietagee(m):
-    vides = sum(1 for x in m.noeuds if not x["resultats"])
-    return (f"**Rien n'est calculé à l'ouverture** : {vides} nœuds sur {len(m.noeuds)} restent "
-            "vides, et la source affiche encore ses valeurs de construction "
-            f"({m.noeud('R134a vap BP')['valeur'][0]}, {fr(m.v('R134a vap BP', 'Temp. effective (°C)'))} °C) "
-            "au lieu du R134a à −21 °C du fichier. Même cause que pour l'absorption : la boucle "
-            "HP (condenseur → détente → bouteille) est fermée et la scène n'a aucun nœud *Sortie* "
-            "ni *Capteur* d'où le moteur partirait. La scène vaut pour son **schéma** : deux "
-            "compresseurs, une bouteille à 3,5 bar qui sépare le liquide envoyé à l'évaporateur "
-            "et la vapeur reprise par l'étage HP. Défaut consigné.")
+    wbp = m.v("Compresseur BP", "Q_comp(kW)")
+    whp = m.v("Compresseur HP", "Q_comp(kW)")
+    qe = m.v("Evaporateur", "Q_evap (kW)")
+    x = m.v("Separateur 3.5 bar", "Fraction vapeur (-)")
+    controle = m.noeud("Retour detente HP (controle de coupure)")["valeur"][1]
+    injecte = m.noeud("Injection HP (coupure de boucle)")["valeur"][1]
+    return (f"1 kg/s de R134a vaporisé à {fr(m.v('Evaporateur', 'Tevap(°C)'))} °C absorbe "
+            f"**{fr(qe)} kW de froid**. L'étage BP comprime la vapeur de 1 à 3,5 bar ({fr(wbp)} kW) ; "
+            "dans la bouteille à 3,5 bar, le liquide détendu de l'étage HP la refroidit et s'y "
+            f"vaporise en partie : le séparateur envoie {fr(100 * x)} % du débit, en vapeur, à "
+            f"l'étage HP ({fr(m.noeud('Compresseur HP')['valeur'][1], 3)} kg/s comprimés à 12 bar, "
+            f"{fr(whp)} kW) et le reste, liquide, à l'évaporateur. **COP froid = "
+            f"{fr(qe / (wbp + whp), 2)}.** La boucle HP est **ouverte** à l'entrée de la bouteille : "
+            "la source « Injection HP (coupure de boucle) » y porte le débit et l'enthalpie que le "
+            "nœud de contrôle « Retour detente HP » relit en sortie de détente "
+            f"({fr(controle, 4)} kg/s relus pour {fr(injecte, 4)} kg/s injectés). Le moteur "
+            "historique ne sait pas résoudre une boucle fermée : les valeurs de coupure ont été "
+            "convergées par substitution le 28/09/2026 ; **si vous modifiez la scène, recopiez "
+            "dans la source les valeurs du nœud de contrôle et relancez jusqu'à ce qu'elles "
+            "coïncident.**")
 
 
 def obs_cryogenie(m):
@@ -341,17 +373,16 @@ def obs_frigo(m):
 
 def obs_ballon(m):
     b = "Ballon stratifie"
-    return ("Le ballon de 2,5 m³ en 30 strates, initialement à 50 °C, reçoit en haut l'eau "
-            "chaude à 70 °C et en bas l'eau froide à 12 °C pendant un pas de 3600 s. On lit "
-            f"**{fr(m.v(b, 'Temperature haute (degC)'), 2)} °C en haut et "
-            f"{fr(m.v(b, 'Temperature basse (degC)'), 2)} °C en bas** : la thermocline est "
-            f"descendue jusqu'à la dernière strate, et le ballon stocke "
-            f"{fr(m.v(b, 'Energie stockee (kWh)'), 2)} kWh. Les débits réels, lus sur les capteurs, "
-            f"sont de {fr(m.v('Capteur', 'Mesure', 7))} et {fr(m.v('Capteur', 'Mesure', 6))} m³/h — "
-            "**et non 10 et 8 m³/h** comme saisi : les sources sont réglées en « m³/h » écrit avec "
-            "un exposant, unité que le nœud Source ne reconnaît pas et remplace sans le dire par "
-            "des kg/s. Défaut consigné. Le ballon se simule aussi dans le temps : voir "
-            ":doc:`../013-simulation-temporelle/index`.")
+    return ("Le ballon de 2,5 m³ en 30 strates, initialement à 50 °C, reçoit en haut 10 m³/h "
+            "d'eau chaude à 70 °C et en bas 8 m³/h d'eau froide à 12 °C pendant un pas de 3600 s. "
+            f"On lit **{fr(m.v(b, 'Temperature haute (degC)'), 2)} °C en haut et "
+            f"{fr(m.v(b, 'Temperature basse (degC)'), 2)} °C en bas**, et le ballon stocke "
+            f"{fr(m.v(b, 'Energie stockee (kWh)'), 2)} kWh. Les capteurs d'entrée relisent bien "
+            f"{fr(m.v('Capteur', 'Mesure', 7))} et {fr(m.v('Capteur', 'Mesure', 6))} m³/h. Scène corrigée "
+            "le 28/09/2026 : l'unité était écrite « m³/h » avec un exposant, que le nœud Source "
+            "remplaçait sans le dire par des kg/s (10 « m³/h » valaient 36,8 m³/h) ; le nœud lit "
+            "désormais l'exposant et refuse toute unité inconnue. Le ballon se simule aussi dans "
+            "le temps : voir :doc:`../013-simulation-temporelle/index`.")
 
 
 def obs_chaine(m):
@@ -374,15 +405,14 @@ def obs_chaudiere(m):
     ch = "Chaudière GN"
     exces = m.v(ch, "Excès d'air (%)")
     demande = m.v(ch, "Puissance demandée par l'eau (kW)")
-    fluide = m.noeud("Source")["valeur"][0]
     return (f"La chaudière affiche un rendement de {fr(m.v(ch, 'Rendement sur PCI (%)'))} % sur PCI "
             f"({fr(m.v(ch, 'Rendement sur PCS (%)'))} % sur PCS), un excès d'air de "
-            f"{fr(exces)} % pour 3,5 % d'O₂ et des fumées à "
-            f"{fr(m.v('Capteur', 'Mesure', 1))} °C. **Mais le circuit d'eau est alimenté par de "
-            f"l'{fluide}** : la source de la scène a gardé le fluide par défaut du nœud, et la "
-            f"« puissance demandée par l'eau » ({fr(demande)} kW) est celle d'un débit "
-            f"d'{fluide} porté de 15 à 180 °C. Régler la source sur *water* avant d'exploiter "
-            "la scène. Défaut de scène consigné ; le modèle est documenté dans "
+            f"{fr(exces)} % pour 3,5 % d'O₂ et des fumées à {fr(m.v('Capteur', 'Mesure', 1))} °C. "
+            "L'eau (0,278 kg/s à 15 °C) est portée à 180 °C **sous 1,013 bar** : elle sort en "
+            f"vapeur surchauffée, d'où une puissance demandée de {fr(demande)} kW. Pour de l'eau "
+            "chaude liquide, relever la pression de la source ou baisser la température de "
+            "sortie. Scène corrigée le 28/09/2026 : la source avait gardé le fluide par défaut du "
+            "nœud (ammoniac). Le modèle est documenté dans "
             ":doc:`../002-thermodynamic_cycles/ng_boiler_efficiency`.")
 
 
@@ -392,13 +422,12 @@ def obs_compresseur(m):
     return (f"1000 kg/h d'air comprimés de 1 à 15 bar (rendement 0,7) demandent {fr(q)} kW ; le "
             f"compresseur est refroidi pour sortir à 80 °C et dissipe {fr(d)} kW, soit "
             f"**{fr(100 * d / q, 0)} % de sa puissance récupérable** en chaleur. Une liaison de "
-            "signal transmet cette puissance au réchauffeur d'un circuit d'eau, qui passe de "
-            f"{fr(m.v('Capteur', 'Mesure', 3))} à {fr(m.v('Capteur', 'Mesure', 2))} °C. Le débit d'eau "
-            f"réel est de {fr(m.noeud('Heater_Cooler')['valeur'][1], 1)} kg/s, et non 4 Nm³/h comme "
-            "saisi : même défaut d'unité écrite avec exposant que dans « Ballon stratifie ».")
+            "signal transmet cette puissance au réchauffeur d'un circuit d'eau de 4 m³/h "
+            f"({fr(m.noeud('Heater_Cooler')['valeur'][1], 2)} kg/s), qui passe de "
+            f"{fr(m.v('Capteur', 'Mesure', 3))} à {fr(m.v('Capteur', 'Mesure', 2))} °C. Scène corrigée "
+            "le 28/09/2026 : le débit d'eau était saisi en « Nm³/h » avec exposant, pris pour "
+            "4 kg/s ; il est désormais en m³/h, l'unité d'un débit de liquide.")
 
-
-# --- hydraulique -----------------------------------------------------------
 
 def _pompe(m, titre="Pompe", n=0):
     return (f"{fr(m.v(titre, 'Débit de fonctionnement (m³/h)', n), 2)} m³/h sous "
@@ -554,25 +583,27 @@ SCENES: dict[str, tuple[str, callable]] = {
         "HP, le liquide est de nouveau vaporisé à 0,931 bar ; les deux vapeurs sont mélangées "
         "et détendues dans une turbine BP jusqu'au condenseur à 0,123 bar.", obs_geothermie),
     "1 - Cycles thermodynamiques/Rankine - centrale a vapeur.json": (
-        "Dessin d'un cycle de Rankine à vapeur d'eau (source, compression, évaporateur, "
-        "turbine, condenseur), avec des nœuds *Sortie* branchés entre chaque organe pour lire "
-        "l'état du fluide.", obs_rankine_centrale),
+        "Un cycle de Rankine idéal à vapeur d'eau : 1 kg/s de condensat à 26 °C et 0,0356 bar, "
+        "pompé à 128 bar (nœud compresseur, rendement 1), vaporisé et surchauffé de 117,4 K, "
+        "détendu dans une turbine isentropique jusqu'à 0,0356 bar puis condensé, avec des nœuds "
+        "*Sortie* branchés entre chaque organe pour lire l'état du fluide.", obs_rankine_centrale),
     "1 - Cycles thermodynamiques/Rankine - cycle vapeur.json": (
-        "Le cycle de Rankine d'une centrale à vapeur : condensat à 33 °C et 0,05 bar, pompe à "
-        "80 bar, chaudière à 450 °C, turbine (rendement 0,85) jusqu'à 0,05 bar, condenseur.",
+        "Le cycle de Rankine d'une centrale à vapeur : 1 kg/s de condensat à 32 °C et 0,05 bar, "
+        "pompe à 80 bar, chaudière à 450 °C, turbine (rendement 0,85) jusqu'à 0,05 bar, condenseur.",
         obs_rankine_vapeur),
     "1 - Cycles thermodynamiques/Solaire a concentration (SEGS).json": (
-        "Le cycle vapeur d'une centrale solaire à concentration de type SEGS : condensat à "
-        "42 °C, pompe à 100 bar, « chaudière solaire » (champ de capteurs cylindro-paraboliques) "
+        "Le cycle vapeur d'une centrale solaire à concentration de type SEGS : 1 kg/s de "
+        "condensat à 41 °C sous 0,082 bar, pompe à 100 bar, « chaudière solaire » (champ de capteurs cylindro-paraboliques) "
         "à 371 °C, turbine, condenseur à 42 °C.", obs_segs),
     "1 - Cycles thermodynamiques/Turbine a gaz - modele detaille.json": (
-        "Dessin d'une turbine à gaz détaillée : air comprimé, injection d'un débit de "
-        "combustible par un mélangeur, chambre de combustion (réchauffeur), turbine, avec des "
-        "nœuds *Sortie* intermédiaires.", obs_tg_detaillee),
+        "Une turbine à gaz détaillée : air comprimé, injection d'un débit de combustible par un "
+        "mélangeur, chambre de combustion (réchauffeur à 1065 °C), turbine, avec des nœuds "
+        "*Sortie* intermédiaires.", obs_tg_detaillee),
     "1 - Cycles thermodynamiques/Turboreacteur.json": (
         "Un turboréacteur simple flux en altitude : 27,8 kg/s d'air à −50 °C et 0,265 bar, "
         "diffuseur d'entrée (effet dynamique), compresseur à 16 bar, combustion à 1150 °C, "
-        "turbine qui entraîne le compresseur, tuyère de poussée.", obs_turboreacteur),
+        "turbine qui entraîne le compresseur (détente à 1,8 bar), tuyère de poussée détendue "
+        "jusqu'à la pression ambiante.", obs_turboreacteur),
     # 2 - Froid et cryogénie
     "2 - Froid et cryogenie/Absorption a simple effet.json": (
         "Une machine frigorifique à absorption LiBr-H₂O simple effet, assemblée organe par "
@@ -589,7 +620,7 @@ SCENES: dict[str, tuple[str, callable]] = {
     "2 - Froid et cryogenie/Machine frigorifique bi-etagee.json": (
         "Une machine frigorifique R134a à deux étages de compression avec bouteille "
         "intermédiaire à injection (3,5 bar) : l'étage BP aspire à 1 bar, l'étage HP refoule à "
-        "12 bar.", obs_bietagee),
+        "12 bar ; la boucle HP est ouverte par une source de coupure.", obs_bietagee),
     "2 - Froid et cryogenie/Machine frigorifique.json": (
         "Le cycle frigorifique à compression de vapeur de base, au R134a : compression de 1 à "
         "12 bar, condenseur (sous-refroidissement 5 K), détendeur à 1 bar, évaporateur "
@@ -799,14 +830,14 @@ def ecrire(mesures: dict[str, Mesure], images: dict[str, str]) -> str:
     a("Relevé en ouvrant les scènes, et consigné dans le suivi des défauts de la")
     a("bibliothèque :")
     a("")
-    a("- **Deux scènes au format ancien ne relisent pas leurs réglages**")
-    a("  (« Rankine - centrale a vapeur », « Turbine a gaz - modele detaille ») : leurs")
-    a("  nœuds repartent sur les valeurs par défaut.")
-    a("- **Deux scènes en boucle fermée ne calculent rien** (« Absorption a simple effet »,")
-    a("  « Machine frigorifique bi-etagee ») : sans nœud *Sortie* ni *Capteur*, le moteur")
-    a("  historique n'a pas de point de départ.")
-    a("- **Une unité de débit écrite avec un exposant** (« m³/h », « Nm³/h ») n'est pas")
-    a("  reconnue par le nœud *Source*, qui la remplace sans le dire par des kg/s.")
+    a("- **Le moteur historique ne résout pas une boucle fermée** : sans nœud *Sortie* ni")
+    a("  *Capteur*, il n'a pas de point de départ, et une boucle sans coupure ne se calcule")
+    a("  pas. « Absorption a simple effet » ne calcule donc rien ; « Machine frigorifique")
+    a("  bi-etagee » ouvre sa boucle HP par une **source de coupure** dont les valeurs ont été")
+    a("  convergées à la main.")
+    a("- Le nœud *Source* lit l'unité de débit « m³/h » écrite avec exposant comme « m3/h »")
+    a("  et **refuse** une unité inconnue (le nœud passe en erreur) au lieu de la prendre,")
+    a("  sans le dire, pour des kg/s (corrigé le 28/09/2026).")
     a("- **Sur une scène résolue par le solveur nodal, le nœud Source continue d'afficher")
     a("  15 °C et 1,013 bar**, ses valeurs de construction : lire la température et la")
     a("  pression réelles sur un capteur. Les tableaux ci-dessous omettent donc ces sources.")

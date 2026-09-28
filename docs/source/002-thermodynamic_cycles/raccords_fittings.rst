@@ -188,8 +188,9 @@ d'entrée (pas de perte de charge).
    h_{liquide} = h_{liq}(p)\;(Q{=}0) \qquad h_{vapeur} = h_{vap}(p)\;(Q{=}1)
 
 Le titre vapeur :math:`x` est calculé à partir de l'enthalpie d'entrée et des
-enthalpies de saturation (``ThermoPropsSI`` avec ``Q=0`` et ``Q=1``), puis
-écrêté dans :math:`[0,1]`. Les deux sorties portent respectivement le liquide
+enthalpies de saturation (``ThermoPropsSI`` avec ``Q=0`` et ``Q=1``). Un titre
+hors de :math:`[0,1]` (entrée monophasique) lève ``SinglePhaseInletError`` — il
+était écrêté en silence jusqu'au 28/09/2026. Les deux sorties portent respectivement le liquide
 saturé et la vapeur saturée à la pression d'entrée. ``T_sat_degC`` est la
 température de saturation à cette pression.
 
@@ -384,30 +385,34 @@ Variante : une entrée qui n'est pas diphasique
     sep2.Inlet.P = 3e5
     sep2.Inlet.h = PropsSI("H", "P", 3e5, "T", 273.15 - 20, "R134a")
     sep2.Inlet.F = 0.5
-    sep2.calculate()
-    print(f"Titre d'entrée x = {sep2.x:.3f}")
-    print(f"h entrée = {sep2.Inlet.h / 1000:.1f} kJ/kg ; h liquide sortant = {sep2.Outlet_liquid.h / 1000:.1f} kJ/kg")
-    print(f"Écart de bilan d'énergie : {bilan_energie(sep2) / 1000:.1f} kW")
+    try:
+        sep2.calculate()
+    except Separator_Simple.SinglePhaseInletError as refus:
+        print("Refus :", refus)
+    print("Sorties publiées :", sep2.Outlet_liquid.F, sep2.Outlet_vapor.F)
 
 Sortie réelle :
 
 .. code-block:: text
 
-   Titre d'entrée x = 0.000
-   h entrée = 173.7 kJ/kg ; h liquide sortant = 200.9 kJ/kg
-   Écart de bilan d'énergie : -13.6 kW
+   Refus : Separator_Simple : entree liquide sous-refroidi (titre -0.1374 hors de [0, 1] ; h = 173688.3 J/kg, saturation 200903.5 / 398995.1 J/kg a 3 bar). Rien a separer : ecreter le titre renverrait un etat sature et fausserait le bilan d'energie de +1.361e+04 W.
+   Sorties publiées : None None
 
-**Le séparateur crée 13,6 kW sans le signaler** : le titre calculé (négatif) est
-écrêté à 0, puis tout le débit sort en liquide **saturé**, donc réchauffé de
-−20 °C à 0,67 °C sans aucun apport. Symétriquement, une vapeur surchauffée
-ressort en vapeur saturée et perd de l'énergie.
+**Le séparateur refuse une entrée monophasique** (depuis le 28/09/2026). Il
+écrêtait auparavant le titre à 0 et faisait sortir tout le débit en liquide
+**saturé**, donc réchauffé de −20 °C à 0,67 °C sans aucun apport : 13,6 kW
+créés sans le signaler. Symétriquement, une vapeur surchauffée est refusée
+(elle ressortait en vapeur saturée et perdait de l'énergie). Le message chiffre
+l'écart qu'aurait produit l'écrêtage ; aucune sortie n'est publiée.
 
 Pièges (séparateur)
 -------------------
 
-- **Écrêtage silencieux du titre** (variante ci-dessus) : une entrée
-  sous-refroidie ou surchauffée ne lève rien. Vérifier ``0 < sep.x < 1`` avant
-  d'exploiter les sorties, ou contrôler le bilan comme ``bilan_energie``.
+- **Entrée monophasique refusée** (variante ci-dessus) : une entrée
+  sous-refroidie ou surchauffée lève ``Separator_Simple.SinglePhaseInletError``
+  (sous-classe de ``ValueError``). Seul l'arrondi d'une enthalpie calculée
+  exactement à saturation (écart de titre < 1e-9) est absorbé. Dans une chaîne
+  où l'entrée peut sortir du dôme, rattrapez l'exception.
 - **Températures des sorties non calculées** : les ports ``Outlet_liquid`` et
   ``Outlet_vapor`` reçoivent ``P``, ``h`` et ``F`` mais leur ``T`` reste
   ``None`` ; la température commune est ``sep.T_sat_degC``.

@@ -1,17 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100" role="img" aria-label="Réservoir atmosphérique" data-iso-part="7" data-iso-ref="X2061">
-  <title>ISO 14617-7 — X2061 — Réservoir atmosphérique</title>
-  <desc>Réservoir fermé pour la pression atmosphérique.</desc>
-  <metadata>{&quot;standard&quot;: &quot;ISO 14617-7&quot;, &quot;ref&quot;: &quot;X2061&quot;, &quot;name&quot;: &quot;Réservoir atmosphérique&quot;, &quot;ports&quot;: [{&quot;id&quot;: &quot;port-n&quot;, &quot;x&quot;: 50, &quot;y&quot;: 8, &quot;dir&quot;: &quot;n&quot;, &quot;role&quot;: &quot;process&quot;}, {&quot;id&quot;: &quot;port-s&quot;, &quot;x&quot;: 50, &quot;y&quot;: 92, &quot;dir&quot;: &quot;s&quot;, &quot;role&quot;: &quot;outlet&quot;}]}</metadata>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100" role="img" aria-label="Ballon stratifié">
+  <title>Ballon stratifié</title>
+  <desc>Ballon de stockage stratifié : couches de température superposées (traits de plus en plus espacés vers le bas), piquages haut et bas.</desc>
+  <metadata>{"standard": "pictogramme ESM", "ref": "", "name": "Ballon stratifié", "ports": [{"id": "port-nw", "x": 24, "y": 22, "dir": "w", "role": "inlet"}, {"id": "port-se", "x": 76, "y": 78, "dir": "e", "role": "inlet"}, {"id": "port-ne", "x": 76, "y": 22, "dir": "e", "role": "outlet"}, {"id": "port-sw", "x": 24, "y": 78, "dir": "w", "role": "outlet"}]}</metadata>
   <g fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-    <rect x="28" y="24" width="44" height="54"/>
-    <line x1="50" y1="24" x2="50" y2="8"/>
-    <line x1="50" y1="78" x2="50" y2="92"/>
+    <rect x="34" y="12" width="32" height="76" rx="10"/>
+    <line x1="36" y1="30" x2="64" y2="30"/>
+    <line x1="36" y1="42" x2="64" y2="42" stroke-dasharray="7,2"/>
+    <line x1="36" y1="54" x2="64" y2="54" stroke-dasharray="4,3"/>
+    <line x1="36" y1="66" x2="64" y2="66" stroke-dasharray="2,4"/>
+    <line x1="24" y1="22" x2="34" y2="22"/>
+    <line x1="66" y1="22" x2="76" y2="22"/>
+    <line x1="24" y1="78" x2="34" y2="78"/>
+    <line x1="66" y1="78" x2="76" y2="78"/>
   </g>
   <g class="ports">
-    <circle class="port" cx="50" cy="8" r="2.0" fill="#000000" stroke="none" data-port="port-n" data-dir="n" data-role="process"/>
-    <circle class="port" cx="50" cy="92" r="2.0" fill="#000000" stroke="none" data-port="port-s" data-dir="s" data-role="outlet"/>
+    <circle class="port" cx="24" cy="22" r="2.0" fill="#000000" stroke="none" data-port="port-nw" data-dir="w" data-role="inlet"/>
+    <circle class="port" cx="76" cy="78" r="2.0" fill="#000000" stroke="none" data-port="port-se" data-dir="e" data-role="inlet"/>
+    <circle class="port" cx="76" cy="22" r="2.0" fill="#000000" stroke="none" data-port="port-ne" data-dir="e" data-role="outlet"/>
+    <circle class="port" cx="24" cy="78" r="2.0" fill="#000000" stroke="none" data-port="port-sw" data-dir="w" data-role="outlet"/>
   </g>
 </svg>
-
-

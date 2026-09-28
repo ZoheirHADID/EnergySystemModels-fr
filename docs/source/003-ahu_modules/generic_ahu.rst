@@ -137,13 +137,33 @@ La ``config`` remplace ``recycling`` par ``exchange_type`` / ``heat_exchanger`` 
    data["Heat exchanger efficiency [%]"] = 75    # utile si heat_exchanger=True
    ahu = AirRecoveryAHU(config=config, data=data)
    ahu.calculate()
-   print(ahu.df.shape)   # (12, 54)
+   print(ahu.df.shape)   # (12, 55) : 54 colonnes + « Erreur »
+   print(ahu.df["Erreur"].notna().sum(), "lignes refusées")
+   print(ahu.df[["Timestamp", "HC_Q_th[kW]", "HMD_Outlet_RH[%]",
+                 "POSTHC_Outlet_T[°C]"]].iloc[[0, 8]].to_string())
+   print(ahu.df["Erreur"].iloc[0])
 
 Sortie réelle :
 
 .. code-block:: text
 
-   (12, 54)
+   (12, 55)
+   8 lignes refusées
+               Timestamp  HC_Q_th[kW]  HMD_Outlet_RH[%]  POSTHC_Outlet_T[°C]
+   0 2024-01-15 00:00:00        84.47               NaN                  NaN
+   8 2024-01-15 08:00:00        77.74             97.79                 18.0
+   ValueError: Humidifier (adiabatique) : wo_target = 6.401 g/kg n'est pas atteignable depuis l'air d'entrée (w = 1.979 g/kg, h = 23.12 kJ/kg) : la sortie serait à HR = 103.1 % (T = 6.99 °C), au-delà de la saturation. Réduisez wo_target ou réchauffez l'air en amont.
+
+Sans récupérateur, l'air neuf à −5 °C chauffé à 18 °C ne peut pas être porté à
+6,4 g/kg par un humidificateur **adiabatique** : à enthalpie constante, il
+saturerait avant (103 % d'HR à 6,99 °C). Ces huit heures sont **refusées** :
+la ligne reste dans ``ahu.df``, avec des ``NaN`` à partir de l'humidificateur et
+le message dans la colonne ``Erreur`` (dernière ligne de la sortie).
+
+Jusqu'au 28/09/2026, ces lignes publiaient 103 % d'HR sans alerte ; et une
+ligne en échec décalait les colonnes des composants aval d'une ligne (les
+journaux étaient assemblés par position). Pour tenir la consigne d'hiver,
+passez ``humidifier_type`` à ``"vapeur"``, ou activez le récupérateur.
 
 Colonnes de résultats
 ---------------------

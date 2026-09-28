@@ -1,7 +1,24 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100" role="img" aria-label="Melange de deux flux d'air">
-  <title>Melange de deux flux d'air</title>
-  <desc>Raccord en Y : deux branches d'entree a gauche convergeant vers une sortie unique a droite (entrees y=20 et y=80, sortie y=50).</desc>
-  <path fill="#000000" fill-rule="evenodd" d="M 8,11.7 L 57.1,43 L 92,43 L 92,57 L 57.1,57 L 8,88.3 L 8,71.7 L 42,50 L 8,28.3 Z"/>
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100" role="img" aria-label="Chambre de mélange (éjecteur)">
+  <title>Chambre de mélange (éjecteur)</title>
+  <desc>Chambre de mélange d'éjecteur : le jet primaire (tuyère centrale) entraîne le flux secondaire aspiré latéralement, conduit à section constante.</desc>
+  <metadata>{"standard": "pictogramme ESM", "ref": "", "name": "Chambre de mélange (éjecteur)", "ports": [{"id": "port-w", "x": 4, "y": 50, "dir": "w", "role": "inlet"}, {"id": "port-n", "x": 24, "y": 8, "dir": "n", "role": "inlet"}, {"id": "port-s", "x": 24, "y": 92, "dir": "s", "role": "inlet"}, {"id": "port-e", "x": 92, "y": 50, "dir": "e", "role": "outlet"}]}</metadata>
+  <g fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <line x1="24" y1="28" x2="46" y2="40"/>
+    <line x1="24" y1="72" x2="46" y2="60"/>
+    <line x1="46" y1="40" x2="92" y2="40"/>
+    <line x1="46" y1="60" x2="92" y2="60"/>
+    <line x1="24" y1="28" x2="24" y2="8"/>
+    <line x1="24" y1="72" x2="24" y2="92"/>
+    <polygon points="10,43 36,48 36,52 10,57"/>
+    <line x1="4" y1="50" x2="10" y2="50"/>
+    <line x1="52" y1="50" x2="82" y2="50" stroke-dasharray="4,3"/>
+    <polygon points="88,50 82.4,46.5 82.4,53.5" fill="#000000"/>
+  </g>
+  <g class="ports">
+    <circle class="port" cx="4" cy="50" r="2.0" fill="#000000" stroke="none" data-port="port-w" data-dir="w" data-role="inlet"/>
+    <circle class="port" cx="24" cy="8" r="2.0" fill="#000000" stroke="none" data-port="port-n" data-dir="n" data-role="inlet"/>
+    <circle class="port" cx="24" cy="92" r="2.0" fill="#000000" stroke="none" data-port="port-s" data-dir="s" data-role="inlet"/>
+    <circle class="port" cx="92" cy="50" r="2.0" fill="#000000" stroke="none" data-port="port-e" data-dir="e" data-role="outlet"/>
+  </g>
 </svg>
-

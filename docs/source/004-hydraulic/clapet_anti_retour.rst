@@ -17,8 +17,8 @@ Clapet anti-retour
 Chiffrer la perte de charge d'un clapet anti-retour — à disque basculant
 (``'tilting'``), à battant (``'swing'``) ou à soulèvement (``'lift'``) — placé
 au refoulement d'une pompe ou en pied de colonne. En écoulement direct, le modèle
-applique un coefficient ζ selon le type de clapet. Il **ne modélise pas** le
-blocage d'un écoulement inverse (voir « Éprouver le modèle »). Dans
+applique un coefficient ζ selon le type de clapet. En écoulement inverse, il se
+ferme et **retient** le débit (voir « Éprouver le modèle »). Dans
 ``PyqtSimulator``, c'est le nœud **« Clapet anti-retour »**, présent dans trois
 scènes : *Pompes en parallèle avec clapets*, *Usine — réseau industriel maillé* et
 *Remplissage régulé par niveau*.
@@ -87,15 +87,20 @@ Ce qu'on personnalise
      - ``'tilting'``, ``'swing'``, ``'lift'``
      - coefficients du code
    * - ``source``
-     - ``'legacy'`` (défaut) ou ``'crane'`` (K = n·f_T) ; ``'crane'`` ne couvre
-       que ``'swing'`` et ``'lift'``
+     - ``'legacy'`` (défaut) ou ``'crane'`` (K = n·f_T) : battant 100 f_T,
+       soulèvement 600 f_T, disque basculant selon ``alpha`` et le diamètre
      - ``'legacy'``, ``'crane'``
      - Crane TP-410, éd. 2009, p. A-28
    * - ``D_in_pouces``
-     - diamètre nominal en pouces ; **obligatoire** avec ``source='crane'``, car
-       l'objet ne le crée pas
+     - diamètre nominal en pouces ; choisit f_T avec ``source='crane'``
+       (2,0 par défaut, cohérent avec ``d_hyd = 0.05``)
      - 0,5 à 24
-     - —
+     - Crane p. A-27
+   * - ``alpha`` (rad)
+     - angle du disque basculant (``'tilting'`` seulement) : 5° ou 15° avec
+       ``'crane'`` ; 5° seulement avec ``'legacy'``
+     - ``math.radians(5)``, ``math.radians(15)``
+     - Crane TP-410, p. A-28
    * - ``d_hyd`` (m)
      - diamètre intérieur ; fixe la vitesse et le Reynolds
      - DN du clapet
@@ -112,7 +117,7 @@ Variante exécutée : les trois types, puis la table Crane.
    # variante : type de clapet et source des coefficients
    print("check_type  source    zeta    dP (Pa)")
    for check_type, source in (("tilting", "legacy"), ("swing", "legacy"), ("lift", "legacy"),
-                              ("swing", "crane"), ("lift", "crane")):
+                              ("tilting", "crane"), ("swing", "crane"), ("lift", "crane")):
        SOURCE = Source.Object()
        SOURCE.fluid = "water"; SOURCE.Pi_bar = 3.0; SOURCE.Ti_degC = 15; SOURCE.F = 2.0
        SOURCE.calculate()
@@ -120,7 +125,7 @@ Variante exécutée : les trois types, puis la table Crane.
        Fluid_connect(CLAPET.Inlet, SOURCE.Outlet)
        CLAPET.check_type = check_type
        CLAPET.source = source
-       CLAPET.D_in_pouces = 2.0     # pouces — OBLIGATOIRE avec source='crane'
+       CLAPET.D_in_pouces = 2.0     # pouces — choisit f_T avec source='crane'
        CLAPET.calculate()
        print(f"{check_type:10s}  {source:6s}  {CLAPET.zeta:6.3f}   {CLAPET.delta_P:8.1f}")
 
@@ -132,12 +137,15 @@ Sortie réelle :
    tilting     legacy   1.000      519.2
    swing       legacy   2.000     1038.4
    lift        legacy   4.500     2336.3
+   tilting     crane    0.760      394.6
    swing       crane    1.900      986.4
    lift        crane   11.400     5918.7
 
 Ce que ça dit :
 
 * le clapet à soulèvement perd **4,5 fois** plus que le clapet à disque basculant ;
+* pour le clapet **à disque basculant** à 5°, Crane donne ζ = 40 f_T = 0,76, soit
+  **1,3 fois moins** que le coefficient par défaut ;
 * pour le clapet **à battant**, les deux sources concordent (ζ = 1,9 selon Crane,
   2,0 par défaut) ;
 * pour le clapet **à soulèvement**, elles divergent : Crane donne ζ = 11,4, soit
@@ -166,52 +174,64 @@ En régime laminaire (Re < 2300), le code multiplie ζ par 2300/Re.
            setattr(C, cle, valeur)
        return C
 
-   # 1) source='crane' sans D_in_pouces : l'attribut n'existe pas par défaut
-   C = clapet(source="crane")
-   try:
-       C.calculate()
-   except AttributeError as e:
-       print("échec :", e)
+   # 1) source='crane' sans poser D_in_pouces : 2 pouces par défaut
+   C = clapet(source="crane"); C.calculate()
+   print("crane, D_in_pouces =", C.D_in_pouces, "-> zeta =", round(C.zeta, 3))
 
-   # 2) Écoulement inverse : le clapet se dit fermé, mais le débit passe quand même
+   # 2) Écoulement inverse : le clapet est fermé et retient le débit
    C = clapet(F=-2.0); C.calculate()
    print("inverse -> état :", "Ouvert" if C.is_open else "Fermé", "| dP =", C.delta_P,
-         "Pa | débit en sortie =", C.Outlet.F, "kg/s")
+         "Pa | débit en sortie =", C.Outlet.F, "kg/s | débit retenu =", C.blocked_flow, "kg/s")
 
-   # 3) alpha n'intervient pas dans le calcul, et un type inconnu n'est pas refusé
-   C = clapet(alpha=math.radians(30)); C.calculate()
-   print("alpha = 30° -> zeta =", C.zeta)
-   C = clapet(check_type="inconnu"); C.calculate()
-   print("check_type='inconnu' -> zeta =", C.zeta)
+   # 3) alpha compte pour le disque basculant (Crane : 5° ou 15°) ...
+   for angle in (5, 15):
+       C = clapet(check_type="tilting", source="crane", alpha=math.radians(angle)); C.calculate()
+       print(f"tilting crane, alpha = {angle}° -> zeta =", round(C.zeta, 3))
+   # ... un angle non publié est refusé, comme un type inconnu
+   for reglages in ({"check_type": "tilting", "alpha": math.radians(30)},
+                    {"check_type": "inconnu"}):
+       C = clapet(**reglages)
+       try:
+           C.calculate()
+       except ValueError as e:
+           print("refusé :", str(e).split(" ; ")[0])
 
 Sortie réelle :
 
 .. code-block:: text
 
-   échec : 'Object' object has no attribute 'D_in_pouces'
-   inverse -> état : Fermé | dP = 500 Pa | débit en sortie = -2.0 kg/s
-   alpha = 30° -> zeta = 2.0
-   check_type='inconnu' -> zeta = 2.0
+   crane, D_in_pouces = 2.0 -> zeta = 1.9
+   inverse -> état : Fermé | dP = 500 Pa | débit en sortie = 0.0 kg/s | débit retenu = 2.0 kg/s
+   tilting crane, alpha = 5° -> zeta = 0.76
+   tilting crane, alpha = 15° -> zeta = 2.28
+   refusé : CheckValve legacy : le zeta du disque basculant n'est donne qu'a alpha = 5 deg (alpha = 30 deg demande)
+   refusé : CheckValve : check_type 'inconnu' inconnu
 
 Quatre comportements à connaître :
 
-* ``source='crane'`` **échoue** tant que ``D_in_pouces`` n'a pas été posé ; posez-le
-  toujours, comme dans la variante ;
-* en **écoulement inverse**, le clapet se déclare « Fermé » et impose une perte
-  égale à ``dp_crack`` (500 Pa par défaut), mais **le débit inverse passe quand
-  même** vers l'aval. Le modèle ne bloque pas un retour d'eau : c'est au réseau de
-  le traiter ;
-* ``alpha`` (angle d'inclinaison du clapet basculant) **n'intervient pas** dans le
-  calcul ;
-* un ``check_type`` inconnu **n'est pas refusé** : il reçoit ζ = 2,0.
+* ``D_in_pouces`` vaut 2,0 par défaut : posez-le dès que le clapet n'est pas un
+  DN50, sinon ``source='crane'`` prend le f_T de 2 pouces ;
+* en **écoulement inverse**, le clapet se déclare « Fermé », le débit de sortie
+  vaut **0** et ``blocked_flow`` publie le débit retenu ; la pression suit la
+  convention ``P_out = P_in − dp_crack`` (500 Pa par défaut) ;
+* ``alpha`` compte pour le disque basculant avec ``source='crane'`` (40 f_T à 5°,
+  120 f_T à 15° en 2-8") ; un angle que Crane ne publie pas est refusé, et le
+  coefficient par défaut n'est donné qu'à 5° ;
+* un ``check_type`` inconnu est refusé par ``ValueError``.
+
+Jusqu'à la version de la bibliothèque du 28/09/2026, ces quatre points étaient
+des pièges : ``source='crane'`` levait ``AttributeError`` (``D_in_pouces``
+absent), le débit inverse traversait le clapet fermé, ``alpha`` était ignoré et
+un type inconnu recevait ζ = 2,0 en silence.
 
 Limites connues
 ---------------
 
 * ``dp_crack`` n'est **pas** une pression d'ouverture : en écoulement direct, le
   clapet est toujours ouvert, quel que soit l'écart de pression.
-* Les coefficients par défaut (1,0 ; 2,0 ; 4,5) ne portent pas de référence précise
-  dans le code ; celle de Crane est citée avec sa page.
+* Les coefficients par défaut (1,0 ; 2,0 ; 4,5) n'ont **pas de source** : le code
+  le dit, et garde ce défaut pour ne pas déplacer les résultats existants. Ceux de
+  Crane sont cités avec leur page (A-28), vérifiée sur la page du document.
 
 Toutes les entrées
 ------------------
@@ -235,6 +255,9 @@ Toutes les entrées
    * - ``alpha``
      - ``math.radians(5)``
      - Angle d'inclinaison pour tilting (rad)
+   * - ``D_in_pouces``
+     - ``2.0``
+     - —
    * - ``dp_crack``
      - ``500``
      - Différence pression d'ouverture (Pa)

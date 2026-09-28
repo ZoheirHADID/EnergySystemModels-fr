@@ -73,7 +73,8 @@ Paramètres configurables
      - hauteur / diamètre du ballon
    * - ``N``
      - 10
-     - nombre de couches (:math:`\ge 3`)
+     - nombre de couches (:math:`\ge 5` avec les couches d'extrémité par
+       défaut ; sinon ``ValueError``)
    * - ``U``
      - 1,0 W/m²/K
      - coefficient global de pertes
@@ -164,7 +165,9 @@ Paramètres à personnaliser
    * - ``N``
      - 5 à 50
      - Finesse du profil. **Pas moins de 5** : avec 3 ou 4 couches, les couches
-       d'extrémité (``2·Hball/N``) dépassent la hauteur du ballon.
+       d'extrémité (``2·Hball/N`` chacune) occupent ou dépassent la hauteur du
+       ballon ; depuis le 28/09/2026 le modèle le refuse (``ValueError``) au
+       lieu de calculer une couche de volume nul ou négatif.
    * - ``U``
      - 0,3 à 3 W/m²/K
      - Isolation : fixe les pertes au repos (variante ci-dessous).

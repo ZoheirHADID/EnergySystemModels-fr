@@ -178,13 +178,14 @@ plus que 17 % de son Kvs, et sa perte est multipliée par 33.
        V.ouverture = ouverture
        return V
 
-   # 1) Sans données de cavitation, aucun garde-fou : à 10 % d'ouverture la perte de
-   #    charge dépasse la pression amont, et CoolProp échoue sur une pression négative.
+   # 1) Sans données de cavitation : à 10 % d'ouverture la perte de charge dépasse
+   #    la pression amont, et le modèle refuse en le disant.
    V = vanne(0.10)
    try:
        V.calculate()
-   except ValueError:
-       print("échec CoolProp : dP =", round(V.delta_P), "Pa pour", round(V.Inlet.P), "Pa en amont")
+   except ValueError as e:
+       print("refusé :", str(e).split(" -- ")[0])
+       print("         dP =", round(V.delta_P), "Pa pour", round(V.Inlet.P), "Pa en amont")
 
    # 2) Avec F_L, p_v et p_c, le modèle détecte l'écoulement bloqué et plafonne dP.
    V = vanne(0.10)
@@ -207,20 +208,22 @@ Sortie réelle :
 
 .. code-block:: text
 
-   échec CoolProp : dP = 1769298 Pa pour 1000000 Pa en amont
+   refusé : GeneralValve : pression de sortie non physique (-769298 Pa)
+            dP = 1769298 Pa pour 1000000 Pa en amont
    avec F_L : choked = True | état : cavitation | dp_max = 808187 Pa | dP retenu = 808187 Pa
    refusé : zeta_model inconnu : 'autre' (attendu 'legacy' ou 'iec')
 
 Trois comportements à connaître :
 
-* **sans** ``F_L``, ``p_v`` et ``p_c``, le modèle n'a **aucun garde-fou** : une
-  perte de charge supérieure à la pression amont produit une pression de sortie
-  négative, et c'est CoolProp qui échoue, avec une ``ValueError`` peu parlante.
-  Vérifiez toujours que ΔP reste sous la pression amont ;
+* **sans** ``F_L``, ``p_v`` et ``p_c``, une perte de charge supérieure à la
+  pression amont est **refusée** par une ``ValueError`` qui le dit (« pression de
+  sortie non physique »), avant toute écriture sur le port aval. Jusqu'à la
+  version de la bibliothèque du 28/09/2026, la pression négative partait vers
+  CoolProp, qui échouait avec un message illisible ;
 * **avec** ces trois données, l'écoulement bloqué est détecté (``choked``),
   la perte est plafonnée à ``dp_max`` et ``cavitation_state`` dit
   ``'aucune'``, ``'cavitation'`` ou ``'flashing'`` ;
-* seul ``zeta_model`` lève une exception nommée.
+* un ``zeta_model`` inconnu est refusé de la même façon.
 
 Limites connues
 ---------------

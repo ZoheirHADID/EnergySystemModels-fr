@@ -1,18 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100" role="img" aria-label="Robinet à pointeau" data-iso-part="8" data-iso-ref="2125">
-  <title>ISO 14617-8 — 2125 — Robinet à pointeau</title>
-  <desc>Vanne à pointeau (needle).</desc>
-  <metadata>{&quot;standard&quot;: &quot;ISO 14617-8&quot;, &quot;ref&quot;: &quot;2125&quot;, &quot;name&quot;: &quot;Robinet à pointeau&quot;, &quot;ports&quot;: [{&quot;id&quot;: &quot;port-w&quot;, &quot;x&quot;: 8, &quot;y&quot;: 50, &quot;dir&quot;: &quot;w&quot;, &quot;role&quot;: &quot;inlet&quot;}, {&quot;id&quot;: &quot;port-e&quot;, &quot;x&quot;: 92, &quot;y&quot;: 50, &quot;dir&quot;: &quot;e&quot;, &quot;role&quot;: &quot;outlet&quot;}]}</metadata>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100" role="img" aria-label="Clapet à volet mobile">
+  <title>Clapet à volet mobile</title>
+  <desc>Conduite équipée d'un volet articulé en haut (charnière) que l'écoulement soulève (ISO 14617-8 X2114, clapet à battant).</desc>
+  <metadata>{"standard": "ISO 14617-8", "ref": "X2114 (adapté)", "name": "Clapet à volet mobile", "ports": [{"id": "port-w", "x": 8, "y": 50, "dir": "w", "role": "inlet"}, {"id": "port-e", "x": 92, "y": 50, "dir": "e", "role": "outlet"}]}</metadata>
   <g fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-    <polygon points="30,39 30,61 50,50"/>
-    <polygon points="70,39 70,61 50,50"/>
-    <polygon points="46,38 54,38 50,50" fill="#000000"/>
-    <line x1="30" y1="50" x2="8" y2="50"/>
-    <line x1="70" y1="50" x2="92" y2="50"/>
+    <line x1="8" y1="30" x2="92" y2="30"/>
+    <line x1="8" y1="70" x2="92" y2="70"/>
+    <line x1="44" y1="31" x2="62" y2="62"/>
+    <path d="M 34 60 A 26 26 0 0 0 52 62" stroke-dasharray="3,3"/>
+    <line x1="14" y1="50" x2="30" y2="50"/>
+    <circle cx="44" cy="31" r="3" fill="#000000"/>
+    <polygon points="34,50 28.4,46.5 28.4,53.5" fill="#000000"/>
   </g>
   <g class="ports">
     <circle class="port" cx="8" cy="50" r="2.0" fill="#000000" stroke="none" data-port="port-w" data-dir="w" data-role="inlet"/>
     <circle class="port" cx="92" cy="50" r="2.0" fill="#000000" stroke="none" data-port="port-e" data-dir="e" data-role="outlet"/>
   </g>
 </svg>
-

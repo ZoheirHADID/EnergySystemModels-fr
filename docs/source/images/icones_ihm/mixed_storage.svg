@@ -1,17 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100" role="img" aria-label="Réservoir atmosphérique" data-iso-part="7" data-iso-ref="X2061">
-  <title>ISO 14617-7 — X2061 — Réservoir atmosphérique</title>
-  <desc>Réservoir fermé pour la pression atmosphérique.</desc>
-  <metadata>{&quot;standard&quot;: &quot;ISO 14617-7&quot;, &quot;ref&quot;: &quot;X2061&quot;, &quot;name&quot;: &quot;Réservoir atmosphérique&quot;, &quot;ports&quot;: [{&quot;id&quot;: &quot;port-n&quot;, &quot;x&quot;: 50, &quot;y&quot;: 8, &quot;dir&quot;: &quot;n&quot;, &quot;role&quot;: &quot;process&quot;}, {&quot;id&quot;: &quot;port-s&quot;, &quot;x&quot;: 50, &quot;y&quot;: 92, &quot;dir&quot;: &quot;s&quot;, &quot;role&quot;: &quot;outlet&quot;}]}</metadata>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100" role="img" aria-label="Ballon de stockage (brassé)">
+  <title>Ballon de stockage (brassé)</title>
+  <desc>Ballon de stockage parfaitement brassé : cuve avec agitateur (ISO 14617-12 X2671), température uniforme.</desc>
+  <metadata>{"standard": "ISO 14617-12", "ref": "X2671 (adapté)", "name": "Ballon de stockage (brassé)", "ports": [{"id": "port-w", "x": 8, "y": 40, "dir": "w", "role": "inlet"}, {"id": "port-e", "x": 92, "y": 30, "dir": "e", "role": "outlet"}]}</metadata>
   <g fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-    <rect x="28" y="24" width="44" height="54"/>
-    <line x1="50" y1="24" x2="50" y2="8"/>
-    <line x1="50" y1="78" x2="50" y2="92"/>
+    <rect x="30" y="16" width="40" height="70" rx="12"/>
+    <circle cx="50" cy="8" r="5"/>
+    <line x1="50" y1="13" x2="50" y2="62"/>
+    <polygon points="50,62 38,56 38,68"/>
+    <polygon points="50,62 62,56 62,68"/>
+    <line x1="8" y1="40" x2="30" y2="40"/>
+    <line x1="70" y1="30" x2="92" y2="30"/>
   </g>
   <g class="ports">
-    <circle class="port" cx="50" cy="8" r="2.0" fill="#000000" stroke="none" data-port="port-n" data-dir="n" data-role="process"/>
-    <circle class="port" cx="50" cy="92" r="2.0" fill="#000000" stroke="none" data-port="port-s" data-dir="s" data-role="outlet"/>
+    <circle class="port" cx="8" cy="40" r="2.0" fill="#000000" stroke="none" data-port="port-w" data-dir="w" data-role="inlet"/>
+    <circle class="port" cx="92" cy="30" r="2.0" fill="#000000" stroke="none" data-port="port-e" data-dir="e" data-role="outlet"/>
   </g>
 </svg>
-
-

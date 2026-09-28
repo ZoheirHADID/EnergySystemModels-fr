@@ -1,20 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100" role="img" aria-label="Appareil de robinetterie à trois voies" data-iso-part="8" data-iso-ref="2103">
-  <title>ISO 14617-8 — 2103 — Appareil de robinetterie à trois voies</title>
-  <desc>Appareil de robinetterie (vanne) à trois voies.</desc>
-  <metadata>{&quot;standard&quot;: &quot;ISO 14617-8&quot;, &quot;ref&quot;: &quot;2103&quot;, &quot;name&quot;: &quot;Appareil de robinetterie à trois voies&quot;, &quot;ports&quot;: [{&quot;id&quot;: &quot;port-w&quot;, &quot;x&quot;: 8, &quot;y&quot;: 50, &quot;dir&quot;: &quot;w&quot;, &quot;role&quot;: &quot;inlet&quot;}, {&quot;id&quot;: &quot;port-e&quot;, &quot;x&quot;: 92, &quot;y&quot;: 50, &quot;dir&quot;: &quot;e&quot;, &quot;role&quot;: &quot;outlet&quot;}, {&quot;id&quot;: &quot;port-s&quot;, &quot;x&quot;: 50, &quot;y&quot;: 92, &quot;dir&quot;: &quot;s&quot;, &quot;role&quot;: &quot;outlet&quot;}]}</metadata>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100" role="img" aria-label="Distributeur 4/2">
+  <title>Distributeur 4/2</title>
+  <desc>Distributeur 4 orifices / 2 positions (ISO 1219-1) : P→A et B→T au repos, flux croisés actionné.</desc>
+  <metadata>{"standard": "ISO 1219-1", "ref": "distributeur 4/2", "name": "Distributeur 4/2", "ports": [{"id": "port-A", "x": 56, "y": 12, "dir": "n", "role": "process"}, {"id": "port-B", "x": 70, "y": 12, "dir": "n", "role": "process"}, {"id": "port-P", "x": 56, "y": 88, "dir": "s", "role": "inlet"}, {"id": "port-T", "x": 70, "y": 88, "dir": "s", "role": "outlet"}]}</metadata>
   <g fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-    <polygon points="30,39 30,61 50,50"/>
-    <polygon points="70,39 70,61 50,50"/>
-    <polygon points="41,50 59,50 50,68"/>
-    <line x1="30" y1="50" x2="8" y2="50"/>
-    <line x1="70" y1="50" x2="92" y2="50"/>
-    <line x1="50" y1="68" x2="50" y2="92"/>
+    <rect x="24" y="36" width="26" height="26"/>
+    <rect x="50" y="36" width="26" height="26"/>
+    <line x1="56" y1="62" x2="56.0" y2="42.4"/>
+    <line x1="70" y1="36" x2="70.0" y2="55.6"/>
+    <line x1="30" y1="62" x2="41.0" y2="41.6"/>
+    <line x1="30" y1="36" x2="41.0" y2="56.4"/>
+    <rect x="14" y="42" width="10" height="14"/>
+    <line x1="14" y1="56" x2="24" y2="42"/>
+    <polyline points="76,49 79,43 82,55 85,43 88,55 90,49"/>
+    <line x1="56" y1="36" x2="56" y2="12"/>
+    <line x1="70" y1="36" x2="70" y2="12"/>
+    <line x1="56" y1="62" x2="56" y2="88"/>
+    <line x1="70" y1="62" x2="70" y2="88"/>
+    <polygon points="56.0,36.0 60.0,42.4 52.0,42.4" fill="#000000"/>
+    <polygon points="70.0,62.0 66.0,55.6 74.0,55.6" fill="#000000"/>
+    <polygon points="44.0,36.0 44.5,43.5 37.4,39.7" fill="#000000"/>
+    <polygon points="44.0,62.0 37.4,58.3 44.5,54.5" fill="#000000"/>
+    <text x="52" y="10" font-family="Segoe UI, Arial, sans-serif" font-weight="bold" font-size="10" fill="#000000" stroke="none" text-anchor="middle">A</text>
+    <text x="74" y="10" font-family="Segoe UI, Arial, sans-serif" font-weight="bold" font-size="10" fill="#000000" stroke="none" text-anchor="middle">B</text>
+    <text x="52" y="97" font-family="Segoe UI, Arial, sans-serif" font-weight="bold" font-size="10" fill="#000000" stroke="none" text-anchor="middle">P</text>
+    <text x="74" y="97" font-family="Segoe UI, Arial, sans-serif" font-weight="bold" font-size="10" fill="#000000" stroke="none" text-anchor="middle">T</text>
   </g>
   <g class="ports">
-    <circle class="port" cx="8" cy="50" r="2.0" fill="#000000" stroke="none" data-port="port-w" data-dir="w" data-role="inlet"/>
-    <circle class="port" cx="92" cy="50" r="2.0" fill="#000000" stroke="none" data-port="port-e" data-dir="e" data-role="outlet"/>
-    <circle class="port" cx="50" cy="92" r="2.0" fill="#000000" stroke="none" data-port="port-s" data-dir="s" data-role="outlet"/>
+    <circle class="port" cx="56" cy="12" r="2.0" fill="#000000" stroke="none" data-port="port-A" data-dir="n" data-role="process"/>
+    <circle class="port" cx="70" cy="12" r="2.0" fill="#000000" stroke="none" data-port="port-B" data-dir="n" data-role="process"/>
+    <circle class="port" cx="56" cy="88" r="2.0" fill="#000000" stroke="none" data-port="port-P" data-dir="s" data-role="inlet"/>
+    <circle class="port" cx="70" cy="88" r="2.0" fill="#000000" stroke="none" data-port="port-T" data-dir="s" data-role="outlet"/>
   </g>
 </svg>
-

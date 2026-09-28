@@ -143,17 +143,21 @@ Paramètres à personnaliser
    * - ``Air.T_in``
      - Température de l'air amont
      - K, défaut ``286.0`` (13 °C)
-   * - ``Air.w_in``
-     - Humidité **absolue** de l'air amont ; c'est elle qui pilote le dépôt
-     - kg/kg, défaut ``0.0039``
+   * - ``Air.w_in`` ou ``Air.HR_in``
+     - Humidité de l'air amont, **absolue** (``w_in``) ou **relative**
+       (``HR_in``, fraction de 0 à 1) : c'est elle qui pilote le dépôt. Donnez
+       l'une des deux ; les deux ensemble doivent être cohérentes
+     - kg/kg ; sans rien, ``w_in = 0.0039`` (défaut du Modelica)
    * - ``Air.V``, ``Air.L``
      - Vitesse d'air et longueur de plaque : fixent :math:`h_a` (plaque plane)
      - m/s ``2.12`` ; m ``0.506``
    * - ``Air.m_a``
      - Débit d'air : ne sert qu'à la température de sortie ``T_out``
      - kg/s, défaut ``0.22``
-   * - ``Fin.A_T_override``
-     - Surface d'échange ; sinon 0,506 × 0,304 m²
+   * - ``Fin.surface``, ``Fin.A_T_override``
+     - Surface d'échange : ``'plaque_modelica'`` (0,506 × 0,304 m², défaut),
+       ``'ailette'`` (``A_fin``, anneau d'ailette double face) ou une valeur
+       imposée par ``A_T_override`` ; l'origine est publiée dans ``A_T_source``
      - m²
    * - ``CroissanceDuGivre.t``
      - Pas de temps d'Euler explicite
@@ -208,10 +212,16 @@ pouce). Le givre épaissit chaque ailette des deux côtés, :math:`Y_{eff} = Y_0
 
     from ThermodynamicCycles.Frost.TubeFinGeometry import Object as TubeFinGeometry
 
+    from ThermodynamicCycles.Frost.TubeFinGeometry import PassageObstrueError
+
     geo = TubeFinGeometry()
     for e in (0.0, 0.5e-3, 1.0e-3, 1.2e-3):      # épaisseur de givre par face [m]
         geo.delta_f = e
-        geo.calculate()
+        try:
+            geo.calculate()
+        except PassageObstrueError as err:
+            print(f"givre {e * 1000:.1f} mm/face  PassageObstrueError : {err}")
+            continue
         print(f"givre {e * 1000:.1f} mm/face  Y_eff = {geo.Y_eff * 1000:.2f} mm  "
               f"s = {geo.s * 1000:.3f} mm  Vmax/Vface = {geo.S_face / geo.S_min:.2f}  "
               f"A_T = {geo.A_T:.3f} m²")
@@ -223,36 +233,40 @@ Sortie réelle :
    givre 0.0 mm/face  Y_eff = 0.30 mm  s = 2.240 mm  Vmax/Vface = 1.84  A_T = 1.615 m²
    givre 0.5 mm/face  Y_eff = 1.30 mm  s = 1.240 mm  Vmax/Vface = 2.80  A_T = 1.615 m²
    givre 1.0 mm/face  Y_eff = 2.30 mm  s = 0.240 mm  Vmax/Vface = 5.88  A_T = 1.615 m²
-   givre 1.2 mm/face  Y_eff = 2.70 mm  s = 0.001 mm  Vmax/Vface = 10.49  A_T = 1.615 m²
+   givre 1.2 mm/face  PassageObstrueError : TubeFinGeometry : le givre comble l'espace inter-ailettes (delta_f = 1.200 mm par face, Y_eff = 2.700 mm >= pas d'ailette 2.540 mm ; comblement à 1.120 mm).
 
-Avec 2,54 mm de pas d'ailette, **1,1 mm de givre par face suffit à fermer le
-passage**. Rapproché de l'exemple précédent (1,4 mm en une heure à −25 °C), cela
+Avec 2,54 mm de pas d'ailette, **1,12 mm de givre par face suffit à fermer le
+passage** ; au-delà, ``calculate()`` lève ``PassageObstrueError`` (jusqu'au
+28/09/2026, ``s`` était ramené en silence à 1 µm et le calcul continuait sur
+une géométrie fictive). Rapproché de l'exemple précédent (1,4 mm en une heure à −25 °C), cela
 donne l'ordre de grandeur de l'intervalle de dégivrage de cette géométrie.
 
 Pièges
 ------
 
-- ``Air.HR_in`` **n'est pas lu.** Le calcul utilise ``w_in`` (fixé à 0,0039 kg/kg
-  comme dans le modèle Modelica) ; changer ``HR_in`` ne change rien. Et les deux
-  défauts ne sont pas cohérents : 3,9 g/kg à 13 °C correspondent à environ 42 %
-  d'humidité relative, pas aux 50 % affichés. Réglez ``w_in``.
-- ``Air.T_out`` **retranche aussi la chaleur latente** :
-  :math:`T_{out} = T_{in} - (Q_{sens}+Q_{lat})/(\dot m_a c_p)`, comme dans le modèle
-  Modelica. Le latent déshumidifie l'air, il ne le refroidit pas : la température
-  de sortie est légèrement sous-estimée (bilan en température au lieu d'un bilan
-  en enthalpie).
-- ``Fin`` **ne calcule pas la surface qu'il transmet.** ``A_fin`` (surface d'un
-  anneau d'ailette) est calculée mais inutilisée ; ``A_T`` vaut 0,506 × 0,304 m²
-  en dur, sauf ``A_T_override``.
-- **Convergence non contrôlée.** ``CroissanceDuGivre`` résout le profil de
-  température par ``fsolve`` et **accepte en silence** une solution non convergée.
-  Un pas ``t`` trop grand ou un ``Nx`` élevé peut donc produire un état faux sans
-  alerte ; vérifiez que ``Ts`` évolue régulièrement.
-- ``Frost`` **est une masse (kg)**, pas une masse surfacique : le commentaire du
-  code dit kg/m², le calcul et la colonne ``Frost_kg`` du ``df`` disent kg.
-- **Passage bouché sans alerte.** Quand le givre comble l'espace entre ailettes,
-  ``TubeFinGeometry`` ramène ``s`` à 1 µm (et ``S_min`` à 1e-6) au lieu de lever
-  une exception ; ``A_T`` reste celle de l'ailette nue.
+- **Humidité amont : une seule source.** ``Air`` lit ``w_in`` **ou**
+  ``HR_in`` ; les donner toutes deux, incohérentes, lève une ``ValueError``
+  (3,9 g/kg à 13 °C font environ 42 % d'HR, pas 50 %). Les valeurs employées sont
+  publiées dans ``w_in_used`` et ``HR_in_used``. Jusqu'au 28/09/2026, ``HR_in``
+  n'était pas lu et affichait 50 %.
+- ``Air.T_out`` **ne compte que la chaleur sensible** :
+  :math:`T_{out} = T_{in} - Q_{sens}/(\dot m_a c_p)` ; le latent part avec la
+  vapeur déposée en givre. Jusqu'au 28/09/2026, il retranchait aussi
+  :math:`Q_{lat}`, comme le modèle Modelica.
+- ``Fin`` **transmet la plaque du Modelica par défaut.** ``A_T`` vaut
+  0,506 × 0,304 m² ; ``surface = 'ailette'`` transmet ``A_fin`` (anneau
+  d'ailette double face), et ``A_T_source`` dit laquelle a servi.
+- **Convergence contrôlée.** ``CroissanceDuGivre`` résout le profil de
+  température par ``fsolve`` ; un échec lève une ``RuntimeError`` **avant** de
+  toucher l'état (``delta_f``, ``rho_f``, ``Frost``), et ``converged`` /
+  ``residual`` publient le statut mesuré du dernier pas. Jusqu'au 28/09/2026, la
+  solution non convergée était acceptée en silence.
+- ``Frost`` **est une masse (kg)**, pas une masse surfacique (colonne
+  ``Frost_kg`` du ``df``).
+- **Passage bouché : une exception.** Quand le givre comble l'espace entre
+  ailettes (ou annule la section minimale), ``TubeFinGeometry`` lève
+  ``PassageObstrueError``. ``A_T`` reste celle de la géométrie nue : elle
+  n'évolue pas avec le givre (écart connu).
 - **Modèle d'appel, pas de fonction du temps.** Chaque ``calculate()`` avance
   l'état d'un pas : appeler deux fois pour « vérifier » fait croître le givre deux
   fois.

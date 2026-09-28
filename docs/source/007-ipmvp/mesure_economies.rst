@@ -64,9 +64,9 @@ Sortie réelle :
                              ANTE-POST   POST-ANTE
    Relevé de consommation    227992.77  1235735.84
    Prédiction                278336.03  1012220.85
-   pourcentage d'économie>0      22.08       18.09
+   pourcentage d'économie>0      18.09       18.09
 
-   Économie ANTE-POST (%) : 22.08
+   Économie ANTE-POST (%) : 18.09
    Économie POST-ANTE (%) : 18.09
 
    === INCERTITUDE PROPAGÉE (incertitude_savings) ===
@@ -81,19 +81,27 @@ consommation à partir d'octobre 2021 : c'est ce qui permet de lire les deux
 pourcentages de ``df_savings`` (sortie ci-dessus).
 
 * **ANTE-POST** : modèle établi sur la **référence**, appliqué à la période de
-  suivi. Le code calcule ``(prédiction − mesuré) / mesuré`` : l'économie est
-  rapportée à la consommation **mesurée après travaux**, d'où **22,08 %** pour
-  une baisse réelle de 18 % (rapportée à la prédiction, elle vaudrait
-  (278 336 − 227 993) / 278 336 = 18,09 %).
+  suivi. Le code calcule ``(prédiction − mesuré) / prédiction`` : l'économie est
+  rapportée à la **consommation de référence ajustée** aux conditions du suivi,
+  (278 336 − 227 993) / 278 336 = **18,09 %** pour une baisse réelle de 18 %.
 * **POST-ANTE** : modèle établi sur la période de **suivi**, appliqué à la
   référence (utile si la référence est trop courte pour un modèle fiable) :
   ``(mesuré − prédiction) / mesuré`` sur la référence → **18,09 %**.
 
-.. warning::
+Les deux pourcentages ont la même base : la consommation **sans l'action**,
+dans les conditions de la période comparée (la prédiction en ANTE-POST, le
+relevé de référence en POST-ANTE). C'est la définition du FD X30-148 (§ 5.4.2 et
+5.4.3 : énergie évitée = consommation ajustée − consommation mesurée) combinée à
+la variation relative de l'ISO 50006 (§ 4.5.2 b) : écart « exprimé en
+pourcentage de la valeur » de référence).
 
-   Les deux pourcentages n'ont pas la même base. Pour annoncer une économie
-   rapportée à la référence ajustée (convention usuelle), recalculez-la depuis les
-   lignes ``Relevé de consommation`` et ``Prédiction`` de ``df_savings``.
+.. note::
+
+   Jusqu'au 28/09/2026, la colonne ANTE-POST divisait par la consommation
+   **mesurée après travaux** : ce même exemple affichait 22,08 % pour une baisse
+   de 18 %. Un rapport produit avec une version antérieure surestime l'économie
+   ANTE-POST ; recalculez-la depuis les lignes ``Relevé de consommation`` et
+   ``Prédiction`` de ``df_savings``.
 
 ``incertitude_savings`` — précision de l'économie annoncée (niveau 90 %) : sur
 60 mois, 234 139 kWh à ± 3 765 kWh (précision relative 0,016) ; sur 12 mois,

@@ -98,6 +98,9 @@ pressions** selon la loi de l'ellipse de Stodola, ce qui permet de répondre à
 
 ``K`` (kg²·K·s⁻²·Pa⁻²) caractérise la turbine ; il se **cale sur un point de
 fonctionnement connu** : :math:`K = \dot m_0^2\,T_{a,0} / (P_{a,0}^2 - P_{b,0}^2)`.
+C'est ce que fait le mode ``purpose = "design"`` depuis le 28/09/2026 ; en mode
+``"simulation"``, ``K`` est une donnée **obligatoire** (il n'a plus de valeur par
+défaut).
 Nœud IHM : « Turbine à aubes ».
 
 .. code-block:: python
@@ -119,6 +122,15 @@ Nœud IHM : « Turbine à aubes ».
     K = m0**2 * Ta0 / (Pa0**2 - Pb0**2)
     print(f"K calé : {K:.4e} kg2.K/(s2.Pa2)")
 
+    # Le même calage par le modèle : mode "design", débit nominal imposé
+    TB0 = TurbineBlade.Object()
+    Fluid_connect(TB0.Inlet, VAP.Outlet)
+    TB0.purpose = "design"
+    TB0.dp_design = 30e5        # 40 -> 10 bar
+    TB0.m_flow_design = 5.0     # kg/s (à défaut : Inlet.F)
+    TB0.calculate()
+    print(f"K du mode design : {TB0.K:.4e} kg2.K/(s2.Pa2)")
+
     TB = TurbineBlade.Object()
     Fluid_connect(TB.Inlet, VAP.Outlet)
     TB.purpose = "simulation"   # pression aval imposée, débit par Stodola
@@ -134,18 +146,25 @@ Sortie réelle :
 .. code-block:: text
 
     K calé : 1.1219e-09 kg2.K/(s2.Pa2)
-               TurbineBlade
-    fluid             water
-    m_flow_kgs          5.0
-    Ti_degC           400.0
-    Tiso_degC    215.343067
-    To_degC      246.180861
-    P_ext_kW    1399.050195
-    Pa_bar             40.0
-    Pb_bar             10.0
+    K du mode design : 1.1219e-09 kg2.K/(s2.Pa2)
+                   TurbineBlade
+    fluid                 water
+    m_flow_kgs              5.0
+    Ti_degC               400.0
+    Tiso_degC        215.343067
+    To_degC          246.180861
+    P_ext_kW        1399.050195
+    Pa_bar                 40.0
+    Pb_bar                 10.0
+    purpose          simulation
+    K_stodola       1.12192e-09
+    F_upstream_kgs            5
 
-Le débit recalculé retombe sur les 5 kg/s du calage, ce qui valide ``K`` ; la
-turbine fournit 1,40 MW, avec une vapeur encore surchauffée à la sortie.
+Le mode ``"design"`` retrouve le même ``K`` que le calcul à la main, et le débit
+recalculé en ``"simulation"`` retombe sur les 5 kg/s du calage, ce qui valide
+``K`` ; la turbine fournit 1,40 MW, avec une vapeur encore surchauffée à la
+sortie. ``F_upstream_kgs`` rappelle le débit que portait le port d'entrée avant
+que Stodola ne le remplace.
 
 Personnaliser TurbineBlade
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -158,15 +177,20 @@ Personnaliser TurbineBlade
      - Effet
      - Défaut
    * - ``K``
-     - Coefficient de Stodola : **à caler**, le défaut est inutilisable (voir pièges)
-     - 1,0
+     - Coefficient de Stodola : **obligatoire** en ``"simulation"`` (sinon
+       ``ValueError``) ; **calculé** en ``"design"``
+     - ``None`` (1,0 avant le 28/09/2026)
    * - ``epsilon_s``
      - Rendement isentropique de la détente
      - 0,7
    * - ``purpose``
-     - ``"simulation"`` : on impose ``Outlet.P`` ; ``"design"`` : on impose la
-       détente ``dp_design``, et ``P_b = P_a − dp_design``
+     - ``"simulation"`` : on impose ``Outlet.P`` et ``K``, le débit est calculé ;
+       ``"design"`` : on impose la détente ``dp_design`` (``P_b = P_a −
+       dp_design``) et le débit nominal, ``K`` est déduit
      - ``"simulation"``
+   * - ``m_flow_design``
+     - Débit nominal (kg/s) du mode ``"design"`` ; à défaut, ``Inlet.F``
+     - ``None``
    * - ``Outlet.P``
      - Pression aval (Pa), obligatoire en mode ``"simulation"`` (sinon ``ValueError``)
      - —
@@ -199,15 +223,20 @@ Sortie réelle :
 
 À 30 bar, l'ellipse ne laisse plus passer que 3,65 kg/s : c'est la turbine qui
 fixe le débit, pas la source. Le modèle **réécrit** ``Inlet.F`` avec son propre
-débit.
+débit, et garde celui de la source dans ``TB30.F_upstream``.
 
 .. warning::
 
-   - **Le K par défaut (1,0) donne un débit absurde** : sur le point ci-dessus,
-     environ 149 000 kg/s. Aucun message ne le signale ; calez toujours ``K``.
-   - Le mode ``"design"`` **ne calcule pas** ``K`` : il fixe seulement la pression
-     aval par ``dp_design`` et applique le ``K`` saisi. Ce n'est pas un
-     dimensionnement.
-   - Le débit calculé écrase le débit de la source amont (``Inlet.F``) : dans une
-     chaîne, vérifier que l'amont peut effectivement fournir ce débit.
-   - ``P_a <= P_b`` donne un débit nul, sans exception.
+   - **Corrigé le 28/09/2026** : ``K`` valait 1,0 par défaut, ce qui donnait
+     environ 149 000 kg/s sur le point ci-dessus sans aucun message ; il n'a
+     plus de défaut et son absence lève ``ValueError`` en ``"simulation"``.
+   - **Corrigé le 28/09/2026** : le mode ``"design"`` appliquait le ``K`` saisi
+     sans rien dimensionner ; il **déduit** maintenant ``K`` du débit nominal
+     (``m_flow_design``, sinon ``Inlet.F``).
+   - Le débit calculé remplace celui de la source amont sur ``Inlet.F`` (il
+     reste lisible dans ``F_upstream``) : dans une chaîne, vérifiez que l'amont
+     peut effectivement fournir ce débit.
+   - ``P_a <= P_b`` lève ``ValueError`` (« aucune détente ») ; il donnait un
+     débit nul sans exception jusqu'au 28/09/2026.
+   - Dans ``PyqtSimulator``, le champ « Coefficient Stodola K » du nœud vaut
+     encore 1,0 par défaut : en mode « simulation », renseignez-le.

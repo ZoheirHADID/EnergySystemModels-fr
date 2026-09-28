@@ -18,21 +18,22 @@ taxes.
        pourcentage_ENR=0,
    )
 
-   # Prix du fournisseur (EUR/kWh HTVA)
+   # Prix du fournisseur (EUR/kWh HTVA) et accise lue sur la facture
    tarif = input_Tarif(
        c_euro_kWh_pointe=0.18,
        c_euro_kWh_HPH=0.17,
        c_euro_kWh_HCH=0.14,
        c_euro_kWh_HPB=0.16,
        c_euro_kWh_HCB=0.13,
+       c_euro_kwh_CSPE_TICFE=0.03370,   # tarif normal « ménages et assimilés » au 01/02/2025
    )
 
    # Consommations relevées sur le mois (kWh)
    facture = input_Facture(
        start="2025-02-01",
        end="2025-02-28",
-       kWh_pointe=120,      # voir le piège n° 1 : CU4 n'a pas de poste pointe
-       kWh_HPH=450,         # heures pleines hiver
+       kWh_pointe=0,        # CU4 n'a pas de poste pointe (voir le piège n° 1)
+       kWh_HPH=570,         # heures pleines hiver (dont les 120 kWh de pointe du compteur)
        kWh_HCH=380,         # heures creuses hiver
        kWh_HPB=0,           # pas de saison basse en février
        kWh_HCB=0,
@@ -51,19 +52,25 @@ Sortie réelle :
 .. code-block:: text
 
                          Ligne                    Formule Entrée(s) Coefficient  Résultat Annuel
-                    Fourniture                                                     151.30
-          Acheminement (TURPE)                                                      65.54
-        Taxes et contributions                                                       3.23
-                  = Total HTVA Fourniture + TURPE + Taxes                          220.07
-                       TVA 20%           Total_HTVA x 20%                           44.01
-                   = Total TTC                 HTVA + TVA                          264.08
-           Coût HTVA (EUR/MWh)           Total_HTVA / MWh  0.95 MWh                231.65
-     Coût fourniture (EUR/MWh)           Fourniture / MWh                          159.26
-   Coût distribution (EUR/MWh)                TURPE / MWh                           68.99
-          Coût taxes (EUR/MWh)                Taxes / MWh                            3.40
+                    Fourniture                                                     150.10
+          Acheminement (TURPE)                                                      74.80
+        Taxes et contributions                                                      34.77
+                  = Total HTVA Fourniture + TURPE + Taxes                          259.67
+                       TVA 20%           Total_HTVA x 20%                           51.93
+                   = Total TTC                 HTVA + TVA                          311.60
+           Coût HTVA (EUR/MWh)           Total_HTVA / MWh  0.95 MWh                273.34
+     Coût fourniture (EUR/MWh)           Fourniture / MWh                          158.00
+   Coût distribution (EUR/MWh)                TURPE / MWh                           78.74
+          Coût taxes (EUR/MWh)                Taxes / MWh                           36.60
 
-Le site paie 231,65 EUR HTVA par MWh, dont 69 EUR/MWh d'acheminement : sur un
-petit site, la part réseau pèse près d'un tiers de la facture HTVA.
+Le site paie 273,34 EUR HTVA par MWh, dont 78,74 EUR/MWh d'acheminement et
+36,60 EUR/MWh de taxes (l'accise de 33,70 EUR/MWh en fait l'essentiel) : sur un
+petit site, réseau et taxes pèsent ensemble plus de 40 % de la facture HTVA.
+Les trois sections se somment au total : 150,10 + 74,80 + 34,77 = 259,67 EUR.
+
+L'accise saisie (0,03370 EUR/kWh) est le tarif normal de la catégorie « ménages
+et assimilés » (puissance souscrite jusqu'à 36 kVA) publié par
+impots.gouv.fr pour le 1er février 2025 ; reprenez celui de votre facture.
 
 Figures produites par l'exemple
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -103,62 +110,79 @@ Paramètres à personnaliser
      - Prix de fourniture du contrat, par poste
      - 0,10 à 0,25 EUR/kWh
    * - ``kWh_HPH``, ``kWh_HCH``, ``kWh_HPB``, ``kWh_HCB``
-     - Consommations relevées ; saison haute = novembre à mars
+     - Consommations relevées ; saison haute = novembre à mars ; ``kWh_pointe`` doit rester à 0
      - selon la facture
    * - ``c_euro_kwh_CSPE_TICFE``
-     - Accise sur l'électricité ; ``None`` = taux de la grille (voir piège n° 2)
-     - taux légal en vigueur
+     - Accise sur l'électricité (EUR/kWh) ; ``None`` = taux de la grille, signalé par ``AcciseNonVerifieeWarning`` (piège n° 2)
+     - 0,0337 (ménages, 02/2025)
    * - ``start``, ``end``
      - Période facturée ; doit tomber entière dans une grille livrée
-     - 2025-02-01 à 2025-12-31 pour cette option
+     - 2025-02-01 à 2025-07-31 pour cette option
 
-Variante : reporter la pointe sur les heures pleines
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Variante : saisir la pointe ou oublier l'accise
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-La grille CU4 n'a que quatre postes : les 120 kWh saisis en « pointe » sont
-facturés en fourniture mais **ignorés par le TURPE**. On les reporte sur les
-heures pleines d'hiver, tout le reste identique.
+Deux erreurs de saisie fréquentes, que la bibliothèque signale au lieu de les
+facturer en silence : 120 kWh laissés en « pointe » sur une grille à quatre
+postes, et une accise non saisie.
 
 .. code-block:: python
 
-   # variante : 4 postes seulement — la pointe est reportée en HPH
-   facture_4p = input_Facture(
-       start="2025-02-01", end="2025-02-28",
-       kWh_pointe=0, kWh_HPH=450 + 120, kWh_HCH=380,
-   )
-   calc_4p = TurpeCalculator(contrat, tarif, facture_4p)
-   calc_4p.calculate_turpe()
+   # variante : pointe saisie, puis accise laissée à la grille
+   import warnings
 
-   for nom, c in (("pointe saisie", calc), ("pointe reportée en HPH", calc_4p)):
-       print(f"{nom:24s} fourniture {c.euro_fourniture:7.2f}  "
-             f"TURPE {c.euro_TURPE:6.2f}  HTVA {c.euro_total:7.2f} EUR")
+   facture_pointe = input_Facture(
+       start="2025-02-01", end="2025-02-28",
+       kWh_pointe=120, kWh_HPH=450, kWh_HCH=380,
+   )
+   try:
+       TurpeCalculator(contrat, tarif, facture_pointe).calculate_turpe()
+   except ValueError as erreur:
+       print("refusé :", str(erreur)[:62], "…")
+
+   tarif_sans_accise = input_Tarif(
+       c_euro_kWh_HPH=0.17, c_euro_kWh_HCH=0.14, c_euro_kWh_HPB=0.16, c_euro_kWh_HCB=0.13,
+   )
+   with warnings.catch_warnings(record=True) as alertes:
+       warnings.simplefilter("always")
+       calc_grille = TurpeCalculator(contrat, tarif_sans_accise, facture)
+       calc_grille.calculate_turpe()
+   print(alertes[0].category.__name__)
+   print(f"accise de la grille : {calc_grille.c_euro_kwh_CSPE_TICFE_applique} EUR/kWh"
+         f" -> taxes {calc_grille.euro_taxes_contrib:.2f} EUR au lieu de {calc.euro_taxes_contrib:.2f}")
 
 Sortie réelle :
 
 .. code-block:: text
 
-   pointe saisie            fourniture  151.30  TURPE  65.54  HTVA  220.07 EUR
-   pointe reportée en HPH   fourniture  150.10  TURPE  74.54  HTVA  227.87 EUR
+   refusé : La grille TURPE 6 BT < 36 kVA CU4 a 4 classes temporelles (HPH …
+   AcciseNonVerifieeWarning
+   accise de la grille : 0.0005 EUR/kWh -> taxes 3.23 EUR au lieu de 34.77
 
-Les 120 kWh passent au coefficient HPH de la composante de soutirage
-(0,075 EUR/kWh) : **+9,00 EUR de TURPE** que la première saisie oubliait.
+La grille porte 0,0005 EUR/kWh — le taux réduit du « bouclier tarifaire »,
+plus en vigueur en 2025 : sans saisie, la facture reconstituée sous-estime
+l'accise de 31,54 EUR.
 
 Pièges
 ~~~~~~
 
-1. **Pas de poste pointe en BT < 36 kVA.** Les grilles BT n'ont que quatre
-   coefficients ; ``kWh_pointe`` y est payé au fournisseur mais pas au réseau.
-   Dans ``calc.df_acheminement``, les libellés des lignes « CS Variable » sont
-   alors décalés d'un poste (défaut consigné dans ``BUGS_LIB.md``) : fiez-vous
-   aux montants, pas aux libellés.
+1. **Pas de poste pointe en BT < 36 kVA.** La grille CU4 n'a que quatre
+   postes (HPH, HCH, HPB, HCB). Des ``kWh_pointe`` saisis lèvent une
+   ``ValueError`` : reportez-les sur ``kWh_HPH`` (la pointe tombe en heures
+   pleines d'hiver). Jusqu'au 28/09/2026 ils étaient payés au fournisseur mais
+   pas au réseau, et les lignes « CS Variable » de ``calc.df_acheminement``
+   étaient décalées d'un poste ; c'est corrigé.
 2. **Accise.** Sans ``c_euro_kwh_CSPE_TICFE``, le taux porté par la grille
-   s'applique (0,0005 EUR/kWh ici) : comparez-le à la ligne accise de votre
-   facture et saisissez le bon. Le total HTVA applique alors le taux saisi,
-   mais la ligne « Taxes et contributions » garde celui de la grille (défaut
-   consigné dans ``BUGS_LIB.md``).
-3. **Période hors grille.** Une facture de 2026 ou à cheval sur deux grilles
-   lève ``AttributeError: 'NoneType' object has no attribute 'get'`` : aucune
-   grille ne couvre la période entière.
+   s'applique et ``AcciseNonVerifieeWarning`` le signale : ces taux de grille
+   ne sont pas sourcés (0,0005 EUR/kWh ici). Saisissez celui de votre facture.
+3. **Période hors grille.** Une facture de 2026, ou à cheval sur deux grilles,
+   lève ``GrilleTURPEIntrouvableError`` : le message liste les grilles livrées
+   (ici du 2025-02-01 au 2025-07-31, le TURPE 7 étant entré en vigueur le
+   1er août 2025 sans grille BT < 36 kVA livrée) et, pour une facture à cheval,
+   la date où la découper.
+4. **Gestion et comptage au douzième.** Pour une facture de 28 à 31 jours, les
+   lignes CG et CC valent le douzième de l'annuel, et le total TURPE est la
+   somme des lignes (depuis le 28/09/2026 ; il reproratisait CG et CC au jour).
 
 Voir aussi : :doc:`../contrat_electricite` (toutes les entrées et les grilles
 livrées), :doc:`exemple_bt_p36_cu`.

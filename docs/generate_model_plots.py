@@ -87,12 +87,13 @@ def generate_turpe_plots() -> None:
                 "c_euro_kWh_HCH": 0.14,
                 "c_euro_kWh_HPB": 0.16,
                 "c_euro_kWh_HCB": 0.13,
+                "c_euro_kwh_CSPE_TICFE": 0.03370,
             },
             {
                 "start": "2025-02-01",
                 "end": "2025-02-28",
-                "kWh_pointe": 120,
-                "kWh_HPH": 450,
+                "kWh_pointe": 0,
+                "kWh_HPH": 570,
                 "kWh_HCH": 380,
                 "kWh_HPB": 0,
                 "kWh_HCB": 0,
@@ -114,6 +115,7 @@ def generate_turpe_plots() -> None:
                 "c_euro_kWh_HCH": 0.13,
                 "c_euro_kWh_HPB": 0.14,
                 "c_euro_kWh_HCB": 0.12,
+                "c_euro_kwh_CSPE_TICFE": 0.02050,
             },
             {
                 "start": "2025-01-01",
@@ -133,7 +135,7 @@ def generate_turpe_plots() -> None:
                 "PS_HPB": 500,
                 "PS_HCB": 500,
                 "version_utilisation": "CU_pf",
-                "pourcentage_ENR": 0,
+                "pourcentage_ENR": 100,
             },
             {
                 "c_euro_kWh_pointe": 0.13,
@@ -148,6 +150,7 @@ def generate_turpe_plots() -> None:
                 "c_euro_kWh_certif_capacite_HCB": 0.001,
                 "c_euro_kWh_ENR": 0.01,
                 "c_euro_kWh_ARENH": 0.042,
+                "c_euro_kwh_CSPE_TICFE": 0.02250,
             },
             {
                 "start": "2025-02-01",
@@ -176,6 +179,7 @@ def generate_turpe_plots() -> None:
                 "c_euro_kWh_HCH": 0.10,
                 "c_euro_kWh_HPB": 0.11,
                 "c_euro_kWh_HCB": 0.09,
+                "c_euro_kwh_CSPE_TICFE": 0.02250,
             },
             {
                 "start": "2025-03-01",
@@ -243,6 +247,7 @@ def generate_turpe_plots() -> None:
                 "c_euro_kWh_HPB": 0.11,
                 "c_euro_kWh_HCB": 0.09,
                 "c_euro_kWh_ARENH": 0.042,
+                "c_euro_kwh_CSPE_TICFE": 0.02250,
             },
             {
                 "start": "2025-02-01",

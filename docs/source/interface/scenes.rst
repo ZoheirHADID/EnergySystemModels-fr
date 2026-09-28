@@ -46,14 +46,14 @@ Ce qu'il faut savoir avant d'exploiter une scène
 Relevé en ouvrant les scènes, et consigné dans le suivi des défauts de la
 bibliothèque :
 
-- **Deux scènes au format ancien ne relisent pas leurs réglages**
-  (« Rankine - centrale a vapeur », « Turbine a gaz - modele detaille ») : leurs
-  nœuds repartent sur les valeurs par défaut.
-- **Deux scènes en boucle fermée ne calculent rien** (« Absorption a simple effet »,
-  « Machine frigorifique bi-etagee ») : sans nœud *Sortie* ni *Capteur*, le moteur
-  historique n'a pas de point de départ.
-- **Une unité de débit écrite avec un exposant** (« m³/h », « Nm³/h ») n'est pas
-  reconnue par le nœud *Source*, qui la remplace sans le dire par des kg/s.
+- **Le moteur historique ne résout pas une boucle fermée** : sans nœud *Sortie* ni
+  *Capteur*, il n'a pas de point de départ, et une boucle sans coupure ne se calcule
+  pas. « Absorption a simple effet » ne calcule donc rien ; « Machine frigorifique
+  bi-etagee » ouvre sa boucle HP par une **source de coupure** dont les valeurs ont été
+  convergées à la main.
+- Le nœud *Source* lit l'unité de débit « m³/h » écrite avec exposant comme « m3/h »
+  et **refuse** une unité inconnue (le nœud passe en erreur) au lieu de la prendre,
+  sans le dire, pour des kg/s (corrigé le 28/09/2026).
 - **Sur une scène résolue par le solveur nodal, le nœud Source continue d'afficher
   15 °C et 1,013 bar**, ses valeurs de construction : lire la température et la
   pression réelles sur un capteur. Les tableaux ci-dessous omettent donc ces sources.
@@ -265,13 +265,13 @@ Rankine - centrale a vapeur
    Export SVG de la scène livrée, par le chemin de l'action « Exporter la scène en
    SVG… » de l'IHM.
 
-**Ce qu'elle montre.** Dessin d'un cycle de Rankine à vapeur d'eau (source, compression, évaporateur, turbine, condenseur), avec des nœuds *Sortie* branchés entre chaque organe pour lire l'état du fluide.
+**Ce qu'elle montre.** Un cycle de Rankine idéal à vapeur d'eau : 1 kg/s de condensat à 26 °C et 0,0356 bar, pompé à 128 bar (nœud compresseur, rendement 1), vaporisé et surchauffé de 117,4 K, détendu dans une turbine isentropique jusqu'à 0,0356 bar puis condensé, avec des nœuds *Sortie* branchés entre chaque organe pour lire l'état du fluide.
 
 **Nœuds employés** (10 nœuds, 9 liaisons) : Sortie ×5, Evaporateur, Source, Compresseur, Turbine, Condenseur.
 
 **Ouvrir.** Menu **File > Exemples > 1 - Cycles thermodynamiques > Rankine - centrale a vapeur**. À l'ouverture, la scène est calculée par le moteur historique (une passe, de l'amont vers les sorties) ; statut affiché : « convergence non mesurée » (une passe unique ne prouve rien).
 
-**Ce qu'on observe.** **La scène ne calcule pas le cycle qu'elle annonce.** Son fichier est écrit dans l'ancien format de sauvegarde (paramètres rangés en liste), que les nœuds actuels ne relisent pas : la source repart sur ses valeurs par défaut — ammonia à 15,0 °C et 1,013 bar au lieu de l'eau à 27 °C et 0,0356 bar inscrite dans le fichier — et le compresseur monte à 15 bar au lieu de 128. Les valeurs affichées sont donc celles d'un autre cycle. Défaut consigné ; pour un cycle de Rankine qui tourne, voir :doc:`../002-thermodynamic_cycles/turbine`.
+**Ce qu'on observe.** Pour 1 kg/s d'eau, la « compression » du condensat à 128 bar (rendement 1) demande 12,8 kW, l'évaporateur apporte 3 065,6 kW et sort la vapeur à 447 °C, la turbine isentropique rend 1 318,3 kW jusqu'à 0,0356 bar et le condenseur rejette 1 756,1 kW. **Rendement du cycle idéal : 42,6 %** (travail net / chaleur apportée). Les nœuds *Sortie* intercalés donnent l'état du fluide entre chaque organe. La scène était enregistrée dans l'ancien format (réglages en liste, que les nœuds ne relisaient pas) : elle a été réécrite le 28/09/2026, source réglée à 26 °C, sous la saturation (26,96 °C à 0,0356 bar), pour que la pompe reçoive bien du liquide.
 
 Valeurs affichées par les nœuds à l'ouverture (relevé automatique) :
 
@@ -284,34 +284,34 @@ Valeurs affichées par les nœuds à l'ouverture (relevé automatique) :
      - Valeurs affichées
    * - Output
      - Sortie
-     - Température (°C) = 38.7 °C ; Pression (bar) = 15.000 bar ; Débit (kg/h) = 1000.000 kg/h
+     - Température (°C) = 447.0 °C ; Pression (bar) = 128.000 bar ; Débit (kg/h) = 3600.000 kg/h
    * - Evaporateur
      - Evaporateur
-     - Q_evap (kW) = -212.885 ; Tevap(°C) = 38.72
+     - Q_evap (kW) = 3065.615 ; Tevap(°C) = 329.65
    * - Source
      - Source
-     - Temp. effective (°C) = 15.000 ; Pression effective (bar) = 1.013
+     - Temp. effective (°C) = 26.000 ; Pression effective (bar) = 0.036
    * - Compresseur
      - Compresseur
-     - Q_comp(kW) = 203.102 ; Energie dissipée (kW) = 0.000 ; Temp. sortie sans refroid. (°C) = 328.14
+     - Q_comp(kW) = 12.802 ; Energie dissipée (kW) = -0.000 ; Temp. sortie sans refroid. (°C) = 26.25
    * - Output
      - Sortie
-     - Température (°C) = 328.1 °C ; Pression (bar) = 15.000 bar ; Débit (kg/h) = 1000.000 kg/h
+     - Température (°C) = 26.3 °C ; Pression (bar) = 128.000 bar ; Débit (kg/h) = 3600.000 kg/h
    * - Output
      - Sortie
-     - Température (°C) = 15.0 °C ; Pression (bar) = 1.013 bar ; Débit (kg/h) = 1000.000 kg/h
+     - Température (°C) = 26.0 °C ; Pression (bar) = 0.036 bar ; Débit (kg/h) = 3600.000 kg/h
    * - Turbine
      - Turbine
-     - Q_turb(kW) = 58.574 ; Temp. isentrop. (°C) = -33.58
+     - Q_turb(kW) = 1318.319 ; Temp. isentrop. (°C) = 26.96
    * - Condenseur
      - Condenseur
-     - Q_cond (kW) = 342.052 ; Tcond(°C) = -33.58
+     - Q_cond (kW) = 1756.121 ; Tcond(°C) = 26.96
    * - Output
      - Sortie
-     - Température (°C) = -33.6 °C ; Pression (bar) = 1.000 bar ; Débit (kg/h) = 1000.000 kg/h
+     - Température (°C) = 27.0 °C ; Pression (bar) = 0.036 bar ; Débit (kg/h) = 3600.000 kg/h
    * - Output
      - Sortie
-     - Température (°C) = -33.6 °C ; Pression (bar) = 1.000 bar ; Débit (kg/h) = 1000.000 kg/h
+     - Température (°C) = 27.0 °C ; Pression (bar) = 0.036 bar ; Débit (kg/h) = 3600.000 kg/h
 
 Rankine - cycle vapeur
 ~~~~~~~~~~~~~~~~~~~~~~
@@ -324,13 +324,13 @@ Rankine - cycle vapeur
    Export SVG de la scène livrée, par le chemin de l'action « Exporter la scène en
    SVG… » de l'IHM.
 
-**Ce qu'elle montre.** Le cycle de Rankine d'une centrale à vapeur : condensat à 33 °C et 0,05 bar, pompe à 80 bar, chaudière à 450 °C, turbine (rendement 0,85) jusqu'à 0,05 bar, condenseur.
+**Ce qu'elle montre.** Le cycle de Rankine d'une centrale à vapeur : 1 kg/s de condensat à 32 °C et 0,05 bar, pompe à 80 bar, chaudière à 450 °C, turbine (rendement 0,85) jusqu'à 0,05 bar, condenseur.
 
 **Nœuds employés** (6 nœuds, 5 liaisons) : Source, Pompe, Heater_Cooler, Turbine, Condenseur, Sortie.
 
 **Ouvrir.** Menu **File > Exemples > 1 - Cycles thermodynamiques > Rankine - cycle vapeur**. À l'ouverture, la scène est calculée par le moteur historique (une passe, de l'amont vers les sorties) ; statut affiché : « convergence non mesurée » (une passe unique ne prouve rien).
 
-**Ce qu'on observe.** **La scène ne représente pas, en l'état, le cycle annoncé.** La source est réglée à 33,0 °C sous 0,050 bar ; or l'eau bout à 32,87 °C sous cette pression : la source délivre donc de la **vapeur** (enthalpie 2 561 kJ/kg), pas du condensat. La pompe, qui impose le débit volumique de sa courbe (43,5 m³/h), ne fait plus passer que 1,54 kg/h de vapeur et affiche une puissance de -517,3 kW et un rendement de -0,187 — valeurs sans signification. La chaudière et la turbine calculent alors sur ce débit infime (1,341 kW et 0,464 kW). Pour retrouver un cycle, régler la source un ou deux degrés **sous** la température de saturation. Défaut consigné.
+**Ce qu'on observe.** Pour 1 kg/s de condensat pris à 32 °C sous 0,050 bar (la saturation est à 32,87 °C : c'est bien du liquide), la pompe demande 11,46 kW pour 819 m de hauteur, la chaudière apporte 3 127,8 kW, la turbine rend 1 083,3 kW et le condenseur rejette 2 052,3 kW. **Rendement du cycle : 34,3 %.** La pompe est réglée en « Débit imposé » : sur sa courbe par défaut (2 à 30 m³/h, 44 m au plus), elle ne pourrait pas refouler à cette pression. Scène corrigée le 28/09/2026 : la source était réglée au-dessus de la saturation et délivrait de la vapeur à la pompe.
 
 Valeurs affichées par les nœuds à l'ouverture (relevé automatique) :
 
@@ -343,22 +343,22 @@ Valeurs affichées par les nœuds à l'ouverture (relevé automatique) :
      - Valeurs affichées
    * - Eau condensat
      - Source
-     - Temp. effective (°C) = 33.000 ; Pression effective (bar) = 0.050
+     - Temp. effective (°C) = 32.000 ; Pression effective (bar) = 0.050
    * - Pompe -> 80 bar
      - Pompe
-     - Débit de fonctionnement (m³/h) = 43.510 ; Puissance hydraulique (kW) = -517.275 ; HMT (m) = 22980159.27
+     - Débit de fonctionnement (m³/h) = 3.618 ; Puissance hydraulique (kW) = 11.459 ; HMT (m) = 819.09
    * - Chaudiere 450C
      - Heater_Cooler
-     - Qth(kW) = 1.341 ; Temp. sortie (°C) = 450.00
+     - Qth(kW) = 3127.777 ; Temp. sortie (°C) = 450.00
    * - Turbine 0.05 bar
      - Turbine
-     - Q_turb(kW) = 0.464 ; Temp. isentrop. (°C) = 32.87
+     - Q_turb(kW) = 1083.281 ; Temp. isentrop. (°C) = 32.87
    * - Condenseur
      - Condenseur
-     - Q_cond (kW) = 0.880 ; Tcond(°C) = 32.87
+     - Q_cond (kW) = 2052.301 ; Tcond(°C) = 32.87
    * - Sortie
      - Sortie
-     - Température (°C) = 32.9 °C ; Pression (bar) = 0.050 bar ; Débit (kg/h) = 1.543 kg/h
+     - Température (°C) = 32.9 °C ; Pression (bar) = 0.050 bar ; Débit (kg/h) = 3600.000 kg/h
 
 Solaire a concentration (SEGS)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -371,13 +371,13 @@ Solaire a concentration (SEGS)
    Export SVG de la scène livrée, par le chemin de l'action « Exporter la scène en
    SVG… » de l'IHM.
 
-**Ce qu'elle montre.** Le cycle vapeur d'une centrale solaire à concentration de type SEGS : condensat à 42 °C, pompe à 100 bar, « chaudière solaire » (champ de capteurs cylindro-paraboliques) à 371 °C, turbine, condenseur à 42 °C.
+**Ce qu'elle montre.** Le cycle vapeur d'une centrale solaire à concentration de type SEGS : 1 kg/s de condensat à 41 °C sous 0,082 bar, pompe à 100 bar, « chaudière solaire » (champ de capteurs cylindro-paraboliques) à 371 °C, turbine, condenseur à 42 °C.
 
 **Nœuds employés** (6 nœuds, 5 liaisons) : Source, Pompe, Heater_Cooler, Turbine, Condenseur, Sortie.
 
 **Ouvrir.** Menu **File > Exemples > 1 - Cycles thermodynamiques > Solaire a concentration (SEGS)**. À l'ouverture, la scène est calculée par le moteur historique (une passe, de l'amont vers les sorties) ; statut affiché : « convergence non mesurée » (une passe unique ne prouve rien).
 
-**Ce qu'on observe.** **La scène ne représente pas, en l'état, le cycle annoncé.** La source est réglée à 42,0 °C sous 0,082 bar ; or l'eau bout à 41,98 °C sous cette pression : la source délivre donc de la **vapeur** (enthalpie 2 577 kJ/kg), pas du condensat. La pompe, qui impose le débit volumique de sa courbe (43,5 m³/h), ne fait plus passer que 2,46 kg/h de vapeur et affiche une puissance de -646,5 kW et un rendement de -0,187 — valeurs sans signification. La chaudière et la turbine calculent alors sur ce débit infime (1,926 kW et 0,640 kW). Pour retrouver un cycle, régler la source un ou deux degrés **sous** la température de saturation. Défaut consigné.
+**Ce qu'on observe.** Pour 1 kg/s de condensat pris à 41 °C sous 0,082 bar (la saturation est à 41,98 °C : c'est bien du liquide), la pompe demande 14,36 kW pour 1 027 m de hauteur, la chaudière apporte 2 816,3 kW, la turbine rend 937,2 kW et le condenseur rejette 1 889,4 kW. **Rendement du cycle : 32,8 %.** La pompe est réglée en « Débit imposé » : sur sa courbe par défaut (2 à 30 m³/h, 44 m au plus), elle ne pourrait pas refouler à cette pression. Scène corrigée le 28/09/2026 : la source était réglée au-dessus de la saturation et délivrait de la vapeur à la pompe.
 
 Valeurs affichées par les nœuds à l'ouverture (relevé automatique) :
 
@@ -390,22 +390,22 @@ Valeurs affichées par les nœuds à l'ouverture (relevé automatique) :
      - Valeurs affichées
    * - Condensat 42C
      - Source
-     - Temp. effective (°C) = 42.000 ; Pression effective (bar) = 0.082
+     - Temp. effective (°C) = 41.000 ; Pression effective (bar) = 0.082
    * - Pompe -> 100 bar
      - Pompe
-     - Débit de fonctionnement (m³/h) = 43.510 ; Puissance hydraulique (kW) = -646.468 ; HMT (m) = 18011914.05
+     - Débit de fonctionnement (m³/h) = 3.630 ; Puissance hydraulique (kW) = 14.362 ; HMT (m) = 1026.96
    * - Chaudiere solaire 371C
      - Heater_Cooler
-     - Qth(kW) = 1.926 ; Temp. sortie (°C) = 371.00
+     - Qth(kW) = 2816.329 ; Temp. sortie (°C) = 371.00
    * - Turbine
      - Turbine
-     - Q_turb(kW) = 0.640 ; Temp. isentrop. (°C) = 41.98
+     - Q_turb(kW) = 937.165 ; Temp. isentrop. (°C) = 41.98
    * - Condenseur 42C
      - Condenseur
-     - Q_cond (kW) = 1.291 ; Tcond(°C) = 41.98
+     - Q_cond (kW) = 1889.439 ; Tcond(°C) = 41.98
    * - Sortie
      - Sortie
-     - Température (°C) = 42.0 °C ; Pression (bar) = 0.082 bar ; Débit (kg/h) = 2.460 kg/h
+     - Température (°C) = 42.0 °C ; Pression (bar) = 0.082 bar ; Débit (kg/h) = 3600.000 kg/h
 
 Turbine a gaz - modele detaille
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -418,13 +418,13 @@ Turbine a gaz - modele detaille
    Export SVG de la scène livrée, par le chemin de l'action « Exporter la scène en
    SVG… » de l'IHM.
 
-**Ce qu'elle montre.** Dessin d'une turbine à gaz détaillée : air comprimé, injection d'un débit de combustible par un mélangeur, chambre de combustion (réchauffeur), turbine, avec des nœuds *Sortie* intermédiaires.
+**Ce qu'elle montre.** Une turbine à gaz détaillée : air comprimé, injection d'un débit de combustible par un mélangeur, chambre de combustion (réchauffeur à 1065 °C), turbine, avec des nœuds *Sortie* intermédiaires.
 
 **Nœuds employés** (10 nœuds, 9 liaisons) : Sortie ×4, Source ×2, Compresseur, Heater_Cooler, Mélangeur, Turbine.
 
 **Ouvrir.** Menu **File > Exemples > 1 - Cycles thermodynamiques > Turbine a gaz - modele detaille**. À l'ouverture, la scène est calculée par le moteur historique (une passe, de l'amont vers les sorties) ; statut affiché : « convergence non mesurée » (une passe unique ne prouve rien).
 
-**Ce qu'on observe.** **La scène ne calcule pas la turbine à gaz qu'elle dessine.** Comme « Rankine - centrale a vapeur », elle est enregistrée dans l'ancien format : les deux sources repartent sur leur défaut (ammonia, 15,0 °C) au lieu de l'air à 15 °C et du combustible à 20 bar inscrits dans le fichier, et le réchauffeur vise 20,0 °C au lieu de 1065 °C. La turbine n'affiche que 0,669 kW. Défaut consigné ; la turbine à gaz se calcule d'un bloc avec le nœud « Turbine à gaz » ou dans la scène « Brayton - turbine a gaz ».
+**Ce qu'on observe.** 1 kg/s d'air à 15 °C est comprimé à 16 bar (410,8 kW, sortie à 413 °C) ; le mélangeur y ajoute 0,05 kg/s d'un second courant (le « combustible », représenté par de l'air à 20 bar) ; la chambre de combustion (un réchauffeur) apporte 801,7 kW pour atteindre 1065 °C, et la turbine rend 768,8 kW jusqu'à 1 bar. Travail net 358,0 kW, **rendement 44,7 %** — sans modèle de combustion : pour le bilan d'une vraie combustion, voir le nœud « Turbine à gaz ». Scène réécrite le 28/09/2026 depuis l'ancien format (réglages en liste, ignorés) ; la perte de charge de −4 bar du fichier d'origine, qui faisait **monter** la pression dans la chambre, a été ramenée à 0.
 
 Valeurs affichées par les nœuds à l'ouverture (relevé automatique) :
 
@@ -437,31 +437,31 @@ Valeurs affichées par les nœuds à l'ouverture (relevé automatique) :
      - Valeurs affichées
    * - Source
      - Source
-     - Temp. effective (°C) = 15.000 ; Pression effective (bar) = 1.013
+     - Temp. effective (°C) = 15.000 ; Pression effective (bar) = 1.000
    * - Output
      - Sortie
-     - Température (°C) = 15.0 °C ; Pression (bar) = 1.013 bar ; Débit (kg/h) = 1000.000 kg/h
+     - Température (°C) = 15.0 °C ; Pression (bar) = 1.000 bar ; Débit (kg/h) = 3600.000 kg/h
    * - Compresseur
      - Compresseur
-     - Q_comp(kW) = 203.102 ; Energie dissipée (kW) = 0.000 ; Temp. sortie sans refroid. (°C) = 328.14
+     - Q_comp(kW) = 410.810 ; Energie dissipée (kW) = 0.000 ; Temp. sortie sans refroid. (°C) = 413.15
    * - Output
      - Sortie
-     - Température (°C) = 328.1 °C ; Pression (bar) = 15.000 bar ; Débit (kg/h) = 1000.000 kg/h
+     - Température (°C) = 413.2 °C ; Pression (bar) = 16.000 bar ; Débit (kg/h) = 3600.000 kg/h
    * - Heater_Cooler
      - Heater_Cooler
-     - Qth(kW) = -197.087 ; Temp. sortie (°C) = 20.00
+     - Qth(kW) = 801.744 ; Temp. sortie (°C) = 1065.00
    * - Source
      - Source
-     - Temp. effective (°C) = 15.000 ; Pression effective (bar) = 1.013
+     - Temp. effective (°C) = 15.000 ; Pression effective (bar) = 20.000
    * - Output
      - Sortie
-     - Température (°C) = 20.0 °C ; Pression (bar) = 1.012 bar ; Débit (kg/h) = 1999.999 kg/h
+     - Température (°C) = 1065.0 °C ; Pression (bar) = 16.000 bar ; Débit (kg/h) = 3780.000 kg/h
    * - Turbine
      - Turbine
-     - Q_turb(kW) = 0.669 ; Temp. isentrop. (°C) = 19.17
+     - Q_turb(kW) = 768.819 ; Temp. isentrop. (°C) = 388.09
    * - Output
      - Sortie
-     - Température (°C) = 19.4 °C ; Pression (bar) = 1.000 bar ; Débit (kg/h) = 1999.999 kg/h
+     - Température (°C) = 424.1 °C ; Pression (bar) = 1.000 bar ; Débit (kg/h) = 3780.000 kg/h
 
 Turboreacteur
 ~~~~~~~~~~~~~
@@ -474,13 +474,13 @@ Turboreacteur
    Export SVG de la scène livrée, par le chemin de l'action « Exporter la scène en
    SVG… » de l'IHM.
 
-**Ce qu'elle montre.** Un turboréacteur simple flux en altitude : 27,8 kg/s d'air à −50 °C et 0,265 bar, diffuseur d'entrée (effet dynamique), compresseur à 16 bar, combustion à 1150 °C, turbine qui entraîne le compresseur, tuyère de poussée.
+**Ce qu'elle montre.** Un turboréacteur simple flux en altitude : 27,8 kg/s d'air à −50 °C et 0,265 bar, diffuseur d'entrée (effet dynamique), compresseur à 16 bar, combustion à 1150 °C, turbine qui entraîne le compresseur (détente à 1,8 bar), tuyère de poussée détendue jusqu'à la pression ambiante.
 
 **Nœuds employés** (7 nœuds, 6 liaisons) : Source, Diffuseur, Compresseur, Heater_Cooler, Turbine, Tuyère, Sortie.
 
 **Ouvrir.** Menu **File > Exemples > 1 - Cycles thermodynamiques > Turboreacteur**. À l'ouverture, la scène est calculée par le moteur historique (une passe, de l'amont vers les sorties) ; statut affiché : « convergence non mesurée » (une passe unique ne prouve rien).
 
-**Ce qu'on observe.** Le diffuseur relève la pression d'arrêt de 0,265 à 0,280 bar ; le compresseur absorbe 16,27 MW, la combustion apporte 20,33 MW et la turbine du générateur de gaz rend 14,69 MW. **Deux réglages empêchent la poussée** : la turbine rend moins que ce que le compresseur consomme (14,69 < 16,27 MW), et la tuyère est réglée pour sortir à 3,0 bar alors que le gaz lui arrive à 2,4 bar — elle ne peut pas détendre vers une pression plus haute et affiche un débit de 0,0 kg/s et une vitesse de 0 m/s. Abaisser la pression de sortie de la tuyère sous 2,4 bar (vers la pression ambiante, 0,265 bar) pour voir le jet. Défaut de scène consigné.
+**Ce qu'on observe.** Le diffuseur relève la pression d'arrêt de 0,265 à 0,280 bar ; le compresseur absorbe 16,27 MW, la combustion apporte 20,33 MW et la turbine du générateur de gaz, détendue jusqu'à 1,8 bar, rend 16,37 MW : **elle entraîne le compresseur** (16,37 ≥ 16,27 MW). La tuyère détend le gaz jusqu'à la pression ambiante (0,265 bar) : **jet à 746 m/s** pour 27,8 kg/s, soit un débit de quantité de mouvement de 20,8 kN en sortie (la poussée nette en retranche le débit multiplié par la vitesse de vol, que la scène ne donne pas). Scène corrigée le 28/09/2026 : la tuyère visait 3,0 bar en aval d'une turbine qui sortait à 2,4 bar (débit nul), la turbine ne couvrait pas le compresseur, et la section de tuyère (0,001 m²) ne laissait passer que 0,1 kg/s ; elle vaut désormais 0,2688 m².
 
 Valeurs affichées par les nœuds à l'ouverture (relevé automatique) :
 
@@ -505,13 +505,13 @@ Valeurs affichées par les nœuds à l'ouverture (relevé automatique) :
      - Qth(kW) = 20333.022 ; Temp. sortie (°C) = 1150.00
    * - Turbine (gen. gaz)
      - Turbine
-     - Q_turb(kW) = 14692.653 ; Temp. isentrop. (°C) = 617.58
+     - Q_turb(kW) = 16369.091 ; Temp. isentrop. (°C) = 553.81
    * - Tuyere (poussee)
      - Tuyère
-     - Vitesse sortie (m/s) = 0.00 ; Débit (kg/s) = 0.0000 ; Titre vapeur (-) = 1.000
+     - Vitesse sortie (m/s) = 746.40 ; Débit (kg/s) = 27.8008 ; Titre vapeur (-) = 1.000
    * - Jet
      - Sortie
-     - Température (°C) = 700.3 °C ; Pression (bar) = 3.000 bar ; Débit (kg/h) = 0.000 kg/h
+     - Température (°C) = 393.0 °C ; Pression (bar) = 0.265 bar ; Débit (kg/h) = 100082.711 kg/h
 
 Froid et cryogénie
 ------------------
@@ -615,13 +615,13 @@ Machine frigorifique bi-etagee
    Export SVG de la scène livrée, par le chemin de l'action « Exporter la scène en
    SVG… » de l'IHM.
 
-**Ce qu'elle montre.** Une machine frigorifique R134a à deux étages de compression avec bouteille intermédiaire à injection (3,5 bar) : l'étage BP aspire à 1 bar, l'étage HP refoule à 12 bar.
+**Ce qu'elle montre.** Une machine frigorifique R134a à deux étages de compression avec bouteille intermédiaire à injection (3,5 bar) : l'étage BP aspire à 1 bar, l'étage HP refoule à 12 bar ; la boucle HP est ouverte par une source de coupure.
 
-**Nœuds employés** (9 nœuds, 9 liaisons) : Compresseur ×2, Détendeur ×2, Source, Mélangeur fluides, Ballon de flash, Condenseur, Evaporateur.
+**Nœuds employés** (12 nœuds, 11 liaisons) : Compresseur ×2, Détendeur ×2, Sortie ×2, Source, Mélangeur fluides, Ballon de flash, Condenseur, Evaporateur, Source_P_h.
 
 **Ouvrir.** Menu **File > Exemples > 2 - Froid et cryogenie > Machine frigorifique bi-etagee**. À l'ouverture, la scène est calculée par le moteur historique (une passe, de l'amont vers les sorties) ; statut affiché : « convergence non mesurée » (une passe unique ne prouve rien).
 
-**Ce qu'on observe.** **Rien n'est calculé à l'ouverture** : 8 nœuds sur 9 restent vides, et la source affiche encore ses valeurs de construction (ammonia, 15,0 °C) au lieu du R134a à −21 °C du fichier. Même cause que pour l'absorption : la boucle HP (condenseur → détente → bouteille) est fermée et la scène n'a aucun nœud *Sortie* ni *Capteur* d'où le moteur partirait. La scène vaut pour son **schéma** : deux compresseurs, une bouteille à 3,5 bar qui sépare le liquide envoyé à l'évaporateur et la vapeur reprise par l'étage HP. Défaut consigné.
+**Ce qu'on observe.** 1 kg/s de R134a vaporisé à -26,4 °C absorbe **179,8 kW de froid**. L'étage BP comprime la vapeur de 1 à 3,5 bar (32,6 kW) ; dans la bouteille à 3,5 bar, le liquide détendu de l'étage HP la refroidit et s'y vaporise en partie : le séparateur envoie 58,5 % du débit, en vapeur, à l'étage HP (1,412 kg/s comprimés à 12 bar, 45,2 kW) et le reste, liquide, à l'évaporateur. **COP froid = 2,31.** La boucle HP est **ouverte** à l'entrée de la bouteille : la source « Injection HP (coupure de boucle) » y porte le débit et l'enthalpie que le nœud de contrôle « Retour detente HP » relit en sortie de détente (1,4119 kg/s relus pour 1,4119 kg/s injectés). Le moteur historique ne sait pas résoudre une boucle fermée : les valeurs de coupure ont été convergées par substitution le 28/09/2026 ; **si vous modifiez la scène, recopiez dans la source les valeurs du nœud de contrôle et relancez jusqu'à ce qu'elles coïncident.**
 
 Valeurs affichées par les nœuds à l'ouverture (relevé automatique) :
 
@@ -634,7 +634,37 @@ Valeurs affichées par les nœuds à l'ouverture (relevé automatique) :
      - Valeurs affichées
    * - R134a vap BP
      - Source
-     - Temp. effective (°C) = 15.000 ; Pression effective (bar) = 1.013
+     - Temp. effective (°C) = -21.000 ; Pression effective (bar) = 1.000
+   * - Compresseur BP
+     - Compresseur
+     - Q_comp(kW) = 32.572 ; Energie dissipée (kW) = 0.000 ; Temp. sortie sans refroid. (°C) = 24.73
+   * - Bouteille flash (inj.)
+     - Mélangeur fluides
+     - T° sortie (°C) = 5.03 ; Débit mélangé (kg/s) = 2.4119
+   * - Separateur 3.5 bar
+     - Ballon de flash
+     - Fraction vapeur (-) = 0.585 ; T° flash (°C) = 5.03 ; Chaleur latente (kW) = 274.926
+   * - Compresseur HP
+     - Compresseur
+     - Q_comp(kW) = 45.159 ; Energie dissipée (kW) = -0.000 ; Temp. sortie sans refroid. (°C) = 56.17
+   * - Condenseur 12 bar
+     - Condenseur
+     - Q_cond (kW) = 257.795 ; Tcond(°C) = 46.31
+   * - Detente HP -> 3.5 bar
+     - Détendeur
+     - Q_exp (kW) = 0.000 ; Tcond(°C) = 5.03
+   * - Detente BP -> 1 bar
+     - Détendeur
+     - Q_exp (kW) = 0.000 ; Tcond(°C) = -26.36
+   * - Evaporateur
+     - Evaporateur
+     - Q_evap (kW) = 179.777 ; Tevap(°C) = -26.36
+   * - Retour detente HP (controle de coupure)
+     - Sortie
+     - Température (°C) = 5.0 °C ; Pression (bar) = 3.500 bar ; Débit (kg/h) = 5082.904 kg/h
+   * - Sortie evaporateur
+     - Sortie
+     - Température (°C) = -21.4 °C ; Pression (bar) = 1.000 bar ; Débit (kg/h) = 3600.000 kg/h
 
 Machine frigorifique
 ~~~~~~~~~~~~~~~~~~~~
@@ -1352,7 +1382,7 @@ Reseau de distribution
 
 **Ouvrir.** Menu **File > Exemples > 3 - Hydraulique > Reseau de distribution**. À l'ouverture, la scène est calculée par le solveur nodal des réseaux (Newton sur les pressions) ; statut affiché : **convergé** (point fixe constaté).
 
-**Ce qu'on observe.** La pompe refoule à 7,50 bar pour 23,76 m³/h sous 26,8 m de HMT ; les seize capteurs jalonnent la pression le long des singularités (coudes, rétrécissement, élargissement, tés, vanne d'équilibrage). C'est la scène qui rassemble le plus de modèles de :doc:`../004-hydraulic/index`.
+**Ce qu'on observe.** La pompe refoule à 7,50 bar pour 23,76 m³/h sous 26,8 m de HMT ; les seize capteurs relèvent pression et débit le long des singularités (coudes, rétrécissement, élargissement, tés, vanne d'équilibrage). C'est la scène qui rassemble le plus de modèles de :doc:`../004-hydraulic/index`.
 
 Valeurs affichées par les nœuds à l'ouverture (relevé automatique) :
 
@@ -1691,7 +1721,7 @@ Ballon stratifie
 
 **Ouvrir.** Menu **File > Exemples > 4 - Composants et utilites > Ballon stratifie**. À l'ouverture, la scène est calculée par le moteur historique (une passe, de l'amont vers les sorties) ; statut affiché : « convergence non mesurée » (une passe unique ne prouve rien).
 
-**Ce qu'on observe.** Le ballon de 2,5 m³ en 30 strates, initialement à 50 °C, reçoit en haut l'eau chaude à 70 °C et en bas l'eau froide à 12 °C pendant un pas de 3600 s. On lit **70,00 °C en haut et 23,56 °C en bas** : la thermocline est descendue jusqu'à la dernière strate, et le ballon stocke 49,14 kWh. Les débits réels, lus sur les capteurs, sont de 36,8 et 28,8 m³/h — **et non 10 et 8 m³/h** comme saisi : les sources sont réglées en « m³/h » écrit avec un exposant, unité que le nœud Source ne reconnaît pas et remplace sans le dire par des kg/s. Défaut consigné. Le ballon se simule aussi dans le temps : voir :doc:`../013-simulation-temporelle/index`.
+**Ce qu'on observe.** Le ballon de 2,5 m³ en 30 strates, initialement à 50 °C, reçoit en haut 10 m³/h d'eau chaude à 70 °C et en bas 8 m³/h d'eau froide à 12 °C pendant un pas de 3600 s. On lit **69,99 °C en haut et 19,34 °C en bas**, et le ballon stocke 37,91 kWh. Les capteurs d'entrée relisent bien 10,0 et 8,0 m³/h. Scène corrigée le 28/09/2026 : l'unité était écrite « m³/h » avec un exposant, que le nœud Source remplaçait sans le dire par des kg/s (10 « m³/h » valaient 36,8 m³/h) ; le nœud lit désormais l'exposant et refuse toute unité inconnue. Le ballon se simule aussi dans le temps : voir :doc:`../013-simulation-temporelle/index`.
 
 Valeurs affichées par les nœuds à l'ouverture (relevé automatique) :
 
@@ -1710,13 +1740,13 @@ Valeurs affichées par les nœuds à l'ouverture (relevé automatique) :
      - Temp. effective (°C) = 12.000 ; Pression effective (bar) = 1.013
    * - Ballon stratifie
      - Ballon stratifie
-     - Temperature haute (degC) = 70.00 ; Temperature basse (degC) = 23.56 ; Energie stockee (kWh) = 49.14060
+     - Temperature haute (degC) = 69.99 ; Temperature basse (degC) = 19.34 ; Energie stockee (kWh) = 37.90710
    * - Capteur
      - Capteur
-     - 29.5 m³/h
+     - 8.2 m³/h
    * - Capteur
      - Capteur
-     - 36.1 m³/h
+     - 9.8 m³/h
    * - Capteur
      - Capteur
      - 70.0 °C
@@ -1728,13 +1758,13 @@ Valeurs affichées par les nœuds à l'ouverture (relevé automatique) :
      - 70.0 °C
    * - Capteur
      - Capteur
-     - 23.6 °C
+     - 19.3 °C
    * - Capteur
      - Capteur
-     - 28.8 m³/h
+     - 8.0 m³/h
    * - Capteur
      - Capteur
-     - 36.8 m³/h
+     - 10.0 m³/h
 
 Chaine de valeur energetique
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -1827,7 +1857,7 @@ Chaudiere
 
 **Ouvrir.** Menu **File > Exemples > 4 - Composants et utilites > Chaudiere**. À l'ouverture, la scène est calculée par le moteur historique (une passe, de l'amont vers les sorties) ; statut affiché : « convergence non mesurée » (une passe unique ne prouve rien).
 
-**Ce qu'on observe.** La chaudière affiche un rendement de 91,6 % sur PCI (81,8 % sur PCS), un excès d'air de 20,1 % pour 3,5 % d'O₂ et des fumées à 120,3 °C. **Mais le circuit d'eau est alimenté par de l'ammonia** : la source de la scène a gardé le fluide par défaut du nœud, et la « puissance demandée par l'eau » (103,0 kW) est celle d'un débit d'ammonia porté de 15 à 180 °C. Régler la source sur *water* avant d'exploiter la scène. Défaut de scène consigné ; le modèle est documenté dans :doc:`../002-thermodynamic_cycles/ng_boiler_efficiency`.
+**Ce qu'on observe.** La chaudière affiche un rendement de 94,9 % sur PCI (84,8 % sur PCS), un excès d'air de 20,1 % pour 3,5 % d'O₂ et des fumées à 120,3 °C. L'eau (0,278 kg/s à 15 °C) est portée à 180 °C **sous 1,013 bar** : elle sort en vapeur surchauffée, d'où une puissance demandée de 770,2 kW. Pour de l'eau chaude liquide, relever la pression de la source ou baisser la température de sortie. Scène corrigée le 28/09/2026 : la source avait gardé le fluide par défaut du nœud (ammoniac). Le modèle est documenté dans :doc:`../002-thermodynamic_cycles/ng_boiler_efficiency`.
 
 Valeurs affichées par les nœuds à l'ouverture (relevé automatique) :
 
@@ -1840,19 +1870,19 @@ Valeurs affichées par les nœuds à l'ouverture (relevé automatique) :
      - Valeurs affichées
    * - Chaudière GN
      - Chaudière GN
-     - Rendement sur PCI (%) = 91.56 ; Puissance combustible PCS (kW) = 124.84 ; Puissance utile calculée, bilan PCI (kW) = 103.05
+     - Rendement sur PCI (%) = 94.91 ; Puissance combustible PCS (kW) = 900.06 ; Puissance utile calculée, bilan PCI (kW) = 770.22
    * - Source
      - Source
      - Temp. effective (°C) = 15.000 ; Pression effective (bar) = 1.013
    * - Capteur
      - Capteur
-     - 1296.098 Nm³/h
+     - 1.000 Nm³/h
    * - Capteur
      - Capteur
      - 120.337 °C
    * - Output
      - Sortie
-     - Température (°C) = 120.3 °C ; Pression (bar) = 1.013 bar ; Débit (kg/h) = 175.001 kg/h
+     - Température (°C) = 120.3 °C ; Pression (bar) = 1.013 bar ; Débit (kg/h) = 1261.669 kg/h
 
 Compresseur
 ~~~~~~~~~~~
@@ -1871,7 +1901,7 @@ Compresseur
 
 **Ouvrir.** Menu **File > Exemples > 4 - Composants et utilites > Compresseur**. À l'ouverture, la scène est calculée par le moteur historique (une passe, de l'amont vers les sorties) ; statut affiché : « convergence non mesurée » (une passe unique ne prouve rien).
 
-**Ce qu'on observe.** 1000 kg/h d'air comprimés de 1 à 15 bar (rendement 0,7) demandent 135,3 kW ; le compresseur est refroidi pour sortir à 80 °C et dissipe 119,1 kW, soit **88 % de sa puissance récupérable** en chaleur. Une liaison de signal transmet cette puissance au réchauffeur d'un circuit d'eau, qui passe de 15,0 à 22,1 °C. Le débit d'eau réel est de 4,0 kg/s, et non 4 Nm³/h comme saisi : même défaut d'unité écrite avec exposant que dans « Ballon stratifie ».
+**Ce qu'on observe.** 1000 kg/h d'air comprimés de 1 à 15 bar (rendement 0,7) demandent 135,3 kW ; le compresseur est refroidi pour sortir à 80 °C et dissipe 119,1 kW, soit **88 % de sa puissance récupérable** en chaleur. Une liaison de signal transmet cette puissance au réchauffeur d'un circuit d'eau de 4 m³/h (1,11 kg/s), qui passe de 15,0 à 40,7 °C. Scène corrigée le 28/09/2026 : le débit d'eau était saisi en « Nm³/h » avec exposant, pris pour 4 kg/s ; il est désormais en m³/h, l'unité d'un débit de liquide.
 
 Valeurs affichées par les nœuds à l'ouverture (relevé automatique) :
 
@@ -1896,7 +1926,7 @@ Valeurs affichées par les nœuds à l'ouverture (relevé automatique) :
      - Temp. effective (°C) = 15.000 ; Pression effective (bar) = 1.013
    * - Heater_Cooler
      - Heater_Cooler
-     - Qth(kW) = 119.106 ; Temp. sortie (°C) = 22.11
+     - Qth(kW) = 119.106 ; Temp. sortie (°C) = 40.66
    * - Capteur
      - Capteur
      - 80.0 °C
@@ -1905,13 +1935,13 @@ Valeurs affichées par les nœuds à l'ouverture (relevé automatique) :
      - 773.4 Nm³/h
    * - Capteur
      - Capteur
-     - 22.1 °C
+     - 40.7 °C
    * - Capteur
      - Capteur
      - 15.0 °C
    * - Capteur
      - Capteur
-     - 14.4 Nm³/h
+     - 4.0 Nm³/h
    * - Capteur
      - Capteur
      - 20.0 °C

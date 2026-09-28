@@ -1,13 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100" role="img" aria-label="Appareil sous enveloppe" data-iso-part="8" data-iso-ref="2131">
-  <title>ISO 14617-8 — 2131 — Appareil sous enveloppe</title>
-  <desc>Appareil de robinetterie sous enveloppe (vanne à double corps / réchauffée).</desc>
-  <metadata>{&quot;standard&quot;: &quot;ISO 14617-8&quot;, &quot;ref&quot;: &quot;2131&quot;, &quot;name&quot;: &quot;Appareil sous enveloppe&quot;, &quot;ports&quot;: [{&quot;id&quot;: &quot;port-w&quot;, &quot;x&quot;: 8, &quot;y&quot;: 50, &quot;dir&quot;: &quot;w&quot;, &quot;role&quot;: &quot;inlet&quot;}, {&quot;id&quot;: &quot;port-e&quot;, &quot;x&quot;: 92, &quot;y&quot;: 50, &quot;dir&quot;: &quot;e&quot;, &quot;role&quot;: &quot;outlet&quot;}]}</metadata>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100" role="img" aria-label="Lit de grains">
+  <title>Lit de grains</title>
+  <desc>Colonne remplie de grains (lit fixe, ISO 14617-12 2603) traversée par l'écoulement (loi d'Ergun).</desc>
+  <metadata>{"standard": "ISO 14617-12", "ref": "2603 (adapté)", "name": "Lit de grains", "ports": [{"id": "port-w", "x": 8, "y": 50, "dir": "w", "role": "inlet"}, {"id": "port-e", "x": 92, "y": 50, "dir": "e", "role": "outlet"}]}</metadata>
   <g fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-    <rect x="28" y="34" width="44" height="32"/>
-    <polygon points="30,39 30,61 50,50"/>
-    <polygon points="70,39 70,61 50,50"/>
-    <line x1="30" y1="50" x2="8" y2="50"/>
+    <rect x="30" y="18" width="40" height="64"/>
+    <circle cx="40" cy="28" r="4.5"/>
+    <circle cx="60" cy="28" r="4.5"/>
+    <circle cx="40" cy="50" r="4.5"/>
+    <circle cx="60" cy="50" r="4.5"/>
+    <circle cx="40" cy="72" r="4.5"/>
+    <circle cx="60" cy="72" r="4.5"/>
+    <circle cx="50" cy="39" r="4.5"/>
+    <circle cx="50" cy="61" r="4.5"/>
+    <line x1="8" y1="50" x2="30" y2="50"/>
     <line x1="70" y1="50" x2="92" y2="50"/>
   </g>
   <g class="ports">
@@ -15,5 +21,3 @@
     <circle class="port" cx="92" cy="50" r="2.0" fill="#000000" stroke="none" data-port="port-e" data-dir="e" data-role="outlet"/>
   </g>
 </svg>
-
-

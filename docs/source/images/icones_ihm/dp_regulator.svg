@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100" role="img" aria-label="Vanne de régulation à membrane" data-iso-part="8" data-iso-ref="X2101">
-  <title>ISO 14617-8 — X2101 — Vanne de régulation à membrane</title>
-  <desc>Vanne de régulation avec organe de commande à membrane (actionneur pneumatique).</desc>
-  <metadata>{&quot;standard&quot;: &quot;ISO 14617-8&quot;, &quot;ref&quot;: &quot;X2101&quot;, &quot;name&quot;: &quot;Vanne de régulation à membrane&quot;, &quot;ports&quot;: [{&quot;id&quot;: &quot;port-w&quot;, &quot;x&quot;: 8, &quot;y&quot;: 62, &quot;dir&quot;: &quot;w&quot;, &quot;role&quot;: &quot;inlet&quot;}, {&quot;id&quot;: &quot;port-e&quot;, &quot;x&quot;: 92, &quot;y&quot;: 62, &quot;dir&quot;: &quot;e&quot;, &quot;role&quot;: &quot;outlet&quot;}]}</metadata>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100" role="img" aria-label="Régulateur de pression différentielle">
+  <title>Régulateur de pression différentielle</title>
+  <desc>Vanne (ISO 14617-8) à servomoteur à membrane, piloté par une prise d'impulsion (tirets) : maintient Δp constant.</desc>
+  <metadata>{"standard": "ISO 14617-8", "ref": "X2101 (adapté)", "name": "Régulateur de pression différentielle", "ports": [{"id": "port-w", "x": 8, "y": 62, "dir": "w", "role": "inlet"}, {"id": "port-e", "x": 92, "y": 62, "dir": "e", "role": "outlet"}]}</metadata>
   <g fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
     <polygon points="30,51 30,73 50,62"/>
     <polygon points="70,51 70,73 50,62"/>
+    <line x1="30" y1="62" x2="8" y2="62"/>
+    <line x1="70" y1="62" x2="92" y2="62"/>
     <line x1="50" y1="62" x2="50" y2="38"/>
     <path d="M 38 38 A 12 8 0 0 1 62 38"/>
     <line x1="38" y1="38" x2="62" y2="38"/>
-    <line x1="30" y1="62" x2="8" y2="62"/>
-    <line x1="70" y1="62" x2="92" y2="62"/>
+    <polyline points="62,33 82,33 82,62" stroke-dasharray="3,3"/>
+    <text x="26" y="36" font-family="Segoe UI, Arial, sans-serif" font-weight="bold" font-size="15" fill="#000000" stroke="none" text-anchor="middle">Δp</text>
   </g>
   <g class="ports">
     <circle class="port" cx="8" cy="62" r="2.0" fill="#000000" stroke="none" data-port="port-w" data-dir="w" data-role="inlet"/>
     <circle class="port" cx="92" cy="62" r="2.0" fill="#000000" stroke="none" data-port="port-e" data-dir="e" data-role="outlet"/>
   </g>
 </svg>
-
-

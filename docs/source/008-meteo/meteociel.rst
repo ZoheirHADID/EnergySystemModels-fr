@@ -132,8 +132,8 @@ Ce qu'on lit :
   ``Month_only``, ``Year_only`` ;
 - ``df_month`` : DJU **sommés** et température **moyenne** du mois, indexés par
   le 1\ :sup:`er` du mois ;
-- ``df_year`` : même contenu à la maille annuelle — mais avec des en-têtes à
-  trois niveaux (voir « Pièges »).
+- ``df_year`` : même contenu à la maille annuelle, avec les mêmes colonnes que
+  ``df_month`` (``DJU_Chauffage``, ``DJU_Rafraichissement``, ``Température``).
 
 La date de fin est **exclue** : ``datetime(2023, 3, 1)`` s'arrête au 28 février,
 d'où 59 jours.
@@ -199,16 +199,15 @@ février (−15 %) : l'écart relatif grandit quand l'hiver s'adoucit.
 Pièges
 ------
 
-- **Une journée manquante arrête tout.** Si le site ne renvoie pas de tableau pour
-  un jour, ``MeteoCiel_dayScraping`` tente de renvoyer une variable jamais définie
-  (``UnboundLocalError``) ; ``MeteoCiel_histoScraping`` réessaie une fois puis
-  laisse l'exception remonter, et les jours déjà téléchargés sont perdus. Pour un
-  long historique, découpez la période (par mois) et sauvegardez chaque morceau.
-- **``df_year`` n'a pas les mêmes en-têtes que ``df_month``** : ses colonnes
-  restent un ``MultiIndex`` à trois niveaux (``('DJU_Chauffage', '', 'sum')``…).
-  Pour lire les DJU annuels, le plus simple est ``df_month.resample("YS").sum()``
-  pour les DJU, ou ``df_year.columns = ["DJU_Chauffage",
-  "DJU_Rafraichissement", "Température"]``.
+- **Une journée manquante est sautée, pas perdue en silence.** Si le site ne
+  renvoie pas de tableau pour un jour, ``MeteoCiel_dayScraping`` lève
+  ``MeteoCielAucuneDonnee`` ; ``MeteoCiel_histoScraping`` réessaie une fois, puis
+  **saute** le jour, émet un ``MeteoCielJoursManquantsWarning`` qui les énumère et
+  les range dans ``df_histo.attrs["jours_manquants"]`` (liste de
+  ``(date, motif)``). Les DJU du mois concerné sont alors **incomplets** : vérifiez
+  cette liste avant d'exploiter ``df_month``. Si aucun jour n'est obtenu, la
+  fonction lève ``MeteoCielAucuneDonnee``. (Avant le 28/09/2026 : un jour
+  manquant levait ``UnboundLocalError`` et tout l'historique était perdu.)
 - **Traces abondantes** : la fonction imprime chaque colonne de température
   téléchargée. ``contextlib.redirect_stdout`` les fait taire, comme dans
   l'exemple.

@@ -43,7 +43,9 @@ Paramètres
 * **imposed_intercept** : impose la constante du modèle. ``None`` (défaut) =
   constante estimée librement ; ``0`` = régression par l'origine ; toute autre
   valeur = « talon » de consommation imposé. Les pentes sont alors ajustées sur
-  le résidu :math:`y - b_0`, puis l'ordonnée est fixée à :math:`b_0` ;
+  le résidu :math:`y - b_0`, puis l'ordonnée est fixée à :math:`b_0` ; la
+  constante n'étant pas estimée, elle n'a ni ``serr_const`` ni ``stat_t_const``,
+  et les erreurs-types des pentes sont celles de ce modèle par l'origine ;
 * **niveau_confiance** : niveau de confiance du calcul d'incertitude
   (**défaut 0,8**). Pilote la statistique de Student et donc la
   ``precision_absolue`` / ``precision_relative`` de ``table_incertitude`` ;
@@ -67,7 +69,9 @@ Valeurs de retour
   ``table_incertitude_report`` : équivalents pour la période de suivi
   (colonne ``"POST-ANTE"``) ;
 * ``df_savings`` : économies **ANTE-POST** / **POST-ANTE** (relevé, prédiction,
-  pourcentage d'économie).
+  pourcentage d'économie). Le pourcentage est l'énergie évitée rapportée à la
+  consommation sans l'action : la prédiction en ANTE-POST, le relevé de
+  référence en POST-ANTE (voir :doc:`mesure_economies`).
 
 Critères de validation (ASHRAE Guideline 14)
 --------------------------------------------
@@ -109,16 +113,16 @@ Le module utilise la méthode du **z-score** :
 
    z_i = \frac{y_i - \bar{y}}{\sigma_y}
 
-Les points avec :math:`z` ≥ ``seuil_z_scores`` (**défaut 8**) sont exclus
+Les points avec :math:`|z|` ≥ ``seuil_z_scores`` (**défaut 8**) sont exclus
 (fonction ``drop_outliers``, appliquée à ``y`` seul, toutes périodes confondues ;
-le même index est retiré de ``X``).
+le même index est retiré de ``X``). L'exclusion est **bilatérale** : sur une
+série de 42 relevés, un relevé à 0 (z = −4,6) et un relevé à 200 (z = +4,4) sont
+tous deux exclus au seuil 3.
 
-.. warning::
-   L'exclusion est **unilatérale** : seuls les relevés anormalement **hauts** sont
-   retirés. Mesuré : sur une série de 42 relevés, un relevé à 0 (z = −4,6) est
-   conservé quand un relevé à 200 (z = +4,4) est exclu au seuil 3. Un compteur
-   bloqué ou un mois non relevé doit donc être retiré à la main avant l'appel.
-   Défaut consigné dans ``BUGS_LIB.md``.
+.. note::
+   Jusqu'au 28/09/2026, le test portait sur le z-score **signé** : seuls les
+   relevés anormalement hauts étaient exclus, un compteur bloqué restait dans le
+   modèle.
 
 Deux autres fonctions du module s'appellent seules : ``agreger_avec_duree``
 (agrégation d'un pas fin à une maille plus large, avec la durée comme variable

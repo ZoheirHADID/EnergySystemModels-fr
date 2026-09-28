@@ -8,7 +8,7 @@ combustion et aux machines thermiques à combustion interne :
 
 * ``Combustion.Combustor_cantera`` — combustion réelle par équilibre chimique (Cantera), pouvoirs calorifiques PCI/PCS ;
 * ``ReciprocatingEngine`` — moteur alternatif air-standard (cycles Otto / Diesel) ;
-* ``Combustion.Gaz_Boiler`` — ébauche de chaudière gaz (lit seulement l'air comburant) ;
+* ``Combustion.Gaz_Boiler`` — ébauche de chaudière gaz, qui **refuse de calculer** (``NotImplementedError``) ;
 * ``GasTurbine`` — cycle de Brayton complet (compresseur + chambre + turbine) ;
 * ``GasTurbine.Combustor`` — chambre de combustion seule (apport du PCI, sans chimie) ;
 * ``OxyCombustion`` — oxy-combustion stœchiométrique avec recyclage de fumées et captage du CO2.
@@ -123,7 +123,10 @@ multipliée par le débit massique total :math:`\dot m = \dot m_{fuel} + \dot m_
 
    ``Combustor_cantera`` a besoin du paquet ``cantera``, qui **n'est pas installé**
    par ``pip install energysystemmodels`` : installez-le à part
-   (``pip install cantera``), sinon l'import échoue avec ``ModuleNotFoundError``.
+   (``pip install cantera``). Sans lui, le module s'importe mais
+   ``Combustor_cantera.Object()`` lève une ``ImportError`` qui dit quoi
+   installer (depuis le 28/09/2026 ; auparavant l'import lui-même échouait avec
+   ``ModuleNotFoundError``, sans indication).
 
 .. code-block:: python
 
@@ -170,134 +173,31 @@ Sortie réelle :
    Phi recalculé après équilibrage = 0.996
    …
    Chaleur perdue (jusqu'à 210°C): 47374.95 kW
-                                      Source
-   Timestamp      2026-09-28 14:24:00.372799
-   fluid                             methane
-   Ti_degC                              -5.0
-   Pi_bar                               1.04
-   F_Sm3h                             5295.4
-   F_Nm3h                        5017.709888
-   F_m3h                              4783.1
-   F_kgh                                3600
-   F_kgs                                   1
-   F_m3s                               1.329
-   F_Sm3s                              1.471
-   self.Outlet.h               843900.310279
-                                      Source
-   Timestamp      2026-09-28 14:24:00.385815
-   fluid                                 air
-   Ti_degC                              15.0
-   Pi_bar                               1.21
-   F_Sm3h                            50524.7
-   F_Nm3h                       47886.200992
-   F_m3h                             42192.4
-   F_kgh                             61920.0
-   F_kgs                                17.2
-   F_m3s                               11.72
-   F_Sm3s                             14.035
-   self.Outlet.h               414325.350045
-                                             Source
-   Timestamp                    2026-09-28 14:23:59
-   fuel_name                                    CH4
-   oxidizer_name                       O2:2,N2:7.52
-   comb_LHV (MJ/kg)                       50.025488
-   comb_HHV (MJ/kg)                       55.511325
-   Total_Latent_heat_MJ_kgFuel             5.485837
-   LHV_kWh_Nm3                             9.969785
-   HHV_kWh_Nm3                             11.06308
-   LHV_kWh_Sm3                             9.284728
-   HHV_kWh_Sm3                            10.302899
-   Q_comb_LHV (kW)                     50025.488116
-   Q_comb_HHV (kW)                     55511.324751
-   oxidizer (mol/s)                      596.178967
-   N2_mols (mol/s)                       470.981384
-   O2_mols (mol/s)                       125.197583
-   oxidizer (kg/s)                             17.2
-   N2_F_kgs (kg/s)                        13.193828
-   O2_F_kgs (kg/s)                         4.006172
-   ---------------------------------------- 1
-   ------------------------------------------- 1 0.0160428
-   M_air=================== 0.028850397200000003
-   oxidizer_mols============== 596.1789669918304
-   self.AIR_EXCESS,self.phi,self.products_O2_molRatio None None None
-   h1================================================ -256741.2493959029
-   Fuel composition: CH4:62.33
-   Oxidizer composition: O2:125.2,N2:470.98
-   State after equilibration: T = 2223.01 K, P = 101325.00 Pa, rho = 0.15 kg/m³
-   Phi recalculé après équilibrage = 0.996
-
-     gri30:
-
-          temperature   2223 K
-             pressure   1.0133e+05 Pa
-              density   0.15045 kg/m^3
-     mean mol. weight   27.443 kg/kmol
-      phase of matter   gas
-
-                             1 kg             1 kmol     
-                        ---------------   ---------------
-             enthalpy       -2.5345e+05       -6.9556e+06  J
-      internal energy       -9.2695e+05       -2.5439e+07  J
-              entropy            9869.8        2.7086e+05  J/K
-       Gibbs function       -2.2194e+07       -6.0908e+08  J
-    heat capacity c_p            1513.1             41526  J/K
-    heat capacity c_v            1210.2             33211  J/K
-
-                         mass frac. Y      mole frac. X     chem. pot. / RT
-                        ---------------   ---------------   ---------------
-                   H2        0.00024925         0.0033929           -25.507
-                    H        1.3718e-05        0.00037347           -12.753
-                    O        0.00012911        0.00022146            -17.22
-                   O2         0.0058642         0.0050295            -34.44
-                   OH         0.0017993         0.0029035           -29.973
-                  H2O           0.12009           0.18294           -42.727
-                  HO2        6.3313e-07        5.2642e-07           -47.193
-                 H2O2        5.8557e-08        4.7245e-08           -59.946
-                   CO         0.0086604         0.0084852            -38.82
-                  CO2           0.13711            0.0855           -56.039
-                  HCO        7.6283e-10        7.2143e-10           -51.573
-                 CH2O         1.283e-11        1.1727e-11           -64.326
-                    N         7.063e-09        1.3838e-08           -13.818
-                   NH         1.226e-09        2.2409e-09           -26.572
-                  NH2        5.1142e-10        8.7594e-10           -39.325
-                  NH3        1.5283e-09        2.4626e-09           -52.079
-                  NNH        7.6419e-10        7.2262e-10            -40.39
-                   NO         0.0021425         0.0019595           -31.038
-                  NO2        6.3051e-07        3.7612e-07           -48.258
-                  N2O        1.6683e-07        1.0402e-07           -44.857
-                  HNO        3.8266e-08         3.386e-08           -43.792
-                   CN        5.6216e-14        5.9296e-14           -35.418
-                  HCN        1.6451e-11        1.6705e-11           -48.172
-                 HOCN         1.615e-12        1.0301e-12           -65.391
-                 HNCO         5.552e-10        3.5413e-10           -65.391
-                  NCO        2.1982e-11        1.4357e-11           -52.638
-                   N2           0.72394           0.70919           -27.637
-        [  +26 minor]        2.4876e-16        2.4069e-16  
-
-   None
-   Chaleur perdue (jusqu'à 210°C): 47374.95 kW
-                                             Source
-   Timestamp                    2026-09-28 14:24:00
-   fuel_name                                    CH4
-   oxidizer_name                       O2:2,N2:7.52
-   comb_LHV (MJ/kg)                       50.025488
-   comb_HHV (MJ/kg)                       55.511325
-   Total_Latent_heat_MJ_kgFuel             5.485837
-   LHV_kWh_Nm3                             9.969785
-   HHV_kWh_Nm3                             11.06308
-   LHV_kWh_Sm3                             9.284728
-   HHV_kWh_Sm3                            10.302899
-   Q_comb_LHV (kW)                     50025.488116
-   Q_comb_HHV (kW)                     55511.324751
-   oxidizer (mol/s)                      596.178967
-   N2_mols (mol/s)                       470.981384
-   O2_mols (mol/s)                       125.197583
-   oxidizer (kg/s)                             17.2
-   N2_F_kgs (kg/s)                        13.193828
-   O2_F_kgs (kg/s)                         4.006172
+                                                    Source
+   …
+   fuel_name                                           CH4
+   oxidizer_name                              O2:2,N2:7.52
+   comb_LHV (MJ/kg)                              50.025488
+   comb_HHV (MJ/kg)                              55.511325
+   Total_Latent_heat_MJ_kgFuel                    5.485837
+   LHV_kWh_Nm3                                    9.969785
+   HHV_kWh_Nm3                                    11.06308
+   LHV_kWh_Sm3                                    9.284728
+   HHV_kWh_Sm3                                   10.302899
+   Q_comb_LHV (kW)                            50025.488116
+   Q_comb_HHV (kW)                            55511.324751
+   oxidizer (mol/s)                             596.178967
+   N2_mols (mol/s)                              470.981384
+   O2_mols (mol/s)                              125.197583
+   oxidizer (kg/s)                                    17.2
+   N2_F_kgs (kg/s)                               13.193828
+   O2_F_kgs (kg/s)                                4.006172
 
 Les premières lignes (``M_air=``, ``h1=``…) sont des traces de mise au point
-imprimées par la bibliothèque elle-même ; le rapport d'équilibre Cantera complet
+imprimées par la bibliothèque elle-même (l'horodatage, qui change à chaque
+exécution, est remplacé par ``…``). Jusqu'au 28/09/2026, le simple import du
+module exécutait en plus un exemple complet et en imprimait tous les résultats :
+ce n'est plus le cas ; le rapport d'équilibre Cantera complet
 (plus de 150 lignes) est tronqué ici (``…``). Les grandeurs utiles sont dans
 ``COMB.df`` : PCI 50,03 MJ/kg et PCS 55,51 MJ/kg pour le méthane.
 
@@ -310,103 +210,46 @@ Index du DataFrame ``COMB.df`` : ``comb_LHV (MJ/kg)``, ``comb_HHV (MJ/kg)``,
 
    Le paquet ``Combustion`` fournit aussi des utilitaires : ``NG_Heating_Value``
    (PCI/PCS, indice de Wobbe et masse volumique d'un mélange de gaz naturel à
-   partir de sa composition molaire), ``Gaz_Boiler`` et
-   ``NG_Boiler_Efficiency_EN1295X`` (rendement chaudière gaz selon EN 1295X).
+   partir de sa composition molaire) et ``NG_Boiler_Efficiency_EN1295X``
+   (rendement chaudière gaz selon EN 1295X) ; ``Gaz_Boiler`` n'est qu'une
+   ébauche qui refuse de calculer (voir plus bas).
 
 
-Chaudière gaz — Gaz_Boiler (ébauche)
-------------------------------------
+Chaudière gaz — Gaz_Boiler (ébauche, refusée)
+---------------------------------------------
 
 **Ce que fait réellement le modèle.** ``ThermodynamicCycles.Combustion.Gaz_Boiler``
 porte trois ports — ``air_Inlet`` (air comburant), ``Inlet`` et ``Outlet`` (eau)
-— mais son ``calculate()`` se limite à **lire la température et la pression de
-l'air comburant**. Il ne calcule ni combustion, ni puissance, ni rendement, et
-laisse ``Outlet`` vide. C'est une ébauche : pour une chaudière, utilisez
-:doc:`ng_boiler_efficiency` (rendement selon EN 1295X) et
+— mais **ne modélise ni la combustion, ni la sortie d'eau**. Jusqu'au
+28/09/2026, son ``calculate()`` lisait la température de l'air comburant et
+s'arrêtait là, en laissant ``Outlet.T`` et ``Outlet.F`` à ``None`` sans rien
+dire : une chaîne qui le traversait s'interrompait en silence. Il **refuse
+désormais de calculer** et nomme les modèles à employer à la place :
+:doc:`ng_boiler_efficiency` (rendement selon EN 12952-15 / EN 12953-11) et
 :doc:`ng_heating_value` (PCI/PCS du gaz). Aucun nœud ``PyqtSimulator`` ne
 l'expose.
 
 .. code-block:: python
 
-    import contextlib, io
-    from ThermodynamicCycles.Source import Source
     from ThermodynamicCycles.Combustion import Gaz_Boiler
-    from ThermodynamicCycles.Connect import Fluid_connect
-
-    AIR_COMB = Source.Object()
-    AIR_COMB.fluid, AIR_COMB.Pi_bar, AIR_COMB.Ti_degC, AIR_COMB.F = "air", 1.01325, 15, 1.0
-    RETOUR = Source.Object()
-    RETOUR.fluid, RETOUR.Pi_bar, RETOUR.Ti_degC, RETOUR.F = "water", 3.0, 60, 2.0
-    with contextlib.redirect_stdout(io.StringIO()):
-        AIR_COMB.calculate()
-        RETOUR.calculate()
 
     CHAUD = Gaz_Boiler.Object()
-    Fluid_connect(CHAUD.air_Inlet, AIR_COMB.Outlet)
-    Fluid_connect(CHAUD.Inlet, RETOUR.Outlet)
-    CHAUD.calculate()
-
-    print(CHAUD.df.drop("Timestamp"))
+    try:
+        CHAUD.calculate()
+    except NotImplementedError as refus:
+        print("Refus :", refus)
     print("Eau en sortie : T =", CHAUD.Outlet.T, "/ F =", CHAUD.Outlet.F)
 
 Sortie réelle :
 
 .. code-block:: text
 
-                      Gaz_Boiler
-    Ti_air (C)              15.0
-    air_Inlet.P (bar)       1.01
+    Refus : Gaz_Boiler est une ebauche : ni la combustion ni la sortie d'eau ne sont modelisees (Outlet.T et Outlet.F resteraient a None). Utiliser NG_Boiler_Efficiency_EN1295X.NG_Boiler_Efficiency (rendement par la methode des pertes) et NG_Heating_Value.NG_Heating_Value (PCI/PCS), du paquet ThermodynamicCycles.Combustion, puis poser le bilan eau Q = rendement x debit_gaz x PCI.
     Eau en sortie : T = None / F = None
 
-La sortie d'eau reste à ``None`` : brancher ce modèle dans une chaîne
-interromprait la propagation en aval.
-
-Personnaliser Gaz_Boiler
-~~~~~~~~~~~~~~~~~~~~~~~~
-
-Le modèle n'a **aucun paramètre** propre ; seul l'état de l'air comburant
-change son résultat.
-
-.. list-table::
-   :header-rows: 1
-   :widths: 24 46 30
-
-   * - Entrée
-     - Effet
-     - Plage
-   * - ``air_Inlet`` (via ``Fluid_connect``)
-     - Température et pression de l'air comburant, recopiées dans ``df``
-     - −15 à 40 °C
-   * - ``Inlet`` (eau)
-     - **Sans effet** sur le calcul
-     - —
-
-.. code-block:: python
-
-    # variante : air comburant préchauffé à 45 °C (récupération sur les fumées)
-    AIR_CHAUD = Source.Object()
-    AIR_CHAUD.fluid, AIR_CHAUD.Pi_bar, AIR_CHAUD.Ti_degC, AIR_CHAUD.F = "air", 1.01325, 45, 1.0
-    with contextlib.redirect_stdout(io.StringIO()):
-        AIR_CHAUD.calculate()
-    CHAUD2 = Gaz_Boiler.Object()
-    Fluid_connect(CHAUD2.air_Inlet, AIR_CHAUD.Outlet)
-    CHAUD2.calculate()
-    print(f"Ti_air : {CHAUD.Ti_air - 273.15:.1f} -> {CHAUD2.Ti_air - 273.15:.1f} °C")
-    print("Puissance, rendement : non calculés (attributs absents :",
-          not hasattr(CHAUD2, "Q"), ")")
-
-Sortie réelle :
-
-.. code-block:: text
-
-    Ti_air : 15.0 -> 45.0 °C
-    Puissance, rendement : non calculés (attributs absents : True )
-
-.. warning::
-
-   Le module importe ``thermochem`` (``burcat``, ``combustion``) sans s'en
-   servir : l'import de ``Gaz_Boiler`` échoue si ce paquet n'est pas installé,
-   alors que le calcul n'en a pas besoin.
+Le refus est voulu : un modèle qui ne calcule rien doit le dire, pas rendre un
+``df`` d'allure normale. Le module n'importe plus ``thermochem`` (il le faisait
+sans s'en servir, et son import échouait sans ce paquet).
 
 
 ReciprocatingEngine (moteur alternatif)
@@ -584,8 +427,9 @@ des sous-composants. La turbine détend les gaz de la pression chambre jusqu'à
      - Rendement isentropique compresseur
      - 0.7
    * - V_s_comp
-     - Cylindrée compresseur
-     - 1e-4 m³
+     - Cylindrée compresseur (défaut porté de 1e-4 à 0,06 m³ le 28/09/2026 :
+       l'ancien débitait 6 g/s d'air pour 70 g/s de combustible et plantait)
+     - 0.06 m³
    * - LHV
      - Pouvoir calorifique inférieur combustible
      - 43e6 J/kg
@@ -619,7 +463,7 @@ des sous-composants. La turbine détend les gaz de la pression chambre jusqu'à
     gt.m_fuel = 0.07
     gt.LHV = 43e6
     gt.f_rotor = 50.0
-    gt.V_s_comp = 0.06           # m³ par tour : ~3,7 kg/s d'air (défaut 1e-4 : 6 g/s seulement)
+    gt.V_s_comp = 0.06           # m³ par tour : ~3,7 kg/s d'air (le défaut, depuis le 28/09/2026)
     gt.calculate()
 
     print(gt.df)
@@ -637,10 +481,17 @@ Sortie réelle :
    T_combustor_degC   1050.15017
    P_compr_kW        1222.792505
    P_fuel_kW              3010.0
-   P_turbine_kW      1621.236578
-   P_net_kW           398.444073
-   eta_thermal          0.132373
-   Puissance nette : 398.4 kW, rendement 13.2 %
+   P_turbine_kW      1613.586564
+   P_net_kW           390.794058
+   eta_thermal          0.129832
+   Puissance nette : 390.8 kW, rendement 13.0 %
+
+Jusqu'au 28/09/2026 ce même exemple affichait 398,4 kW : la turbine ignorait
+``Outlet.P`` et ``epsilon_s_tur`` (elle détendait toujours jusqu'à 1 bar avec un
+rendement de 0,7, ses propres défauts). Les deux sont maintenant transmis — la
+détente s'arrête bien à 1,013 bar, d'où 7,6 kW de moins. Avec l'ancien défaut
+``V_s_comp = 1e-4``, ``calculate()`` lève ``Combustor.CombustionRichnessError``
+(chambre trop riche) au lieu de l'erreur brute de CoolProp.
 
 Index du DataFrame ``gt.df`` : ``fluid``, ``m_air_kgs``, ``m_fuel_kgs``,
 ``T_combustor_degC``, ``P_compr_kW``, ``P_fuel_kW``, ``P_turbine_kW``,
@@ -661,7 +512,10 @@ constante. Nœud IHM : « Combusteur ».
 
 .. code-block:: python
 
+    import contextlib, io
     from ThermodynamicCycles.GasTurbine import Combustor
+    from ThermodynamicCycles.Source import Source
+    from ThermodynamicCycles.Connect import Fluid_connect
 
     # Air sortant d'un compresseur : 8 bar, 300 °C, 3,5 kg/s
     AIR_HP = Source.Object()
@@ -682,15 +536,17 @@ Sortie réelle :
 
 .. code-block:: text
 
-                Combustor
-    fluid             air
-    m_air_kgs         3.5
-    m_fuel_kgs       0.06
-    m_out_kgs        3.56
-    Ti_degC         300.0
-    To_degC     948.21369
-    P_fuel_kW      2580.0
-    eta_comb          1.0
+                                                    Combustor
+    fluid                                                 air
+    m_air_kgs                                             3.5
+    m_fuel_kgs                                           0.06
+    m_out_kgs                                            3.56
+    Ti_degC                                             300.0
+    To_degC                                         948.21369
+    P_fuel_kW                                          2580.0
+    eta_comb                                              1.0
+    AFR_kg_kg                                       58.333333
+    flue_gas_model  proprietes de air (fumees non modelisees)
     Pression de sortie : 8.0 bar (sans perte de charge)
 
 Avec 2,58 MW de combustible pour 3,5 kg/s d'air, les gaz atteignent 948 °C —
@@ -742,16 +598,19 @@ Sortie réelle :
 
 .. warning::
 
-   - **Aucune garde sur la richesse** : rien n'empêche d'injecter plus de
-     combustible que l'air ne peut en brûler. Le modèle ajoute l'énergie quand
-     même, jusqu'à sortir du domaine de CoolProp (c'est ce qui arrive avec les
-     défauts de ``GasTurbine``, voir plus haut). Vérifiez vous-même que
-     :math:`\dot m_{air}/\dot m_{fuel}` dépasse le rapport stœchiométrique
-     (≈ 17 pour le gaz naturel).
-   - Les gaz brûlés gardent les propriétés de l'**air** : la température est
-     légèrement surestimée par rapport à des fumées réelles (cp plus élevé).
-   - Un ``Inlet.F`` à ``None`` est compté comme un débit d'air **nul**, sans
-     exception.
+   - **Gardes sur la richesse** (depuis le 28/09/2026) : un ``Inlet.F`` absent
+     lève ``ValueError`` (il comptait pour un débit d'air nul) ; un débit
+     d'air nul avec du combustible, ou une enthalpie de sortie hors du domaine
+     de l'air, lève ``Combustor.CombustionRichnessError``. La bibliothèque ne
+     fournit **pas** de rapport stœchiométrique par défaut (aucune source
+     citable détenue) : renseignez ``CC.AFR_stoich`` pour votre combustible
+     (≈ 17 kg/kg pour le gaz naturel) et tout rapport inférieur est refusé.
+     Le rapport réel est publié dans ``df`` (``AFR_kg_kg``).
+   - Les gaz brûlés gardent les propriétés de l'**air** — écart documenté, non
+     corrigé, rappelé par la ligne ``flue_gas_model`` du ``df`` : la
+     température est légèrement surestimée par rapport à des fumées réelles
+     (cp plus élevé). Pour une combustion chimiquement résolue :
+     ``Combustor_cantera``.
 
 
 OxyCombustion (oxy-combustion + captage CO2)

@@ -56,16 +56,20 @@ Sortie réelle (étapes intermédiaires ``euro_…`` résumées par « … ») :
 
    …
                          Ligne                    Formule Entrée(s) Coefficient  Résultat Annuel
-                    Fourniture                                                       6.32
-          Acheminement (TURPE)                                                    1388.23
-        Taxes et contributions                                                     305.12
-                  = Total HTVA Fourniture + TURPE + Taxes                         1700.55
-                       TVA 20%           Total_HTVA x 20%                          340.11
-                   = Total TTC                 HTVA + TVA                         2040.66
-           Coût HTVA (EUR/MWh)           Total_HTVA / MWh  0.04 MWh              42513.75
-     Coût fourniture (EUR/MWh)           Fourniture / MWh                          158.00
-   Coût distribution (EUR/MWh)                TURPE / MWh                        34705.75
-          Coût taxes (EUR/MWh)                Taxes / MWh                         7628.00
+                    Fourniture                                                       5.92
+          Acheminement (TURPE)                                                    1393.69
+        Taxes et contributions                                                     306.00
+                  = Total HTVA Fourniture + TURPE + Taxes                         1705.61
+                       TVA 20%           Total_HTVA x 20%                          341.12
+                   = Total TTC                 HTVA + TVA                         2046.73
+           Coût HTVA (EUR/MWh)           Total_HTVA / MWh  0.04 MWh              42640.25
+     Coût fourniture (EUR/MWh)           Fourniture / MWh                          148.00
+   Coût distribution (EUR/MWh)                TURPE / MWh                        34842.25
+          Coût taxes (EUR/MWh)                Taxes / MWh                         7650.00
+
+Les trois sections se somment au total HTVA : 5,92 + 1 393,69 + 306,00 =
+1 705,61 EUR. La fourniture n'inclut pas d'ENR : ``pourcentage_ENR=0``, le prix
+``c_euro_kWh_ENR`` ne s'applique à aucun kWh.
 
 Avec 40 kWh consommés, la facture est presque entièrement fixe : le coût
 unitaire en EUR/MWh n'a pas de sens ici. Pour un site en activité, voir
@@ -136,7 +140,7 @@ Sortie réelle (étapes intermédiaires résumées par « … ») :
    …
    CMDPS avec 10 kW de dépassement : 1.92 EUR
    CMDPS sans dépassement          : 0.00 EUR
-   TURPE du mois : 1388.23 -> 1386.31 EUR
+   TURPE du mois : 1393.69 -> 1391.77 EUR
 
 Une somme de carrés de 10 kW² (par exemple un seul pas de 10 minutes à
 3,2 kW au-dessus de la souscription) coûte 0,04 × 15,18 × √10 = 1,92 EUR.
@@ -144,18 +148,23 @@ Une somme de carrés de 10 kW² (par exemple un seul pas de 10 minutes à
 Pièges
 ~~~~~~
 
-1. **Grilles qui se chevauchent.** Après le 1er août 2025, deux grilles LU_pf
-   couvrent la même période ; la bibliothèque prend la première du fichier,
-   l'ancienne (défaut consigné dans ``BUGS_LIB.md``). Contrôlez la ligne
-   « Grille tarifaire » de ``turpe_calculator.df_contrat``.
+1. **Grilles qui se chevauchent.** Quand plusieurs grilles couvrent la
+   période, la plus récente l'emporte ; deux grilles de même date d'effet
+   lèvent ``GrilleTURPEAmbigueError``. Avant le 28/09/2026 la première du
+   fichier l'emportait : d'août à décembre 2025, une facture LU_pf recevait la
+   grille TURPE 6 au lieu du TURPE 7 (en vigueur le 1er août 2025,
+   délibération CRE n° 2025-78). Contrôlez la ligne « Grille tarifaire » de
+   ``turpe_calculator.df_contrat``.
 2. **Dépassements HTA en kW², pas en kW ni en heures.** ``depassement_PS_<poste>``
    attend la somme des carrés des dépassements relevés au pas de 10 minutes ;
    saisir un dépassement en kW sous-estime la pénalité. ``heures_depassement``
    ne sert qu'en BT > 36 kVA.
-3. **Accise saisie.** ``c_euro_kwh_CSPE_TICFE=0.02250`` est appliqué au total
-   HTVA mais pas à la ligne « Taxes et contributions », qui garde le taux de la
-   grille : 6,32 + 1 388,23 + 305,12 = 1 699,67 EUR, pour un total HTVA publié
-   de 1 700,55 EUR. L'écart (0,88 EUR) vaut 40 kWh × (0,0225 − 0,0005)
-   (défaut consigné dans ``BUGS_LIB.md``).
+3. **Accise saisie.** ``c_euro_kwh_CSPE_TICFE=0.02250`` s'applique à la ligne
+   accise de ``df_taxes`` **et** au total des taxes (40 kWh × 0,0225 =
+   0,90 EUR). Jusqu'au 28/09/2026, la ligne « Taxes et contributions » gardait
+   le taux de la grille et les sections ne se sommaient pas au total HTVA.
+4. **Gestion et comptage au douzième.** Sur une facture de 28 à 31 jours, CG
+   et CC valent le douzième de l'annuel, et le total TURPE est la somme des
+   lignes de ``df_acheminement``.
 
 Voir aussi : :doc:`../contrat_electricite`, :doc:`exemple_hta_cu_pf`.

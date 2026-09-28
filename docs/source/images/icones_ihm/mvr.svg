@@ -1,20 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100" role="img" aria-label="Pompe à air, compresseur, ventilateur" data-iso-part="9" data-iso-ref="2302">
-  <title>ISO 14617-9 — 2302 — Pompe à air, compresseur, ventilateur</title>
-  <desc>Symbole de nature fondamentale : pompe à air (y compris pompe à vide), compresseur ou ventilateur.</desc>
-  <metadata>{&quot;standard&quot;: &quot;ISO 14617-9&quot;, &quot;ref&quot;: &quot;2302&quot;, &quot;name&quot;: &quot;Pompe à air, compresseur, ventilateur&quot;, &quot;ports&quot;: [{&quot;id&quot;: &quot;port-n&quot;, &quot;x&quot;: 50, &quot;y&quot;: 8, &quot;dir&quot;: &quot;n&quot;, &quot;role&quot;: &quot;process&quot;}, {&quot;id&quot;: &quot;port-s&quot;, &quot;x&quot;: 50, &quot;y&quot;: 92, &quot;dir&quot;: &quot;s&quot;, &quot;role&quot;: &quot;process&quot;}, {&quot;id&quot;: &quot;port-w&quot;, &quot;x&quot;: 8, &quot;y&quot;: 50, &quot;dir&quot;: &quot;w&quot;, &quot;role&quot;: &quot;process&quot;}]}</metadata>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100" role="img" aria-label="MVR (recompression mécanique de vapeur)">
+  <title>MVR (recompression mécanique de vapeur)</title>
+  <desc>Évaporateur dont la vapeur, recomprimée par un compresseur (cercle ISO), revient chauffer sa propre calandre.</desc>
+  <metadata>{"standard": "pictogramme ESM", "ref": "", "name": "MVR (recompression mécanique de vapeur)", "ports": []}</metadata>
   <g fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-    <circle cx="50" cy="50" r="24"/>
-    <line x1="40.4" y1="28.1" x2="31.1" y2="64.9"/>
-    <line x1="59.6" y1="28.1" x2="68.9" y2="64.9"/>
-    <line x1="50" y1="26" x2="50" y2="8"/>
-    <line x1="50" y1="74" x2="50" y2="92"/>
-    <line x1="26" y1="50" x2="8" y2="50"/>
-  </g>
-  <g class="ports">
-    <circle class="port" cx="50" cy="8" r="2.0" fill="#000000" stroke="none" data-port="port-n" data-dir="n" data-role="process"/>
-    <circle class="port" cx="50" cy="92" r="2.0" fill="#000000" stroke="none" data-port="port-s" data-dir="s" data-role="process"/>
-    <circle class="port" cx="8" cy="50" r="2.0" fill="#000000" stroke="none" data-port="port-w" data-dir="w" data-role="process"/>
+    <path d="M 12 20 h 28 v 46 l -14 14 l -14 -14 z"/>
+    <line x1="12" y1="42" x2="40" y2="42"/>
+    <line x1="12" y1="58" x2="40" y2="58"/>
+    <line x1="20" y1="42" x2="20" y2="58"/>
+    <line x1="26" y1="42" x2="26" y2="58"/>
+    <line x1="32" y1="42" x2="32" y2="58"/>
+    <circle cx="70" cy="30" r="14"/>
+    <line x1="64.5" y1="17" x2="60" y2="40"/>
+    <line x1="75.5" y1="17" x2="80" y2="40"/>
+    <path d="M 26 20 V 10 H 70 V 16"/>
+    <path d="M 70 44 V 50 H 44"/>
+    <line x1="26" y1="80" x2="26" y2="92"/>
+    <polygon points="40,50 45.6,46.5 45.6,53.5" fill="#000000"/>
   </g>
 </svg>
-

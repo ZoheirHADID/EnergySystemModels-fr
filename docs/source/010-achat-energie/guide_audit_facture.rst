@@ -178,35 +178,35 @@ Sortie réelle (étapes intermédiaires ``euro_…`` résumées par « … ») :
 
    …
    === ACHEMINEMENT (TURPE) ===
-                          Ligne                                   Formule       Entrée(s)                 Coefficient  Résultat    Annuel
-     Composante de Gestion (CG)                            CG_annuel / 12   440.76 EUR/an                    31 jours     36.73    440.76
-    Composante de Comptage (CC)                            CC_annuel / 12   383.76 EUR/an                    31 jours     31.98    383.76
-                 CS Fixe Pointe                            b0 x PS_Pointe          100 kW 14.1300 EUR/kW/an (TURPE 6)   1413.00
-             CS Fixe HPH-Pointe                 b1 x (PS_HPH - PS_Pointe)          100 kW 14.1300 EUR/kW/an (TURPE 6)   1413.00
-                CS Fixe HCH-HPH                    b2 x (PS_HCH - PS_HPH)            0 kW 14.1300 EUR/kW/an (TURPE 6)      0.00
-                CS Fixe HPB-HCH                    b3 x (PS_HPB - PS_HCH)            0 kW 14.1300 EUR/kW/an (TURPE 6)      0.00
-                CS Fixe HCB-HPB                    b4 x (PS_HCB - PS_HPB)            0 kW 14.1300 EUR/kW/an (TURPE 6)      0.00
-          = CS Fixe (proratisé)                 CS_annuel x nb_jour / 365 2,826.00 EUR/an                    31 jours    240.02    2826.0
-             CS Variable Pointe                     c_Pointe x kWh_Pointe       5,000 kWh   0.06760 EUR/kWh (TURPE 6)    338.00
-                CS Variable HPH                           c_HPH x kWh_HPH      30,000 kWh   0.04840 EUR/kWh (TURPE 6)   1452.00
-                CS Variable HCH                           c_HCH x kWh_HCH      20,000 kWh   0.02830 EUR/kWh (TURPE 6)    566.00
-                CS Variable HPB                           c_HPB x kWh_HPB      25,000 kWh   0.00820 EUR/kWh (TURPE 6)    205.00
-                CS Variable HCB                           c_HCB x kWh_HCB      15,000 kWh   0.00540 EUR/kWh (TURPE 6)     81.00
-            = CS Variable total                             Somme c x kWh                                               2642.00
-         Dépassement PS (CMDPS)                             CMDPS mensuel                                                  0.00
-   = TOTAL TURPE (acheminement) CG + CC + CS_fixe + CS_var + CMDPS + CACS                                               2952.04  35354.52
+                          Ligne                                   Formule       Entrée(s)                 Coefficient Résultat    Annuel
+     Composante de Gestion (CG)                            CG_annuel / 12   440.76 EUR/an                    31 jours    36.73    440.76
+    Composante de Comptage (CC)                            CC_annuel / 12   383.76 EUR/an                    31 jours    31.98    383.76
+                 CS Fixe Pointe                            b0 x PS_Pointe          100 kW 14.1300 EUR/kW/an (TURPE 6)             1413.0
+             CS Fixe HPH-Pointe                 b1 x (PS_HPH - PS_Pointe)          100 kW 14.1300 EUR/kW/an (TURPE 6)             1413.0
+                CS Fixe HCH-HPH                    b2 x (PS_HCH - PS_HPH)            0 kW 14.1300 EUR/kW/an (TURPE 6)                0.0
+                CS Fixe HPB-HCH                    b3 x (PS_HPB - PS_HCH)            0 kW 14.1300 EUR/kW/an (TURPE 6)                0.0
+                CS Fixe HCB-HPB                    b4 x (PS_HCB - PS_HPB)            0 kW 14.1300 EUR/kW/an (TURPE 6)                0.0
+          = CS Fixe (proratisé)                 CS_annuel x nb_jour / 365 2,826.00 EUR/an                    31 jours   240.02    2826.0
+             CS Variable Pointe                     c_Pointe x kWh_Pointe       5,000 kWh   0.06760 EUR/kWh (TURPE 6)    338.0
+                CS Variable HPH                           c_HPH x kWh_HPH      30,000 kWh   0.04840 EUR/kWh (TURPE 6)   1452.0
+                CS Variable HCH                           c_HCH x kWh_HCH      20,000 kWh   0.02830 EUR/kWh (TURPE 6)    566.0
+                CS Variable HPB                           c_HPB x kWh_HPB      25,000 kWh   0.00820 EUR/kWh (TURPE 6)    205.0
+                CS Variable HCB                           c_HCB x kWh_HCB      15,000 kWh   0.00540 EUR/kWh (TURPE 6)     81.0
+            = CS Variable total                             Somme c x kWh                                               2642.0
+         Dépassement PS (CMDPS)                             CMDPS mensuel                                                  0.0
+   = TOTAL TURPE (acheminement) CG + CC + CS_fixe + CS_var + CMDPS + CACS                                              2950.73  35354.52
 
    === TOTAUX ===
                          Ligne                    Formule Entrée(s) Coefficient  Résultat Annuel
                     Fourniture                                                    6950.00
-          Acheminement (TURPE)                                                    2952.04
+          Acheminement (TURPE)                                                    2950.73
         Taxes et contributions                                                    2205.20
-                  = Total HTVA Fourniture + TURPE + Taxes                        12107.24
-                       TVA 20%           Total_HTVA x 20%                         2421.45
-                   = Total TTC                 HTVA + TVA                        14528.69
-           Coût HTVA (EUR/MWh)           Total_HTVA / MWh 95.00 MWh                127.44
+                  = Total HTVA Fourniture + TURPE + Taxes                        12105.93
+                       TVA 20%           Total_HTVA x 20%                         2421.19
+                   = Total TTC                 HTVA + TVA                        14527.12
+           Coût HTVA (EUR/MWh)           Total_HTVA / MWh 95.00 MWh                127.43
      Coût fourniture (EUR/MWh)           Fourniture / MWh                           73.16
-   Coût distribution (EUR/MWh)                TURPE / MWh                           31.07
+   Coût distribution (EUR/MWh)                TURPE / MWh                           31.06
           Coût taxes (EUR/MWh)                Taxes / MWh                           23.21
 
 **Lecture du tableau** : chaque ligne montre le coefficient *b* (part
@@ -270,12 +270,12 @@ Sortie réelle :
    Compensation stockage (TS)       Mod x TTS / 12      68.56 MWh/j 186.7 EUR/MWh/j/an        1066.7        12800.46
      = TOTAL TRANSPORT (ATRT)   Hors stock + Stock                                           3494.78        41937.36
    === DISTRIBUTION (ATRD) ===
-                         Ligne                 Formule        Quantite    Taux / Coeff Montant (EUR) Annuel (EUR/an)
-               Abonnement fixe          ATRD_fixe / 12 16069.56 EUR/an            / 12       1339.13        16069.56
-     Souscription capacite CJA CJA x 1000 x tarif / 12 93 x 1000 kWh/j 0.213 EUR/kWh/j       1650.75         19809.0
-             = ATRD fixe total     Abon + Souscription                                       2989.88        35878.56
-     Terme quantite (variable)         kWh x prix_prop   1,358,713 kWh 0.00087 EUR/kWh       1182.08
-   = TOTAL DISTRIBUTION (ATRD)         Fixe + Variable                                       4171.96        37060.64
+                         Ligne                 Formule        Quantite       Taux / Coeff Montant (EUR) Annuel (EUR/an)
+               Abonnement fixe          ATRD_fixe / 12 16069.56 EUR/an           31 jours       1339.13        16069.56
+     Souscription capacite CJA CJA x 1000 x tarif / 12 93 x 1000 kWh/j 0.213 EUR/kWh/j/an       1650.75         19809.0
+             = ATRD fixe total     Abon + Souscription                                          2989.88        35878.56
+     Terme quantite (variable)         kWh x prix_prop   1,358,713 kWh    0.00087 EUR/kWh       1182.08
+   = TOTAL DISTRIBUTION (ATRD)         Fixe + Variable                                          4171.96        37060.64
    === TAXES ===
                    Ligne                  Formule                                    Quantite    Taux / Coeff Montant (EUR) Annuel (EUR/an)
    CTA part distribution        Assiette x 20.80%          Assiette = 2989.88 EUR (ATRD fixe)          20.80%        621.89         7462.74
@@ -284,17 +284,17 @@ Sortie réelle :
    Accise gaz (ex-TICGN)        kWh x taux_accise                               1,358,713 kWh 0.01637 EUR/kWh      22242.13
            = TOTAL TAXES             CTA + Accise                                                                  22981.62
    === TOTAUX ===
-                              Ligne                      Formule Quantite Taux / Coeff Montant (EUR) Annuel (EUR/an)
-   Acheminement (Transport+Distrib)                  ATRT + ATRD                             7666.74
-                           Total HT Fourniture + Achemin + Taxes                            73733.15
-              TVA 5,5% (fixe + CTA)          (Fixe + CTA) x 5.5%                              397.33
-      TVA 20% (var+molecule+accise)   (Var + Mol + Accise) x 20%                             13301.8
-                          Total TVA             TVA_5.5 + TVA_20                            13699.13
-                        = TOTAL TTC                     HT + TVA                            87432.28
-              Distribution variable               ATRD_var / MWh                                0.87
-                         Accise gaz                 Accise / MWh                               16.37
-                       Molecule gaz               Molecule / MWh                               31.71
-                       = Total HTVA               Total_HT / MWh                               54.27
+                              Ligne                           Formule Quantite Taux / Coeff Montant (EUR) Annuel (EUR/an)
+   Acheminement (Transport+Distrib)                       ATRT + ATRD                             7666.74
+                           Total HT      Fourniture + Achemin + Taxes                            73733.15
+              TVA 5,5% (fixe + CTA)               (Fixe + CTA) x 5,5%                              397.33
+      TVA 20% (var+molecule+accise)        (Var + Mol + Accise) x 20%                             13301.8
+                          Total TVA TVA abonnement + TVA consommation                            13699.13
+                        = TOTAL TTC                          HT + TVA                            87432.28
+              Distribution variable                    ATRD_var / MWh                                0.87
+                         Accise gaz                      Accise / MWh                               16.37
+                       Molecule gaz                    Molecule / MWh                               31.71
+                       = Total HTVA                    Total_HT / MWh                               54.27
 
 **Points clés à vérifier :**
 
@@ -307,7 +307,9 @@ Sortie réelle :
   proportionnel.
 - **TVA** : taux lus dans ``coefficients_gaz_TVA.json`` (5,5 % sur la part
   fixe jusqu'au 31 juillet 2025, 20 % ensuite ; 20 % sur la part variable).
-  Les libellés « TVA 5,5% » du tableau ne changent pas avec le taux.
+  Les libellés du tableau reprennent le taux appliqué (« TVA 20% (fixe +
+  CTA) » pour une facture postérieure au 1er août 2025 ; ils restaient
+  « 5,5% » avant le 28/09/2026).
 
 Le détail des termes (CAR, CJA, Zi, modulation) est dans :doc:`contrat_gaz`.
 
@@ -349,15 +351,15 @@ Sortie réelle :
 .. code-block:: text
 
    …
-                          Ligne                          Formule   Entrée(s)         Coefficient  Résultat Annuel
-                 Redevance fixe                     fixe_DA_mois               38,673.35 DA/mois 38,673.35
-      PMD (puissance souscrite)               PMD x souscription      120 kW  25.8500 DA/kW/mois  3,102.00
-   PMA (puissance max atteinte)                   PMA x absorbée      100 kW 116.1500 DA/kW/mois 11,615.00
-                 Énergie Pointe              kWh x cDA/kWh / 100   5,000 kWh    872.0200 cDA/kWh 43,601.00
-                 Énergie Pleine              kWh x cDA/kWh / 100  10,000 kWh    193.7600 cDA/kWh 19,376.00
-                   Énergie Nuit              kWh x cDA/kWh / 100   6,000 kWh    102.4000 cDA/kWh  6,144.00
-                Réactif (bonus) (kvarh - seuil_50%) x taux / 100 5,000 kvarh    9.1100 cDA/kvarh   -501.05
-         = Total énergie active                     Somme postes                                 69,121.00
+                          Ligne                          Formule       Entrée(s)         Coefficient  Résultat Annuel
+                 Redevance fixe                     fixe_DA_mois                   38,673.35 DA/mois 38,673.35
+      PMD (puissance souscrite)               PMD x souscription          120 kW  25.8500 DA/kW/mois  3,102.00
+   PMA (puissance max atteinte)                   PMA x absorbée          100 kW 116.1500 DA/kW/mois 11,615.00
+                 Énergie Pointe              kWh x cDA/kWh / 100  5,000 kWh/mois    872.0200 cDA/kWh 43,601.00
+                 Énergie Pleine              kWh x cDA/kWh / 100 10,000 kWh/mois    193.7600 cDA/kWh 19,376.00
+                   Énergie Nuit              kWh x cDA/kWh / 100  6,000 kWh/mois    102.4000 cDA/kWh  6,144.00
+                Réactif (bonus) (kvarh - seuil_50%) x taux / 100     5,000 kvarh    9.1100 cDA/kvarh   -501.05
+         = Total énergie active                     Somme postes                                     69,121.00
                               Ligne                                                  Formule Entrée(s) Coefficient   Résultat Annuel
                          Total HTVA                                                                                122,010.30
                                 TVA                                                                                 23,181.96
@@ -406,8 +408,9 @@ Sortie réelle :
      - Jour, nuit (trimestrielle)
    * - 54M, 54NM
      - BT
-     - Tranches progressives — **non calculable** : ``calculate()`` lève
-       ``AttributeError`` (défaut consigné dans ``BUGS_LIB.md``)
+     - Poste unique (``kWh_poste_unique``) facturé par tranches progressives
+       de la moyenne mensuelle du trimestre ; détail dans
+       ``df_fourniture_detail`` (lignes « Énergie tranche i »)
 
 **Énergie réactive** : le seuil gratuit vaut 50 % de l'énergie active. Au-delà,
 un malus s'applique au dépassement ; en deçà, l'écart négatif donne un bonus
@@ -644,26 +647,37 @@ conclure.
 Pièges
 ------
 
-1. **Grille HTA CU_pf fantôme (août 2021 - janvier 2025).** Pour cette
-   période, la bibliothèque retient une grille étiquetée « TURPE 5 » aux
-   coefficients uniformes (b = 6,44, c = 0,0369) au lieu de la grille TURPE 6
-   qui la suit dans le fichier. Un audit HTA CU_pf de cette période sera faux
-   (défaut consigné dans ``BUGS_LIB.md``) ; c'est pourquoi l'exemple est pris
-   en mars 2025.
-2. **Totaux TURPE et accise.** Si vous saisissez ``c_euro_kwh_CSPE_TICFE``, le
-   total HTVA l'applique mais la ligne « Taxes et contributions » garde le taux
-   de la grille (voir :doc:`contrat_electricite`).
+1. **Contrôlez la grille retenue.** La ligne « Grille tarifaire » de
+   ``calc.df_contrat`` dit quelle grille a servi. Quand plusieurs grilles
+   couvrent la période, la plus récente l'emporte. Jusqu'au 28/09/2026, une
+   grille étiquetée « TURPE 5 » aux coefficients uniformes (b = 6,44,
+   c = 0,0369) masquait la TURPE 6 HTA CU_pf d'août 2021 à janvier 2025 ; elle
+   est retirée. Une période sans grille lève ``GrilleTURPEIntrouvableError``.
+2. **Accise.** Saisissez ``c_euro_kwh_CSPE_TICFE`` : le taux de la grille
+   n'est pas sourcé (``AcciseNonVerifieeWarning``). Le taux saisi s'applique à
+   la ligne accise, au total des taxes et au total HTVA (voir
+   :doc:`contrat_electricite`).
 3. **Gaz : grilles jusqu'en 2026.** Les coefficients ATRT s'arrêtent au
    31 mars 2026 et les coefficients ATRD au 30 juin 2026 : une facture
    ultérieure lève ``ValueError: Aucun coefficient ATRT trouve``.
-4. **Option TP inutilisable.** ``type_tarif_acheminement="TP"`` lève
-   ``KeyError: 'prix_proportionnel_euro_kWh'`` : les clés que le code attend
-   ne sont pas celles du fichier de coefficients.
-5. **Sonalgaz BT : montants trimestriels.** Pour les codes 51 à 53, les montants
-   sont calculés sur un trimestre mais libellés « DA/mois » dans ``calc.df``.
-6. **Poste non tarifé.** Un poste saisi qui n'existe pas dans le code tarif
-   (``kWh_jour`` en tarif 41, par exemple) n'est pas facturé mais compte dans
-   le seuil d'énergie réactive, sans avertissement.
+4. **Option TP.** ``type_tarif_acheminement="TP"`` exige
+   ``input_Contrat(distance=...)`` en km : abonnement, souscription de
+   capacité (CJA × tarif annuel) et terme à la distance (EUR/m/an) sont
+   proratisés ; l'option TP n'a pas de terme proportionnel. Elle levait
+   ``KeyError`` avant le 28/09/2026.
+5. **Gaz : un seul seuil de proratisation.** ATRD, ATRT, compensation de
+   stockage et CTA suivent la même règle : une facture de 28 à 35 jours porte
+   le douzième de l'annuel, toute autre durée le prorata au jour.
+6. **Sonalgaz BT : montants trimestriels.** Pour les codes 51 à 54, les
+   montants sont calculés sur un trimestre et libellés « DA/trimestre » dans
+   ``calc.df``.
+7. **Poste non tarifé.** Un poste saisi qui n'existe pas dans le code tarif
+   (``kWh_jour`` en tarif 41, par exemple) lève une ``ValueError`` qui liste
+   les postes du tarif (il était facturé 0 DA et comptait dans le seuil
+   d'énergie réactive).
+8. **Sonalgaz gaz 23M/23NM.** La tranche 4 du 23M est facturée en cDA comme
+   les autres (elle l'était cent fois trop cher avant le 28/09/2026), et la
+   dernière tranche du 23NM (au-delà de 2 500 thermies/mois) est facturée.
 
 Voir aussi : :doc:`contrat_electricite`, :doc:`contrat_gaz`,
 :doc:`exemples/exemple_hta_cu_pf`.

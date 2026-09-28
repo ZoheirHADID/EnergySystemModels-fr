@@ -251,12 +251,15 @@ Pièges
 ------
 
 .. warning::
-   **Ne descendez pas sous 5 couches.** Les couches du haut et du bas ont une
-   épaisseur ``2·Hball/N`` : avec ``N = 4`` elles occupent tout le ballon et le
-   calcul s'arrête sur ``ZeroDivisionError`` ; avec ``N = 3`` elles dépassent sa
-   hauteur, la couche du milieu a un **volume négatif** et le modèle rend des
-   températures sans message. Le modèle n'exige que ``N >= 3`` (défaut consigné
-   dans ``BUGS_LIB.md``).
+   **Pas moins de 5 couches.** Les couches du haut et du bas ont une épaisseur
+   ``2·Hball/N`` : avec ``N = 4`` elles occupent tout le ballon, avec ``N = 3``
+   elles dépassent sa hauteur. Jusqu'au 28/09/2026, le premier cas s'arrêtait
+   sur ``ZeroDivisionError`` et le second rendait, sans message, une couche de
+   **volume négatif** (puis des températures sous 0 °C en cycle de puisage).
+   Le modèle lève désormais une ``ValueError`` qui le dit. Trois ou quatre
+   couches restent possibles si vous amincissez les couches d'extrémité
+   (``Hstr_1``, ``Hstr_N``). Le nœud de l'IHM accepte encore ``N = 3`` ou ``4``
+   dans son champ : le calcul est alors refusé avec ce message.
 
 - Le bilan de masse est automatique : ``port_hot_b.F = port_cold_a.F`` et
   ``port_cold_b.F = port_hot_a.F``. On ne règle que les **entrées**.

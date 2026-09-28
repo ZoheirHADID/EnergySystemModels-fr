@@ -1205,7 +1205,10 @@
     "F_water (kg/s)",
     "Q_th (kW)"
    ],
-   "refus": [],
+   "refus": [
+    "RuntimeError",
+    "ValueError"
+   ],
    "sources": [],
    "trace": [],
    "noeud_ihm": [
@@ -3337,7 +3340,7 @@
    "classe": "Object",
    "import": "from ThermodynamicCycles.Combustion import Gaz_Boiler",
    "appel": "Gaz_Boiler.Object()",
-   "objet": "",
+   "objet": "Gaz_Boiler -- EBAUCHE de chaudiere gaz : le calcul est REFUSE, explicitement.",
    "entrees": [
     {
      "nom": "air_Inlet",
@@ -3356,11 +3359,10 @@
     }
    ],
    "sorties": [],
-   "sorties_df": [
-    "Ti_air (C)",
-    "air_Inlet.P (bar)"
+   "sorties_df": [],
+   "refus": [
+    "NotImplementedError"
    ],
-   "refus": [],
    "sources": [],
    "trace": [],
    "noeud_ihm": [],
@@ -3689,7 +3691,8 @@
     "Inlet_rho",
     "Vol_Bal",
     "Vol_asp",
-    "Taux"
+    "Taux",
+    "F_upstream"
    ],
    "sorties_df": [
     "Fluid",
@@ -3697,6 +3700,7 @@
     "VolEff",
     "Taux",
     "F (kg/s)",
+    "F_amont remplace (kg/s)",
     "VitesseDeRotation (tr/min)",
     "Inlet.P (bar)",
     "HP (bar)",
@@ -3759,17 +3763,14 @@
      "nom": "Rv",
      "defaut": "None",
      "note": "rapport volumetrique interne V1/V2"
-    },
-    {
-     "nom": "Q_losses",
-     "defaut": "None",
-     "note": "pertes (W) = m_flow*(h_iso - h_b) si refroidi"
     }
    ],
    "sorties": [
     "V_dot_su",
     "m_flow",
     "P_ext",
+    "Q_losses",
+    "F_upstream",
     "T_iso_K",
     "T_out_K",
     "P_i",
@@ -3786,6 +3787,7 @@
     "V_s_m3",
     "V_dot_m3h",
     "m_flow_kgs",
+    "F_upstream_kgs",
     "Ti_degC",
     "Tiso_degC",
     "To_degC",
@@ -3796,7 +3798,8 @@
     "Rv_optimal",
     "Pi_bar",
     "eta_th",
-    "regime"
+    "regime",
+    "Q_losses_W"
    ],
    "refus": [
     "ValueError"
@@ -5738,12 +5741,18 @@
      "nom": "Q_cooling",
      "defaut": "0.0",
      "note": "pertes refroidissement (W)"
+    },
+    {
+     "nom": "AFR_stoich",
+     "defaut": "None",
+     "note": "kg air / kg combustible (optionnel,"
     }
    ],
    "sorties": [
     "P_fuel",
     "Ti_degC",
-    "To_degC"
+    "To_degC",
+    "AFR"
    ],
    "sorties_df": [
     "Timestamp",
@@ -5754,9 +5763,14 @@
     "Ti_degC",
     "To_degC",
     "P_fuel_kW",
-    "eta_comb"
+    "eta_comb",
+    "AFR_kg_kg",
+    "flue_gas_model"
    ],
-   "refus": [],
+   "refus": [
+    "ValueError",
+    "CombustionRichnessError"
+   ],
    "sources": [],
    "trace": [],
    "noeud_ihm": [
@@ -5806,8 +5820,8 @@
     },
     {
      "nom": "V_s_comp",
-     "defaut": "0.0001",
-     "note": ""
+     "defaut": "0.06",
+     "note": "m3 (etait 1e-4 : 6 g/s d'air, voir docstring)"
     },
     {
      "nom": "LHV",
@@ -10281,7 +10295,9 @@
     "i",
     "d"
    ],
-   "refus": [],
+   "refus": [
+    "ValueError"
+   ],
    "sources": [],
    "trace": [],
    "noeud_ihm": [
@@ -10544,7 +10560,9 @@
     "F_Sm3s",
     "self.Outlet.h"
    ],
-   "refus": [],
+   "refus": [
+    "MissingInputError"
+   ],
    "sources": [],
    "trace": [],
    "noeud_ihm": [],
@@ -11003,26 +11021,28 @@
      "note": "rendement isentropique"
     },
     {
-     "nom": "K",
-     "defaut": "1.0",
-     "note": "coefficient Stodola (kg^2.K.s^-2.Pa^-2)"
-    },
-    {
      "nom": "purpose",
      "defaut": "'simulation'",
-     "note": "\"simulation\" : K impose / \"design\" : dp impose"
+     "note": "\"simulation\" : K impose / \"design\" : K deduit"
     },
     {
      "nom": "dp_design",
      "defaut": "100000.0",
-     "note": "delta P pour mode design"
+     "note": "delta P impose en mode design (Pa)"
+    },
+    {
+     "nom": "m_flow_design",
+     "defaut": "None",
+     "note": "debit nominal (kg/s) du mode design"
     }
    ],
    "sorties": [
+    "K",
     "m_flow",
     "P_ext",
     "T_iso_K",
-    "T_out_K"
+    "T_out_K",
+    "F_upstream"
    ],
    "sorties_df": [
     "Timestamp",
@@ -11033,7 +11053,10 @@
     "To_degC",
     "P_ext_kW",
     "Pa_bar",
-    "Pb_bar"
+    "Pb_bar",
+    "purpose",
+    "K_stodola",
+    "F_upstream_kgs"
    ],
    "refus": [
     "ValueError"

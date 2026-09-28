@@ -1,7 +1,26 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100" role="img" aria-label="Melange de deux flux d'air">
-  <title>Melange de deux flux d'air</title>
-  <desc>Raccord en Y : deux branches d'entree a gauche convergeant vers une sortie unique a droite (entrees y=20 et y=80, sortie y=50).</desc>
-  <path fill="#000000" fill-rule="evenodd" d="M 8,11.7 L 57.1,43 L 92,43 L 92,57 L 57.1,57 L 8,88.3 L 8,71.7 L 42,50 L 8,28.3 Z"/>
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100" role="img" aria-label="CTA à recyclage d'air">
+  <title>CTA à recyclage d'air</title>
+  <desc>Caisson de CTA : mélange air neuf / air repris, batterie, ventilateur de soufflage.</desc>
+  <metadata>{"standard": "pictogramme ESM", "ref": "", "name": "CTA à recyclage d'air", "ports": [{"id": "port-w1", "x": 8, "y": 36, "dir": "w", "role": "inlet"}, {"id": "port-w2", "x": 8, "y": 64, "dir": "w", "role": "inlet"}, {"id": "port-e", "x": 92, "y": 50, "dir": "e", "role": "outlet"}]}</metadata>
+  <g fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="16" y="26" width="68" height="48"/>
+    <line x1="8" y1="36" x2="16" y2="36"/>
+    <line x1="8" y1="64" x2="16" y2="64"/>
+    <line x1="16" y1="36" x2="32" y2="50"/>
+    <line x1="16" y1="64" x2="32" y2="50"/>
+    <line x1="32" y1="50" x2="42" y2="50"/>
+    <rect x="42" y="38" width="10" height="24"/>
+    <line x1="42" y1="62" x2="52" y2="38"/>
+    <line x1="52" y1="50" x2="58" y2="50"/>
+    <circle cx="68" cy="50" r="10"/>
+    <line x1="64" y1="40.8" x2="60" y2="56"/>
+    <line x1="72" y1="40.8" x2="76" y2="56"/>
+    <line x1="84" y1="50" x2="92" y2="50"/>
+  </g>
+  <g class="ports">
+    <circle class="port" cx="8" cy="36" r="2.0" fill="#000000" stroke="none" data-port="port-w1" data-dir="w" data-role="inlet"/>
+    <circle class="port" cx="8" cy="64" r="2.0" fill="#000000" stroke="none" data-port="port-w2" data-dir="w" data-role="inlet"/>
+    <circle class="port" cx="92" cy="50" r="2.0" fill="#000000" stroke="none" data-port="port-e" data-dir="e" data-role="outlet"/>
+  </g>
 </svg>
-

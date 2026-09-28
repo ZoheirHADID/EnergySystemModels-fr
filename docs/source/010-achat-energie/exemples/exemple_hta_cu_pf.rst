@@ -15,7 +15,7 @@ marché avec capacité, garantie d'origine et part ARENH.
        domaine_tension="HTA",
        PS_pointe=500, PS_HPH=500, PS_HCH=500, PS_HPB=500, PS_HCB=500,   # kW
        version_utilisation="CU_pf",
-       pourcentage_ENR=0,
+       pourcentage_ENR=100,      # garanties d'origine sur toute la consommation
    )
 
    # Prix du fournisseur (EUR/kWh HTVA)
@@ -30,8 +30,9 @@ marché avec capacité, garantie d'origine et part ARENH.
        c_euro_kWh_certif_capacite_HCH=0.001,
        c_euro_kWh_certif_capacite_HPB=0.001,
        c_euro_kWh_certif_capacite_HCB=0.001,
-       c_euro_kWh_ENR=0.01,       # appliqué à tous les kWh
+       c_euro_kWh_ENR=0.01,       # appliqué à pourcentage_ENR % des kWh
        c_euro_kWh_ARENH=0.042,    # appliqué à tous les kWh
+       c_euro_kwh_CSPE_TICFE=0.02250,   # accise « haute puissance » (> 250 kVA), 02/2025
    )
 
    # Consommations (kWh) — les cinq postes sont renseignés pour exercer
@@ -62,14 +63,14 @@ Sortie réelle (le calcul imprime d'abord ses étapes intermédiaires, lignes
    …
                          Ligne                    Formule  Entrée(s) Coefficient  Résultat Annuel
                     Fourniture                                                    40450.00
-          Acheminement (TURPE)                                                     7714.22
+          Acheminement (TURPE)                                                     7719.68
         Taxes et contributions                                                     5758.92
-                  = Total HTVA Fourniture + TURPE + Taxes                         53923.14
-                       TVA 20%           Total_HTVA x 20%                         10784.63
-                   = Total TTC                 HTVA + TVA                         64707.77
-           Coût HTVA (EUR/MWh)           Total_HTVA / MWh 250.00 MWh                215.69
+                  = Total HTVA Fourniture + TURPE + Taxes                         53928.60
+                       TVA 20%           Total_HTVA x 20%                         10785.72
+                   = Total TTC                 HTVA + TVA                         64714.32
+           Coût HTVA (EUR/MWh)           Total_HTVA / MWh 250.00 MWh                215.71
      Coût fourniture (EUR/MWh)           Fourniture / MWh                           161.80
-   Coût distribution (EUR/MWh)                TURPE / MWh                            30.86
+   Coût distribution (EUR/MWh)                TURPE / MWh                            30.88
           Coût taxes (EUR/MWh)                Taxes / MWh                            23.04
 
 Figures produites par l'exemple
@@ -142,8 +143,8 @@ Sortie réelle (étapes intermédiaires résumées par « … ») :
 .. code-block:: text
 
    …
-   CU_pf: CS fixe annuel   7065.00 EUR/an  CS variable  7109.00  TURPE du mois  7714.22 EUR
-   LU_pf: CS fixe annuel  17240.00 EUR/an  CS variable  3994.00  TURPE du mois  5379.77 EUR
+   CU_pf: CS fixe annuel   7065.00 EUR/an  CS variable  7109.00  TURPE du mois  7719.68 EUR
+   LU_pf: CS fixe annuel  17240.00 EUR/an  CS variable  3994.00  TURPE du mois  5385.23 EUR
 
 À 250 MWh par mois sous 500 kW (environ 6 000 heures d'utilisation par an), la
 longue utilisation économise **2 334,45 EUR d'acheminement** sur le mois : la
@@ -153,18 +154,21 @@ part énergie baisse de 3 115 EUR, la part fixe n'augmente que de 781 EUR sur
 Pièges
 ~~~~~~
 
-1. **Grilles qui se chevauchent.** Pour une facture postérieure au
-   1er août 2025, la bibliothèque choisit la **première** grille du fichier qui
-   couvre la période : TURPE 7 pour CU_pf, mais l'ancienne grille pour LU_pf
-   (défaut consigné dans ``BUGS_LIB.md``). Vérifiez la ligne « Grille
-   tarifaire » de ``calc.df_contrat``.
-2. **Accise.** Sans ``c_euro_kwh_CSPE_TICFE``, le taux porté par la grille
-   s'applique (0,0225 EUR/kWh ici) : comparez-le à la ligne accise de votre
-   facture et saisissez le bon. Le total HTVA applique alors le taux saisi,
-   mais la ligne « Taxes et contributions » garde celui de la grille (défaut
-   consigné dans ``BUGS_LIB.md``).
-3. **ENR sans pourcentage.** ``pourcentage_ENR`` n'entre pas dans le montant :
-   ``c_euro_kWh_ENR`` est multiplié par la consommation totale.
+1. **Grilles qui se chevauchent.** Quand plusieurs grilles couvrent la
+   période, la plus récente l'emporte (une décision tarifaire remplace la
+   précédente à sa date d'effet) ; deux grilles de même date d'effet lèvent
+   ``GrilleTURPEAmbigueError``. Avant le 28/09/2026 la bibliothèque prenait la
+   première du fichier : une grille « TURPE 5 » plate (b = 6,44, c = 0,0369)
+   masquait ainsi la TURPE 6 CU_pf d'août 2021 à janvier 2025 ; elle est
+   retirée. Vérifiez toujours la ligne « Grille tarifaire » de
+   ``calc.df_contrat``.
+2. **Accise.** Saisissez le taux de votre facture : ici 0,02250 EUR/kWh,
+   tarif normal de la catégorie « haute puissance » au 1er février 2025
+   (impots.gouv.fr). Sans ``c_euro_kwh_CSPE_TICFE``, le taux de la grille
+   s'applique et ``AcciseNonVerifieeWarning`` le signale.
+3. **ENR et pourcentage.** ``c_euro_kWh_ENR`` s'applique à
+   ``pourcentage_ENR`` % des kWh ; ``pourcentage_ENR=None`` (défaut) vaut
+   100 %. Avant le 28/09/2026 le pourcentage était ignoré.
 
 Voir aussi : :doc:`../contrat_electricite`, :doc:`exemple_hta_cu_pm`,
 :doc:`exemple_hta_lu_pf`.

@@ -24,32 +24,46 @@ Ce que le paquet expose :
    * - ``OpenWeatherMap_call.API_call()``
      - Météo au lieu inscrit dans ``config.ini`` ; renvoie le couple
        ``(T en °C, RH en %)``
-   * - ``get_weather.get_api_key()``, ``get_weather.get_location()``
-     - Lisent la clé et le lieu (``Town``, ``lat``, ``lon``) dans
-       ``OpenWeatherMap/config.ini``, à côté du module
+   * - ``get_weather.get_api_key()``
+     - Lit la clé dans la variable d'environnement ``OPENWEATHERMAP_API_KEY``,
+       à défaut dans ``OpenWeatherMap/config.ini`` ; lève
+       ``MissingApiKeyError`` si aucune n'est fournie
+   * - ``get_weather.get_location()``
+     - Lit le lieu (``Town``, ``lat``, ``lon``) dans ``OpenWeatherMap/config.ini``,
+       à côté du module
    * - ``get_weather.get_weather(api_key, location, lat, lon)``
      - Appel HTTP brut ; renvoie le JSON de l'API (températures en **kelvins**)
 
-Le module ``SQlite_OpenWeatherMap`` (journalisation en base SQLite) ne s'importe
-pas : voir « Pièges ».
+Le module ``SQlite_OpenWeatherMap`` journalise la météo en base SQLite : sa
+fonction ``OpenWeatherMap()`` boucle indéfiniment (un relevé toutes les 10 s) et
+écrit ``BD_Meteo.db`` dans le répertoire courant.
 
 Configuration
 -------------
 
 1. Créer un compte sur https://openweathermap.org et récupérer une clé d'API
    (l'offre gratuite suffit pour un appel toutes les dix minutes).
-2. Inscrire la clé dans le fichier ``config.ini`` **du paquet installé** —
-   son chemin s'obtient par ``OpenWeatherMap.get_weather.config_path`` :
+2. Déclarer la clé dans la variable d'environnement ``OPENWEATHERMAP_API_KEY``
+   (lue en priorité, et épargnée par les mises à jour du paquet). Sous Windows :
+   ``setx OPENWEATHERMAP_API_KEY <votre clé>`` puis ouvrir un nouveau terminal ;
+   sous Linux ou macOS : ``export OPENWEATHERMAP_API_KEY=<votre clé>``.
+3. À défaut, l'inscrire dans le ``config.ini`` **du paquet installé** (son chemin
+   s'obtient par ``OpenWeatherMap.get_weather.config_path``), qui porte aussi le
+   lieu utilisé par ``API_call()`` :
 
    .. code-block:: ini
 
       [DonneesMeteo]
-      api=<votre clé>
+      api =
 
       [Location]
       Town=NAN
       lon = 2.2833
       lat = 49.00
+
+   Le fichier est livré avec ``api =`` **vide** : sans variable d'environnement
+   ni clé inscrite, ``get_api_key()`` lève ``MissingApiKeyError`` avec la marche
+   à suivre.
 
 L'appel réel — service en ligne
 -------------------------------
@@ -74,8 +88,12 @@ bibliothèque.
 
 .. code-block:: python
 
+   import os
    from unittest import mock
    from OpenWeatherMap import OpenWeatherMap_call, OpenWeatherMap_call_location
+
+   # la réponse est construite : une clé factice suffit (sans clé, MissingApiKeyError)
+   os.environ.setdefault("OPENWEATHERMAP_API_KEY", "cle-factice")
 
    class ReponseConstruite:
        """Remplace la réponse de l'API OpenWeatherMap (données inventées)."""
@@ -94,8 +112,7 @@ bibliothèque.
    print(df.drop(columns="Timestamp").round(2))
    print(f"API_call() : T = {T:.2f} °C, HR = {RH} %")
 
-Sortie réelle (la ligne « change OpenWeatherMap api=… » que le module imprime à
-chaque lecture de la clé est omise) :
+Sortie réelle :
 
 .. code-block:: text
 
@@ -126,8 +143,12 @@ Paramètres à personnaliser
      - Longitude du site, en chaîne
      - ``"-180"`` à ``"180"``
      - degrés
+   * - ``OPENWEATHERMAP_API_KEY``
+     - Clé personnelle OpenWeatherMap (variable d'environnement, prioritaire)
+     - —
+     - —
    * - ``api`` (``config.ini``)
-     - Clé personnelle OpenWeatherMap
+     - Clé, à défaut de la variable d'environnement (livrée vide)
      - —
      - —
    * - ``lat`` / ``lon`` (``config.ini``)
@@ -178,20 +199,20 @@ tableau se joint ensuite aux consommations horaires des sites.
 Pièges
 ------
 
-- **La clé se lit dans le paquet installé**, pas dans votre dossier de travail :
-  ``config.ini`` est cherché à côté de ``get_weather.py``. Une mise à jour de la
-  bibliothèque l'écrase.
-- **Le ``config.ini`` livré contient déjà une clé** : ne comptez pas dessus, elle
-  n'est pas la vôtre et peut être révoquée à tout moment. Remplacez-la.
+- **Préférez la variable d'environnement** : ``config.ini`` est cherché à côté de
+  ``get_weather.py``, dans le paquet installé, et une mise à jour de la
+  bibliothèque l'écrase (clé comprise).
+- **Aucune clé n'est livrée** (depuis le 28/09/2026 ; les versions antérieures
+  portaient celle du mainteneur, qui doit être considérée comme révoquée) : sans
+  clé, ``MissingApiKeyError``.
 - ``Town`` n'est pas utilisé : l'appel se fait **toujours** par coordonnées, il
   n'existe pas d'appel par nom de ville.
 - En cas de coupure, ``get_weather`` lève l'exception de ``requests`` (délai de
   5 s) sans réessayer : c'est à l'appelant de réessayer plus tard.
-- ``OpenWeatherMap.SQlite_OpenWeatherMap`` contient des marqueurs de conflit Git
-  (``<<<<<<< HEAD``) : son import lève ``SyntaxError``. Il lancerait de toute
-  façon une boucle infinie d'enregistrement dès l'import.
-
-Les défauts ci-dessus sont consignés dans ``BUGS_LIB.md``.
+- ``OpenWeatherMap.SQlite_OpenWeatherMap`` s'importe depuis le 28/09/2026 (il
+  contenait des marqueurs de conflit Git et lançait sa boucle dès l'import) ;
+  sa boucle ``OpenWeatherMap()`` ne s'arrête pas d'elle-même et n'est à lancer
+  que dans un processus dédié.
 
 Renvois
 -------

@@ -4,9 +4,8 @@
   "docs/source/001-heat_transfer/composite_wall_heat_transfer.rst": {
    "blocs": 1,
    "empreinte": "d3265cc5660e837f",
-   "mesure": "2026-09-28T17:06",
+   "mesure": "2026-09-28T18:57",
    "figures": [
-    "../images/param_compositewall.svg",
     "../images/schema_mur_composite.svg"
    ],
    "blocage": null,
@@ -47,9 +46,8 @@
   "docs/source/001-heat_transfer/pipe_insulation_analysis.rst": {
    "blocs": 1,
    "empreinte": "2e8f02bc9fd6ee26",
-   "mesure": "2026-09-28T17:06",
+   "mesure": "2026-09-28T18:57",
    "figures": [
-    "../images/param_pipeinsulation.svg",
     "../images/schema_tuyauterie_isolee.svg"
    ],
    "blocage": null,

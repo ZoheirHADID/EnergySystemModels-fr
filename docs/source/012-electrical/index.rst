@@ -368,6 +368,11 @@ Paramètres à personnaliser
      - Informatifs : tensions, fréquence, repère
      - —
      - ``None``
+   * - ``on_overload``
+     - Charge par transformateur > ``S_n`` : ``"warn"`` avertit
+       (``TransformerOverloadWarning``), ``"raise"`` refuse (``ValueError``)
+     - ``"warn"`` ou ``"raise"``
+     - ``"warn"``
 
 Variante : un ou deux transformateurs en service ?
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -420,16 +425,21 @@ fourni par la bibliothèque).
 Pièges
 ~~~~~~
 
-* **Aucune alerte de surcharge** : la ligne « 1 Tr pour 1300 kVA » est calculée à
-  130 % de charge sans avertissement. Vérifiez ``taux_charge_%`` vous-même.
+* **Surcharge** : la ligne « 1 Tr pour 1300 kVA » (130 % de charge) est calculée,
+  mais émet un ``TransformerOverloadWarning`` (sur la sortie d'erreur) et porte
+  ``surcharge = True`` dans le bilan : les pertes cuivre y sont extrapolées au
+  carré hors du régime assigné, et la tenue thermique n'est pas évaluée. Passez
+  ``on_overload="raise"`` pour refuser toute surcharge (``ValueError``).
+  (Avant le 28/09/2026, aucun message.)
 * ``S_ch`` est la charge **totale** du jeu de barres, pas la charge par
   transformateur : le modèle la répartit sur ``n``.
 * ``hours_noload`` compte les heures **sous tension** (pertes fer), pas les heures
   sans charge : laissez 8760 pour un transformateur jamais déconnecté.
 * Sans ``cost_active`` ni ``cost_reactive``, les colonnes de coût valent ``None`` et
   s'intitulent ``cout_pertes_*`` sans suffixe de devise.
-* ``average_energy_cost`` divise par ``period_hours`` (24 h) : la somme des
-  durées des postes doit valoir 24 h, sinon la moyenne est faussée sans message.
+* ``average_energy_cost`` divise par ``period_hours`` (24 h) : si la somme des
+  durées des postes ne vaut pas ``period_hours``, la fonction lève ``ValueError``
+  (avant le 28/09/2026, la moyenne était faussée sans message).
 
 Pour aller plus loin
 --------------------

@@ -109,8 +109,8 @@ reçoit deux entrées et accepte deux sortes de valeurs :
 
 - deux **nombres** (la sortie d'un générateur, par exemple) : l'opération est
   l'arithmétique ordinaire ;
-- des **courants de fluide** ``[fluide, débit, pression, enthalpie]`` : le
-  comportement historique, terme à terme.
+- des **courants de fluide** ``[fluide, débit, pression, enthalpie]`` : chaque
+  opération n'y fait que ce qui a un sens physique (voir ci-dessous).
 
 .. code-block:: python
 
@@ -131,6 +131,7 @@ reçoit deux entrées et accepte deux sortes de valeurs :
    retour = ["water", 1.5, 2.0e5, 126_000.0]
    print("Substract:", CalcNode_Sub.evalOperation(noeud, depart, retour))
    print("Multiply :", CalcNode_Mul.evalOperation(noeud, depart, 2.0))
+   print("Add      :", CalcNode_Add.evalOperation(noeud, depart, retour))
 
 Sortie réelle :
 
@@ -139,13 +140,19 @@ Sortie réelle :
    Add      : 8.799038105676658
    Divide   : 2.5
    Substract: ['water', 0.5, 250000.0, 167000.0]
-   Multiply : ['water', 4.0, 600000.0, 586000.0]
+   Multiply : ['water', 4.0, 300000.0, 293000.0]
+   Add      : ['water', 3.5, 200000.0, 221428.57142857142]
 
 - **Substract** sur deux courants rend l'écart de débit, la **pression
   moyenne** et l'**écart d'enthalpie** (167 kJ/kg ici, soit 40 K d'eau) ;
-- **Multiply** par un nombre multiplie **tous** les termes numériques : le
-  débit double, mais la pression et l'enthalpie doublent aussi (voir les
-  pièges).
+- **Multiply** (ou **Divide**) d'un courant par un nombre ne change que le
+  **débit** : pression et enthalpie massique sont conservées ;
+- **Add** de deux courants du même fluide fait le bilan du **Mélangeur** : débits
+  sommés, pression minimale, enthalpie moyenne pondérée par les débits
+  ((2 × 293 + 1,5 × 126) / 3,5 = 221,4 kJ/kg ici) ;
+- toute autre combinaison (courant + nombre, courant × courant, deux fluides
+  différents…) lève ``ValueError`` : dans l'IHM, le nœud passe en erreur avec ce
+  message.
 
 L'afficheur
 -----------
@@ -251,13 +258,12 @@ période), ce qui permet de décaler son origine. Le générateur n'a pas de cha
 Pièges
 ------
 
-.. warning::
-   **Multiply et Add sur un courant de fluide touchent aussi la pression et
-   l'enthalpie.** Doubler un courant avec Multiply double son débit **et** sa
-   pression **et** son enthalpie ; additionner deux courants avec Add somme
-   leurs pressions et leurs enthalpies. Pour réunir deux courants, utilisez le
-   **Mélangeur** (débits sommés, pression minimale, enthalpie moyenne pondérée).
-   Défaut consigné dans ``BUGS_LIB.md``.
+.. note::
+   Jusqu'au 28/09/2026, **Multiply et Add opéraient terme à terme sur un
+   courant** : doubler un courant doublait aussi sa pression et son enthalpie
+   massique (``['water', 4.0, 600000.0, 586000.0]`` dans l'exemple ci-dessus),
+   additionner deux courants sommait leurs pressions et leurs enthalpies. Une
+   scène construite avant cette date sur ce comportement change de résultat.
 
 - En simulation temporelle, la consigne d'un PID doit venir **directement**
   d'un générateur : un générateur passé par Add ou Multiply avant le PID est

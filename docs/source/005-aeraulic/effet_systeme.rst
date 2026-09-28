@@ -105,7 +105,9 @@ Ce qu'on personnalise
    * - ``ashrae_code``
      - Le raccordement : ``ED7-1`` (ventilateur en plénum), ``ED7-2`` (coude à
        l'aspiration), ``SR7-1`` (refoulement libre), ``SR7-2`` (diffuseur plan),
-       ``SR7-5`` à ``SR7-12`` (coude au refoulement, positions A à D)
+       ``SR7-5`` à ``SR7-12`` (coude au refoulement, positions A à D),
+       ``SR7-17`` (diffuseur pyramidal) ; la liste exacte :
+       ``FanSystemEffect.calculable_codes()``
      - requis, sinon ``ValueError``
    * - ``Ao``
      - Section au ventilateur (ouïe ou bouche de refoulement)
@@ -129,8 +131,12 @@ Ce qu'on personnalise
        ``SR7-5`` à ``SR7-12``)
      - 0,4 à 1,0
    * - ``theta_deg``, ``area_ratio``
-     - Angle et rapport de sections du diffuseur (``SR7-2``)
+     - Angle et rapport de sections du diffuseur plan (``SR7-2``)
      - degrés, :math:`A_1/A_o`
+   * - ``theta_deg``, ``ao_over_A1``
+     - Angle et rapport de sections du diffuseur pyramidal (``SR7-17``) ; le
+       rapport y est **inverse** de celui de ``SR7-2``, d'où un attribut distinct
+     - degrés, :math:`A_o/A_1` de 1,5 à 4
 
 Variante : éloigner le coude du refoulement
 -------------------------------------------
@@ -170,12 +176,13 @@ normale du modèle, pas un défaut.
 Éprouver le modèle
 ------------------
 
-Le modèle ne devine pas un axe de table manquant, et ne sait pas lire toutes les
-tables du catalogue :
+Le modèle ne devine pas un axe de table manquant, ne lit pas un rapport de
+sections à l'envers, et refuse une table dont l'extraction n'est pas fiable :
 
 .. code-block:: python
 
     for code, axes in (("ED7-2", {"r_over_Do": 1.5}),
+                       ("ER7-1", {}),
                        ("SR7-17", {"theta_deg": 20, "area_ratio": 2.0})):
         E = FanSystemEffect.Object()
         E.ashrae_code, E.Ao, E.Vo = code, 0.25, 10.0
@@ -191,7 +198,28 @@ Sortie réelle :
 .. code-block:: text
 
    ED7-2 refusé : le fitting 'ED7-2' est tabule en 'L_over_Do' : renseigner `l_over_Do`.
-   SR7-17 refusé : l'axe 'Ao_over_A1' du fitting 'SR7-17' n'a pas d'attribut correspondant.
+   ER7-1 refusé : le fitting 'ER7-1' n'est pas calculable : extraction NON FIABLE (bloc NON PARSE par l'extracteur (form='unparsed').). Codes calculables : ED7-1, ED7-2, SR7-1, SR7-2, SR7-5, SR7-6, SR7-7, SR7-8, SR7-9, SR7-10, SR7-11, SR7-12, SR7-17.
+   SR7-17 refusé : le fitting 'SR7-17' est tabule en 'Ao_over_A1' : renseigner `ao_over_A1`.
+
+``SR7-17`` se calcule depuis le 28/09/2026, avec son propre attribut
+``ao_over_A1`` (il était refusé faute d'attribut pour cet axe) :
+
+.. code-block:: python
+
+    E = FanSystemEffect.Object()
+    E.ashrae_code, E.Ao, E.Vo = "SR7-17", 0.25, 10.0
+    E.theta_deg, E.ao_over_A1 = 20, 2.0
+    E.calculate()
+    print(f"SR7-17 : Co = {E.C_o:.2f}, effet système = {E.delta_P_system_effect:.1f} Pa")
+
+Sortie réelle :
+
+.. code-block:: text
+
+   SR7-17 : Co = 0.43, effet système = 25.8 Pa
+
+La table (2001 SI, ch. 34, p. 34.68) donne bien 0,43 à 20° et
+:math:`A_o/A_1 = 2`, sans interpolation.
 
 Pièges
 ------
@@ -203,15 +231,15 @@ Pièges
   approximation », propres à un type de ventilateur, et l'effet système « cannot
   be measured directly ». Le modèle lit fidèlement la table ; il ne valide pas la
   physique.
-- ``SR7-17`` (diffuseur pyramidal) **n'est pas calculable** : sa table est indexée
-  par :math:`A_o/A_1`, axe qu'aucun attribut du modèle ne porte. Le refus est
-  explicite (``ValueError``), mais le code figure dans la liste déroulante du
-  nœud de l'IHM.
-- ``ER7-1`` figure aussi dans cette liste : sa table n'a pas été extraite du
-  Handbook, le calcul est refusé.
+- ``ER7-1`` **n'est pas calculable** : sa table n'a pas été extraite de façon
+  fiable du Handbook ; le calcul est refusé (``UnreliableFittingError``) et,
+  depuis le 28/09/2026, le code ne figure plus dans la liste déroulante du nœud
+  de l'IHM, qui ne propose que ``FanSystemEffect.calculable_codes()``.
+- ``SR7-17`` est tabulé en :math:`A_o/A_1`, l'inverse du rapport de ``SR7-2``
+  (:math:`A_1/A_o`) : renseignez ``ao_over_A1``, pas ``area_ratio``.
 - **Aspiration ou refoulement.** ``ED7`` = aspiration (« fan inlet »), ``SR7`` =
-  refoulement (« fan outlet »). La docstring du nœud ``PyqtSimulator`` écrit
-  l'inverse ; la liste des tables ci-dessus fait foi.
+  refoulement (« fan outlet »). La docstring du nœud ``PyqtSimulator`` le dit
+  désormais aussi (elle écrivait l'inverse jusqu'au 28/09/2026).
 
 Dans PyqtSimulator
 ------------------
@@ -219,7 +247,7 @@ Dans PyqtSimulator
 Le nœud **« Effet de système (ventilateur) »** (icône ventilateur) est
 **autonome** : il n'a aucun port fluide, on ne le relie à rien. On y choisit le
 code ASHRAE, on saisit ``Ao``, ``Vo``, ``rho``, ``L`` et les axes utiles (0 = sans
-objet) ; il affiche :math:`L_e`, :math:`L/L_e`, :math:`C_o`, la pression dynamique
+objet ; ``SR7-17`` a son champ « Ao/A1 ») ; il affiche :math:`L_e`, :math:`L/L_e`, :math:`C_o`, la pression dynamique
 et l'effet système « à retrancher au ventilateur ».
 
 Pour aller plus loin

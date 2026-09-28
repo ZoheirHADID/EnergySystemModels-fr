@@ -1,15 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100" role="img" aria-label="Brûleur à flamme" data-iso-part="11" data-iso-ref="2541">
-  <title>ISO 14617-11 — 2541 — Brûleur à flamme</title>
-  <desc>Dispositif soumis à l'action de la flamme (brûleur).</desc>
-  <metadata>{&quot;standard&quot;: &quot;ISO 14617-11&quot;, &quot;ref&quot;: &quot;2541&quot;, &quot;name&quot;: &quot;Brûleur à flamme&quot;, &quot;ports&quot;: [{&quot;id&quot;: &quot;port-s&quot;, &quot;x&quot;: 50, &quot;y&quot;: 92, &quot;dir&quot;: &quot;s&quot;, &quot;role&quot;: &quot;inlet&quot;}]}</metadata>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100" role="img" aria-label="Oxy-combustion">
+  <title>Oxy-combustion</title>
+  <desc>Chambre de combustion (brûleur ISO 14617-11 2541) alimentée en oxygène pur « O₂ » ; fumées CO₂ + H₂O.</desc>
+  <metadata>{"standard": "ISO 14617-11", "ref": "2541 (adapté)", "name": "Oxy-combustion", "ports": [{"id": "port-w", "x": 8, "y": 66, "dir": "w", "role": "inlet"}, {"id": "port-n", "x": 50, "y": 8, "dir": "n", "role": "outlet"}]}</metadata>
   <g fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-    <polyline points="36,64 50,40 64,64"/>
-    <polyline points="43,64 50,52 57,64"/>
-    <line x1="50" y1="64" x2="50" y2="92"/>
+    <rect x="28" y="22" width="44" height="58" rx="4"/>
+    <polyline points="36,72 50,46 64,72"/>
+    <polyline points="43,72 50,59 57,72"/>
+    <line x1="8" y1="66" x2="28" y2="66"/>
+    <line x1="50" y1="22" x2="50" y2="8"/>
+    <polygon points="28,66 22.4,62.5 22.4,69.5" fill="#000000"/>
+    <text x="16" y="58" font-family="Segoe UI, Arial, sans-serif" font-weight="bold" font-size="15" fill="#000000" stroke="none" text-anchor="middle">O₂</text>
+    <polygon points="50,8 46.5,13.600000000000001 53.5,13.600000000000001" fill="#000000"/>
   </g>
   <g class="ports">
-    <circle class="port" cx="50" cy="92" r="2.0" fill="#000000" stroke="none" data-port="port-s" data-dir="s" data-role="inlet"/>
+    <circle class="port" cx="8" cy="66" r="2.0" fill="#000000" stroke="none" data-port="port-w" data-dir="w" data-role="inlet"/>
+    <circle class="port" cx="50" cy="8" r="2.0" fill="#000000" stroke="none" data-port="port-n" data-dir="n" data-role="outlet"/>
   </g>
 </svg>
-

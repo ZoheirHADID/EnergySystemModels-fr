@@ -1,20 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100" role="img" aria-label="Séparateur à décantation" data-iso-part="12" data-iso-ref="X2617">
-  <title>ISO 14617-12 — X2617 — Séparateur à décantation</title>
-  <desc>Séparateur à décantation.</desc>
-  <metadata>{&quot;standard&quot;: &quot;ISO 14617-12&quot;, &quot;ref&quot;: &quot;X2617&quot;, &quot;name&quot;: &quot;Séparateur à décantation&quot;, &quot;ports&quot;: [{&quot;id&quot;: &quot;port-w&quot;, &quot;x&quot;: 8, &quot;y&quot;: 34, &quot;dir&quot;: &quot;w&quot;, &quot;role&quot;: &quot;inlet&quot;}, {&quot;id&quot;: &quot;port-e&quot;, &quot;x&quot;: 92, &quot;y&quot;: 34, &quot;dir&quot;: &quot;e&quot;, &quot;role&quot;: &quot;outlet&quot;}, {&quot;id&quot;: &quot;port-s&quot;, &quot;x&quot;: 50, &quot;y&quot;: 92, &quot;dir&quot;: &quot;s&quot;, &quot;role&quot;: &quot;outlet&quot;}]}</metadata>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100" role="img" aria-label="Grille / tamis">
+  <title>Grille / tamis</title>
+  <desc>Conduite traversée par une grille à mailles (crible, ISO 14617-12 2602).</desc>
+  <metadata>{"standard": "ISO 14617-12", "ref": "2602 (adapté)", "name": "Grille / tamis", "ports": [{"id": "port-w", "x": 8, "y": 50, "dir": "w", "role": "inlet"}, {"id": "port-e", "x": 92, "y": 50, "dir": "e", "role": "outlet"}]}</metadata>
   <g fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-    <polygon points="32,28 68,28 68,52 54,72 46,72 32,52"/>
-    <line x1="40" y1="40" x2="60" y2="40"/>
-    <line x1="32" y1="34" x2="8" y2="34"/>
-    <line x1="68" y1="34" x2="92" y2="34"/>
-    <line x1="50" y1="72" x2="50" y2="92"/>
+    <line x1="8" y1="34" x2="92" y2="34"/>
+    <line x1="8" y1="66" x2="92" y2="66"/>
+    <line x1="44" y1="34" x2="44" y2="66"/>
+    <line x1="50" y1="34" x2="50" y2="66"/>
+    <line x1="56" y1="34" x2="56" y2="66"/>
+    <line x1="44" y1="40" x2="56" y2="40"/>
+    <line x1="44" y1="46" x2="56" y2="46"/>
+    <line x1="44" y1="52" x2="56" y2="52"/>
+    <line x1="44" y1="58" x2="56" y2="58"/>
+    <line x1="14" y1="50" x2="36" y2="50"/>
+    <polygon points="40,50 34.4,46.5 34.4,53.5" fill="#000000"/>
   </g>
   <g class="ports">
-    <circle class="port" cx="8" cy="34" r="2.0" fill="#000000" stroke="none" data-port="port-w" data-dir="w" data-role="inlet"/>
-    <circle class="port" cx="92" cy="34" r="2.0" fill="#000000" stroke="none" data-port="port-e" data-dir="e" data-role="outlet"/>
-    <circle class="port" cx="50" cy="92" r="2.0" fill="#000000" stroke="none" data-port="port-s" data-dir="s" data-role="outlet"/>
+    <circle class="port" cx="8" cy="50" r="2.0" fill="#000000" stroke="none" data-port="port-w" data-dir="w" data-role="inlet"/>
+    <circle class="port" cx="92" cy="50" r="2.0" fill="#000000" stroke="none" data-port="port-e" data-dir="e" data-role="outlet"/>
   </g>
 </svg>
-
-

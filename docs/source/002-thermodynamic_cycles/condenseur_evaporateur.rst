@@ -417,10 +417,12 @@ La géométrie est fournie par l'instance ``self.geom = TubeFinGeometry()``.
 
   .. math::
 
-     T_{out,air} = T_{in,air} - \frac{Q_{total}}{\dot{m}_a \, C_{p,a}}, \qquad
+     T_{out,air} = T_{in,air} - \frac{Q_{sens}}{\dot{m}_a \, C_{p,a}}, \qquad
      w_{out} = w_{in} - \frac{\dot{m}_f}{\dot{m}_a}
 
-  puis conversion ``w_out → HR_out`` à ``T_out_air``.
+  puis conversion ``w_out → HR_out`` à ``T_out_air``. Seule la chaleur
+  sensible refroidit l'air ; la chaleur latente part avec la vapeur déposée en
+  givre et rejoint le frigoporteur (``T_out_ref`` reçoit ``Q_total``).
 
 **Chaîne de résistances thermiques** (paroi) :
 ``R_air + R_givre + R_tube + R_ref`` avec
@@ -549,13 +551,13 @@ Sortie réelle :
    rho_f                     39.446217
    Frost_g                  941.302929
    Tair_in_degC              12.850000
-   Tair_out_degC             -2.489896
+   Tair_out_degC              1.813715
    Tref_in_degC             -40.000000
    Tref_out_degC            -37.781029
    Ts_givre_degC            -20.833687
    Tp_paroi_degC            -22.425069
    HR_in                      0.800000
-   HR_out                     1.892545
+   HR_out                     1.349998
    S_super                    0.919686
    Le_f                       1.451934
    V_face                     0.177901
@@ -579,12 +581,18 @@ Sortie réelle :
 
 .. warning::
 
-   ``Tair_out_degC`` (−2,49 °C) et ``HR_out`` (1,89, soit 189 % d'humidité
-   relative) sont **faux** dans cette version du modèle : la température de sortie
-   d'air est calculée avec ``Q_total_W``, chaleur latente du givre comprise, alors
-   que seule ``Q_sens_W`` refroidit l'air. Avec la seule part sensible, l'air
-   sortirait vers +1,8 °C. Les autres grandeurs (givre, flux, perte de charge) ne
-   sont pas concernées. Ne reprenez pas ces deux valeurs dans un dimensionnement.
+   ``HR_out`` vaut encore **1,35** (135 % d'humidité relative) : l'air de
+   sortie est **sursaturé**. Le modèle est à paramètres localisés (un seul
+   ``Q_sens`` calculé sur ``T_in_air − Ts``, sans profil le long de la
+   batterie) ; il ne décrit pas le brouillard qui se formerait. L'écart est
+   signalé : ``hx.sursature_out`` vaut ``True`` et ``calculate()`` émet un
+   ``RuntimeWarning``. Ne reprenez pas ``Tair_out_degC`` ni ``HR_out`` dans un
+   dimensionnement ; les autres grandeurs (givre, flux, perte de charge) ne sont
+   pas concernées.
+
+   Jusqu'au 28/09/2026, la température de sortie retranchait ``Q_total_W``,
+   chaleur latente comprise : l'air sortait à −2,49 °C et ``HR_out`` valait
+   1,89. Avec la seule part sensible, il sort à +1,81 °C.
 
 CroissanceDuGivre (modèle 1D autonome)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
