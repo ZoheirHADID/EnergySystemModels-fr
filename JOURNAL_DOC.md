@@ -867,3 +867,15 @@
 - Banc : `te_aeraulique.rst` (nouvelle) → cran 5.
 - Build : 0 warning. Bug bibliothèque : aucun.
 - Suivant : K4, registres (`IrisDamper`, `BladeDamper`).
+
+## 2026-09-28 13:12 — K4 : page du registre iris (Aeraulic.IrisDamper)
+- Unité : K4 (sous-entrée : `Aeraulic.IrisDamper`, sans page jusqu'ici).
+- Fait : `005-aeraulic/registre_iris.rst` créée, ajoutée au sommaire. Schéma
+  `schema_irisdamper_air.svg` (icône du nœud « Registre iris »). Loi
+  `ΔP = (Qv[l/s]/Kt)²` relevée dans le code (dite « issue du cours », aucune
+  source publiée : écrit au lecteur), repli `use_kt_law=False` sur `xi_manual`.
+  Exemple 100 l/s, Kt 9,1 → **120,76 Pa** ; variante Kt 14 → **51,02 Pa** ;
+  refus de `Kt = 0` (`ValueError`, message réel).
+- Banc : `registre_iris.rst` (nouvelle) → cran 5.
+- Build : 0 warning. Bug bibliothèque : aucun.
+- Suivant : K4, registre à lames (`BladeDamper`).

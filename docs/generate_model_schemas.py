@@ -708,12 +708,31 @@ def te_air():
                   hauteur=420, noeud="aeraulic_tee")
 
 
+def registre_iris():
+    """Registre iris — `ThermodynamicCycles.Aeraulic.IrisDamper` : loi Qv = Kt·√ΔP."""
+    cx = (XI + XO) / 2
+    forme = _gaine(XI, XO, 22.0) + [
+        # diaphragme à lamelles : deux mâchoires qui réduisent le passage
+        _polyligne([(cx - 6, Y - 22), (cx - 6, Y - 9), (cx + 6, Y - 9), (cx + 6, Y - 22)], TRAIT, 2.0, remplissage="#9aa5b1"),
+        _polyligne([(cx - 6, Y + 22), (cx - 6, Y + 9), (cx + 6, Y + 9), (cx + 6, Y + 22)], TRAIT, 2.0, remplissage="#9aa5b1"),
+        _texte(cx, Y + 44, "Kt = 9.1   # l/s par √Pa", 12, COTE, "middle", MONO),
+    ]
+    return _cadre("schema_irisdamper_air.svg", "Registre iris", forme,
+                  ["IrisDamper()",
+                   "d_hyd (m)",
+                   "use_kt_law = True  →  ΔP = (Qv[l/s] / Kt)²",
+                   "use_kt_law = False  →  ΔP = xi_manual·ρu²/2  (xi_manual = 2.0)"],
+                  ["Kt se lit sur l'abaque du fabricant pour la position de réglage ; il n'est pas calculé par le modèle.",
+                   "Le débit entre dans la loi en l/s (Qv[m³/s] × 1000) : Kt en l/s par √Pa."],
+                  hauteur=400, noeud="aeraulic_iris_damper")
+
+
 FIGURES = [compresseur, turbine, pompe, detendeur, evaporateur, condenseur, source_fluide,
            puits_fluide, air_neuf, batterie_chaude, batterie_froide, humidificateur, recuperateur_plaques,
            roue_thermique, vanne_generique, vanne_isolement, vanne_soupape, vanne_boule, vanne_papillon,
            papillon_rectangulaire, clapet_anti_retour, clapet_volet, regulateur_dp, serpentin,
            confuseur, diffuseur, orifice, grille, plaque_perforee, lit_grains, entree, sortie_libre,
-           methode_k, loi_des_noeuds, circuit_serie, coup_de_belier, gaine_droite_air, coude_air, te_air]
+           methode_k, loi_des_noeuds, circuit_serie, coup_de_belier, gaine_droite_air, coude_air, te_air, registre_iris]
 
 
 def main() -> int:

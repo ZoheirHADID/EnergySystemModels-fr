@@ -942,6 +942,21 @@
    "cran_max": 4,
    "recul": null
   },
+  "docs/source/005-aeraulic/registre_iris.rst": {
+   "blocs": 3,
+   "empreinte": "40c7b0c91cd06ae1",
+   "mesure": "2026-09-28T12:56",
+   "figures": [
+    "../images/schema_irisdamper_air.svg"
+   ],
+   "blocage": null,
+   "motif": "",
+   "extraits": null,
+   "cran": 5,
+   "nom": "personnalisable",
+   "cran_max": 5,
+   "recul": null
+  },
   "docs/source/005-aeraulic/te_aeraulique.rst": {
    "blocs": 3,
    "empreinte": "09d57196d28e7919",
