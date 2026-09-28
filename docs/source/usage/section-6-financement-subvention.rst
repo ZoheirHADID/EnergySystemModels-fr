@@ -1,182 +1,96 @@
-================================================================================
+.. _usage-financement-subvention:
+
+=====================================
 Section 6 : Financement et subvention
-================================================================================
+=====================================
 
-6.1. Certificats d'Économies d'Énergie (CEE)
---------------------------------------------
+Cette page est un **point de départ** : elle vous dit ce que la bibliothèque sait
+chiffrer pour financer vos travaux, et vous renvoie à la page qui contient les
+exemples exécutables. Les codes et leurs résultats réels vivent dans le chapitre
+:doc:`../011-cee/index`.
 
-Le module CEE permet de calculer les économies d'énergie et les volumes de certificats générés selon les fiches d'opérations standardisées.
+.. note::
+   Le module s'importe **sans préfixe** :
+   ``from CEE.CEE import calcul_CEE, list_fiches``. Il n'existe ni
+   ``energysystemmodels.CEE``, ni une classe par fiche (``IsolationCombles``,
+   ``FenetresPerformantes``…) : **toutes** les fiches passent par une seule
+   fonction, ``calcul_CEE(fiche, **paramètres)``.
 
-Fiche BAT-TH-116 : Isolation de combles ou de toitures
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Ce que la bibliothèque couvre — et ce qu'elle ne couvre pas
+===========================================================
 
-.. code-block:: python
+Le module ``CEE`` chiffre le volume de **Certificats d'Économies d'Énergie**
+(en kWh cumac) d'une opération standardisée, et sa valorisation en euros.
+``list_fiches()`` en recense **33** en vigueur, mesurées dans la version
+installée :
 
-   from energysystemmodels.CEE.BAT_TH_116 import IsolationCombles
-   
-   # Projet d'isolation
-   isolation = IsolationCombles(
-       surface_m2=150,
-       resistance_thermique_initiale=2.0,  # m².K/W
-       resistance_thermique_finale=7.0,    # m².K/W
-       zone_climatique="H1",
-       type_chauffage="gaz"
-   )
-   
-   # Calcul des CEE
-   kwh_cumac = isolation.calculer_kwh_cumac()
-   montant_cee = isolation.calculer_montant_cee(prix_kwh_cumac=0.006)
-   
-   print(f"Économies : {kwh_cumac:,.0f} kWh cumac")
-   print(f"Valorisation CEE : {montant_cee:.2f} €")
+.. list-table::
+   :widths: 30 12 58
+   :header-rows: 1
 
-Fiche BAT-TH-104 : Fenêtres ou portes-fenêtres complètes
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   * - Secteur
+     - Fiches
+     - Exemples de ce qu'elles financent
+   * - Industrie · Utilités (``IND-UT-…``)
+     - 25
+     - moteurs et variation de vitesse, chaudières et fours, froid, air
+       comprimé, chaleur fatale, isolation et mesurage
+   * - Bâtiment industriel (``IND-BA-…``)
+     - 4
+     - bâtiments des sites industriels
+   * - Enveloppe (``IND-EN-…``)
+     - 2
+     - enveloppe des bâtiments **en outre-mer**
+   * - Transport (``TRA-EQ-…``)
+     - 2
+     - transport intermodal (``TRA-EQ-101``, ``TRA-EQ-107``)
 
-.. code-block:: python
+.. warning::
+   **Aucune fiche résidentielle ou tertiaire** (``BAT-TH-…``, ``BAR-…``) n'est
+   implémentée. Isolation de combles, fenêtres, VMC ou chaudière collective d'un
+   immeuble de logements ne se chiffrent donc **pas** avec cette bibliothèque :
+   il faut se reporter aux fiches officielles publiées par le ministère.
 
-   from energysystemmodels.CEE.BAT_TH_104 import FenetresPerformantes
-   
-   # Remplacement de fenêtres
-   fenetres = FenetresPerformantes(
-       nombre_fenetres=12,
-       surface_moyenne_m2=1.5,
-       uw_initial=2.8,  # W/m².K
-       uw_final=1.3,    # W/m².K
-       zone_climatique="H1",
-       type_chauffage="electricite"
-   )
-   
-   # Calcul CEE
-   kwh_cumac = fenetres.calculer_kwh_cumac()
-   print(f"Économies fenêtres : {kwh_cumac:,.0f} kWh cumac")
+Par quoi commencer, selon votre question
+========================================
 
-Fiche BAT-TH-127 : Ventilation mécanique simple flux hygroréglable
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+.. list-table::
+   :widths: 46 54
+   :header-rows: 1
 
-.. code-block:: python
+   * - Votre question
+     - Où aller
+   * - « Mon opération est-elle éligible, et à quelle fiche ? »
+     - :doc:`../011-cee/index`, section « Principe » : ``list_fiches()`` donne
+       la liste exacte des fiches disponibles
+   * - « Combien de kWh cumac pour mon projet industriel ? »
+     - :doc:`../011-cee/index`, section « Secteur 1 — Industrie · Utilités » :
+       un exemple exécuté par fiche
+   * - « Combien cela représente-t-il en euros ? »
+     - :doc:`../011-cee/index`, section « Principe » : le prix
+       ``CEE.euro_MWhcumac`` vaut **5 €/MWh cumac** par défaut et se modifie
+       avant le calcul
+   * - « Et pour le transport de marchandises ? »
+     - :doc:`../011-cee/index`, section « Secteur 3 — Transport »
+   * - « Quelles économies avant de chiffrer l'aide ? »
+     - le parcours technique : :doc:`section-3-transformation` (utilités),
+       :doc:`section-4-distribution` (réseaux), puis
+       :doc:`../007-ipmvp/index` pour mesurer et vérifier les économies réelles
 
-   from energysystemmodels.CEE.BAT_TH_127 import VMCHygroreglable
-   
-   # Installation VMC
-   vmc = VMCHygroreglable(
-       surface_habitable_m2=120,
-       type_vmc="hygroB",  # A ou B
-       zone_climatique="H1",
-       type_chauffage="gaz"
-   )
-   
-   # Calcul CEE
-   kwh_cumac = vmc.calculer_kwh_cumac()
-   print(f"Économies VMC : {kwh_cumac:,.0f} kWh cumac")
+Ce qu'est un kWh cumac
+======================
 
-Fiche BAT-TH-113 : Chaudière collective haute performance énergétique
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Une fiche CEE ne compte pas l'énergie économisée **une année**, mais sur **toute
+la durée de vie** conventionnelle de l'équipement, actualisée : c'est le sens de
+« cumac » (*cumulé et actualisé*). Un même gain annuel vaut donc davantage de
+kWh cumac pour un équipement à longue durée de vie. La durée et le coefficient
+d'actualisation sont déjà intégrés aux montants forfaitaires de chaque fiche :
+vous n'avez pas à les saisir.
 
-.. code-block:: python
+Pour aller plus loin
+====================
 
-   from energysystemmodels.CEE.BAT_TH_113 import ChaudiereCollective
-   
-   # Remplacement de chaudière
-   chaudiere = ChaudiereCollective(
-       puissance_nominale_kW=500,
-       efficacite_ancienne=0.75,
-       efficacite_nouvelle=0.95,
-       zone_climatique="H1",
-       nombre_logements=50
-   )
-   
-   # Calcul CEE
-   kwh_cumac = chaudiere.calculer_kwh_cumac()
-   montant = chaudiere.calculer_montant_cee(prix_kwh_cumac=0.006)
-   
-   print(f"Économies chaudière : {kwh_cumac:,.0f} kWh cumac")
-   print(f"Montant CEE : {montant:.2f} €")
-
-Fiche IND-UT-134 : Récupérateur de chaleur sur groupe froid
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-.. code-block:: python
-
-   from energysystemmodels.CEE.IND_UT_134 import RecuperateurChaleurGroupeFroid
-   
-   # Installation récupérateur
-   recuperateur = RecuperateurChaleurGroupeFroid(
-       puissance_frigorifique_kW=300,
-       cop_groupe_froid=3.0,
-       taux_recuperation=0.65,
-       heures_fonctionnement_annuelles=6000,
-       secteur="tertiaire"
-   )
-   
-   # Calcul CEE
-   kwh_cumac = recuperateur.calculer_kwh_cumac()
-   print(f"Économies récupération : {kwh_cumac:,.0f} kWh cumac")
-
-Exemple complet : Projet de rénovation énergétique
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-.. code-block:: python
-
-   from energysystemmodels.CEE import *
-   
-   # Définir tous les travaux du projet
-   operations_cee = {
-       'isolation_combles': IsolationCombles(
-           surface_m2=200,
-           resistance_thermique_initiale=2.0,
-           resistance_thermique_finale=8.0,
-           zone_climatique="H1",
-           type_chauffage="gaz"
-       ),
-       'fenetres': FenetresPerformantes(
-           nombre_fenetres=15,
-           surface_moyenne_m2=1.8,
-           uw_initial=3.0,
-           uw_final=1.2,
-           zone_climatique="H1",
-           type_chauffage="gaz"
-       ),
-       'vmc': VMCHygroreglable(
-           surface_habitable_m2=150,
-           type_vmc="hygroB",
-           zone_climatique="H1",
-           type_chauffage="gaz"
-       ),
-       'chaudiere': ChaudiereCollective(
-           puissance_nominale_kW=80,
-           efficacite_ancienne=0.70,
-           efficacite_nouvelle=0.95,
-           zone_climatique="H1",
-           nombre_logements=1
-       )
-   }
-   
-   # Calculer le total des CEE
-   prix_kwh_cumac = 0.006  # €/kWh cumac
-   total_kwh_cumac = 0
-   total_montant = 0
-   
-   print("Détail des opérations CEE :")
-   print("-" * 70)
-   
-   for nom, operation in operations_cee.items():
-       kwh = operation.calculer_kwh_cumac()
-       montant = operation.calculer_montant_cee(prix_kwh_cumac)
-       total_kwh_cumac += kwh
-       total_montant += montant
-       
-       print(f"{nom:25s} : {kwh:>12,.0f} kWh cumac = {montant:>10,.2f} €")
-   
-   print("-" * 70)
-   print(f"{'TOTAL':25s} : {total_kwh_cumac:>12,.0f} kWh cumac = {total_montant:>10,.2f} €")
-
-Exemple issu des tests : calcul CEE (transport)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-.. code-block:: python
-
-    from CEE import CEE
-
-    CEE.euro_MWhcumac = 6
-    print(CEE.TRA_EQ_107("Bateau DEK (1 000 t)", "Seine", 50000))
+* :doc:`../011-cee/index` — le chapitre complet, un exemple exécuté par fiche.
+* :doc:`../api` — la liste des imports réels, module par module.
+* :doc:`section-1-achat-facturation` — le parcours reprend au début : l'achat
+  d'énergie.

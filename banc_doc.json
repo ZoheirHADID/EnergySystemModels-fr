@@ -1083,15 +1083,16 @@
    "recul": null
   },
   "docs/source/usage/section-6-financement-subvention.rst": {
-   "blocs": 7,
-   "empreinte": "5493b83159738f33",
-   "mesure": "2026-09-27T18:10",
+   "blocs": 0,
+   "empreinte": "7f022d4d86af79e5",
+   "mesure": "2026-09-28T09:35",
    "figures": [],
    "blocage": null,
-   "motif": "API inexistante : energysystemmodels.",
-   "cran": 1,
-   "nom": "plante",
-   "cran_max": 1,
+   "motif": "page de prose ou d'index",
+   "extraits": null,
+   "cran": 0,
+   "nom": "sans exemple",
+   "cran_max": 0,
    "recul": null
   }
  }

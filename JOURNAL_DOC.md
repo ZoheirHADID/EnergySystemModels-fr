@@ -377,3 +377,20 @@
   déplacé en entrée B-chiller plutôt que publié non vérifié.
 - Suivant : `usage/section-6-financement-subvention.rst` (le plus court des
   restants), puis section-2, 4, 5.
+
+## 2026-09-28 — `usage/section-6-financement-subvention.rst` (A1)
+- Unité : A1 — pages `usage/` à l'API inventée.
+- Fait : parcours de lecture vers `011-cee`. Mesuré au registre (`list_fiches()`) :
+  33 fiches, **aucune** `BAT-TH` — les cinq fiches résidentielles présentées
+  jusqu'ici (combles, fenêtres, VMC, chaudière collective…) n'ont jamais existé
+  dans la bibliothèque ; la page le dit maintenant en avertissement. Prix par
+  défaut mesuré : `euro_MWhcumac = 5.0`. Descriptions de secteurs reprises de
+  `011-cee/index.rst` (dont IND-EN = enveloppe **outre-mer**, que le premier jet
+  avait généralisé à tort).
+- Banc : cran 1 → 0 (prose). Pages qui plantent : 4 → 3.
+- Exécution : registre CEE interrogé (33 fiches, prix par défaut).
+- Build : 0 warning.
+- Bug bibliothèque : aucun.
+- Écarté : le 7e bloc (`CEE.TRA_EQ_107(...)`, API réelle) — déjà couvert, exécuté,
+  par la section Transport de `011-cee`.
+- Suivant : `usage/section-2-donnees-production.rst`.

@@ -78,9 +78,15 @@ page par page.
     vérifiés par exécution. Cran 1 → 0. Le 6e bloc (cycle R134a assemblé
     composant par composant, API réelle mais jamais exécuté) est retiré : voir
     B-chiller ci-dessous.
+  - `fait` `section-6-financement-subvention.rst` (2026-09-28) : 7 blocs d'API
+    inventée (`IsolationCombles`, `FenetresPerformantes`, une classe par fiche,
+    et 5 fiches `BAT-TH` **qu'aucun code n'implémente**) remplacés par un
+    aiguillage vers `011-cee`, le décompte mesuré (33 fiches : 25 IND-UT, 4 IND-BA,
+    2 IND-EN, 2 TRA-EQ) et un avertissement « aucune fiche résidentielle ou
+    tertiaire ». Cran 1 → 0.
   - `à faire` `section-2-donnees-production.rst` (10 occurrences),
     `section-4-distribution.rst` (11), `section-5-usages-finaux.rst` (11, dont
-    `BuildingModel` et `RC_Model`), `section-6-financement-subvention.rst` (6).
+    `BuildingModel` et `RC_Model`).
     Table de correspondance vérifiée dans
     `SPRINT_BACKLOG_doc_imports_cleanup.md`. `section-6-autres.rst` est déjà
     propre.
