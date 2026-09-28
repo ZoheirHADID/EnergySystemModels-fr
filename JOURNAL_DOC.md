@@ -797,3 +797,16 @@
 - Banc : `pipe_insulation_analysis.rst` non mesuré → cran 4 (sortie publiée conforme).
 - Build : 0 warning. Bug bibliothèque : aucun.
 - Suivant : K3, corps parallélépipédique.
+
+## 2026-09-28 12:32 — K3 : schéma coté du corps parallélépipédique
+- Unité : K3 (`ParallelepipedicBody`).
+- Fait : `corps_parallelepipedique()` → `param_parallelepipedicbody.svg` : boîte en
+  perspective cotée `L`, `W`, `H`, faces nommées avec leur surface (front/back
+  `W × H`, left/right `L × H`, top/bottom `L × W`, relevé dans le code), tableau des
+  six flux lu dans `objet.df`. Figure sous le titre.
+- Exemple : `print(objet.df)` tronquait les colonnes → `to_string()` ; sortie
+  mesurée identique au tableau publié. La liste des colonnes annoncées (coefficient
+  de convection, rayonnement) ne correspondait pas au `df` réel : réécrite.
+- Banc : `corps_parallelepipedique.rst` non mesuré → cran 4.
+- Build : 0 warning. Bug bibliothèque : aucun.
+- Suivant : K3, plaque (`PlateHeatTransfer`) — sans page propre ; à voir.

@@ -19,16 +19,18 @@
   },
   "docs/source/001-heat_transfer/corps_parallelepipedique.rst": {
    "blocs": 1,
-   "empreinte": "62e097054f4a295b",
-   "mesure": "2026-09-27T18:10",
+   "empreinte": "d1d3f5415305f6ca",
+   "mesure": "2026-09-28T12:23",
    "figures": [
+    "../images/param_parallelepipedicbody.svg",
     "../images/001_heat_transfer_parallelepiped.png"
    ],
    "blocage": null,
-   "motif": "non exécutée (passe statique)",
-   "cran": null,
-   "nom": "non mesuré",
-   "cran_max": null,
+   "motif": "manque : table de personnalisation et variante exécutée",
+   "extraits": null,
+   "cran": 4,
+   "nom": "figure réelle",
+   "cran_max": 4,
    "recul": null
   },
   "docs/source/001-heat_transfer/index.rst": {

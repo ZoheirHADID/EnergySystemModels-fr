@@ -1,6 +1,16 @@
 Corps parallélépipédique — ParallelepipedicBody
 ===============================================
 
+.. figure:: ../images/param_parallelepipedicbody.svg
+   :alt: Schéma coté du corps parallélépipédique : L, W, H et les six faces
+   :align: center
+   :width: 100%
+
+   ``front`` et ``back`` mesurent ``W × H``, ``left`` et ``right`` ``L × H``,
+   ``top`` et ``bottom`` ``L × W``. Chaque face reçoit sa propre température
+   ``Tp`` dans ``faces_config`` ; les flux affichés sont ceux calculés par le
+   modèle sur l'exemple ci-dessous.
+
 Utilisation
 -----------
 
@@ -37,7 +47,7 @@ Utilisation
 
   # Afficher les résultats
   print(f"Transfert total: {objet.get_total_heat_transfer():.2f} W")
-  print(objet.df)
+  print(objet.df.to_string())   # tableau complet, sans colonnes masquées
 
 Résultats ::
 
@@ -56,12 +66,10 @@ Le calcul retourne :
 - **Transfert thermique total** : Somme des pertes par toutes les faces [W]
 - **DataFrame détaillé** : Pour chaque face (top, bottom, front, back, left, right)
   
-  - Surface [m²]
-  - Température de paroi [°C]
-  - Coefficient de convection [W/m²·K]
-  - Transfert par convection [W]
-  - Transfert par rayonnement [W]
-  - Transfert total par face [W]
+  - ``Orientation`` : ``Vertical``, ``Horizontal (up)`` ou ``Horizontal (down)``
+  - ``Surface (m²)``, ``Tp (°C)``, ``Ta (°C)``, ``ΔT (°C)``, ``Isolated``
+  - ``Heat Transfer (W)`` et ``Heat Flux (W/m²)`` de la face
+  - une dernière ligne ``TOTAL`` (surface et flux cumulés)
 
 Paramètres possibles
 --------------------

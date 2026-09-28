@@ -774,6 +774,72 @@ def tuyauterie_isolee(nom="param_pipeinsulation.svg") -> Path:
     return _ecrire(nom, m), _verifier_debordements(nom, m, L)
 
 
+def corps_parallelepipedique(nom="param_parallelepipedicbody.svg") -> Path:
+    """Paramétrage de `HeatTransfer.ParallelepipedicBody` : L, W, H et les six faces.
+
+    Les surfaces et les flux par face sont ceux que **calcule la bibliothèque** sur
+    l'exemple de la page (`objet.df`).
+    """
+    from HeatTransfer import ParallelepipedicBody
+
+    faces = {f: {'Tp': 60.0, 'isolated': False}
+             for f in ('top', 'bottom', 'front', 'back', 'left', 'right')}
+    objet = ParallelepipedicBody.Object(L=0.6, W=0.8, H=1.5, Ta=25, faces_config=faces)
+    objet.calculate()
+    q = {ligne["Face"]: ligne["Heat Transfer (W)"] for _, ligne in objet.df.iterrows()}
+
+    Lg, Hg = 820.0, 610.0
+    k = 190.0                                 # px par mètre
+    w, h = objet.W * k, objet.H * k
+    dx, dy = objet.L * k * 0.62, -objet.L * k * 0.42      # fuyante (profondeur L)
+    x0, y0 = 150.0, 110.0 - dy                # coin haut-gauche de la face avant
+    avant = [(x0, y0), (x0 + w, y0), (x0 + w, y0 + h), (x0, y0 + h)]
+    dessus = [(x0, y0), (x0 + dx, y0 + dy), (x0 + w + dx, y0 + dy), (x0 + w, y0)]
+    droite = [(x0 + w, y0), (x0 + w + dx, y0 + dy), (x0 + w + dx, y0 + h + dy), (x0 + w, y0 + h)]
+
+    def poly(pts, fond):
+        chaine = " ".join(f"{x:.1f},{y:.1f}" for x, y in pts)
+        return f'<polygon points="{chaine}" fill="{fond}" stroke="{TRAIT}" stroke-width="1.6"/>'
+
+    m = _entete(Lg, Hg, "Paramétrage d'un corps parallélépipédique : L, W, H et faces")
+    m += [poly(dessus, "#f7d9c4"), poly(droite, "#f0c3a3"), poly(avant, "#fbe7da")]
+    # arêtes cachées
+    for a, b in (((x0 + dx, y0 + h + dy), (x0, y0 + h)), ((x0 + dx, y0 + h + dy), (x0 + w + dx, y0 + h + dy)),
+                 ((x0 + dx, y0 + h + dy), (x0 + dx, y0 + dy))):
+        m.append(_ligne(*a, *b, AXE, 1.0, "5,4"))
+    # noms des faces visibles
+    m.append(_texte(x0 + w / 2, y0 + h / 2, "front", 14, TRAIT, "middle", MONO, gras=True))
+    m.append(_texte(x0 + w / 2, y0 + h / 2 + 18, "W × H", 12, TRAIT, "middle", MONO))
+    m.append(_texte(x0 + w / 2, y0 + h / 2 + 36, f"{q['front']:.0f} W", 12, "#c0392b", "middle", MONO))
+    m.append(_texte(x0 + w / 2 + dx / 2, y0 + dy / 2 + 5, "top  (L × W)", 12, TRAIT, "middle", MONO))
+    m.append(_texte(x0 + w + dx / 2, y0 + h / 2 + dy / 2, "right", 13, TRAIT, "middle", MONO, gras=True))
+    m.append(_texte(x0 + w + dx / 2, y0 + h / 2 + dy / 2 + 18, "L × H", 12, TRAIT, "middle", MONO))
+    m.append(_texte(x0 + w + dx / 2, y0 + h / 2 + dy / 2 + 36, f"{q['right']:.0f} W", 12, "#c0392b", "middle", MONO))
+    # cotes
+    m += _cote_droite(x0, y0 + h + 30, x0 + w, y0 + h + 30, "", 0)
+    m.append(_texte(x0 + w / 2, y0 + h + 50, f"W = {objet.W} m", 12, COTE, "middle", MONO))
+    m += _cote_droite(x0 - 30, y0, x0 - 30, y0 + h, "", 0)
+    m.append(_texte(x0 - 38, y0 + h / 2, f"H = {objet.H} m", 12, COTE, "end", MONO))
+    m += _cote_droite(x0 + w + 16, y0 + h + 16, x0 + w + dx + 16, y0 + h + dy + 16, "", 0)
+    m.append(_texte(x0 + w + dx / 2 + 26, y0 + h + dy / 2 + 30, f"L = {objet.L} m", 12, COTE, police=MONO))
+
+    # tableau des six faces
+    xt, yt = 560.0, 130.0
+    m.append(_texte(xt, yt, "face      surface    flux", 12, TRAIT, police=MONO, gras=True))
+    for i, (_, ligne) in enumerate(objet.df.iterrows()):
+        m.append(_texte(xt, yt + 22 + 18 * i,
+                        f"{ligne['Face']:<8}  {ligne['Surface (m²)']:>5.2f} m²  {ligne['Heat Transfer (W)']:>7.1f} W",
+                        12, TRAIT, police=MONO))
+    m.append(_texte(xt, yt + 170, "cachées : back (W × H),", 11, AXE))
+    m.append(_texte(xt, yt + 186, "left (L × H), bottom (L × W)", 11, AXE))
+
+    m += _note(40, Hg - 76, 740, [
+        f"Chaque face a sa température Tp ; Ta = {objet.Ta} °C pour toutes. 'isolated': True annule le flux de la face.",
+        "Faces verticales et horizontales (dessus, dessous) n'ont pas la même corrélation de convection naturelle.",
+    ])
+    return _ecrire(nom, m), _verifier_debordements(nom, m, Lg)
+
+
 FIGURES = {
     "assemblage_curvedbend.svg": assemblage_coude_courbe,
     "assemblage_edgedbend.svg": assemblage_coude_vif,
@@ -786,6 +852,7 @@ FIGURES = {
     "param_ports_unites.svg": familles_de_ports,
     "param_compositewall.svg": mur_composite,
     "param_pipeinsulation.svg": tuyauterie_isolee,
+    "param_parallelepipedicbody.svg": corps_parallelepipedique,
 }
 
 
