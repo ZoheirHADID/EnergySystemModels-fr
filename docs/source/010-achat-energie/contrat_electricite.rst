@@ -405,6 +405,7 @@ Exemples par option tarifaire
 
    exemples/exemple_bt_m36_cu4
    exemples/exemple_bt_p36_cu
+   exemples/exemple_bt_p36_cu_facture_reelle
    
 
 
