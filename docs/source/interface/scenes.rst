@@ -26,10 +26,28 @@ Ouvrir et lancer une scène
 3. **La scène est calculée dès l'ouverture.** Une scène que le solveur nodal sait
    traduire entièrement (réseau hydraulique) est résolue par lui ; toute autre
    scène passe par le moteur historique.
-4. Pour relancer après une modification : bouton **Simuler** (F5) ; pour un réseau
-   hydraulique, **Simuler (réseau nodal)** (Maj+F5).
+4. Pour relancer après une modification : bouton **Simuler** (F5). Il applique
+   **la même règle** qu'à l'ouverture — pas de moteur à choisir. Sa flèche ▾ donne
+   les études qui demandent des paramètres (*Simulation temporelle…*,
+   *Coup de bélier…*) et *Forcer le solveur nodal* (Maj+F5) ; une étude qui ne
+   s'applique pas à la scène est grisée, et son infobulle dit pourquoi.
 5. **Double-cliquer sur un nœud** ouvre sa fenêtre : onglet *Résultats* (ce que le
    nœud a calculé) et onglet *Configuration* (ses réglages).
+6. **Tableau des courants** (bouton **Résultats** ▾ ou menu **Simulation**, F6) : une ligne par sortie
+   d'équipement raccordée — provenance, destinations, capteurs qui la mesurent,
+   fluide, débit, P, h, T, titre vapeur et phase. Il se met à jour à chaque fin de
+   calcul ; cliquer une ligne sélectionne la liaison sur le schéma. Boutons
+   *Copier* (collable dans un tableur) et *Exporter CSV…* (séparateur ``;``,
+   virgule décimale).
+
+   Le tableau **lit** les résultats, il ne recalcule rien : un nœud non calculé
+   donne une ligne grisée « non calculé » aux cases vides. T, titre et phase d'un
+   fluide pur viennent de CoolProp (P, h) ; un mélange multi-constituants qui ne
+   porte pas sa température n'en reçoit pas d'estimée, et la colonne *État* le dit.
+
+   Relevé le 2026-11-09 sur *Cycles frigorifiques > 1 - Cycle mono-etage* : sortie
+   du détendeur à 1,7268 bar, −35,00 °C, diphasique, titre 0,543 ; refoulement du
+   compresseur à 18,695 bar, 67,55 °C, vapeur.
 
 La barre d'outils affiche un statut après chaque calcul. « Convergé » veut dire que
 le point fixe a été **constaté** ; le moteur historique, qui fait une passe unique,
@@ -37,7 +55,9 @@ affiche honnêtement « convergence non mesurée » : ses résultats ne sont pas
 pour autant, mais rien ne les a recoupés.
 
 La simulation dans le temps (niveau d'une bâche, régulation PID) et le coup de
-bélier ont leurs propres boutons ; ils sont décrits dans
+bélier sont sous la flèche de **Simuler** ; les courbes de la dernière simulation
+temporelle se rouvrent par **Résultats ▾ > Résultats temporels**. Ils sont décrits
+dans
 :doc:`../013-simulation-temporelle/index`.
 
 Ce qu'il faut savoir avant d'exploiter une scène

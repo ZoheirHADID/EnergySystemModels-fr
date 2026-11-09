@@ -4,7 +4,7 @@ Lancer une simulation temporelle
 ================================
 
 Le bouton **Simuler** de PyqtSimulator calcule un **régime permanent** : une
-photo du réseau. Le bouton **Simulation temporelle** calcule un **film** :
+photo du réseau. L'entrée **Simuler ▾ > Simulation temporelle…** calcule un **film** :
 l'évolution, pas de temps après pas de temps, de ce qui a une mémoire — le
 niveau d'une bâche, l'intégrale d'un régulateur PID. À chaque pas, le réseau
 hydraulique est résolu (solveur nodal), puis les régulations agissent.
@@ -31,7 +31,7 @@ Ce que le bouton simule, et ce qu'il ne simule pas :
      - sa propre boucle (durée saisie dans le nœud)
      - :doc:`chambre_froide`
    * - Fermeture brutale d'une vanne
-     - bouton **Coup de bélier**
+     - **Simuler ▾ > Coup de bélier…**
      - :doc:`coup_de_belier`
 
 Une scène qui ne contient ni bâche ni PID câblé est refusée : « la scene ne

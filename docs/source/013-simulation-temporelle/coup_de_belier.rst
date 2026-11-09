@@ -9,7 +9,7 @@ Fermer une vanne arrête une colonne d'eau en mouvement. Si la fermeture est
 de surpression remonte la conduite et une dépression s'ouvre à l'aval — jusqu'à
 vaporiser l'eau (**cavitation**, rupture de colonne).
 
-Le bouton **Coup de bélier** de PyqtSimulator calcule ce régime transitoire sur
+L'entrée **Simuler ▾ > Coup de bélier…** de PyqtSimulator calcule ce régime transitoire sur
 n'importe quelle scène hydraulique : il part du **régime permanent** de la scène
 (solveur nodal), ferme la vanne choisie, et propage les ondes par la **méthode
 des caractéristiques** (validée contre Frelin, *Techniques de l'Ingénieur*
