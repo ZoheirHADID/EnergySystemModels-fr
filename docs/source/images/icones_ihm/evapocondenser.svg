@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100" role="img" aria-label="Évapocondenseur">
+  <title>Évapocondenseur (bilan enthalpique sous pincement)</title>
+  <desc>Échangeur à tubes (ISO 14617-11, 2511) parcouru par un serpentin : un fluide condense pendant que l'autre s'évapore. Bilan à débits donnés et pincement imposé.</desc>
+  <metadata>{"standard": "ISO 14617-11", "ref": "2511 (variante)", "name": "Évapocondenseur", "ports": [{"id": "port-w1", "x": 8, "y": 40, "dir": "w", "role": "process"}, {"id": "port-w2", "x": 8, "y": 60, "dir": "w", "role": "process"}, {"id": "port-e1", "x": 92, "y": 40, "dir": "e", "role": "process"}, {"id": "port-e2", "x": 92, "y": 60, "dir": "e", "role": "process"}]}</metadata>
+  <g fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="18" y="22" width="64" height="56" rx="10"/>
+    <polyline points="8,40 26,40 32,32 40,48 48,32 56,48 64,32 70,40 92,40"/>
+    <line x1="8" y1="60" x2="18" y2="60"/>
+    <line x1="82" y1="60" x2="92" y2="60"/>
+    <path d="M30 66 q5 -6 10 0 t10 0 t10 0 t10 0"/>
+  </g>
+  <g class="ports">
+    <circle class="port" cx="8" cy="40" r="2.0" fill="#000000" stroke="none" data-port="port-w1" data-dir="w" data-role="process"/>
+    <circle class="port" cx="8" cy="60" r="2.0" fill="#000000" stroke="none" data-port="port-w2" data-dir="w" data-role="process"/>
+    <circle class="port" cx="92" cy="40" r="2.0" fill="#000000" stroke="none" data-port="port-e1" data-dir="e" data-role="process"/>
+    <circle class="port" cx="92" cy="60" r="2.0" fill="#000000" stroke="none" data-port="port-e2" data-dir="e" data-role="process"/>
+  </g>
+</svg>

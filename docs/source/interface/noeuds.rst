@@ -11,9 +11,9 @@ champs. Derrière presque chaque nœud se trouve un modèle Python de la
 bibliothèque, celui qu'on appellerait soi-même dans un script. Cette page les
 recense **tous**, famille par famille, dans l'ordre de la palette.
 
-Relevé du 2026-09-28 : **125 nœuds** enregistrés dans
+Relevé du 2026-11-09 : **133 nœuds** enregistrés dans
 ``CALC_NODES``, répartis en **15 familles**.
-114 enveloppent un modèle de la bibliothèque ; 11 sont des
+121 enveloppent un modèle de la bibliothèque ; 12 sont des
 outils propres à l'IHM (sources, sorties, capteurs, signaux, annotations).
 
 Comment lire les tableaux
@@ -47,7 +47,7 @@ Familles de la palette :
    * - Famille
      - Nœuds
    * - Courants et mesures
-     - 4
+     - 5
    * - Calculs et signaux
      - 12
    * - Chaîne d'air (CTA)
@@ -55,11 +55,11 @@ Familles de la palette :
    * - Aéraulique
      - 8
    * - Hydraulique
-     - 24
+     - 30
    * - Séparation
      - 8
    * - Échange thermique
-     - 13
+     - 14
    * - Réacteurs
      - 5
    * - Production d'utilité
@@ -80,7 +80,7 @@ Familles de la palette :
 Courants et mesures
 -------------------
 
-Libellé de la palette : « Courants et Mesures » — 4 nœud(s).
+Libellé de la palette : « Courants et Mesures » — 5 nœud(s).
 
 .. list-table::
    :header-rows: 1
@@ -127,6 +127,15 @@ Libellé de la palette : « Courants et Mesures » — 4 nœud(s).
      - 1 entrée(s) / 0 sortie(s), fluide ; prise de signal
      - ``ThermodynamicCycles.Sensor.Sensor``
      - :doc:`../002-thermodynamic_cycles/capteur_signaux`
+   * - |ic_965| **Bouclage (recyclage)**
+
+       ``recycle_tear.py``
+     - Nœud Bouclage (recyclage) : flux de coupure d'une boucle FERMÉE.
+
+       *Réglages* : débit (kg/s) -- fixe le débit de la boucle, enthalpie estimée (kJ/kg), pression estimée (bar), tolérance relative (-), itérations max (-), Type de fluide
+     - 1 entrée(s) / 1 sortie(s), fluide ; prise de signal
+     - outil de l'IHM
+     - :doc:`../gui_tools`
 
 Calculs et signaux
 ------------------
@@ -495,7 +504,7 @@ Libellé de la palette : « Aeraulique (reseau air) » — 8 nœud(s).
 Hydraulique
 -----------
 
-Libellé de la palette : « Hydraulique (reseau eau) » — 24 nœud(s).
+Libellé de la palette : « Hydraulique (reseau eau) » — 30 nœud(s).
 
 .. list-table::
    :header-rows: 1
@@ -718,10 +727,64 @@ Libellé de la palette : « Hydraulique (reseau eau) » — 24 nœud(s).
        ``tank.py``
      - Nœud Bâche / réservoir à niveau variable (2026-09-24).
 
-       *Réglages* : Section de la bâche (m²), Niveau initial (m), Niveau bas d'alarme (m), Niveau haut d'alarme (m), Pression du ciel (bar abs)
+       *Réglages* : Section de la bâche (m²), Niveau initial (m), Niveau bas d'alarme (m), Niveau haut d'alarme (m), Pression du ciel (bar abs), Courbe de volume (niveau m : volume m³, …) — vide = section, Débordement (simulation temporelle)
      - 1 entrée(s) / 1 sortie(s), fluide ; prise de signal
      - outil de l'IHM
      - :doc:`../gui_tools`
+   * - |ic_966| **Réducteur de pression aval (PRV)**
+
+       ``prv.py``
+     - Nœud Réducteur de pression aval (PRV).
+
+       *Réglages* : Consigne : pression aval (bar abs), Kv grand ouvert (m³/h)
+     - 1 entrée(s) / 1 sortie(s), fluide ; prise de signal
+     - ``ThermodynamicCycles.Hydraulic.network``
+     - :doc:`../004-hydraulic/resolution_circuit`
+   * - |ic_967| **Maintien de pression amont (PSV)**
+
+       ``psv.py``
+     - Nœud Maintien de pression amont (PSV).
+
+       *Réglages* : Consigne : pression amont (bar abs), Kv grand ouvert (m³/h)
+     - 1 entrée(s) / 1 sortie(s), fluide ; prise de signal
+     - ``ThermodynamicCycles.Hydraulic.network``
+     - :doc:`../004-hydraulic/resolution_circuit`
+   * - |ic_968| **Limiteur de débit (FCV)**
+
+       ``fcv.py``
+     - Nœud Limiteur de débit (FCV).
+
+       *Réglages* : Consigne : débit maximal (m³/h), Kv grand ouvert (m³/h)
+     - 1 entrée(s) / 1 sortie(s), fluide ; prise de signal
+     - ``ThermodynamicCycles.Hydraulic.network``
+     - :doc:`../004-hydraulic/resolution_circuit`
+   * - |ic_969| **Brise-charge (PBV)**
+
+       ``pbv.py``
+     - Nœud Brise-charge (PBV) : perte de charge imposée.
+
+       *Réglages* : Perte de charge imposée (kPa), Kv grand ouvert (m³/h)
+     - 1 entrée(s) / 1 sortie(s), fluide ; prise de signal
+     - ``ThermodynamicCycles.Hydraulic.network``
+     - :doc:`../004-hydraulic/resolution_circuit`
+   * - |ic_970| **Vanne à courbe de perte (GPV)**
+
+       ``gpv.py``
+     - Nœud Vanne à courbe de perte (GPV).
+
+       *Réglages* : Débits de la courbe (m³/h), Pertes de charge de la courbe (m)
+     - 1 entrée(s) / 1 sortie(s), fluide ; prise de signal
+     - ``ThermodynamicCycles.Hydraulic.network``
+     - :doc:`../004-hydraulic/resolution_circuit`
+   * - |ic_971| **Émetteur (buse, sprinkler, fuite)**
+
+       ``emitter.py``
+     - Nœud Émetteur : buse, sprinkler ou fuite (Q = K·p^γ).
+
+       *Réglages* : Facteur K (L/min/bar^γ, catalogue), Exposant γ (0,5 = orifice), Aire de l'orifice (mm²), Coefficient de débit Cd (-), Pression de rejet (bar abs), Loi de débit
+     - 1 entrée(s) / 0 sortie(s), fluide ; prise de signal
+     - ``ThermodynamicCycles.Hydraulic.network``
+     - :doc:`../004-hydraulic/resolution_circuit`
 
 Séparation
 ----------
@@ -811,7 +874,7 @@ Libellé de la palette : « Operations de separation » — 8 nœud(s).
 Échange thermique
 -----------------
 
-Libellé de la palette : « Echange thermique » — 13 nœud(s).
+Libellé de la palette : « Echange thermique » — 14 nœud(s).
 
 .. list-table::
    :header-rows: 1
@@ -937,6 +1000,15 @@ Libellé de la palette : « Echange thermique » — 13 nœud(s).
      - 2 entrée(s) / 2 sortie(s), fluide ; prise de signal
      - ``ThermodynamicCycles.AbsorptionChiller.WorkingPairs``, ``ThermodynamicCycles.SolutionHEX.SolutionHEX``
      - :doc:`../002-thermodynamic_cycles/froid_absorption`, :doc:`../002-thermodynamic_cycles/echangeurs`
+   * - |ic_964| **Évapocondenseur**
+
+       ``evapocondenser.py``
+     - Nœud Évapocondenseur : échangeur frigorifique à bilan enthalpique sous pincement.
+
+       *Réglages* : Pincement ΔTmin (K), Perte de charge côté 1 (bar), Points de contrôle du profil (-), Coeff global U, pour la surface (W/m²K)
+     - 2 entrée(s) / 2 sortie(s), fluide ; prise de signal
+     - ``ThermodynamicCycles.HEX``
+     - :doc:`../002-thermodynamic_cycles/echangeurs`
 
 Réacteurs
 ---------
@@ -1086,7 +1158,7 @@ Libellé de la palette : « Machines tournantes » — 11 nœud(s).
        ``pump.py``
      - Nœud Pompe — modèle UNIQUE (ThermodynamicCycles.Pump.Pump).
 
-       *Réglages* : Pression refoulement (bar), Débits courbe (m³/h), HMT courbe (m), Rendements courbe (-), Débit imposé (kg/s), Rendement isentropique (-), Hauteur aspiration z (m, + en charge), Perte a l'aspiration (m), … (14 au total)
+       *Réglages* : Pression refoulement (bar), Puissance hydraulique (kW), Débits courbe (m³/h), HMT courbe (m), Rendements courbe (-), Débit imposé (kg/s), Rendement isentropique (-), Hauteur aspiration z (m, + en charge), … (15 au total)
      - 1 entrée(s) / 1 sortie(s), fluide ; prise de signal
      - ``ThermodynamicCycles.Pump.Pump``
      - :doc:`../002-thermodynamic_cycles/pompe`, :doc:`../004-hydraulic/index`
@@ -1421,6 +1493,8 @@ Voir aussi
    :width: 28px
 .. |ic_670| image:: ../images/icones_ihm/sensor.svg
    :width: 28px
+.. |ic_965| image:: ../images/icones_ihm/recycle_tear.svg
+   :width: 28px
 .. |ic_50| image:: ../images/icones_ihm/operations.png
    :width: 28px
 .. |ic_60| image:: ../images/icones_ihm/operations.png
@@ -1543,6 +1617,18 @@ Voir aussi
    :width: 28px
 .. |ic_963| image:: ../images/icones_ihm/tank.svg
    :width: 28px
+.. |ic_966| image:: ../images/icones_ihm/prv.svg
+   :width: 28px
+.. |ic_967| image:: ../images/icones_ihm/psv.svg
+   :width: 28px
+.. |ic_968| image:: ../images/icones_ihm/fcv.svg
+   :width: 28px
+.. |ic_969| image:: ../images/icones_ihm/pbv.svg
+   :width: 28px
+.. |ic_970| image:: ../images/icones_ihm/gpv.svg
+   :width: 28px
+.. |ic_971| image:: ../images/icones_ihm/emitter.svg
+   :width: 28px
 .. |ic_370| image:: ../images/icones_ihm/separator.svg
    :width: 28px
 .. |ic_380| image:: ../images/icones_ihm/flash_tank.svg
@@ -1584,6 +1670,8 @@ Voir aussi
 .. |ic_770| image:: ../images/icones_ihm/solar_collector.svg
    :width: 28px
 .. |ic_900| image:: ../images/icones_ihm/solution_hex.svg
+   :width: 28px
+.. |ic_964| image:: ../images/icones_ihm/evapocondenser.svg
    :width: 28px
 .. |ic_610| image:: ../images/icones_ihm/combustor.svg
    :width: 28px
