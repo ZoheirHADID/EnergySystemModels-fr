@@ -40,7 +40,7 @@ Toutes les fonctions sont ici évaluées sur le **même état d'air** :
    ah.Air_T_db(w=w, h=h)              # -> 25.0
 
    # Température de bulbe humide [°C]
-   ah.Air_T_wb(T_db=25, RH=50)        # -> 17.81
+   ah.Air_T_wb(T_db=25, RH=50)        # -> 17.89   (éq. 31 d'ASHRAE 2021)
    ah.Air_T_wb_ROLAND_STULL(25, 50)   # -> 17.998   (variante Roland Stull, 2011)
 
    # Température de rosée [°C]
@@ -77,6 +77,13 @@ Notes
   paramètre ``P`` pour une autre altitude.
 * **Domaine de validité** : formule Hyland & Wexler de ``Pv_sat`` valable de
   −100 °C à 200 °C, plus précise entre −20 °C et 60 °C.
+* **Bulbe humide** : ``Air_T_wb`` résout l'éq. (31) d'ASHRAE Fundamentals 2021
+  (ch. 1 p. 1.10), définition de la température thermodynamique de bulbe
+  humide ; ``Air_w`` / ``Air_RH`` depuis ``T_wb`` en sont la forme fermée
+  (éq. 33, et 35 sous 0 °C). Écart à CoolProp ``HAPropsSI`` : 0,013 K au pire.
+  L'ancien calcul à enthalpie constante, qui sous-estimait t* jusqu'à 0,2 K
+  sur l'air chaud et sec, reste disponible : ``method='legacy_isenthalpic'``
+  (``wet_bulb_method=`` pour ``Air_w`` et ``Air_RH``).
 * **Références** : ASHRAE Handbook — Fundamentals (2013), ch. 1 Psychrometrics ;
   Hyland & Wexler (1983) ; Roland Stull (2011) pour la variante de ``T_wb``.
 
