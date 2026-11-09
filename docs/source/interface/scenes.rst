@@ -74,9 +74,17 @@ bibliothèque :
 - Le nœud *Source* lit l'unité de débit « m³/h » écrite avec exposant comme « m3/h »
   et **refuse** une unité inconnue (le nœud passe en erreur) au lieu de la prendre,
   sans le dire, pour des kg/s (corrigé le 28/09/2026).
-- **Sur une scène résolue par le solveur nodal, le nœud Source continue d'afficher
-  15 °C et 1,013 bar**, ses valeurs de construction : lire la température et la
-  pression réelles sur un capteur. Les tableaux ci-dessous omettent donc ces sources.
+- Sur une scène résolue par le solveur nodal, le nœud *Source* affichait 15 °C et
+  1,013 bar, ses valeurs de construction, quels que soient ses réglages (corrigé le
+  09/11/2026 : il affiche la température et la pression de son port de sortie). Les
+  tableaux ci-dessous, relevés avant, omettent ces sources.
+- Un **té divergent dont la sortie latérale n'est reliée à aucun réseau** (rien de
+  connecté, ou un simple capteur) **soutire** au nœud du té le débit de son champ
+  « Débit branche side » (``fs``, 0,1 kg/s par défaut) : ce débit quitte le réseau.
+  C'est voulu pour un soutirage mesuré par un capteur ; pour une sortie fermée, mettre
+  ``fs = 0``. Le statut du calcul l'affiche désormais en avertissement : dans
+  « Batiment 7 - debit variable », une sortie laissée non connectée soutirait ainsi
+  0,1 kg/s (31 % du débit de la ligne) sans le dire.
 - Un **titre de nœud** est un libellé saisi (« Pompe à courbe — point réseau
   25,87 m³/h ») : il ne suit pas le calcul.
 
