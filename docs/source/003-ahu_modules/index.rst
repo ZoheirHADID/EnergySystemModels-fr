@@ -13,4 +13,5 @@ Centrales de traitement d'air
    batteries
    composants_cta
    generic_ahu
+   refroidisseur_evaporatif
    nomenclature

@@ -11,9 +11,9 @@ champs. Derrière presque chaque nœud se trouve un modèle Python de la
 bibliothèque, celui qu'on appellerait soi-même dans un script. Cette page les
 recense **tous**, famille par famille, dans l'ordre de la palette.
 
-Relevé du 2026-11-09 : **133 nœuds** enregistrés dans
+Relevé du 2026-11-09 : **134 nœuds** enregistrés dans
 ``CALC_NODES``, répartis en **15 familles**.
-121 enveloppent un modèle de la bibliothèque ; 12 sont des
+122 enveloppent un modèle de la bibliothèque ; 12 sont des
 outils propres à l'IHM (sources, sorties, capteurs, signaux, annotations).
 
 Comment lire les tableaux
@@ -51,7 +51,7 @@ Familles de la palette :
    * - Calculs et signaux
      - 12
    * - Chaîne d'air (CTA)
-     - 17
+     - 18
    * - Aéraulique
      - 8
    * - Hydraulique
@@ -255,7 +255,7 @@ Libellé de la palette : « Calculs et signaux » — 12 nœud(s).
 Chaîne d'air (CTA)
 ------------------
 
-Libellé de la palette : « Modeles CTA (chaine d'air) » — 17 nœud(s).
+Libellé de la palette : « Modeles CTA (chaine d'air) » — 18 nœud(s).
 
 .. list-table::
    :header-rows: 1
@@ -413,6 +413,15 @@ Libellé de la palette : « Modeles CTA (chaine d'air) » — 17 nœud(s).
      - 1 entrée(s) / 0 sortie(s), air humide ; prise de signal
      - ``AHU.Sensor.AirSensor``
      - :doc:`../003-ahu_modules/composants_cta`
+   * - |ic_972| **Refroidisseur évaporatif**
+
+       ``evaporative_cooler.py``
+     - Nœud Refroidisseur évaporatif (EvaporativeCooler) : direct ou indirect, par son efficacité -- ASHRAE HVAC Systems & Equipment 2008, ch.40.
+
+       *Réglages* : Efficacité (%), T humide air secondaire (°C), Perte de charge (Pa), Type
+     - 1 entrée(s) / 1 sortie(s), air humide ; prise de signal
+     - ``ThermodynamicCycles.EvaporativeCooler.EvaporativeCooler``
+     - :doc:`../003-ahu_modules/refroidisseur_evaporatif`
 
 Aéraulique
 ----------
@@ -1552,6 +1561,8 @@ Voir aussi
 .. |ic_690| image:: ../images/icones_ihm/air_recovery_ahu.svg
    :width: 28px
 .. |ic_700| image:: ../images/icones_ihm/air_sensor.svg
+   :width: 28px
+.. |ic_972| image:: ../images/icones_ihm/evaporative_cooler.svg
    :width: 28px
 .. |ic_600| image:: ../images/icones_ihm/aeraulic_straight_pipe.svg
    :width: 28px
