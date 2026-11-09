@@ -579,8 +579,12 @@ exemple de la page) :
      - 10² à 10⁶ W/K
    * - ``arrangement``
      - ``"counterflow"``
-     - ``"parallelflow"`` pour un co-courant ; toute autre valeur lève
-       ``UnsupportedArrangementError`` (pas de courants croisés)
+     - ``"parallelflow"`` (co-courant), ``"crossflow_both_unmixed"``,
+       ``"crossflow_cmin_mixed"``, ``"crossflow_cmax_mixed"``,
+       ``"crossflow_both_mixed"`` (courants croisés), ``"shell_and_tube_1_2"``
+       (calandre 1-2, TEMA E) — Shah & Sekulic 2003, Table 3.3, p. 128. Toute
+       autre valeur lève ``UnsupportedArrangementError`` ; un ``"crossflow"``
+       sans précision aussi, car il faut dire quel fluide est brassé
      - —
    * - ``R_f_hot`` / ``R_f_cold``
      - ``0.0``
@@ -626,6 +630,38 @@ Doubler ``UA`` (donc la surface) ne fait gagner que 30 % de puissance : le NUT
 passe de 1,2 à 2,4 et l'efficacité d'un contre-courant sature. En co-courant,
 la même surface plafonne plus bas — l'efficacité ne peut dépasser 50 % pour deux
 débits capacitifs égaux.
+
+Variante : comparer les arrangements à surface égale
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code-block:: python
+
+    from ThermodynamicCycles.FluidPort.FluidPort import ThermoPropsSI
+    from ThermodynamicCycles.HEX import TwoStreamEffectivenessNTUHEX
+
+    for arrangement in ("counterflow", "shell_and_tube_1_2", "crossflow_both_unmixed",
+                        "crossflow_both_mixed", "parallelflow"):
+        v = TwoStreamEffectivenessNTUHEX()
+        for port, T in ((v.Inlet1, 80), (v.Inlet2, 20)):
+            port.fluid, port.P, port.F = "water", 101325, 1.0
+            port.h = ThermoPropsSI("H", "P", 101325, "T", T + 273.15, "water")
+        v.UA, v.arrangement = 10000.0, arrangement
+        v.calculate()
+        print(f"{arrangement:24s} : eff = {v.Eff:.3f}, Q = {v.Qth / 1e3:.1f} kW")
+
+Sortie réelle :
+
+.. code-block:: text
+
+   counterflow              : eff = 0.706, Q = 177.2 kW
+   shell_and_tube_1_2       : eff = 0.570, Q = 143.1 kW
+   crossflow_both_unmixed   : eff = 0.646, Q = 162.1 kW
+   crossflow_both_mixed     : eff = 0.562, Q = 141.0 kW
+   parallelflow             : eff = 0.497, Q = 124.6 kW
+
+À UA égal, le courant croisé non brassé récupère 91 % de la puissance du
+contre-courant ; brasser les deux fluides en fait perdre 20 %. Dans le nœud
+NUT de PyqtSimulator, le même choix se fait par le menu « Arrangement ».
 
 .. _echangeurs-solutionhex:
 
