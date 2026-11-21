@@ -6,6 +6,27 @@
 > dépôt source. Une entrée se **retire** dès qu'une exécution montre qu'elle est
 > corrigée.
 
+## `ThermodynamicCycles.Chiller` — fluide sec à rendement élevé : refoulement à la saturation exacte, CoolProp refuse
+
+Constaté le 2026-11-21 (handbook, itération 62). Avec un fluide « sec » (R245fa) et
+un rendement isentropique élevé, le calcul échoue dès que la condensation
+dépasse environ 100 °C :
+
+```python
+from ThermodynamicCycles.Chiller import Object as Chiller
+ch = Chiller(fluid='R245fa', evap_params={'Ti_degC': 45, 'surchauff': 5, 'F': 1.0},
+             comp_params={'Tcond_degC': 105, 'eta_is': 0.85, 'Tdischarge_target': 200},
+             cond_params={'subcooling': 3})
+ch.calculate_cycle()
+# ValueError: Saturation pressure [1.41175e+06 Pa] corresponding to T [378.15 K]
+# is within 1e-4 % of given p : PropsSI("H","P",1411746.015,"T",378.15,"R245fa")
+```
+
+Le même cas passe à `eta_is` = 0,75 (COP 3,69) ; à 85 °C de condensation, il
+passe jusqu'à 0,85 (COP 6,52). Les valeurs 0,84 et 0,845 échouent aussi. Hypothèse :
+un composant (désurchauffeur ou condenseur) évalue `h(P, T)` exactement à
+`T = Tsat(P)`, où CoolProp refuse le flash PT. Un état diphasique demande `h(P, Q)`.
+
 ## `Hydraulic.GateValve` — coefficients par défaut 3,45 fois Crane ; `bore_type` inconnu accepté en silence
 
 - **Corrigé en partie le 28/09/2026** : `bore_type` inconnu → `ValueError` ; `source='crane'` avec `ouverture < 1` → `ValueError` (Crane ne publie que grande ouverte) ; la docstring n'attribue plus K1 = 0,7 / K∞ = 0,35 à « Hooper 1988, CRANE TP410 » (TP-410 p. A-28 relue : K1 = 8 f_T, 0,152 en 2"). Tests `test/Hydraulic/test_opercule_clapet_2026_09.py`. **Reste ouvert** : le défaut reste `'legacy'` (×3,45) — la règle D1 (test `test_le_defaut_reste_legacy_sur_les_cinq_modules`, baseline `test/Reference`) en fait un arbitrage humain ; la loi d'ouverture `ouverture**2.5 + 0.01` reste sans source.
