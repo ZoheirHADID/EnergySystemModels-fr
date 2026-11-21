@@ -178,23 +178,23 @@ Sortie réelle (étapes intermédiaires ``euro_…`` résumées par « … ») :
 
    …
    === ACHEMINEMENT (TURPE) ===
-                          Ligne                                   Formule       Entrée(s)                 Coefficient Résultat    Annuel
-     Composante de Gestion (CG)                            CG_annuel / 12   440.76 EUR/an                    31 jours    36.73    440.76
-    Composante de Comptage (CC)                            CC_annuel / 12   383.76 EUR/an                    31 jours    31.98    383.76
-                 CS Fixe Pointe                            b0 x PS_Pointe          100 kW 14.1300 EUR/kW/an (TURPE 6)             1413.0
-             CS Fixe HPH-Pointe                 b1 x (PS_HPH - PS_Pointe)          100 kW 14.1300 EUR/kW/an (TURPE 6)             1413.0
-                CS Fixe HCH-HPH                    b2 x (PS_HCH - PS_HPH)            0 kW 14.1300 EUR/kW/an (TURPE 6)                0.0
-                CS Fixe HPB-HCH                    b3 x (PS_HPB - PS_HCH)            0 kW 14.1300 EUR/kW/an (TURPE 6)                0.0
-                CS Fixe HCB-HPB                    b4 x (PS_HCB - PS_HPB)            0 kW 14.1300 EUR/kW/an (TURPE 6)                0.0
-          = CS Fixe (proratisé)                 CS_annuel x nb_jour / 365 2,826.00 EUR/an                    31 jours   240.02    2826.0
-             CS Variable Pointe                     c_Pointe x kWh_Pointe       5,000 kWh   0.06760 EUR/kWh (TURPE 6)    338.0
-                CS Variable HPH                           c_HPH x kWh_HPH      30,000 kWh   0.04840 EUR/kWh (TURPE 6)   1452.0
-                CS Variable HCH                           c_HCH x kWh_HCH      20,000 kWh   0.02830 EUR/kWh (TURPE 6)    566.0
-                CS Variable HPB                           c_HPB x kWh_HPB      25,000 kWh   0.00820 EUR/kWh (TURPE 6)    205.0
-                CS Variable HCB                           c_HCB x kWh_HCB      15,000 kWh   0.00540 EUR/kWh (TURPE 6)     81.0
-            = CS Variable total                             Somme c x kWh                                               2642.0
-         Dépassement PS (CMDPS)                             CMDPS mensuel                                                  0.0
-   = TOTAL TURPE (acheminement) CG + CC + CS_fixe + CS_var + CMDPS + CACS                                              2950.73  35354.52
+                          Ligne                                         Formule       Entrée(s)                 Coefficient Résultat    Annuel
+     Composante de Gestion (CG) CG_annuel x 1/12 (grille TURPE 6 du 2025-02-01)   440.76 EUR/an                    31 jours    36.73    440.76
+    Composante de Comptage (CC) CC_annuel x 1/12 (grille TURPE 6 du 2025-02-01)   383.76 EUR/an                    31 jours    31.98    383.76
+                 CS Fixe Pointe                                  b0 x PS_Pointe          100 kW 14.1300 EUR/kW/an (TURPE 6)             1413.0
+             CS Fixe HPH-Pointe                       b1 x (PS_HPH - PS_Pointe)          100 kW 14.1300 EUR/kW/an (TURPE 6)             1413.0
+                CS Fixe HCH-HPH                          b2 x (PS_HCH - PS_HPH)            0 kW 14.1300 EUR/kW/an (TURPE 6)                0.0
+                CS Fixe HPB-HCH                          b3 x (PS_HPB - PS_HCH)            0 kW 14.1300 EUR/kW/an (TURPE 6)                0.0
+                CS Fixe HCB-HPB                          b4 x (PS_HCB - PS_HPB)            0 kW 14.1300 EUR/kW/an (TURPE 6)                0.0
+          = CS Fixe (proratisé)                       CS_annuel x nb_jour / 365 2,826.00 EUR/an                    31 jours   240.02    2826.0
+             CS Variable Pointe                           c_Pointe x kWh_Pointe       5,000 kWh   0.06760 EUR/kWh (TURPE 6)    338.0
+                CS Variable HPH                                 c_HPH x kWh_HPH      30,000 kWh   0.04840 EUR/kWh (TURPE 6)   1452.0
+                CS Variable HCH                                 c_HCH x kWh_HCH      20,000 kWh   0.02830 EUR/kWh (TURPE 6)    566.0
+                CS Variable HPB                                 c_HPB x kWh_HPB      25,000 kWh   0.00820 EUR/kWh (TURPE 6)    205.0
+                CS Variable HCB                                 c_HCB x kWh_HCB      15,000 kWh   0.00540 EUR/kWh (TURPE 6)     81.0
+            = CS Variable total                                   Somme c x kWh                                               2642.0
+         Dépassement PS (CMDPS)                                   CMDPS mensuel                                                  0.0
+   = TOTAL TURPE (acheminement)       CG + CC + CS_fixe + CS_var + CMDPS + CACS                                              2950.73  35354.52
 
    === TOTAUX ===
                          Ligne                    Formule Entrée(s) Coefficient  Résultat Annuel

@@ -87,41 +87,153 @@ Sortie réelle :
        BT > 36 kVA                  CU            (tous) TURPE 4 2014-01-01      2015-07-31
        BT > 36 kVA                  CU            (tous) TURPE 4 2015-08-01      2016-07-31
        BT > 36 kVA                  CU            (tous) TURPE 4 2016-08-01      2017-07-31
-       BT > 36 kVA                  CU            (tous) TURPE 5 2017-08-01      2021-07-31
-       BT > 36 kVA                  CU            (tous) TURPE 6 2021-08-01      2024-10-31
+       BT > 36 kVA                  CU    contrat unique TURPE 5 2017-08-01      2017-12-31
+       BT > 36 kVA                  CU              CARD TURPE 5 2017-08-01      2017-12-31
+       BT > 36 kVA                  CU    contrat unique TURPE 5 2018-01-01      2018-07-31
+       BT > 36 kVA                  CU              CARD TURPE 5 2018-01-01      2018-07-31
+       BT > 36 kVA                  CU    contrat unique TURPE 5 2018-08-01      2019-07-31
+       BT > 36 kVA                  CU              CARD TURPE 5 2018-08-01      2019-07-31
+       BT > 36 kVA                  CU    contrat unique TURPE 5 2019-08-01      2020-07-31
+       BT > 36 kVA                  CU              CARD TURPE 5 2019-08-01      2020-07-31
+       BT > 36 kVA                  CU    contrat unique TURPE 5 2020-08-01      2021-07-31
+       BT > 36 kVA                  CU              CARD TURPE 5 2020-08-01      2021-07-31
+       BT > 36 kVA                  CU            (tous) TURPE 6 2021-08-01      2022-07-31
+       BT > 36 kVA                  CU            (tous) TURPE 6 2022-08-01      2023-07-31
+       BT > 36 kVA                  CU            (tous) TURPE 6 2023-08-01      2024-10-31
        BT > 36 kVA                  CU            (tous) TURPE 6 2024-11-01      2025-01-31
        BT > 36 kVA                  CU            (tous) TURPE 6 2025-02-01      2025-07-31
-       BT > 36 kVA                  CU            (tous) TURPE 7 2025-08-01      2029-07-31
+       BT > 36 kVA                  CU            (tous) TURPE 7 2025-08-01      2026-07-31
+       BT > 36 kVA                  CU            (tous) TURPE 7 2026-08-01      2029-07-31
        BT > 36 kVA                  LU            (tous) TURPE 4 2014-01-01      2015-07-31
-       BT > 36 kVA                  LU            (tous) TURPE 4 2015-08-01      2016-07-31
-       BT > 36 kVA                  LU            (tous) TURPE 4 2016-08-01      2017-07-31
-       BT > 36 kVA                  LU            (tous) TURPE 5 2017-08-01      2021-07-31
-       BT > 36 kVA                  LU            (tous) TURPE 6 2021-08-01      2024-10-31
+       BT > 36 kVA                  LU    contrat unique TURPE 4 2015-08-01      2016-07-31
+       BT > 36 kVA                  LU              CARD TURPE 4 2015-08-01      2016-07-31
+       BT > 36 kVA                  LU    contrat unique TURPE 4 2016-08-01      2017-07-31
+       BT > 36 kVA                  LU              CARD TURPE 4 2016-08-01      2017-07-31
+       BT > 36 kVA                  LU    contrat unique TURPE 5 2017-08-01      2017-12-31
+       BT > 36 kVA                  LU              CARD TURPE 5 2017-08-01      2017-12-31
+       BT > 36 kVA                  LU    contrat unique TURPE 5 2018-01-01      2018-07-31
+       BT > 36 kVA                  LU              CARD TURPE 5 2018-01-01      2018-07-31
+       BT > 36 kVA                  LU    contrat unique TURPE 5 2018-08-01      2019-07-31
+       BT > 36 kVA                  LU              CARD TURPE 5 2018-08-01      2019-07-31
+       BT > 36 kVA                  LU    contrat unique TURPE 5 2019-08-01      2020-07-31
+       BT > 36 kVA                  LU              CARD TURPE 5 2019-08-01      2020-07-31
+       BT > 36 kVA                  LU    contrat unique TURPE 5 2020-08-01      2021-07-31
+       BT > 36 kVA                  LU              CARD TURPE 5 2020-08-01      2021-07-31
+       BT > 36 kVA                  LU            (tous) TURPE 6 2021-08-01      2022-07-31
+       BT > 36 kVA                  LU            (tous) TURPE 6 2022-08-01      2023-07-31
+       BT > 36 kVA                  LU            (tous) TURPE 6 2023-08-01      2024-10-31
        BT > 36 kVA                  LU            (tous) TURPE 6 2024-11-01      2025-01-31
        BT > 36 kVA                  LU            (tous) TURPE 6 2025-02-01      2025-07-31
-       BT > 36 kVA                  LU            (tous) TURPE 7 2025-08-01      2029-07-31
+       BT > 36 kVA                  LU            (tous) TURPE 7 2025-08-01      2026-07-31
+       BT > 36 kVA                  LU            (tous) TURPE 7 2026-08-01      2029-07-31
+       BT > 36 kVA                  MU    contrat unique TURPE 4 2014-08-01      2015-07-31
+       BT > 36 kVA                  MU              CARD TURPE 4 2014-08-01      2015-07-31
+       BT > 36 kVA                  MU    contrat unique TURPE 4 2015-08-01      2016-07-31
+       BT > 36 kVA                  MU              CARD TURPE 4 2015-08-01      2016-07-31
+       BT > 36 kVA                  MU    contrat unique TURPE 4 2016-08-01      2017-07-31
+       BT > 36 kVA                  MU              CARD TURPE 4 2016-08-01      2017-07-31
                HTA                  CU    contrat unique TURPE 4 2014-08-01      2017-07-31
-               HTA               CU_pf            (tous) TURPE 5 2017-08-01      2021-07-31
-               HTA               CU_pf            (tous) TURPE 6 2021-08-01      2025-01-31
-               HTA               CU_pf            (tous) TURPE 6 2025-02-01      2025-07-31
-               HTA               CU_pf    contrat unique TURPE 7 2025-08-01      2029-07-31
-               HTA               CU_pm            (tous) TURPE 5 2017-08-01      2021-07-31
-               HTA               CU_pm    contrat unique TURPE 6 2021-08-01      2025-01-31
+               HTA               CU_pf    contrat unique TURPE 5 2017-08-01      2017-12-31
+               HTA               CU_pf              CARD TURPE 5 2017-08-01      2017-12-31
+               HTA               CU_pf    contrat unique TURPE 5 2018-01-01      2018-07-31
+               HTA               CU_pf              CARD TURPE 5 2018-01-01      2018-07-31
+               HTA               CU_pf    contrat unique TURPE 5 2018-08-01      2019-07-31
+               HTA               CU_pf              CARD TURPE 5 2018-08-01      2019-07-31
+               HTA               CU_pf    contrat unique TURPE 5 2019-08-01      2020-07-31
+               HTA               CU_pf              CARD TURPE 5 2019-08-01      2020-07-31
+               HTA               CU_pf    contrat unique TURPE 5 2020-08-01      2021-07-31
+               HTA               CU_pf              CARD TURPE 5 2020-08-01      2021-07-31
+               HTA               CU_pf    contrat unique TURPE 6 2021-08-01      2022-07-31
+               HTA               CU_pf              CARD TURPE 6 2021-08-01      2022-07-31
+               HTA               CU_pf    contrat unique TURPE 6 2022-08-01      2023-07-31
+               HTA               CU_pf              CARD TURPE 6 2022-08-01      2023-07-31
+               HTA               CU_pf    contrat unique TURPE 6 2023-08-01      2024-10-31
+               HTA               CU_pf              CARD TURPE 6 2023-08-01      2024-10-31
+               HTA               CU_pf    contrat unique TURPE 6 2024-11-01      2025-01-31
+               HTA               CU_pf              CARD TURPE 6 2024-11-01      2025-01-31
+               HTA               CU_pf    contrat unique TURPE 6 2025-02-01      2025-07-31
+               HTA               CU_pf              CARD TURPE 6 2025-02-01      2025-07-31
+               HTA               CU_pf    contrat unique TURPE 7 2025-08-01      2026-07-31
+               HTA               CU_pf              CARD TURPE 7 2025-08-01      2026-07-31
+               HTA               CU_pf    contrat unique TURPE 7 2026-08-01      2029-07-31
+               HTA               CU_pf              CARD TURPE 7 2026-08-01      2029-07-31
+               HTA               CU_pm    contrat unique TURPE 5 2017-08-01      2017-12-31
+               HTA               CU_pm              CARD TURPE 5 2017-08-01      2017-12-31
+               HTA               CU_pm    contrat unique TURPE 5 2018-01-01      2018-07-31
+               HTA               CU_pm              CARD TURPE 5 2018-01-01      2018-07-31
+               HTA               CU_pm    contrat unique TURPE 5 2018-08-01      2019-07-31
+               HTA               CU_pm              CARD TURPE 5 2018-08-01      2019-07-31
+               HTA               CU_pm    contrat unique TURPE 5 2019-08-01      2020-07-31
+               HTA               CU_pm              CARD TURPE 5 2019-08-01      2020-07-31
+               HTA               CU_pm    contrat unique TURPE 5 2020-08-01      2021-07-31
+               HTA               CU_pm              CARD TURPE 5 2020-08-01      2021-07-31
+               HTA               CU_pm    contrat unique TURPE 6 2021-08-01      2022-07-31
+               HTA               CU_pm              CARD TURPE 6 2021-08-01      2022-07-31
+               HTA               CU_pm    contrat unique TURPE 6 2022-08-01      2023-07-31
+               HTA               CU_pm              CARD TURPE 6 2022-08-01      2023-07-31
+               HTA               CU_pm    contrat unique TURPE 6 2023-08-01      2024-10-31
+               HTA               CU_pm              CARD TURPE 6 2023-08-01      2024-10-31
+               HTA               CU_pm    contrat unique TURPE 6 2024-11-01      2025-01-31
+               HTA               CU_pm              CARD TURPE 6 2024-11-01      2025-01-31
                HTA               CU_pm    contrat unique TURPE 6 2025-02-01      2025-07-31
+               HTA               CU_pm              CARD TURPE 6 2025-02-01      2025-07-31
+               HTA               CU_pm    contrat unique TURPE 7 2025-08-01      2026-07-31
+               HTA               CU_pm              CARD TURPE 7 2025-08-01      2026-07-31
+               HTA               CU_pm    contrat unique TURPE 7 2026-08-01      2029-07-31
+               HTA               CU_pm              CARD TURPE 7 2026-08-01      2029-07-31
                HTA               LU_pf              CARD TURPE 4 2014-01-01      2015-07-31
                HTA               LU_pf    contrat unique TURPE 4 2014-08-01      2017-07-31
                HTA               LU_pf              CARD TURPE 4 2015-08-01      2016-07-31
                HTA               LU_pf              CARD TURPE 4 2016-08-01      2017-07-31
-               HTA               LU_pf    contrat unique TURPE 5 2017-08-01      2021-07-31
-               HTA               LU_pf              CARD TURPE 5 2017-08-01      2021-07-31
-               HTA               LU_pf    contrat unique TURPE 6 2021-08-01      2025-01-31
-               HTA               LU_pf              CARD TURPE 6 2021-08-01      2025-01-31
+               HTA               LU_pf    contrat unique TURPE 5 2017-08-01      2017-12-31
+               HTA               LU_pf              CARD TURPE 5 2017-08-01      2017-12-31
+               HTA               LU_pf    contrat unique TURPE 5 2018-01-01      2018-07-31
+               HTA               LU_pf              CARD TURPE 5 2018-01-01      2018-07-31
+               HTA               LU_pf    contrat unique TURPE 5 2018-08-01      2019-07-31
+               HTA               LU_pf              CARD TURPE 5 2018-08-01      2019-07-31
+               HTA               LU_pf    contrat unique TURPE 5 2019-08-01      2020-07-31
+               HTA               LU_pf              CARD TURPE 5 2019-08-01      2020-07-31
+               HTA               LU_pf    contrat unique TURPE 5 2020-08-01      2021-07-31
+               HTA               LU_pf              CARD TURPE 5 2020-08-01      2021-07-31
+               HTA               LU_pf    contrat unique TURPE 6 2021-08-01      2022-07-31
+               HTA               LU_pf              CARD TURPE 6 2021-08-01      2022-07-31
+               HTA               LU_pf    contrat unique TURPE 6 2022-08-01      2023-07-31
+               HTA               LU_pf              CARD TURPE 6 2022-08-01      2023-07-31
+               HTA               LU_pf    contrat unique TURPE 6 2023-08-01      2024-10-31
+               HTA               LU_pf              CARD TURPE 6 2023-08-01      2024-10-31
+               HTA               LU_pf    contrat unique TURPE 6 2024-11-01      2025-01-31
+               HTA               LU_pf              CARD TURPE 6 2024-11-01      2025-01-31
                HTA               LU_pf    contrat unique TURPE 6 2025-02-01      2025-07-31
                HTA               LU_pf              CARD TURPE 6 2025-02-01      2025-07-31
                HTA               LU_pf         injection TURPE 6 2025-02-01      2025-07-31
-               HTA               LU_pf    contrat unique TURPE 7 2025-08-01      2029-07-31
-               HTA               LU_pm            (tous) TURPE 5 2017-08-01      2021-07-31
-               HTA               LU_pm            (tous) TURPE 6 2025-02-01      2025-07-31
+               HTA               LU_pf    contrat unique TURPE 7 2025-08-01      2026-07-31
+               HTA               LU_pf              CARD TURPE 7 2025-08-01      2026-07-31
+               HTA               LU_pf    contrat unique TURPE 7 2026-08-01      2029-07-31
+               HTA               LU_pf              CARD TURPE 7 2026-08-01      2029-07-31
+               HTA               LU_pm    contrat unique TURPE 5 2017-08-01      2017-12-31
+               HTA               LU_pm              CARD TURPE 5 2017-08-01      2017-12-31
+               HTA               LU_pm    contrat unique TURPE 5 2018-01-01      2018-07-31
+               HTA               LU_pm              CARD TURPE 5 2018-01-01      2018-07-31
+               HTA               LU_pm    contrat unique TURPE 5 2018-08-01      2019-07-31
+               HTA               LU_pm              CARD TURPE 5 2018-08-01      2019-07-31
+               HTA               LU_pm    contrat unique TURPE 5 2019-08-01      2020-07-31
+               HTA               LU_pm              CARD TURPE 5 2019-08-01      2020-07-31
+               HTA               LU_pm    contrat unique TURPE 5 2020-08-01      2021-07-31
+               HTA               LU_pm              CARD TURPE 5 2020-08-01      2021-07-31
+               HTA               LU_pm    contrat unique TURPE 6 2021-08-01      2022-07-31
+               HTA               LU_pm              CARD TURPE 6 2021-08-01      2022-07-31
+               HTA               LU_pm    contrat unique TURPE 6 2022-08-01      2023-07-31
+               HTA               LU_pm              CARD TURPE 6 2022-08-01      2023-07-31
+               HTA               LU_pm    contrat unique TURPE 6 2023-08-01      2024-10-31
+               HTA               LU_pm              CARD TURPE 6 2023-08-01      2024-10-31
+               HTA               LU_pm    contrat unique TURPE 6 2024-11-01      2025-01-31
+               HTA               LU_pm              CARD TURPE 6 2024-11-01      2025-01-31
+               HTA               LU_pm    contrat unique TURPE 6 2025-02-01      2025-07-31
+               HTA               LU_pm              CARD TURPE 6 2025-02-01      2025-07-31
+               HTA               LU_pm    contrat unique TURPE 7 2025-08-01      2026-07-31
+               HTA               LU_pm              CARD TURPE 7 2025-08-01      2026-07-31
+               HTA               LU_pm    contrat unique TURPE 7 2026-08-01      2029-07-31
+               HTA               LU_pm              CARD TURPE 7 2026-08-01      2029-07-31
 
 Un cadre contractuel « (tous) » signifie que la grille n'en précise pas : elle
 s'applique quel que soit ``cadre_contractuel``. Toute combinaison absente de
@@ -181,32 +293,32 @@ Sortie réelle (étapes intermédiaires ``euro_…`` résumées par « … ») :
    Ligne                  Grille tarifaire
    Formule
    Entrée(s)                       TURPE 7
-   Coefficient    2025-08-01 au 2029-07-31
+   Coefficient    2025-08-01 au 2026-07-31
    Résultat
    Annuel
-                          Ligne                                   Formule       Entrée(s)                 Coefficient Résultat    Annuel
-     Composante de Gestion (CG)                            CG_annuel / 12   440.76 EUR/an                    30 jours    36.73    440.76
-    Composante de Comptage (CC)                            CC_annuel / 12   383.76 EUR/an                    30 jours    31.98    383.76
-                 CS Fixe Pointe                            b0 x PS_Pointe          250 kW 14.7000 EUR/kW/an (TURPE 7)             3675.0
-             CS Fixe HPH-Pointe                 b1 x (PS_HPH - PS_Pointe)            0 kW 14.7000 EUR/kW/an (TURPE 7)                0.0
-                CS Fixe HCH-HPH                    b2 x (PS_HCH - PS_HPH)            0 kW 14.7000 EUR/kW/an (TURPE 7)                0.0
-                CS Fixe HPB-HCH                    b3 x (PS_HPB - PS_HCH)            0 kW 12.8000 EUR/kW/an (TURPE 7)                0.0
-                CS Fixe HCB-HPB                    b4 x (PS_HCB - PS_HPB)            0 kW 11.4400 EUR/kW/an (TURPE 7)                0.0
-          = CS Fixe (proratisé)                 CS_annuel x nb_jour / 365 3,675.00 EUR/an                    30 jours   302.05    3675.0
-                CS Variable HPB                           c_HPB x kWh_HPB      45,000 kWh   0.01030 EUR/kWh (TURPE 7)    463.5
-                CS Variable HCB                           c_HCB x kWh_HCB      30,000 kWh   0.00710 EUR/kWh (TURPE 7)    213.0
-            = CS Variable total                             Somme c x kWh                                                676.5
-         Dépassement PS (CMDPS)                             CMDPS mensuel                                                  0.0
-   = TOTAL TURPE (acheminement) CG + CC + CS_fixe + CS_var + CMDPS + CACS                                              1047.26  12617.52
+                          Ligne                                         Formule       Entrée(s)                 Coefficient Résultat    Annuel
+     Composante de Gestion (CG) CG_annuel x 1/12 (grille TURPE 7 du 2025-08-01)   435.72 EUR/an                    30 jours    36.31    435.72
+    Composante de Comptage (CC) CC_annuel x 1/12 (grille TURPE 7 du 2025-08-01)   376.39 EUR/an                    30 jours    31.37    376.39
+                 CS Fixe Pointe                                  b0 x PS_Pointe          250 kW 14.4100 EUR/kW/an (TURPE 7)             3602.5
+             CS Fixe HPH-Pointe                       b1 x (PS_HPH - PS_Pointe)            0 kW 14.4100 EUR/kW/an (TURPE 7)                0.0
+                CS Fixe HCH-HPH                          b2 x (PS_HCH - PS_HPH)            0 kW 14.4100 EUR/kW/an (TURPE 7)                0.0
+                CS Fixe HPB-HCH                          b3 x (PS_HPB - PS_HCH)            0 kW 12.5500 EUR/kW/an (TURPE 7)                0.0
+                CS Fixe HCB-HPB                          b4 x (PS_HCB - PS_HPB)            0 kW 11.2200 EUR/kW/an (TURPE 7)                0.0
+          = CS Fixe (proratisé)                       CS_annuel x nb_jour / 365 3,602.50 EUR/an                    30 jours    296.1    3602.5
+                CS Variable HPB                                 c_HPB x kWh_HPB      45,000 kWh   0.01010 EUR/kWh (TURPE 7)    454.5
+                CS Variable HCB                                 c_HCB x kWh_HCB      30,000 kWh   0.00690 EUR/kWh (TURPE 7)    207.0
+            = CS Variable total                                   Somme c x kWh                                                661.5
+         Dépassement PS (CMDPS)                                   CMDPS mensuel                                                  0.0
+   = TOTAL TURPE (acheminement)       CG + CC + CS_fixe + CS_var + CMDPS + CACS                                              1025.28  12352.61
                                          Ligne                 Formule  Entrée(s)             Coefficient  Résultat    Annuel
-   CTA (Contribution Tarifaire d'Acheminement) Assiette_CTA x taux_CTA 370.76 EUR                  21.93%     81.31    989.24
+   CTA (Contribution Tarifaire d'Acheminement) Assiette_CTA x taux_CTA 363.78 EUR                  21.93%     79.78    970.62
              TICFE / CSPE (accise électricité)  kWh_total x taux_TICFE 75,000 kWh 0.02250 EUR/kWh (saisi)   1687.50  20531.25
-                = TOTAL TAXES ET CONTRIBUTIONS             CTA + TICFE                                      1768.81
+                = TOTAL TAXES ET CONTRIBUTIONS             CTA + TICFE                                      1767.28
 
 La ligne accise porte le taux saisi, son origine (« saisi ») et son produit :
-75 000 kWh × 0,0225 = 1 687,50 EUR ; le total des taxes (1 768,81 EUR) le
-reprend. Le total TURPE est la somme des lignes : 36,73 + 31,98 + 302,05 +
-676,50 = 1 047,26 EUR. Les tranches de puissance « CS Fixe … » sont données en
+75 000 kWh × 0,0225 = 1 687,50 EUR ; le total des taxes (1 767,28 EUR) le
+reprend. Le total TURPE est la somme des lignes : 36,31 + 31,37 + 296,10 +
+661,50 = 1 025,28 EUR. Les tranches de puissance « CS Fixe … » sont données en
 annuel (colonne « Annuel ») ; seule la ligne proratisée entre dans le total.
 
 Chaque ligne donne la formule, l'entrée, le coefficient de la grille et le
@@ -360,7 +472,7 @@ Sortie réelle (étapes intermédiaires résumées par « … ») :
 .. code-block:: text
 
    …
-   septembre 2025  TURPE 7  CS fixe annuel  3675.00 EUR/an  CS variable   676.50 EUR  TURPE  1047.26 EUR
+   septembre 2025  TURPE 7  CS fixe annuel  3602.50 EUR/an  CS variable   661.50 EUR  TURPE  1025.28 EUR
    février 2025    TURPE 6  CS fixe annuel  3532.50 EUR/an  CS variable   531.00 EUR  TURPE   870.70 EUR
 
 Pièges
