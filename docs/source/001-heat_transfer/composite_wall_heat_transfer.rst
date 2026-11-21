@@ -88,6 +88,21 @@ Paramètres possibles
 - 9-11 mm : R = 0.14 m²·K/W
 - >11 mm : R = 0.16 m²·K/W
 
+Pièges d'usage
+--------------
+
+- **Le nom l'emporte sur la valeur.** Si ``material`` est fourni, ``conductivity``
+  est ignoré, et un nom absent de la base lève ``ValueError``, même quand
+  ``conductivity`` est renseigné. Pour un matériau hors base (acier, tôle, laine
+  de roche…), ne passer que ``conductivity``.
+- **Lame d'air.** ``material='Air'`` applique une résistance tabulée selon
+  l'épaisseur (0,11 à 0,16 m²·K/W), et non une conduction.
+- **Pas de dimensionnement inverse.** Aucune méthode ne rend l'épaisseur
+  d'isolant nécessaire pour une perte cible : balayer les épaisseurs ou
+  résoudre par dichotomie dans le code appelant.
+- **Ordre des couches.** La première couche ajoutée touche le milieu à ``Te``,
+  la dernière celui à ``Ti``.
+
 Explication du modèle
 ----------------------
 

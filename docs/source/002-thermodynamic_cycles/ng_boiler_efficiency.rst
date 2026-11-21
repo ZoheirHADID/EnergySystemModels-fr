@@ -80,32 +80,44 @@ Sortie :
 
 .. code-block:: text
 
-                                     Value
+                                                   Value
     Parameter
     --- INPUTS ---
-    NG flow (Nm3/h)                   2000
-    LHV (kWh/Nm3)                  10.2127
-    HHV (kWh/Nm3)                  11.3258
-    T flue gas (C)                     180
-    O2 dry (%)                         3.5
-    Boiler type                 water_tube
+    NG flow (Nm3/h)                                 2000
+    LHV (kWh/Nm3)                                10.2127
+    HHV (kWh/Nm3)                                11.3258
+    T flue gas (C)                                   180
+    O2 dry (%)                                       3.5
+    Boiler type                               water_tube
     --- COMBUSTION ---
-    Air/fuel ratio (Nm3/Nm3)        11.727
-    Excess air (%)                    20.1
-    Flue gas flow (Nm3/h)          25513.6
-    Condensation T (C)                57.2
+    Air/fuel ratio (Nm3/Nm3)                      11.713
+    Excess air (%)                                  18.0
+    Flue gas flow (Nm3/h)                        25483.8
+    Condensation T (C)                              57.2
     --- HEAT BALANCE (LHV) ---
-    NG heat input (kW)             20425.5
-    Flue gas loss (kW)              1519.2
-    CO loss (kW)                       0.0
-    Radiation loss (kW)              12.38
-    Condensation recovery (kW)         0.0
-    Total losses (kW)               1531.6
-    Heat credits (kW)                  0.0
-    Useful heat (kW)               18893.9
-    Efficiency LHV (%)                92.5
+    NG heat input (kW)                           20425.5
+    Flue gas loss (kW)                            1516.3
+    CO loss (kW)                                     0.0
+    Radiation loss (kW)                            98.35
+    Condensation recovery (kW)                       0.0
+    FG sensible to amb (kW)                      1485.06
+    FG latent to amb (kW)                        2028.08
+    FG total to amb (kW)                         3513.14
+    Total losses (kW)                             1614.7
+    Heat credits (kW)                                0.0
+    Useful heat (kW)                             18810.8
+    Efficiency LHV (%)                             92.09
     --- HEAT BALANCE (HHV) ---
-    Efficiency HHV (%)               82.65
+    Efficiency HHV (%)                             82.43
+    --- FG COOLING SEGMENTS (to ambient) ---
+    FG seg 01 Ti (C)                               180.0
+    FG seg 01 To (C)                                60.0
+    FG seg 01 debit*Cp (kW/K)                       9.82
+    FG seg 01 Puissance (kW)                   1178.3949
+    FG seg 02 Ti (C)                                60.0
+    FG seg 02 To (C)                                25.0
+    FG seg 02 debit*Cp (kW/K)                     66.707
+    FG seg 02 Puissance (kW)                   2334.7466
 
 Exemple 2 : Consigne température eau
 -------------------------------------
