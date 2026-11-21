@@ -243,6 +243,73 @@ Plot sauvegardé par l'étude paramétrique (argument ``save_fig``) :
    fonction du lift thermique, à droite la puissance compresseur en fonction de
    la température cible, avec une courbe par température source.
 
+Principe de calcul
+------------------
+
+``calculate_cycle()`` résout le cycle **séquentiellement**, composant par
+composant. ``Fluid_connect(sortie, entrée)`` recopie l'état du fluide (débit,
+pression, température, enthalpie, entropie) de la sortie d'un composant vers
+l'entrée du suivant :
+
+1. **Évaporateur** : évaporation à ``Ti_degC`` puis surchauffe de
+   ``surchauff`` K. Le débit massique est celui de ``evap_params['F']``
+   (kg/s). Il est **imposé** : à débit égal, deux fluides ne donnent donc pas
+   la même puissance frigorifique.
+2. **Compresseur** : compression jusqu'à la pression de saturation de
+   ``Tcond_degC``, avec le rendement isentropique ``eta_is``. Si le refoulement
+   dépasse ``Tdischarge_target``, le compresseur est refroidi jusqu'à cette
+   valeur : la chaleur retirée sort du cycle (``Q_losses``) et n'arrive pas au
+   condenseur.
+3. **Désurchauffeur** : il ramène la vapeur haute pression à saturation
+   (``Qdesurch``, chaleur récupérable à haute température).
+4. **Condenseur** : condensation puis sous-refroidissement de ``subcooling`` K
+   (``Q_cond``).
+5. **Détendeur** : détente isenthalpique jusqu'à la pression d'évaporation.
+6. **Rebouclage** : la sortie du détendeur redevient l'entrée de
+   l'évaporateur, qui est recalculé avec ce titre vapeur réel.
+
+Indicateurs produits dans ``ch.df`` :
+
+.. math::
+
+   EER = \frac{Q_{evap}}{Q_{comp}} \qquad
+   COP = \frac{Q_{cond} + Q_{desurch}}{Q_{comp}} \qquad
+   COP_{Carnot} = \frac{T_{cond}}{T_{cond} - T_{evap}}
+
+Le rendement de Carnot affiché (``Eta_Carnot (%)``) est ``COP / COP_Carnot``,
+c'est-à-dire en mode chauffage. Sans refroidissement du compresseur
+(``Q_losses`` = 0), le bilan ``Q_condTot = Q_evap + Q_comp`` est exact. Dès que
+``Q_losses`` > 0, ``Q_condTot = Q_evap + Q_comp - Q_losses`` : l'EER est
+inchangé mais le COP baisse.
+
+**Limite : cycle sous-critique uniquement.** Si la température de condensation
+dépasse le point critique du fluide (31,0 °C pour le R744/CO\ :sub:`2`), CoolProp
+refuse le calcul (``ValueError``). Un cycle transcritique, dont la haute pression
+est un degré de liberté et où un refroidisseur de gaz remplace le condenseur,
+n'est pas modélisé.
+
+**Ordres de grandeur** (R134a et R717, eau glacée +5 °C, condensation
++40 °C, ``eta_is`` = 0,75 ; calcul réel du module) :
+
+.. list-table::
+   :header-rows: 1
+
+   * - Variation
+     - Effet sur l'EER
+   * - +1 K à l'évaporation
+     - +3,7 à +3,8 %
+   * - −1 K à la condensation
+     - +3,4 à +3,6 %
+   * - +1 K de sous-refroidissement
+     - +0,5 à +1,0 %
+   * - Évaporation 5 → 0 °C
+     - −16 % (−18 % si la condensation est à 35 °C)
+   * - Condensation 35 → 45 °C (évaporation à 5 °C)
+     - −30 %
+
+Le rapport ``Q_condTot / Q_evap`` du cycle vaut 1,13 à 1,24 sur ces cas : c'est
+``1 + 1/EER`` tant que ``Q_losses`` = 0.
+
 Méthodes
 --------
 
