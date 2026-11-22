@@ -71,4 +71,5 @@ calcule pas. Les périodes couvertes sont données page par page.
    contrat_electricite
    contrat_gaz
    guide_audit_facture
+   profils_energetiques
 

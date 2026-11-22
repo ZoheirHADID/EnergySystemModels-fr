@@ -1,0 +1,76 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" version="1.1" width="1281.5645" height="712.9951" viewBox="0 0 1281.5645 712.9951">
+<defs>
+<clipPath id="clip_1">
+<path transform="matrix(1,0,0,-1,0,712.9951)" d="M48.840627 134.54074H1260.0305V686.9983H48.840627Z"/>
+</clipPath>
+<clipPath id="clip_2">
+<path transform="matrix(.016,0,0,-.016,513.5371,19.996888)" d="M-1070-416H1976V1175H-1070Z"/>
+</clipPath>
+</defs>
+<path transform="matrix(1,0,0,-1,0,712.9951)" d="M0 0H1281.5645V712.9951H0Z" fill="#ffffff"/>
+<path transform="matrix(1,0,0,-1,0,712.9951)" d="M48.840627 134.54074H1260.0305V686.9982H48.840627Z" fill="#ffffff"/>
+<text xml:space="preserve" transform="matrix(.70710679 -.70710679 .70710679 .70710679 50.82546 674.28469)" font-size="13" font-family="DejaVuSans"><tspan y="0" x="0 8.268001 12.961 22.685002 30.927002 38.077005 41.691 45.825 49.959 55.055 63.297 71.292 76.41625 89.078258 93.21226 97.34626 102.41626 110.68426">1-Nucl. therm. (2)</tspan></text>
+<text xml:space="preserve" transform="matrix(.70710679 -.70710679 .70710679 .70710679 132.22332 672.98098)" font-size="13" font-family="DejaVuSans"><tspan y="0" x="0 8.268001 12.961 16.796002 29.458003 37.713006 45.669008 51.01201 56.10801 60.24201 64.37601 72.59201 82.31601 91.35101 95.485019 100.555019 108.82301">2-Import. ENR (9)</tspan></text>
+<text xml:space="preserve" transform="matrix(.70710679 -.70710679 .70710679 .70710679 197.88253 703.8837)" font-size="13" font-family="DejaVuSans"><tspan y="0" x="0 8.268001 12.961 16.796002 25.038002 33.293004 41.535005 48.308004 53.404005 58.747 62.361 70.33 73.944 77.558 84.331 92.326007 99.09901 103.23301 111.48801 119.45701 126.282009 130.416 135.48601 143.75402 152.02202">3-Industrialis&#x00e9;s gaz (15)</tspan></text>
+<text xml:space="preserve" transform="matrix(.70710679 -.70710679 .70710679 .70710679 294.49977 671.41207)" font-size="13" font-family="DejaVuSans"><tspan y="0" x="0 8.268001 12.961 22.685002 30.927002 38.077005 41.691 45.825 49.959 57.954 61.568 69.563 76.713008 80.84701 84.98101 90.05101 98.31901 106.587009">4-Nucl. &#x00e9;lec. (11)</tspan></text>
+<text xml:space="preserve" transform="matrix(.70710679 -.70710679 .70710679 .70710679 365.95945 689.9847)" font-size="13" font-family="DejaVuSans"><tspan y="0" x="0 8.268001 12.961 22.035 30.277 38.246004 43.589006 51.844007 59.800008 68.04201 72.17601 77.27201 85.51401 93.50901 98.63326 111.295269 115.42927 119.56327 124.63327 132.90128">5-Charbon therm. (8)</tspan></text>
+<text xml:space="preserve" transform="matrix(.70710679 -.70710679 .70710679 .70710679 450.92048 681.5546)" font-size="13" font-family="DejaVuSans"><tspan y="0" x="0 8.268001 12.961 20.346877 28.341877 33.437879 38.499628 46.455629 50.069627 58.064626 62.198625 70.45363 78.40963 91.07163 95.205638 99.33964 104.40964 112.677639 120.94563">6-P&#x00e9;trole dom. (17)</tspan></text>
+<text xml:space="preserve" transform="matrix(.70710679 -.70710679 .70710679 .70710679 529.4623 685.963)" font-size="13" font-family="DejaVuSans"><tspan y="0" x="0 8.268001 11.7735 17.81025 23.15325 31.12225 39.36425 46.13725 49.75125 54.84725 58.98125 67.899257 75.868259 79.482257 86.790508 94.75951 103.0015 109.774509 113.90851 118.97851 127.246509">7-Transit Balkans (2)</tspan></text>
+<text xml:space="preserve" transform="matrix(.70710679 -.70710679 .70710679 .70710679 616.74349 673.62179)" font-size="13" font-family="DejaVuSans"><tspan y="0" x="0 8.268001 12.961 22.737 30.432999 38.688 43.74975 51.70575 55.83975 60.901498 68.8965 75.6695 79.2835 87.5385 91.6725 95.8065 100.8765 109.1445">8-Hydro r&#x00e9;sid. (9)</tspan></text>
+<text xml:space="preserve" transform="matrix(.70710679 -.70710679 .70710679 .70710679 695.9592 675.953)" font-size="13" font-family="DejaVuSans"><tspan y="0" x="0 8.268001 12.961 22.035 30.277 38.246004 41.86 49.855 58.097 63.440004 67.574008 72.15001 75.76401 83.72001 91.962009 95.576007 99.71001 104.78001 113.048007">9-Chaleur fioul (3)</tspan></text>
+<text xml:space="preserve" transform="matrix(.70710679 -.70710679 .70710679 .70710679 773.2802 682.8031)" font-size="13" font-family="DejaVuSans"><tspan y="0" x="0 8.268001 16.536002 21.697752 31.772753 39.741754 46.566755 50.700754 58.942754 66.91175 72.00775 80.24975 85.3115 93.3065 96.9205 101.054508 106.124507 114.3925 122.6605">10-Gaz naturel (38)</tspan></text>
+<text xml:space="preserve" transform="matrix(.70710679 -.70710679 .70710679 .70710679 856.4237 678.00808)" font-size="13" font-family="DejaVuSans"><tspan y="0" x="0 8.268001 16.536002 21.697752 31.772753 39.767755 47.723756 52.819757 61.061758 69.056758 74.18101 86.84301 90.45701 98.45201 102.58601 107.65601 115.92401">11-G&#x00e9;othermie (2)</tspan></text>
+<text xml:space="preserve" transform="matrix(.70710679 -.70710679 .70710679 .70710679 939.13638 674.80398)" font-size="13" font-family="DejaVuSans"><tspan y="0" x="0 8.268001 16.536002 20.947752 29.839753 38.094755 43.43775 47.05175 54.20175 58.33575 62.46975 70.46475 74.07875 82.07375 89.223758 93.35776 97.49176 102.56176 110.82976">12-Agric. &#x00e9;lec. (3)</tspan></text>
+<text xml:space="preserve" transform="matrix(.70710679 -.70710679 .70710679 .70710679 1010.8005 692.2385)" font-size="13" font-family="DejaVuSans"><tspan y="0" x="0 8.268001 16.536002 21.229002 29.445004 39.169004 48.204004 52.338 60.593004 64.207 71.903 79.898 85.241008 92.01401 95.628009 100.20401 103.81801 111.81301 118.58601 122.72002 127.790019 136.05802">13-ENR diversifi&#x00e9;s (7)</tspan></text>
+<text xml:space="preserve" transform="matrix(.70710679 -.70710679 .70710679 .70710679 1092.1984 690.9348)" font-size="13" font-family="DejaVuSans"><tspan y="0" x="0 8.268001 16.536002 21.229002 31.005002 38.701 46.956 52.017755 59.973756 64.10776 67.721759 75.96375 84.21875 92.46075 99.23375 104.32975 108.46375 112.597759 117.667758 125.93575 134.20375">14-Hydro indust. (10)</tspan></text>
+<text xml:space="preserve" transform="matrix(.70710679 -.70710679 .70710679 .70710679 1171.9334 692.9567)" font-size="13" font-family="DejaVuSans"><tspan y="0" x="0 8.268001 16.536002 21.229002 30.303002 38.545003 46.514005 51.857004 60.112005 68.068 76.31 80.444 88.439 92.053 100.048007 107.198009 111.33201 115.46601 120.53601 128.80402 137.07202">15-Charbon &#x00e9;lec. (16)</tspan></text>
+<path transform="matrix(1,0,0,-1,0,712.9951)" d="M48.840627 134.54074H45.340627"/>
+<path transform="matrix(1,0,0,-1,0,712.9951)" stroke-width=".8" stroke-linecap="butt" stroke-linejoin="round" fill="none" stroke="#000000" d="M48.840627 134.54074H45.340627"/>
+<text xml:space="preserve" transform="matrix(1 0 -0 1 33.575 583.39187)" font-size="13" font-family="DejaVuSans"><tspan y="0" x="0">0</tspan></text>
+<path transform="matrix(1,0,0,-1,0,712.9951)" d="M48.840627 213.32102H45.340627"/>
+<path transform="matrix(1,0,0,-1,0,712.9951)" stroke-width=".8" stroke-linecap="butt" stroke-linejoin="round" fill="none" stroke="#000000" d="M48.840627 213.32102H45.340627"/>
+<text xml:space="preserve" transform="matrix(1 0 -0 1 33.575 504.6116)" font-size="13" font-family="DejaVuSans"><tspan y="0" x="0">5</tspan></text>
+<path transform="matrix(1,0,0,-1,0,712.9951)" d="M48.840627 292.1013H45.340627"/>
+<path transform="matrix(1,0,0,-1,0,712.9951)" stroke-width=".8" stroke-linecap="butt" stroke-linejoin="round" fill="none" stroke="#000000" d="M48.840627 292.1013H45.340627"/>
+<text xml:space="preserve" transform="matrix(1 0 -0 1 25.309376 425.83134)" font-size="13" font-family="DejaVuSans"><tspan y="0" x="0 8.268001">10</tspan></text>
+<path transform="matrix(1,0,0,-1,0,712.9951)" d="M48.840627 370.88157H45.340627"/>
+<path transform="matrix(1,0,0,-1,0,712.9951)" stroke-width=".8" stroke-linecap="butt" stroke-linejoin="round" fill="none" stroke="#000000" d="M48.840627 370.88157H45.340627"/>
+<text xml:space="preserve" transform="matrix(1 0 -0 1 25.309376 347.05107)" font-size="13" font-family="DejaVuSans"><tspan y="0" x="0 8.268001">15</tspan></text>
+<path transform="matrix(1,0,0,-1,0,712.9951)" d="M48.840627 449.66184H45.340627"/>
+<path transform="matrix(1,0,0,-1,0,712.9951)" stroke-width=".8" stroke-linecap="butt" stroke-linejoin="round" fill="none" stroke="#000000" d="M48.840627 449.66184H45.340627"/>
+<text xml:space="preserve" transform="matrix(1 0 -0 1 25.309376 268.27079)" font-size="13" font-family="DejaVuSans"><tspan y="0" x="0 8.268001">20</tspan></text>
+<path transform="matrix(1,0,0,-1,0,712.9951)" d="M48.840627 528.4421H45.340627"/>
+<path transform="matrix(1,0,0,-1,0,712.9951)" stroke-width=".8" stroke-linecap="butt" stroke-linejoin="round" fill="none" stroke="#000000" d="M48.840627 528.4421H45.340627"/>
+<text xml:space="preserve" transform="matrix(1 0 -0 1 25.309376 189.49054)" font-size="13" font-family="DejaVuSans"><tspan y="0" x="0 8.268001">25</tspan></text>
+<path transform="matrix(1,0,0,-1,0,712.9951)" d="M48.840627 607.22238H45.340627"/>
+<path transform="matrix(1,0,0,-1,0,712.9951)" stroke-width=".8" stroke-linecap="butt" stroke-linejoin="round" fill="none" stroke="#000000" d="M48.840627 607.22238H45.340627"/>
+<text xml:space="preserve" transform="matrix(1 0 -0 1 25.309376 110.710269)" font-size="13" font-family="DejaVuSans"><tspan y="0" x="0 8.268001">30</tspan></text>
+<path transform="matrix(1,0,0,-1,0,712.9951)" d="M48.840627 686.0026H45.340627"/>
+<path transform="matrix(1,0,0,-1,0,712.9951)" stroke-width=".8" stroke-linecap="butt" stroke-linejoin="round" fill="none" stroke="#000000" d="M48.840627 686.0026H45.340627"/>
+<text xml:space="preserve" transform="matrix(1 0 -0 1 25.309376 31.929993)" font-size="13" font-family="DejaVuSans"><tspan y="0" x="0 8.268001">35</tspan></text>
+<text xml:space="preserve" transform="matrix(0 -1 1 0 18.403126 445.6319)" font-size="14" font-family="DejaVuSans"><tspan y="0" x="0 10.528001 19.11 27.986 33.474 42.084 50.96 56.714 61.166 70.056 73.906 82.488 91.378 96.83512 105.44512 114.33512 122.91712 128.40512 132.29712 140.86511 149.74112 154.19312 159.65312 168.54312 172.43512 179.72913 185.21714 193.79914 202.67514 210.37514 218.98514 223.43714 232.32714 240.93714 245.38913 258.3445 266.9265 272.44615 281.33616">Hauteur d'agr&#x00e9;gation (distance de Ward)</tspan></text>
+<g clip-path="url(#clip_1)">
+<path transform="matrix(1,0,0,-1,0,712.9951)" stroke-width="1.5" stroke-linecap="butt" stroke-linejoin="round" fill="none" stroke="#808080" d="M331.4516 134.54074V345.63505H412.1976V134.54074"/>
+<path transform="matrix(1,0,0,-1,0,712.9951)" stroke-width="1.5" stroke-linecap="butt" stroke-linejoin="round" fill="none" stroke="#808080" d="M250.70561 134.54074V355.678H371.82463V345.63505"/>
+<path transform="matrix(1,0,0,-1,0,712.9951)" stroke-width="1.5" stroke-linecap="butt" stroke-linejoin="round" fill="none" stroke="#808080" d="M169.95963 134.54074V390.69795H311.2651V355.678"/>
+<path transform="matrix(1,0,0,-1,0,712.9951)" stroke-width="1.5" stroke-linecap="butt" stroke-linejoin="round" fill="none" stroke="#808080" d="M89.21362 134.54074V415.59986H240.61237V390.69795"/>
+<path transform="matrix(1,0,0,-1,0,712.9951)" stroke-width="1.5" stroke-linecap="butt" stroke-linejoin="round" fill="none" stroke="#808080" d="M573.6896 134.54074V339.66773H654.4356V134.54074"/>
+<path transform="matrix(1,0,0,-1,0,712.9951)" stroke-width="1.5" stroke-linecap="butt" stroke-linejoin="round" fill="none" stroke="#808080" d="M492.9436 134.54074V356.31217H614.0626V339.66773"/>
+<path transform="matrix(1,0,0,-1,0,712.9951)" stroke-width="1.5" stroke-linecap="butt" stroke-linejoin="round" fill="none" stroke="#808080" d="M735.1816 134.54074V377.93629H815.9276V134.54074"/>
+<path transform="matrix(1,0,0,-1,0,712.9951)" stroke-width="1.5" stroke-linecap="butt" stroke-linejoin="round" fill="none" stroke="#808080" d="M553.5031 356.31217V400.9787H775.55459V377.93629"/>
+<path transform="matrix(1,0,0,-1,0,712.9951)" stroke-width="1.5" stroke-linecap="butt" stroke-linejoin="round" fill="none" stroke="#808080" d="M1138.9115 134.54074V315.34269H1219.6576V134.54074"/>
+<path transform="matrix(1,0,0,-1,0,712.9951)" stroke-width="1.5" stroke-linecap="butt" stroke-linejoin="round" fill="none" stroke="#808080" d="M1058.1655 134.54074V343.22398H1179.2846V315.34269"/>
+<path transform="matrix(1,0,0,-1,0,712.9951)" stroke-width="1.5" stroke-linecap="butt" stroke-linejoin="round" fill="none" stroke="#808080" d="M977.41958 134.54074V359.57154H1118.7251V343.22398"/>
+<path transform="matrix(1,0,0,-1,0,712.9951)" stroke-width="1.5" stroke-linecap="butt" stroke-linejoin="round" fill="none" stroke="#808080" d="M896.6736 134.54074V414.5399H1048.0723V359.57154"/>
+<path transform="matrix(1,0,0,-1,0,712.9951)" stroke-width="1.5" stroke-linecap="butt" stroke-linejoin="round" fill="none" stroke="#808080" d="M664.5289 400.9787V426.64189H972.3729V414.5399"/>
+<path transform="matrix(1,0,0,-1,0,712.9951)" stroke-width="1.5" stroke-linecap="butt" stroke-linejoin="round" fill="none" stroke="#808080" d="M164.913 415.59986V660.69076H818.45089V426.64189"/>
+</g>
+<path transform="matrix(1,0,0,-1,0,712.9951)" stroke-width=".8" stroke-linecap="square" stroke-miterlimit="10" stroke-linejoin="miter" fill="none" stroke="#000000" d="M48.840627 134.54074V686.9982"/>
+<path transform="matrix(1,0,0,-1,0,712.9951)" stroke-width=".8" stroke-linecap="square" stroke-miterlimit="10" stroke-linejoin="miter" fill="none" stroke="#000000" d="M1260.0305 134.54074V686.9982"/>
+<path transform="matrix(1,0,0,-1,0,712.9951)" stroke-width=".8" stroke-linecap="square" stroke-miterlimit="10" stroke-linejoin="miter" fill="none" stroke="#000000" d="M48.840627 134.54074H1260.0305"/>
+<path transform="matrix(1,0,0,-1,0,712.9951)" stroke-width=".8" stroke-linecap="square" stroke-miterlimit="10" stroke-linejoin="miter" fill="none" stroke="#000000" d="M48.840627 686.9982H1260.0305"/>
+<text xml:space="preserve" transform="matrix(1 0 -0 1 367.7715 19.996888)" font-size="16" font-family="DejaVuSans"><tspan y="0" x="0 13.280001 24.128003 35.520006 46.976007 54.864007 65.856 77.312007 85.200008 96.00001 112.67201 129.34401 140.19202 161.76563 167.33362 178.46962 189.60562 195.17362 206.62961 214.51761 225.50962 232.46962 237.95763 243.44564 252.96564 258.53364 269.38163 280.77363 291.6216 299.5096 310.9656 321.8136 329.4616 334.94963 346.4056 357.7976 368.6456 378.1656 383.73359 400.40559 411.39759 422.78959 434.24559 439.73359 450.53358 461.92558 472.24559 477.81358 485.12559 496.26158 507.39756 518.53359 524.10159 535.55758 545.87319 556.3052 565.8252">Dendrogramme  15 profils &#x00e9;nerg&#x00e9;tiques mondiaux (152 pays)</tspan></text>
+<g clip-path="url(#clip_2)">
+<path transform="matrix(.016,0,0,-.016,513.5371,19.996888)" d="M54 337H946V211H54V337Z"/>
+</g>
+</svg>
