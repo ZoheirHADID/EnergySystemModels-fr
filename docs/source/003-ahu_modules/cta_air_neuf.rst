@@ -38,6 +38,9 @@ Utilisation
     HMD.HumidType = "vapeur"
     HMD.calculate()
 
+    print(BC.df.to_string())
+    print(HMD.df.to_string())
+
     # Diagramme psychrométrique
     chart = PsychrometricChart.Object(figsize=(12, 4))
     chart.set_title('CTA batterie chaude & Humidificateur vapeur')
@@ -57,13 +60,40 @@ Utilisation
    :width: 100%
    :align: center
 
-**Résultats numériques** :
+**Sortie réelle** (``print(BC.df)`` puis ``print(HMD.df)``) :
 
-- **Air neuf (AN)** : T=5°C, RH=80%, F=1.053 kg/s, w=4.314 g/kg_sec, h=15.9 kJ/kg
-- **Batterie chauffage (BC)** : T_sortie=20°C, RH=29.8%, Q_th=15.9 kW
-- **Humidificateur (HMD)** : T_sortie=20.5°C, RH=53.3%, w_sortie=8 g/kg_sec, F_eau=0.0039 kg/s
+.. code-block:: text
 
-Chaque composant retourne un DataFrame (``df``) avec les détails complets.
+                         HeatingCoil
+    ID                         2.000
+    Outlet.T (C)              20.000
+    Outlet.RH (%)             29.800
+    Outlet.F (kg/s)            1.053
+    Outlet.F_dry (kg/s)        1.048
+    Outlet.P (Pa)         101325.000
+    Outlet.P/10^5 (bar)        1.000
+    Outlet.h (kJ/kg)          31.100
+    Outlet.w (g/kgdry)         4.314
+    Outlet.Pv_sat (Pa)      2338.800
+    Q_th (kW)                 15.900
+                         Humidifier
+    ID                          None
+    Outlet.T (C)                20.5
+    Outlet.RH (%)               53.3
+    Outlet.F (kg/s)            1.056
+    Outlet.F_dry (kg/s)        1.048
+    Outlet.P (Pa)             101325
+    Outlet.P/10^5 (bar)          1.0
+    Outlet.h (kJ/kg)            41.0
+    Outlet.w (g/kgdry)             8
+    Outlet.Pv_sat (Pa)        2415.2
+    HumidType                 vapeur
+    F_water (kg/s)          0.003863
+    Q_th (kW)                   0.01
+
+Lecture : pour réchauffer 3 000 m³/h d'air de 5 °C à 20 °C il faut **15,9 kW** ;
+pour amener ensuite l'air à 8 g/kg il faut injecter **0,0039 kg/s de vapeur**
+(≈ 14 kg/h), soit une dérive de température de seulement 0,5 K.
 
 Paramètres possibles
 --------------------
@@ -98,6 +128,92 @@ Paramètres possibles
 - ``set_title()`` : Définir le titre du diagramme
 - ``add_points()`` : Liste de points avec coordonnées ``{'h': enthalpie, 'w': humidité}``
 - ``show(draw_arrows=True)`` : Afficher avec flèches de transformation
+
+Paramètres à personnaliser
+--------------------------
+
+.. list-table::
+   :header-rows: 1
+   :widths: 18 24 20 38
+
+   * - Paramètre
+     - Où
+     - Plage essayée
+     - Effet
+   * - ``F_m3h``
+     - ``FreshAir``
+     - 500 à 20 000 m³/h
+     - Proportionnel : puissance de chauffe et débit de vapeur suivent le débit.
+   * - ``T`` / ``RH``
+     - ``FreshAir``
+     - −10 à 35 °C, 0 à 100 %
+     - Fixent l'état de l'air à traiter ; plus l'air est froid, plus la chauffe est forte.
+   * - ``To_target``
+     - ``HeatingCoil``
+     - 15 à 35 °C
+     - Consigne de la batterie ; si l'air entre déjà plus chaud, ``Q_th = 0``.
+   * - ``wo_target``
+     - ``Humidifier``
+     - 5 à 12 g/kg
+     - Humidité absolue de sortie ; **refusée** si elle dépasse la saturation.
+   * - ``HumidType``
+     - ``Humidifier``
+     - ``"vapeur"`` ou ``"adiabatique"``
+     - Vapeur : la température monte à peine. Adiabatique : l'air se **refroidit**.
+
+Variante : humidification adiabatique et air d'été
+--------------------------------------------------
+
+Même chaîne, mais avec un air plus chaud (12 °C) et une humidification
+adiabatique (évaporation d'eau, enthalpie constante) :
+
+.. code-block:: python
+
+    # variante : air neuf 12 °C / 60 %, consigne 22 °C, humidification adiabatique à 9 g/kg
+    AN2 = FreshAir.Object()
+    AN2.F_m3h, AN2.T, AN2.RH = 3000, 12, 60
+    AN2.calculate()
+
+    BC2 = HeatingCoil.Object()
+    BC2.To_target = 22
+    Air_connect(BC2.Inlet, AN2.Outlet)
+    BC2.calculate()
+
+    HMD2 = Humidifier.Object()
+    HMD2.wo_target = 9
+    HMD2.HumidType = "adiabatique"
+    Air_connect(HMD2.Inlet, BC2.Outlet)
+    HMD2.calculate()
+    print(BC2.df.loc["Q_th (kW)"].iloc[0], HMD2.df.loc["Outlet.T (C)"].iloc[0])
+
+.. code-block:: text
+
+    10.4 12.6
+
+La batterie fournit **10,4 kW** ; l'humidificateur adiabatique ramène l'air à
+**12,6 °C** (contre 22 °C en entrée) avec ``Q_th = 0`` : l'eau s'évapore aux
+dépens de la chaleur sensible de l'air. L'humidité relative en sortie est de
+**99,2 %** : l'air est presque saturé, ce qui est la limite physique de
+l'humidification adiabatique à 9 g/kg.
+
+Piège : une consigne inatteignable est refusée
+----------------------------------------------
+
+Demander 8 g/kg à un air resté trop froid (la batterie réglée à 2 °C au lieu de
+20 °C) lève une ``ValueError`` qui nomme la cause : la sortie serait à
+**HR = 141 %**, au-delà de la saturation. Remède : relever ``To_target`` ou
+baisser ``wo_target``.
+
+.. code-block:: text
+
+    ValueError: Humidifier (vapeur) : wo_target = 8 g/kg n'est pas atteignable depuis
+    l'air d'entrée (w = 4.314 g/kg, h = 15.86 kJ/kg) : la sortie serait à HR = 141.2 %
+    (T = 5.62 °C), au-delà de la saturation. Réduisez wo_target ou réchauffez l'air en amont.
+
+Deux autres pièges, mesurés : une consigne ``wo_target`` **inférieure** à
+l'humidité de l'air entrant n'humidifie rien (``F_water = 0``, l'air traverse
+inchangé) ; et ``RH`` n'est **pas contrôlé** à l'entrée (120 % est accepté
+sans erreur) — restez entre 0 et 100.
 
 Explication du modèle
 ----------------------

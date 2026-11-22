@@ -1119,3 +1119,10 @@
 - Note : `py -3.12` n'est plus installé ; le banc tourne sous `py -3.13` (`PYTHONIOENCODING=utf-8`). `--page` attend le chemin `docs/source/<page>.rst`. Pas de `src/` dans ce dépôt.
 - Build Sphinx : non relancé (aucun .rst modifié).
 - Suivant : `api.rst` vers le cran 5 ou B5/B3.
+
+## 2026-11-22 — B3 : `cta_air_neuf` cran 4 -> 5
+- Unité : `003-ahu_modules/cta_air_neuf.rst`.
+- Fait : sortie réelle publiée (DataFrames de `HeatingCoil` et `Humidifier`) à la place de chiffres recopiés ; table « Paramètres à personnaliser » ; variante exécutée (air 12 °C, adiabatique : 10,4 kW, sortie 12,6 °C, HR 99,2 %) ; pièges mesurés (consigne inatteignable -> `ValueError` à HR 141 %, consigne sous l'humidité entrante -> `F_water = 0`, `RH` > 100 non contrôlé).
+- Défaut de lib : `FreshAir` accepte `RH = 120` -> `BUGS_LIB.md`.
+- Banc : 62 pages au cran 5 (+1), aucun recul. Build Sphinx : 0 warning.
+- Suivant : `generic_ahu.rst`, puis `air_humide.rst` (cran 4 -> 5).

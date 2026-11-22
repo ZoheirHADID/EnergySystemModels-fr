@@ -994,3 +994,8 @@ Entrées déplacées le 28/09/2026 (lots hydraulique, facture, échangeurs/CTA, 
   indirectement).
 - **Traitement dans le guide** : `pip install openpyxl` indiqué ; exemple protégé.
 - **Corrigé le 28/09/2026** : `setup.py` déclare désormais `openpyxl` et `requests` dans `install_requires`.
+
+## AHU.FreshAir : `RH` > 100 % accepté sans erreur (relevé le 2026-11-22)
+- `FreshAir.Object()` avec `RH = 120` calcule sans lever d'exception (sortie : T 20,2 °C, w cohérent avec une HR non physique).
+- Attendu : `ValueError` hors de 0-100 %, comme le fait `Humidifier` pour une consigne au-delà de la saturation.
+- Traitement dans le guide : piège nommé dans `003-ahu_modules/cta_air_neuf.rst`.

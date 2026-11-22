@@ -525,19 +525,19 @@
    "recul": null
   },
   "docs/source/003-ahu_modules/cta_air_neuf.rst": {
-   "blocs": 1,
-   "empreinte": "b4431059ec5773d5",
-   "mesure": "2026-09-28T17:07",
+   "blocs": 2,
+   "empreinte": "ac401b61ea99ca61",
+   "mesure": "2026-11-22T12:12",
    "figures": [
     "../images/schema_cta_air_neuf.svg",
     "../images/003_cta_air_neuf_psychrometrique.svg"
    ],
    "blocage": null,
-   "motif": "manque : table de personnalisation et variante exécutée",
+   "motif": "",
    "extraits": null,
-   "cran": 4,
-   "nom": "figure réelle",
-   "cran_max": 4,
+   "cran": 5,
+   "nom": "personnalisable",
+   "cran_max": 5,
    "recul": null
   },
   "docs/source/003-ahu_modules/generic_ahu.rst": {
