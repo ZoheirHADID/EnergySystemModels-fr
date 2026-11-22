@@ -145,7 +145,7 @@ page par page.
   lecteur à la bibliothèque, et `pip show energysystemmodels` le seul moyen de
   connaître sa version.
 
-- `à faire` **A5 — `api.rst` publie au moins un import faux** (mesuré le
+- `fait` (2026-11-22 : 30 imports exécutés, 0 échec ; cran 4) **A5 — `api.rst` publiait au moins un import faux** (mesuré le
   2026-09-27, cran 1) : `from ThermodynamicCycles.HEX import NUT_HEX` lève
   `ImportError`. C'est la page qui prétend recenser les **points d'entrée réels** :
   un import faux y coûte plus cher qu'ailleurs. Le décompte complet des lignes en

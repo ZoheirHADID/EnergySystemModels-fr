@@ -1111,3 +1111,11 @@
 - Laissé tel quel : le découpage CEE d'une autre session (`011-cee/*.rst`,
   `tools/pages_cee.py`), non commité.
 - Reste à faire : section « État mesuré à l'arrêt de la boucle » de `ROADMAP_DOC.md`.
+
+## 2026-11-22 — Reprise de la boucle : A5 soldé
+- Unité : A5 — `api.rst`.
+- Fait : les 30 lignes d'import de `api.rst` exécutées une à une : 0 échec (la correction datait de `e28071d`, la feuille de route n'avait pas suivi). A5 passé à `fait`.
+- Banc : `api.rst` cran 4 ; 135 pages mesurées, 61 au cran 5, 44 au cran 4, 30 sans exemple.
+- Note : `py -3.12` n'est plus installé ; le banc tourne sous `py -3.13` (`PYTHONIOENCODING=utf-8`). `--page` attend le chemin `docs/source/<page>.rst`. Pas de `src/` dans ce dépôt.
+- Build Sphinx : non relancé (aucun .rst modifié).
+- Suivant : `api.rst` vers le cran 5 ou B5/B3.
