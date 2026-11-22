@@ -82,7 +82,6 @@ Table des matières
    :titlesonly:
 
    006-pinch_analysis/index
-   014-rejets-effluents/index
 
 .. toctree::
    :maxdepth: 2
