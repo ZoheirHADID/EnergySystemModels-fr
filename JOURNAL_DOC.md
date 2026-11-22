@@ -1141,3 +1141,10 @@
 - Défauts de lib : `BUGS_LIB.md` (entrées non contrôlées, `T_sat` en échec).
 - Banc : 64 pages au cran 5 (+1), aucun recul. Build : 0 warning. B3 soldé.
 - Suivant : B4 `010-achat-energie`, B5 `011-cee`, B6.
+
+## 2026-11-22 — B6 : `composite_wall_heat_transfer` cran 4 -> 5
+- Unité : `001-heat_transfer/composite_wall_heat_transfer.rst`.
+- Fait : table « Paramètres à personnaliser » (épaisseur, `material`, `conductivity`, `he`/`hi`, `Ti`/`Te`/`A`) et variante exécutée sur l'épaisseur d'isolant 5/10/15 cm (R 2,018 / 3,685 / 5,351 ; flux 148,7 / 81,4 / 56,1 W). Feuille de route resynchronisée : B4 et B5 sont déjà au cran 5 au banc.
+- Banc : 65 pages au cran 5 (+1), aucun recul. Mesure faite sous Python 3.13 (`py -3.12` absent de la machine). Build Sphinx : 0 warning (-W).
+- Suivant : `corps_parallelepipedique.rst`, `pipe_insulation_analysis.rst` (cran 4 -> 5), puis les cran 4 de `002-thermodynamic_cycles`.
+

@@ -88,6 +88,65 @@ Paramètres possibles
 - 9-11 mm : R = 0.14 m²·K/W
 - >11 mm : R = 0.16 m²·K/W
 
+Paramètres à personnaliser
+--------------------------
+
+.. list-table::
+   :header-rows: 1
+   :widths: 24 26 50
+
+   * - Paramètre
+     - Valeurs essayées
+     - Effet mesuré (mur de 10 m², −10 °C dehors, 20 °C dedans)
+   * - ``thickness`` de l'isolant
+     - 0,05 / 0,10 / 0,15 m
+     - ``R_total`` 2,018 / 3,685 / 5,351 m²·K/W ; flux 148,7 / 81,4 / 56,1 W
+   * - ``material``
+     - nom de la base (liste ci-dessus)
+     - fixe la conductivité ; un nom inconnu lève ``ValueError``
+   * - ``conductivity``
+     - 45,0 W/m·K (acier), couche de 0,20 m
+     - ``R_total`` 0,173 m²·K/W ; flux 1 734,9 W : un mur sans isolant
+   * - ``he``, ``hi``
+     - 23 et 8 W/m²·K ici
+     - résistances superficielles extérieure et intérieure (0,043 et 0,125)
+   * - ``Ti``, ``Te``, ``A``
+     - 20 °C, −10 °C, 10 m²
+     - le flux est proportionnel à ``A`` et à l'écart ``Ti − Te``
+
+Variante : doubler l'isolant
+----------------------------
+
+Même mur, mais l'épaisseur de polystyrène passe de 5 à 10 puis 15 cm : on lit la
+résistance, le flux et la température de la face intérieure du mur.
+
+.. code-block:: python
+
+   # variante : épaisseur d'isolant 0,05 / 0,10 / 0,15 m
+   from HeatTransfer import CompositeWall
+
+   for ep in (0.05, 0.10, 0.15):
+       w = CompositeWall.Object(he=23, hi=8, Ti=20, Te=-10, A=10)
+       w.add_layer(thickness=0.20, material='Parpaings creux')
+       w.add_layer(thickness=ep, material='Polystyrène')
+       w.add_layer(thickness=0.02, material='Plâtre')
+       w.calculate()
+       print(ep, round(w.R_total, 3), round(w.Q, 2),
+             round(w.df['Température sortie (°C)'].iloc[3], 2))
+
+Sortie réelle :
+
+.. code-block:: text
+
+   0.05 2.018 148.66 18.14
+   0.1 3.685 81.42 18.98
+   0.15 5.351 56.06 19.3
+
+Passer de 5 à 10 cm retire 45 % du flux ; le passage de 10 à 15 cm n'en retire
+plus que 31 %, car chaque centimètre ajouté pèse moins sur une résistance déjà
+élevée. La température de paroi intérieure se rapproche de ``Ti`` (18,1 °C, puis
+19,0 °C, puis 19,3 °C), ce qui réduit le risque de paroi froide.
+
 Pièges d'usage
 --------------
 

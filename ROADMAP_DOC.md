@@ -176,8 +176,8 @@ réelle si le modèle en a une.
   `perte_pression_lineaire` au cran 2 — **elle n'affiche aucune sortie** alors que
   son exemple en produit.
 - `fait` **B3 — `003-ahu_modules` (7 pages)** : `cta_air_neuf`, `generic_ahu` et `air_humide` cran 5 (2026-11-22) (manquent table de personnalisation + variante exécutée).
-- `à faire` **B4 — `010-achat-energie` (10 pages)** : TURPE, 6 exemples HTA/BT.
-- `à faire` **B5 — `011-cee` (1 page pour 33 fiches actives)** : découper par
+- `fait` (mesuré cran 5 au banc le 2026-11-22) **B4 — `010-achat-energie` (10 pages)**.
+- `fait` (7 pages au cran 5 au banc le 2026-11-22) **B5 — `011-cee`** — reste éventuel : un exemple exécutable par fiche : découper par
   secteur (IND-UT / IND-BA / IND-EN / TRA), un exemple exécutable par fiche.
 - `à faire` **B6 — `001-heat_transfer` (4)**, `005-aeraulic` (2),
   `012-electrical` (1), `006-pinch_analysis` (1), `007-ipmvp` (5),

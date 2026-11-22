@@ -2,18 +2,18 @@
  "version": 1,
  "pages": {
   "docs/source/001-heat_transfer/composite_wall_heat_transfer.rst": {
-   "blocs": 1,
-   "empreinte": "d3265cc5660e837f",
-   "mesure": "2026-09-28T18:57",
+   "blocs": 2,
+   "empreinte": "b0664b251dd51ab0",
+   "mesure": "2026-11-22T13:09",
    "figures": [
     "../images/schema_mur_composite.svg"
    ],
    "blocage": null,
-   "motif": "manque : table de personnalisation et variante exécutée",
+   "motif": "",
    "extraits": null,
-   "cran": 4,
-   "nom": "figure réelle",
-   "cran_max": 4,
+   "cran": 5,
+   "nom": "personnalisable",
+   "cran_max": 5,
    "recul": null
   },
   "docs/source/001-heat_transfer/corps_parallelepipedique.rst": {
