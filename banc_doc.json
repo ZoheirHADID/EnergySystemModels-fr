@@ -17,18 +17,18 @@
    "recul": null
   },
   "docs/source/001-heat_transfer/corps_parallelepipedique.rst": {
-   "blocs": 1,
-   "empreinte": "d1d3f5415305f6ca",
-   "mesure": "2026-09-28T18:24",
+   "blocs": 2,
+   "empreinte": "a633a9557926c5c5",
+   "mesure": "2026-11-22T13:59",
    "figures": [
     "../images/schema_corps_parallelepipede.svg"
    ],
    "blocage": null,
-   "motif": "manque : table de personnalisation et variante exécutée",
+   "motif": "",
    "extraits": null,
-   "cran": 4,
-   "nom": "figure réelle",
-   "cran_max": 4,
+   "cran": 5,
+   "nom": "personnalisable",
+   "cran_max": 5,
    "recul": null
   },
   "docs/source/001-heat_transfer/index.rst": {
@@ -44,18 +44,18 @@
    "recul": null
   },
   "docs/source/001-heat_transfer/pipe_insulation_analysis.rst": {
-   "blocs": 1,
-   "empreinte": "2e8f02bc9fd6ee26",
-   "mesure": "2026-09-28T18:57",
+   "blocs": 2,
+   "empreinte": "0ef7ac6ea008f47d",
+   "mesure": "2026-11-22T14:00",
    "figures": [
     "../images/schema_tuyauterie_isolee.svg"
    ],
    "blocage": null,
-   "motif": "manque : table de personnalisation et variante exécutée",
+   "motif": "",
    "extraits": null,
-   "cran": 4,
-   "nom": "figure réelle",
-   "cran_max": 4,
+   "cran": 5,
+   "nom": "personnalisable",
+   "cran_max": 5,
    "recul": null
   },
   "docs/source/002-thermodynamic_cycles/aerorefrigerant.rst": {

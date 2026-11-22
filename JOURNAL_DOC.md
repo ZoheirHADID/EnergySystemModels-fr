@@ -1148,3 +1148,10 @@
 - Banc : 65 pages au cran 5 (+1), aucun recul. Mesure faite sous Python 3.13 (`py -3.12` absent de la machine). Build Sphinx : 0 warning (-W).
 - Suivant : `corps_parallelepipedique.rst`, `pipe_insulation_analysis.rst` (cran 4 -> 5), puis les cran 4 de `002-thermodynamic_cycles`.
 
+## 2026-11-22 — B6 : `corps_parallelepipedique` et `pipe_insulation_analysis` cran 4 -> 5
+- Unité : `001-heat_transfer/` (2 pages ; les 3 pages cran 4 du paquet sont soldées).
+- Fait : tables de personnalisation et variantes exécutées (boîte à 5 faces isolées : 1 956,6 -> 190,0 W ; tuyau DN 80 laine minérale 2/4/8 cm et nu : 11 974,5 / 8 050,0 / 5 486,7 / 40 726,5 W).
+- Défauts de lib : `BUGS_LIB.md` (dimensions négatives acceptées, `Tp` < `Ta` -> `TypeError` complex).
+- Banc : 67 pages au cran 5 (+2), aucun recul. Python 3.13. Build Sphinx : 0 warning (-W).
+- Suivant : cran 4 de `002-thermodynamic_cycles` (chiller, condenseur_evaporateur, pompe, refrigeration…).
+

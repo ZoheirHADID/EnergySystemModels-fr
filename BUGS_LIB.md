@@ -1004,3 +1004,9 @@ Entrées déplacées le 28/09/2026 (lots hydraulique, facture, échangeurs/CTA, 
 - `Air_w(RH=120, T_db=25)` -> 24.255 ; `Air_w(RH=-5, T_db=25)` -> -0.971 ; `Air_w(RH=50, T_db=300)` -> `None`. Attendu : `ValueError`.
 - `ah.T_sat(8)` -> `UnboundLocalError: cannot access local variable 'w'`.
 - Traitement dans le guide : section « Pièges » de `003-ahu_modules/air_humide.rst` ; note `T_sat` conservée.
+
+## HeatTransfer.ParallelepipedicBody : dimensions négatives acceptées (relevé le 2026-11-22)
+- `Object(L=-1, W=0.8, H=1.5, Ta=25, faces_config=…)` avec six faces à 60 °C calcule sans erreur : `get_total_heat_transfer()` = -789.57 W. Attendu : `ValueError` pour `L`, `W`, `H` <= 0.
+- Une `faces_config` incomplète lève `KeyError: 'bottom'` (message peu explicite).
+- Traitement dans le guide : section « Pièges d'usage » de `001-heat_transfer/corps_parallelepipedique.rst`.
+- `Tp` < `Ta` (ex. 20 °C pour 25 °C) : `TypeError: type complex doesn't define __round__ method` levé par `PlateHeatTransfer.calculate` ; attendu : gain de chaleur négatif ou `ValueError` explicite.

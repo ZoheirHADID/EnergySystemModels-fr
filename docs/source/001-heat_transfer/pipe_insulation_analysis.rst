@@ -136,6 +136,71 @@ Paramètres possibles
 
 DN de 6 à 1050 mm (voir table complète dans le code source)
 
+Paramètres à personnaliser
+--------------------------
+
+.. list-table::
+   :header-rows: 1
+   :widths: 24 26 50
+
+   * - Paramètre
+     - Valeurs essayées
+     - Effet mesuré (eau 70 °C, DN 80, 500 m, ``Tamb`` = 20 °C)
+   * - ``insulation_thickness``
+     - 0,02 / 0,04 / 0,08 m
+     - 11 974,5 / 8 050,0 / 5 486,7 W ; surface à 34,6 / 28,9 / 25,0 °C
+   * - ``insulation``
+     - ``'aucun isolant'`` (épaisseur 0)
+     - 40 726,5 W, surface à 69,9 °C : le tuyau nu perd 5 fois plus
+   * - ``insulation``
+     - nom de la table ci-dessous
+     - fixe la conductivité ; un nom inconnu lève ``ValueError``
+   * - ``DN``, ``L_tube``
+     - 80 mm, 500 m
+     - la perte est proportionnelle à la longueur
+   * - ``T_fluid``, ``Tamb``
+     - 70 °C, 20 °C
+     - écart moteur de la perte
+   * - ``F_m3h``
+     - 20 m3/h
+     - débit : fixe la vitesse (1,08 m/s) et le régime
+
+Variante : épaisseur d'isolant
+------------------------------
+
+.. code-block:: python
+
+    # variante : laine minérale 2, 4 et 8 cm, puis tuyau nu
+    from HeatTransfer import PipeInsulationAnalysis
+
+    for e, ins in [(0.02, 'laine minérale'), (0.04, 'laine minérale'),
+                   (0.08, 'laine minérale'), (0.0, 'aucun isolant')]:
+        p = PipeInsulationAnalysis.Object(
+            fluid='water', T_fluid=70, F_m3h=20, DN=80, L_tube=500,
+            material='Acier', insulation=ins, insulation_thickness=e, Tamb=20)
+        p.calculate()
+        print(e, ins, round(p.q_total, 1), round(p.Tc, 2))
+
+Sortie réelle :
+
+.. code-block:: text
+
+    0.02 laine minérale 11974.5 34.57
+    0.04 laine minérale 8050.0 28.87
+    0.08 laine minérale 5486.7 25.04
+    0.0 aucun isolant 40726.5 69.91
+
+Doubler l'isolant de 4 à 8 cm retire 32 % de la perte ; l'isolation d'une ligne de
+500 m évite 32,7 kW de perte par rapport au tuyau nu (à 2 cm : 28,8 kW évités).
+
+Pièges d'usage
+--------------
+
+- **Un nom absent des tables lève ``ValueError``** (``'laine de roche'`` :
+  « not found in the INSULATION_MATERIALS table ») : prendre l'un des noms listés.
+- **Sans isolant, passer ``'aucun isolant'`` et une épaisseur nulle** : la surface
+  rejoint alors la température du fluide (69,9 °C), perte maximale.
+
 Explication du modèle
 ----------------------
 
