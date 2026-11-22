@@ -541,16 +541,16 @@
    "recul": null
   },
   "docs/source/003-ahu_modules/generic_ahu.rst": {
-   "blocs": 2,
-   "empreinte": "a512140a967d46be",
-   "mesure": "2026-09-28T14:31",
+   "blocs": 3,
+   "empreinte": "aaefbd1a4891128d",
+   "mesure": "2026-11-22T12:27",
    "figures": [],
    "blocage": null,
-   "motif": "manque : table de personnalisation et variante exécutée",
+   "motif": "",
    "extraits": null,
-   "cran": 4,
-   "nom": "figure réelle",
-   "cran_max": 4,
+   "cran": 5,
+   "nom": "personnalisable",
+   "cran_max": 5,
    "recul": null
   },
   "docs/source/003-ahu_modules/index.rst": {

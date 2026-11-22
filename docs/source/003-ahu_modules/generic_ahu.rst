@@ -165,6 +165,67 @@ ligne en échec décalait les colonnes des composants aval d'une ligne (les
 journaux étaient assemblés par position). Pour tenir la consigne d'hiver,
 passez ``humidifier_type`` à ``"vapeur"``, ou activez le récupérateur.
 
+Paramètres à personnaliser
+--------------------------
+
+.. list-table::
+   :header-rows: 1
+   :widths: 26 26 48
+
+   * - Paramètre
+     - Valeurs essayées
+     - Effet mesuré (air neuf à −5 °C, consigne 18 °C / 50 %)
+   * - ``humidifier_type``
+     - ``"adiabatique"`` / ``"vapeur"``
+     - Adiabatique : 8 heures refusées sans récupérateur. Vapeur : aucune ligne refusée.
+   * - ``exchange_type``
+     - ``"none"``, ``"heat plate exchanger"``, ``"energy wheel exchanger"``
+     - Échangeur à plaques : sensible seulement. Roue enthalpique : transfère aussi l'humidité.
+   * - ``heat_exchanger``
+     - ``False`` / ``True``
+     - Active le récupérateur ; sans lui, ``exchange_type`` est ignoré.
+   * - ``Heat exchanger efficiency [%]``
+     - 75 (colonne de ``data``)
+     - Efficacité de l'échangeur, pas de temps par pas de temps.
+   * - ``Mix Recycled Air [%]``
+     - 70 (colonne de ``data``, mode recyclage)
+     - Part d'air repris dans le mélange.
+
+Variante : roue enthalpique
+---------------------------
+
+Même ``data``, même humidificateur adiabatique, mais avec une **roue
+enthalpique** : elle récupère aussi l'humidité de l'air repris à l'évacuation, et les
+huit heures refusées passent.
+
+.. code-block:: python
+
+   # variante : roue enthalpique (energy wheel exchanger), humidificateur adiabatique
+   config_roue = dict(config, heat_exchanger=True,
+                      exchange_type="energy wheel exchanger")
+   roue = AirRecoveryAHU(config=config_roue, data=data)
+   roue.calculate()
+   print("Erreur" in roue.df.columns)
+   print(roue.df[["HC_Q_th[kW]", "HMD_Outlet_RH[%]",
+                  "POSTHC_Outlet_T[°C]"]].iloc[[0, 8]].to_string())
+
+Sortie réelle :
+
+.. code-block:: text
+
+   False
+      HC_Q_th[kW]  HMD_Outlet_RH[%]  POSTHC_Outlet_T[°C]
+   0        21.99              61.5                 18.0
+   8        19.47             60.36                 18.0
+
+Aucune ligne refusée, et la batterie chaude ne fournit plus que 22 kW là où le
+cas sans récupérateur en demandait 84 kW à l'heure 0.
+
+.. warning::
+   La colonne ``Erreur`` **n'existe que si au moins une ligne a échoué** : sur un
+   calcul sans refus, ``ahu.df["Erreur"]`` lève un ``KeyError``. Testez d'abord
+   ``"Erreur" in ahu.df.columns``.
+
 Colonnes de résultats
 ---------------------
 

@@ -175,7 +175,7 @@ réelle si le modèle en a une.
 - `à faire` **B2 — `004-hydraulic` (6 pages)**. `TA_valve` au cran 4 ;
   `perte_pression_lineaire` au cran 2 — **elle n'affiche aucune sortie** alors que
   son exemple en produit.
-- `en cours` **B3 — `003-ahu_modules` (7 pages)** : `cta_air_neuf` cran 5 (2026-11-22) ; restent `air_humide` et `generic_ahu` au cran 4 (manquent table de personnalisation + variante exécutée).
+- `en cours` **B3 — `003-ahu_modules` (7 pages)** : `cta_air_neuf` et `generic_ahu` cran 5 (2026-11-22) ; reste `air_humide` au cran 4 (manquent table de personnalisation + variante exécutée).
 - `à faire` **B4 — `010-achat-energie` (10 pages)** : TURPE, 6 exemples HTA/BT.
 - `à faire` **B5 — `011-cee` (1 page pour 33 fiches actives)** : découper par
   secteur (IND-UT / IND-BA / IND-EN / TRA), un exemple exécutable par fiche.

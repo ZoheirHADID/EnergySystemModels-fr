@@ -1126,3 +1126,11 @@
 - Défaut de lib : `FreshAir` accepte `RH = 120` -> `BUGS_LIB.md`.
 - Banc : 62 pages au cran 5 (+1), aucun recul. Build Sphinx : 0 warning.
 - Suivant : `generic_ahu.rst`, puis `air_humide.rst` (cran 4 -> 5).
+
+## 2026-11-22 — B3 : `generic_ahu` cran 4 -> 5
+- Unité : `003-ahu_modules/generic_ahu.rst`.
+- Fait : table « Paramètres à personnaliser » (humidificateur, type d'échangeur, efficacité, % de recyclage) ; variante exécutée **roue enthalpique** : même données, humidificateur adiabatique, 0 ligne refusée (contre 8), batterie chaude 22 kW contre 84 kW ; piège mesuré : la colonne `Erreur` n'existe que si une ligne a échoué (`KeyError` sinon).
+- Banc : 63 pages au cran 5 (+1), aucun recul. Build Sphinx : 0 warning.
+- Écueil du banc : un paragraphe contenant le mot « extrait » (« air extrait ») avant un bloc le fait traiter en *extrait* (seuls ses imports sont exécutés) -> sortie « absente ». Éviter ce mot avant un bloc à exécuter.
+- Observé, non publié : `heat plate exchanger` + `vapeur` donne `POSTHC_Outlet_T` = 18,6 °C pour une consigne de 18 °C (à instruire).
+- Suivant : `air_humide.rst` (cran 4 -> 5).
