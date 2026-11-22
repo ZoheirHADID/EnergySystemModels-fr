@@ -1134,3 +1134,10 @@
 - Écueil du banc : un paragraphe contenant le mot « extrait » (« air extrait ») avant un bloc le fait traiter en *extrait* (seuls ses imports sont exécutés) -> sortie « absente ». Éviter ce mot avant un bloc à exécuter.
 - Observé, non publié : `heat plate exchanger` + `vapeur` donne `POSTHC_Outlet_T` = 18,6 °C pour une consigne de 18 °C (à instruire).
 - Suivant : `air_humide.rst` (cran 4 -> 5).
+
+## 2026-11-22 — B3 : `air_humide` cran 4 -> 5
+- Unité : `003-ahu_modules/air_humide.rst`.
+- Fait : valeurs en commentaire (`# ->`) remplacées par des `print` exécutés et une sortie réelle ; l'enthalpie publiée (50,132) était fausse, la lib donne 50,324 ; table de personnalisation (`T_db`, `RH`, `P`, `method`) ; variante altitude 1 500 m (w 11,878 g/kg, rho 0,979) ; pièges mesurés (RH 120 / -5 acceptés, T 300 -> None).
+- Défauts de lib : `BUGS_LIB.md` (entrées non contrôlées, `T_sat` en échec).
+- Banc : 64 pages au cran 5 (+1), aucun recul. Build : 0 warning. B3 soldé.
+- Suivant : B4 `010-achat-energie`, B5 `011-cee`, B6.

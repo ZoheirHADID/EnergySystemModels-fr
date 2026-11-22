@@ -999,3 +999,8 @@ Entrées déplacées le 28/09/2026 (lots hydraulique, facture, échangeurs/CTA, 
 - `FreshAir.Object()` avec `RH = 120` calcule sans lever d'exception (sortie : T 20,2 °C, w cohérent avec une HR non physique).
 - Attendu : `ValueError` hors de 0-100 %, comme le fait `Humidifier` pour une consigne au-delà de la saturation.
 - Traitement dans le guide : piège nommé dans `003-ahu_modules/cta_air_neuf.rst`.
+
+## AHU.air_humide : entrées hors domaine non contrôlées, `T_sat` en échec (relevé le 2026-11-22)
+- `Air_w(RH=120, T_db=25)` -> 24.255 ; `Air_w(RH=-5, T_db=25)` -> -0.971 ; `Air_w(RH=50, T_db=300)` -> `None`. Attendu : `ValueError`.
+- `ah.T_sat(8)` -> `UnboundLocalError: cannot access local variable 'w'`.
+- Traitement dans le guide : section « Pièges » de `003-ahu_modules/air_humide.rst` ; note `T_sat` conservée.

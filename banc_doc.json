@@ -477,16 +477,16 @@
    "recul": null
   },
   "docs/source/003-ahu_modules/air_humide.rst": {
-   "blocs": 2,
-   "empreinte": "82b3b164e72486ab",
-   "mesure": "2026-09-28T14:29",
+   "blocs": 3,
+   "empreinte": "d7e5de735f69da1d",
+   "mesure": "2026-11-22T12:54",
    "figures": [],
    "blocage": null,
-   "motif": "manque : table de personnalisation et variante exécutée",
+   "motif": "",
    "extraits": null,
-   "cran": 4,
-   "nom": "figure réelle",
-   "cran_max": 4,
+   "cran": 5,
+   "nom": "personnalisable",
+   "cran_max": 5,
    "recul": null
   },
   "docs/source/003-ahu_modules/batteries.rst": {
