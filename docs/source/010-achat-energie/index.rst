@@ -72,6 +72,5 @@ calcule pas. Les périodes couvertes sont données page par page.
    contrat_gaz
    guide_audit_facture
    cadre_france
-   cadre_algerie
    profils_energetiques
 
