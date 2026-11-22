@@ -242,6 +242,15 @@ Libellé de la palette : « Calculs et signaux » — 12 nœud(s).
      - signal scalaire
      - outil de l'IHM
      - :doc:`../gui_tools`
+   * - |ic_921| **Afficheur multi-signaux**
+
+       ``signal_display_multi.py``
+     - Plusieurs grandeurs d'un même équipement dans un seul badge, **une par ligne** avec son libellé, sa valeur et son unité. Chaque liaison de signal vers l'afficheur porte une **ligne d'information** « libellé | unité | décimales | facteur » (tous champs facultatifs ; ``0.001`` en facteur passe de kW à MW). Le formulaire « Liaison de signal » a une icône **+** pour transporter plusieurs valeurs d'un coup, de la grandeur émise vers l'afficheur. Le champ « Lignes » (``attribut|libellé|unité|décimales|facteur ; …``) donne le même résultat sans liaison par valeur. Il remplace l'Afficheur simple, conservé pour les scènes existantes.
+
+       *Réglages* : Lignes
+     - signal scalaire
+     - outil de l'IHM
+     - :doc:`../gui_tools`
    * - |ic_939| **Libelle**
 
        ``text_note.py``
@@ -1525,6 +1534,8 @@ Voir aussi
 .. |ic_910| image:: ../images/icones_ihm/signal_generators.svg
    :width: 28px
 .. |ic_920| image:: ../images/icones_ihm/signal_display.svg
+   :width: 28px
+.. |ic_921| image:: ../images/icones_ihm/signal_display_multi.svg
    :width: 28px
 .. |ic_939| image:: ../images/icones_ihm/text_note.svg
    :width: 28px

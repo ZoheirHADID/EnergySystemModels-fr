@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="Afficheur multi-signaux">
+  <title>Afficheur multi-signaux</title>
+  <desc>Afficheur de plusieurs signaux : écran montrant une valeur par ligne.</desc>
+  <metadata>{"standard": "pictogramme ESM", "ref": "", "name": "Afficheur multi-signaux", "ports": []}</metadata>
+  <g fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="2" y="2" width="60" height="60" rx="8"/>
+    <rect x="10" y="10" width="44" height="38" rx="3" stroke="#2f7fd7"/>
+    <line x1="26" y1="54" x2="38" y2="54" stroke="#2f7fd7"/>
+    <line x1="15" y1="19" x2="49" y2="19" stroke="#2f7fd7"/>
+    <line x1="15" y1="29" x2="43" y2="29" stroke="#2f7fd7"/>
+    <line x1="15" y1="39" x2="46" y2="39" stroke="#2f7fd7"/>
+  </g>
+</svg>
