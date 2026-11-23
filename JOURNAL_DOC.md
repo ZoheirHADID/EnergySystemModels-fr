@@ -1162,3 +1162,11 @@
 - Défauts de lib : `BUGS_LIB.md` (dictionnaire omis ou vide ignoré -> `TypeError` opaque ; `print` « test HP calculation » du compresseur).
 - Banc : 68 pages au cran 5 (+1), aucun recul. Build Sphinx -W : 0 warning.
 - Suivant : `condenseur_evaporateur.rst`, `pompe.rst`, `refrigeration.rst` (cran 4 -> 5).
+
+## 2026-11-23 — G2b : configuration du coude (demande de l'utilisateur)
+- Unité : `004-hydraulic/coudes_tes_singularites.rst` (fiche de lecture de `Hydraulic/EdgedBend.py`, `HandbookCorrections.py`, nœuds IHM `edged_bend.py` / `curved_bend.py`).
+- Fait : section « Configurer un coude : l'angle se mesure par rapport à quoi ? » (angle de **déviation** entre le prolongement de l'axe d'entrée et l'axe de sortie ; angle intérieur = 180° − delta ; orientation dans l'espace sans effet ; `d_hyd` intérieur ; `R_0` à l'axe) ; table de saisie Python (m, rad) / IHM (mm, degrés, défauts du nœud) ; tableau de choix vif / cintré / serpentin ; `EdgedBend` porté au squelette complet : exemple DN50 90° (521 Pa, 3× le 1,5 D), table de personnalisation, variante exécutée angle 30–180° vif contre 1,5 D, cas limites (degrés au lieu de radians, 270°/−90°, corrections handbook, refus `roughness_multiplier = 0`). Deux schémas générés par `docs/generate_param_diagrams.py` : `param_angle_coude.svg`, `param_edgedbend.svg` (contrôlés visuellement, aucun débordement). Renvoi depuis `005-aeraulic/coude_aeraulique.rst`.
+- Défauts de lib : `BUGS_LIB.md` (angle et diamètre non contrôlés, multiplicateurs handbook sans citation, coude vif moins coûteux que le 1,5 D sous 45° à confronter à la source).
+- Banc : `coudes_tes_singularites` et `coude_aeraulique` au cran 5 (6 et 3 blocs), aucun recul. Build Sphinx -W : 0 warning.
+- Note : régénérer `generate_param_diagrams.py` modifie aussi les 6 `assemblage_*.svg` (icônes changées dans la lib par une autre session) ; non commités ici.
+- Suivant : G2b `SuddenContraction` (`reduction_section.rst`), ou B1 `condenseur_evaporateur.rst`.

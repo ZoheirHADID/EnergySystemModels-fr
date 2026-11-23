@@ -622,10 +622,12 @@
    "recul": null
   },
   "docs/source/004-hydraulic/coudes_tes_singularites.rst": {
-   "blocs": 4,
-   "empreinte": "dfe7e153c90156c3",
-   "mesure": "2026-09-28T11:39",
+   "blocs": 6,
+   "empreinte": "11d5ed5012109a2f",
+   "mesure": "2026-11-23T12:16",
    "figures": [
+    "../images/param_angle_coude.svg",
+    "../images/param_edgedbend.svg",
     "../images/assemblage_edgedbend.svg",
     "../images/004_edgedbend_courbe_reseau.svg",
     "../images/param_curvedbend.svg",
@@ -981,8 +983,8 @@
   },
   "docs/source/005-aeraulic/coude_aeraulique.rst": {
    "blocs": 3,
-   "empreinte": "e30f7f2591f2ab01",
-   "mesure": "2026-09-28T12:43",
+   "empreinte": "1e4d66dddd065924",
+   "mesure": "2026-11-23T12:18",
    "figures": [
     "../images/schema_edgedbend_air.svg"
    ],

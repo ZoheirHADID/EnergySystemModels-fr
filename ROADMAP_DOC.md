@@ -500,9 +500,14 @@ le code**.
   hors de 0.5 ≤ R0/D0 < 3 il calcule et pose `out_of_domain` + `domain_note` ;
   seul le régime 3e3 < Re < 1e4 avec R0/D0 > 2 lève `OutOfTableError`. `l0`
   n'est pas une entrée du modèle. La page et le schéma disent désormais cela.
-- `à faire` **G2b — même page, modèles voisins** : `EdgedBend`, `SuddenContraction`,
-  `SuddenExpansion`, `ConvergingTee`, `DivergingTee` n'y ont qu'une ligne de
-  tableau ; chacun à porter au squelette complet (un par tour).
+- `en cours` **G2b — modèles voisins au squelette complet** (un par tour).
+  `fait` (2026-11-23, demande de Zoheir « bien expliquer la configuration du
+  modèle coude », « l'angle est mesuré par rapport à quoi ? ») : `EdgedBend`
+  (section `edged_bend`), section commune `angle_deviation_coude` (définition de
+  `delta`, angle intérieur = 180° − delta, unités Python / IHM), schémas
+  `param_angle_coude.svg` et `param_edgedbend.svg`. Restent : `SuddenContraction`,
+  `SuddenExpansion`, `ConvergingTee`, `DivergingTee` (pages
+  `reduction_section`, `elargissement_section`, `te_jonction`).
 - `à faire` **G3 — étendre aux autres modèles géométriques**, par ordre d'utilité :
   tés convergent/divergent (répartition des débits, angles), contraction et
   élargissement brusques (rapport de sections), vanne TA (position d'ouverture),

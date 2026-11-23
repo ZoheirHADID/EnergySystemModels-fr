@@ -272,6 +272,169 @@ def coude_courbe(nom="param_curvedbend.svg", delta_deg=90.0) -> Path:
 
 
 # --------------------------------------------------------------------------- #
+# 1 bis. L'angle de déviation des coudes et le coude vif — EdgedBend
+# --------------------------------------------------------------------------- #
+
+def _pt(V, r, phi_deg):
+    """Point à la distance r de V dans la direction phi (degrés, sens trigonométrique,
+    y de l'écran vers le bas)."""
+    p = math.radians(phi_deg)
+    return V[0] + r * math.cos(p), V[1] - r * math.sin(p)
+
+
+def _arc(V, r, phi0, phi1, couleur=COTE, epaisseur=1.3, pointille=None):
+    n = max(8, int(abs(phi1 - phi0) / 3))
+    return _polyligne([_pt(V, r, phi0 + (phi1 - phi0) * i / n) for i in range(n + 1)],
+                      couleur, epaisseur, pointille)
+
+
+def _coin(A, u, B, v):
+    """Intersection des droites A + t·u et B + s·v."""
+    det = u[0] * (-v[1]) - u[1] * (-v[0])
+    t = ((B[0] - A[0]) * (-v[1]) - (B[1] - A[1]) * (-v[0])) / det
+    return A[0] + t * u[0], A[1] + t * u[1]
+
+
+def _coude_vif_parois(V, L_in, L_out, phi_in, delta, demi):
+    """Parois d'un coude vif : axe d'entrée de direction phi_in, sortie tournée de delta."""
+    u0 = (math.cos(math.radians(phi_in)), -math.sin(math.radians(phi_in)))
+    phi_out = phi_in + delta
+    u1 = (math.cos(math.radians(phi_out)), -math.sin(math.radians(phi_out)))
+    n0 = (-u0[1], u0[0])
+    n1 = (-u1[1], u1[0])
+    debut = (V[0] - L_in * u0[0], V[1] - L_in * u0[1])
+    fin = (V[0] + L_out * u1[0], V[1] + L_out * u1[1])
+    morceaux = []
+    for c in (+1, -1):
+        a = (debut[0] + c * demi * n0[0], debut[1] + c * demi * n0[1])
+        b = (V[0] + c * demi * n1[0], V[1] + c * demi * n1[1])
+        k = _coin(a, u0, b, u1)
+        f = (fin[0] + c * demi * n1[0], fin[1] + c * demi * n1[1])
+        morceaux.append(_polyligne([a, k, f], TRAIT, 2.0))
+    morceaux.append(_polyligne([debut, V, fin], AXE, 1.0, pointille="7 5"))
+    return morceaux, debut, fin
+
+
+def angle_de_deviation(nom="param_angle_coude.svg") -> Path:
+    """L'angle `delta` des coudes : la déviation de l'écoulement, pas l'angle intérieur."""
+    L, H = 900.0, 580.0
+    m = _entete(L, H, "Angle de déviation delta d'un coude : par rapport à quoi il se mesure")
+    m.append(_texte(30, 34, "delta = angle dont TOURNE l'écoulement : entre le prolongement "
+                    "de l'axe d'entrée et l'axe de sortie", 15, TRAIT, gras=True))
+
+    # --- Grand dessin : coude vif à 45° --------------------------------------
+    V = (330.0, 260.0)
+    delta = 45.0
+    parois, debut, fin = _coude_vif_parois(V, 230, 190, 0.0, delta, 22)
+    m += parois
+    m.append(_ligne(debut[0] + 20, debut[1], debut[0] + 80, debut[1], FLUX, 2.2,
+                    marqueurs=' marker-end="url(#fleche_flux)"'))
+    m.append(_texte(debut[0] + 50, debut[1] - 30, "entrée", 12, FLUX, "middle"))
+    a = _pt(V, 140, delta)
+    b = _pt(V, 190, delta)
+    m.append(_ligne(a[0], a[1], b[0], b[1], FLUX, 2.2, marqueurs=' marker-end="url(#fleche_flux)"'))
+    m.append(_texte(b[0] + 26, b[1] + 8, "sortie", 12, FLUX))
+    # prolongement de l'axe d'entrée
+    p = _pt(V, 215, 0)
+    m.append(_ligne(V[0], V[1], p[0], p[1], COTE, 1.2, pointille="4 4"))
+    m.append(_texte(p[0], p[1] + 20, "prolongement de l'axe d'entrée", 11, COTE, "end"))
+    # delta
+    m.append(_arc(V, 120, 0, delta, COTE, 1.6))
+    e = _pt(V, 132, delta / 2)
+    m.append(_texte(e[0] + 4, e[1] + 5, "delta = 45°", 14, COTE, "start", MONO))
+    # angle intérieur
+    m.append(_arc(V, 58, delta, 180, AXE, 1.2, pointille="3 3"))
+    e = _pt(V, 66, 150)
+    m.append(_texte(e[0] - 6, e[1] - 10, "angle intérieur = 180° − delta = 135°", 11, AXE, "end"))
+    m.append(_texte(V[0] - 60, V[1] + 48, "sommet : croisement des deux axes", 11, AXE))
+
+    # --- Règles à droite -------------------------------------------------------
+    m += _note(610, 70, 260, [
+        "delta = 0 : tube droit, aucune perte",
+        "delta = 45° : coude « à 45° »",
+        "delta = 90° : coude à angle droit",
+        "delta = 180° : demi-tour (retour)",
+        "",
+        "Code Python : delta en RADIANS",
+        "→ delta = math.radians(45)",
+        "IHM : champ « Déviation (°) »",
+        "→ en DEGRÉS : saisir 45",
+    ], 12)
+
+    # --- Rangée de vignettes ---------------------------------------------------
+    y_v = 460.0
+    m.append(_texte(30, 372, "Sur une tuyauterie : suivre le fluide et mesurer de combien "
+                    "il a tourné.", 13, TRAIT, gras=True))
+    for i, (d, legende) in enumerate(((0, "delta = 0°"), (45, "delta = 45°"),
+                                      (90, "delta = 90°"), (135, "delta = 135°"),
+                                      (180, "delta = 180°"))):
+        Vv = (110 + i * 165, y_v)
+        dp = _pt(Vv, -55, 0)
+        m.append(_ligne(dp[0], dp[1], Vv[0], Vv[1], TRAIT, 5))
+        if d == 180:
+            # demi-tour : le retour est décalé pour rester visible
+            m.append(_polyligne([Vv, (Vv[0] + 14, Vv[1]), (Vv[0] + 14, Vv[1] - 26),
+                                 (Vv[0] - 45, Vv[1] - 26)], TRAIT, 5))
+            m.append(_ligne(Vv[0] - 15, Vv[1] - 26, Vv[0] - 45, Vv[1] - 26, FLUX, 2,
+                            marqueurs=' marker-end="url(#fleche_flux)"'))
+        else:
+            fv = _pt(Vv, 50, d)
+            m.append(_ligne(Vv[0], Vv[1], fv[0], fv[1], TRAIT, 5))
+            fa = _pt(Vv, 30, d)
+            m.append(_ligne(fa[0], fa[1], fv[0], fv[1], FLUX, 2,
+                            marqueurs=' marker-end="url(#fleche_flux)"'))
+            if d > 0:
+                pr = _pt(Vv, 50, 0)
+                m.append(_ligne(Vv[0], Vv[1], pr[0], pr[1], COTE, 1.0, pointille="3 3"))
+                m.append(_arc(Vv, 26, 0, d, COTE, 1.4))
+        m.append(_texte(Vv[0], y_v + 42, legende, 12, COTE, "middle", MONO))
+
+    m += _note(30, H - 62, 840, [
+        "Ce n'est PAS l'angle de la conduite avec l'horizontale : un coude à 90° posé de biais reste delta = 90°.",
+        "Ce n'est PAS l'angle intérieur entre les deux branches (135° pour un coude à 45°). Même définition pour CurvedBend.",
+    ], 12)
+    return _ecrire(nom, m), _verifier_debordements(nom, m, L)
+
+
+def coude_vif(nom="param_edgedbend.svg") -> Path:
+    """Paramétrage géométrique de `ThermodynamicCycles.Hydraulic.EdgedBend`."""
+    L, H = 760.0, 470.0
+    m = _entete(L, H, "Paramétrage d'un coude vif : d_hyd, delta")
+    V = (360.0, 280.0)
+    delta = 60.0
+    demi = 34.0
+    parois, debut, fin = _coude_vif_parois(V, 270, 170, 0.0, delta, demi)
+    m += parois
+    m.append(_ligne(debut[0] + 22, debut[1], debut[0] + 82, debut[1], FLUX, 2.2,
+                    marqueurs=' marker-end="url(#fleche_flux)"'))
+    m.append(_texte(debut[0] + 52, debut[1] - 46, "écoulement", 12, FLUX, "middle"))
+    # d_hyd
+    xc = debut[0] + 130
+    m += _cote_droite(xc, V[1] - demi, xc, V[1] + demi, "", 0)
+    m.append(_texte(xc + 10, V[1] - 10, "d_hyd", 13, COTE, "start", MONO))
+    m.append(_texte(xc - 40, V[1] + 56, "diamètre intérieur (m)", 11, COTE))
+    # prolongement et delta
+    p = _pt(V, 190, 0)
+    m.append(_ligne(V[0], V[1], p[0], p[1], COTE, 1.2, pointille="4 4"))
+    m.append(_arc(V, 110, 0, delta, COTE, 1.6))
+    e = _pt(V, 122, delta / 2)
+    m.append(_texte(e[0] + 6, e[1] + 5, "delta", 14, COTE, "start", MONO))
+    m.append(_texte(p[0], p[1] + 20, "prolongement de l'axe d'entrée", 11, COTE, "end"))
+    m.append(_texte(V[0] + 70, V[1] + 48, "arête vive : pas de rayon", 11, AXE))
+    m.append(_texte(V[0] + 70, V[1] + 64, "(rayon > 0 : CurvedBend)", 11, AXE))
+    m += _note(40, 30, 560, [
+        "Deux entrées seulement : d_hyd (m, défaut 0.04) et delta (rad, défaut math.pi/2).",
+        "Pas de longueur, pas de rugosité : seule la perte locale ksi_loc(delta) est calculée.",
+        "IHM « Coude vif » : Diamètre hydraulique (mm) et Déviation (°), convertis par le nœud.",
+    ], 12)
+    m += _note(40, H - 64, 620, [
+        "ksi_loc = 0.95·sin²(delta/2) + 2.05·sin⁴(delta/2)   (Idel'chik)",
+        "dP = ksi_loc · ½·rho·V²,   V = débit / (rho · π·d_hyd²/4)",
+    ], 12)
+    return _ecrire(nom, m), _verifier_debordements(nom, m, L)
+
+
+# --------------------------------------------------------------------------- #
 # 2. Le double sens d'une connexion de fluide
 # --------------------------------------------------------------------------- #
 
@@ -983,6 +1146,8 @@ FIGURES = {
     "assemblage_convergingtee.svg": assemblage_te_convergent,
     "assemblage_divergingtee.svg": assemblage_te_divergent,
     "param_curvedbend.svg": coude_courbe,
+    "param_angle_coude.svg": angle_de_deviation,
+    "param_edgedbend.svg": coude_vif,
     "param_fluid_connect.svg": connexion_fluide,
     "param_ports_unites.svg": familles_de_ports,
     "param_compositewall.svg": mur_composite,

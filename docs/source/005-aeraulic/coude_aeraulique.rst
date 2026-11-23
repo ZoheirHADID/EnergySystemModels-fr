@@ -94,7 +94,9 @@ Ce qu'on personnalise
      - Section : fixe la vitesse ``u``, donc ``delta_P`` en :math:`u^2`
      - m ; ``a × b`` pour une gaine rectangulaire
    * - ``angle_deg``
-     - Angle de déviation, seule entrée du modèle Idel'chik
+     - Angle de déviation, seule entrée du modèle Idel'chik : l'angle dont
+       tourne l'air, entre le prolongement de l'axe d'entrée et l'axe de
+       sortie — pas l'angle intérieur (schéma : :ref:`angle_deviation_coude`)
      - degrés, défaut ``90.0``
    * - ``model``
      - Source du coefficient

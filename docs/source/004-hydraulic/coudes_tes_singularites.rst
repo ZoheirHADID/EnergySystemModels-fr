@@ -3,6 +3,119 @@
 Coude
 =====
 
+Deux modèles chiffrent la perte de charge d'un coude, selon sa fabrication :
+
+.. list-table::
+   :header-rows: 1
+   :widths: 22 30 48
+
+   * - Coude sur site
+     - Modèle (nœud de l'IHM)
+     - Ce qu'il faut relever
+   * - Coude soudé d'onglet, à arête vive (deux tubes coupés en biais)
+     - ``EdgedBend`` (« Coude vif »)
+     - diamètre intérieur, angle de déviation
+   * - Coude cintré, coude à souder « 1 D », « 1,5 D », « 3 D »
+     - ``CurvedBend`` (« Coude courbe »)
+     - diamètre intérieur, **rayon de courbure à l'axe**, angle de déviation,
+       rugosité
+   * - Serpentin, coude de rayon ≥ 3 diamètres
+     - ``Coil`` (« Serpentin »)
+     - voir :doc:`serpentin`
+
+Tous deux suivent la loi :math:`\Delta P = \xi \cdot \tfrac{1}{2}\rho V^2` ; le
+coefficient :math:`\xi` dépend surtout de l'**angle** et, pour le coude cintré,
+du rapport rayon / diamètre.
+
+.. _angle_deviation_coude:
+
+Configurer un coude : l'angle se mesure par rapport à quoi ?
+------------------------------------------------------------
+
+.. figure:: ../images/param_angle_coude.svg
+   :alt: L'angle de déviation delta se mesure entre le prolongement de l'axe d'entrée et l'axe de sortie ; vignettes de 0 à 180 degrés
+   :align: center
+   :width: 100%
+
+   ``delta`` est l'angle dont **tourne l'écoulement** : entre le prolongement de
+   l'axe d'entrée et l'axe de sortie, au croisement des deux axes.
+
+L'angle ``delta`` des deux modèles est l'**angle de déviation** du diagramme 6.1
+d'Idel'chik : on suit le fluide, et on mesure de combien sa direction a tourné
+entre l'entrée et la sortie du coude.
+
+* **0°** : pas de coude (tube droit, perte nulle) ; **90°** : coude à angle droit ;
+  **180°** : demi-tour (retour en épingle).
+* Un coude « à 45° » du catalogue a ``delta`` = 45°, alors que l'angle **intérieur**
+  entre ses deux branches vaut 135° : c'est l'erreur de relevé la plus fréquente.
+  Si vous mesurez l'angle intérieur θ entre les deux branches, saisissez
+  ``delta`` = 180° − θ.
+* L'orientation du coude dans l'espace n'intervient pas : un coude à 90° posé de
+  biais, ou dont l'entrée monte à 30° sur l'horizontale, reste ``delta`` = 90°.
+  Le dénivelé, lui, se compte dans les tronçons droits (:ref:`straight_pipe`).
+
+Les autres dimensions :
+
+* ``d_hyd`` est le **diamètre intérieur** (m), pas le DN nominal : à DN égal, il dépend
+  de l'épaisseur (série) du tube. C'est lui qui fixe la vitesse, donc la perte :
+  à débit et :math:`\xi` donnés, elle varie comme :math:`1/d^4`.
+* ``R_0`` (coude cintré seulement) est le rayon de courbure **mesuré à l'axe** de
+  la conduite, pas à l'intrados ni à l'extrados — voir :ref:`le schéma coté
+  <curved_bend>`. Un coude « 1,5 D » a ``R_0`` = 1,5 × ``d_hyd``.
+
+Saisie en Python et dans l'IHM
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Les **unités diffèrent** entre le code et les nœuds de ``PyqtSimulator`` : le nœud
+convertit lui-même ses champs en millimètres et en degrés.
+
+.. list-table::
+   :header-rows: 1
+   :widths: 24 24 28 24
+
+   * - Grandeur
+     - Python (attribut, unité)
+     - IHM (champ du nœud, unité)
+     - Défaut IHM
+   * - Diamètre intérieur
+     - ``d_hyd`` (m)
+     - « Diamètre hydraulique (mm) »
+     - 40
+   * - Angle de déviation
+     - ``delta`` (**rad**) : ``math.radians(45)``
+     - « Déviation (°) », en **degrés** : 45
+     - 90
+   * - Rayon de courbure à l'axe (coude courbe)
+     - ``R_0`` (m)
+     - « Rayon courbure R0 (mm) »
+     - 20
+   * - Rugosité (coude courbe)
+     - ``K`` (m)
+     - « Rugosité (mm) »
+     - 0.0015
+   * - Corrélation (coude courbe)
+     - ``correlation``
+     - liste « Corrélation »
+     - ``idelchik``
+
+Dans l'IHM, l'infobulle du champ « Déviation (°) » rappelle la définition
+ci-dessus. Les valeurs par défaut du nœud « Coude courbe » (R0 = 20 mm pour
+D = 40 mm) décrivent un coude **serré**, R_0/d_hyd = 0,5, au bord du domaine de
+la source : remplacez-les par celles de votre coude.
+
+.. _edged_bend:
+
+Coude vif — ``EdgedBend``
+-------------------------
+
+.. figure:: ../images/param_edgedbend.svg
+   :alt: Coude vif coté : d_hyd, delta mesuré depuis le prolongement de l'axe d'entrée
+   :align: center
+   :width: 100%
+
+   Le coude vif n'a que deux entrées : ``d_hyd`` et ``delta``. Pas de rayon, pas
+   de longueur, pas de rugosité.
+
 .. figure:: ../images/assemblage_edgedbend.svg
    :alt: Source, coude vif EdgedBend et Sink reliés par Fluid_connect
    :align: center
@@ -11,52 +124,237 @@ Coude
    Assemblage d'un coude vif : ``Inlet`` reçoit la sortie de la ``Source``, ``Outlet``
    alimente le ``Sink``. Paramètres par défaut du code, résultat exécuté en cartouche.
 
-Deux modèles : le coude **cintré** (``CurvedBend``, rayon de courbure et angle)
-et le coude **vif** (``EdgedBend``, angle soudé). Tous deux suivent la loi
-:math:`\Delta P = \xi \cdot \tfrac{1}{2}\rho V^2`.
+À quoi ça sert
+~~~~~~~~~~~~~~
 
-``EdgedBend`` — coude vif (Modelica PressureLoss.Bend.EdgedBend).
+Chiffrer la perte d'un coude **sans rayon** : deux tubes soudés d'onglet, un
+changement de direction en gaine, un piquage à angle vif. C'est le coude le plus
+coûteux à angle égal au-delà de 45° — le remplacer par un coude cintré est une
+action d'économie de pompage classique, et ce modèle sert à la chiffrer.
+
+Le modèle applique la corrélation d'Idel'chik
+:math:`\xi = 0{,}95\,\sin^2(\delta/2) + 2{,}05\,\sin^4(\delta/2)`. Il ne calcule
+**que** la perte locale : ni frottement (pas de longueur), ni effet du nombre de
+Reynolds ou de la rugosité, sauf correction optionnelle (voir plus bas).
+
+Dans ``PyqtSimulator``, c'est le nœud **« Coude vif »**.
+
+Exemple minimal
+~~~~~~~~~~~~~~~
+
+Mêmes conditions que l'exemple du coude cintré plus bas, pour comparer :
 
 .. code-block:: python
 
+   import math
+   from ThermodynamicCycles.Source import Source
    from ThermodynamicCycles.Hydraulic import EdgedBend
-   modele = EdgedBend.Object()
+   from ThermodynamicCycles.Connect import Fluid_connect
 
-* **Ports** : ``Inlet``, ``Outlet`` (voir :doc:`../ports_connexions`).
-* **Nœud de l'IHM** : « Coude vif ».
+   # Amont : eau de chauffage à 60 °C, 3 bar, 2 kg/s
+   SOURCE = Source.Object()
+   SOURCE.fluid = "water"
+   SOURCE.Pi_bar = 3.0        # bar
+   SOURCE.Ti_degC = 60        # °C
+   SOURCE.F = 2.0             # kg/s
+   SOURCE.calculate()
 
-.. list-table::
-   :header-rows: 1
-   :widths: 26 26 48
+   # Coude vif DN50 à 90° (deux tubes soudés d'onglet)
+   COUDE = EdgedBend.Object()
+   Fluid_connect(COUDE.Inlet, SOURCE.Outlet)
+   COUDE.d_hyd = 0.05              # m — diamètre intérieur
+   COUDE.delta = math.radians(90)  # rad — angle de déviation, saisi en radians
+   COUDE.calculate()
 
-   * - Entrée
-     - Défaut
-     - Commentaire du code
-   * - ``d_hyd``
-     - ``0.04``
-     - m
-   * - ``delta``
-     - ``math.pi / 2``
-     - rad -- angle (defaut 90°)
-   * - ``apply_handbook_corrections``
-     - ``False``
-     - —
-   * - ``handbook_roughness_multiplier``
-     - ``None``
-     - —
-   * - ``handbook_aspect_ratio``
-     - ``None``
-     - —
+   print(COUDE.df.drop("Timestamp"))
 
-Lignes du ``df`` de sortie : ``fluid``, ``F_kgs``, ``d_hyd_mm``, ``delta_deg``, ``V_ms``, ``Re``, ``ksi_loc_base``, ``ksi_loc``, ``dP_Pa``, ``dP_mbar``.
+Sortie réelle :
+
+.. code-block:: text
+
+                     EdgedBend
+   fluid                 water
+   F_kgs                   2.0
+   d_hyd_mm               50.0
+   delta_deg              90.0
+   V_ms               1.035909
+   Re            109271.515452
+   ksi_loc_base         0.9875
+   ksi_loc              0.9875
+   dP_Pa            520.989428
+   dP_mbar            5.209894
+   P_in_Pa            300000.0
+   P_out_Pa      299479.010572
+
+Lecture : 521 Pa, **trois fois** le coude cintré « 1,5 D » de même diamètre
+(170 Pa, plus bas). ``delta_deg`` relit l'angle en degrés : c'est la ligne à
+regarder pour vérifier qu'il a été saisi en radians. ``ksi_loc_base`` est le
+coefficient de la corrélation, ``ksi_loc`` celui qui a servi, après corrections
+éventuelles (ici aucune : les deux sont égaux).
 
 .. figure:: ../images/004_edgedbend_courbe_reseau.svg
    :alt: Courbe de réseau du coude vif
    :align: center
    :width: 80%
 
-   Courbe de réseau du même coude vif : perte de charge en fonction du débit, point
-   de fonctionnement de l'assemblage ci-dessus.
+   Courbe de réseau du coude vif de l'assemblage ci-dessus (paramètres par
+   défaut) : perte de charge en fonction du débit, point de fonctionnement.
+
+Ce qu'on personnalise
+~~~~~~~~~~~~~~~~~~~~~
+
+.. list-table::
+   :header-rows: 1
+   :widths: 28 42 30
+
+   * - Paramètre (défaut)
+     - Effet
+     - Plage raisonnable
+   * - ``d_hyd`` (``0.04`` m)
+     - Diamètre intérieur ; à débit donné, la perte varie comme 1/d⁴
+     - DN15 à DN300
+   * - ``delta`` (``math.pi / 2`` rad)
+     - Angle de déviation (voir :ref:`angle_deviation_coude`) ;
+       ``math.radians(45)`` pour un coude à 45°
+     - 0 à π (180°)
+   * - ``apply_handbook_corrections`` (``False``)
+     - Active un multiplicateur sur ``ksi_loc`` : ×1,1 si Re > 4·10⁴ (rugosité),
+       et ×1,05 si ``handbook_aspect_ratio`` sort de 0,6 – 1,7
+     - ``False`` sauf étude de sensibilité
+   * - ``handbook_roughness_multiplier`` (``None``)
+     - Remplace le ×1,1 par votre propre facteur (> 0)
+     - 1,1 à 1,2
+   * - ``handbook_aspect_ratio`` (``None``)
+     - Rapport a/b d'une section rectangulaire, pris en compte seulement avec
+       ``apply_handbook_corrections = True``
+     - 0,6 à 1,7 : aucun effet
+
+Variante exécutée : l'angle de déviation, coude vif contre coude cintré
+« 1,5 D » de même diamètre et même débit.
+
+.. code-block:: python
+
+   import math
+   from ThermodynamicCycles.Source import Source
+   from ThermodynamicCycles.Hydraulic import EdgedBend, CurvedBend
+   from ThermodynamicCycles.Connect import Fluid_connect
+
+   SOURCE = Source.Object()
+   SOURCE.fluid = "water"; SOURCE.Pi_bar = 3.0; SOURCE.Ti_degC = 60; SOURCE.F = 2.0
+   SOURCE.calculate()
+
+   # variante : angle de déviation, coude vif contre coude cintré 1.5 D
+   print("delta   ksi vif   dP vif (Pa)   dP 1.5 D (Pa)")
+   for angle in (30, 45, 60, 90, 120, 180):
+       VIF = EdgedBend.Object()
+       Fluid_connect(VIF.Inlet, SOURCE.Outlet)
+       VIF.d_hyd = 0.05
+       VIF.delta = math.radians(angle)
+       VIF.calculate()
+
+       CINTRE = CurvedBend.Object()
+       Fluid_connect(CINTRE.Inlet, SOURCE.Outlet)
+       CINTRE.d_hyd = 0.05
+       CINTRE.R_0 = 1.5 * CINTRE.d_hyd
+       CINTRE.delta = math.radians(angle)
+       CINTRE.K = 0.045e-3
+       CINTRE.calculate()
+       print(f"{angle:4d}°  {VIF.ksi_loc:7.4f}  {VIF.delta_P:11.1f}  {CINTRE.delta_P:13.1f}")
+
+Sortie réelle :
+
+.. code-block:: text
+
+   delta   ksi vif   dP vif (Pa)   dP 1.5 D (Pa)
+     30°   0.0728         38.4           73.5
+     45°   0.1831         96.6          104.8
+     60°   0.3656        192.9          129.8
+     90°   0.9875        521.0          170.4
+    120°   1.8656        984.3          203.3
+    180°   3.0000       1582.8          254.8
+
+Ce que ça dit : la perte du coude vif croît très vite avec l'angle (×13 de 30° à
+90°, ×3 de 90° à 180°) ; à 90°, remplacer un coude vif par un coude cintré
+1,5 D divise la perte par trois. Sous 45°, le tableau donne au contraire le
+coude vif **moins** coûteux que le coude cintré : ce n'est pas un résultat
+physique établi, c'est la conséquence de deux corrélations différentes (le
+coude cintré ajoute le frottement sur la longueur de l'arc et la correction de
+Reynolds, le coude vif ni l'un ni l'autre). Ne pas en tirer d'argument pour un
+coude vif à petit angle ; l'écart est inscrit dans ``BUGS_LIB.md`` pour être
+confronté à la source.
+
+Éprouver le modèle
+~~~~~~~~~~~~~~~~~~
+
+Le coude vif contrôle très peu ses entrées. Trois cas à connaître, et le seul
+refus :
+
+.. code-block:: python
+
+   import math
+   from ThermodynamicCycles.Source import Source
+   from ThermodynamicCycles.Hydraulic import EdgedBend
+   from ThermodynamicCycles.Connect import Fluid_connect
+
+   SOURCE = Source.Object()
+   SOURCE.fluid = "water"; SOURCE.Pi_bar = 3.0; SOURCE.Ti_degC = 60; SOURCE.F = 2.0
+   SOURCE.calculate()
+
+   def coude_vif(delta, **options):
+       C = EdgedBend.Object()
+       Fluid_connect(C.Inlet, SOURCE.Outlet)
+       C.d_hyd = 0.05
+       C.delta = delta
+       for nom, valeur in options.items():
+           setattr(C, nom, valeur)
+       C.calculate()
+       return C
+
+   # 1) l'angle saisi en degrés au lieu de radians : aucune erreur
+   C = coude_vif(90)
+   print("delta = 90      -> delta_deg =", round(C.df.loc["delta_deg"].iloc[0], 1),
+         " ksi =", round(C.ksi_loc, 4), " dP =", round(C.delta_P, 1), "Pa")
+
+   # 2) un angle hors de 0..180° : accepté, et confondu avec 90°
+   for d in (270, -90):
+       C = coude_vif(math.radians(d))
+       print(f"delta = {d:4d}°   -> ksi = {C.ksi_loc:.4f}")
+
+   # 3) les corrections « handbook » : multiplicateur sur ksi
+   C = coude_vif(math.radians(90), apply_handbook_corrections=True)
+   print("corrections handbook : ksi", round(C.ksi_loc_base, 4), "->", round(C.ksi_loc, 4))
+
+   # 4) multiplicateur de rugosité nul : refusé
+   try:
+       coude_vif(math.radians(90), apply_handbook_corrections=True,
+                 handbook_roughness_multiplier=0)
+   except ValueError as e:
+       print("refusé :", e)
+
+Sortie réelle :
+
+.. code-block:: text
+
+   delta = 90      -> delta_deg = 5156.6  ksi = 1.7625  dP = 929.9 Pa
+   delta =  270°   -> ksi = 0.9875
+   delta =  -90°   -> ksi = 0.9875
+   corrections handbook : ksi 0.9875 -> 1.0863
+   refusé : roughness_multiplier doit etre > 0
+
+Pièges nommés :
+
+* **Degrés au lieu de radians.** ``delta = 90`` est lu comme 90 rad : la perte
+  calculée (930 Pa) est fausse de +78 % et rien ne lève. Le signal est dans le
+  ``df`` : ``delta_deg`` = 5 156,6. Toujours écrire ``math.radians(...)``. Le
+  nœud de l'IHM, lui, attend des degrés et convertit.
+* **Angle hors de 0 – 180°.** 270° ou −90° sont acceptés et donnent la perte d'un
+  coude à 90° : le modèle ne refuse pas un angle qui n'a pas de sens.
+* **Corrections « handbook ».** Le facteur ×1,1 (et ×1,05 pour une section
+  rectangulaire allongée) n'est rattaché à aucune page de la source dans le
+  code : à n'activer qu'en étude de sensibilité, et à signaler dans un rapport.
+* **Diamètre nul.** ``d_hyd = 0`` rend une perte de 0 Pa au lieu d'une erreur.
+
+Ces défauts de contrôle sont inscrits dans ``BUGS_LIB.md``.
 
 .. note::
    **D'où viennent les courbes de réseau.** Elles sont tracées par la bibliothèque,
@@ -83,6 +381,8 @@ Coude arrondi — ``CurvedBend``
 
    Où se mesure chaque paramètre de ``CurvedBend``. ``R_0`` se prend **à
    l'axe** de la conduite, et ``delta`` se saisit en **radians**.
+   L'angle ``delta`` coté au centre de courbure est le même que l'angle entre le
+   prolongement de l'axe d'entrée et l'axe de sortie (:ref:`angle_deviation_coude`).
 
 .. figure:: ../images/assemblage_curvedbend.svg
    :alt: Source, coude courbe CurvedBend et Sink reliés par Fluid_connect
@@ -206,7 +506,8 @@ Ce qu'on personnalise
      - 0,5 ≤ R_0/d_hyd < 3
      - Idel'chik, diag. 6.1
    * - ``delta`` (rad)
-     - Angle de déviation ; ``math.radians(45)`` pour un coude à 45°
+     - Angle de déviation (voir :ref:`angle_deviation_coude`) ;
+       ``math.radians(45)`` pour un coude à 45°
      - 0 à π (180°)
      - Idel'chik, diag. 6.1
    * - ``K`` (m)

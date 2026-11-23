@@ -1015,3 +1015,11 @@ Entrées déplacées le 28/09/2026 (lots hydraulique, facture, échangeurs/CTA, 
 - `Chiller(fluid='R134a', evap_params={'Ti_degC': 5})` puis `calculate_cycle()` : `TypeError: PropsSI(): incompatible function arguments` (`Compressor.py:67`, `HP` à `None`). Cause : `set_compressor_parameters` teste `if params:`, donc un dictionnaire absent **ou vide** (`{}`) n'applique aucun défaut (`Tcond_degC` reste `None`). Attendu : défauts appliqués, ou `ValueError` nommant le paramètre manquant.
 - `Compressor.calculate` imprime `test HP calculation <HP>` à chaque appel (`Compressor.py:56`) : ligne parasite dans toute sortie qui calcule un compresseur.
 - Traitement dans le guide : section « Pièges » de `002-thermodynamic_cycles/chiller.rst` ; ligne parasite omise des sorties publiées.
+
+## Hydraulic.EdgedBend : angle et diamètre non contrôlés, corrections « handbook » sans citation (relevé le 2026-11-23)
+- `delta = 90` (degrés saisis au lieu de radians) : aucune erreur, `ksi_loc` 1,7625 au lieu de 0,9875, `dP` 929,9 Pa au lieu de 521,0 (+78 %) ; seul signal : `delta_deg` = 5156,6 dans le `df`. Attendu : `ValueError` hors de 0 < delta <= pi.
+- `delta = math.radians(270)` et `math.radians(-90)` acceptés et rendus comme 90° (`ksi_loc` 0,9875, la formule en sin(delta/2) est paire et périodique).
+- `d_hyd = 0` : `dP` = 0 Pa au lieu d'une erreur ; `d_hyd = -0.05` accepté (même perte que +0.05).
+- `HandbookCorrections.handbook_local_multiplier` : facteurs ×1,1 (Re > 4e4) et ×1,05 (rapport a/b hors 0,6–1,7) sans `cite(...)` (invariant n°1 du dépôt).
+- À confronter à la source : à 30° et 45°, le coude vif rend une perte **inférieure** au coude cintré 1,5 D de même diamètre (38,4 / 73,5 Pa ; 96,6 / 104,8 Pa, eau 60 °C, 2 kg/s, DN50). La forme publiée du diagramme d'Idel'chik pour le coude vif est à vérifier (présence éventuelle d'un coefficient dépendant de l'angle, non appliqué par le code) — non affirmé ici, l'ouvrage n'a pas été relu.
+- Traitement dans le guide : « Éprouver le modèle » et « Pièges nommés » de `004-hydraulic/coudes_tes_singularites.rst` (section `edged_bend`).

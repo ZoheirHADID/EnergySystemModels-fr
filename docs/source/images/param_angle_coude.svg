@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="580" viewBox="0 0 900 580" role="img" aria-label="Angle de déviation delta d'un coude : par rapport à quoi il se mesure">
+<title>Angle de déviation delta d'un coude : par rapport à quoi il se mesure</title>
+<defs><marker id="fleche" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-end"><path d="M 0 0 L 10 5 L 0 10 z" fill="#1f2933"/></marker><marker id="fleche_cote" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-end"><path d="M 0 0 L 10 5 L 0 10 z" fill="#b46a00"/></marker><marker id="fleche_flux" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-end"><path d="M 0 0 L 10 5 L 0 10 z" fill="#2670a8"/></marker></defs>
+<rect width="900" height="580" fill="#ffffff"/>
+<text x="30.0" y="34.0" fill="#1f2933" text-anchor="start" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="15" font-weight="600">delta = angle dont TOURNE l'écoulement : entre le prolongement de l'axe d'entrée et l'axe de sortie</text>
+<polyline points="100.00,282.00 339.11,282.00 479.91,141.21" fill="none" stroke="#1f2933" stroke-width="2.0" stroke-linejoin="round"/>
+<polyline points="100.00,238.00 320.89,238.00 448.79,110.09" fill="none" stroke="#1f2933" stroke-width="2.0" stroke-linejoin="round"/>
+<polyline points="100.00,260.00 330.00,260.00 464.35,125.65" fill="none" stroke="#7b8794" stroke-width="1.0" stroke-dasharray="7 5" stroke-linejoin="round"/>
+<line x1="120.0" y1="260.0" x2="180.0" y2="260.0" stroke="#2670a8" stroke-width="2.2" marker-end="url(#fleche_flux)"/>
+<text x="150.0" y="230.0" fill="#2670a8" text-anchor="middle" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12">entrée</text>
+<line x1="429.0" y1="161.0" x2="464.4" y2="125.6" stroke="#2670a8" stroke-width="2.2" marker-end="url(#fleche_flux)"/>
+<text x="490.4" y="133.6" fill="#2670a8" text-anchor="start" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12">sortie</text>
+<line x1="330.0" y1="260.0" x2="545.0" y2="260.0" stroke="#b46a00" stroke-width="1.2" stroke-dasharray="4 4"/>
+<text x="545.0" y="280.0" fill="#b46a00" text-anchor="end" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11">prolongement de l'axe d'entrée</text>
+<polyline points="450.00,260.00 449.84,253.72 449.34,247.46 448.52,241.23 447.38,235.05 445.91,228.94 444.13,222.92 442.03,217.00 439.63,211.19 436.92,205.52 433.92,200.00 430.64,194.64 427.08,189.47 423.26,184.48 419.18,179.70 414.85,175.15" fill="none" stroke="#b46a00" stroke-width="1.6" stroke-linejoin="round"/>
+<text x="456.0" y="214.5" fill="#b46a00" text-anchor="start" font-family="Consolas, Courier New, monospace" font-size="14">delta = 45°</text>
+<polyline points="371.01,218.99 368.81,216.90 366.50,214.93 364.09,213.08 361.59,211.36 359.00,209.77 356.33,208.32 353.59,207.01 350.79,205.85 347.92,204.84 345.01,203.98 342.06,203.27 339.07,202.71 336.06,202.32 333.04,202.08 330.00,202.00 326.96,202.08 323.94,202.32 320.93,202.71 317.94,203.27 314.99,203.98 312.08,204.84 309.21,205.85 306.41,207.01 303.67,208.32 301.00,209.77 298.41,211.36 295.91,213.08 293.50,214.93 291.19,216.90 288.99,218.99 286.90,221.19 284.93,223.50 283.08,225.91 281.36,228.41 279.77,231.00 278.32,233.67 277.01,236.41 275.85,239.21 274.84,242.08 273.98,244.99 273.27,247.94 272.71,250.93 272.32,253.94 272.08,256.96 272.00,260.00" fill="none" stroke="#7b8794" stroke-width="1.2" stroke-dasharray="3 3" stroke-linejoin="round"/>
+<text x="266.8" y="217.0" fill="#7b8794" text-anchor="end" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11">angle intérieur = 180° − delta = 135°</text>
+<text x="270.0" y="308.0" fill="#7b8794" text-anchor="start" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11">sommet : croisement des deux axes</text>
+<rect x="610.0" y="70.0" width="260.0" height="156.0" rx="4" fill="#f4f6f8" stroke="#c9d1d9" stroke-width="1.0"/>
+<text x="620.0" y="90.0" fill="#1f2933" text-anchor="start" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12">delta = 0 : tube droit, aucune perte</text>
+<text x="620.0" y="106.0" fill="#1f2933" text-anchor="start" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12">delta = 45° : coude « à 45° »</text>
+<text x="620.0" y="122.0" fill="#1f2933" text-anchor="start" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12">delta = 90° : coude à angle droit</text>
+<text x="620.0" y="138.0" fill="#1f2933" text-anchor="start" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12">delta = 180° : demi-tour (retour)</text>
+<text x="620.0" y="154.0" fill="#1f2933" text-anchor="start" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12"></text>
+<text x="620.0" y="170.0" fill="#1f2933" text-anchor="start" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12">Code Python : delta en RADIANS</text>
+<text x="620.0" y="186.0" fill="#1f2933" text-anchor="start" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12">→ delta = math.radians(45)</text>
+<text x="620.0" y="202.0" fill="#1f2933" text-anchor="start" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12">IHM : champ « Déviation (°) »</text>
+<text x="620.0" y="218.0" fill="#1f2933" text-anchor="start" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12">→ en DEGRÉS : saisir 45</text>
+<text x="30.0" y="372.0" fill="#1f2933" text-anchor="start" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="13" font-weight="600">Sur une tuyauterie : suivre le fluide et mesurer de combien il a tourné.</text>
+<line x1="55.0" y1="460.0" x2="110.0" y2="460.0" stroke="#1f2933" stroke-width="5"/>
+<line x1="110.0" y1="460.0" x2="160.0" y2="460.0" stroke="#1f2933" stroke-width="5"/>
+<line x1="140.0" y1="460.0" x2="160.0" y2="460.0" stroke="#2670a8" stroke-width="2" marker-end="url(#fleche_flux)"/>
+<text x="110.0" y="502.0" fill="#b46a00" text-anchor="middle" font-family="Consolas, Courier New, monospace" font-size="12">delta = 0°</text>
+<line x1="220.0" y1="460.0" x2="275.0" y2="460.0" stroke="#1f2933" stroke-width="5"/>
+<line x1="275.0" y1="460.0" x2="310.4" y2="424.6" stroke="#1f2933" stroke-width="5"/>
+<line x1="296.2" y1="438.8" x2="310.4" y2="424.6" stroke="#2670a8" stroke-width="2" marker-end="url(#fleche_flux)"/>
+<line x1="275.0" y1="460.0" x2="325.0" y2="460.0" stroke="#b46a00" stroke-width="1.0" stroke-dasharray="3 3"/>
+<polyline points="301.00,460.00 300.96,458.64 300.86,457.28 300.68,455.93 300.43,454.59 300.11,453.27 299.73,451.97 299.27,450.68 298.75,449.42 298.17,448.20 297.52,447.00 296.81,445.84 296.03,444.72 295.21,443.64 294.32,442.60 293.38,441.62" fill="none" stroke="#b46a00" stroke-width="1.4" stroke-linejoin="round"/>
+<text x="275.0" y="502.0" fill="#b46a00" text-anchor="middle" font-family="Consolas, Courier New, monospace" font-size="12">delta = 45°</text>
+<line x1="385.0" y1="460.0" x2="440.0" y2="460.0" stroke="#1f2933" stroke-width="5"/>
+<line x1="440.0" y1="460.0" x2="440.0" y2="410.0" stroke="#1f2933" stroke-width="5"/>
+<line x1="440.0" y1="430.0" x2="440.0" y2="410.0" stroke="#2670a8" stroke-width="2" marker-end="url(#fleche_flux)"/>
+<line x1="440.0" y1="460.0" x2="490.0" y2="460.0" stroke="#b46a00" stroke-width="1.0" stroke-dasharray="3 3"/>
+<polyline points="466.00,460.00 465.96,458.64 465.86,457.28 465.68,455.93 465.43,454.59 465.11,453.27 464.73,451.97 464.27,450.68 463.75,449.42 463.17,448.20 462.52,447.00 461.81,445.84 461.03,444.72 460.21,443.64 459.32,442.60 458.38,441.62 457.40,440.68 456.36,439.79 455.28,438.97 454.16,438.19 453.00,437.48 451.80,436.83 450.58,436.25 449.32,435.73 448.03,435.27 446.73,434.89 445.41,434.57 444.07,434.32 442.72,434.14 441.36,434.04 440.00,434.00" fill="none" stroke="#b46a00" stroke-width="1.4" stroke-linejoin="round"/>
+<text x="440.0" y="502.0" fill="#b46a00" text-anchor="middle" font-family="Consolas, Courier New, monospace" font-size="12">delta = 90°</text>
+<line x1="550.0" y1="460.0" x2="605.0" y2="460.0" stroke="#1f2933" stroke-width="5"/>
+<line x1="605.0" y1="460.0" x2="569.6" y2="424.6" stroke="#1f2933" stroke-width="5"/>
+<line x1="583.8" y1="438.8" x2="569.6" y2="424.6" stroke="#2670a8" stroke-width="2" marker-end="url(#fleche_flux)"/>
+<line x1="605.0" y1="460.0" x2="655.0" y2="460.0" stroke="#b46a00" stroke-width="1.0" stroke-dasharray="3 3"/>
+<polyline points="631.00,460.00 630.96,458.64 630.86,457.28 630.68,455.93 630.43,454.59 630.11,453.27 629.73,451.97 629.27,450.68 628.75,449.42 628.17,448.20 627.52,447.00 626.81,445.84 626.03,444.72 625.21,443.64 624.32,442.60 623.38,441.62 622.40,440.68 621.36,439.79 620.28,438.97 619.16,438.19 618.00,437.48 616.80,436.83 615.58,436.25 614.32,435.73 613.03,435.27 611.73,434.89 610.41,434.57 609.07,434.32 607.72,434.14 606.36,434.04 605.00,434.00 603.64,434.04 602.28,434.14 600.93,434.32 599.59,434.57 598.27,434.89 596.97,435.27 595.68,435.73 594.42,436.25 593.20,436.83 592.00,437.48 590.84,438.19 589.72,438.97 588.64,439.79 587.60,440.68 586.62,441.62" fill="none" stroke="#b46a00" stroke-width="1.4" stroke-linejoin="round"/>
+<text x="605.0" y="502.0" fill="#b46a00" text-anchor="middle" font-family="Consolas, Courier New, monospace" font-size="12">delta = 135°</text>
+<line x1="715.0" y1="460.0" x2="770.0" y2="460.0" stroke="#1f2933" stroke-width="5"/>
+<polyline points="770.00,460.00 784.00,460.00 784.00,434.00 725.00,434.00" fill="none" stroke="#1f2933" stroke-width="5" stroke-linejoin="round"/>
+<line x1="755.0" y1="434.0" x2="725.0" y2="434.0" stroke="#2670a8" stroke-width="2" marker-end="url(#fleche_flux)"/>
+<text x="770.0" y="502.0" fill="#b46a00" text-anchor="middle" font-family="Consolas, Courier New, monospace" font-size="12">delta = 180°</text>
+<rect x="30.0" y="518.0" width="840.0" height="44.0" rx="4" fill="#f4f6f8" stroke="#c9d1d9" stroke-width="1.0"/>
+<text x="40.0" y="538.0" fill="#1f2933" text-anchor="start" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12">Ce n'est PAS l'angle de la conduite avec l'horizontale : un coude à 90° posé de biais reste delta = 90°.</text>
+<text x="40.0" y="554.0" fill="#1f2933" text-anchor="start" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12">Ce n'est PAS l'angle intérieur entre les deux branches (135° pour un coude à 45°). Même définition pour CurvedBend.</text>
+</svg>
