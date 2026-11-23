@@ -1090,3 +1090,11 @@ Entrées déplacées le 28/09/2026 (lots hydraulique, facture, échangeurs/CTA, 
 - `n_cells = 0` avec `V_cell` : `ZeroDivisionError` brute.
 - Les constantes `_HHV_H2`, `_LHV_H2`, `_F` du module ne passent pas par `cite(...)` (invariant n°1).
 - Traitement dans le guide : « Pièges (Electrolyzer) » de `002-thermodynamic_cycles/hydrogene_piles.rst`.
+
+## Combustion.NG_Boiler_Efficiency_EN1295X : saisies hors domaine non contrôlées (relevé le 2026-11-24)
+- `flue_gas_temperature_C = 10` (sous l'ambiance) : rendement PCI 111,98 % sans message.
+- `O2_measured = -0.01` accepté (93,31 %) ; `O2_measured = 0.25` -> `ValueError: Pressure out of range` (CoolProp), message qui ne nomme pas l'O2.
+- `gas_composition = {'CH4': 0.5}` (somme 0,5) accepté sans normalisation ni avertissement (91,58 %).
+- `ng_flow_Nm3h = -5` : rendement 0, sans erreur.
+- `FlueGasPort.condensation_heat` : pression de vapeur saturante (Magnus, 610,78 · exp(17,2694 T/(T+237,29))), volume molaire 22,414 et cp 4,18 du condensat sans `cite(...)` (invariant n°1).
+- Traitement dans le guide : « Pièges » de `002-thermodynamic_cycles/ng_boiler_efficiency.rst`.

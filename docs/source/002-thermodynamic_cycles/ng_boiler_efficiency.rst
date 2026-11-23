@@ -166,6 +166,176 @@ Le port ``FG_Outlet`` permet de dimensionner un économiseur en aval :
     print(f"Gain condensation : {Q_cond_total:.0f} kW")
     print(f"Condensat : {kg_cond * fg.F_Nm3h:.0f} kg/h")
 
+Paramètres à personnaliser
+--------------------------
+
+.. list-table::
+   :header-rows: 1
+   :widths: 26 26 48
+
+   * - Grandeur
+     - Valeur à saisir
+     - Effet sur le résultat
+   * - ``gas_composition``
+     - composition molaire du gaz livré (bulletin du fournisseur), somme = 1
+     - Fixe PCI, PCS, air stœchiométrique et point de rosée des fumées.
+   * - ``ng_flow_Nm3h``
+     - débit lu au compteur (Nm³/h) ; ou ``None`` avec une consigne d'eau
+       (exemple 2)
+     - Puissance entrante ; les pertes et la chaleur utile en découlent.
+   * - ``flue_gas_temperature_C``
+     - température mesurée au carneau, en sortie chaudière
+     - Premier poste de pertes ; c'est elle qu'un économiseur abaisse.
+   * - ``O2_measured`` et ``O2_basis``
+     - O₂ de l'analyseur de combustion, en fraction (0,035 = 3,5 %), sur
+       fumées sèches ou humides
+     - Fixe l'excès d'air donc le débit de fumées.
+   * - ``boiler_type``
+     - ``'water_tube'`` ou ``'fire_tube'``
+     - Choisit la norme (EN 12952-15 ou EN 12953-11) et la perte par
+       rayonnement.
+   * - ``design_useful_heat_kW``
+     - puissance utile nominale de la chaudière
+     - Sert à la perte par rayonnement.
+
+Variante exécutée : économiseur ou condenseur sur les fumées
+------------------------------------------------------------
+
+Même chaudière de 22 MW que l'exemple 1. Combien de chaleur récupère-t-on en
+refroidissant les fumées à 140 °C (économiseur prudent), à 80 °C (économiseur
+poussé) ou à 50 °C (condenseur, sous le point de rosée) ?
+
+.. code-block:: python
+
+    # variante : économiseur ou condenseur sur les fumées, trois températures de sortie
+    from ThermodynamicCycles.Combustion.NG_Boiler_Efficiency_EN1295X import (
+        NG_Boiler_Efficiency
+    )
+
+    gas = {
+        'CH4': 0.9489, 'C2H6': 0.01235, 'C3H8': 0.00935,
+        'n-C4H10': 0.00614, 'i-C5H12': 0.00162, 'n-C6H14': 0.00056,
+        'N2': 0.00839, 'CO2': 0.01269,
+    }
+    boiler = NG_Boiler_Efficiency(
+        gas_composition=gas, ng_flow_Nm3h=2000,
+        flue_gas_temperature_C=180, O2_measured=0.035,
+        boiler_type='water_tube', design_useful_heat_kW=22000,
+    )
+    boiler.calculate()
+    fg = boiler.FG_Outlet
+    print(f"point de rosée : {fg.T_condensation:.1f} °C, fumées : {fg.F_Nm3h:.0f} Nm3/h")
+
+    for T_sortie in [140, 80, 50]:
+        sensible = (fg.enthalpy_at(180) - fg.enthalpy_at(T_sortie)) * fg.F_Nm3h
+        q_lat, kg_lat = fg.condensation_heat(T_sortie)
+        print(f"fumées 180 -> {T_sortie:3d} °C : sensible {sensible:6.0f} kW, "
+              f"latent {q_lat * fg.F_Nm3h:5.0f} kW, condensat {kg_lat * fg.F_Nm3h:6.0f} kg/h")
+
+Sortie réelle :
+
+.. code-block:: text
+
+   point de rosée : 57.2 °C, fumées : 25484 Nm3/h
+   fumées 180 -> 140 °C : sensible    396 kW, latent     0 kW, condensat      0 kg/h
+   fumées 180 ->  80 °C : sensible    983 kW, latent     0 kW, condensat      0 kg/h
+   fumées 180 ->  50 °C : sensible   1274 kW, latent   815 kW, condensat   1187 kg/h
+
+Lecture : tant que les fumées restent au-dessus de 57,2 °C, seule la chaleur
+sensible est récupérée (983 kW au mieux, 4,8 % de la puissance entrante).
+Descendre à 50 °C ajoute 815 kW de chaleur latente : 2 089 kW au total, soit
+plus de deux fois l'économiseur à 80 °C, mais il faut un retour d'eau sous le
+point de rosée, un échangeur résistant aux condensats acides et une évacuation
+de 1,2 t/h de condensat.
+
+Variante exécutée : réglage de l'excès d'air
+--------------------------------------------
+
+À la suite du bloc précédent (``gas`` et l'import sont repris) :
+
+.. code-block:: python
+
+    # variante : réglage de l'excès d'air (O2 mesuré en sortie)
+    for o2 in [0.015, 0.025, 0.035, 0.05, 0.07]:
+        b = NG_Boiler_Efficiency(
+            gas_composition=gas, ng_flow_Nm3h=2000,
+            flue_gas_temperature_C=180, O2_measured=o2,
+            boiler_type='water_tube', design_useful_heat_kW=22000,
+        )
+        b.calculate()
+        print(f"O2 {o2:5.1%} : excès d'air {b.excess_air_pct:5.1f} %, "
+              f"pertes fumées {b.flue_gas_loss:6.0f} kW, rendement PCI {b.efficiency_LHV:6.2%}")
+
+Sortie réelle :
+
+.. code-block:: text
+
+   O2  1.5% : excès d'air   6.9 %, pertes fumées   1392 kW, rendement PCI 92.70%
+   O2  2.5% : excès d'air  12.2 %, pertes fumées   1451 kW, rendement PCI 92.42%
+   O2  3.5% : excès d'air  18.0 %, pertes fumées   1516 kW, rendement PCI 92.09%
+   O2  5.0% : excès d'air  28.2 %, pertes fumées   1630 kW, rendement PCI 91.54%
+   O2  7.0% : excès d'air  45.1 %, pertes fumées   1820 kW, rendement PCI 90.61%
+
+Lecture : à 180 °C de fumées, ramener l'O₂ de 7 à 3,5 % gagne 1,5 point de
+rendement (300 kW sur cette chaudière) ; descendre sous 2 % suppose une
+régulation O₂ et une surveillance du CO, que ce calcul ne modélise pas (la
+perte par CO reste nulle).
+
+Cas limite refusé : type de chaudière inconnu
+---------------------------------------------
+
+.. code-block:: python
+
+    try:
+        NG_Boiler_Efficiency(
+            gas_composition=gas, ng_flow_Nm3h=2000,
+            boiler_type='fonte',              # type inconnu
+        ).calculate()
+    except ValueError as erreur:
+        print("Refusé :", erreur)
+
+Sortie réelle :
+
+.. code-block:: text
+
+   Refusé : boiler_type inconnu : 'fonte' (choix : ['fire_tube', 'water_tube'])
+
+Pièges
+------
+
+.. code-block:: python
+
+    # des saisies hors domaine qui passent sans message
+    for nom, reglage in [("fumées à 10 °C", dict(flue_gas_temperature_C=10)),
+                         ("O2 négatif", dict(O2_measured=-0.01)),
+                         ("composition à 50 %", dict(gas_composition={'CH4': 0.5}))]:
+        d = dict(gas_composition=gas, ng_flow_Nm3h=2000, flue_gas_temperature_C=180,
+                 O2_measured=0.035, boiler_type='water_tube', design_useful_heat_kW=22000)
+        d.update(reglage)
+        b = NG_Boiler_Efficiency(**d)
+        b.calculate()
+        print(f"{nom:20s}: rendement PCI {b.efficiency_LHV:6.2%}")
+
+Sortie réelle :
+
+.. code-block:: text
+
+   fumées à 10 °C      : rendement PCI 111.98%
+   O2 négatif          : rendement PCI 93.31%
+   composition à 50 %  : rendement PCI 91.58%
+
+* **Des fumées plus froides que l'ambiance** donnent un rendement PCI de 112 %
+  sans message : vérifiez que ``flue_gas_temperature_C`` est bien la
+  température au carneau.
+* **Un O₂ négatif et une composition qui ne somme pas à 1** passent : relisez
+  la saisie, le modèle ne la contrôle pas. Un O₂ absurde (25 %) finit, lui, en
+  ``ValueError: Pressure out of range`` venue de CoolProp.
+* **O2_measured est une fraction**, pas un pourcentage : 3,5 % s'écrit
+  ``0.035``.
+* **Le point de rosée et le condensat** reposent sur une formule de pression
+  de vapeur saturante écrite dans ``FlueGasPort.condensation_heat`` ; la
+  chaleur latente au-dessous de 57 °C est une estimation, pas une mesure.
+
 Méthodes FlueGasPort
 ---------------------
 

@@ -1283,3 +1283,10 @@
 - Défauts de lib : `BUGS_LIB.md` (Electrolyzer).
 - Banc : 82 pages au cran 5 (+1), aucun recul. Build Sphinx -W : 0 warning.
 - Suivant : `ng_boiler_efficiency.rst` (cran 4 -> 5, avec L3 du handbook : scénarios 140 / 80 / 50 °C).
+
+## 2026-11-24 — B1 + L3 (a) : `ng_boiler_efficiency` cran 4 -> 5
+- Unité : `002-thermodynamic_cycles/ng_boiler_efficiency.rst` (fiche de lecture : `NG_Boiler_Efficiency`, `FlueGasPort.enthalpy_at` / `condensation_heat`).
+- Fait : table « Paramètres à personnaliser » ; variante exécutée « économiseur ou condenseur » (L3 a du handbook) : fumées 180 -> 140 / 80 / 50 °C = 396 / 983 / 1 274 kW sensibles, 0 / 0 / 815 kW latents, 1 187 kg/h de condensat, rosée 57,2 °C — **valeurs de contrôle du livre retrouvées à l'unité** ; variante excès d'air (O2 1,5 -> 7 % : rendement PCI 92,70 -> 90,61 %) ; cas limite refusé (`boiler_type` inconnu) ; pièges exécutés (fumées à 10 °C -> 112 %, O2 négatif, composition à 50 %).
+- Défauts de lib : `BUGS_LIB.md` (NG_Boiler_Efficiency).
+- Banc : 83 pages au cran 5 (+1), aucun recul. Build Sphinx -W : 0 warning.
+- Suivant : `ng_heating_value.rst` (cran 4 -> 5) ; L3 (b) four 500 kW reste ouvert.
