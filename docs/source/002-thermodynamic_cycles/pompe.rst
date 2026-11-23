@@ -263,6 +263,223 @@ imposé) avant ``pump.calculate()`` : la température de refoulement ``To`` et l
 puissance ``W_pump`` deviennent les résultats de la compression liquide
 isentropique.
 
+Paramètres à personnaliser
+--------------------------
+
+.. list-table::
+   :header-rows: 1
+   :widths: 24 22 54
+
+   * - Grandeur
+     - Valeur à saisir
+     - Effet sur le résultat
+   * - ``Pdischarge_bar``
+     - pression de refoulement voulue (bar absolus)
+     - Mode courbe : fixe la HMT demandée, la pompe en déduit le débit. Mode
+       thermodynamique : pression d'arrivée de la compression.
+   * - ``X_F`` / ``Y_hmt`` / ``Y_eta``
+     - 3 à 5 points lus sur la courbe du constructeur, **même nombre** dans
+       les trois listes
+     - Remplacent la courbe par défaut. Le polynôme passe exactement par les
+       points (degré = nombre de points − 1).
+   * - ``IsenEff``
+     - 0,5 à 0,85 (1 = pompe idéale)
+     - Bascule en mode thermodynamique : débit imposé par l'amont,
+       température de refoulement et ``W_pump`` deviennent des résultats.
+   * - ``F_impose``
+     - débit massique (kg/s)
+     - Mode débit imposé, avec un rendement de 0,7 si ``IsenEff`` est vide.
+   * - Fluide et état d'aspiration (``Source``)
+     - ``fluid``, ``Ti_degC``, ``Pi_bar``
+     - Fixent la masse volumique, donc la conversion HMT ↔ pression.
+
+Variante exécutée : une courbe de constructeur
+----------------------------------------------
+
+La courbe par défaut (``X_F = [7, 50, 100, 150]``) n'est pas celle d'une pompe
+centrifuge : sa hauteur **croît** avec le débit jusqu'à 100 m³/h. On la remplace
+par quatre points d'une petite pompe de chauffage : 35 m à débit nul, 17 m à
+30 m³/h.
+
+.. code-block:: python
+
+    # variante : pression de refoulement et courbe constructeur
+    from ThermodynamicCycles.Source import Source
+    from ThermodynamicCycles.Pump import Pump
+    from ThermodynamicCycles.Connect import Fluid_connect
+
+    def point(Pdischarge_bar, X_F=None, Y_hmt=None, Y_eta=None):
+        source = Source.Object()
+        source.fluid = "water"
+        source.Ti_degC = 20
+        source.Pi_bar = 1.0
+        source.F = 5.0                   # débit de départ, recalé par la pompe
+        source.calculate()
+        pump = Pump.Object()
+        if X_F is not None:              # courbe constructeur (3 à 5 points)
+            pump.X_F, pump.Y_hmt, pump.Y_eta = X_F, Y_hmt, Y_eta
+        Fluid_connect(pump.Inlet, source.Outlet)
+        pump.Pdischarge_bar = Pdischarge_bar
+        pump.calculate()
+        return pump
+
+    print("petite pompe : 0-30 m3/h, 35 m à débit nul")
+    for p in [2, 2.5, 3, 3.5, 4]:
+        pp = point(p, X_F=[0, 10, 20, 30], Y_hmt=[35, 33, 27, 17],
+                   Y_eta=[0.0, 0.55, 0.68, 0.60])
+        hors = "  hors courbe" if pp.extrapolated else ""
+        print(f"  {p:>3} bar : {pp.F_m3h:5.2f} m3/h, HMT {pp.hmt:4.1f} m, "
+              f"eta {pp.eta:.3f}, {pp.Q_pump / 1000:4.2f} kW{hors}")
+
+Sortie réelle :
+
+.. code-block:: text
+
+   petite pompe : 0-30 m3/h, 35 m à débit nul
+       2 bar : 35.21 m3/h, HMT 10.2 m, eta 0.545, 1.79 kW  hors courbe
+     2.5 bar : 31.37 m3/h, HMT 15.3 m, eta 0.584, 2.24 kW  hors courbe
+       3 bar : 27.00 m3/h, HMT 20.4 m, eta 0.634, 2.37 kW
+     3.5 bar : 21.76 m3/h, HMT 25.5 m, eta 0.675, 2.24 kW
+       4 bar : 14.77 m3/h, HMT 30.6 m, eta 0.652, 1.89 kW
+
+Lecture : plus le réseau résiste (refoulement élevé), moins la pompe débite —
+c'est l'intersection courbe pompe ∩ courbe réseau. Sous 2,5 bar, le point tombe
+au-delà du dernier point fourni (30 m³/h) : ``pump.extrapolated`` passe à
+``True`` et le polynôme est prolongé sans garantie. Les lignes imprimées par la
+source (« [SOURCE-CALLBACK] flow update… ») sont omises ici.
+
+Variante exécutée : pompe alimentaire d'un cycle à vapeur
+---------------------------------------------------------
+
+En mode thermodynamique, la courbe ne sert plus : le débit vient de l'amont et
+le rendement isentropique fixe le travail.
+
+.. code-block:: python
+
+    # variante : pompe alimentaire d'un cycle de Rankine (mode thermodynamique)
+    from ThermodynamicCycles.Source import Source
+    from ThermodynamicCycles.Pump import Pump
+    from ThermodynamicCycles.Connect import Fluid_connect
+
+    source = Source.Object()
+    source.fluid = "water"
+    source.Ti_degC = 40          # condensat sortant du condenseur
+    source.Pi_bar = 0.1          # vide du condenseur (saturation 45,8 °C)
+    source.F = 10.0              # kg/s
+    source.calculate()
+
+    for eta in [1.0, 0.75, 0.5]:
+        pump = Pump.Object()
+        Fluid_connect(pump.Inlet, source.Outlet)
+        pump.IsenEff = eta       # active le mode thermodynamique
+        pump.Pdischarge_bar = 80 # pression chaudière
+        pump.calculate()
+        print(f"eta {eta:.2f} : T refoulement {pump.To - 273.15:6.3f} °C, "
+              f"W_pump {pump.W_pump / 1000:6.2f} kW")
+
+Sortie réelle :
+
+.. code-block:: text
+
+   eta 1.00 : T refoulement 40.234 °C, W_pump  80.39 kW
+   eta 0.75 : T refoulement 40.878 °C, W_pump 107.19 kW
+   eta 0.50 : T refoulement 42.166 °C, W_pump 160.78 kW
+
+Lecture : relever 10 kg/s d'eau de 0,1 à 80 bar coûte 80 kW au minimum ; le
+travail perdu par le rendement échauffe l'eau (+1,9 K à η = 0,5), il n'est pas
+perdu pour le cycle.
+
+Cas limite refusé : courbe aux listes de longueurs différentes
+--------------------------------------------------------------
+
+.. code-block:: python
+
+    from ThermodynamicCycles.Source import Source
+    from ThermodynamicCycles.Pump import Pump
+    from ThermodynamicCycles.Connect import Fluid_connect
+
+    source = Source.Object()
+    source.fluid = "water"
+    source.Ti_degC = 20
+    source.Pi_bar = 1.0
+    source.F = 5.0
+    source.calculate()
+
+    pump = Pump.Object()
+    pump.X_F = [0, 10, 20]               # 3 débits...
+    pump.Y_hmt = [35, 33, 27, 17]        # ... pour 4 hauteurs
+    pump.Y_eta = [0.0, 0.55, 0.68, 0.60]
+    Fluid_connect(pump.Inlet, source.Outlet)
+    pump.Pdischarge_bar = 3
+    try:
+        pump.calculate()
+    except ValueError as erreur:
+        print("Refusé :", erreur)
+
+Sortie réelle :
+
+.. code-block:: text
+
+   Refusé : Found input variables with inconsistent numbers of samples: [3, 4]
+
+Le message vient de scikit-learn ; il signifie que ``X_F`` et ``Y_hmt`` (ou
+``Y_eta``) n'ont pas le même nombre de points.
+
+Pièges
+------
+
+Le plus coûteux : une pression de refoulement **hors de portée** de la pompe
+n'est pas refusée.
+
+.. code-block:: python
+
+    from ThermodynamicCycles.Source import Source
+    from ThermodynamicCycles.Pump import Pump
+    from ThermodynamicCycles.Connect import Fluid_connect
+
+    source = Source.Object()
+    source.fluid = "water"
+    source.Ti_degC = 20
+    source.Pi_bar = 1.0
+    source.F = 5.0
+    source.calculate()
+
+    pump = Pump.Object()
+    pump.X_F = [0, 10, 20, 30]
+    pump.Y_hmt = [35, 33, 27, 17]        # 35 m au maximum, à débit nul
+    pump.Y_eta = [0.0, 0.55, 0.68, 0.60]
+    Fluid_connect(pump.Inlet, source.Outlet)
+    pump.Pdischarge_bar = 4.5            # 35,7 m demandés : hors de portée
+    pump.calculate()                     # aucune exception
+    print("point trouvé :", pump.operating_point_found)
+    print("débit rendu  :", round(pump.F_m3h, 2), "m3/h")
+    print(pump.operating_point_warning)
+
+Sortie réelle :
+
+.. code-block:: text
+
+   point trouvé : False
+   débit rendu  : 0.1 m3/h
+   aucun debit de la courbe ne fournit la hauteur demandee (35.74 m) : sur [0.1 ; 45] m3/h la courbe va de -5.50 a 35.00 m. La pression de refoulement imposee est hors de portee de cette pompe.
+
+* **Testez** ``pump.operating_point_found`` après chaque calcul à pression
+  imposée : à ``False``, le débit rendu (ici la borne de 0,1 m³/h) n'est pas un
+  point de fonctionnement. Le nœud ``PyqtSimulator`` le refuse, un script
+  Python non.
+* **La courbe par défaut monte avec le débit** (12 m à 7 m³/h, 80 m à
+  100 m³/h) : à 2 bar elle rend 5,80 m³/h sur sa branche montante. Saisissez
+  toujours la courbe de votre pompe.
+* **La pompe réécrit le débit de la source** (5 → 5,731 kg/s dans l'exemple) :
+  le débit saisi sur ``Source`` n'est qu'un point de départ en mode courbe.
+* **Une pression de refoulement inférieure à l'aspiration** donne une HMT
+  négative ; même traitement : ``operating_point_found`` à ``False``.
+* **Puissances en W** sur l'objet (``Q_pump``, ``W_pump``) ; ``df`` les
+  affiche en kW.
+
+Voir aussi : :doc:`chiller` pour un cycle complet, et les pages du chapitre
+hydraulique pour la courbe réseau (pertes de charge des tronçons).
+
 Méthodes
 --------
 

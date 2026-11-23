@@ -404,18 +404,18 @@
    "recul": null
   },
   "docs/source/002-thermodynamic_cycles/pompe.rst": {
-   "blocs": 2,
-   "empreinte": "fe2d6d0225095e54",
-   "mesure": "2026-09-28T12:01",
+   "blocs": 6,
+   "empreinte": "eb52322d01ce57dc",
+   "mesure": "2026-11-23T20:38",
    "figures": [
     "../images/schema_pump.svg"
    ],
    "blocage": null,
-   "motif": "manque : table de personnalisation et variante exécutée",
+   "motif": "",
    "extraits": null,
-   "cran": 4,
-   "nom": "figure réelle",
-   "cran_max": 4,
+   "cran": 5,
+   "nom": "personnalisable",
+   "cran_max": 5,
    "recul": null
   },
   "docs/source/002-thermodynamic_cycles/raccords_fittings.rst": {

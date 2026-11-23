@@ -1192,3 +1192,10 @@
 - Défauts de lib : `BUGS_LIB.md` (Condenser / Evaporator).
 - Banc : 71 pages au cran 5 (+1), aucun recul. Build Sphinx -W : 0 warning.
 - Suivant : `pompe.rst`, `refrigeration.rst` (cran 4 -> 5).
+
+## 2026-11-23 — B1 : `pompe` cran 4 -> 5
+- Unité : `002-thermodynamic_cycles/pompe.rst` (fiche de lecture de `Pump.py` : deux modes, `_check_operating_point`, drapeaux `extrapolated` / `operating_point_found`).
+- Fait : table « Paramètres à personnaliser » ; variante courbe constructeur (35 m à débit nul) 2 à 4 bar : 35,21 -> 14,77 m³/h, extrapolation signalée sous 2,5 bar ; variante mode thermodynamique (pompe alimentaire 10 kg/s, 0,1 -> 80 bar) : W_pump 80,39 / 107,19 / 160,78 kW à eta 1 / 0,75 / 0,5 ; cas limite refusé (listes de longueurs différentes, `ValueError`) ; piège exécuté : refoulement hors de portée rendu sans exception (`operating_point_found = False`, 0,1 m³/h).
+- Défauts de lib : `BUGS_LIB.md` (courbe par défaut non centrifuge, hors de portée sans exception, messages, `print` de la source).
+- Banc : 72 pages au cran 5 (+1), aucun recul. Build Sphinx -W : 0 warning.
+- Suivant : `refrigeration.rst` (cran 4 -> 5).

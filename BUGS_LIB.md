@@ -1030,3 +1030,10 @@ Entrées déplacées le 28/09/2026 (lots hydraulique, facture, échangeurs/CTA, 
 - `Evaporator.calculate()` appelé deux fois sur le même objet : `Tfluid_i` passe de 20 à 40 éléments (`append` sans remise à zéro, `Evaporator.py`), `Qevap_i` reste à 20 ; `plt.plot(Qevap_i, Tfluid_i)` échoue. Attendu : liste réinitialisée à chaque appel.
 - `Evaporator` : `Ti_degC` et `LP_bar` saisis ensemble -> `LP_bar` l'emporte en silence. `Ti_degC = 60` pour un liquide d'entrée à 40 °C : `Q_evap` = 172,9 kW/(kg/s) sans message (évaporation au-dessus de la température du liquide détendu).
 - Traitement dans le guide : sections « Pièges » de `002-thermodynamic_cycles/condenseur_evaporateur.rst`.
+
+## ThermodynamicCycles.Pump : courbe par défaut non centrifuge, refoulement hors de portée rendu sans exception (relevé le 2026-11-23)
+- Courbe par défaut `X_F = [7, 50, 100, 150]`, `Y_hmt = [12, 60, 80, 68]` : la hauteur croît avec le débit jusqu'à ~100 m³/h (une centrifuge a sa hauteur maximale à débit nul). Eau 20 °C, 1 -> 2 bar : point rendu 5,80 m³/h sur la branche montante. Défaut sans source (invariant n°1).
+- Pression de refoulement hors de portée (courbe 35 m à débit nul, 4,5 bar demandés) : `calculate()` ne lève rien, rend `F_m3h` = 0,1 (borne de recherche) avec `operating_point_found = False` ; même chose pour `Pdischarge` < `Inlet.P` (HMT -5,1 m). Le nœud IHM refuse, un script non : à confronter à l'invariant n°2.
+- `X_F` et `Y_hmt` de longueurs différentes : `ValueError` de scikit-learn (« inconsistent numbers of samples: [3, 4] ») au lieu d'un message nommant les listes. `X_F` avec un débit répété (`[10, 10, 20, 30]`) accepté sans message.
+- `Source` imprime `[SOURCE-CALLBACK] flow update…` et `New volumetric flow…` à chaque recalage par la pompe (lignes parasites dans les sorties).
+- Traitement dans le guide : sections « Variante » et « Pièges » de `002-thermodynamic_cycles/pompe.rst`.
