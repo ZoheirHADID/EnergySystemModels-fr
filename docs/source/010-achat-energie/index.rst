@@ -56,6 +56,9 @@ Les calculateurs du paquet ``Facture``
    * - ``Facture.SONALGAZ_gaz`` — ``Sonalgaz_Gaz``
      - Gaz en Algérie (HP, MP, BP), comparaison relevé / calculé
      - :doc:`guide_audit_facture`, section 10.3.4
+   * - ``Facture.HybridHeatDispatch`` — ``Object``
+     - France : appoint électrique d'une chaufferie gaz (spot, réserves aFRR de RTE, puissance souscrite TURPE)
+     - :doc:`appoint_electrique_spot`
    * - ``Facture.df_utils``
      - Mise en forme des tableaux auditables
      - :doc:`guide_audit_facture`, section 10.3.5
@@ -71,4 +74,5 @@ calcule pas. Les périodes couvertes sont données page par page.
    contrat_electricite
    contrat_gaz
    guide_audit_facture
+   appoint_electrique_spot
 

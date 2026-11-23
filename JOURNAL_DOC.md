@@ -1170,3 +1170,18 @@
 - Banc : `coudes_tes_singularites` et `coude_aeraulique` au cran 5 (6 et 3 blocs), aucun recul. Build Sphinx -W : 0 warning.
 - Note : régénérer `generate_param_diagrams.py` modifie aussi les 6 `assemblage_*.svg` (icônes changées dans la lib par une autre session) ; non commités ici.
 - Suivant : G2b `SuddenContraction` (`reduction_section.rst`), ou B1 `condenseur_evaporateur.rst`.
+
+## 2026-11-23 — Chaudière électrique et appoint électrique d'une chaufferie gaz (France)
+
+- Unité : item 6c de la loop librairie (`EnergySystemModels`, commits `78b10a87`, `19ae3bb0`).
+- Fait :
+  - `002-thermodynamic_cycles/chaudiere_electrique.rst` : `ThermodynamicCycles.ElectricBoiler`
+    branchée Source → `Fluid_connect` → chaudière → Sink ; table de personnalisation ;
+    variante puissance utile imposée ; refus au-delà de P_max / sous P_min ; nœud 511.
+  - `010-achat-energie/appoint_electrique_spot.rst` : `Facture.HybridHeatDispatch`,
+    **France uniquement** (TURPE, accise, réserves de RTE) ; seuil spot, six
+    souscriptions par plage, variante avec capacité aFRR ; limites déclarées ;
+    nœud 986. Ligne ajoutée au tableau des calculateurs `Facture`.
+- Mesuré : banc **cran 5** pour les deux pages (137 pages mesurées) ; build Sphinx
+  0 avertissement, 0 erreur.
+- Données de l'exemple d'optimisation : **synthétiques** (formules), pas une mesure.

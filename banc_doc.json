@@ -101,6 +101,19 @@
    "cran_max": 5,
    "recul": null
   },
+  "docs/source/002-thermodynamic_cycles/chaudiere_electrique.rst": {
+   "blocs": 2,
+   "empreinte": "2f98fa1b56281c2d",
+   "mesure": "2026-11-23T19:35",
+   "figures": [],
+   "blocage": null,
+   "motif": "",
+   "extraits": null,
+   "cran": 5,
+   "nom": "personnalisable",
+   "cran_max": 5,
+   "recul": null
+  },
   "docs/source/002-thermodynamic_cycles/chiller.rst": {
    "blocs": 6,
    "empreinte": "c2dfe3032efe1ac0",
@@ -1262,6 +1275,19 @@
    "blocage": null,
    "motif": "",
    "extraits": 1,
+   "cran": 5,
+   "nom": "personnalisable",
+   "cran_max": 5,
+   "recul": null
+  },
+  "docs/source/010-achat-energie/appoint_electrique_spot.rst": {
+   "blocs": 2,
+   "empreinte": "a56f73d7ce37dcd3",
+   "mesure": "2026-11-23T19:35",
+   "figures": [],
+   "blocage": null,
+   "motif": "",
+   "extraits": null,
    "cran": 5,
    "nom": "personnalisable",
    "cran_max": 5,
