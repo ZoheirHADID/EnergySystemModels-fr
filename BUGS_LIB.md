@@ -1070,3 +1070,9 @@ Entrées déplacées le 28/09/2026 (lots hydraulique, facture, échangeurs/CTA, 
 - `solve(case=4)` : aucun contrôle à l'entrée ; les profils restent nuls, divisions par zéro en cascade (`Deethanizer.py:333`, `PengRobinson.py:392`) puis `numpy.linalg.LinAlgError: Array must not contain infs or NaNs`. Attendu : `ValueError` nommant les cas valides (1, 2, 3).
 - `Deethanizer(pressure_profile=(27.5e5, -1.0))` accepté : `_build_pressure_profile` retourne le `linspace` du couple **avant** le contrôle « pression nulle ou négative », qui ne s'applique qu'à la liste complète.
 - Traitement dans le guide : « Pièges » de `002-thermodynamic_cycles/distillation.rst`.
+
+## ThermodynamicCycles.AbsorptionChiller : machine impossible publiée, titre plafonné en silence (relevé le 2026-11-23)
+- Plage de dégazage négative (T_gen 65 °C, rejet 35 °C : -2,3 %) : `COP_out` 0,378 et `Q_gen` 264,3 kW publiés, seul `circulation_ratio` passe à `None`. Attendu : refus (ou statut) quand `degassing_range <= 0`.
+- `LiBrH2O.concentration` renvoie la borne la plus proche hors domaine (« hors domaine : renvoyer la borne la plus proche ») : `X_concentrated` = 70,0 % à 110 et 130 °C, sans avertissement (invariant n°2). Le COP continue de croître (1,269 à 130 °C, rejet 30 °C) puisque `eta_II` est constant.
+- `T_evap_degC = 40` > `T_cond_degC = 35` : COP -4,363 accepté.
+- Traitement dans le guide : « Cas limites » et « Pièges (AbsorptionChiller) » de `002-thermodynamic_cycles/froid_absorption.rst`.

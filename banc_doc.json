@@ -285,16 +285,16 @@
    "recul": null
   },
   "docs/source/002-thermodynamic_cycles/froid_absorption.rst": {
-   "blocs": 6,
-   "empreinte": "f20df9b10f94c2cc",
-   "mesure": "2026-09-28T14:06",
+   "blocs": 8,
+   "empreinte": "b78ebd315dea9161",
+   "mesure": "2026-11-23T23:14",
    "figures": [],
    "blocage": null,
-   "motif": "manque : table de personnalisation et variante exécutée",
+   "motif": "",
    "extraits": null,
-   "cran": 4,
-   "nom": "figure réelle",
-   "cran_max": 4,
+   "cran": 5,
+   "nom": "personnalisable",
+   "cran_max": 5,
    "recul": null
   },
   "docs/source/002-thermodynamic_cycles/geothermie_solaire.rst": {

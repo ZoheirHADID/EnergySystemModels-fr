@@ -1261,3 +1261,10 @@
 - Défauts de lib : `BUGS_LIB.md` (Deethanizer).
 - Banc : 79 pages au cran 5 (+1), aucun recul. Build Sphinx -W : 0 warning.
 - Suivant : `froid_absorption.rst` (cran 4 -> 5).
+
+## 2026-11-23 — B1 : `froid_absorption` cran 4 -> 5 (AbsorptionChiller)
+- Unité : `002-thermodynamic_cycles/froid_absorption.rst`, modèle `AbsorptionChiller` (fiche de lecture de `AbsorptionChiller.py` et `LiBrH2O.concentration`). Absorber, Desorber, AmmoniaWater restent sans variante.
+- Fait : table « Paramètres à personnaliser » ; variante exécutée chaleur motrice 70 / 80 / 90 / 110 °C x rejet 30 / 35 °C (100 kW de froid : Q_gen 167,6 -> 93,6 kW à 30 °C, 229,9 -> 119,8 kW à 35 °C ; plage de dégazage 0,2 % à 70 / 35) ; lecture : la plage dit si la machine tourne, lignes à 110 °C hors domaine ; cas limites exécutés (aucun refusé : plage négative, titre plafonné, COP négatif) ; pièges.
+- Défauts de lib : `BUGS_LIB.md` (AbsorptionChiller).
+- Banc : 80 pages au cran 5 (+1), aucun recul. Build Sphinx -W : 0 warning.
+- Suivant : `geothermie_solaire.rst` (cran 4 -> 5).

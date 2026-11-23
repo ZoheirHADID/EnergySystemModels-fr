@@ -439,6 +439,138 @@ Sortie réelle :
    Plage_degazage_pct             9.0670
    Taux_circulation               7.1380
 
+Paramètres à personnaliser (AbsorptionChiller)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. list-table::
+   :header-rows: 1
+   :widths: 26 26 48
+
+   * - Grandeur
+     - Valeur à saisir
+     - Effet sur le résultat
+   * - ``T_gen_degC``
+     - température de la chaleur motrice disponible (eau chaude, vapeur,
+       fumées), moins l'écart de l'échangeur
+     - Premier levier : elle ouvre la plage de dégazage et relève le COP.
+   * - ``T_cond_degC``, ``T_abs_degC``
+     - température de l'eau de tour (ou du dry) plus l'écart des échangeurs ;
+       en général égales
+     - Plus le rejet est chaud, plus il faut de chaleur motrice ; sous une
+       certaine ``T_gen`` la machine ne fonctionne plus (voir ci-dessous).
+   * - ``T_evap_degC``
+     - départ d'eau glacée moins l'écart de l'évaporateur ; au-dessus de 0 °C
+       (le réfrigérant est de l'eau)
+     - Fixe la basse pression (0,87 kPa à 5 °C).
+   * - ``eta_II`` ou ``COP``
+     - 0,46 par défaut ; ``COP`` saisi prime
+     - Le COP vaut ``eta_II × COP_rev`` : un ``eta_II`` constant ne voit ni la
+       cristallisation ni les pertes réelles.
+   * - ``Q_evap_W`` ou eau glacée (``ChilledWater_Inlet.F``, ``.T`` et
+       ``T_chilled_out_degC``)
+     - puissance de froid voulue
+     - ``Q_gen = Q_evap / COP`` ; ``Q_reject = Q_gen + Q_evap``.
+
+Variante exécutée : chaleur motrice et eau de refroidissement
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+La question d'un projet de récupération de chaleur : avec de l'eau chaude à
+70, 80, 90 ou 110 °C, quelle chaleur faut-il pour 100 kW de froid, selon que
+la tour rend de l'eau à 30 ou à 35 °C ?
+
+.. code-block:: python
+
+    # variante : température de la chaleur motrice et de l'eau de refroidissement
+    from ThermodynamicCycles.AbsorptionChiller.AbsorptionChiller import Object as AbsorptionChiller
+
+    def machine(T_gen, T_rejet):
+        ac = AbsorptionChiller()
+        ac.T_evap_degC = 5
+        ac.T_cond_degC = T_rejet
+        ac.T_abs_degC = T_rejet
+        ac.T_gen_degC = T_gen
+        ac.Q_evap_W = 100e3                    # 100 kW de froid
+        ac.calculate()
+        return ac
+
+    print("T_gen  rejet   COP   Q_gen (kW)  X dilué  X concentré  plage")
+    for T_rejet in [30, 35]:
+        for T_gen in [70, 80, 90, 110]:
+            ac = machine(T_gen, T_rejet)
+            print(f"{T_gen:4d}   {T_rejet:4d}  {ac.COP_out:5.3f}  {ac.Q_gen / 1000:9.1f}  "
+                  f"{ac.X_dilute:6.1f} %  {ac.X_concentrated:8.1f} %  {ac.degassing_range:5.1f} %")
+
+Sortie réelle :
+
+.. code-block:: text
+
+   T_gen  rejet   COP   Q_gen (kW)  X dilué  X concentré  plage
+     70     30  0.597      167.6    52.9 %      58.6 %    5.7 %
+     80     30  0.725      138.0    52.9 %      63.1 %   10.2 %
+     90     30  0.846      118.3    52.9 %      67.2 %   14.4 %
+    110     30  1.069       93.6    52.9 %      70.0 %   17.1 %
+     70     35  0.435      229.9    55.7 %      55.9 %    0.2 %
+     80     35  0.543      184.0    55.7 %      60.5 %    4.8 %
+     90     35  0.646      154.8    55.7 %      64.7 %    9.1 %
+    110     35  0.835      119.8    55.7 %      70.0 %   14.3 %
+
+Lecture :
+
+* **La plage de dégazage dit si la machine tourne**, pas le COP. À 70 °C avec
+  un rejet à 35 °C, elle n'est que de 0,2 % : la solution circule presque sans
+  se concentrer, la machine est inexploitable même si le COP affiché vaut
+  0,435.
+* **5 K de moins sur l'eau de tour valent plus de 10 K de chaleur motrice** :
+  à 80 °C avec un rejet à 30 °C, il faut moins de chaleur (138 kW) qu'à 90 °C
+  avec un rejet à 35 °C (154,8 kW).
+* **Les lignes à 110 °C ne sont pas exploitables** : le titre concentré
+  plafonne à 70,0 %, borne haute de la corrélation (et zone de cristallisation
+  du LiBr), et le COP de 1,07 dépasse le COP ≈ 0,7 d'un simple effet rappelé
+  plus haut : ``eta_II`` constant n'a plus de sens à ces températures.
+
+Cas limites : aucun n'est refusé
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Le modèle ne lève aucune exception, même hors de son domaine :
+
+.. code-block:: python
+
+    from ThermodynamicCycles.AbsorptionChiller.AbsorptionChiller import Object as AbsorptionChiller
+
+    cas = {"chaleur motrice 65 °C, rejet 35 °C": dict(T_gen_degC=65),
+           "chaleur motrice 130 °C, rejet 30 °C": dict(T_gen_degC=130, T_cond_degC=30, T_abs_degC=30),
+           "évaporation 40 °C > condensation 35 °C": dict(T_evap_degC=40)}
+    for nom, reglage in cas.items():
+        ac = AbsorptionChiller()
+        for attribut, valeur in reglage.items():
+            setattr(ac, attribut, valeur)
+        ac.calculate()                      # aucune exception
+        print(f"{nom:40s}: COP {ac.COP_out:6.3f}, plage {ac.degassing_range:5.1f} %, "
+              f"X concentré {ac.X_concentrated:4.1f} %")
+
+Sortie réelle :
+
+.. code-block:: text
+
+   chaleur motrice 65 °C, rejet 35 °C      : COP  0.378, plage  -2.3 %, X concentré 53.3 %
+   chaleur motrice 130 °C, rejet 30 °C     : COP  1.269, plage  17.1 %, X concentré 70.0 %
+   évaporation 40 °C > condensation 35 °C  : COP -4.363, plage  19.7 %, X concentré 64.7 %
+
+Pièges (AbsorptionChiller)
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+* **Plage de dégazage négative = machine impossible**, mais ``COP`` et
+  ``Q_gen`` sont publiés quand même (seul ``circulation_ratio`` passe à
+  ``None``). Testez ``ac.degassing_range > 0`` avant de lire le COP ; en
+  pratique, visez plusieurs points de pourcentage.
+* **Titre plafonné en silence** : hors du domaine de la corrélation (45 à
+  70 % de LiBr), ``concentration`` renvoie la borne la plus proche. Un
+  ``X_concentrated`` de 70,0 % pile signale qu'on est sorti du domaine.
+* **COP négatif accepté** si l'évaporation est plus chaude que la
+  condensation : vérifiez l'ordre ``T_evap < T_cond <= T_gen``.
+* **Températures en °C** sur les attributs, contrairement aux ports
+  (``ChilledWater_Inlet.T`` en K).
+
 Couple LiBr-H2O — domaine de validité (module ``LiBrH2O``)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
