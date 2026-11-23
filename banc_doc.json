@@ -270,18 +270,18 @@
    "recul": null
   },
   "docs/source/002-thermodynamic_cycles/fluid_source.rst": {
-   "blocs": 1,
-   "empreinte": "d6acad70243bb822",
-   "mesure": "2026-09-28T11:47",
+   "blocs": 4,
+   "empreinte": "4307188993babb6d",
+   "mesure": "2026-11-23T21:42",
    "figures": [
     "../images/schema_source.svg"
    ],
    "blocage": null,
-   "motif": "manque : table de personnalisation et variante exécutée",
+   "motif": "",
    "extraits": null,
-   "cran": 4,
-   "nom": "figure réelle",
-   "cran_max": 4,
+   "cran": 5,
+   "nom": "personnalisable",
+   "cran_max": 5,
    "recul": null
   },
   "docs/source/002-thermodynamic_cycles/froid_absorption.rst": {

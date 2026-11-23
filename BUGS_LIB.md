@@ -1048,3 +1048,9 @@ Entrées déplacées le 28/09/2026 (lots hydraulique, facture, échangeurs/CTA, 
 - Entrée diphasique (eau, 10 bar, titre 0,5) : `Q` et `F_m3h` calculés, puis `ThermoPropsSI("D", "P", …, "T", Tsat)` échoue sur la saturation ; le `except:` nu imprime « Error! please connect the sink… » et `df` reste vide.
 - `try/except:` nu sur tout `calculate()` (et sur `To_degC`, repli à -273,15 °C) : aucune exception, même message pour port non raccordé, fluide inconnu (`"eau"`) ou diphasique (invariant n°2).
 - Traitement dans le guide : « Cas limite » et « Pièges » de `002-thermodynamic_cycles/sink.rst`.
+
+## ThermodynamicCycles.Source : débits concurrents et débit absent acceptés (relevé le 2026-11-23)
+- `F = 2.0` et `F_m3h = 36.0` saisis ensemble : aucun message, `F` devient 9,982 kg/s (la dernière unité lue dans `calculate()` gagne : `F_Sm3h`, `F_Nm3h`, `F_m3s`, `F_m3h`, `F_kgh`, `F_Sm3s`, `F_Nm3s`). Attendu : `ValueError` si plusieurs débits sont renseignés.
+- Aucun débit : `F = 0` sans message (toute la ligne aval calcule des puissances nulles).
+- `on_flow_change` imprime `[SOURCE-CALLBACK] flow update…` / `New volumetric flow…` (déjà relevé avec la pompe).
+- Traitement dans le guide : « Pièges » de `002-thermodynamic_cycles/fluid_source.rst`.

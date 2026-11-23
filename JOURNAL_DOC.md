@@ -1233,3 +1233,10 @@
   ballon de stockage en « Port de chaleur » (équivalent G (T − T_eq), linéarisé
   signalé).
 - Mesuré : banc cran 5 (3 blocs) ; build Sphinx 0 avertissement.
+
+## 2026-11-23 — B1 : `fluid_source` cran 4 -> 5
+- Unité : `002-thermodynamic_cycles/fluid_source.rst` (fiche de lecture de `Source.py` : entrées obligatoires, ordre de lecture des débits, remise à `None`).
+- Fait : table « Paramètres à personnaliser » ; variante exécutée « un débit de gaz naturel dans trois unités » (méthane 5 bar / 10 °C : 1 000 Nm³/h = 1 055,3 Sm³/h = 208,4 m³/h réels = 717,5 kg/h) ; cas limite refusé (`Ti_degC` absent -> `MissingInputError`) ; pièges exécutés (deux débits saisis, aucun débit, eau à 100 °C sous 1 atm = vapeur, débits remis à `None`).
+- Défauts de lib : `BUGS_LIB.md` (Source).
+- Banc : 76 pages au cran 5 (+1), aucun recul. Build Sphinx -W : 0 warning.
+- Suivant : `detente_distributeurs.rst` (cran 4 -> 5).
