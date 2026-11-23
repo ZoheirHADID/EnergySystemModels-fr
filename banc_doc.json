@@ -379,16 +379,16 @@
    "recul": null
   },
   "docs/source/002-thermodynamic_cycles/ng_heating_value.rst": {
-   "blocs": 1,
-   "empreinte": "f0689a257ce5bef0",
-   "mesure": "2026-09-28T13:43",
+   "blocs": 3,
+   "empreinte": "6530bb63520fff40",
+   "mesure": "2026-11-24T00:50",
    "figures": [],
    "blocage": null,
-   "motif": "manque : table de personnalisation et variante exécutée",
+   "motif": "",
    "extraits": null,
-   "cran": 4,
-   "nom": "figure réelle",
-   "cran_max": 4,
+   "cran": 5,
+   "nom": "personnalisable",
+   "cran_max": 5,
    "recul": null
   },
   "docs/source/002-thermodynamic_cycles/nomenclature.rst": {

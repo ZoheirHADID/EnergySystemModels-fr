@@ -1290,3 +1290,10 @@
 - Défauts de lib : `BUGS_LIB.md` (NG_Boiler_Efficiency).
 - Banc : 83 pages au cran 5 (+1), aucun recul. Build Sphinx -W : 0 warning.
 - Suivant : `ng_heating_value.rst` (cran 4 -> 5) ; L3 (b) four 500 kW reste ouvert.
+
+## 2026-11-24 — B1 : `ng_heating_value` cran 4 -> 5
+- Unité : `002-thermodynamic_cycles/ng_heating_value.rst` (fiche de lecture de `NG_Heating_Value.py` : tableau interne de 12 constituants, `to_dataframe`).
+- Fait : section « Lire le résultat » (deux lignes « HHV vol », lecture par position) ; table « Paramètres à personnaliser » ; variante exécutée « injection d'hydrogène » (0 / 5 / 10 / 20 / 30 % : PCS 11,326 -> 8,983 kWh/Nm³, -20,7 % ; Wobbe -7,4 %) ; cas limites exécutés (aucun refusé : somme 0,5, C2H4, casse) ; pièges (constituant inconnu = inerte, Cp en kJ/kg/K mal pondéré, conditions de référence).
+- Défauts de lib : `BUGS_LIB.md` (NG_Heating_Value).
+- Banc : 84 pages au cran 5 (+1), aucun recul. Build Sphinx -W : 0 warning.
+- Suivant : `outils_diagrammes.rst` (dernier cran 4 de B1).

@@ -174,11 +174,12 @@ réelle si le modèle en a une.
   `geothermie_solaire` (sonde géothermique ; capteur solaire sans variante),
   `hydrogene_piles` (électrolyseur ; FuelCell, Reformer, Gasifier sans variante),
   `ng_boiler_efficiency` (économiseur / condenseur, excès d'air),
+  `ng_heating_value` (injection d'hydrogène),
   `detente_distributeurs` (détendeur ; distributeurs DCV sans variante) et
   `dessalement_evaporation` (MVR ; MultiEffectEvaporator, ReverseOsmosis, MSF, SprayDryer sans
   variante) au cran 5 (2026-11-23). Restent au cran 4 (table de
   personnalisation + variante exécutée) :
-  `ng_heating_value`, `outils_diagrammes`.
+  `outils_diagrammes`.
 - `à faire` **B2 — `004-hydraulic` (6 pages)**. `TA_valve` au cran 4 ;
   `perte_pression_lineaire` au cran 2 — **elle n'affiche aucune sortie** alors que
   son exemple en produit.

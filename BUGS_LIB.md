@@ -1098,3 +1098,11 @@ Entrées déplacées le 28/09/2026 (lots hydraulique, facture, échangeurs/CTA, 
 - `ng_flow_Nm3h = -5` : rendement 0, sans erreur.
 - `FlueGasPort.condensation_heat` : pression de vapeur saturante (Magnus, 610,78 · exp(17,2694 T/(T+237,29))), volume molaire 22,414 et cp 4,18 du condensat sans `cite(...)` (invariant n°1).
 - Traitement dans le guide : « Pièges » de `002-thermodynamic_cycles/ng_boiler_efficiency.rst`.
+
+## Combustion.NG_Heating_Value : constituants inconnus à zéro, Cp mal pondéré et mal étiqueté (relevé le 2026-11-24)
+- Formule absente du tableau interne (`C2H4`, `H2S`, `He`, `ch4`…) : PCS, PCI, `b` et `Cp` mis à 0 sans message (`GasComponent.__init__`, branche `else`). 10 % de `C2H4` dans du méthane : PCS 9,96 kWh/Nm³ comme pour 10 % d'azote. Attendu : `ValueError` nommant la formule. `molar_mass` ignore tout élément hors C, H, O, N (`H2S` -> 2,016 g/mol ; `He` lu comme `H`).
+- Somme des fractions non contrôlée ni normalisée (CH4 = 0,5 -> PCS divisé par deux).
+- Ligne « Cp » : moyenne pondérée par les fractions **molaires** de Cp **massiques** (kJ/kg/K), affichée en `J/kg/K` (valeur 2,19).
+- Deux lignes nommées « HHV vol » (MJ/Nm³ idéal et kWh/Nm³ corrigé de Z) : libellé ambigu, et la valeur kWh n'est pas sur la même base que la valeur MJ du même nom.
+- Données du tableau (PCS, PCI, facteurs b, Cp) sans `cite(...)` alors que la page annonce ISO 6976 (invariant n°1).
+- Traitement dans le guide : « Lire le résultat », « Cas limites » et « Pièges » de `002-thermodynamic_cycles/ng_heating_value.rst`.
