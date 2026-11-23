@@ -1185,3 +1185,10 @@
 - Mesuré : banc **cran 5** pour les deux pages (137 pages mesurées) ; build Sphinx
   0 avertissement, 0 erreur.
 - Données de l'exemple d'optimisation : **synthétiques** (formules), pas une mesure.
+
+## 2026-11-23 — B1 : `condenseur_evaporateur` cran 4 -> 5
+- Unité : `002-thermodynamic_cycles/condenseur_evaporateur.rst` (fiche de lecture de `Condenser.py` et `Evaporator.py`).
+- Fait : pour le condenseur et l'évaporateur, table « Paramètres à personnaliser », variante exécutée (sous-refroidissement 0/3/6/10 K : Q_cond 196,50 -> 211,17 kW/(kg/s) ; pression 8/10/14 bar ; évaporation -10/-5/0/+5 °C : Q_evap 141,35 -> 150,49 kW/(kg/s) depuis un liquide à 39,5 °C détendu isenthalpe ; surchauffe 0 à 10 K), cas limite refusé exécuté (au-dessus du point critique, `ValueError`), pièges mesurés (`LP_bar` prioritaire sur `Ti_degC`, `Tfluid_i` qui double au second appel, entrée liquide et sous-refroidissement négatif acceptés).
+- Défauts de lib : `BUGS_LIB.md` (Condenser / Evaporator).
+- Banc : 71 pages au cran 5 (+1), aucun recul. Build Sphinx -W : 0 warning.
+- Suivant : `pompe.rst`, `refrigeration.rst` (cran 4 -> 5).

@@ -1023,3 +1023,10 @@ Entrées déplacées le 28/09/2026 (lots hydraulique, facture, échangeurs/CTA, 
 - `HandbookCorrections.handbook_local_multiplier` : facteurs ×1,1 (Re > 4e4) et ×1,05 (rapport a/b hors 0,6–1,7) sans `cite(...)` (invariant n°1 du dépôt).
 - À confronter à la source : à 30° et 45°, le coude vif rend une perte **inférieure** au coude cintré 1,5 D de même diamètre (38,4 / 73,5 Pa ; 96,6 / 104,8 Pa, eau 60 °C, 2 kg/s, DN50). La forme publiée du diagramme d'Idel'chik pour le coude vif est à vérifier (présence éventuelle d'un coefficient dépendant de l'angle, non appliqué par le code) — non affirmé ici, l'ouvrage n'a pas été relu.
 - Traitement dans le guide : « Éprouver le modèle » et « Pièges nommés » de `004-hydraulic/coudes_tes_singularites.rst` (section `edged_bend`).
+
+## ThermodynamicCycles.Condenser / Evaporator : états incohérents acceptés, profil qui s'allonge (relevé le 2026-11-23)
+- `Condenser` avec une entrée déjà liquide (R134a 20 °C / 10 bar, 1 kg/s) : `Q_cond` = -23 534 W, sans message. Attendu : `ValueError` (ou avertissement) si `Inlet.h` < `Hl_sat`.
+- `Condenser.subcooling = -5` : accepté ; `To` = 44,39 °C (au-dessus de `Tl_sat` 39,39 °C) mais `Ho` = `Hl_sat` (branche `subcooling <= 1e-6`) : `df` incohérent. Attendu : `ValueError` pour `subcooling` < 0.
+- `Evaporator.calculate()` appelé deux fois sur le même objet : `Tfluid_i` passe de 20 à 40 éléments (`append` sans remise à zéro, `Evaporator.py`), `Qevap_i` reste à 20 ; `plt.plot(Qevap_i, Tfluid_i)` échoue. Attendu : liste réinitialisée à chaque appel.
+- `Evaporator` : `Ti_degC` et `LP_bar` saisis ensemble -> `LP_bar` l'emporte en silence. `Ti_degC = 60` pour un liquide d'entrée à 40 °C : `Q_evap` = 172,9 kW/(kg/s) sans message (évaporation au-dessus de la température du liquide détendu).
+- Traitement dans le guide : sections « Pièges » de `002-thermodynamic_cycles/condenseur_evaporateur.rst`.

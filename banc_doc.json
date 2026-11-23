@@ -161,19 +161,19 @@
    "recul": null
   },
   "docs/source/002-thermodynamic_cycles/condenseur_evaporateur.rst": {
-   "blocs": 3,
-   "empreinte": "4b349d7a4dc71179",
-   "mesure": "2026-09-28T12:01",
+   "blocs": 8,
+   "empreinte": "e8308479ab689862",
+   "mesure": "2026-11-23T20:12",
    "figures": [
     "../images/schema_condenser.svg",
     "../images/schema_evaporator.svg"
    ],
    "blocage": null,
-   "motif": "manque : table de personnalisation et variante exécutée",
+   "motif": "",
    "extraits": null,
-   "cran": 4,
-   "nom": "figure réelle",
-   "cran_max": 4,
+   "cran": 5,
+   "nom": "personnalisable",
+   "cran_max": 5,
    "recul": null
   },
   "docs/source/002-thermodynamic_cycles/dessalement_evaporation.rst": {
