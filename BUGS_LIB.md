@@ -1076,3 +1076,10 @@ Entrées déplacées le 28/09/2026 (lots hydraulique, facture, échangeurs/CTA, 
 - `LiBrH2O.concentration` renvoie la borne la plus proche hors domaine (« hors domaine : renvoyer la borne la plus proche ») : `X_concentrated` = 70,0 % à 110 et 130 °C, sans avertissement (invariant n°2). Le COP continue de croître (1,269 à 130 °C, rejet 30 °C) puisque `eta_II` est constant.
 - `T_evap_degC = 40` > `T_cond_degC = 35` : COP -4,363 accepté.
 - Traitement dans le guide : « Cas limites » et « Pièges (AbsorptionChiller) » de `002-thermodynamic_cycles/froid_absorption.rst`.
+
+## ThermodynamicCycles.BoreholeHeatExchanger : limite du mauvais côté, conductivité négative acceptées (relevé le 2026-11-23)
+- Dimensionnement en chauffage (`Q_W = -5000`) avec `T_fluid_limit_degC = 15` > `T_ground_degC = 10` : `length_m` = -591,9 m, sans message. Attendu : `ValueError` si la limite n'est pas du côté imposé par le signe de `Q_W`.
+- `T_fluid_limit_degC == T_ground_degC` : `ZeroDivisionError` brute.
+- `lambda_ground = -2.0` accepté : fluide moyen 29,6 °C en extraction. Aucune entrée physique n'est contrôlée (λ, α, Rb, rayon, durée hors du `E1(x>0)`).
+- `_penalty` / `_bracket` comptent les `n_boreholes - 1` voisines toutes à `spacing_m` (approximation écrite en commentaire, sans citation) : majorant pour un champ en grille (9 sondes : longueur totale x 2,62 par rapport à une sonde isolée). À confronter à une méthode de champ publiée (g-functions).
+- Traitement dans le guide : « Variante » et « Pièges (sonde) » de `002-thermodynamic_cycles/geothermie_solaire.rst`.

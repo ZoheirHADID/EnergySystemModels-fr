@@ -298,16 +298,16 @@
    "recul": null
   },
   "docs/source/002-thermodynamic_cycles/geothermie_solaire.rst": {
-   "blocs": 4,
-   "empreinte": "8e2fe8ef6c286288",
-   "mesure": "2026-09-28T14:06",
+   "blocs": 7,
+   "empreinte": "48127bb3f2544d1c",
+   "mesure": "2026-11-23T23:38",
    "figures": [],
    "blocage": null,
-   "motif": "manque : table de personnalisation et variante exécutée",
+   "motif": "",
    "extraits": null,
-   "cran": 4,
-   "nom": "figure réelle",
-   "cran_max": 4,
+   "cran": 5,
+   "nom": "personnalisable",
+   "cran_max": 5,
    "recul": null
   },
   "docs/source/002-thermodynamic_cycles/givrage.rst": {

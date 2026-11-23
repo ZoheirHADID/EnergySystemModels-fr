@@ -1268,3 +1268,11 @@
 - Défauts de lib : `BUGS_LIB.md` (AbsorptionChiller).
 - Banc : 80 pages au cran 5 (+1), aucun recul. Build Sphinx -W : 0 warning.
 - Suivant : `geothermie_solaire.rst` (cran 4 -> 5).
+
+## 2026-11-23 — B1 : `geothermie_solaire` cran 4 -> 5 (BoreholeHeatExchanger)
+- Unité : `002-thermodynamic_cycles/geothermie_solaire.rst`, modèle `BoreholeHeatExchanger` (fiche de lecture : trois modes, `_bracket`, `_penalty`). Le capteur solaire reste sans variante.
+- Fait : table « Paramètres à personnaliser (sonde) » ; variante exécutée (8 kW prélevés, fluide >= 0 °C : lambda 1,5 / 2 / 2,5 / 3 -> 604,7 / 473,5 / 394,8 / 342,4 m ; 1 / 10 / 25 ans -> 400,3 / 473,5 / 502,7 m ; 1 / 4 / 9 sondes à 6 m -> 473,5 / 760,8 / 1 239,4 m au total) ; cas limite refusé (sondes confondues, `ValueError` E1) ; pièges exécutés (limite du mauvais côté -> longueur négative, limite = sol -> `ZeroDivisionError`, lambda négatif accepté).
+- Écueil banc rencontré à nouveau : « 8 kW extraits » dans les trois lignes avant un bloc l'a classé en extrait (RECUL au cran 2) ; reformulé « prélevés ».
+- Défauts de lib : `BUGS_LIB.md` (BoreholeHeatExchanger).
+- Banc : 81 pages au cran 5 (+1), aucun recul. Build Sphinx -W : 0 warning.
+- Suivant : `hydrogene_piles.rst` (cran 4 -> 5).

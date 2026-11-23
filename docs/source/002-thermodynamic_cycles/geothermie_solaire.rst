@@ -199,6 +199,172 @@ Sortie réelle :
    [SOURCE-CALLBACK] flow update: 0.000 -> 0.300 kg/s
       New volumetric flow: 1.08 m3/h
 
+Paramètres à personnaliser (sonde)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. list-table::
+   :header-rows: 1
+   :widths: 24 26 50
+
+   * - Grandeur
+     - Valeur à saisir
+     - Effet sur le résultat
+   * - ``lambda_ground``
+     - conductivité mesurée par test de réponse thermique, sinon valeur de
+       la nature du sol
+     - Le paramètre le plus incertain et le plus influent sur la longueur.
+   * - ``Q_W``
+     - puissance échangée avec le sol (négative en chauffage) : puissance
+       PAC × (1 − 1/COP), pas la puissance de chauffage
+     - La longueur lui est proportionnelle.
+   * - ``T_fluid_limit_degC``
+     - température moyenne de fluide admise (0 °C pour de l'eau ; plus bas
+       avec un antigel)
+     - Active le dimensionnement ; plus elle s'éloigne de ``T_ground_degC``,
+       plus la sonde est courte.
+   * - ``operating_time_s``
+     - durée de sollicitation continue (10 ans par défaut)
+     - La longueur croît lentement avec la durée (logarithme).
+   * - ``n_boreholes``, ``spacing_m``
+     - champ de sondes et distance entre sondes
+     - ``length_m`` est la longueur **totale** du champ ; l'interférence des
+       voisines l'allonge.
+   * - ``Rb``, ``borehole_radius_m``, ``T_ground_degC``
+     - fiche du forage et température du sol en place
+     - ``Rb`` ajoute ``q' × Rb`` entre paroi et fluide.
+
+Variante exécutée : sol, durée et champ de sondes
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Même besoin que l'exemple de dimensionnement (8 kW prélevés au sol, fluide moyen
+≥ 0 °C) ; on fait varier ce qu'un bureau d'études ne connaît qu'à moitié.
+
+.. code-block:: python
+
+    # variante : conductivité du sol, durée et champ de sondes
+    from ThermodynamicCycles.BoreholeHeatExchanger.BoreholeHeatExchanger import Object as BHE
+
+    AN = 365 * 24 * 3600.0
+
+    def longueur(lambda_sol=2.0, annees=10, n_sondes=1, espacement=6.0, Q_W=-8000.0):
+        b = BHE()
+        b.lambda_ground = lambda_sol
+        b.Q_W = Q_W                        # extraction 8 kW
+        b.operating_time_s = annees * AN
+        b.n_boreholes = n_sondes
+        b.spacing_m = espacement
+        b.T_fluid_limit_degC = 0.0         # fluide moyen >= 0 °C
+        b.calculate()
+        return b.length_m
+
+    for lam in [1.5, 2.0, 2.5, 3.0]:
+        print(f"lambda {lam:3.1f} W/(m.K), 1 sonde, 10 ans : {longueur(lambda_sol=lam):6.1f} m")
+    for an in [1, 10, 25]:
+        print(f"lambda 2.0, 1 sonde, {an:2d} an(s)         : {longueur(annees=an):6.1f} m")
+    for n in [1, 4, 9]:
+        print(f"lambda 2.0, {n} sonde(s) à 6 m, 10 ans : {longueur(n_sondes=n):6.1f} m au total")
+
+Sortie réelle :
+
+.. code-block:: text
+
+   lambda 1.5 W/(m.K), 1 sonde, 10 ans :  604.7 m
+   lambda 2.0 W/(m.K), 1 sonde, 10 ans :  473.5 m
+   lambda 2.5 W/(m.K), 1 sonde, 10 ans :  394.8 m
+   lambda 3.0 W/(m.K), 1 sonde, 10 ans :  342.4 m
+   lambda 2.0, 1 sonde,  1 an(s)         :  400.3 m
+   lambda 2.0, 1 sonde, 10 an(s)         :  473.5 m
+   lambda 2.0, 1 sonde, 25 an(s)         :  502.7 m
+   lambda 2.0, 1 sonde(s) à 6 m, 10 ans :  473.5 m au total
+   lambda 2.0, 4 sonde(s) à 6 m, 10 ans :  760.8 m au total
+   lambda 2.0, 9 sonde(s) à 6 m, 10 ans : 1239.4 m au total
+
+Lecture :
+
+* **La conductivité décide de la longueur** : 1,5 au lieu de 2,0 W/(m·K)
+  allonge la sonde de 28 % (604,7 contre 473,5 m), 2,5 la raccourcit de 17 %.
+  C'est l'argument chiffré pour un test de réponse thermique avant un champ
+  important.
+* **La durée pèse peu** : passer de 10 à 25 ans n'ajoute que 6 %.
+* **L'interférence coûte cher** : 4 sondes à 6 m demandent 61 % de longueur
+  en plus qu'une sonde isolée, 9 sondes 162 %. Le modèle compte les
+  ``n_boreholes - 1`` voisines **toutes à la distance** ``spacing_m``
+  (approximation écrite dans le code) ; pour un champ en grille, où les
+  voisines diagonales et lointaines sont plus éloignées, c'est un majorant.
+  Une charge purement extractive sur 10 ans, sans recharge estivale, est aussi
+  le cas le plus défavorable.
+
+Cas limite refusé : sondes confondues
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code-block:: python
+
+    from ThermodynamicCycles.BoreholeHeatExchanger.BoreholeHeatExchanger import Object as BHE
+
+    b = BHE()
+    b.n_boreholes = 9
+    b.spacing_m = 0.0          # sondes confondues
+    try:
+        b.calculate()
+    except ValueError as erreur:
+        print("Refusé :", erreur)
+
+Sortie réelle :
+
+.. code-block:: text
+
+   Refusé : E1 defini pour x>0
+
+Le message vient de l'intégrale exponentielle : il apparaît aussi pour une
+durée négative. Il signifie qu'une distance ou une durée est nulle ou
+négative.
+
+Pièges (sonde)
+~~~~~~~~~~~~~~
+
+.. code-block:: python
+
+    from ThermodynamicCycles.BoreholeHeatExchanger.BoreholeHeatExchanger import Object as BHE
+
+    # 1) limite de fluide au-dessus du sol en mode chauffage : longueur négative
+    b = BHE()
+    b.Q_W = -5000.0
+    b.T_fluid_limit_degC = 15.0     # sol à 10 °C
+    b.calculate()
+    print("longueur :", round(b.length_m, 1), "m")
+
+    # 2) limite égale à la température du sol
+    b = BHE()
+    b.T_fluid_limit_degC = 10.0
+    try:
+        b.calculate()
+    except ZeroDivisionError as erreur:
+        print("limite = sol :", type(erreur).__name__)
+
+    # 3) conductivité négative acceptée
+    b = BHE()
+    b.lambda_ground = -2.0
+    b.calculate()
+    print("fluide moyen en chauffage :", round(b.T_fluid_mean_degC, 1), "°C")
+
+Sortie réelle :
+
+.. code-block:: text
+
+   longueur : -591.9 m
+   limite = sol : ZeroDivisionError
+   fluide moyen en chauffage : 29.6 °C
+
+* **Une limite du mauvais côté du sol donne une longueur négative**, sans
+  message : en chauffage, ``T_fluid_limit_degC`` doit être **sous**
+  ``T_ground_degC`` ; en rafraîchissement (``Q_W > 0``), au-dessus.
+* **Une limite égale à la température du sol** lève une
+  ``ZeroDivisionError`` brute (il faudrait une sonde infinie).
+* **Une conductivité négative est acceptée** et produit un fluide à 29,6 °C
+  en chauffage : vérifiez les entrées, le modèle ne le fait pas.
+* **Q_W est la puissance échangée avec le sol**, pas la puissance de la PAC :
+  pour 10 kW de chauffage avec un COP de 4, le sol fournit 7,5 kW.
+
 .. _stc:
 
 SolarThermalCollector (capteur solaire thermique)
