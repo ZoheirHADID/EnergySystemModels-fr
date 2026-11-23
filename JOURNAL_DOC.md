@@ -1216,3 +1216,10 @@
   (convection naturelle ∥ rayonnement), pièges, nœuds 987 / 988 et mode
   « Port de chaleur » du tuyau droit.
 - Mesuré : banc **cran 5** (138 pages mesurées) ; build Sphinx 0 avertissement.
+
+## 2026-11-23 — B1 : `sink` cran 4 -> 5
+- Unité : `002-thermodynamic_cycles/sink.rst` (fiche de lecture de `Sink.py`).
+- Fait : table « Paramètres à personnaliser » (ports, `Po_bar`, sorties lues) ; variante exécutée eau / vapeur à 10 bar (150 °C liquide 3,9 m³/h ; vapeur saturée + 1 % 722,3 m³/h ; 250 °C 837,9 m³/h) ; cas limite (puits non raccordé : message imprimé, `df` vide, pas d'exception) ; pièges exécutés (pression figée au premier calcul, diphasique sans `df`).
+- Défauts de lib : `BUGS_LIB.md` (Sink).
+- Banc : 75 pages au cran 5 (+1), aucun recul. Build Sphinx -W : 0 warning.
+- Suivant : `fluid_source.rst` (cran 4 -> 5).

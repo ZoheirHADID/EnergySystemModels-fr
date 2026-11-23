@@ -473,18 +473,18 @@
    "recul": null
   },
   "docs/source/002-thermodynamic_cycles/sink.rst": {
-   "blocs": 1,
-   "empreinte": "ba5d9acbc9e1dbe0",
-   "mesure": "2026-09-28T11:47",
+   "blocs": 4,
+   "empreinte": "93d0a1cc94907336",
+   "mesure": "2026-11-23T21:18",
    "figures": [
     "../images/schema_sink.svg"
    ],
    "blocage": null,
-   "motif": "manque : table de personnalisation et variante exécutée",
+   "motif": "",
    "extraits": null,
-   "cran": 4,
-   "nom": "figure réelle",
-   "cran_max": 4,
+   "cran": 5,
+   "nom": "personnalisable",
+   "cran_max": 5,
    "recul": null
   },
   "docs/source/002-thermodynamic_cycles/turbine.rst": {

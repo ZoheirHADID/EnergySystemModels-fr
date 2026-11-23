@@ -1042,3 +1042,9 @@ Entrées déplacées le 28/09/2026 (lots hydraulique, facture, échangeurs/CTA, 
 - `RefrigerationBangBang` avec `T_opening < T_closing` (-40 / -39 °C) : accepté ; le relais bascule à chaque pas (120 démarrages/h sur la dernière heure à pas de 10 s, température figée entre -39,02 et -38,92 °C). Attendu : `ValueError` si `T_opening <= T_closing`.
 - `ColdStorageTank` : `Q_f_in` négatif, `V = 0` (-> `ZeroDivisionError` brute) et pas de temps sans borne acceptés. À 300 s de pas, la chambre réglée -40/-39 °C monte à -36,92 °C (Euler explicite sans garde de stabilité ni avertissement).
 - Traitement dans le guide : « Cas limites » et « Pièges » de `002-thermodynamic_cycles/refrigeration.rst`.
+
+## ThermodynamicCycles.Sink : pression figée au premier calcul, diphasique sans résultat, erreurs avalées (relevé le 2026-11-23)
+- `Sink.calculate()` remplit `Po_bar` avec `Inlet.P` au premier appel ; au second, `Po_bar` est traité comme imposé et **écrase** `Inlet.P` (10 bar -> 2 bar en amont : `Inlet.P` revient à 1 000 000 Pa). Un puits réutilisé dans une boucle ou par l'IHM lit tout à la première pression. Attendu : ne pas réécrire l'attribut d'entrée `Po_bar`.
+- Entrée diphasique (eau, 10 bar, titre 0,5) : `Q` et `F_m3h` calculés, puis `ThermoPropsSI("D", "P", …, "T", Tsat)` échoue sur la saturation ; le `except:` nu imprime « Error! please connect the sink… » et `df` reste vide.
+- `try/except:` nu sur tout `calculate()` (et sur `To_degC`, repli à -273,15 °C) : aucune exception, même message pour port non raccordé, fluide inconnu (`"eau"`) ou diphasique (invariant n°2).
+- Traitement dans le guide : « Cas limite » et « Pièges » de `002-thermodynamic_cycles/sink.rst`.
