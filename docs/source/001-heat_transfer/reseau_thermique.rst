@@ -84,8 +84,13 @@ Paramètres à personnaliser
      - convection naturelle autour d'un tube ; h dépend de la température de surface
      - ``diameter``, ``length``, ``RH`` (``beta``, ``g`` facultatifs)
    * - ``Radiation``
-     - surface grise vers une grande enceinte, σ CODATA (``scipy``)
+     - surface grise vers une grande enceinte, σ CODATA (``scipy``) ;
+       Cengel & Ghajar 2015, éq. 13-37
      - ``emissivity``, ``area``
+   * - ``RadiationExchange``
+     - deux surfaces finies grises, diffuses, opaques formant une enceinte ;
+       Cengel & Ghajar 2015, éq. 13-36 p. 788
+     - ``emissivity_a``, ``area_a``, ``emissivity_b``, ``area_b``, ``view_factor``
    * - ``Resistance`` / ``SurfaceResistance``
      - résistance donnée (K/W) ou surfacique (m².K/W)
      - ``R_K_W`` ; ``R_m2K_W``, ``area``
@@ -130,6 +135,31 @@ Avec les hypothèses de :doc:`pipe_insulation_analysis` (``beta=0.0034``,
 retrouve ce modèle à 10⁻⁹ près sur cinq cas chauds, froids et proches de
 l'ambiance (tests ``test/HeatTransfer/test_thermal_network.py``).
 
+Rayonnement entre deux surfaces finies
+--------------------------------------
+
+Deux plaques parallèles à 800 K et 500 K, d'émissivités 0,2 et 0,7 (exemple
+13-7 de Cengel & Ghajar) : résistances de surface et d'espace en série.
+
+.. code-block:: python
+
+   # rayonnement entre deux surfaces finies : plaques parallèles (Cengel Ex. 13-7)
+   from HeatTransfer.ThermalNetwork import RadiationExchange
+   chaude, froide = FixedTemperature(800 - 273.15), FixedTemperature(500 - 273.15)
+   plaques = RadiationExchange(0.2, 1.0, 0.7, 1.0, view_factor=1.0)   # ε1, A1, ε2, A2, F12
+   Heat_connect(chaude.port, plaques.port_a)
+   Heat_connect(plaques.port_b, froide.port)
+   ThermalNetwork(chaude).solve()
+   print(f"Flux net : {plaques.Q_W:.0f} W par m² de plaque")
+
+.. code-block:: text
+
+   Flux net : 3626 W par m² de plaque
+
+Le livre publie 3 625 W/m² avec σ arrondi à 5,67·10⁻⁸ ; avec ``sigma=5.67e-8``,
+on retrouve sa valeur. Quand la surface 2 devient très grande, ``RadiationExchange``
+rejoint ``Radiation`` (petit objet dans une grande enceinte).
+
 Pièges
 ------
 
@@ -153,3 +183,14 @@ au fluide la déperdition calculée par le réseau. Exemples livrés dans
 *4 - Composants et utilites* : *Paroi composite en reseau thermique* et *Tuyau
 calorifuge et reseau thermique*. Sans port de chaleur, le tuyau calcule
 exactement comme avant.
+
+Le **Ballon de stockage** (mélangé) a de même un choix « Déperdition » :
+« Coefficient U × S » (défaut, inchangé) ou « Port de chaleur ». Le port est à
+la température du ballon ; le réseau relié (paroi, isolant, convection,
+ambiance) est ramené à son équivalent :math:`Q = G\,(T - T_{eq})`, obtenu en le
+résolvant à deux températures au début du pas, puis passé au modèle du ballon,
+qui n'est pas modifié. C'est exact pour un réseau linéaire : relié à une simple
+convection (h = U, A = S), le ballon redonne le mode « Coefficient U × S » à
+10⁻¹² près, y compris sur les 72 pas d'une simulation pilotée par fichier. Avec
+du rayonnement ou de la convection naturelle, l'équivalent est **linéarisé au
+début du pas**, et le nœud l'affiche.

@@ -1223,3 +1223,13 @@
 - Défauts de lib : `BUGS_LIB.md` (Sink).
 - Banc : 75 pages au cran 5 (+1), aucun recul. Build Sphinx -W : 0 warning.
 - Suivant : `fluid_source.rst` (cran 4 -> 5).
+
+## 2026-11-23 — Réseau thermique : ballon en port de chaleur, rayonnement entre deux surfaces
+
+- Unité : EnergySystemModels `16b7001f`.
+- Fait : `001-heat_transfer/reseau_thermique.rst` — `RadiationExchange` dans la
+  table (Cengel & Ghajar 2015 éq. 13-36 / 13-37), exemple exécuté des plaques
+  parallèles (Ex. 13-7 : 3 626 W/m² avec σ CODATA, 3 625 publiés avec σ arrondi),
+  ballon de stockage en « Port de chaleur » (équivalent G (T − T_eq), linéarisé
+  signalé).
+- Mesuré : banc cran 5 (3 blocs) ; build Sphinx 0 avertissement.

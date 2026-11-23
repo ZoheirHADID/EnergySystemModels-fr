@@ -59,9 +59,9 @@
    "recul": null
   },
   "docs/source/001-heat_transfer/reseau_thermique.rst": {
-   "blocs": 2,
-   "empreinte": "465a820d04ea2316",
-   "mesure": "2026-11-23T20:59",
+   "blocs": 3,
+   "empreinte": "9896cc8dab0acba8",
+   "mesure": "2026-11-23T21:34",
    "figures": [],
    "blocage": null,
    "motif": "",
