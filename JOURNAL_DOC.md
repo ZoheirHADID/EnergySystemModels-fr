@@ -1199,3 +1199,11 @@
 - Défauts de lib : `BUGS_LIB.md` (courbe par défaut non centrifuge, hors de portée sans exception, messages, `print` de la source).
 - Banc : 72 pages au cran 5 (+1), aucun recul. Build Sphinx -W : 0 warning.
 - Suivant : `refrigeration.rst` (cran 4 -> 5).
+
+## 2026-11-23 — B1 : `refrigeration` cran 4 -> 5
+- Unité : `002-thermodynamic_cycles/refrigeration.rst` (fiche de lecture de `ColdStorageTank.py` et `RefrigerationBangBang.py`).
+- Fait : table « Paramètres à personnaliser » ; variante exécutée « dimensionner le groupe et le différentiel » (2 kW d'apports : marche 79,6 / 66,7 / 50,0 / 33,3 % et 7,2 / 12 / 18 / 24 démarrages/h pour 2,5 / 3 / 4 / 6 kW ; différentiel 0,5 / 1 / 2 K -> 24 / 12 / 6 démarrages/h ; contrôle à la main 12,3 cycles/h) ; cas limites exécutés (pas 10 / 60 / 300 s, seuils inversés) ; pièges nommés ; renvois vers `013-simulation-temporelle`.
+- Défauts de lib : `BUGS_LIB.md` (aucune saisie contrôlée, pas de temps sans garde).
+- Banc : page au cran 5 (74 pages au cran 5 avec la page `reseau_thermique` d'une autre session, non commitée ici), aucun recul. Build Sphinx -W : 0 warning.
+- Note : `banc_doc.json` commité avec la seule entrée `refrigeration` (l'entrée `reseau_thermique` de l'autre session reste dans la copie de travail).
+- Suivant : `sink.rst`, `fluid_source.rst` (cran 4 -> 5).

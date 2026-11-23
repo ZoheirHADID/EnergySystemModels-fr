@@ -168,12 +168,12 @@ Ordre d'utilité pour le lecteur. Chaque page : forme de vulgarisation complète
 (étape 6 de la boucle), table de personnalisation, **variante exécutée**, figure
 réelle si le modèle en a une.
 
-- `en cours` **B1 — `002-thermodynamic_cycles`** (banc du 2026-11-23) : `chiller`
-  `condenseur_evaporateur` et `pompe` au cran 5 (2026-11-23). Restent au cran 4 (table de
+- `en cours` **B1 — `002-thermodynamic_cycles`** (banc du 2026-11-23) : `chiller`,
+  `condenseur_evaporateur`, `pompe` et `refrigeration` au cran 5 (2026-11-23). Restent au cran 4 (table de
   personnalisation + variante exécutée) : `dessalement_evaporation`,
   `detente_distributeurs`, `distillation`, `fluid_source`, `froid_absorption`,
   `geothermie_solaire`, `hydrogene_piles`, `ng_boiler_efficiency`,
-  `ng_heating_value`, `outils_diagrammes`, `refrigeration`, `sink`.
+  `ng_heating_value`, `outils_diagrammes`, `sink`.
 - `à faire` **B2 — `004-hydraulic` (6 pages)**. `TA_valve` au cran 4 ;
   `perte_pression_lineaire` au cran 2 — **elle n'affiche aucune sortie** alors que
   son exemple en produit.

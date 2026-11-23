@@ -432,16 +432,16 @@
    "recul": null
   },
   "docs/source/002-thermodynamic_cycles/refrigeration.rst": {
-   "blocs": 3,
-   "empreinte": "b2a5f31f973b563a",
-   "mesure": "2026-09-28T14:09",
+   "blocs": 5,
+   "empreinte": "4ed6ceb85e0ee345",
+   "mesure": "2026-11-23T21:01",
    "figures": [],
    "blocage": null,
-   "motif": "manque : table de personnalisation et variante exécutée",
+   "motif": "",
    "extraits": null,
-   "cran": 4,
-   "nom": "figure réelle",
-   "cran_max": 4,
+   "cran": 5,
+   "nom": "personnalisable",
+   "cran_max": 5,
    "recul": null
   },
   "docs/source/002-thermodynamic_cycles/separation.rst": {

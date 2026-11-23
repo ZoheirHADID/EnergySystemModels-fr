@@ -1037,3 +1037,8 @@ Entrées déplacées le 28/09/2026 (lots hydraulique, facture, échangeurs/CTA, 
 - `X_F` et `Y_hmt` de longueurs différentes : `ValueError` de scikit-learn (« inconsistent numbers of samples: [3, 4] ») au lieu d'un message nommant les listes. `X_F` avec un débit répété (`[10, 10, 20, 30]`) accepté sans message.
 - `Source` imprime `[SOURCE-CALLBACK] flow update…` et `New volumetric flow…` à chaque recalage par la pompe (lignes parasites dans les sorties).
 - Traitement dans le guide : sections « Variante » et « Pièges » de `002-thermodynamic_cycles/pompe.rst`.
+
+## ThermodynamicCycles.Refrigeration : aucune saisie contrôlée (relevé le 2026-11-23)
+- `RefrigerationBangBang` avec `T_opening < T_closing` (-40 / -39 °C) : accepté ; le relais bascule à chaque pas (120 démarrages/h sur la dernière heure à pas de 10 s, température figée entre -39,02 et -38,92 °C). Attendu : `ValueError` si `T_opening <= T_closing`.
+- `ColdStorageTank` : `Q_f_in` négatif, `V = 0` (-> `ZeroDivisionError` brute) et pas de temps sans borne acceptés. À 300 s de pas, la chambre réglée -40/-39 °C monte à -36,92 °C (Euler explicite sans garde de stabilité ni avertissement).
+- Traitement dans le guide : « Cas limites » et « Pièges » de `002-thermodynamic_cycles/refrigeration.rst`.

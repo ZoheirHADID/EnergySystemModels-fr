@@ -289,6 +289,169 @@ Sortie réelle :
 
    T finale : -39.95 degC
 
+Paramètres à personnaliser
+--------------------------
+
+.. list-table::
+   :header-rows: 1
+   :widths: 26 22 52
+
+   * - Grandeur
+     - Comment la choisir
+     - Effet sur le résultat
+   * - ``tank.V``, ``tank.rho``, ``tank.Cp``
+     - masse thermique équivalente de la chambre et de son contenu
+       (:math:`m\,C_p` en J/K)
+     - Plus elle est grande, plus les cycles sont longs ; le taux de marche
+       n'en dépend pas.
+   * - ``tank.Q_air``
+     - apports en W (parois, portes, produits) ; constant ou modifié à chaque
+       pas
+     - Taux de marche = ``Q_air / P_f_opening`` en régime établi.
+   * - ``refr.P_f_opening``
+     - puissance frigorifique du groupe en W, **supérieure** à ``Q_air``
+     - Plus elle dépasse les apports, plus le groupe démarre souvent.
+   * - ``refr.T_closing`` / ``refr.T_opening``
+     - consigne d'arrêt et seuil de redémarrage, ``T_opening > T_closing``
+     - Leur écart (différentiel) fixe le nombre de démarrages par heure : le
+       doubler le divise par deux.
+   * - ``tank.t``
+     - pas de temps en s, petit devant la durée d'un cycle (10 s ici)
+     - Un pas trop long fait déborder la température et fausse le comptage.
+
+Variante exécutée : dimensionner le groupe et le différentiel
+-------------------------------------------------------------
+
+La question pratique : avec 2 kW d'apports, quelle puissance de groupe et quel
+différentiel pour ne pas faire démarrer le compresseur trop souvent ?
+
+.. code-block:: python
+
+    # variante : puissance du groupe et largeur du différentiel
+    from ThermodynamicCycles.Refrigeration.ColdStorageTank import Object as Tank
+    from ThermodynamicCycles.Refrigeration.RefrigerationBangBang import Object as Refr
+
+    def simuler(P_f, differentiel_K, heures=6, pas=10.0):
+        """Taux de marche et démarrages/h une fois la consigne atteinte."""
+        tank = Tank()
+        tank.V = 60e-3
+        tank.Q_air = 2000.0          # apports W
+        tank.t = pas                 # s
+        tank.T = 273.15 - 40.0       # démarre déjà à la consigne
+        refr = Refr()
+        refr.T_closing = 273.15 - 40.0
+        refr.T_opening = refr.T_closing + differentiel_K
+        refr.P_f_opening = P_f
+        n_pas = int(heures * 3600 / pas)
+        marche, demarrages, avant = 0, 0, refr.is_on
+        for _ in range(n_pas):
+            refr.T_measured = tank.T
+            refr.calculate()
+            if refr.is_on and not avant:
+                demarrages += 1
+            avant = refr.is_on
+            marche += refr.is_on
+            tank.Q_f_in = refr.P_f_out
+            tank.calculate()
+        return marche / n_pas, demarrages / heures
+
+    for P_f in [2500.0, 3000.0, 4000.0, 6000.0]:
+        taux, dem = simuler(P_f, 1.0)
+        print(f"P_f {P_f:6.0f} W, différentiel 1 K : "
+              f"marche {taux:5.1%}, {dem:5.1f} démarrages/h")
+    for dk in [0.5, 1.0, 2.0]:
+        taux, dem = simuler(3000.0, dk)
+        print(f"P_f   3000 W, différentiel {dk} K : "
+              f"marche {taux:5.1%}, {dem:5.1f} démarrages/h")
+
+Sortie réelle :
+
+.. code-block:: text
+
+   P_f   2500 W, différentiel 1 K : marche 79.6%,   7.2 démarrages/h
+   P_f   3000 W, différentiel 1 K : marche 66.7%,  12.0 démarrages/h
+   P_f   4000 W, différentiel 1 K : marche 50.0%,  18.0 démarrages/h
+   P_f   6000 W, différentiel 1 K : marche 33.3%,  24.0 démarrages/h
+   P_f   3000 W, différentiel 0.5 K : marche 66.7%,  24.0 démarrages/h
+   P_f   3000 W, différentiel 1.0 K : marche 66.7%,  12.0 démarrages/h
+   P_f   3000 W, différentiel 2.0 K : marche 66.7%,   6.0 démarrages/h
+
+Lecture : le taux de marche vaut ``Q_air / P_f`` (2 000 / 3 000 = 66,7 %), quel
+que soit le différentiel. Un groupe surdimensionné (6 kW) démarre deux fois plus
+souvent qu'un groupe à 3 kW ; élargir le différentiel de 1 à 2 K divise les
+démarrages par deux, au prix d'une température moins stable. Contrôle à la
+main pour 3 kW et 1 K : :math:`m\,C_p = 63{,}6 \times 3060 = 194\,616` J/K,
+marche 195 s, arrêt 97 s, soit 12,3 cycles/h.
+
+Cas limites : pas de temps et seuils inversés
+---------------------------------------------
+
+**Aucune saisie n'est refusée** par ces deux modèles : ni des seuils inversés,
+ni un pas de temps trop long, ni une puissance négative. Le code ci-dessous
+montre ce qu'on obtient.
+
+.. code-block:: python
+
+    from ThermodynamicCycles.Refrigeration.ColdStorageTank import Object as Tank
+    from ThermodynamicCycles.Refrigeration.RefrigerationBangBang import Object as Refr
+
+    def derniere_heure(pas, T_opening_degC=-39.0, T_closing_degC=-40.0, heures=6):
+        """Températures mini / maxi et démarrages sur la dernière heure."""
+        tank = Tank()
+        tank.t = pas
+        tank.T = 273.15 - 40.0
+        refr = Refr()
+        refr.T_opening = 273.15 + T_opening_degC
+        refr.T_closing = 273.15 + T_closing_degC
+        temperatures, demarrages, avant = [], 0, False
+        n_pas = int(heures * 3600 / pas)
+        for i in range(n_pas):
+            refr.T_measured = tank.T
+            refr.calculate()
+            tank.Q_f_in = refr.P_f_out
+            tank.calculate()
+            if i >= n_pas - 3600 / pas:
+                temperatures.append(tank.T - 273.15)
+                demarrages += refr.is_on and not avant
+            avant = refr.is_on
+        return min(temperatures), max(temperatures), demarrages
+
+    for pas in [10.0, 60.0, 300.0]:
+        tmin, tmax, n = derniere_heure(pas)
+        print(f"pas {pas:5.0f} s : {tmin:7.2f} à {tmax:7.2f} °C, {n:3d} démarrages/h")
+    tmin, tmax, n = derniere_heure(10.0, T_opening_degC=-40.0, T_closing_degC=-39.0)
+    print(f"seuils inversés : {tmin:7.2f} à {tmax:7.2f} °C, {n:3d} démarrages/h")
+
+Sortie réelle :
+
+.. code-block:: text
+
+   pas    10 s :  -40.00 à  -38.97 °C,  12 démarrages/h
+   pas    60 s :  -40.31 à  -38.46 °C,   6 démarrages/h
+   pas   300 s :  -40.00 à  -36.92 °C,   4 démarrages/h
+   seuils inversés :  -39.02 à  -38.92 °C, 120 démarrages/h
+
+Pièges
+------
+
+* **Le pas de temps doit être court devant un cycle.** À 60 s, le régulateur ne
+  voit la température qu'une fois par minute : elle déborde de 0,3 K sous la
+  consigne et 0,5 K au-dessus, et l'on compte 6 démarrages/h au lieu de 12. À
+  300 s, on lit −36,9 °C pour une chambre réglée à −39 °C.
+* **Seuils inversés** (``T_opening < T_closing``) : pas de message, le relais
+  bascule à chaque pas (120 démarrages/h). Vérifiez l'ordre des deux seuils.
+* **Températures en kelvins** sur les objets (``T``, ``T_opening``,
+  ``T_closing``, ``T_measured``) ; seul le ``df`` affiche des °C.
+* **L'ordre des deux appels compte** : régulateur d'abord (il lit ``tank.T``),
+  puis chambre (elle reçoit ``P_f_out``). Les inverser décale la commande d'un
+  pas.
+* **``refr.is_on`` est conservé** d'un appel à l'autre : réutiliser le même
+  objet pour un second scénario repart de l'état où le premier s'est arrêté.
+
+Voir aussi : :doc:`../013-simulation-temporelle/chambre_froide` pour une chambre
+froide décrite par ses parois et sa porte, et
+:doc:`../013-simulation-temporelle/regulation_pid` pour une régulation continue.
+
 .. note::
    Le module (``__init__.py`` vide) n'expose ni méthode ``plot()`` ni bilan
    énergétique intégré : le tracé de la température et de la puissance, le cumul
