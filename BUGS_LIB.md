@@ -1054,3 +1054,9 @@ Entrées déplacées le 28/09/2026 (lots hydraulique, facture, échangeurs/CTA, 
 - Aucun débit : `F = 0` sans message (toute la ligne aval calcule des puissances nulles).
 - `on_flow_change` imprime `[SOURCE-CALLBACK] flow update…` / `New volumetric flow…` (déjà relevé avec la pompe).
 - Traitement dans le guide : « Pièges » de `002-thermodynamic_cycles/fluid_source.rst`.
+
+## ThermodynamicCycles.Expansion_Valve : pression aval non contrôlée, titre non publié (relevé le 2026-11-23)
+- `Outlet.P` (10 bar) supérieure à `Inlet.P` (3,5 bar) : accepté, « détente » calculée vers la haute pression (sortie -0,11 °C), aucun message. Attendu : `ValueError` si `Outlet.P >= Inlet.P`.
+- `Outlet.P` non renseigné : `TypeError: PropsSI(): incompatible function arguments` (CoolProp), qui ne nomme pas l'entrée manquante.
+- Le titre de sortie (gaz de flash, grandeur clé d'un détendeur) n'est ni dans `df` ni sur `Outlet` ; le guide le calcule avec `ThermoPropsSI("Q", "P", …, "H", …)`.
+- Traitement dans le guide : section `expansion_valve` de `002-thermodynamic_cycles/detente_distributeurs.rst`.

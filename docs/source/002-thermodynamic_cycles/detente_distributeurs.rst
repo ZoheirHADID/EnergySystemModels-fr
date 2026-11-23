@@ -144,6 +144,149 @@ Sortie réelle :
    ``calculate()``. Dans un cycle complet (voir :ref:`chiller`), ces valeurs sont
    propagées automatiquement depuis le condenseur en amont.
 
+Paramètres à personnaliser
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Le détendeur n'a aucun réglage propre : tout se joue sur ce qui lui arrive et
+sur la basse pression qu'on lui impose.
+
+.. list-table::
+   :header-rows: 1
+   :widths: 24 26 50
+
+   * - Grandeur
+     - Valeur à saisir
+     - Effet sur le résultat
+   * - ``Inlet.h`` (et ``Inlet.P``)
+     - liquide en sortie de condenseur, saturé ou sous-refroidi
+     - Plus le liquide est froid, moins il se vaporise à la détente (moins de
+       gaz de flash) : l'effet frigorifique de l'évaporateur augmente.
+   * - ``Outlet.P``
+     - basse pression en Pa, souvent la pression de saturation à la
+       température d'évaporation visée
+     - Fixe la température de sortie ; plus elle est basse, plus il y a de gaz
+       de flash.
+   * - ``Inlet.fluid``, ``Inlet.F``
+     - nom CoolProp, débit en kg/s
+     - Recopiés en sortie ; ``Q_exp`` reste nul quel que soit le débit.
+
+Variante exécutée : gaz de flash et effet frigorifique
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Le titre en sortie (part du débit déjà vaporisée) ne figure pas dans le ``df`` :
+on le lit avec ``ThermoPropsSI`` à partir de ``Outlet.P`` et ``Outlet.h``.
+L'effet frigorifique est ce qu'il reste à évaporer jusqu'à la vapeur saturée.
+
+.. code-block:: python
+
+    # variante : gaz de flash selon le sous-refroidissement et la basse pression
+    from ThermodynamicCycles.Expansion_Valve import Expansion_Valve
+    from ThermodynamicCycles.FluidPort.FluidPort import ThermoPropsSI
+
+    FLUIDE = "R134a"
+    P_HP = ThermoPropsSI("P", "T", 40 + 273.15, "Q", 0, FLUIDE)   # condensation à 40 °C
+
+    def detente(sous_refroidissement_K, T_evap_degC):
+        v = Expansion_Valve.Object()
+        v.Inlet.fluid = FLUIDE
+        v.Inlet.F = 1.0                                           # kg/s
+        v.Inlet.P = P_HP
+        T_liq = 40 + 273.15 - sous_refroidissement_K
+        v.Inlet.h = (ThermoPropsSI("H", "P", P_HP, "Q", 0, FLUIDE)
+                     if sous_refroidissement_K == 0
+                     else ThermoPropsSI("H", "P", P_HP, "T", T_liq, FLUIDE))
+        v.Outlet.P = ThermoPropsSI("P", "T", T_evap_degC + 273.15, "Q", 1, FLUIDE)
+        v.calculate()
+        titre = ThermoPropsSI("Q", "P", v.Outlet.P, "H", v.Outlet.h, FLUIDE)
+        h_vap = ThermoPropsSI("H", "P", v.Outlet.P, "Q", 1, FLUIDE)
+        return v.Outlet.T - 273.15, titre, (h_vap - v.Outlet.h) / 1000
+
+    for sr in [0, 5, 10]:
+        T, x, q = detente(sr, -5)
+        print(f"sous-refr. {sr:2d} K, évap. -5 °C : sortie {T:5.2f} °C, "
+              f"flash {x:5.1%}, effet frigorifique {q:6.2f} kJ/kg")
+    for te in [5, -10, -25]:
+        T, x, q = detente(0, te)
+        print(f"sous-refr.  0 K, évap. {te:3d} °C : sortie {T:5.2f} °C, "
+              f"flash {x:5.1%}, effet frigorifique {q:6.2f} kJ/kg")
+
+Sortie réelle :
+
+.. code-block:: text
+
+   sous-refr.  0 K, évap. -5 °C : sortie -5.00 °C, flash 31.2%, effet frigorifique 139.25 kJ/kg
+   sous-refr.  5 K, évap. -5 °C : sortie -5.00 °C, flash 27.5%, effet frigorifique 146.67 kJ/kg
+   sous-refr. 10 K, évap. -5 °C : sortie -5.00 °C, flash 23.9%, effet frigorifique 153.94 kJ/kg
+   sous-refr.  0 K, évap.   5 °C : sortie  5.00 °C, flash 25.5%, effet frigorifique 145.08 kJ/kg
+   sous-refr.  0 K, évap. -10 °C : sortie -10.00 °C, flash 33.8%, effet frigorifique 136.26 kJ/kg
+   sous-refr.  0 K, évap. -25 °C : sortie -25.00 °C, flash 41.3%, effet frigorifique 127.04 kJ/kg
+
+Lecture : en R134a, un tiers du liquide se vaporise dès le détendeur et ne
+produit pas de froid. Chaque kelvin de sous-refroidissement rend environ
+1,5 kJ/kg d'effet frigorifique (+10,5 % pour 10 K) ; descendre l'évaporation de
++5 à −25 °C en coûte 12 %. C'est le même effet frigorifique que celui de
+l'évaporateur à surchauffe nulle (:ref:`evaporateur`).
+
+Cas limite refusé : basse pression non imposée
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code-block:: python
+
+    from ThermodynamicCycles.Expansion_Valve import Expansion_Valve
+
+    v = Expansion_Valve.Object()
+    v.Inlet.fluid = "R134a"
+    v.Inlet.F = 1.0
+    v.Inlet.P = 10e5
+    v.Inlet.h = 256000          # liquide vers 40 °C
+    # Outlet.P oublié
+    try:
+        v.calculate()
+    except TypeError as erreur:
+        print("Refusé :", type(erreur).__name__, "-", str(erreur).splitlines()[0])
+
+Sortie réelle :
+
+.. code-block:: text
+
+   Refusé : TypeError - PropsSI(): incompatible function arguments. The following argument types are supported:
+
+Le message vient de CoolProp et ne nomme pas ``Outlet.P`` : si vous le voyez
+sur un détendeur, vérifiez d'abord que la basse pression est imposée.
+
+Pièges
+~~~~~~
+
+.. code-block:: python
+
+    from ThermodynamicCycles.Expansion_Valve import Expansion_Valve
+    from ThermodynamicCycles.FluidPort.FluidPort import ThermoPropsSI
+
+    # « Détente » vers une pression PLUS HAUTE que l'entrée
+    v = Expansion_Valve.Object()
+    v.Inlet.fluid = "R134a"
+    v.Inlet.F = 1.0
+    v.Inlet.P = 3.5e5
+    v.Inlet.h = ThermoPropsSI("H", "P", 3.5e5, "T", 273.15, "R134a")
+    v.Outlet.P = 10e5           # 10 bar en sortie pour 3,5 bar en entrée
+    v.calculate()
+    print("sortie :", round(v.Outlet.T - 273.15, 2), "°C, Q_exp =", v.Q_exp, "W")
+
+Sortie réelle :
+
+.. code-block:: text
+
+   sortie : -0.11 °C, Q_exp = 0.0 W
+
+* **Une pression de sortie plus haute que l'entrée n'est pas refusée** : le
+  modèle « détend » de 3,5 à 10 bar sans message. Vérifiez
+  ``Outlet.P < Inlet.P``.
+* **Le titre de sortie n'est pas publié** : ni ``df`` ni ``Outlet`` ne portent
+  ``Q`` ; calculez-le comme dans la variante.
+* **Q_exp vaut toujours 0** : c'est la définition d'une détente
+  isenthalpique, pas un résultat de calcul. La perte du détendeur se lit dans
+  le gaz de flash, pas dans ``Q_exp``.
+
 .. _directional_control:
 
 Distributeurs directionnels (``DirectionalControl``)

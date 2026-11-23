@@ -1240,3 +1240,10 @@
 - Défauts de lib : `BUGS_LIB.md` (Source).
 - Banc : 76 pages au cran 5 (+1), aucun recul. Build Sphinx -W : 0 warning.
 - Suivant : `detente_distributeurs.rst` (cran 4 -> 5).
+
+## 2026-11-23 — B1 : `detente_distributeurs` cran 4 -> 5
+- Unité : `002-thermodynamic_cycles/detente_distributeurs.rst`, modèle `Expansion_Valve` (fiche de lecture de `Expansion_Valve.py`). Les distributeurs `DCV_*` restent sans variante (à traiter à part si utile).
+- Fait : table « Paramètres à personnaliser » ; variante exécutée « gaz de flash et effet frigorifique » (R134a condensé à 40 °C : flash 31,2 / 27,5 / 23,9 % pour 0 / 5 / 10 K de sous-refroidissement, effet frigorifique 139,25 -> 153,94 kJ/kg ; évaporation +5 / -5 / -10 / -25 °C : flash 25,5 -> 41,3 %) ; cas limite refusé (`Outlet.P` absent, `TypeError` CoolProp) ; piège exécuté (sortie à pression plus haute acceptée).
+- Défauts de lib : `BUGS_LIB.md` (Expansion_Valve).
+- Banc : 77 pages au cran 5 (+1), aucun recul. Build Sphinx -W : 0 warning.
+- Suivant : `distillation.rst` (cran 4 -> 5).

@@ -203,18 +203,18 @@
    "recul": null
   },
   "docs/source/002-thermodynamic_cycles/detente_distributeurs.rst": {
-   "blocs": 4,
-   "empreinte": "a42d06592d6902c4",
-   "mesure": "2026-09-28T12:01",
+   "blocs": 7,
+   "empreinte": "4cdc3fab426a7f94",
+   "mesure": "2026-11-23T22:05",
    "figures": [
     "../images/schema_expansion_valve.svg"
    ],
    "blocage": null,
-   "motif": "manque : table de personnalisation et variante exécutée",
+   "motif": "",
    "extraits": null,
-   "cran": 4,
-   "nom": "figure réelle",
-   "cran_max": 4,
+   "cran": 5,
+   "nom": "personnalisable",
+   "cran_max": 5,
    "recul": null
   },
   "docs/source/002-thermodynamic_cycles/distillation.rst": {
