@@ -1276,3 +1276,10 @@
 - Défauts de lib : `BUGS_LIB.md` (BoreholeHeatExchanger).
 - Banc : 81 pages au cran 5 (+1), aucun recul. Build Sphinx -W : 0 warning.
 - Suivant : `hydrogene_piles.rst` (cran 4 -> 5).
+
+## 2026-11-24 — B1 : `hydrogene_piles` cran 4 -> 5 (Electrolyzer)
+- Unité : `002-thermodynamic_cycles/hydrogene_piles.rst`, modèle `Electrolyzer` (fiche de lecture de `Electrolyzer.py`). FuelCell, Reformer, Gasifier restent sans variante.
+- Fait : table « Paramètres à personnaliser (Electrolyzer) » ; variante exécutée « ce que coûte un dixième de volt » (1 MW, 300 cellules, eta_faraday 0,98 : V_cell 1,70 / 1,85 / 2,00 / 2,20 -> 46,1 / 50,2 / 54,3 / 59,7 kWh/kg, chaleur 146 / 215 / 274 / 340 kW) ; deux cas refusés exécutés ; pièges exécutés (V_cell 1,0 V, eta 1,2, n_cells par défaut à 1).
+- Défauts de lib : `BUGS_LIB.md` (Electrolyzer).
+- Banc : 82 pages au cran 5 (+1), aucun recul. Build Sphinx -W : 0 warning.
+- Suivant : `ng_boiler_efficiency.rst` (cran 4 -> 5, avec L3 du handbook : scénarios 140 / 80 / 50 °C).

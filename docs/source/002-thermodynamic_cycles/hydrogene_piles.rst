@@ -166,6 +166,144 @@ Index du DataFrame ``ez.df`` (clé ``'Electrolyzer'``) : ``Timestamp``,
 ``O2_coproduit_kg_h``, ``H2O_consommee_kg_h``, ``Q_fatale_kW``,
 ``Conso_kWh_par_kg_H2``, ``I_stack_A``.
 
+Paramètres à personnaliser (Electrolyzer)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. list-table::
+   :header-rows: 1
+   :widths: 22 28 50
+
+   * - Grandeur
+     - Valeur à saisir
+     - Effet sur le résultat
+   * - ``P_el_W``
+     - puissance électrique absorbée par la pile (W, ≥ 0)
+     - Tous les débits et la chaleur lui sont proportionnels.
+   * - ``eta_HHV``
+     - rendement PCS de la fiche constructeur (défaut 0,70)
+     - Utilisé seulement si ``V_cell`` est vide.
+   * - ``V_cell``
+     - tension moyenne d'une cellule au point de fonctionnement (V) ; elle
+       monte avec la charge et avec le vieillissement
+     - Prioritaire : rendement = 1,481 / ``V_cell`` × ``eta_faraday``.
+   * - ``eta_faraday``
+     - part du courant qui produit réellement de l'H2 (0 à 1)
+     - Multiplie le rendement.
+   * - ``n_cells``
+     - nombre de cellules en série
+     - Ne sert qu'au courant ``I_stack`` ; sans effet sur les débits.
+   * - ``T_out_degC``, ``P_out_bar``
+     - conditions de sortie des gaz
+     - Fixent les enthalpies des ports ; sans effet sur le bilan.
+
+Variante exécutée : ce que coûte un dixième de volt
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+La tension de cellule est le chiffre que l'exploitant suit : elle augmente
+quand on pousse la charge et quand la pile vieillit. Pour 1 MW électrique :
+
+.. code-block:: python
+
+    # variante : tension de cellule (vieillissement, charge) et chaleur à valoriser
+    from ThermodynamicCycles.Electrolyzer import Electrolyzer
+
+    print("V_cell  eta_PCS  kWh/kg  H2 (kg/h)  chaleur (kW)  courant (A)")
+    for v in [1.70, 1.85, 2.00, 2.20]:
+        ez = Electrolyzer.Object()
+        ez.P_el_W = 1.0e6              # 1 MW électrique
+        ez.V_cell = v                  # tension moyenne d'une cellule
+        ez.n_cells = 300               # cellules en série dans la pile
+        ez.eta_faraday = 0.98
+        ez.calculate()
+        print(f"{v:5.2f}   {ez.eta_HHV_out:6.3f}  {ez.spec_energy_kWh_per_kg:6.1f}  "
+              f"{ez.mdot_H2 * 3600:8.2f}  {ez.Q_waste / 1000:11.0f}  {ez.I_stack:10.0f}")
+
+Sortie réelle :
+
+.. code-block:: text
+
+   V_cell  eta_PCS  kWh/kg  H2 (kg/h)  chaleur (kW)  courant (A)
+    1.70    0.854    46.1     21.68          146        1961
+    1.85    0.785    50.2     19.92          215        1802
+    2.00    0.726    54.3     18.43          274        1667
+    2.20    0.660    59.7     16.75          340        1515
+
+Lecture : de 1,70 à 2,00 V, chaque 0,15 V de plus par cellule coûte environ
+4 kWh par kg d'H2 (+8 à 9 %) et transforme 60 à 70 kW de plus en chaleur. Cette chaleur (ici 15 à
+34 % de la puissance électrique) sort au niveau de température de la pile :
+c'est elle qu'un projet cherche à valoriser (préchauffage, pompe à chaleur).
+
+Cas limites refusés (Electrolyzer)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code-block:: python
+
+    from ThermodynamicCycles.Electrolyzer import Electrolyzer
+
+    for reglage in [dict(P_el_W=-5.0), dict(V_cell=0.0)]:
+        ez = Electrolyzer.Object()
+        for nom, valeur in reglage.items():
+            setattr(ez, nom, valeur)
+        try:
+            ez.calculate()
+        except ValueError as erreur:
+            print(f"{str(reglage):18s} refusé : {erreur}")
+
+Sortie réelle :
+
+.. code-block:: text
+
+   {'P_el_W': -5.0}   refusé : Electrolyzer: P_el_W (puissance electrique >= 0) requis
+   {'V_cell': 0.0}    refusé : Electrolyzer: V_cell doit etre > 0
+
+Pièges (Electrolyzer)
+~~~~~~~~~~~~~~~~~~~~~
+
+.. code-block:: python
+
+    from ThermodynamicCycles.Electrolyzer import Electrolyzer
+
+    # 1) tension sous le seuil d'électrolyse (1,23 V) : acceptée
+    ez = Electrolyzer.Object()
+    ez.V_cell = 1.0
+    ez.calculate()
+    print("V_cell 1,0 V : eta_PCS", round(ez.eta_HHV_out, 3),
+          "; chaleur", round(ez.Q_waste / 1000, 1), "kW")
+
+    # 2) rendement imposé supérieur à 1 : accepté
+    ez = Electrolyzer.Object()
+    ez.eta_HHV = 1.2
+    ez.calculate()
+    print("eta_HHV 1,2 : chaleur", round(ez.Q_waste / 1000, 1), "kW")
+
+    # 3) n_cells laissé à 1 : le courant est celui d'une cellule unique
+    ez = Electrolyzer.Object()
+    ez.V_cell = 1.85
+    ez.calculate()
+    print("n_cells 1 : I_stack", round(ez.I_stack), "A")
+
+Sortie réelle :
+
+.. code-block:: text
+
+   V_cell 1,0 V : eta_PCS 1.481 ; chaleur -481.3 kW
+   eta_HHV 1,2 : chaleur -200.0 kW
+   n_cells 1 : I_stack 540541 A
+
+* **Une tension sous le seuil d'électrolyse est acceptée.** Sous 1,23 V
+  (tension réversible de l'eau), il n'y a pas d'électrolyse ; le modèle rend
+  pourtant un rendement PCS de 1,481 et une « chaleur fatale » négative. Entre
+  1,23 et 1,481 V, un rendement PCS supérieur à 1 est physique (la cellule
+  absorbe de la chaleur), mais hors du domaine habituel d'une pile industrielle.
+* **Un rendement imposé supérieur à 1** (ou ``eta_faraday`` > 1) passe sans
+  message.
+* **n_cells vaut 1 par défaut** : ``I_stack`` est alors le courant d'une seule
+  cellule recevant toute la puissance (540 kA). Saisissez le nombre réel de
+  cellules dès que vous lisez le courant ; ``n_cells = 0`` lève une
+  ``ZeroDivisionError``.
+* **Le modèle est un bilan**, pas une courbe de polarisation : la tension ne se
+  déduit pas de la charge, c'est à vous de la saisir pour chaque point.
+
 .. _hp_fuelcell:
 
 FuelCell (pile à combustible H2/O2)

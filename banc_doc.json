@@ -327,16 +327,16 @@
    "recul": null
   },
   "docs/source/002-thermodynamic_cycles/hydrogene_piles.rst": {
-   "blocs": 4,
-   "empreinte": "ee9ad028b62c30ae",
-   "mesure": "2026-09-28T14:07",
+   "blocs": 7,
+   "empreinte": "e6ddb95c5f1eb76b",
+   "mesure": "2026-11-24T00:01",
    "figures": [],
    "blocage": null,
-   "motif": "manque : table de personnalisation et variante exécutée",
+   "motif": "",
    "extraits": null,
-   "cran": 4,
-   "nom": "figure réelle",
-   "cran_max": 4,
+   "cran": 5,
+   "nom": "personnalisable",
+   "cran_max": 5,
    "recul": null
   },
   "docs/source/002-thermodynamic_cycles/index.rst": {

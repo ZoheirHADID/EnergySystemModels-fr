@@ -172,11 +172,12 @@ réelle si le modèle en a une.
   `condenseur_evaporateur`, `pompe`, `refrigeration`, `sink`, `fluid_source`, `distillation`,
   `froid_absorption` (AbsorptionChiller ; Absorber, Desorber, AmmoniaWater sans variante),
   `geothermie_solaire` (sonde géothermique ; capteur solaire sans variante),
+  `hydrogene_piles` (électrolyseur ; FuelCell, Reformer, Gasifier sans variante),
   `detente_distributeurs` (détendeur ; distributeurs DCV sans variante) et
   `dessalement_evaporation` (MVR ; MultiEffectEvaporator, ReverseOsmosis, MSF, SprayDryer sans
   variante) au cran 5 (2026-11-23). Restent au cran 4 (table de
   personnalisation + variante exécutée) :
-  `hydrogene_piles`, `ng_boiler_efficiency`,
+  `ng_boiler_efficiency`,
   `ng_heating_value`, `outils_diagrammes`.
 - `à faire` **B2 — `004-hydraulic` (6 pages)**. `TA_valve` au cran 4 ;
   `perte_pression_lineaire` au cran 2 — **elle n'affiche aucune sortie** alors que

@@ -1083,3 +1083,10 @@ Entrées déplacées le 28/09/2026 (lots hydraulique, facture, échangeurs/CTA, 
 - `lambda_ground = -2.0` accepté : fluide moyen 29,6 °C en extraction. Aucune entrée physique n'est contrôlée (λ, α, Rb, rayon, durée hors du `E1(x>0)`).
 - `_penalty` / `_bracket` comptent les `n_boreholes - 1` voisines toutes à `spacing_m` (approximation écrite en commentaire, sans citation) : majorant pour un champ en grille (9 sondes : longueur totale x 2,62 par rapport à une sonde isolée). À confronter à une méthode de champ publiée (g-functions).
 - Traitement dans le guide : « Variante » et « Pièges (sonde) » de `002-thermodynamic_cycles/geothermie_solaire.rst`.
+
+## ThermodynamicCycles.Electrolyzer : rendements hors bornes acceptés (relevé le 2026-11-24)
+- `V_cell = 1.0` (sous la tension réversible de l'eau, ~1,23 V) accepté : `eta_HHV_out` 1,481, `Q_waste` -481,3 kW pour 1 MW. Attendu : `ValueError` sous la tension réversible.
+- `eta_HHV = 1.2` et `eta_faraday = 1.5` acceptés (chaleur fatale négative) ; seuls `P_el_W < 0` et `V_cell <= 0` sont refusés.
+- `n_cells = 0` avec `V_cell` : `ZeroDivisionError` brute.
+- Les constantes `_HHV_H2`, `_LHV_H2`, `_F` du module ne passent pas par `cite(...)` (invariant n°1).
+- Traitement dans le guide : « Pièges (Electrolyzer) » de `002-thermodynamic_cycles/hydrogene_piles.rst`.
