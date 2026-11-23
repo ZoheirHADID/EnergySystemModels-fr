@@ -1155,3 +1155,10 @@
 - Banc : 67 pages au cran 5 (+2), aucun recul. Python 3.13. Build Sphinx : 0 warning (-W).
 - Suivant : cran 4 de `002-thermodynamic_cycles` (chiller, condenseur_evaporateur, pompe, refrigeration…).
 
+
+## 2026-11-23 — B1 / B-chiller : `chiller` cran 4 -> 5
+- Unité : `002-thermodynamic_cycles/chiller.rst` (fiche de lecture de `Chiller.py` : défauts réels des clés, `Q_comp` optionnel qui fixe le débit).
+- Fait : table « Paramètres à personnaliser » (9 clés, défaut si la clé manque, effet) à la place de l'ancien tableau ; trois variantes exécutées — trois fluides à débit égal (R717 : `Tdischarge_target` actif, `Q_losses` 55,55 kW), puissance compresseur imposée 50 kW (débit 1,646 kg/s, EER inchangé), **cycle assemblé à la main** (5 composants + `Fluid_connect`, EER 5,072 / COP 6,072 identiques ; désurchauffeur 17,03 kW, titre 0,232) ; cas limite refusé exécuté (R744 à 40 °C, `ValueError`) ; pièges mesurés.
+- Défauts de lib : `BUGS_LIB.md` (dictionnaire omis ou vide ignoré -> `TypeError` opaque ; `print` « test HP calculation » du compresseur).
+- Banc : 68 pages au cran 5 (+1), aucun recul. Build Sphinx -W : 0 warning.
+- Suivant : `condenseur_evaporateur.rst`, `pompe.rst`, `refrigeration.rst` (cran 4 -> 5).

@@ -102,9 +102,9 @@
    "recul": null
   },
   "docs/source/002-thermodynamic_cycles/chiller.rst": {
-   "blocs": 2,
-   "empreinte": "986498beba54e77a",
-   "mesure": "2026-09-28T17:07",
+   "blocs": 6,
+   "empreinte": "c2dfe3032efe1ac0",
+   "mesure": "2026-11-23T08:34",
    "figures": [
     "../images/schema_cycle_chiller.svg",
     "../images/scene_machine_frigorifique.svg",
@@ -112,11 +112,11 @@
     "../images/002_chiller_plot_parametric.svg"
    ],
    "blocage": null,
-   "motif": "manque : table de personnalisation et variante exécutée",
+   "motif": "",
    "extraits": null,
-   "cran": 4,
-   "nom": "figure réelle",
-   "cran_max": 4,
+   "cran": 5,
+   "nom": "personnalisable",
+   "cran_max": 5,
    "recul": null
   },
   "docs/source/002-thermodynamic_cycles/combustion_moteurs.rst": {

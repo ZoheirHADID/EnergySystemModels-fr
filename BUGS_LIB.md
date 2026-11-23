@@ -1010,3 +1010,8 @@ Entrées déplacées le 28/09/2026 (lots hydraulique, facture, échangeurs/CTA, 
 - Une `faces_config` incomplète lève `KeyError: 'bottom'` (message peu explicite).
 - Traitement dans le guide : section « Pièges d'usage » de `001-heat_transfer/corps_parallelepipedique.rst`.
 - `Tp` < `Ta` (ex. 20 °C pour 25 °C) : `TypeError: type complex doesn't define __round__ method` levé par `PlateHeatTransfer.calculate` ; attendu : gain de chaleur négatif ou `ValueError` explicite.
+
+## ThermodynamicCycles.Chiller / Compressor : dictionnaire omis ou vide ignoré, `print` de débogage (relevé le 2026-11-23)
+- `Chiller(fluid='R134a', evap_params={'Ti_degC': 5})` puis `calculate_cycle()` : `TypeError: PropsSI(): incompatible function arguments` (`Compressor.py:67`, `HP` à `None`). Cause : `set_compressor_parameters` teste `if params:`, donc un dictionnaire absent **ou vide** (`{}`) n'applique aucun défaut (`Tcond_degC` reste `None`). Attendu : défauts appliqués, ou `ValueError` nommant le paramètre manquant.
+- `Compressor.calculate` imprime `test HP calculation <HP>` à chaque appel (`Compressor.py:56`) : ligne parasite dans toute sortie qui calcule un compresseur.
+- Traitement dans le guide : section « Pièges » de `002-thermodynamic_cycles/chiller.rst` ; ligne parasite omise des sorties publiées.

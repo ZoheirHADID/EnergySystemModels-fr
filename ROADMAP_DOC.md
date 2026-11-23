@@ -168,10 +168,12 @@ Ordre d'utilité pour le lecteur. Chaque page : forme de vulgarisation complète
 (étape 6 de la boucle), table de personnalisation, **variante exécutée**, figure
 réelle si le modèle en a une.
 
-- `en cours` **B1 — `002-thermodynamic_cycles` (26 pages)**. Mesurées : `chiller`,
-  `compressor`, `fluid_source`, `sink`, `turbine` au cran 4 — il ne leur manque
-  que la table de personnalisation et la variante. Les 21 autres ne sont pas
-  mesurées.
+- `en cours` **B1 — `002-thermodynamic_cycles`** (banc du 2026-11-23) : `chiller`
+  au cran 5 (2026-11-23). Restent au cran 4 (table de personnalisation + variante
+  exécutée) : `condenseur_evaporateur`, `dessalement_evaporation`,
+  `detente_distributeurs`, `distillation`, `fluid_source`, `froid_absorption`,
+  `geothermie_solaire`, `hydrogene_piles`, `ng_boiler_efficiency`,
+  `ng_heating_value`, `outils_diagrammes`, `pompe`, `refrigeration`, `sink`.
 - `à faire` **B2 — `004-hydraulic` (6 pages)**. `TA_valve` au cran 4 ;
   `perte_pression_lineaire` au cran 2 — **elle n'affiche aucune sortie** alors que
   son exemple en produit.
@@ -205,7 +207,7 @@ réelle si le modèle en a une.
 - `à faire` **C2 — `quickstart.rst`** : après A2, en faire une vraie prise en main
   de 10 minutes, avec un exemple qui tourne et sa sortie réelle.
 
-- `à faire` **B-chiller — `002-thermodynamic_cycles/chiller.rst`** (cran 4) : y
+- `fait` (2026-11-23, cran 5 ; variante « cycle assemblé à la main » exécutée, mêmes EER/COP que `Chiller`) **B-chiller — `002-thermodynamic_cycles/chiller.rst`** (cran 4) : y
   accueillir, exécuté, le cycle assemblé composant par composant (Evaporator →
   Compressor → Desuperheater → Condenser → Expansion_Valve, R134a) retiré de
   `usage/section-3` le 2026-09-28, comme variante « à la main » du `Chiller`
