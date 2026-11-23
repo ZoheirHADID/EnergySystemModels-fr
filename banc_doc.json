@@ -58,6 +58,19 @@
    "cran_max": 5,
    "recul": null
   },
+  "docs/source/001-heat_transfer/reseau_thermique.rst": {
+   "blocs": 2,
+   "empreinte": "465a820d04ea2316",
+   "mesure": "2026-11-23T20:59",
+   "figures": [],
+   "blocage": null,
+   "motif": "",
+   "extraits": null,
+   "cran": 5,
+   "nom": "personnalisable",
+   "cran_max": 5,
+   "recul": null
+  },
   "docs/source/002-thermodynamic_cycles/aerorefrigerant.rst": {
    "blocs": 4,
    "empreinte": "f93bd4a59138a671",

@@ -10,4 +10,5 @@ Transfert de chaleur
    corps_parallelepipedique
    composite_wall_heat_transfer
    pipe_insulation_analysis
+   reseau_thermique
    ../transfert_chaleur

@@ -1207,3 +1207,12 @@
 - Banc : page au cran 5 (74 pages au cran 5 avec la page `reseau_thermique` d'une autre session, non commitée ici), aucun recul. Build Sphinx -W : 0 warning.
 - Note : `banc_doc.json` commité avec la seule entrée `refrigeration` (l'entrée `reseau_thermique` de l'autre session reste dans la copie de travail).
 - Suivant : `sink.rst`, `fluid_source.rst` (cran 4 -> 5).
+
+## 2026-11-23 — Réseau thermique : port de chaleur et résistances
+
+- Unité : `HeatTransfer.ThermalNetwork` (librairie) et sockets de chaleur PyqtSimulator.
+- Fait : `001-heat_transfer/reseau_thermique.rst` — paroi en réseau (retrouve
+  `CompositeWall`, 91,50 W), table des éléments, variante tuyau calorifugé
+  (convection naturelle ∥ rayonnement), pièges, nœuds 987 / 988 et mode
+  « Port de chaleur » du tuyau droit.
+- Mesuré : banc **cran 5** (138 pages mesurées) ; build Sphinx 0 avertissement.
