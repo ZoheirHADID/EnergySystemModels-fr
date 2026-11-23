@@ -1254,3 +1254,10 @@
 - Défauts de lib : `BUGS_LIB.md` (MVR).
 - Banc : 78 pages au cran 5 (+1), aucun recul. Build Sphinx -W : 0 warning.
 - Suivant : `distillation.rst` (cran 4 -> 5).
+
+## 2026-11-23 — B1 : `distillation` cran 4 -> 5 (Deethanizer)
+- Unité : `002-thermodynamic_cycles/distillation.rst`, modèle `Deethanizer` (fiche de lecture : `solve`, cas 1-3, `_build_pressure_profile`).
+- Fait : table « Paramètres à personnaliser » ; variante exécutée « ce que rapporte le reflux optimal » (cas 1 / 2 / 3 : QC 1 111 / 1 122 / 866 kW, QR 6 417 / 6 487 / 6 215 kW, séparation identique ; reflux optimal -22 % de froid au condenseur) ; cas limite refusé (profil de pression de 3 valeurs, `ValueError`) ; pièges exécutés (`case=4` -> `LinAlgError`, couple de pression négatif accepté).
+- Défauts de lib : `BUGS_LIB.md` (Deethanizer).
+- Banc : 79 pages au cran 5 (+1), aucun recul. Build Sphinx -W : 0 warning.
+- Suivant : `froid_absorption.rst` (cran 4 -> 5).

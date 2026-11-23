@@ -218,16 +218,16 @@
    "recul": null
   },
   "docs/source/002-thermodynamic_cycles/distillation.rst": {
-   "blocs": 2,
-   "empreinte": "a2d19d49534626ce",
-   "mesure": "2026-09-28T14:16",
+   "blocs": 5,
+   "empreinte": "c42b905dd7996ad7",
+   "mesure": "2026-11-23T22:51",
    "figures": [],
    "blocage": null,
-   "motif": "manque : table de personnalisation et variante exécutée",
+   "motif": "",
    "extraits": null,
-   "cran": 4,
-   "nom": "figure réelle",
-   "cran_max": 4,
+   "cran": 5,
+   "nom": "personnalisable",
+   "cran_max": 5,
    "recul": null
   },
   "docs/source/002-thermodynamic_cycles/echangeurs.rst": {

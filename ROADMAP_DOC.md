@@ -169,12 +169,12 @@ Ordre d'utilité pour le lecteur. Chaque page : forme de vulgarisation complète
 réelle si le modèle en a une.
 
 - `en cours` **B1 — `002-thermodynamic_cycles`** (banc du 2026-11-23) : `chiller`,
-  `condenseur_evaporateur`, `pompe`, `refrigeration`, `sink`, `fluid_source` et
+  `condenseur_evaporateur`, `pompe`, `refrigeration`, `sink`, `fluid_source`, `distillation`,
   `detente_distributeurs` (détendeur ; distributeurs DCV sans variante) et
   `dessalement_evaporation` (MVR ; MultiEffectEvaporator, ReverseOsmosis, MSF, SprayDryer sans
   variante) au cran 5 (2026-11-23). Restent au cran 4 (table de
   personnalisation + variante exécutée) :
-  `distillation`, `froid_absorption`,
+  `froid_absorption`,
   `geothermie_solaire`, `hydrogene_piles`, `ng_boiler_efficiency`,
   `ng_heating_value`, `outils_diagrammes`.
 - `à faire` **B2 — `004-hydraulic` (6 pages)**. `TA_valve` au cran 4 ;

@@ -1065,3 +1065,8 @@ Entrées déplacées le 28/09/2026 (lots hydraulique, facture, échangeurs/CTA, 
 - `mdot_vapor = -1.0` : accepté, `W_comp_kW` = -44,73. Attendu : `ValueError` pour `mdot_vapor <= 0` (les autres entrées sont, elles, contrôlées).
 - Après `calculate()`, `Inlet` / `Outlet` ne portent que `F` : `P` et `h` restent `None`, le modèle ne se chaîne pas par `Fluid_connect` à l'évaporateur qu'il est censé alimenter.
 - Traitement dans le guide : « Pièges (MVR) » de `002-thermodynamic_cycles/dessalement_evaporation.rst`.
+
+## Distillation.Deethanizer : cas inconnu non refusé, couple de pression non contrôlé (relevé le 2026-11-23)
+- `solve(case=4)` : aucun contrôle à l'entrée ; les profils restent nuls, divisions par zéro en cascade (`Deethanizer.py:333`, `PengRobinson.py:392`) puis `numpy.linalg.LinAlgError: Array must not contain infs or NaNs`. Attendu : `ValueError` nommant les cas valides (1, 2, 3).
+- `Deethanizer(pressure_profile=(27.5e5, -1.0))` accepté : `_build_pressure_profile` retourne le `linspace` du couple **avant** le contrôle « pression nulle ou négative », qui ne s'applique qu'à la liste complète.
+- Traitement dans le guide : « Pièges » de `002-thermodynamic_cycles/distillation.rst`.

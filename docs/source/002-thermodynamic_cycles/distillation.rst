@@ -548,3 +548,135 @@ mesuré ici converge en 8 itérations vers :math:`T_{tête} = 261{,}2`\ K (réf.
 (réf. 4 133 588, soit −3,3 %) et :math:`Q_R = 23\,100\,639`\ kJ/h (réf. 22 854 385,
 soit +1,1 %). L'écart est celui de cette version du modèle ; il n'est pas corrigé ici.
 
+Paramètres à personnaliser
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+La colonne est aujourd'hui calée sur les données du livre (alimentations
+flashées des tables 6-3/6-4) : on la fait varier par ses trois jeux de données
+et par sa pression, pas encore par une composition d'alimentation libre.
+
+.. list-table::
+   :header-rows: 1
+   :widths: 24 26 50
+
+   * - Grandeur
+     - Valeur à saisir
+     - Effet sur le résultat
+   * - ``solve(case=…)``
+     - 1, 2 ou 3
+     - Fixe les étages d'alimentation (``j_FC`` / ``j_FH``) et le reflux
+       ``L0`` (tableau ci-dessus).
+   * - ``Deethanizer(pressure_profile=…)``
+     - ``None`` (pression unique), un couple ``(P_tete, P_pied)`` en Pa, ou
+       une valeur par étage (30 valeurs pour 28 plateaux)
+     - Déplace les températures d'équilibre étage par étage ; le livre donne
+       0,35 à 1,03 kPa de perte par plateau (Seader, § 6.6.3).
+   * - ``solve(max_outer=…, tol=…)``
+     - 20 itérations, 1 K par défaut
+     - Critère d'arrêt sur la variation maximale des températures ; vérifiez
+       ``res["converged"]``.
+   * - ``solve(verbose=…)``
+     - ``True`` par défaut
+     - ``False`` supprime l'impression des itérations et des tableaux.
+
+Variante exécutée : ce que rapporte le reflux optimal
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Le cas 3 garde les étages d'alimentation du cas 2 mais réduit le reflux de
+306,2 à 236,1 kmol/h. La question de l'énergéticien : combien de froid au
+condenseur et de chaleur au rebouilleur cela économise, sans perdre la
+séparation.
+
+.. code-block:: python
+
+    # variante : les trois jeux de données du livre, côte à côte
+    from Distillation.Deethanizer import Deethanizer
+
+    print("cas  alim. FC/FH  reflux   QC (kW)   QR (kW)  C2 au pied  C3 en tête")
+    for cas in [1, 2, 3]:
+        col = Deethanizer()
+        res = col.solve(case=cas, max_outer=20, tol=1.0, verbose=False)
+        i_c2 = res["components"].index("C2")
+        i_c3 = res["components"].index("C3")
+        print(f"{cas:>3}    {col.j_FC:>2} / {col.j_FH:<2}   {col.L0:6.1f}  "
+              f"{abs(res['QC']) / 3600:8.0f}  {abs(res['QR']) / 3600:8.0f}  "
+              f"{res['b'][i_c2]:9.2e}  {res['d'][i_c3]:9.2f}"
+              f"{'' if res['converged'] else '  NON CONVERGÉ'}")
+
+Sortie réelle :
+
+.. code-block:: text
+
+   cas  alim. FC/FH  reflux   QC (kW)   QR (kW)  C2 au pied  C3 en tête
+     1     5 / 21    306.2      1111      6417   2.47e-04      34.20
+     2     6 / 19    306.2      1122      6487   3.42e-05      34.22
+     3     6 / 19    236.1       866      6215   3.77e-05      34.21
+
+Lecture : à séparation égale (moins de 0,001 kmol/h d'éthane perdu au pied,
+34,2 kmol/h de propane en tête dans les trois cas), le reflux optimal coûte
+**22 % de froid en moins** au condenseur (866 contre 1 111 kW) et 3 % de
+chaleur en moins au rebouilleur. Le condenseur d'un dééthaniseur travaille vers
+−12 °C : chaque kW de froid y coûte cher en compresseur. Déplacer seulement les
+alimentations (cas 2) ne gagne rien sur l'énergie, mais divise par sept l'éthane
+perdu au pied. Comptez environ 3 s par cas.
+
+Cas limite refusé : profil de pression mal dimensionné
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code-block:: python
+
+    from Distillation.Deethanizer import Deethanizer
+
+    try:
+        Deethanizer(pressure_profile=[27.6e5, 27.5e5, 27.4e5])   # 3 valeurs pour 30 étages
+    except ValueError as erreur:
+        print("Refusé :", erreur)
+
+Sortie réelle :
+
+.. code-block:: text
+
+   Refusé : pressure_profile : 3 valeurs pour 30 etages. Fournir soit un couple (P_tete, P_pied), soit une valeur par etage.
+
+Pièges
+~~~~~~
+
+.. code-block:: python
+
+    import warnings
+    import numpy as np
+    from Distillation.Deethanizer import Deethanizer
+
+    # 1) un numéro de cas inconnu n'est pas refusé à l'entrée
+    col = Deethanizer()
+    with warnings.catch_warnings():
+        warnings.simplefilter("ignore")          # divisions par zéro en cascade
+        try:
+            col.solve(case=4, verbose=False)
+        except np.linalg.LinAlgError as erreur:
+            print("case=4 :", type(erreur).__name__, "-", erreur)
+
+    # 2) un couple (tête, pied) négatif passe le contrôle
+    col = Deethanizer(pressure_profile=(27.5e5, -1.0))
+    print("pression au pied :", col.P_stages[-1], "Pa")
+
+Sortie réelle :
+
+.. code-block:: text
+
+   case=4 : LinAlgError - Array must not contain infs or NaNs
+   pression au pied : -1.0 Pa
+
+* **Un numéro de cas inconnu n'est pas refusé** : ``solve(case=4)`` part de
+  profils nuls et finit en ``LinAlgError`` après une cascade de divisions par
+  zéro. Seuls 1, 2 et 3 existent.
+* **Le couple (tête, pied) n'est pas contrôlé** : une pression négative au
+  pied est acceptée (le contrôle « pression nulle ou négative » ne s'applique
+  qu'à la liste complète).
+* **QC et QR sont en kJ/h** : divisez par 3 600 pour des kW.
+* **Le cas 1 ne retombe pas exactement sur la table 6-7** (−3,3 % sur QC,
+  +1,1 % sur QR) : écart de cette version du modèle, dit plus haut.
+
+Voir aussi : :doc:`../ports_connexions` pour les fluides multiconstituants des
+autres composants.
+
