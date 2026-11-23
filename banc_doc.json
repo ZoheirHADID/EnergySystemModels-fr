@@ -190,16 +190,16 @@
    "recul": null
   },
   "docs/source/002-thermodynamic_cycles/dessalement_evaporation.rst": {
-   "blocs": 5,
-   "empreinte": "f7b2102b6af25c9b",
-   "mesure": "2026-09-28T13:39",
+   "blocs": 8,
+   "empreinte": "d5d503fa530ddcc2",
+   "mesure": "2026-11-23T22:28",
    "figures": [],
    "blocage": null,
-   "motif": "manque : table de personnalisation et variante exécutée",
+   "motif": "",
    "extraits": null,
-   "cran": 4,
-   "nom": "figure réelle",
-   "cran_max": 4,
+   "cran": 5,
+   "nom": "personnalisable",
+   "cran_max": 5,
    "recul": null
   },
   "docs/source/002-thermodynamic_cycles/detente_distributeurs.rst": {

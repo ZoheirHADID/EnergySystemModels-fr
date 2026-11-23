@@ -243,6 +243,137 @@ Sortie réelle :
    Compression  : 22.36 kW
    h23/h45      : 2.0 %
 
+Paramètres à personnaliser (MVR)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. list-table::
+   :header-rows: 1
+   :widths: 22 26 52
+
+   * - Grandeur
+     - Valeur à saisir
+     - Effet sur le résultat
+   * - ``mdot_vapor``
+     - débit de vapeur évaporée (kg/s) ; obligatoire
+     - ``W_comp_kW`` lui est proportionnel ; ``W_specific_kWh_per_t`` n'en
+       dépend pas.
+   * - ``dT_lift_degC``
+     - écart de saturation à franchir (> 0) : il doit couvrir l'écart de
+       température de l'échangeur **et** l'élévation du point d'ébullition du
+       produit concentré
+     - Le premier facteur de coût : la consommation est presque
+       proportionnelle au lift.
+   * - ``P_evap_bar``
+     - pression de l'évaporateur (vide pour un produit sensible à la chaleur)
+     - Sous vide, le même lift coûte un peu plus cher par tonne.
+   * - ``eta_is``
+     - rendement isentropique du compresseur ou du ventilateur (0 à 1)
+     - ``W_comp`` varie comme ``1 / eta_is``.
+   * - ``fluid``
+     - ``'water'`` par défaut
+     - Nom CoolProp de la vapeur recomprimée.
+
+Variante exécutée : ce que coûte chaque kelvin de lift
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Le « COP équivalent » ci-dessous est la chaleur de condensation rendue à
+l'évaporateur divisée par le travail de compression, par kg de vapeur.
+
+.. code-block:: python
+
+    # variante : élévation de saturation et pression d'évaporation
+    from ThermodynamicCycles.MVR import MVR
+
+    def mvr(dT_lift_degC, P_evap_bar=1.0, eta_is=0.75):
+        m = MVR.Object()
+        m.mdot_vapor = 1.0                 # 1 kg/s = 3,6 t/h de vapeur
+        m.P_evap_bar = P_evap_bar
+        m.dT_lift_degC = dT_lift_degC
+        m.eta_is = eta_is
+        m.calculate()
+        cop = m.Lv_discharge_kJ_kg / m.dh_comp_kJ_kg   # chaleur rendue / travail
+        return m, cop
+
+    for dT in [3, 5.5, 8, 12]:
+        m, cop = mvr(dT)
+        print(f"lift {dT:4.1f} K à 1 bar   : refoulement {m.P_discharge_bar:5.3f} bar, "
+              f"{m.W_specific_kWh_per_t:5.1f} kWhe/t, COP équivalent {cop:5.1f}")
+    for P in [0.3, 2.0]:
+        m, cop = mvr(5.5, P_evap_bar=P)
+        print(f"lift  5.5 K à {P:3.1f} bar : refoulement {m.P_discharge_bar:5.3f} bar, "
+              f"{m.W_specific_kWh_per_t:5.1f} kWhe/t, COP équivalent {cop:5.1f}")
+
+Sortie réelle :
+
+.. code-block:: text
+
+   lift  3.0 K à 1 bar   : refoulement 1.112 bar,   6.8 kWhe/t, COP équivalent  92.5
+   lift  5.5 K à 1 bar   : refoulement 1.213 bar,  12.4 kWhe/t, COP équivalent  50.1
+   lift  8.0 K à 1 bar   : refoulement 1.322 bar,  18.1 kWhe/t, COP équivalent  34.3
+   lift 12.0 K à 1 bar   : refoulement 1.513 bar,  27.3 kWhe/t, COP équivalent  22.6
+   lift  5.5 K à 0.3 bar : refoulement 0.379 bar,  14.0 kWhe/t, COP équivalent  45.9
+   lift  5.5 K à 2.0 bar : refoulement 2.374 bar,  11.5 kWhe/t, COP équivalent  53.0
+
+Lecture : quadrupler le lift (3 → 12 K) multiplie la consommation par quatre.
+Ces COP sont ceux du **seul compresseur** : ils ignorent les pertes de
+l'échangeur, les incondensables, la vapeur d'appoint et les pompes. Comparez
+les kWhe/t à la vapeur vive qu'ils remplacent (environ 2 250 kJ/kg de chaleur
+latente à 1 bar, soit 625 kWh par tonne évaporée en simple effet).
+
+Cas limites refusés (MVR)
+~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code-block:: python
+
+    from ThermodynamicCycles.MVR import MVR
+
+    for reglage in [dict(dT_lift_degC=0), dict(eta_is=1.2), dict(mdot_vapor=None)]:
+        m = MVR.Object()
+        m.mdot_vapor = 1.0
+        for nom, valeur in reglage.items():
+            setattr(m, nom, valeur)
+        try:
+            m.calculate()
+        except ValueError as erreur:
+            print(f"{str(reglage):24s} refusé : {erreur}")
+
+Sortie réelle :
+
+.. code-block:: text
+
+   {'dT_lift_degC': 0}      refusé : MVR: dT_lift_degC doit etre > 0
+   {'eta_is': 1.2}          refusé : MVR: 0 < eta_is <= 1
+   {'mdot_vapor': None}     refusé : MVR: definir mdot_vapor (kg/s)
+
+Pièges (MVR)
+~~~~~~~~~~~~
+
+.. code-block:: python
+
+    from ThermodynamicCycles.MVR import MVR
+
+    m = MVR.Object()
+    m.mdot_vapor = -1.0              # débit négatif : accepté
+    m.calculate()
+    print("W_comp :", round(m.W_comp_kW, 2), "kW")
+    print("ports  : Outlet.P =", m.Outlet.P, "; Outlet.h =", m.Outlet.h)
+
+Sortie réelle :
+
+.. code-block:: text
+
+   W_comp : -44.73 kW
+   ports  : Outlet.P = None ; Outlet.h = None
+
+* **Un débit négatif n'est pas refusé** et rend une puissance négative.
+* **Les ports ne portent que le débit** : ``Outlet.P`` et ``Outlet.h`` restent
+  vides, le modèle ne se chaîne donc pas à un autre composant par
+  ``Fluid_connect``. Lisez les attributs (``P_discharge_bar``,
+  ``dh_comp_kJ_kg``…) et reportez-les à la main.
+* **Le rapport h23/h45 annoncé par le docstring (3 à 9 % pour l'eau)** ne
+  s'obtient qu'avec des lifts plus grands : 2,0 % à 5,5 K dans l'exemple,
+  4,4 % (1 / 22,6) à 12 K. Ce n'est pas une erreur du calcul.
+
 ReverseOsmosis (osmose inverse)
 -------------------------------
 

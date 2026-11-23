@@ -1247,3 +1247,10 @@
 - Défauts de lib : `BUGS_LIB.md` (Expansion_Valve).
 - Banc : 77 pages au cran 5 (+1), aucun recul. Build Sphinx -W : 0 warning.
 - Suivant : `distillation.rst` (cran 4 -> 5).
+
+## 2026-11-23 — B1 : `dessalement_evaporation` cran 4 -> 5 (modèle MVR)
+- Unité : `002-thermodynamic_cycles/dessalement_evaporation.rst`, modèle `MVR` (fiche de lecture de `MVR.py`, contrôles d'entrée existants). Les quatre autres modèles de la page restent sans variante.
+- Fait : table « Paramètres à personnaliser (MVR) » ; variante exécutée « ce que coûte chaque kelvin de lift » (1 bar : 3 / 5,5 / 8 / 12 K -> 6,8 / 12,4 / 18,1 / 27,3 kWhe/t, COP équivalent 92,5 -> 22,6 ; 5,5 K à 0,3 / 2 bar -> 14,0 / 11,5 kWhe/t) ; trois cas refusés exécutés (`dT_lift` 0, `eta_is` 1,2, débit absent) ; pièges (débit négatif accepté, ports sans P ni h).
+- Défauts de lib : `BUGS_LIB.md` (MVR).
+- Banc : 78 pages au cran 5 (+1), aucun recul. Build Sphinx -W : 0 warning.
+- Suivant : `distillation.rst` (cran 4 -> 5).

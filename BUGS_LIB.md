@@ -1060,3 +1060,8 @@ Entrées déplacées le 28/09/2026 (lots hydraulique, facture, échangeurs/CTA, 
 - `Outlet.P` non renseigné : `TypeError: PropsSI(): incompatible function arguments` (CoolProp), qui ne nomme pas l'entrée manquante.
 - Le titre de sortie (gaz de flash, grandeur clé d'un détendeur) n'est ni dans `df` ni sur `Outlet` ; le guide le calcule avec `ThermoPropsSI("Q", "P", …, "H", …)`.
 - Traitement dans le guide : section `expansion_valve` de `002-thermodynamic_cycles/detente_distributeurs.rst`.
+
+## ThermodynamicCycles.MVR : débit négatif accepté, ports sans état (relevé le 2026-11-23)
+- `mdot_vapor = -1.0` : accepté, `W_comp_kW` = -44,73. Attendu : `ValueError` pour `mdot_vapor <= 0` (les autres entrées sont, elles, contrôlées).
+- Après `calculate()`, `Inlet` / `Outlet` ne portent que `F` : `P` et `h` restent `None`, le modèle ne se chaîne pas par `Fluid_connect` à l'évaporateur qu'il est censé alimenter.
+- Traitement dans le guide : « Pièges (MVR) » de `002-thermodynamic_cycles/dessalement_evaporation.rst`.
