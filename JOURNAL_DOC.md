@@ -1396,3 +1396,10 @@
 - Défauts de lib : aucun nouveau.
 - Banc : 98 pages au cran 5 (+1), aucun recul. Build Sphinx -W : 0 warning (un soulignement de titre trop court corrigé).
 - Suivant : `serpentin.rst` (B2).
+
+## 2026-11-24 — B2 : `serpentin` cran 4 -> 5
+- Unité : `004-hydraulic/serpentin.rst`, modèle `Coil` (fiche de lecture : Idel'chik diagramme 6.2, formule / table, `lambda_source_used`, `out_of_domain`).
+- Fait : à quoi ça sert (formule), exemple exécuté (tube 20 mm, R0 0,15 m, 10 spires, 0,6 m³/h à 60 °C : 9,42 m, lambda_el 0,0412 table, 2,69 kPa), table « Paramètres à personnaliser », variante R0 x formule / table x tube droit : **la branche formule rend le serpentin moins résistant que le tube droit** (avertissement, `lambda_source='table'` recommandé), deux cas refusés, pièges (rugosité et R0/d < 3 signalés, pas refusés).
+- Défauts de lib : `BUGS_LIB.md` (Coil).
+- Banc : 99 pages au cran 5 (+1), aucun recul. Build Sphinx -W : 0 warning.
+- Suivant : `sortie_libre.rst` (B2).

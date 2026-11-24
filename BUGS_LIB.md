@@ -1175,3 +1175,10 @@ Entrées déplacées le 28/09/2026 (lots hydraulique, facture, échangeurs/CTA, 
 - `GradualContraction` avec la corrélation par défaut (`idelchik`, tableau) et des diamètres intervertis : zeta 0,040 accepté ; seule `idelchik_formula` contrôle `F0/F1 <= 1`.
 - `GradualContraction.angle_deg = 0` : `ZeroDivisionError` brute (même défaut que `GradualExpansion`).
 - Traitement dans le guide : « Pièges » de `004-hydraulic/reduction_section.rst`.
+
+## Hydraulic.Coil : branche « formule » moins résistante que le tube droit (relevé le 2026-11-24)
+- Tube lisse 20 mm, 10 spires, eau 60 °C à 0,6 m³/h (Re 22 384) : en `lambda_source='auto'`, R0/d = 15 et 30 passent sur la formule (X = 4 087 et 2 890) et rendent lambda_el = 0,0216 et 0,0179, soit **2 822 / 4 665 Pa contre 3 299 / 6 598 Pa pour le même tube droit** (`StraightPipe`, K = 1,5 µm). Physiquement impossible : la courbure ajoute du frottement. La table du même diagramme donne 0,0327 / 0,0289 (4 267 / 7 528 Pa, au-dessus du droit).
+- Écart formule / table mesuré : **-34 % et -38 %**, au-delà des « -6 à -12 % » écrits dans le docstring ; saut de lambda_el au changement de branche (0,0412 table à R0/d 8 -> 0,0216 formule à R0/d 15).
+- Hypothèse à vérifier sur Idel'chik, diagramme 6.2 (non relu ici) : les trois formules en X visent un domaine de Reynolds plus bas (sous le Reynolds critique du serpentin), que le code ne contrôle pas. Attendu : borner la branche formule à son domaine de Re publié, ou au moins `lambda_el >= lambda_droit`.
+- `R0/d < 3` et rugosité > 2e-4 : signalés (`out_of_domain`), pas refusés — conforme au docstring.
+- Traitement dans le guide : avertissement de la variante de `004-hydraulic/serpentin.rst` (le guide recommande `lambda_source='table'`).
