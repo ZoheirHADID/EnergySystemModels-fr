@@ -71,6 +71,150 @@ Résultats ::
    :width: 100%
    :align: center
 
+Paramètres à personnaliser
+--------------------------
+
+.. list-table::
+   :header-rows: 1
+   :widths: 22 30 48
+
+   * - Grandeur
+     - Valeur à saisir
+     - Effet sur le résultat
+   * - ``dn``
+     - référence **complète** de la vanne : série + diamètre, par exemple
+       ``"STAD-DN25"``, ``"STAF-DN100"``
+     - Choisit la table de Kv du constructeur. Une écriture courte
+       (``"DN25"``, ``25``) est refusée.
+   * - ``nb_tours``
+     - position de réglage, dans la plage de la référence (0,5 à 4 tours pour
+       une STAD ; 0 pour un régulateur ou un orifice fixe)
+     - Kv lu dans la table, interpolé linéairement entre deux positions.
+   * - Débit et fluide (``Source``)
+     - débit nominal du circuit
+     - ``delta_P = (Q / Kv)² × 10⁵`` : la perte croît comme le carré du
+       débit.
+   * - Pression aval (``Sink.Po_bar``)
+     - pression imposée par le réseau en sortie
+     - La pression d'entrée de la vanne est recalculée (note ci-dessus).
+
+Variante exécutée : diamètre d'une vanne d'équilibrage et finesse de réglage
+-----------------------------------------------------------------------------
+
+Deux départs sur un même collecteur, 1,5 m³/h visés sur chacun. Le départ
+proche ne présente que 8 kPa de résistance propre, l'éloigné 25 kPa : sans
+vanne, le proche prendrait tout le débit. Quel diamètre de STAD choisir, et
+que coûte une erreur d'un quart de tour au réglage ?
+
+.. code-block:: python
+
+    # variante : diamètre d'une vanne d'équilibrage et finesse de réglage
+    from ThermodynamicCycles.Hydraulic.TA_Valve import Object as TAValve
+
+    Q_NOM = 1.5      # m3/h visés sur chaque départ
+    DP_A = 8000.0    # Pa : résistance propre du départ proche
+    DP_B = 25000.0   # Pa : résistance propre du départ éloigné
+
+    # Le collecteur doit fournir la perte du circuit le plus défavorable :
+    # la vanne du départ proche dissipe la différence.
+    a_dissiper = DP_B - DP_A
+    kv_requis = Q_NOM / (a_dissiper / 1e5) ** 0.5
+    print(f"Départ proche : {a_dissiper:.0f} Pa à dissiper -> Kv requis = {kv_requis:.2f}")
+
+    def position_pour(vanne, kv_cible):
+        """Position (en tours, pas de 0,05) dont le Kv tabulé est le plus proche."""
+        meilleur, t = None, 0.5
+        while t <= 4.0001:
+            vanne.nb_tours = round(t, 2)
+            ecart = abs(vanne.get_kv_value() - kv_cible)
+            if meilleur is None or ecart < meilleur[1]:
+                meilleur = (round(t, 2), ecart)
+            t += 0.05
+        return meilleur[0]
+
+    v = TAValve()
+    print("DN         réglage   course   Kv     Kv à -1/4 tour   débit")
+    for dn in ("STAD-DN20", "STAD-DN25", "STAD-DN32", "STAD-DN40", "STAD-DN50"):
+        v.dn = dn
+        t0 = position_pour(v, kv_requis)
+        v.nb_tours = t0
+        kv0 = v.get_kv_value()
+        v.nb_tours = max(0.5, t0 - 0.25)
+        kv1 = v.get_kv_value()
+        # à perte de charge imposée par le réseau, le débit suit le Kv
+        print(f"{dn:10s} {t0:4.2f} tr   {100 * t0 / 4:3.0f} %   {kv0:5.2f}      "
+              f"{kv1:5.2f}        {100 * (kv1 - kv0) / kv0:+5.1f} %")
+
+Sortie réelle :
+
+.. code-block:: text
+
+   Départ proche : 17000 Pa à dissiper -> Kv requis = 3.64
+   DN         réglage   course   Kv     Kv à -1/4 tour   débit
+   STAD-DN20  2.95 tr    74 %    3.61       3.11        -13.9 %
+   STAD-DN25  2.00 tr    50 %    3.64       2.88        -20.7 %
+   STAD-DN32  1.55 tr    39 %    3.55       2.85        -19.6 %
+   STAD-DN40  1.10 tr    28 %    3.67       2.95        -19.7 %
+   STAD-DN50  0.85 tr    21 %    3.66       2.92        -20.2 %
+
+Lecture :
+
+* **Les cinq diamètres savent faire le réglage** : chacun atteint le Kv requis
+  à quelques pour cent près. Le critère de choix n'est pas la capacité, mais la
+  position où tombe le réglage : 74 % de la course en DN20, 21 % en DN50.
+* **Un quart de tour d'erreur casse l'équilibrage** : il retire 14 % de débit
+  sur la DN20 et 20 % sur les autres, au-delà d'un critère d'acceptation
+  courant de 10 % d'écart. La DN20, réglée aux trois quarts de sa course,
+  travaille dans la partie la plus plate de sa courbe Kv ; la DN50, près de sa
+  butée, dans la plus raide.
+* **Surdimensionner une vanne d'équilibrage déplace son réglage vers la zone
+  où la clé est la moins précise** : on choisit le plus petit diamètre qui
+  passe le débit, à l'inverse du réflexe habituel pour les autres organes du
+  réseau.
+
+.. warning::
+
+   Ces Kv sont ceux d'un constructeur (IMI TA), relevés de sa documentation.
+   Ils ne sont **pas transposables** à une autre marque : deux vannes de même
+   DN annoncées « équilibrage » n'ont ni la même plage de Kv, ni la même loi
+   d'ouverture. Un réglage exprimé en tours n'a de sens qu'avec la référence
+   exacte de la vanne.
+
+Cas limites refusés
+-------------------
+
+.. code-block:: python
+
+    from ThermodynamicCycles.Hydraulic.TA_Valve import Object as TAValve
+
+    for dn, tours in [("STAD-DN20", 6.0), ("DN65", 2.0)]:
+        v = TAValve()
+        v.dn = dn
+        v.nb_tours = tours
+        try:
+            v.get_kv_value()
+        except ValueError as erreur:
+            print("Refusé :", erreur)
+
+Sortie réelle :
+
+.. code-block:: text
+
+   Refusé : Nombre de tours hors limites pour STAD-DN20: 6.0. Plage disponible: 0.5 - 4
+   Refusé : Diamètre nominal non valide: DN65
+
+Pièges
+------
+
+* **La référence doit être complète** : ``"DN65"`` ou ``65`` sont refusés ;
+  écrivez ``"STAF-DN65"``. Deux séries de même DN n'ont pas le même Kv à la
+  même position (STAD-DN20 : 1,95 ; STAV-DN20 : 1,90 à 2 tours).
+* **nb_tours laissé à None** lève une ``TypeError`` peu explicite (comparaison
+  avec ``None``) au lieu d'un message nommant le paramètre.
+* **Le débit suit le Kv à perte de charge imposée** : dans un réseau, fermer
+  une vanne reporte le débit sur les autres départs. Pour le voir, il faut le
+  réseau complet (:ref:`resolution_circuit`), pas la vanne seule.
+
 Paramètres possibles
 --------------------
 
@@ -114,7 +258,9 @@ La classe ``TA_Valve`` supporte **plus de 100 références** de vannes d'équili
      - Orifices fixes de mesure (Kv fixe)
 
 .. note::
-   Le paramètre ``dn`` peut être spécifié sous forme de **chaîne** (ex: "DN65", "STAF-DN100") ou d'**entier** (ex: 65).
+   Le paramètre ``dn`` est la **référence complète** de la vanne (ex. ``"STAF-DN100"``,
+   ``"STAD-DN25"``). Une écriture courte (``"DN65"``) ou un entier (``65``) est refusé
+   (``ValueError: Diamètre nominal non valide``), mesuré le 24/11/2026.
 
 **Paramètres de configuration**
 

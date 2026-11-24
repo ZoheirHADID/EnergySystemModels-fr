@@ -1304,3 +1304,10 @@
 - Défauts de lib : `BUGS_LIB.md` (Carnot_Cycle_Analysis).
 - Banc : 85 pages au cran 5 (+1), aucun recul ; **toutes les pages à exemples de `002-thermodynamic_cycles` sont au cran 5** : B1 passe à `fait`. Build Sphinx -W : 0 warning.
 - Suivant : B2 `004-hydraulic` — `TA_valve.rst` avec la demande L1 du handbook.
+
+## 2026-11-24 — B2 + L1 : `TA_valve` cran 4 -> 5
+- Unité : `004-hydraulic/TA_valve.rst` (fiche de lecture de `Hydraulic/TA_Valve.py` : `get_kv_value`, contrôles de `dn` et `nb_tours`).
+- Fait : table « Paramètres à personnaliser » ; variante exécutée L1 du handbook « diamètre d'une vanne d'équilibrage et finesse de réglage » (`position_pour`) — **valeurs du livre retrouvées à l'identique** (Kv requis 3,64 ; STAD-DN20 à DN50 : 2,95 / 2,00 / 1,55 / 1,10 / 0,85 tr ; -13,9 / -20,7 / -19,6 / -19,7 / -20,2 % à -1/4 tour) ; réserve Kv non transposables ; deux cas refusés exécutés ; note `dn` corrigée (la forme courte « DN65 » / 65 est refusée, la page disait le contraire).
+- Défauts de lib : `BUGS_LIB.md` (TA_Valve).
+- Banc : 86 pages au cran 5 (+1), aucun recul. Build Sphinx -W : 0 warning.
+- Suivant : `perte_pression_lineaire.rst` avec L2 (StraightPipe, fonction `troncon`).

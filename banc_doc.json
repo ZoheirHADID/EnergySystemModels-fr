@@ -604,19 +604,19 @@
    "recul": null
   },
   "docs/source/004-hydraulic/TA_valve.rst": {
-   "blocs": 1,
-   "empreinte": "643b4b64fc247857",
-   "mesure": "2026-09-28T17:07",
+   "blocs": 3,
+   "empreinte": "025d7da522d12bb4",
+   "mesure": "2026-11-24T01:37",
    "figures": [
     "../images/schema_ta_valve.svg",
     "../images/004_ta_valve_courbe_reseau.svg"
    ],
    "blocage": null,
-   "motif": "manque : table de personnalisation et variante exécutée",
+   "motif": "",
    "extraits": null,
-   "cran": 4,
-   "nom": "figure réelle",
-   "cran_max": 4,
+   "cran": 5,
+   "nom": "personnalisable",
+   "cran_max": 5,
    "recul": null
   },
   "docs/source/004-hydraulic/clapet_anti_retour.rst": {

@@ -1111,3 +1111,8 @@ Entrées déplacées le 28/09/2026 (lots hydraulique, facture, échangeurs/CTA, 
 - `COP_Analysis.add_machine("…", Tc=7, Th=35, COP=12.0)` : ratio 1,09 (au-dessus de Carnot) accepté sans message. Attendu : `ValueError` (ou avertissement) pour un ratio >= 1, même règle pour `EER_Analysis` et `Efficiency_Analysis`.
 - `Tc == Th` : `ZeroDivisionError` brute ; `Th < Tc` : COP de Carnot négatif accepté.
 - Traitement dans le guide : « Pièges (analyse de Carnot) » de `002-thermodynamic_cycles/outils_diagrammes.rst`.
+
+## Hydraulic.TA_Valve : référence courte refusée, `nb_tours` absent mal signalé (relevé le 2026-11-24)
+- `dn = "DN65"` ou `dn = 65` : `ValueError: Diamètre nominal non valide` ; la page du guide affirmait jusqu'ici que ces écritures étaient acceptées (corrigée). À trancher côté lib : accepter la forme courte en la rattachant à une série, ou la documenter comme refusée.
+- `nb_tours = None` : `TypeError: '<' not supported between instances of 'float' and 'NoneType'` au lieu d'un `ValueError` nommant le paramètre.
+- Traitement dans le guide : « Pièges » et note `dn` de `004-hydraulic/TA_valve.rst`.
