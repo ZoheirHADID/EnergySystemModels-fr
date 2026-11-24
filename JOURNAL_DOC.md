@@ -1424,3 +1424,10 @@
 - Défauts de lib : `BUGS_LIB.md` (Valve3Way).
 - Banc : 102 pages au cran 5 (+1), aucun recul. Build Sphinx -W : 0 warning.
 - Suivant : `vanne_boule.rst` (B2).
+
+## 2026-11-24 — B2 : `vanne_boule` cran 4 -> 5
+- Unité : `004-hydraulic/vanne_boule.rst`, modèle `BallValve` (fiche de lecture : `legacy` 2K, facteur d'ouverture, `crane`, `set_opening`).
+- Fait : exemple exécuté (DN50, 10 m³/h, ouvert : legacy zeta 0,375 / 308 Pa, crane 0,057 / 47 Pa, facteur 6,6), table « Paramètres à personnaliser », variante ouverture 100 -> 0 % (**legacy non monotone, vanne fermée moins résistante qu'à 10 %** ; crane ignore l'ouverture : avertissement), cas limite refusé (source inconnue), pièges (set_opening avant raccordement, vanne fermée qui laisse passer).
+- Défauts de lib : `BUGS_LIB.md` (BallValve).
+- Banc : 103 pages au cran 5 (+1), aucun recul. Build Sphinx -W : 0 warning.
+- Suivant : `vanne_papillon.rst` puis `vanne_soupape.rst` (derniers cran 4 de B2).

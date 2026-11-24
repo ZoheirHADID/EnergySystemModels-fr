@@ -1193,3 +1193,10 @@ Entrées déplacées le 28/09/2026 (lots hydraulique, facture, échangeurs/CTA, 
 - `_design_flow()` retombe sur `F_max = 10 kg/s` quand `design_flow_kg_s` n'est pas saisi, même si le débit réel (`F_secondary`, ports) est connu : DN50 à 2 kg/s -> autorité 0,88 au lieu de 0,22. Attendu : prendre le débit calculé, ou refuser sans `design_flow_kg_s`.
 - `control_mode` / `T_target` : régulation interne retirée (commentaire du code), attributs toujours présents et silencieusement ignorés (T_target 50 à 75 °C -> ouverture 50 %, départ 62,5 °C). Attendu : avertissement ou suppression des attributs. La page du guide affirmait encore la régulation (corrigée).
 - Traitement dans le guide : `004-hydraulic/valve_3_voies.rst` (exemple refait avec `alpha` et `F_secondary`, avertissement sur le verdict).
+
+## Hydraulic.BallValve : vanne fermée moins résistante qu'entrouverte, coefficients legacy 6,6 x Crane (relevé le 2026-11-24)
+- Mode `legacy`, DN50 (2"), 10 m³/h d'eau : zeta 0,375 / 0,705 / 1,715 / 7,754 / **51,304** / **37,501** à 100 / 75 / 50 / 25 / 10 / **0 %** d'ouverture. Non monotone : la vanne fermée (`_apply_angle_factor` : `100 x K` à `ouverture <= 0`) perd moins qu'à 10 % (`K / (ouverture^2,2 + 0,001)`) et laisse passer tout le débit. Facteur `^2,2` et `+0,001` sans source (invariant n°1).
+- Pleine ouverture : `legacy` zeta 0,375 contre `crane` 0,057 (K = 3 f_T, p. A-29), facteur 6,6, alors que le docstring attribue K1 = 0,5 / K_inf = 0,25 à « Hooper 1988, CRANE TP410 ».
+- Mode `crane` : l'ouverture (`set_opening`) est ignorée (zeta constant de 100 à 0 %), sans avertissement.
+- `set_opening()` appelle `calculate()` : avant `Fluid_connect`, `TypeError` CoolProp (ports vides).
+- Traitement dans le guide : avertissement et « Pièges » de `004-hydraulic/vanne_boule.rst` (le guide recommande `source='crane'` en pleine ouverture).
