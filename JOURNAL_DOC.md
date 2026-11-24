@@ -1340,3 +1340,10 @@
 - Défauts de lib : `BUGS_LIB.md` (control_valve).
 - Banc : 90 pages au cran 5 (+1), aucun recul. Build Sphinx -W : 0 warning.
 - Suivant : `elargissement_section.rst` (B2).
+
+## 2026-11-24 — B2 : `elargissement_section` cran 4 -> 5
+- Unité : `004-hydraulic/elargissement_section.rst`, modèles `SuddenExpansion` et `GradualExpansion` (fiche de lecture : Borda-Carnot, tableau / formule Idel'chik, Hooper, signe de `delta_P_static`).
+- Fait : exemple exécuté (DN50 -> DN100, 15 m³/h : zeta 0,562, perte 1 264 Pa, remontée +843 Pa), table « Paramètres à personnaliser », variante brusque contre cône 6–180° (6–10° : zeta 0,12, remontée 1 842 Pa soit 87 % de l'énergie cinétique ; 60–180° : légèrement pire que Borda), cas limite refusé (corrélation inconnue), pièges exécutés (diamètres intervertis acceptés par les deux modèles, angle nul -> `ZeroDivisionError`).
+- Défauts de lib : `BUGS_LIB.md` (SuddenExpansion / GradualExpansion).
+- Banc : 91 pages au cran 5 (+1), aucun recul. Build Sphinx -W : 0 warning.
+- Suivant : `entree_conduite.rst` (B2).

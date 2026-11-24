@@ -1137,3 +1137,9 @@ Entrées déplacées le 28/09/2026 (lots hydraulique, facture, échangeurs/CTA, 
 - `cavitation_state` ne vérifie pas `p2 < p1` ni la cohérence `dp = p1 - p2`.
 - Table `N_CONSTANTS['Kv']` limitée à N9 (déclaré dans le code) : le guide renvoie vers Cv + conversion.
 - Traitement dans le guide : « Pièges » de `004-hydraulic/dimensionnement_vannes.rst`.
+
+## Hydraulic.SuddenExpansion / GradualExpansion : diamètres intervertis acceptés, angle nul brut (relevé le 2026-11-24)
+- `SuddenExpansion` avec `d_hyd_small = 0.10` > `d_hyd_large = 0.05` : Borda-Carnot appliqué à un rétrécissement, zeta = (1 - 4)² = 9,00, sans message.
+- `GradualExpansion` (corrélation par défaut `idelchik`, tableau) avec diamètres intervertis : zeta 0,105, sans message ; seule la voie `idelchik_formula` contrôle `F1/F0 >= 1`.
+- `GradualExpansion.angle_deg = 0` : `ZeroDivisionError` (calcul de `length` par `tan(angle/2)`) avant tout contrôle ; le message « angle_deg doit être dans ]0, 180] » n'existe que dans `idelchik_diffuser_zeta`.
+- Traitement dans le guide : « Pièges » de `004-hydraulic/elargissement_section.rst`.
