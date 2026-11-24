@@ -1889,18 +1889,18 @@
    "recul": null
   },
   "docs/source/transfert_chaleur.rst": {
-   "blocs": 1,
-   "empreinte": "1d20c3a00bbe8373",
-   "mesure": "2026-09-28T18:24",
+   "blocs": 4,
+   "empreinte": "d164702bdfa2fa05",
+   "mesure": "2026-11-24T09:35",
    "figures": [
     "images/schema_plaques_boite.svg"
    ],
    "blocage": null,
-   "motif": "manque : table de personnalisation et variante exécutée",
+   "motif": "",
    "extraits": null,
-   "cran": 4,
-   "nom": "figure réelle",
-   "cran_max": 4,
+   "cran": 5,
+   "nom": "personnalisable",
+   "cran_max": 5,
    "recul": null
   },
   "docs/source/usage.rst": {

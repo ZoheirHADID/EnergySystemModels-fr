@@ -1446,3 +1446,11 @@
 - Banc : 105 pages au cran 5 (+1), aucun recul ; **toutes les pages à exemples de `004-hydraulic` au cran 5 : B2 passe à `fait`**. Build Sphinx -W : 0 warning.
 - Restent au cran 4 hors chapitres : `api.rst`, `transfert_chaleur.rst`, `usage/section-6-autres.rst`.
 - Suivant : B6 (`001-heat_transfer`, `005-aeraulic`… selon le banc) ou ces trois pages ; puis L3 (b), L4, L5, L6.
+
+## 2026-11-24 — B6 resynchronisé ; `transfert_chaleur` cran 4 -> 5
+- Feuille de route : B6 était « à faire » alors que le banc mesure toutes ses pages au cran 5 ; passé à `fait`. Nouveau B7 pour les deux dernières pages transverses au cran 4 (`api`, `usage/section-6-autres`).
+- Unité : `transfert_chaleur.rst`, modèle `HeatTransfer.PlateHeatTransfer` (fiche de lecture : corrélations `legacy` / `cengel`, Çengel & Ghajar table 9-1, erratum documenté dans le code).
+- Fait : avertissement (l'exemple existant est en `legacy`), table « Paramètres à personnaliser », variante exécutée **exemple 9-2 de Çengel** (cengel 114,6 / 128,4 / 64,2 W pour 115 / 128 / 64,2 publiés ; legacy 7 535,2 W en vertical, x 66), boîte de l'exemple principal recalculée (côtés de 1,5 m identiques ; dessus refusé hors domaine par cengel), deux cas refusés, pièges.
+- Défauts de lib : `BUGS_LIB.md` (PlateHeatTransfer, défaut legacy).
+- Banc : 106 pages au cran 5 (+1), aucun recul. Build Sphinx -W : 0 warning.
+- Suivant : B7 `usage/section-6-autres.rst` puis `api.rst` ; ensuite L3 (b), L4, L5, L6.

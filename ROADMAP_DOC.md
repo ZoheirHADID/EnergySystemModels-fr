@@ -180,9 +180,10 @@ réelle si le modèle en a une.
 - `fait` (mesuré cran 5 au banc le 2026-11-22) **B4 — `010-achat-energie` (10 pages)**.
 - `fait` (7 pages au cran 5 au banc le 2026-11-22) **B5 — `011-cee`** — reste éventuel : un exemple exécutable par fiche : découper par
   secteur (IND-UT / IND-BA / IND-EN / TRA), un exemple exécutable par fiche.
-- `à faire` **B6 — `001-heat_transfer` (4)**, `005-aeraulic` (2),
-  `012-electrical` (1), `006-pinch_analysis` (1), `007-ipmvp` (5),
-  `008-meteo` (4), `009-pv-solaire` (1).
+- `fait` **B6 — `001-heat_transfer`, `005-aeraulic`, `012-electrical`, `006-pinch_analysis`, `007-ipmvp`,
+  `008-meteo`, `009-pv-solaire`** : toutes au cran 5 au banc du 2026-11-24 (resynchronisé : la ligne était
+  restée « à faire »). `transfert_chaleur.rst` (rattaché à `001-heat_transfer`) au cran 5 le 2026-11-24.
+- `à faire` **B7 — pages transverses au cran 4** : `api.rst`, `usage/section-6-autres.rst`.
 
 ### Comportements à dire au lecteur (vérifiés)
 
