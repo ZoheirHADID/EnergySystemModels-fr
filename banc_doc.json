@@ -924,9 +924,9 @@
    "recul": null
   },
   "docs/source/004-hydraulic/te_jonction.rst": {
-   "blocs": 2,
-   "empreinte": "977750af628ed1df",
-   "mesure": "2026-09-28T17:07",
+   "blocs": 6,
+   "empreinte": "e1efa4a0953bcc00",
+   "mesure": "2026-11-24T07:33",
    "figures": [
     "../images/assemblage_convergingtee.svg",
     "../images/assemblage_divergingtee.svg",
@@ -934,11 +934,11 @@
     "../images/004_divergingtee_courbe_reseau.svg"
    ],
    "blocage": null,
-   "motif": "manque : table de personnalisation et variante exécutée",
+   "motif": "",
    "extraits": null,
-   "cran": 4,
-   "nom": "figure réelle",
-   "cran_max": 4,
+   "cran": 5,
+   "nom": "personnalisable",
+   "cran_max": 5,
    "recul": null
   },
   "docs/source/004-hydraulic/valve_3_voies.rst": {

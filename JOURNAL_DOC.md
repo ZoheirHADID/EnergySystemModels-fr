@@ -1410,3 +1410,10 @@
 - Défauts de lib : `BUGS_LIB.md` (FreeDischarge).
 - Banc : 100 pages au cran 5 (+1), aucun recul. Build Sphinx -W : 0 warning.
 - Suivant : `te_jonction.rst` (B2).
+
+## 2026-11-24 — B2 : `te_jonction` cran 4 -> 5 (DivergingTee)
+- Unité : `004-hydraulic/te_jonction.rst`, modèle `DivergingTee` (fiche de lecture : diagrammes 7.18 / 7.20, corrélation `legacy` documentée dans le code). ConvergingTee reste sans variante.
+- Fait : exemple exécuté (DN40, 6 m³/h, 30 % en branche : branche zeta 1,027 -> 902 Pa, passage droit -0,072 -> -63 Pa de regain), table « Paramètres à personnaliser », variante Qs/Qc x corrélation (legacy +0,378 à q = 0,5 contre 0 dans la source, écart retrouvé à l'arrondi) et diamètre de branche (25 mm : +55 %), deux cas refusés, pièges (débit de branche imposé, zeta = 1 à débit nul, alpha en radians).
+- Défauts de lib : aucun nouveau (l'écart `legacy` est déjà documenté dans le code).
+- Banc : 101 pages au cran 5 (+1), aucun recul. Build Sphinx -W : 0 warning.
+- Suivant : `valve_3_voies.rst` (B2).
