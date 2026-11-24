@@ -1347,3 +1347,10 @@
 - Défauts de lib : `BUGS_LIB.md` (SuddenExpansion / GradualExpansion).
 - Banc : 91 pages au cran 5 (+1), aucun recul. Build Sphinx -W : 0 warning.
 - Suivant : `entree_conduite.rst` (B2).
+
+## 2026-11-24 — B2 : `entree_conduite` cran 4 -> 5
+- Unité : `004-hydraulic/entree_conduite.rst`, modèle `EntranceShaft` (fiche de lecture : table Idel'chik 3.18, interpolation, contrôles).
+- Fait : page « fiche » complétée : à quoi ça sert, note honnête (les six profils ne sont pas décrits par la lib, renvoi au diagramme), exemple exécuté (gaine 400 mm, 3 000 m³/h d'air, schéma 4, h/D 0,5 : zeta 0,75, 19,9 Pa), table « Paramètres à personnaliser », variante h/D x schéma (6,6 à 1 271 Pa), trois cas refusés, piège exécuté (h/D < 0,1 figé).
+- Défauts de lib : `BUGS_LIB.md` (EntranceShaft).
+- Banc : 92 pages au cran 5 (+1), aucun recul. Build Sphinx -W : 0 warning.
+- Suivant : `grille_plaque.rst` (B2).

@@ -1143,3 +1143,9 @@ Entrées déplacées le 28/09/2026 (lots hydraulique, facture, échangeurs/CTA, 
 - `GradualExpansion` (corrélation par défaut `idelchik`, tableau) avec diamètres intervertis : zeta 0,105, sans message ; seule la voie `idelchik_formula` contrôle `F1/F0 >= 1`.
 - `GradualExpansion.angle_deg = 0` : `ZeroDivisionError` (calcul de `length` par `tan(angle/2)`) avant tout contrôle ; le message « angle_deg doit être dans ]0, 180] » n'existe que dans `idelchik_diffuser_zeta`.
 - Traitement dans le guide : « Pièges » de `004-hydraulic/elargissement_section.rst`.
+
+## Hydraulic.EntranceShaft : h/D sous la table figé, schémas non décrits (relevé le 2026-11-24)
+- `h_over_D` < 0,1 reçoit le zeta de 0,1 (schéma 2 : 48,0 à 0,02 comme à 0,1), sans avertissement (`_lin_interp` borne). Attendu : refus ou avertissement hors du domaine du diagramme 3.18.
+- La docstring ne décrit pas les six profils (`scheme` 1..6) ni la cote `h` : l'utilisateur ne peut pas choisir le schéma sans l'ouvrage. Une ligne par schéma dans la docstring suffirait.
+- `scheme = "4"` (texte) refusé avec le même message qu'un schéma inexistant.
+- Traitement dans le guide : note et « Pièges » de `004-hydraulic/entree_conduite.rst`.
