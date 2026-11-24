@@ -1431,3 +1431,10 @@
 - Défauts de lib : `BUGS_LIB.md` (BallValve).
 - Banc : 103 pages au cran 5 (+1), aucun recul. Build Sphinx -W : 0 warning.
 - Suivant : `vanne_papillon.rst` puis `vanne_soupape.rst` (derniers cran 4 de B2).
+
+## 2026-11-24 — B2 : `vanne_papillon` cran 4 -> 5 (ButterflyValve)
+- Unité : `004-hydraulic/vanne_papillon.rst`, modèle `ButterflyValve` (fiche de lecture : legacy 2K, facteur 1/cos³, crane `butterfly_zeta`). Le papillon rectangulaire reste sans variante.
+- Fait : exemple exécuté (DN100, 30 m³/h, ouvert : legacy 0,375 / 192 Pa ; Crane centric 0,720 / 369 Pa, double offset 1,184, triple offset 3,488 / 1 790 Pa), table « Paramètres à personnaliser », variante ouverture (legacy non monotone : fermé 37,5 < 10 % 77,7 ; crane ignore l'ouverture : avertissement), deux cas refusés, pièges.
+- Défauts de lib : `BUGS_LIB.md` (ButterflyValve / RectangularButterflyValve).
+- Banc : 104 pages au cran 5 (+1), aucun recul. Build Sphinx -W : 0 warning.
+- Suivant : `vanne_soupape.rst` (dernier cran 4 de B2).

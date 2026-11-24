@@ -1001,16 +1001,19 @@
    "recul": null
   },
   "docs/source/004-hydraulic/vanne_papillon.rst": {
-   "blocs": 2,
-   "empreinte": "14cd0fd6fc7da568",
-   "mesure": "2026-09-28T10:51",
-   "figures": [],
+   "blocs": 5,
+   "empreinte": "a0c73d1936878eb6",
+   "mesure": "2026-11-24T08:46",
+   "figures": [
+    "../images/schema_butterflyvalve.svg",
+    "../images/schema_rectangularbutterflyvalve.svg"
+   ],
    "blocage": null,
-   "motif": "manque : table de personnalisation et variante exécutée",
+   "motif": "",
    "extraits": null,
-   "cran": 4,
-   "nom": "figure réelle",
-   "cran_max": 4,
+   "cran": 5,
+   "nom": "personnalisable",
+   "cran_max": 5,
    "recul": null
   },
   "docs/source/004-hydraulic/vanne_soupape.rst": {

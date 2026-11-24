@@ -1200,3 +1200,10 @@ Entrées déplacées le 28/09/2026 (lots hydraulique, facture, échangeurs/CTA, 
 - Mode `crane` : l'ouverture (`set_opening`) est ignorée (zeta constant de 100 à 0 %), sans avertissement.
 - `set_opening()` appelle `calculate()` : avant `Fluid_connect`, `TypeError` CoolProp (ports vides).
 - Traitement dans le guide : avertissement et « Pièges » de `004-hydraulic/vanne_boule.rst` (le guide recommande `source='crane'` en pleine ouverture).
+
+## Hydraulic.ButterflyValve / RectangularButterflyValve : vanne fermée moins résistante, corrélation non publiée (relevé le 2026-11-24)
+- `ButterflyValve`, mode `legacy`, DN100 (4"), 30 m³/h : zeta 0,375 / 0,475 / 1,058 / 6,574 / **77,669** / **37,500** à 100 / 75 / 50 / 25 / 10 / **0 %**. Même défaut que `BallValve` : `100 x K` à la fermeture contre `K / (cos³ + 0,001)` à 10 %, vanne fermée qui laisse passer le débit ; loi en 1/cos³ sans source.
+- Pleine ouverture : `legacy` 0,375 contre Crane centric 0,720 (n = 45, p. A-29) ; double offset 1,184, triple offset 3,488. Le docstring attribue K1 = 0,4 / K_inf = 0,3 à « Hooper 1988, CRANE TP410 ».
+- Mode `crane` : ouverture ignorée sans avertissement.
+- `RectangularButterflyValve._zeta_quad` = `(1,56 / (1 - sin delta) - 1)^2` : « corrélation analytique pratique cohérente avec la tendance » (docstring), pas la courbe du diagramme 9.18 ; sans `cite(...)`, à confronter à la courbe (invariant n°1 / n°4).
+- Traitement dans le guide : avertissement et « Pièges » de `004-hydraulic/vanne_papillon.rst`.
