@@ -1333,3 +1333,10 @@
 - Défauts de lib : `BUGS_LIB.md` (transient).
 - Banc : 89 pages au cran 5 (+1), aucun recul. Build Sphinx -W : 0 warning.
 - Suivant : `dimensionnement_vannes.rst` (B2).
+
+## 2026-11-24 — B2 : `dimensionnement_vannes` cran 4 -> 5
+- Unité : `004-hydraulic/dimensionnement_vannes.rst`, module `control_valve` (fiche de lecture : FF, dp_max, cavitation_state, q_max, table des constantes N par unité).
+- Fait : page « fiche » complétée : à quoi ça sert, exemple exécuté (eau à 130 °C, 6 -> 3 bar, 20 m³/h : Kv 11,2, dp_max 2,83 bar, cavitation), table « Paramètres à personnaliser », variante contre-pression x FL (soupape 0,90 / papillon 0,55 : dp_max 2,83 / 1,06 bar ; aucune / cavitation / flashing), deux cas refusés (entrée vaporisée `OutOfRangeError`, unité de coefficient inconnue), pièges exécutés (pv > pc et FL > 1 acceptés, table Kv réduite à N9).
+- Défauts de lib : `BUGS_LIB.md` (control_valve).
+- Banc : 90 pages au cran 5 (+1), aucun recul. Build Sphinx -W : 0 warning.
+- Suivant : `elargissement_section.rst` (B2).

@@ -686,16 +686,16 @@
    "recul": null
   },
   "docs/source/004-hydraulic/dimensionnement_vannes.rst": {
-   "blocs": 1,
-   "empreinte": "3699cf3b0fbb8138",
-   "mesure": "2026-09-28T10:47",
+   "blocs": 4,
+   "empreinte": "8e2c180da6bc75fa",
+   "mesure": "2026-11-24T03:12",
    "figures": [],
    "blocage": null,
-   "motif": "manque : table de personnalisation et variante exécutée",
+   "motif": "",
    "extraits": null,
-   "cran": 4,
-   "nom": "figure réelle",
-   "cran_max": 4,
+   "cran": 5,
+   "nom": "personnalisable",
+   "cran_max": 5,
    "recul": null
   },
   "docs/source/004-hydraulic/elargissement_section.rst": {

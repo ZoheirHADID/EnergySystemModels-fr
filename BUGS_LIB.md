@@ -1131,3 +1131,9 @@ Entrées déplacées le 28/09/2026 (lots hydraulique, facture, échangeurs/CTA, 
 - `wave_speed(..., D_inner=0.05, wall_thickness=0.05, ...)` (épaisseur = diamètre) accepté : 1 475 m/s. La docstring déclare l'hypothèse « tube mince (e << Di) » et renvoie au tableau 1 de Frelin pour un tube épais, non implémenté. Attendu : refus ou avertissement au-delà d'un rapport e/Di à fixer depuis la source.
 - `joukowsky_head(c, delta_V=-1.5)` rend -195 m sans commentaire (dépression aval) : comportement cohérent avec le signe, à dire dans la docstring.
 - Traitement dans le guide : « Pièges » de `004-hydraulic/coups_de_belier.rst`.
+
+## Hydraulic.control_valve : entrées physiques non bornées (relevé le 2026-11-24)
+- `ff_factor(pv=250, pc=220.6)` (pv > pc) rend 0,662 sans message ; `dp_max_liquid(..., fl=1.5)` accepté (FL > 1 n'a pas de sens physique). Attendu : `OutOfRangeError` pour `pv >= pc` et `FL` hors de ]0 ; 1].
+- `cavitation_state` ne vérifie pas `p2 < p1` ni la cohérence `dp = p1 - p2`.
+- Table `N_CONSTANTS['Kv']` limitée à N9 (déclaré dans le code) : le guide renvoie vers Cv + conversion.
+- Traitement dans le guide : « Pièges » de `004-hydraulic/dimensionnement_vannes.rst`.
