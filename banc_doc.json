@@ -760,16 +760,18 @@
    "recul": null
   },
   "docs/source/004-hydraulic/lit_grains.rst": {
-   "blocs": 1,
-   "empreinte": "3a022c766ed189e0",
-   "mesure": "2026-09-28T10:48",
-   "figures": [],
+   "blocs": 4,
+   "empreinte": "beb9dbc75ab44808",
+   "mesure": "2026-11-24T04:46",
+   "figures": [
+    "../images/schema_ergunpackedbed.svg"
+   ],
    "blocage": null,
-   "motif": "manque : table de personnalisation et variante exécutée",
+   "motif": "",
    "extraits": null,
-   "cran": 4,
-   "nom": "figure réelle",
-   "cran_max": 4,
+   "cran": 5,
+   "nom": "personnalisable",
+   "cran_max": 5,
    "recul": null
   },
   "docs/source/004-hydraulic/loi_des_noeuds.rst": {

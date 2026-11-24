@@ -1361,3 +1361,10 @@
 - Défauts de lib : `BUGS_LIB.md` (ScreenGrid).
 - Banc : 93 pages au cran 5 (+1), aucun recul. Build Sphinx -W : 0 warning.
 - Suivant : `lit_grains.rst` (B2).
+
+## 2026-11-24 — B2 : `lit_grains` cran 4 -> 5
+- Unité : `004-hydraulic/lit_grains.rst`, modèle `ErgunPackedBed` (fiche de lecture : relation Idel'chik 8.7/8.8, contrôles).
+- Fait : à quoi ça sert (formule), exemple exécuté (filtre à sable 1,6 m, 20 m³/h, sable 1 mm, eps 0,42, 1 m : 9,9 m/h, 2,62 kPa), table « Paramètres à personnaliser », variante grains x colmatage (0,5 / 1 / 2 mm ; eps 0,45 -> 0,34 : x 2,4), deux cas refusés, piège exécuté : **rebrancher le même port empile les débits** (219,8 t/h vus pour une source de 50 m³/h), `detach_port` montré.
+- Défauts de lib : `BUGS_LIB.md` (Fluid_connect, comportement connu mais silencieux).
+- Banc : 94 pages au cran 5 (+1), aucun recul. Build Sphinx -W : 0 warning.
+- Suivant : `methodes_2k_3k.rst` (B2) ; noter `detach_port` dans `ports_connexions.rst`.

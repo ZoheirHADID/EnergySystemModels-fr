@@ -1154,3 +1154,8 @@ Entrées déplacées le 28/09/2026 (lots hydraulique, facture, échangeurs/CTA, 
 - Déjà écrit dans le docstring du module, remesuré par le guide : le mode par défaut `zeta_model='legacy'` n'a que `((1-phi)/phi)^2` et sous-estime la forme complète d'Idel'chik (k0 = 1,3) de 14 / 39 / 54 / 81 / 91 % à phi = 0,3 / 0,5 / 0,6 / 0,8 / 0,9. Basculer le défaut sur `'idelchik'` reste un arbitrage (changement de résultats publiés).
 - En faible Reynolds (Re 71), le mode `'legacy'` multiplie zeta par `1 + 0,2 (1e3/Re - 1)` (zeta 0,444 -> 1,616), renforcement sans source identifiée (dit par le docstring) — à retirer ou à sourcer.
 - Traitement dans le guide : variante et « Pièges » de `004-hydraulic/grille_plaque.rst` (le guide écrit `zeta_model = "idelchik"` dans tous ses exemples).
+
+## Connect.Fluid_connect : rebrancher un port déjà raccordé empile les débits (relevé le 2026-11-24)
+- Même port d'entrée (`ErgunPackedBed.Inlet`) rebranché successivement sur des sources de 20, 200 puis 50 m³/h : débit vu 5,55 / 55,51 / **61,06 kg/s** (somme des sources précédentes), puis 74,94 kg/s au branchement suivant. Le nœud hydraulique garde toutes les branches (`connected_outlets` passe à 2, 3, 4) et la loi des nœuds les somme.
+- Comportement **déjà documenté** dans `Connect.detach_port` (« F = N × F_source »), mais silencieux à l'usage : un script qui teste plusieurs débits en rebranchant le même composant obtient des résultats faux sans message. Piste : avertir (ou refuser) un `Fluid_connect` sur une entrée déjà reliée à une autre sortie, sauf intention explicite de mélange.
+- Traitement dans le guide : « Pièges » de `004-hydraulic/lit_grains.rst` (`detach_port` montré) ; à reprendre dans `ports_connexions.rst`.
