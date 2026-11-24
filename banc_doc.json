@@ -1017,16 +1017,18 @@
    "recul": null
   },
   "docs/source/004-hydraulic/vanne_soupape.rst": {
-   "blocs": 1,
-   "empreinte": "02735fbd3922917d",
-   "mesure": "2026-09-28T10:51",
-   "figures": [],
+   "blocs": 4,
+   "empreinte": "2088e82437fc502d",
+   "mesure": "2026-11-24T09:10",
+   "figures": [
+    "../images/schema_globevalve.svg"
+   ],
    "blocage": null,
-   "motif": "manque : table de personnalisation et variante exécutée",
+   "motif": "",
    "extraits": null,
-   "cran": 4,
-   "nom": "figure réelle",
-   "cran_max": 4,
+   "cran": 5,
+   "nom": "personnalisable",
+   "cran_max": 5,
    "recul": null
   },
   "docs/source/005-aeraulic/coude_aeraulique.rst": {

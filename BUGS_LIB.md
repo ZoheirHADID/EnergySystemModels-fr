@@ -1207,3 +1207,9 @@ Entrées déplacées le 28/09/2026 (lots hydraulique, facture, échangeurs/CTA, 
 - Mode `crane` : ouverture ignorée sans avertissement.
 - `RectangularButterflyValve._zeta_quad` = `(1,56 / (1 - sin delta) - 1)^2` : « corrélation analytique pratique cohérente avec la tendance » (docstring), pas la courbe du diagramme 9.18 ; sans `cite(...)`, à confronter à la courbe (invariant n°1 / n°4).
 - Traitement dans le guide : avertissement et « Pièges » de `004-hydraulic/vanne_papillon.rst`.
+
+## Hydraulic.GlobeValve : « angle » relié au robinet en Y en mode Crane, vanne fermée passante (relevé le 2026-11-24)
+- `config = "angle"` : `legacy` zeta 4,200 (plus résistant que le droit, 3,600) ; `crane` le relie à la famille `globe_y`, décrite par `crane_valves.ATTRIBUTION` comme « Y-pattern, inclined stem », et rend 1,045 (6 fois moins que le droit, 6,460). Un robinet d'angle n'est pas un robinet en Y : mapping à vérifier sur Crane TP-410 p. A-28 (les variantes « globe and angle » y sont distinctes) — non tranché ici.
+- Loi d'ouverture `legacy` monotone (`exp(3 (1 - ouverture))`, sans source) mais vanne fermée passante (zeta 360, 2,77 kg/s sous 296 kPa) ; mode `crane` : ouverture ignorée.
+- `config` inconnue : retombée silencieuse sur `straight` en mode `legacy` (`coeff_base.get(..., 'straight')`).
+- Traitement dans le guide : « Pièges » de `004-hydraulic/vanne_soupape.rst`.

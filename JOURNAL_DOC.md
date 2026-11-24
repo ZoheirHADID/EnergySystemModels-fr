@@ -1438,3 +1438,11 @@
 - Défauts de lib : `BUGS_LIB.md` (ButterflyValve / RectangularButterflyValve).
 - Banc : 104 pages au cran 5 (+1), aucun recul. Build Sphinx -W : 0 warning.
 - Suivant : `vanne_soupape.rst` (dernier cran 4 de B2).
+
+## 2026-11-24 — B2 : `vanne_soupape` cran 4 -> 5 — B2 soldé
+- Unité : `004-hydraulic/vanne_soupape.rst`, modèle `GlobeValve` (fiche de lecture : legacy 2K, loi exponentielle, mapping Crane `straight -> globe_z`, `angle -> globe_y`).
+- Fait : exemple exécuté (DN50, 10 m³/h : legacy droit 3,600 / angle 4,200 ; Crane droit 6,460 / « angle » 1,045), table « Paramètres à personnaliser », variante ouverture (legacy monotone mais fermée passante : zeta 360), deux cas refusés, pièges (angle relié au robinet en Y en mode Crane, config inconnue -> straight, vanne fermée passante).
+- Défauts de lib : `BUGS_LIB.md` (GlobeValve).
+- Banc : 105 pages au cran 5 (+1), aucun recul ; **toutes les pages à exemples de `004-hydraulic` au cran 5 : B2 passe à `fait`**. Build Sphinx -W : 0 warning.
+- Restent au cran 4 hors chapitres : `api.rst`, `transfert_chaleur.rst`, `usage/section-6-autres.rst`.
+- Suivant : B6 (`001-heat_transfer`, `005-aeraulic`… selon le banc) ou ces trois pages ; puis L3 (b), L4, L5, L6.
