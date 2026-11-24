@@ -1058,6 +1058,29 @@ Pompes en parallele avec clapets
 
 **Ce qu'on observe.** Les deux pompes identiques se partagent le débit : P1 12,4 m³/h, P2 12,1 m³/h, total **24,5 m³/h** — moins du double d'une pompe seule, parce que la perte de charge du réseau croît avec le débit.
 
+**Pourquoi pas le double.** Une pompe ne fixe pas son débit : il se lit à
+l'intersection de sa courbe HMT(Q) et de la courbe du réseau, dont la perte de
+charge croît comme le carré du débit. Deux pompes en parallèle ajoutent leurs
+débits **à hauteur égale** ; or doubler le débit du réseau exigerait environ
+quatre fois la hauteur. Le point de fonctionnement s'établit donc plus haut
+sur les deux courbes, à un débit total inférieur au double (24,5 m³/h ici). La
+mécanique de la courbe de pompe est décrite dans :doc:`../002-thermodynamic_cycles/pompe`.
+
+**Paramètres à changer.** Dans chaque nœud *Pompe* (double-clic) : la courbe
+(« Débits courbe », « HMT courbe », « Rendements courbe ») et la « Fréquence de
+fonctionnement (Hz) » pour une pompe à variateur. Dans la *Vanne TA* : son
+ouverture, qui déplace la courbe du réseau (:doc:`../004-hydraulic/TA_valve`).
+Le *Clapet anti-retour* empêche une pompe arrêtée ou plus faible d'être
+traversée à l'envers ; son état (« État clapet ») est affiché.
+
+**Pièges.** Deux pompes **différentes** en parallèle : la plus faible peut se
+retrouver contre un clapet fermé si la hauteur commune dépasse sa hauteur à
+débit nul — lisez son débit et l'état du clapet. Le débit saisi sur la source
+n'est qu'un point de départ : c'est le réseau qui le fixe. Pour afficher les
+grandeurs d'une pompe ailleurs dans la scène, voir les signaux publiés
+(``F_m3h``, ``hmt``, ``Q_pump`` en W…) dans :doc:`../002-thermodynamic_cycles/pompe`.
+
+
 Valeurs affichées par les nœuds à l'ouverture (relevé automatique) :
 
 .. list-table::

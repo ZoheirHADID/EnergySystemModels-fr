@@ -480,6 +480,44 @@ Sortie réelle :
 Voir aussi : :doc:`chiller` pour un cycle complet, et les pages du chapitre
 hydraulique pour la courbe réseau (pertes de charge des tronçons).
 
+Signaux publiés par la pompe
+----------------------------
+
+Dans l'IHM, l'afficheur multi-signaux et les liaisons de signal lisent les
+**attributs du modèle** sous la forme ``Nœud.attribut``. La liste exacte de ce
+qu'une pompe publie se lit avec ``list_model_signals`` (tous les attributs
+numériques du modèle, paramètres et résultats) :
+
+.. code-block:: python
+
+    # à la suite : ce qu'une pompe publie comme signaux (afficheur multi-signaux de l'IHM)
+    from ThermodynamicCycles.Signals.Signals import list_model_signals
+
+    pp = point(3, X_F=[0, 10, 20, 30], Y_hmt=[35, 33, 27, 17],
+               Y_eta=[0.0, 0.55, 0.68, 0.60])
+    signaux = list_model_signals(pp)
+    print(len(signaux), "attributs publiables")
+    for nom in ["F_m3h", "hmt", "delta_p", "eta", "Q_pump", "Pdischarge_bar"]:
+        print(f"  {nom:15s} = {signaux[nom]:.4g}")
+
+Sortie réelle :
+
+.. code-block:: text
+
+   36 attributs publiables
+     F_m3h           = 27
+     hmt             = 20.42
+     delta_p         = 2e+05
+     eta             = 0.6336
+     Q_pump          = 2367
+     Pdischarge_bar  = 3
+
+Les unités sont celles du modèle : ``F_m3h`` en m³/h, ``hmt`` en m,
+``delta_p`` en Pa, ``Q_pump`` en **W** (pas en kW). Pour un afficheur en kW,
+appliquez un facteur 0,001 dans la ligne de l'afficheur. La scène
+« Pompes en parallèle avec clapets » (:doc:`../interface/scenes`) affiche ces
+grandeurs pour chaque pompe.
+
 Méthodes
 --------
 

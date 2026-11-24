@@ -417,9 +417,9 @@
    "recul": null
   },
   "docs/source/002-thermodynamic_cycles/pompe.rst": {
-   "blocs": 6,
-   "empreinte": "eb52322d01ce57dc",
-   "mesure": "2026-11-23T20:38",
+   "blocs": 7,
+   "empreinte": "d51248b74faa93f5",
+   "mesure": "2026-11-24T11:38",
    "figures": [
     "../images/schema_pump.svg"
    ],
@@ -1800,8 +1800,8 @@
   },
   "docs/source/interface/scenes.rst": {
    "blocs": 0,
-   "empreinte": "e1382178483682bb",
-   "mesure": "2026-09-28T16:11",
+   "empreinte": "e9aa6afc31b2947d",
+   "mesure": "2026-11-24T11:38",
    "figures": [
     "../images/scene_brayton_turbine_a_gaz.svg",
     "../images/scene_brayton_helium_nucleaire.svg",

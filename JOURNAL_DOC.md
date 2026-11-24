@@ -1482,3 +1482,9 @@
 - Défauts de lib : `BUGS_LIB.md` (CompositeWall.summary).
 - Banc : page au cran 5 (4 blocs), 108 / 108, aucun recul. Build Sphinx -W : 0 warning.
 - Suivant : L5 (scènes hydrauliques du chapitre 5 : pompes en parallèle, V2V, injection, pompe + TA) — vérifier `interface/scenes.rst` avant d'écrire.
+
+## 2026-11-24 — L5 (1/4) : scène « Pompes en parallèle avec clapets »
+- Unité : `interface/scenes.rst` (section de la scène) et `002-thermodynamic_cycles/pompe.rst` (nouvelle section « Signaux publiés par la pompe »). Vérifié avant d'écrire : la scène était déjà décrite (valeurs 12,4 + 12,1 = 24,5 m³/h conformes au livre) ; pas de page nouvelle.
+- Fait : « Pourquoi pas le double » (intersection courbe pompe / courbe réseau, hauteur commune), paramètres à changer (champs réels du nœud Pompe : courbe, fréquence ; ouverture de la vanne TA ; état du clapet), pièges (pompes différentes contre clapet fermé, débit de source simple point de départ) ; signaux publiés : `list_model_signals` exécuté sur une pompe (36 attributs ; F_m3h 27, hmt 20,42, delta_p 2e5 Pa, eta 0,6336, Q_pump 2 367 W) avec la remarque d'unités (Q_pump en W, facteur 0,001 dans l'afficheur).
+- Banc : `pompe` au cran 5 (7 blocs), `scenes` page de prose (cran 0), 108 / 108, aucun recul. Build Sphinx -W : 0 warning.
+- Suivant : L5 (2/4) « Vannes 2 voies - débit variable ».
