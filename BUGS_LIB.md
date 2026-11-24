@@ -1182,3 +1182,8 @@ Entrées déplacées le 28/09/2026 (lots hydraulique, facture, échangeurs/CTA, 
 - Hypothèse à vérifier sur Idel'chik, diagramme 6.2 (non relu ici) : les trois formules en X visent un domaine de Reynolds plus bas (sous le Reynolds critique du serpentin), que le code ne contrôle pas. Attendu : borner la branche formule à son domaine de Re publié, ou au moins `lambda_el >= lambda_droit`.
 - `R0/d < 3` et rugosité > 2e-4 : signalés (`out_of_domain`), pas refusés — conforme au docstring.
 - Traitement dans le guide : avertissement de la variante de `004-hydraulic/serpentin.rst` (le guide recommande `lambda_source='table'`).
+
+## Hydraulic.FreeDischarge : nom de profil inconnu accepté (relevé le 2026-11-24)
+- `velocity_profile = "powerlaw"` ou `"turbulent"` : retombée silencieuse sur le profil uniforme (zeta 1,000 au lieu de 1,058 pour m = 7) ; `m_profile` ignoré sans message. Attendu : `ValueError` hors de `uniform | power_law`.
+- Formule du profil en puissance sans `cite(...)` (page / équation d'Idel'chik section 11 non indiquées).
+- Traitement dans le guide : « Pièges » de `004-hydraulic/sortie_libre.rst`.

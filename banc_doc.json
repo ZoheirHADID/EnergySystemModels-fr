@@ -909,16 +909,18 @@
    "recul": null
   },
   "docs/source/004-hydraulic/sortie_libre.rst": {
-   "blocs": 1,
-   "empreinte": "2e7f7c5cc84b6d8b",
-   "mesure": "2026-09-28T10:49",
-   "figures": [],
+   "blocs": 4,
+   "empreinte": "ffba26a5b7afb26e",
+   "mesure": "2026-11-24T07:09",
+   "figures": [
+    "../images/schema_freedischarge.svg"
+   ],
    "blocage": null,
-   "motif": "manque : table de personnalisation et variante exécutée",
+   "motif": "",
    "extraits": null,
-   "cran": 4,
-   "nom": "figure réelle",
-   "cran_max": 4,
+   "cran": 5,
+   "nom": "personnalisable",
+   "cran_max": 5,
    "recul": null
   },
   "docs/source/004-hydraulic/te_jonction.rst": {

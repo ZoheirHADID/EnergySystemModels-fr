@@ -1403,3 +1403,10 @@
 - Défauts de lib : `BUGS_LIB.md` (Coil).
 - Banc : 99 pages au cran 5 (+1), aucun recul. Build Sphinx -W : 0 warning.
 - Suivant : `sortie_libre.rst` (B2).
+
+## 2026-11-24 — B2 : `sortie_libre` cran 4 -> 5
+- Unité : `004-hydraulic/sortie_libre.rst`, modèle `FreeDischarge` (fiche de lecture : zeta uniforme / profil en puissance).
+- Fait : à quoi ça sert (formules), exemple exécuté (rejet d'air 400 mm, 3 000 m³/h : 6,63 m/s, 26,5 Pa), table « Paramètres à personnaliser », variante profil (zeta 1,156 / 1,058 / 1,031) et diamètre de sortie (400 -> 630 mm : 22,1 -> 3,6 W aérauliques), deux cas refusés, piège exécuté (nom de profil inconnu -> uniforme).
+- Défauts de lib : `BUGS_LIB.md` (FreeDischarge).
+- Banc : 100 pages au cran 5 (+1), aucun recul. Build Sphinx -W : 0 warning.
+- Suivant : `te_jonction.rst` (B2).
