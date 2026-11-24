@@ -1507,3 +1507,10 @@
 - Fait : à quoi sert le montage (le réglage en tours place le point sur la courbe de pompe), paramètres (ouverture en tours, débit visé + réglage conseillé TAValveOptim, pompe, afficheur), pièges (tours hors plage refusés — vérifié : 12 et 0,1 tour refusés, plage 0,5–8 pour STAF-DN100 ; Kv non publié). Signaux exécutés : 4 attributs seulement (`delta_P`, `nb_tours`, `q`, `rho`), Kv seulement dans `df` → BUGS_LIB.md. Renvois mélange / répartition déjà présents vers `valve_3_voies`.
 - Banc : `TA_valve` au cran 5, 108 / 108, aucun recul. Build Sphinx -W : 0 warning.
 - Suivant : L6 (afficheur multi-signaux, liaisons de signal à plusieurs couples).
+
+## 2026-11-24 — L6 : afficheur multi-signaux et liaison à plusieurs couples
+- Unité : `013-simulation-temporelle/signaux_operations.rst` (nouvelle section « L'afficheur multi-signaux », à la suite de « L'afficheur ») ; renvoi depuis la ligne op 921 de `interface/noeuds.rst`. Vérifié avant d'écrire : aucune page ne décrivait la syntaxe au-delà d'une ligne de tableau.
+- Fait : table du champ « Lignes » d'après `nodes/signal_display_multi.py` (défauts, bornes, séparateur, rapport `Nœud.attr / Nœud.attr` en valeurs absolues, `Titre#n`), icône + de la liaison (lignes des liaisons affichées en premier), exemple exécuté sur la chaudière de la figure 1.7 (`NG_Boiler_Efficiency`, saisies de la scène) : 1 057 kW PCS, 900 kW, 0,900 MW, rendement 85,2 % ; rendements réseau / global commentés (92,2 / 78,5 % sur valeurs arrondies, 92,3 / 78,6 % au livre) ; pièges (valeurs absolues, libellé ≠ `efficiency_HHV` 84,5 %, « — » silencieux, Kv TA non publié).
+- Écart relevé : le tableau de la scène « Chaine de valeur energetique » (`interface/scenes.rst`) donne 1 046 kW PCS et 95,45 % PCI ; le modèle, mêmes saisies, rend 1 057 kW et 94,45 % — relevé antérieur à une évolution de la lib, à régénérer (noté dans la ligne L6).
+- Banc : `signaux_operations` au cran 5, 108 / 108, aucun recul. Build Sphinx -W : 0 warning.
+- Suivant : régénérer le relevé de la scène « Chaine de valeur energetique », puis `detach_port` dans `ports_connexions.rst` et sections C / D / H4.

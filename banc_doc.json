@@ -1689,9 +1689,9 @@
    "recul": null
   },
   "docs/source/013-simulation-temporelle/signaux_operations.rst": {
-   "blocs": 3,
-   "empreinte": "beb93f084c795227",
-   "mesure": "2026-09-28T16:10",
+   "blocs": 4,
+   "empreinte": "3ec5744d9e714962",
+   "mesure": "2026-11-24T13:12",
    "figures": [
     "../images/sim_signaux.png"
    ],

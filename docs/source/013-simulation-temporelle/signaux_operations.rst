@@ -187,6 +187,126 @@ Le badge rappelle la source (« Capteur.volume_flow_m3h | x 3600 »). La liaison
 de signal elle-même — quelle grandeur d'un nœud va dans quel attribut d'un
 autre — est décrite dans :doc:`../002-thermodynamic_cycles/capteur_signaux`.
 
+L'afficheur multi-signaux
+-------------------------
+
+Le nœud **Afficheur multi-signaux** (il remplace l'Afficheur simple, conservé
+pour les scènes existantes) montre **plusieurs grandeurs d'un même équipement
+dans un seul badge**, une par ligne : là où l'on posait quatre afficheurs, un
+seul suffit, et le schéma porte lui-même ses résultats.
+
+**Le champ « Lignes ».** Une liaison de signal vers l'équipement le désigne
+(n'importe quel attribut). Les grandeurs se listent ensuite dans le champ
+« Lignes », séparées par ``;`` (ou un retour à la ligne) :
+
+.. code-block:: text
+
+   attribut|libellé|unité|décimales|facteur ; attribut2|… ; -
+
+Règles lues dans ``nodes/signal_display_multi.py`` :
+
+.. list-table::
+   :header-rows: 1
+   :widths: 22 22 56
+
+   * - Champ
+     - Défaut
+     - Effet
+   * - attribut
+     - (obligatoire)
+     - Nom d'un attribut du modèle (``list_model_signals`` en donne la liste),
+       ou un **rapport** ``Nœud.attr / Nœud.attr`` entre deux équipements de
+       la scène, calculé en **valeurs absolues**. Le nœud se désigne par son
+       titre ; ``Titre#2`` vise le deuxième nœud de même titre.
+   * - libellé
+     - libellé métier de l'attribut
+     - Texte devant la valeur.
+   * - unité
+     - (vide)
+     - Texte après la valeur.
+   * - décimales
+     - 1
+     - Borné entre 0 et 12 ; une valeur non entière retombe sur 1.
+   * - facteur
+     - 1
+     - Multiplie la valeur : ``0.001`` pour passer de kW à MW, ``100`` pour un
+       rapport en %.
+   * - ``-`` ou ligne vide
+     -
+     - Insère un séparateur.
+
+**Plusieurs couples par liaison.** Le formulaire « Liaison de signal » porte une
+icône **+** : chaque ligne ajoutée transporte une grandeur de plus de
+l'équipement vers l'afficheur, avec sa ligne d'information
+« libellé | unité | décimales | facteur ». Le résultat est le même qu'avec le
+champ « Lignes » ; les lignes portées par les liaisons s'affichent en premier.
+
+**Exemple exécuté : la chaudière de la figure 1.7 du livre.** Les lignes d'un
+afficheur ne font que lire des attributs du modèle (``read_signal``) et leur
+appliquer facteur et décimales ; le même calcul en Python :
+
+.. code-block:: python
+
+    # La chaudière de la scène « Chaine de valeur energetique », puis les lignes
+    # d'un afficheur multi-signaux évaluées comme le fait le nœud.
+    from CoolProp.CoolProp import PropsSI
+    from ThermodynamicCycles.Combustion.NG_Boiler_Efficiency_EN1295X import NG_Boiler_Efficiency
+    from ThermodynamicCycles.Signals.Signals import read_signal
+
+    chaudiere = NG_Boiler_Efficiency(
+        gas_composition={"CH4": 0.90, "C2H6": 0.05, "N2": 0.03, "CO2": 0.02},
+        flue_gas_temperature_C=110, O2_measured=0.05, O2_basis="dry",
+        boiler_type="water_tube", design_useful_heat_kW=1000,
+    )
+    rho = PropsSI("D", "P", 5e5, "T", 333.15, "water")
+    chaudiere.Inlet.P = 5e5                                   # 5 bar
+    chaudiere.Inlet.F = 31.45 * rho / 3600                    # 31,45 m3/h d'eau à 60 °C
+    chaudiere.Inlet.h = PropsSI("H", "P", 5e5, "T", 333.15, "water")
+    chaudiere.To = 85                                         # départ 85 °C
+    chaudiere.calculate()
+
+    # champ « Lignes » : attribut|libellé|unité|décimales|facteur
+    lignes = [("Q_ng_HHV", "Gaz entrant (PCS)", "kW", 0, 1),
+              ("useful_heat_LHV", "Chaleur à l'eau", "kW", 0, 1),
+              ("useful_heat_LHV", "Chaleur à l'eau", "MW", 3, 0.001)]
+    for attr, libelle, unite, dec, facteur in lignes:
+        v = read_signal(chaudiere, attr) * facteur
+        print(f"{libelle} : {v:.{dec}f} {unite}")
+
+    # ligne rapport « Chaudière GN.useful_heat_LHV / Chaudière GN.Q_ng_HHV|Rendement PCS|%|1|100 »
+    r = abs(chaudiere.useful_heat_LHV) / abs(chaudiere.Q_ng_HHV) * 100
+    print(f"Rendement PCS : {r:.1f} %")
+
+Sortie réelle :
+
+.. code-block:: text
+
+   Gaz entrant (PCS) : 1057 kW
+   Chaleur à l'eau : 900 kW
+   Chaleur à l'eau : 0.900 MW
+   Rendement PCS : 85.2 %
+
+Dans la scène « Chaine de valeur energetique » (:doc:`../interface/scenes`), la
+tuyauterie perd 70 kW et l'usage reçoit 830 kW : deux lignes rapport de plus,
+``Heater_Cooler.heat_duty_kW / Chaudière GN.useful_heat_LHV|Rendement réseau|%|1|100``
+et ``Heater_Cooler.heat_duty_kW / Chaudière GN.Q_ng_HHV|Rendement global|%|1|100``,
+complètent le badge (830 / 900 = 92,2 %, 830 / 1 057 = 78,5 % sur les valeurs
+arrondies ; le livre, sur les valeurs exactes, donne 92,3 % et 78,6 %).
+
+**Pièges.**
+
+* Le rapport se calcule en **valeurs absolues** : la puissance d'un
+  Heater_Cooler, négative quand il cède de la chaleur, n'a pas à être inversée.
+* Une ligne rapport ne fait que diviser ce qu'on lui donne : ici
+  ``useful_heat_LHV / Q_ng_HHV`` = 85,2 %, alors que l'attribut
+  ``efficiency_HHV`` du modèle vaut 84,5 % (il rapporte la chaleur utile sur
+  PCS). Nommez le libellé d'après ce que la ligne divise réellement.
+* Un attribut absent ou un nœud introuvable affiche « — » sans erreur :
+  vérifiez l'orthographe du titre du nœud et de l'attribut.
+* Un attribut que le modèle ne stocke pas ne peut pas être affiché, même si le
+  nœud le montre : c'est le cas du Kv de la vanne TA
+  (:doc:`../004-hydraulic/TA_valve`).
+
 ----
 
 Paramètres à personnaliser
