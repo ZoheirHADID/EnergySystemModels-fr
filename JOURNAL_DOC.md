@@ -1417,3 +1417,10 @@
 - Défauts de lib : aucun nouveau (l'écart `legacy` est déjà documenté dans le code).
 - Banc : 101 pages au cran 5 (+1), aucun recul. Build Sphinx -W : 0 warning.
 - Suivant : `valve_3_voies.rst` (B2).
+
+## 2026-11-24 — B2 : `valve_3_voies` cran 4 -> 5 (page corrigée)
+- Unité : `004-hydraulic/valve_3_voies.rst`, modèle `Valve3Way` (fiche de lecture : `calculate`, `_calculate_mixing`, `check_sizing`, `_design_flow`).
+- Fait : **l'ancien exemple réglait `T_target`, ignoré depuis le retrait de la régulation interne** ; exemple refait avec la commande `alpha` et `F_secondary` (2 kg/s, mi-course : 1 / 1 kg/s, départ 62,5 °C, 0,72 bar), table « Paramètres à personnaliser », variante alpha x caractéristique (égal % : 45,7 -> 79,3 °C, perte x 11 ; linéaire : 7 K par pas, perte constante), check_sizing exécuté (**verdict inversé** par rapport au message, avertissement), pièges (T_target ignoré, F_max par défaut).
+- Défauts de lib : `BUGS_LIB.md` (Valve3Way).
+- Banc : 102 pages au cran 5 (+1), aucun recul. Build Sphinx -W : 0 warning.
+- Suivant : `vanne_boule.rst` (B2).

@@ -942,16 +942,16 @@
    "recul": null
   },
   "docs/source/004-hydraulic/valve_3_voies.rst": {
-   "blocs": 1,
-   "empreinte": "fde48ac4fc5ba30d",
-   "mesure": "2026-09-28T13:28",
+   "blocs": 4,
+   "empreinte": "1624dc613ce7a07b",
+   "mesure": "2026-11-24T07:59",
    "figures": [],
    "blocage": null,
-   "motif": "manque : table de personnalisation et variante exécutée",
+   "motif": "",
    "extraits": null,
-   "cran": 4,
-   "nom": "figure réelle",
-   "cran_max": 4,
+   "cran": 5,
+   "nom": "personnalisable",
+   "cran_max": 5,
    "recul": null
   },
   "docs/source/004-hydraulic/vanne_boule.rst": {

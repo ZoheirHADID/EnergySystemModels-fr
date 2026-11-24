@@ -1187,3 +1187,9 @@ Entrées déplacées le 28/09/2026 (lots hydraulique, facture, échangeurs/CTA, 
 - `velocity_profile = "powerlaw"` ou `"turbulent"` : retombée silencieuse sur le profil uniforme (zeta 1,000 au lieu de 1,058 pour m = 7) ; `m_profile` ignoré sans message. Attendu : `ValueError` hors de `uniform | power_law`.
 - Formule du profil en puissance sans `cite(...)` (page / équation d'Idel'chik section 11 non indiquées).
 - Traitement dans le guide : « Pièges » de `004-hydraulic/sortie_libre.rst`.
+
+## Valve3Way : verdict de check_sizing inversé, dimensionnement à F_max par défaut (relevé le 2026-11-24)
+- `check_sizing()` : autorité > `authority_max` -> `verdict = "surdimensionnee"` alors que le message dit « vanne trop petite (DN/Kvs trop faible) » ; autorité < `authority_min` -> `"sous-dimensionnee"` avec le message « vanne trop grande ». Mesuré : DN15 (a 0,97) et DN25 (a 0,80) « surdimensionnee », DN50 (a 0,22) « sous-dimensionnee », pour 2 kg/s et 0,2 bar de branche. Les deux étiquettes sont à permuter (`Valve3Way.py`, `check_sizing`, branches `a < a_min` / `a > a_max`).
+- `_design_flow()` retombe sur `F_max = 10 kg/s` quand `design_flow_kg_s` n'est pas saisi, même si le débit réel (`F_secondary`, ports) est connu : DN50 à 2 kg/s -> autorité 0,88 au lieu de 0,22. Attendu : prendre le débit calculé, ou refuser sans `design_flow_kg_s`.
+- `control_mode` / `T_target` : régulation interne retirée (commentaire du code), attributs toujours présents et silencieusement ignorés (T_target 50 à 75 °C -> ouverture 50 %, départ 62,5 °C). Attendu : avertissement ou suppression des attributs. La page du guide affirmait encore la régulation (corrigée).
+- Traitement dans le guide : `004-hydraulic/valve_3_voies.rst` (exemple refait avec `alpha` et `F_secondary`, avertissement sur le verdict).
