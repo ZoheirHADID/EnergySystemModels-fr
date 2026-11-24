@@ -168,19 +168,11 @@ Ordre d'utilité pour le lecteur. Chaque page : forme de vulgarisation complète
 (étape 6 de la boucle), table de personnalisation, **variante exécutée**, figure
 réelle si le modèle en a une.
 
-- `en cours` **B1 — `002-thermodynamic_cycles`** (banc du 2026-11-23) : `chiller`,
-  `condenseur_evaporateur`, `pompe`, `refrigeration`, `sink`, `fluid_source`, `distillation`,
-  `froid_absorption` (AbsorptionChiller ; Absorber, Desorber, AmmoniaWater sans variante),
-  `geothermie_solaire` (sonde géothermique ; capteur solaire sans variante),
-  `hydrogene_piles` (électrolyseur ; FuelCell, Reformer, Gasifier sans variante),
-  `ng_boiler_efficiency` (économiseur / condenseur, excès d'air),
-  `ng_heating_value` (injection d'hydrogène),
-  `detente_distributeurs` (détendeur ; distributeurs DCV sans variante) et
-  `dessalement_evaporation` (MVR ; MultiEffectEvaporator, ReverseOsmosis, MSF, SprayDryer sans
-  variante) au cran 5 (2026-11-23). Restent au cran 4 (table de
-  personnalisation + variante exécutée) :
-  `outils_diagrammes`.
-- `à faire` **B2 — `004-hydraulic` (6 pages)**. `TA_valve` au cran 4 ;
+- `fait` **B1 — `002-thermodynamic_cycles`** (banc du 2026-11-24 : toutes les pages à exemples au cran 5).
+  Modèles d'une même page restés sans variante propre (à reprendre si un lecteur en a besoin) :
+  distributeurs DCV ; MultiEffectEvaporator, ReverseOsmosis, MSF, SprayDryer ; Absorber, Desorber,
+  AmmoniaWater ; capteur solaire ; FuelCell, Reformer, Gasifier ; diagramme T-S, Merkel/Oldham, flowsheet.
+- `en cours` **B2 — `004-hydraulic`** (20 pages au cran 4 au banc du 2026-11-24 ; commencer par `TA_valve` (L1) et `perte_pression_lineaire` (L2)). `TA_valve` au cran 4 ;
   `perte_pression_lineaire` au cran 2 — **elle n'affiche aucune sortie** alors que
   son exemple en produit.
 - `fait` **B3 — `003-ahu_modules` (7 pages)** : `cta_air_neuf`, `generic_ahu` et `air_humide` cran 5 (2026-11-22) (manquent table de personnalisation + variante exécutée).

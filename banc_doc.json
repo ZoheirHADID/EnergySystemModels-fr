@@ -404,16 +404,16 @@
    "recul": null
   },
   "docs/source/002-thermodynamic_cycles/outils_diagrammes.rst": {
-   "blocs": 4,
-   "empreinte": "53621cb9c94be0cb",
-   "mesure": "2026-09-28T13:46",
+   "blocs": 7,
+   "empreinte": "d4e131cc226af130",
+   "mesure": "2026-11-24T01:13",
    "figures": [],
    "blocage": null,
-   "motif": "manque : table de personnalisation et variante exécutée",
+   "motif": "",
    "extraits": null,
-   "cran": 4,
-   "nom": "figure réelle",
-   "cran_max": 4,
+   "cran": 5,
+   "nom": "personnalisable",
+   "cran_max": 5,
    "recul": null
   },
   "docs/source/002-thermodynamic_cycles/pompe.rst": {

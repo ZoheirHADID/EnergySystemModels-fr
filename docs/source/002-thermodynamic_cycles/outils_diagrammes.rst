@@ -122,6 +122,121 @@ L'argument ``savefig`` déduit le format du fichier de son extension (``.pdf``,
 ``.svg``, ``.png``...). ``plot()`` renvoie ``(fig, ax)`` matplotlib.
 
 
+Paramètres à personnaliser (analyse de Carnot)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. list-table::
+   :header-rows: 1
+   :widths: 24 30 46
+
+   * - Grandeur
+     - Valeur à saisir
+     - Effet sur le résultat
+   * - ``Tc``, ``Th`` (°C)
+     - températures de la source froide et du puits chaud **telles qu'elles
+       figurent sur la fiche** (régime d'essai : 7/35, 10/35…)
+     - Fixent la limite de Carnot ; le lift ``Th - Tc`` est ce qui la fait
+       baisser.
+   * - ``COP`` / ``EER`` / ``eta``
+     - valeur mesurée ou garantie au même régime
+     - Le ``ratio`` (rendement exergétique) est ``COP / COP_Carnot`` : c'est
+       lui qui compare des machines de régimes différents.
+   * - ``iso_ratios``, ``delta_T_range`` (constructeur)
+     - lignes d'iso-ratio et plage de lift du tracé
+     - Sans effet sur les nombres, seulement sur ``plot()``.
+
+Variante exécutée : comparer des pompes à chaleur de régimes différents
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Un COP de 5,8 et un COP de 3,2 ne se comparent pas : le second est obtenu avec
+un lift double. Le ratio à Carnot remet les machines sur la même échelle.
+
+.. code-block:: python
+
+    # variante : classer des pompes à chaleur de technologies différentes
+    from ThermodynamicCycles.Carnot_Cycle_Analysis import COP_Analysis
+
+    a = COP_Analysis()
+    # COP d'exemple (valeurs illustratives, pas des fiches constructeur)
+    a.add_machine("Air/eau 7/35",           Tc=7,  Th=35, COP=4.5)
+    a.add_machine("Air/eau 7/55",           Tc=7,  Th=55, COP=3.0)
+    a.add_machine("Eau/eau 10/35",          Tc=10, Th=35, COP=5.8)
+    a.add_machine("Haute température 40/90", Tc=40, Th=90, COP=3.2)
+    for _, m in a.df.sort_values("ratio", ascending=False).iterrows():
+        print(f"{m['name']:25s} lift {m['delta_T']:3.0f} K : COP {m['COP']:.1f} "
+              f"/ Carnot {m['COP_carnot']:5.2f} = {m['ratio']:.0%}")
+
+Sortie réelle :
+
+.. code-block:: text
+
+   Eau/eau 10/35             lift  25 K : COP 5.8 / Carnot 12.33 = 47%
+   Haute température 40/90   lift  50 K : COP 3.2 / Carnot  7.26 = 44%
+   Air/eau 7/55              lift  48 K : COP 3.0 / Carnot  6.84 = 44%
+   Air/eau 7/35              lift  28 K : COP 4.5 / Carnot 11.01 = 41%
+
+Lecture : avec ces valeurs d'exemple, la pompe à chaleur haute température a
+un COP presque deux fois plus faible que l'eau/eau, mais exploite aussi bien
+sa limite thermodynamique (44 % contre 47 %). Pour juger une offre, comparez
+le ratio à des machines de même technologie ; pour estimer un COP à un autre
+régime, gardez le ratio et recalculez Carnot.
+
+Cas limite refusé : tracé sans machine
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code-block:: python
+
+    from ThermodynamicCycles.Carnot_Cycle_Analysis import EER_Analysis
+
+    e = EER_Analysis()                   # aucune machine ajoutée
+    try:
+        e.plot(show=False)
+    except ValueError as erreur:
+        print("Refusé :", erreur)
+
+Sortie réelle :
+
+.. code-block:: text
+
+   Refusé : No machines added.
+
+Pièges (analyse de Carnot)
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code-block:: python
+
+    from ThermodynamicCycles.Carnot_Cycle_Analysis import COP_Analysis
+
+    a = COP_Analysis()
+    # COP saisi au-dessus de la limite de Carnot (11,0 à 7/35 °C)
+    a.add_machine("Air/eau, mal saisie", Tc=7, Th=35, COP=12.0)
+    print("ratio :", round(a.df["ratio"][0], 2))          # > 1 : impossible, accepté
+
+    try:
+        a.add_machine("lift nul", Tc=35, Th=35, COP=4.0)
+    except ZeroDivisionError as erreur:
+        print("lift nul :", type(erreur).__name__)
+
+Sortie réelle :
+
+.. code-block:: text
+
+   ratio : 1.09
+   lift nul : ZeroDivisionError
+
+* **Un ratio supérieur à 1 n'est pas refusé** : il signale une saisie
+  impossible (COP surévalué, ou températures interverties). Vérifiez
+  ``ratio < 1`` ; en pratique, les machines réelles restent nettement en
+  dessous.
+* **Un lift nul** (``Th == Tc``) lève une ``ZeroDivisionError`` brute ; un
+  lift négatif donne un COP de Carnot négatif sans message.
+* **Températures de régime ou de fluide** : le ratio calculé sur les
+  températures d'eau (7/35) est plus faible que celui calculé sur les
+  températures d'évaporation et de condensation, qui encadrent les
+  précédentes. Comparez toujours des ratios calculés de la même façon.
+* **Tc et Th en °C** à la saisie ; la conversion en kelvins est faite par la
+  classe.
+
 Diagramme température-entropie (T-S)
 ------------------------------------
 

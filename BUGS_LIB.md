@@ -1106,3 +1106,8 @@ Entrées déplacées le 28/09/2026 (lots hydraulique, facture, échangeurs/CTA, 
 - Deux lignes nommées « HHV vol » (MJ/Nm³ idéal et kWh/Nm³ corrigé de Z) : libellé ambigu, et la valeur kWh n'est pas sur la même base que la valeur MJ du même nom.
 - Données du tableau (PCS, PCI, facteurs b, Cp) sans `cite(...)` alors que la page annonce ISO 6976 (invariant n°1).
 - Traitement dans le guide : « Lire le résultat », « Cas limites » et « Pièges » de `002-thermodynamic_cycles/ng_heating_value.rst`.
+
+## ThermodynamicCycles.Carnot_Cycle_Analysis : ratio > 1 et lift nul non contrôlés (relevé le 2026-11-24)
+- `COP_Analysis.add_machine("…", Tc=7, Th=35, COP=12.0)` : ratio 1,09 (au-dessus de Carnot) accepté sans message. Attendu : `ValueError` (ou avertissement) pour un ratio >= 1, même règle pour `EER_Analysis` et `Efficiency_Analysis`.
+- `Tc == Th` : `ZeroDivisionError` brute ; `Th < Tc` : COP de Carnot négatif accepté.
+- Traitement dans le guide : « Pièges (analyse de Carnot) » de `002-thermodynamic_cycles/outils_diagrammes.rst`.

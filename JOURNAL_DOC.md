@@ -1297,3 +1297,10 @@
 - Défauts de lib : `BUGS_LIB.md` (NG_Heating_Value).
 - Banc : 84 pages au cran 5 (+1), aucun recul. Build Sphinx -W : 0 warning.
 - Suivant : `outils_diagrammes.rst` (dernier cran 4 de B1).
+
+## 2026-11-24 — B1 : `outils_diagrammes` cran 4 -> 5 (analyse de Carnot) — B1 soldé
+- Unité : `002-thermodynamic_cycles/outils_diagrammes.rst`, module `Carnot_Cycle_Analysis` (fiche de lecture : `add_machine`, ratio, `plot`).
+- Fait : table « Paramètres à personnaliser » ; variante exécutée « comparer des pompes à chaleur de régimes différents » (quatre machines d'exemple, ratio à Carnot 41 à 47 %) ; cas limite refusé (`plot()` sans machine) ; pièges exécutés (ratio 1,09 accepté, lift nul -> `ZeroDivisionError`).
+- Défauts de lib : `BUGS_LIB.md` (Carnot_Cycle_Analysis).
+- Banc : 85 pages au cran 5 (+1), aucun recul ; **toutes les pages à exemples de `002-thermodynamic_cycles` sont au cran 5** : B1 passe à `fait`. Build Sphinx -W : 0 warning.
+- Suivant : B2 `004-hydraulic` — `TA_valve.rst` avec la demande L1 du handbook.
