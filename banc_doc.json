@@ -788,16 +788,18 @@
    "recul": null
   },
   "docs/source/004-hydraulic/methodes_2k_3k.rst": {
-   "blocs": 4,
-   "empreinte": "b9bf9ab62a5c4e69",
-   "mesure": "2026-09-28T10:48",
-   "figures": [],
+   "blocs": 8,
+   "empreinte": "697af7801236ec5f",
+   "mesure": "2026-11-24T05:12",
+   "figures": [
+    "../images/schema_methodes_k.svg"
+   ],
    "blocage": null,
-   "motif": "manque : table de personnalisation et variante exécutée",
+   "motif": "",
    "extraits": null,
-   "cran": 4,
-   "nom": "figure réelle",
-   "cran_max": 4,
+   "cran": 5,
+   "nom": "personnalisable",
+   "cran_max": 5,
    "recul": null
   },
   "docs/source/004-hydraulic/orifice.rst": {

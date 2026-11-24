@@ -1368,3 +1368,10 @@
 - Défauts de lib : `BUGS_LIB.md` (Fluid_connect, comportement connu mais silencieux).
 - Banc : 94 pages au cran 5 (+1), aucun recul. Build Sphinx -W : 0 warning.
 - Suivant : `methodes_2k_3k.rst` (B2) ; noter `detach_port` dans `ports_connexions.rst`.
+
+## 2026-11-24 — B2 : `methodes_2k_3k` cran 4 -> 5
+- Unité : `004-hydraulic/methodes_2k_3k.rst`, modules `crane_valves` / `crane_data` (sourcés, Crane TP-410) et composants `HooperMethod2K` / `DarbyMethod3K` (fiche de lecture : formules, défauts).
+- Fait : à quoi ça sert (deux familles d'outils), exemple exécuté Crane en 2" (K = n x f_T, f_T 0,019 : 0,057 à 11,4), table « Paramètres à personnaliser », variante 10 m³/h en DN50 (47 Pa sphérique -> 9 367 Pa clapet à soulèvement ; K du robinet à soupape 7,48 -> 4,42 de 1 à 12"), deux cas refusés, pièges exécutés (défauts 2K sans source, D_in incohérent accepté, Crane à pleine ouverture seulement).
+- Défauts de lib : `BUGS_LIB.md` (HooperMethod2K / DarbyMethod3K).
+- Banc : 95 pages au cran 5 (+1), aucun recul. Build Sphinx -W : 0 warning.
+- Suivant : `orifice.rst` (B2).

@@ -1159,3 +1159,8 @@ Entrées déplacées le 28/09/2026 (lots hydraulique, facture, échangeurs/CTA, 
 - Même port d'entrée (`ErgunPackedBed.Inlet`) rebranché successivement sur des sources de 20, 200 puis 50 m³/h : débit vu 5,55 / 55,51 / **61,06 kg/s** (somme des sources précédentes), puis 74,94 kg/s au branchement suivant. Le nœud hydraulique garde toutes les branches (`connected_outlets` passe à 2, 3, 4) et la loi des nœuds les somme.
 - Comportement **déjà documenté** dans `Connect.detach_port` (« F = N × F_source »), mais silencieux à l'usage : un script qui teste plusieurs débits en rebranchant le même composant obtient des résultats faux sans message. Piste : avertir (ou refuser) un `Fluid_connect` sur une entrée déjà reliée à une autre sortie, sauf intention explicite de mélange.
 - Traitement dans le guide : « Pièges » de `004-hydraulic/lit_grains.rst` (`detach_port` montré) ; à reprendre dans `ports_connexions.rst`.
+
+## Hydraulic.HooperMethod2K / DarbyMethod3K : coefficients par défaut sans source, tailles incohérentes acceptées (relevé le 2026-11-24)
+- Défauts `K1 = 0.5`, `K_inf = 0.3` (et `Kd = 1.0` pour 3K) sans `cite(...)` (invariant n°1) : avec K1 = 0,5 le terme K1/Re est négligeable à tout Reynolds réaliste, et zeta = 0,45 (2K, D_in = 2) ne correspond à aucun raccord identifié. Attendu : pas de défaut (lever si K1/K_inf absents) ou une table de coefficients publiés (Hooper 1981, Darby) citée.
+- `D_in_pouces` et `d_hyd` indépendants : `D_in_pouces = 8` avec `d_hyd = 0.05` accepté (zeta 0,4500 -> 0,3375). Attendu : dériver l'un de l'autre, ou contrôler la cohérence.
+- Traitement dans le guide : « Pièges » de `004-hydraulic/methodes_2k_3k.rst` (exemple principal bâti sur `crane_valves`, sourcé).
