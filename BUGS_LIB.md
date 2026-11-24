@@ -1149,3 +1149,8 @@ Entrées déplacées le 28/09/2026 (lots hydraulique, facture, échangeurs/CTA, 
 - La docstring ne décrit pas les six profils (`scheme` 1..6) ni la cote `h` : l'utilisateur ne peut pas choisir le schéma sans l'ouvrage. Une ligne par schéma dans la docstring suffirait.
 - `scheme = "4"` (texte) refusé avec le même message qu'un schéma inexistant.
 - Traitement dans le guide : note et « Pièges » de `004-hydraulic/entree_conduite.rst`.
+
+## Hydraulic.ScreenGrid : défaut 'legacy' qui sous-estime la perte, renforcement faible Re sans source (relevé le 2026-11-24)
+- Déjà écrit dans le docstring du module, remesuré par le guide : le mode par défaut `zeta_model='legacy'` n'a que `((1-phi)/phi)^2` et sous-estime la forme complète d'Idel'chik (k0 = 1,3) de 14 / 39 / 54 / 81 / 91 % à phi = 0,3 / 0,5 / 0,6 / 0,8 / 0,9. Basculer le défaut sur `'idelchik'` reste un arbitrage (changement de résultats publiés).
+- En faible Reynolds (Re 71), le mode `'legacy'` multiplie zeta par `1 + 0,2 (1e3/Re - 1)` (zeta 0,444 -> 1,616), renforcement sans source identifiée (dit par le docstring) — à retirer ou à sourcer.
+- Traitement dans le guide : variante et « Pièges » de `004-hydraulic/grille_plaque.rst` (le guide écrit `zeta_model = "idelchik"` dans tous ses exemples).

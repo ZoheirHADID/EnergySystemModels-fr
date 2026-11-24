@@ -731,16 +731,19 @@
    "recul": null
   },
   "docs/source/004-hydraulic/grille_plaque.rst": {
-   "blocs": 2,
-   "empreinte": "5278998426e87d2a",
-   "mesure": "2026-09-28T10:48",
-   "figures": [],
+   "blocs": 6,
+   "empreinte": "960c1ddc2dcaabf9",
+   "mesure": "2026-11-24T04:21",
+   "figures": [
+    "../images/schema_screengrid.svg",
+    "../images/schema_thickgridplate.svg"
+   ],
    "blocage": null,
-   "motif": "manque : table de personnalisation et variante exécutée",
+   "motif": "",
    "extraits": null,
-   "cran": 4,
-   "nom": "figure réelle",
-   "cran_max": 4,
+   "cran": 5,
+   "nom": "personnalisable",
+   "cran_max": 5,
    "recul": null
   },
   "docs/source/004-hydraulic/index.rst": {

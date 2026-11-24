@@ -1354,3 +1354,10 @@
 - Défauts de lib : `BUGS_LIB.md` (EntranceShaft).
 - Banc : 92 pages au cran 5 (+1), aucun recul. Build Sphinx -W : 0 warning.
 - Suivant : `grille_plaque.rst` (B2).
+
+## 2026-11-24 — B2 : `grille_plaque` cran 4 -> 5 (ScreenGrid)
+- Unité : `004-hydraulic/grille_plaque.rst`, modèle `ScreenGrid` (fiche de lecture : modes 'legacy' / 'idelchik', k0, régimes de Reynolds). ThickGridPlate reste sans variante.
+- Fait : à quoi ça sert, exemple exécuté (DN100, 30 m³/h, phi 0,6, mode idelchik : zeta 0,964, 542 Pa), table « Paramètres à personnaliser », variante porosité x modèle (écart du défaut 'legacy' -14 à -91 %, identique au docstring), deux cas refusés, piège exécuté (Re 71 : signalé hors domaine, non corrigé ; 'legacy' applique un renforcement sans source).
+- Défauts de lib : `BUGS_LIB.md` (ScreenGrid).
+- Banc : 93 pages au cran 5 (+1), aucun recul. Build Sphinx -W : 0 warning.
+- Suivant : `lit_grains.rst` (B2).
