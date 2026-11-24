@@ -1311,3 +1311,11 @@
 - Défauts de lib : `BUGS_LIB.md` (TA_Valve).
 - Banc : 86 pages au cran 5 (+1), aucun recul. Build Sphinx -W : 0 warning.
 - Suivant : `perte_pression_lineaire.rst` avec L2 (StraightPipe, fonction `troncon`).
+
+## 2026-11-24 — B2 + L2 : `perte_pression_lineaire` cran 4 -> 5
+- Unité : `004-hydraulic/perte_pression_lineaire.rst` (fiche de lecture de `Hydraulic/StraightPipe.py` : modes direct / inverse, `material`, `include_static_head`, `alpha`).
+- Fait : sortie publiée de l'exemple existant remise à jour (les trois lignes de trace n'existent plus : RECUL préexistant constaté au banc) ; table « Paramètres à personnaliser » ; variante exécutée L2 du handbook (`troncon`) — **valeurs du livre retrouvées à l'identique** (DN100/125/150 à 90 m³/h : 234 748 / 76 468 / 30 823 Pa ; DN125 à 100/80/60/50 % : P hydraulique 1 912 / 1 005 / 440 / 261 W, exposants 1,87 / 2,87) ; deux cas refusés exécutés (matériau inconnu, pression de sortie non physique) ; piège exécuté (alpha vertical par défaut + hauteur statique = 24,5 bar).
+- Défauts de lib : `BUGS_LIB.md` (StraightPipe).
+- Note banc : lancer avec `PYTHONIOENCODING=utf-8`, sinon l'affichage d'une ligne contenant « → » plante dans la console Windows.
+- Banc : 87 pages au cran 5 (+1), aucun recul. Build Sphinx -W : 0 warning.
+- Suivant : B2, pages `004-hydraulic` restantes au cran 4 (`clapet_volet`, `coups_de_belier`, `dimensionnement_vannes`…), ou L5 (scènes hydrauliques).

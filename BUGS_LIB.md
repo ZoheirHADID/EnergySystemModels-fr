@@ -1116,3 +1116,8 @@ Entrées déplacées le 28/09/2026 (lots hydraulique, facture, échangeurs/CTA, 
 - `dn = "DN65"` ou `dn = 65` : `ValueError: Diamètre nominal non valide` ; la page du guide affirmait jusqu'ici que ces écritures étaient acceptées (corrigée). À trancher côté lib : accepter la forme courte en la rattachant à une série, ou la documenter comme refusée.
 - `nb_tours = None` : `TypeError: '<' not supported between instances of 'float' and 'NoneType'` au lieu d'un `ValueError` nommant le paramètre.
 - Traitement dans le guide : « Pièges » et note `dn` de `004-hydraulic/TA_valve.rst`.
+
+## Hydraulic.StraightPipe : inclinaison verticale par défaut (relevé le 2026-11-24)
+- `alpha` vaut `pi/2` (tube **vertical**) par défaut. Sans effet tant que `include_static_head = False` (défaut), mais l'activer sur un tronçon dont on n'a pas saisi `alpha` ajoute `rho g L` : 250 m horizontaux deviennent 24,5 bar de colonne d'eau, et le calcul direct est refusé (« pression de sortie non physique »). Un défaut horizontal (`alpha = 0`) serait moins piégeant ; à arbitrer (changerait les scènes qui activent la hauteur statique sans saisir `alpha`).
+- Les traces `StraightPipe: P_entrée détectée … bar` (unité fausse) ne sont plus imprimées par défaut (`DEBUG_STRAIGHTPIPE = False`) : la page du guide a été remise à jour (sortie publiée périmée).
+- Traitement dans le guide : « Pièges » de `004-hydraulic/perte_pression_lineaire.rst`.

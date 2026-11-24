@@ -805,19 +805,19 @@
    "recul": null
   },
   "docs/source/004-hydraulic/perte_pression_lineaire.rst": {
-   "blocs": 1,
-   "empreinte": "8346b5ee7f1627d2",
-   "mesure": "2026-09-28T17:07",
+   "blocs": 4,
+   "empreinte": "f4ddceacea1fe40c",
+   "mesure": "2026-11-24T02:01",
    "figures": [
     "../images/schema_conduite_droite.svg",
     "../images/004_straightpipe_courbe_reseau.svg"
    ],
    "blocage": null,
-   "motif": "manque : table de personnalisation et variante exécutée",
+   "motif": "",
    "extraits": null,
-   "cran": 4,
-   "nom": "figure réelle",
-   "cran_max": 4,
+   "cran": 5,
+   "nom": "personnalisable",
+   "cran_max": 5,
    "recul": null
   },
   "docs/source/004-hydraulic/propagation_pression.rst": {
