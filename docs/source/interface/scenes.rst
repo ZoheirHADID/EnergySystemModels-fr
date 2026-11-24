@@ -1546,6 +1546,30 @@ Montage en injection
 
 **Ce qu'on observe.** La pompe primaire (3,25 m³/h sous 17,6 m de HMT) injecte 3,4 m³/h dans la boucle secondaire, dont la pompe fait circuler 8,3 m³/h. Montage expliqué dans :doc:`../004-hydraulic/valve_3_voies`.
 
+**Pourquoi le montage découple primaire et secondaire.** Chaque boucle a sa
+pompe : la pompe secondaire fait circuler un débit à peu près constant
+(8,3 m³/h) dans les émetteurs, quelle que soit la position de la vanne. La vanne
+3 voies ne règle que la part de débit **primaire injectée** (3,4 m³/h ici) ; le
+reste du secondaire recircule par le bypass. La puissance livrée varie donc par
+la température de départ, pas par le débit des émetteurs, et les deux pompes ne
+se « voient » qu'à travers la vanne et le bypass.
+
+**Paramètres à changer.** Dans la *Vanne 3 voies* : l'« Ouverture (%) », la
+« Caractéristique vanne », le « DN (déduit le Kvs) », et pour juger l'autorité
+la « ΔP branche variable (bar) » avec le « Débit design autorité » (à saisir :
+à 0, le calcul prend le débit maximal du nœud, pas le débit réel). Dans les
+deux *Pompes* : leurs courbes ; dans la *Vanne TA* : son réglage, qui équilibre
+la branche primaire.
+
+**Pièges.** L'ouverture est une **commande** : la vanne ne se règle pas seule
+sur une température (la régulation interne a été retirée, voir
+:doc:`../004-hydraulic/valve_3_voies`) ; pour une régulation, reliez un
+régulateur à son signal d'ouverture. Le verdict de dimensionnement affiché
+(« Dimensionnement ») est **inversé** par rapport à son message : lisez
+l'autorité et le message. Signaux publiés (``alpha`` en fraction, ``opening``
+en %, ``dp_valve_bar`` en bar) : même page.
+
+
 Valeurs affichées par les nœuds à l'ouverture (relevé automatique) :
 
 .. list-table::

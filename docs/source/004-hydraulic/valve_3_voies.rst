@@ -272,6 +272,40 @@ Sortie réelle :
    l'autorité et au DN conseillé** (DN40 ici : le DN dont le Kvs est le plus
    proche du Kvs visé), pas au mot du verdict. Défaut consigné dans ``BUGS_LIB.md``.
 
+Signaux publiés par la vanne 3 voies
+------------------------------------
+
+L'afficheur multi-signaux et un régulateur lisent ou écrivent les attributs du
+modèle (``Nœud.attribut``) :
+
+.. code-block:: python
+
+    # à la suite : signaux publiés par la vanne 3 voies
+    from ThermodynamicCycles.Signals.Signals import list_model_signals
+
+    V5, _ = melangeuse(0.5)
+    signaux = list_model_signals(V5)
+    print(len(signaux), "attributs publiables")
+    for nom in ["alpha", "opening", "Kvs", "dp_valve_bar", "F_secondary"]:
+        print(f"  {nom:13s} = {signaux[nom]:.4g}")
+
+Sortie réelle :
+
+.. code-block:: text
+
+   34 attributs publiables
+     alpha         = 0.5
+     opening       = 50
+     Kvs           = 30
+     dp_valve_bar  = 0.72
+     F_secondary   = 2
+
+``alpha`` est la **commande** (fraction 0 à 1) qu'un régulateur externe écrit ;
+``opening`` la même grandeur en pourcentage, pour l'affichage. ``dp_valve_bar``
+est en bar (pas en Pa). Les scènes « Montage en injection », « Montage en
+mélange » et « Montage en répartition-décharge » (:doc:`../interface/scenes`)
+emploient ce modèle.
+
 Cas limites et pièges
 ---------------------
 

@@ -1495,3 +1495,9 @@
 - Écueil : premier passage au cran 2 — la page exécute ses blocs dans le même espace et `VANNE` y est redéfinie par la variante (25 % d'ouverture, Kvs 10) ; sortie publiée remplacée par la sortie réelle à cet endroit.
 - Banc : `vanne_generique` au cran 5 (4 blocs), 108 / 108, aucun recul. Build Sphinx -W : 0 warning.
 - Suivant : L5 (3/4) « Montage en injection ».
+
+## 2026-11-24 — L5 (3/4) : scène « Montage en injection »
+- Unité : `interface/scenes.rst` (section de la scène) et `004-hydraulic/valve_3_voies.rst` (nouvelle section « Signaux publiés par la vanne 3 voies »).
+- Fait : pourquoi le montage découple primaire et secondaire (secondaire ≈ constant 8,3 m³/h, la vanne ne règle que l'injection 3,4 m³/h, puissance par la température de départ), paramètres à changer (champs réels du nœud Vanne 3 voies : ouverture, caractéristique, DN, ΔP branche variable + débit design d'autorité ; pompes ; TA), pièges (l'ouverture est une commande, pas de régulation interne ; verdict de dimensionnement inversé, déjà dans BUGS_LIB) ; signaux exécutés (`list_model_signals` : 34 attributs ; `alpha` fraction, `opening` %, `dp_valve_bar` en bar).
+- Banc : `valve_3_voies` au cran 5, 108 / 108, aucun recul. Build Sphinx -W : 0 warning.
+- Suivant : L5 (4/4) « Pompe et vanne d'équilibrage », puis renvois des scènes mélange / répartition.
