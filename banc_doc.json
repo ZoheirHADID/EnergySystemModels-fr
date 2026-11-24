@@ -1717,16 +1717,16 @@
    "recul": null
   },
   "docs/source/api.rst": {
-   "blocs": 10,
-   "empreinte": "83288b1d9d8a3115",
-   "mesure": "2026-11-22T11:57",
+   "blocs": 12,
+   "empreinte": "3aaa7887a98f53fb",
+   "mesure": "2026-11-24T10:24",
    "figures": [],
    "blocage": null,
-   "motif": "manque : table de personnalisation et variante exécutée",
+   "motif": "",
    "extraits": 1,
-   "cran": 4,
-   "nom": "figure réelle",
-   "cran_max": 4,
+   "cran": 5,
+   "nom": "personnalisable",
+   "cran_max": 5,
    "recul": null
   },
   "docs/source/contributing.rst": {

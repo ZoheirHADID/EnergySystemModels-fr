@@ -129,3 +129,96 @@ Certificats d'Économies d'Énergie — ``CEE``
    from CEE.CEE import calcul_CEE, list_fiches   # module de fonctions (pas de classe CEE)
 
 Détails : :doc:`011-cee/index`.
+
+Paramètres à personnaliser : deux conventions d'appel
+-----------------------------------------------------
+
+Les points d'entrée ci-dessus ne se règlent pas tous de la même façon. Savoir
+laquelle s'applique évite la première erreur.
+
+.. list-table::
+   :header-rows: 1
+   :widths: 30 36 34
+
+   * - Famille
+     - Comment on règle
+     - Exemples
+   * - Composants à ports (``ThermodynamicCycles``, ``ThermodynamicCycles.Hydraulic``)
+     - ``Object()`` **sans argument**, puis attributs, ``Fluid_connect``,
+       ``calculate()``
+     - ``Source``, ``Compressor``, ``StraightPipe``, ``TA_Valve``
+   * - Modèles à paramètres (``HeatTransfer``, ``PinchAnalysis``)
+     - arguments **au constructeur** ``Object(...)``, puis ``calculate()``
+     - ``PlateHeatTransfer.Object(orientation=…, Tp=…, Ta=…)``
+   * - Fonctions (``CEE``, ``IPMVP``, ``Facture``…)
+     - appel direct avec arguments nommés
+     - ``calcul_CEE(fiche, …)``
+   * - Solveur nodal (``Hydraulic.network``)
+     - objet réseau, puis ``add_node`` / ``add_branch`` / ``solve()``
+     - :doc:`004-hydraulic/resolution_circuit`
+
+Variante exécutée : lire une signature sans ouvrir le code
+----------------------------------------------------------
+
+``inspect.signature`` donne les arguments acceptés et leurs valeurs par
+défaut, y compris celles qui comptent (ici ``correlation='legacy'``, voir
+:doc:`transfert_chaleur`).
+
+.. code-block:: python
+
+    # variante : lire la signature d'un point d'entrée sans ouvrir le code
+    import inspect
+    from HeatTransfer import PlateHeatTransfer
+    from ThermodynamicCycles.Hydraulic.network import HydraulicNetwork
+    from CEE.CEE import calcul_CEE
+
+    for nom, objet in [("PlateHeatTransfer.Object", PlateHeatTransfer.Object),
+                       ("HydraulicNetwork.add_node", HydraulicNetwork.add_node),
+                       ("calcul_CEE", calcul_CEE)]:
+        print(f"{nom}{inspect.signature(objet)}")
+
+Sortie réelle :
+
+.. code-block:: text
+
+   PlateHeatTransfer.Object(orientation, Tp, Ta, W=None, L=None, H=None, Cp=1007, beta=0.0034, k=0.0261, mu=1.85e-05, rhoref=1.201, e=0.85, correlation='legacy')
+   HydraulicNetwork.add_node(self, name, fixed_pressure=None, demand=0.0)
+   calcul_CEE(fiche, return_details=False, date_engagement=None, bonification=None, parametres_bonification=None, **kwargs)
+
+Cas limite refusé : un composant à ports réglé au constructeur
+--------------------------------------------------------------
+
+.. code-block:: python
+
+    # à la suite : deux conventions selon la famille
+    from ThermodynamicCycles.Source import Source
+
+    print("Source.Object" + str(inspect.signature(Source.Object)))   # rien au constructeur
+    s = Source.Object()
+    print("réglages en attributs :", [a for a in ("fluid", "Ti_degC", "Pi_bar", "F") if hasattr(s, a)])
+    try:
+        Source.Object(fluid="water")                                   # pas d'argument accepté
+    except TypeError as erreur:
+        print("Refusé :", erreur)
+
+Sortie réelle :
+
+.. code-block:: text
+
+   Source.Object()
+   réglages en attributs : ['fluid', 'Ti_degC', 'Pi_bar', 'F']
+   Refusé : Object.__init__() got an unexpected keyword argument 'fluid'
+
+Pièges
+------
+
+* **Composant à ports : rien au constructeur.** ``Source.Object(fluid=…)`` est
+  refusé ; on écrit ``s = Source.Object()`` puis ``s.fluid = "water"``.
+* **Modèle à paramètres : tout au constructeur.** À l'inverse,
+  ``PlateHeatTransfer.Object()`` sans ``orientation``, ``Tp``, ``Ta`` lève une
+  ``TypeError``.
+* **Les valeurs par défaut ne sont pas neutres** : lisez la signature avant un
+  calcul (corrélation, émissivité, coefficients « legacy » de plusieurs
+  modules hydrauliques).
+* La vérification de l'installation (import de chaque famille) est dans
+  :doc:`usage/section-6-autres`.

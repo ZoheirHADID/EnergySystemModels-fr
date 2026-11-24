@@ -1462,3 +1462,9 @@
 - Défauts de lib : rien de nouveau (licence et dépendances GUI déjà listées dans `CLAUDE.md` de la lib, « Hygiène du dépôt »).
 - Banc : 107 pages au cran 5 (+1), aucun recul. Build Sphinx -W : 0 warning.
 - Suivant : `api.rst` (dernier cran 4).
+
+## 2026-11-24 — B7 : `api` cran 4 -> 5 — toutes les pages à exemples au cran 5
+- Unité : `api.rst` (référence des imports). Pas de doublon avec `usage/section-6-autres` (vérification d'installation) : renvoi croisé.
+- Fait : table « deux conventions d'appel » (composants à ports : `Object()` sans argument puis attributs ; modèles à paramètres : arguments au constructeur ; fonctions ; solveur nodal), variante exécutée `inspect.signature` (PlateHeatTransfer, HydraulicNetwork.add_node, calcul_CEE), cas limite refusé (`Source.Object(fluid=...)` -> `TypeError`), pièges.
+- Banc : **108 pages au cran 5 sur 108 pages à exemples** (30 de prose / index au cran 0), aucun recul. Build Sphinx -W : 0 warning (un soulignement corrigé).
+- Suivant : section L du handbook — L3 (b) four 500 kW, puis L4 (CompositeWall), L5 (scènes hydrauliques), L6 (afficheur multi-signaux).
