@@ -133,6 +133,10 @@ def mesurer(chemin: Path, relatif: str) -> Mesure:
     with contextlib.redirect_stdout(tampon), contextlib.redirect_stderr(tampon):
         if not fenetre.fileLoad(str(chemin)):
             raise RuntimeError(f"{relatif} : la scène ne s'ouvre pas")
+        # Depuis le 16/11/2026, l'IHM ouvre toute scène SANS calcul (état
+        # « deferred ») : on clique donc sur « Simuler », comme l'utilisateur.
+        if etats and etats[-1].get("state") == "deferred":
+            fenetre.simulate()
     noeuds = []
     for nd in fenetre.scene.nodes:
         libelles = dict((r[0], r[1]) for r in (getattr(type(nd), "RESULTS", None) or []))
@@ -240,12 +244,12 @@ def obs_rankine_centrale(m):
 def _obs_rankine_vapeur(m, source, pompe, chaudiere, turbine, condenseur):
     p = m.v(source, "Pression effective (bar)")
     t = m.v(source, "Temp. effective (°C)")
-    wp = m.v(pompe, "Puissance hydraulique (kW)")
+    wp = m.v(pompe, "Puissance à l'arbre (kW)")
     q = m.v(chaudiere, "Qth(kW)")
     wt = m.v(turbine, "Q_turb(kW)")
     return (f"Pour {fr(m.noeud(source)['valeur'][1], 0)} kg/s de condensat pris à {fr(t, 0)} °C sous "
             f"{fr(p, 3)} bar (la saturation est à {fr(_tsat(p), 2)} °C : c'est bien du liquide), la "
-            f"pompe demande {fr(wp, 2)} kW pour {fr(m.v(pompe, 'HMT (m)'), 0)} m de hauteur, la "
+            f"pompe demande {fr(wp, 2)} kW à l'arbre pour {fr(m.v(pompe, 'HMT (m)'), 0)} m de hauteur, la "
             f"chaudière apporte {fr(q)} kW, la turbine rend {fr(wt)} kW et le condenseur rejette "
             f"{fr(m.v(condenseur, 'Q_cond (kW)'))} kW. **Rendement du cycle : "
             f"{fr(100 * (wt - wp) / q)} %.** La pompe est réglée en « Débit imposé » : sur sa "
@@ -255,8 +259,8 @@ def _obs_rankine_vapeur(m, source, pompe, chaudiere, turbine, condenseur):
 
 
 def obs_rankine_vapeur(m):
-    return _obs_rankine_vapeur(m, "Eau condensat", "Pompe -> 80 bar", "Chaudiere 450C",
-                               "Turbine 0.05 bar", "Condenseur")
+    return _obs_rankine_vapeur(m, "Eau condensat", "Pompe -> 165 bar", "Chaudiere 560C",
+                               "Turbine 0.023 bar", "Condenseur")
 
 
 def obs_segs(m):
@@ -287,29 +291,33 @@ def obs_turboreacteur(m):
     v = m.v("Tuyere (poussee)", "Vitesse sortie (m/s)")
     return (f"Le diffuseur relève la pression d'arrêt de 0,265 à {fr(m.v('Diffuseur (ram)', 'Pression sortie (bar)'), 3)} bar ; "
             f"le compresseur absorbe {fr(wc / 1000, 2)} MW, la combustion apporte "
-            f"{fr(m.v('Combustion 1150C', 'Qth(kW)') / 1000, 2)} MW et la turbine du générateur de "
-            f"gaz, détendue jusqu'à 1,8 bar, rend {fr(wt / 1000, 2)} MW : **elle entraîne le "
+            f"{fr(m.v('Combustion 1318C', 'Qth(kW)') / 1000, 2)} MW et la turbine du générateur de "
+            f"gaz, détendue jusqu'à 2,4 bar, rend {fr(wt / 1000, 2)} MW : **elle entraîne le "
             f"compresseur** ({fr(wt / 1000, 2)} ≥ {fr(wc / 1000, 2)} MW). La tuyère détend le gaz "
             f"jusqu'à la pression ambiante (0,265 bar) : **jet à {fr(v, 0)} m/s** pour "
             f"{fr(f, 1)} kg/s, soit un débit de quantité de mouvement de {fr(f * v / 1000, 1)} kN "
             "en sortie (la poussée nette en retranche le débit multiplié par la vitesse de vol, "
-            "que la scène ne donne pas). Scène corrigée le 28/09/2026 : la tuyère visait 3,0 bar "
-            "en aval d'une turbine qui sortait à 2,4 bar (débit nul), la turbine ne couvrait pas "
-            "le compresseur, et la section de tuyère (0,001 m²) ne laissait passer que 0,1 kg/s ; "
-            "elle vaut désormais 0,2688 m².")
+            "que la scène ne donne pas). La section de tuyère saisie s'écarte de "
+            f"{fr(m.v('Tuyere (poussee)', 'Écart section saisie / requise (%)'), 4)} % de la section "
+            f"requise par le débit ({fr(m.v('Tuyere (poussee)', 'Section requise par le débit amont (m²)'), 4)} m²).")
 
 
 def obs_absorption(m):
-    vides = sum(1 for x in m.noeuds if not x["resultats"])
-    return (f"**Rien n'est calculé à l'ouverture** : {vides} nœuds sur {len(m.noeuds)} restent "
-            "vides. La scène est faite de deux boucles fermées (solution et réfrigérant) sans "
-            "nœud *Sortie* ni *Capteur* : or le moteur historique n'évalue un graphe qu'en partant "
-            "de ces nœuds terminaux, et le bouton **Simuler** ne fait pas mieux. La scène sert "
-            "à voir l'**assemblage** d'une machine à absorption LiBr-H₂O (générateur à 90 °C, "
-            "condenseur et absorbeur à 35 °C, évaporateur à 5 °C) ; pour les chiffres, calculer "
-            "la machine en Python (:doc:`../002-thermodynamic_cycles/froid_absorption`). "
-            "Défaut consigné.")
-
+    qe = m.v("Évaporateur", "Q_evap (kW)")
+    qg = m.v("Générateur", "Chaleur générateur (kW)")
+    qa = m.v("Absorbeur", "Chaleur absorbeur (kW)")
+    qc = m.v("Condenseur", "Q_cond (kW)")
+    wp = m.v("Pompe solution", "Puissance (kW, majorant)")
+    return (f"Les deux boucles fermées convergent (nœuds *Bouclage solution*, "
+            f"{m.s('Bouclage solution', 'Itérations')} itérations). L'évaporateur produit "
+            f"**{fr(qe, 2)} kW** de froid à {fr(m.v('Évaporateur', 'Tevap(°C)'), 2)} °C pour "
+            f"{fr(qg, 2)} kW apportés au générateur : **COP = {fr(qe / qg, 2)}**. L'absorbeur "
+            f"rejette {fr(qa, 2)} kW, le condenseur {fr(qc, 2)} kW ; la pompe de solution ne "
+            f"demande que {fr(1000 * wp, 2)} W. Bilan de la machine : {fr(qe + qg + wp - qa - qc, 3)} kW "
+            f"(apports − rejets). La solution riche contient "
+            f"{fr(100 * m.v('Absorbeur', 'Fraction réfrigérant riche (-)'), 2)} % d'eau, la pauvre "
+            f"{fr(100 * m.v('Générateur', 'Fraction réfrigérant pauvre (-)'), 2)} %. Le modèle en "
+            "Python : :doc:`../002-thermodynamic_cycles/froid_absorption`.")
 
 def obs_bietagee(m):
     wbp = m.v("Compresseur BP", "Q_comp(kW)")
@@ -497,7 +505,7 @@ def obs_stap(m):
 
 
 def obs_pid(m):
-    return (f"À l'ouverture, le calcul stationnaire donne {_pompe(m)} et "
+    return (f"Le calcul stationnaire donne {_pompe(m)} et "
             f"{fr(m.v('Débit branche', 'Mesure'))} m³/h dans la branche ; la vanne de régulation prend "
             f"{fr(m.v('Vanne de régulation (Kvs 25)', 'Perte de charge (Pa)') / 1000, 0)} kPa. Le PID "
             "n'agit qu'en simulation temporelle : la régulation (consigne en échelon, capteur → "
@@ -562,6 +570,107 @@ def obs_grande_ouverte(m):
             "du montage en mélange.")
 
 
+# --- Scènes ajoutées à la bibliothèque après le 28/09/2026 (fiches du 2026-11-24) ---
+
+def _somme(m: Mesure, typ: str, libelle: str) -> float:
+    return sum(_nombre(x["resultats"][libelle]) for x in m.noeuds
+               if x["type"] == typ and libelle in x["resultats"])
+
+
+def obs_cycle_frigo(m):
+    q0 = _somme(m, "Evaporateur", "Q_evap (kW)")
+    w = _somme(m, "Compresseur", "Q_comp(kW)")
+    qc = _somme(m, "Condenseur", "Q_cond (kW)")
+    annonce = re.search(r"COP = ([0-9.]+)", m.s("Description", "Texte"))
+    txt = (f"L'évaporateur absorbe **{fr(q0)} kW** de froid, les compresseurs absorbent "
+           f"{fr(w)} kW au total, le condenseur rejette {fr(qc)} kW : **COP froid = "
+           f"{fr(q0 / w, 2)}**. Le bilan se ferme à {fr(q0 + w - qc, 2)} kW près "
+           "(froid + travail − rejet).")
+    if annonce:
+        txt += (" Le libellé de la scène annonce un COP de conception de "
+                f"{fr(float(annonce.group(1)), 2)}.")
+    return txt + (" Les huit montages de ce dossier partagent la même puissance froide et, "
+                  "sauf la cascade, les mêmes températures (R507A, −35 / +40 °C) : comparer "
+                  "leurs COP, c'est comparer les montages.")
+
+
+def obs_reducteur(m):
+    prv, lim = "Réducteur de pression 3,5 bar", "Limiteur 3 m³/h"
+    return (f"Le réducteur ramène le réseau à **{fr(m.v(prv, 'P sortie (bar)'), 2)} bar** "
+            f"(régime : {m.s(prv, 'Régime')}) et laisse passer "
+            f"{fr(m.v(prv, 'Débit (m³/h)'), 2)} m³/h. La buse A, libre, débite "
+            f"{fr(m.v('Buse A (K 80)', 'Débit rejeté (m³/h)'), 2)} m³/h sous "
+            f"{fr(m.v('Buse A (K 80)', 'Pression à la buse (bar)'), 2)} bar ; la buse B est tenue "
+            f"par le limiteur à {fr(m.v(lim, 'Débit (m³/h)'), 2)} m³/h, qui absorbe "
+            f"{fr(m.v(lim, 'Perte de charge absorbée (Pa)') / 1e5, 2)} bar. Un émetteur (buse, "
+            "sprinkler, fuite) débite selon la pression qu'il reçoit : Q = K·√P.")
+
+
+def obs_appoint(m):
+    d = "Appoint electrique : dispatch"
+    eco = m.v(d, "Économie d'énergie (€)")
+    rev = m.v(d, "Revenus aFRR RTE, France (€)")
+    ps = m.v(d, "Surcoût de PS (€)")
+    n = m.v("Charge thermique et prix (synthetiques)", "Pas de temps")
+    return (f"Sur une année synthétique de {fr(n, 0)} pas horaires, la chaudière électrique "
+            f"prend **{fr(m.v(d, 'Part électrique (%)'))} %** de la chaleur "
+            f"({fr(m.v(d, 'MWh basculés'), 0)} MWh basculés du gaz vers l'électricité, aux heures "
+            f"où le spot est sous le coût marginal du gaz). Économie d'énergie {fr(eco, 0)} €, "
+            f"revenus de réserve aFRR {fr(rev, 0)} €, surcoût de puissance souscrite {fr(ps, 0)} € : "
+            f"**gain net {fr(eco + rev - ps, 0)} € par an**, affiché par l'afficheur "
+            "multi-signaux. Modèle : :doc:`../010-achat-energie/appoint_electrique_spot`.")
+
+
+def obs_pi_adaptatif(m):
+    pi, v3 = "PI adaptatif départ", "Vanne 3 voies mélangeuse"
+    return (f"Le calcul stationnaire montre l'état de départ de la régulation : le PI adaptatif "
+            f"sort {fr(m.v(pi, 'Sortie PID'), 3)} (écart consigne − mesure "
+            f"{fr(m.v(pi, 'Delta consigne-mesure'), 2)} K), la vanne 3 voies est ouverte à "
+            f"{fr(m.v(v3, 'Ouverture (%)'))} %, et le départ lit encore "
+            f"{fr(m.v('Vers émetteurs', 'Température (°C)'))} °C : le tuyau de transport retarde "
+            f"la mesure de {fr(m.v('Départ DN40 - 20 m (transport)', 'Temps de transit V/Qv (s)'))} s. "
+            "La scène se lit en **simulation dans le temps** "
+            "(:doc:`../013-simulation-temporelle/index`), où le gain du procédé est estimé en "
+            "ligne et les gains du PI adaptés.")
+
+
+def obs_paroi_reseau(m):
+    couches = ["Convection extérieure", "Parpaings creux", "Laine de verre", "Plâtre",
+               "Convection intérieure"]
+    r = {c: m.v(c, "Résistance (K/W)") for c in couches}
+    rt = sum(r.values())
+    return (f"Entre −10 et 20 °C, la paroi laisse passer "
+            f"**{fr(m.v('Intérieur 20 °C', 'Flux fourni au réseau (W)'))} W** (résistance totale "
+            f"{fr(rt, 4)} K/W). La laine de verre porte {fr(100 * r['Laine de verre'] / rt)} % de la "
+            f"résistance : la température y passe de {fr(m.v('Laine de verre', 'T côté a (°C)'))} à "
+            f"{fr(m.v('Laine de verre', 'T côté b (°C)'))} °C. Chaque couche est un élément "
+            "thermique en série, chaque limite une température imposée : le calcul de "
+            ":doc:`../001-heat_transfer/composite_wall_heat_transfer`, assemblé en réseau.")
+
+
+def obs_series(m):
+    b = "Ballon de stockage"
+    return (f"Le fichier fournit {fr(m.v('Series chronologiques', 'Pas de temps'), 0)} pas de temps "
+            f"qui pilotent la source ; au premier pas, l'eau entre à "
+            f"{fr(m.v('Capteur', 'Mesure', 1))} °C dans un ballon à {fr(m.v(b, 'T° ballon (°C)'))} °C, "
+            f"qui cède {fr(-m.v(b, 'Puissance stockage (kW)'), 2)} kW (puissance de stockage "
+            "négative = décharge). L'afficheur multi-signaux regroupe les trois grandeurs du "
+            "ballon. La scène est faite pour la **simulation dans le temps**, où le ballon suit "
+            "le fichier pas à pas.")
+
+
+def obs_tuyau_calorifuge(m):
+    t = "Tuyau calorifugé"
+    return (f"Le tuyau perd **{fr(m.v(t, 'Déperdition (kW)'), 3)} kW** : sa surface est à "
+            f"{fr(m.v(t, 'Temp. surface (°C)'))} °C, et la chaleur part par convection naturelle "
+            f"({fr(m.v('Convection naturelle', 'Flux a → b (W)'), 0)} W, h = "
+            f"{fr(m.v('Convection naturelle', 'h calculé (W/m².K)'), 2)} W/m².K) et par "
+            f"rayonnement ({fr(m.v('Rayonnement', 'Flux a → b (W)'), 0)} W) vers l'ambiance à "
+            f"20 °C. L'eau arrive à {fr(m.v('Arrivée', 'Température (°C)'))} °C. Le réseau "
+            "thermique extérieur (deux éléments en parallèle et une limite) remplace le "
+            "coefficient d'échange unique du tuyau.")
+
+
 SCENES: dict[str, tuple[str, callable]] = {
     # 1 - Cycles thermodynamiques
     "1 - Cycles thermodynamiques/Brayton - turbine a gaz.json": (
@@ -571,12 +680,14 @@ SCENES: dict[str, tuple[str, callable]] = {
         "ramené à 25 °C pour fermer le cycle.", obs_brayton),
     "1 - Cycles thermodynamiques/Brayton helium - nucleaire.json": (
         "Le même cycle de Brayton, fermé, avec de l'hélium comme dans les réacteurs à haute "
-        "température : 140 kg/s comprimés de 25 à 70 bar, portés à 900 °C dans le cœur, "
-        "détendus à 25 bar puis refroidis à 28 °C (pré-refroidisseur).", obs_helium),
+        "température : 140 kg/s comprimés de 25 à 70 bar (rendement 0,7), réchauffés "
+        "dans un régénérateur puis portés à 900 °C dans le cœur, détendus à 25 bar (rendement "
+        "0,7) puis refroidis à 28 °C (pré-refroidisseur) ; un nœud *Bouclage* ferme le cycle.", obs_helium),
     "1 - Cycles thermodynamiques/CO2 supercritique.json": (
         "Un cycle de Brayton au CO₂ supercritique : 3000 kg/s de CO₂ pris à 32,5 °C et 77 bar, "
-        "juste au-dessus du point critique, comprimés à 200 bar, chauffés à 650 °C, détendus à "
-        "77 bar et refroidis.", obs_co2),
+        "juste au-dessus du point critique, comprimés à 200 bar, réchauffés dans un "
+        "régénérateur puis chauffés à 650 °C, détendus à 77 bar et refroidis ; un nœud "
+        "*Bouclage* ferme le cycle.", obs_co2),
     "1 - Cycles thermodynamiques/Geothermie.json": (
         "Une centrale géothermique à **double flash** : 760 kg/s d'eau de puits à 230 °C et "
         "28 bar sont détendus dans un premier ballon à 6 bar ; la vapeur alimente une turbine "
@@ -588,8 +699,9 @@ SCENES: dict[str, tuple[str, callable]] = {
         "détendu dans une turbine isentropique jusqu'à 0,0356 bar puis condensé, avec des nœuds "
         "*Sortie* branchés entre chaque organe pour lire l'état du fluide.", obs_rankine_centrale),
     "1 - Cycles thermodynamiques/Rankine - cycle vapeur.json": (
-        "Le cycle de Rankine d'une centrale à vapeur : 1 kg/s de condensat à 32 °C et 0,05 bar, "
-        "pompe à 80 bar, chaudière à 450 °C, turbine (rendement 0,85) jusqu'à 0,05 bar, condenseur.",
+        "Le cycle de Rankine d'une centrale à vapeur, repris de Gicquel : 1 kg/s de condensat à "
+        "19 °C et 0,023 bar, pompe à 165 bar, chaudière à 560 °C, turbine (rendement 0,85) "
+        "jusqu'à 0,023 bar, condenseur.",
         obs_rankine_vapeur),
     "1 - Cycles thermodynamiques/Solaire a concentration (SEGS).json": (
         "Le cycle vapeur d'une centrale solaire à concentration de type SEGS : 1 kg/s de "
@@ -601,9 +713,9 @@ SCENES: dict[str, tuple[str, callable]] = {
         "*Sortie* intermédiaires.", obs_tg_detaillee),
     "1 - Cycles thermodynamiques/Turboreacteur.json": (
         "Un turboréacteur simple flux en altitude : 27,8 kg/s d'air à −50 °C et 0,265 bar, "
-        "diffuseur d'entrée (effet dynamique), compresseur à 16 bar, combustion à 1150 °C, "
-        "turbine qui entraîne le compresseur (détente à 1,8 bar), tuyère de poussée détendue "
-        "jusqu'à la pression ambiante.", obs_turboreacteur),
+        "diffuseur d'entrée (effet dynamique), compresseur à 11,67 bar, combustion à "
+        "1318 °C, turbine qui entraîne le compresseur (détente à 2,4 bar), tuyère de poussée "
+        "détendue jusqu'à la pression ambiante.", obs_turboreacteur),
     # 2 - Froid et cryogénie
     "2 - Froid et cryogenie/Absorption a simple effet.json": (
         "Une machine frigorifique à absorption LiBr-H₂O simple effet, assemblée organe par "
@@ -623,7 +735,7 @@ SCENES: dict[str, tuple[str, callable]] = {
         "12 bar ; la boucle HP est ouverte par une source de coupure.", obs_bietagee),
     "2 - Froid et cryogenie/Machine frigorifique.json": (
         "Le cycle frigorifique à compression de vapeur de base, au R134a : compression de 1 à "
-        "12 bar, condenseur (sous-refroidissement 5 K), détendeur à 1 bar, évaporateur "
+        "12 bar, condenseur (sous-refroidissement 10 K), détendeur à 1 bar, évaporateur "
         "(surchauffe 5 K).", obs_frigo),
     # 3 - Hydraulique
     "3 - Hydraulique/Baches/Remplissage regule par niveau.json": (
@@ -691,6 +803,49 @@ SCENES: dict[str, tuple[str, callable]] = {
         "Un compresseur d'air refroidi, dont la chaleur dissipée est transmise par une "
         "liaison de signal à un circuit d'eau : la récupération de chaleur sur compresseur.",
         obs_compresseur),
+    # Scènes ajoutées après le 28/09/2026 (fiches du 2026-11-24)
+    '2 - Froid et cryogenie/Cycles frigorifiques/1 - Cycle mono-etage.json': (
+        "Le cycle frigorifique de référence du dossier : un étage de compression au R507A, évaporation à −35 °C, condensation à +40 °C, 100 kW de froid ; la boucle est fermée par un nœud *Bouclage* à l'aspiration.",
+        obs_cycle_frigo),
+    '2 - Froid et cryogenie/Cycles frigorifiques/2 - Bi-etage inj. partielle - desurchauffe par detendeur.json': (
+        "Deux étages de compression au R507A ; un piquage après le condenseur détend une part du liquide à la pression intermédiaire et l'injecte au refoulement BP pour le désurchauffer avant l'étage HP.",
+        obs_cycle_frigo),
+    '2 - Froid et cryogenie/Cycles frigorifiques/3 - Bi-etage inj. partielle - sous-refroid. et desurchauffe.json': (
+        "Deux étages au R507A avec deux piquages : l'un sous-refroidit le liquide dans un échangeur avant le détendeur BP, l'autre désurchauffe le refoulement BP par injection.",
+        obs_cycle_frigo),
+    '2 - Froid et cryogenie/Cycles frigorifiques/4 - Bi-etage inj. partielle - sous-refroidissement.json': (
+        "Deux étages au R507A ; un piquage détendu à la pression intermédiaire sous-refroidit le liquide principal dans un échangeur, et sa vapeur rejoint l'aspiration HP.",
+        obs_cycle_frigo),
+    '2 - Froid et cryogenie/Cycles frigorifiques/5 - Bi-etage injection totale.json': (
+        'Deux étages au R507A avec bouteille intermédiaire : tout le liquide est détendu dans la bouteille (ballon de flash), qui désurchauffe par barbotage le refoulement BP ; deux nœuds *Bouclage* ferment les boucles.',
+        obs_cycle_frigo),
+    '2 - Froid et cryogenie/Cycles frigorifiques/6 - Economiseur a injection partielle.json': (
+        'Un compresseur à vis à port économiseur, représenté par deux tronçons de compression ; un piquage détendu sous-refroidit le liquide dans un échangeur et sa vapeur entre au port économiseur.',
+        obs_cycle_frigo),
+    '2 - Froid et cryogenie/Cycles frigorifiques/7 - Economiseur a injection totale.json': (
+        'Le compresseur à vis à port économiseur, cette fois avec une bouteille flash : le liquide y est détendu à la pression intermédiaire, la vapeur de flash entre au port économiseur.',
+        obs_cycle_frigo),
+    '2 - Froid et cryogenie/Cycles frigorifiques/8 - Cascade R744-R507A - evapocondenseur.json': (
+        "Une cascade : un étage au CO₂ (R744, −35 / −5 °C) dont le condenseur est l'évaporateur d'un étage au R507A (−10 / +40 °C), les deux reliés par un évapocondenseur.",
+        obs_cycle_frigo),
+    '3 - Hydraulique/Regulation/Reducteur de pression et buses.json': (
+        "Un réseau à 6 bar ramené à 3,5 bar par un réducteur de pression aval, qui alimente deux buses : l'une libre, l'autre derrière un limiteur de débit.",
+        obs_reducteur),
+    "4 - Composants et utilites/Appoint electrique d'une chaufferie gaz - spot et aFRR.json": (
+        "Une chaudière électrique de 1 MW en appoint d'une chaufferie gaz, pilotée sur une année de prix spot et de charge thermique synthétiques, avec participation à la réserve aFRR de RTE ; un afficheur multi-signaux résume le bilan.",
+        obs_appoint),
+    '4 - Composants et utilites/Depart chauffage - PI adaptatif.json': (
+        'Un départ de chauffage régulé par vanne 3 voies mélangeuse : primaire à 40 °C, retour à 25 °C, un tuyau de transport de 20 m et un régulateur PI adaptatif qui estime le gain du procédé.',
+        obs_pi_adaptatif),
+    '4 - Composants et utilites/Paroi composite en reseau thermique.json': (
+        'Une paroi extérieure (parpaings, laine de verre, plâtre) montée en réseau thermique : cinq éléments en série, de la convection extérieure à la convection intérieure, entre deux limites à −10 et 20 °C.',
+        obs_paroi_reseau),
+    '4 - Composants et utilites/Series chronologiques - ballon pilote par fichier.json': (
+        'Une source pilotée par un fichier de séries chronologiques alimente un ballon de stockage ; capteurs en entrée et en sortie, afficheur multi-signaux sur le ballon.',
+        obs_series),
+    '4 - Composants et utilites/Tuyau calorifuge et reseau thermique.json': (
+        "Un tuyau d'eau chaude calorifugé dont la déperdition passe par un réseau thermique extérieur : convection naturelle et rayonnement en parallèle vers une ambiance à 20 °C.",
+        obs_tuyau_calorifuge),
 }
 
 
@@ -731,7 +886,9 @@ def _slug(texte: str) -> str:
 
 
 def _cellule(texte: str) -> str:
-    return str(texte).replace("|", "/").replace("*", r"\*").replace("`", "'")
+    # un afficheur multi-signaux rend une grandeur par ligne : une cellule de tableau
+    # RST n'en tolère pas, on les sépare par « ; »
+    return " ; ".join(l.strip() for l in str(texte).splitlines() if l.strip()).replace("|", "/").replace("*", r"\*").replace("`", "'")
 
 
 #: libellés retenus pour les nœuds qui affichent beaucoup de grandeurs
@@ -789,15 +946,15 @@ def _fiche(relatif: str, m: Mesure, image: str, montre: str, observation: str) -
           "   SVG… » de l'IHM.", ""]
     L += [f"**Ce qu'elle montre.** {montre}", ""]
     L += [f"**Nœuds employés** ({len(m.noeuds)} nœuds, {m.n_liaisons} liaisons) : {noeuds}.", ""]
-    L += [f"**Ouvrir.** Menu **{menu}**. À l'ouverture, la scène est calculée par le "
-          f"{moteur} ; statut affiché : {statut}.", ""]
+    L += [f"**Ouvrir.** Menu **{menu}**, puis bouton **Simuler** (la scène s'ouvre sans "
+          f"calcul). Elle est calculée par le {moteur} ; statut affiché : {statut}.", ""]
     L += [f"**Ce qu'on observe.** {observation}", ""]
     if relatif in COMPLEMENTS:
         L += COMPLEMENTS[relatif].rstrip().split(chr(10))
         L.append("")
     valeurs = _valeurs_a_montrer(m)
     if valeurs:
-        L += ["Valeurs affichées par les nœuds à l'ouverture (relevé automatique) :", "",
+        L += ["Valeurs affichées par les nœuds après **Simuler** (relevé automatique) :", "",
               ".. list-table::", "   :header-rows: 1", "   :widths: 26 16 58", "",
               "   * - Nœud", "     - Type", "     - Valeurs affichées"]
         for titre, typ, texte in valeurs[:14]:
@@ -827,7 +984,7 @@ def ecrire(mesures: dict[str, Mesure], images: dict[str, str]) -> str:
     a("écrire une ligne de Python — et un bon point de départ pour son propre schéma.")
     a("")
     a(f"Chaque fiche ci-dessous a été produite le {date.today().isoformat()} en ouvrant la scène")
-    a("**comme le fait l'IHM** : l'export de la scène, les nœuds qu'elle emploie et les")
+    a("**comme le fait l'IHM**, puis en cliquant sur **Simuler** : l'export de la scène, les nœuds qu'elle emploie et les")
     a("valeurs que ses nœuds affichent sont relevés, pas recopiés. Quand une scène ne")
     a("calcule pas ce qu'elle annonce, la fiche le dit.")
     a("")
@@ -837,11 +994,11 @@ def ecrire(mesures: dict[str, Mesure], images: dict[str, str]) -> str:
     a("1. Lancer l'interface : ``python -m PyqtSimulator`` (voir :doc:`../gui_tools`).")
     a("2. Menu **File > Exemples**, puis le dossier et la scène : le sous-menu reproduit")
     a("   l'arborescence ``PyqtSimulator/json/``.")
-    a("3. **La scène est calculée dès l'ouverture.** Une scène que le solveur nodal sait")
-    a("   traduire entièrement (réseau hydraulique) est résolue par lui ; toute autre")
-    a("   scène passe par le moteur historique.")
-    a("4. Pour relancer après une modification : bouton **Simuler** (F5) ; pour un réseau")
-    a("   hydraulique, **Simuler (réseau nodal)** (Maj+F5).")
+    a("3. **La scène s'ouvre sans calcul** (depuis le 16/11/2026, comme dans ProSim")
+    a("   Plus) : cliquer sur **Simuler** (F5). Le moteur est choisi par la scène : un")
+    a("   réseau hydraulique que le solveur nodal sait traduire est résolu par lui ;")
+    a("   toute autre scène, ou partie de scène, passe par le moteur historique.")
+    a("4. Après une modification, cliquer de nouveau sur **Simuler**.")
     a("5. **Double-cliquer sur un nœud** ouvre sa fenêtre : onglet *Résultats* (ce que le")
     a("   nœud a calculé) et onglet *Configuration* (ses réglages).")
     a("")
