@@ -203,6 +203,53 @@ Sortie réelle :
    Refusé : Nombre de tours hors limites pour STAD-DN20: 6.0. Plage disponible: 0.5 - 4
    Refusé : Diamètre nominal non valide: DN65
 
+Signaux publiés par la vanne d'équilibrage
+------------------------------------------
+
+L'afficheur multi-signaux et les liaisons de signal de l'IHM lisent les
+attributs numériques du modèle (``Nœud.attribut``). Pour une vanne TA, la liste
+est courte :
+
+.. code-block:: python
+
+    # signaux publiés par une vanne d'équilibrage (afficheur multi-signaux)
+    from ThermodynamicCycles.Hydraulic import TA_Valve
+    from ThermodynamicCycles.Source import Source
+    from ThermodynamicCycles.Connect import Fluid_connect
+    from ThermodynamicCycles.Signals.Signals import list_model_signals
+
+    eau = Source.Object()
+    eau.fluid = "Water"; eau.Ti_degC = 25; eau.Pi_bar = 3.0; eau.F_m3h = 40
+    eau.calculate()
+    ta = TA_Valve.Object()
+    ta.dn = "STAF-DN100"
+    ta.nb_tours = 3.8
+    Fluid_connect(ta.Inlet, eau.Outlet)
+    ta.calculate()
+
+    signaux = list_model_signals(ta)
+    print(len(signaux), "attributs publiables")
+    for nom in sorted(signaux):
+        print(f"  {nom:9s} = {signaux[nom]:.5g}")
+    print("Kv publié ?", "Kv" in signaux, "| Kv lu dans df :", round(ta.df.loc["Kv"].iloc[0], 2))
+
+Sortie réelle :
+
+.. code-block:: text
+
+   4 attributs publiables
+     delta_P   = 52132
+     nb_tours  = 3.8
+     q         = 40
+     rho       = 997.14
+   Kv publié ? False | Kv lu dans df : 55.4
+
+``q`` est en m³/h, ``delta_P`` en Pa, ``nb_tours`` est le réglage (seul signal
+utile en entrée : un régulateur peut l'écrire). **Le Kv au réglage n'est pas
+publié** : le nœud l'affiche, mais un afficheur ou une liaison de signal ne peut
+pas le relayer ; il se lit dans ``df`` (ligne « Kv »). La scène « Pompe et
+vanne d equilibrage » (:doc:`../interface/scenes`) emploie ce modèle.
+
 Pièges
 ------
 

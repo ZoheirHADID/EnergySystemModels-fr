@@ -604,9 +604,9 @@
    "recul": null
   },
   "docs/source/004-hydraulic/TA_valve.rst": {
-   "blocs": 3,
-   "empreinte": "025d7da522d12bb4",
-   "mesure": "2026-11-24T01:37",
+   "blocs": 4,
+   "empreinte": "f50af8fd0e12e474",
+   "mesure": "2026-11-24T12:47",
    "figures": [
     "../images/schema_ta_valve.svg",
     "../images/004_ta_valve_courbe_reseau.svg"

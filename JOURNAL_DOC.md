@@ -1501,3 +1501,9 @@
 - Fait : pourquoi le montage découple primaire et secondaire (secondaire ≈ constant 8,3 m³/h, la vanne ne règle que l'injection 3,4 m³/h, puissance par la température de départ), paramètres à changer (champs réels du nœud Vanne 3 voies : ouverture, caractéristique, DN, ΔP branche variable + débit design d'autorité ; pompes ; TA), pièges (l'ouverture est une commande, pas de régulation interne ; verdict de dimensionnement inversé, déjà dans BUGS_LIB) ; signaux exécutés (`list_model_signals` : 34 attributs ; `alpha` fraction, `opening` %, `dp_valve_bar` en bar).
 - Banc : `valve_3_voies` au cran 5, 108 / 108, aucun recul. Build Sphinx -W : 0 warning.
 - Suivant : L5 (4/4) « Pompe et vanne d'équilibrage », puis renvois des scènes mélange / répartition.
+
+## 2026-11-24 — L5 (4/4) : scène « Pompe et vanne d'équilibrage » — L5 clos
+- Unité : `interface/scenes.rst` (section de la scène) et `004-hydraulic/TA_valve.rst` (nouvelle section « Signaux publiés par la vanne d'équilibrage »).
+- Fait : à quoi sert le montage (le réglage en tours place le point sur la courbe de pompe), paramètres (ouverture en tours, débit visé + réglage conseillé TAValveOptim, pompe, afficheur), pièges (tours hors plage refusés — vérifié : 12 et 0,1 tour refusés, plage 0,5–8 pour STAF-DN100 ; Kv non publié). Signaux exécutés : 4 attributs seulement (`delta_P`, `nb_tours`, `q`, `rho`), Kv seulement dans `df` → BUGS_LIB.md. Renvois mélange / répartition déjà présents vers `valve_3_voies`.
+- Banc : `TA_valve` au cran 5, 108 / 108, aucun recul. Build Sphinx -W : 0 warning.
+- Suivant : L6 (afficheur multi-signaux, liaisons de signal à plusieurs couples).

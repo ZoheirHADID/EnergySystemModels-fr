@@ -1005,6 +1005,25 @@ Pompe et vanne d equilibrage
 
 **Ce qu'on observe.** Point de fonctionnement : 20,18 m³/h sous 30,4 m de HMT. La vanne d'équilibrage prend 39,0 kPa. La scène est détaillée dans :doc:`../004-hydraulic/TA_valve`.
 
+**À quoi sert ce montage.** C'est le cas d'école de l'équilibrage : la pompe
+fournit une hauteur, le réseau et la vanne TA la consomment, et c'est le
+réglage de la vanne (en tours) qui place le point de fonctionnement sur la
+courbe de la pompe. Fermer la TA fait monter sa perte de charge, baisser le
+débit et remonter la HMT ; l'ouvrir fait l'inverse.
+
+**Paramètres à changer.** Dans la *Vanne TA* : l'« Ouverture (tours) » ; pour
+obtenir un débit visé, renseignez « Débit visé pour TAValveOptim » et lisez
+« Réglage conseillé par TAValveOptim (tours) ». Dans la *Pompe* : sa courbe et
+sa fréquence (:doc:`../002-thermodynamic_cycles/pompe`). L'*Afficheur* regroupe
+les grandeurs lues sur les nœuds par liaison de signal.
+
+**Pièges.** Le réglage est borné par la plage de la vanne (« Ouvertures
+admises ») : un nombre de tours hors plage est refusé. Le Kv affiché par le
+nœud **n'est pas un signal publié** : l'afficheur peut montrer ``q``,
+``delta_P`` et ``nb_tours`` de la vanne, pas son Kv (voir
+:doc:`../004-hydraulic/TA_valve`, section « Signaux publiés »).
+
+
 Valeurs affichées par les nœuds à l'ouverture (relevé automatique) :
 
 .. list-table::

@@ -1223,3 +1223,7 @@ Entrées déplacées le 28/09/2026 (lots hydraulique, facture, échangeurs/CTA, 
 - `summary()` ne recalcule que si `self.Q is None` : après `calculate()` puis `add_layer(...)`, il rend l'ancien flux (5,67 kW au lieu de 2,96 kW pour 50 mm de laine ajoutés). Attendu : recalcul systématique, ou invalidation de `Q` dans `add_layer`.
 - Conductivités `MATERIALS` et lames d'air sans source : déjà déclaré dans le docstring (dette invariant n°1).
 - Traitement dans le guide : « Pièges du calcul enchaîné » de `001-heat_transfer/composite_wall_heat_transfer.rst`.
+
+## Hydraulic.TA_Valve : le Kv au réglage n'est pas un attribut, donc pas un signal (relevé le 2026-11-24)
+- Après `calculate()`, le Kv interpolé au nombre de tours n'existe que dans `df` (ligne « Kv », 55,4 pour STAF-DN100 à 3,8 tours) ; les attributs numériques sont `delta_P`, `q`, `nb_tours`, `rho`. `list_model_signals` n'en publie donc que 4 : l'afficheur multi-signaux et les liaisons de signal de l'IHM ne peuvent pas relayer le Kv, alors que le nœud *Vanne TA* l'affiche. Attendu : un attribut (ex. `Kv`) écrit par `calculate()`.
+- Traitement dans le guide : section « Signaux publiés par la vanne d'équilibrage » de `004-hydraulic/TA_valve.rst` et pièges de la scène « Pompe et vanne d equilibrage » (`interface/scenes.rst`).
