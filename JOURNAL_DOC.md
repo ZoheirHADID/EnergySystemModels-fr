@@ -1514,3 +1514,11 @@
 - Écart relevé : le tableau de la scène « Chaine de valeur energetique » (`interface/scenes.rst`) donne 1 046 kW PCS et 95,45 % PCI ; le modèle, mêmes saisies, rend 1 057 kW et 94,45 % — relevé antérieur à une évolution de la lib, à régénérer (noté dans la ligne L6).
 - Banc : `signaux_operations` au cran 5, 108 / 108, aucun recul. Build Sphinx -W : 0 warning.
 - Suivant : régénérer le relevé de la scène « Chaine de valeur energetique », puis `detach_port` dans `ports_connexions.rst` et sections C / D / H4.
+
+## 2026-11-24 — Relevé des scènes : compléments L5 portés par le générateur ; régénération bloquée
+- Unité : `tools/scenes_exemple.py` (générateur de `interface/scenes.rst`).
+- Constat : `scenes.rst` est **générée** (« ne pas éditer à la main ») ; les compléments L5 ajoutés à la main ce jour (à quoi sert / paramètres / pièges des quatre scènes du chapitre 5) auraient été effacés à la prochaine régénération.
+- Fait : dictionnaire `COMPLEMENTS` dans le générateur, inséré après « Ce qu'on observe » ; textes repris de la page, **chiffres mesurés retirés** (24,5 / 8,3 / 3,4 m³/h : ils restent dans l'observation, conformément à la règle « aucun chiffre écrit à la main » du script).
+- Régénération tentée : refusée par le script — 14 scènes livrées par la bibliothèque n'ont pas de fiche (`SCENES`) : cycles frigorifiques 1 à 8, réducteur de pression et buses, appoint électrique spot/aFRR, départ chauffage PI adaptatif, paroi composite en réseau thermique, séries chronologiques, tuyau calorifugé. `scenes.rst` inchangée ; l'écart chaudière (1 046 → 1 057 kW) attend donc cette régénération.
+- Banc : aucune page modifiée, 108 / 108. Build : non relancé (aucun .rst touché).
+- Suivant : écrire les 14 fiches manquantes (texte « ce qu'elle montre » lu dans chaque scène + fonction d'observation sur la mesure), puis régénérer `scenes.rst` et ses SVG.

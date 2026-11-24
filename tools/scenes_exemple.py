@@ -694,6 +694,33 @@ SCENES: dict[str, tuple[str, callable]] = {
 }
 
 
+# Compléments rédigés (L5 du handbook) : à quoi sert le montage, paramètres à
+# changer, pièges. Aucun chiffre mesuré n'y figure (ils sont dans « Ce qu'on
+# observe ») ; insérés tels quels après l'observation.
+COMPLEMENTS: dict[str, str] = {
+    '3 - Hydraulique/Pompe et vanne d equilibrage.json': (
+        "**À quoi sert ce montage.** C'est le cas d'école de l'équilibrage : la pompe fournit une hauteur, le réseau et la vanne TA la consomment, et c'est le réglage de la vanne (en tours) qui place le point de fonctionnement sur la courbe de la pompe. Fermer la TA fait monter sa perte de charge, baisser le débit et remonter la HMT ; l'ouvrir fait l'inverse.\n\n"
+        "**Paramètres à changer.** Dans la *Vanne TA* : l'« Ouverture (tours) » ; pour obtenir un débit visé, renseignez « Débit visé pour TAValveOptim » et lisez « Réglage conseillé par TAValveOptim (tours) ». Dans la *Pompe* : sa courbe et sa fréquence (:doc:`../002-thermodynamic_cycles/pompe`). L'*Afficheur* regroupe les grandeurs lues sur les nœuds par liaison de signal.\n\n"
+        "**Pièges.** Le réglage est borné par la plage de la vanne (« Ouvertures admises ») : un nombre de tours hors plage est refusé. Le Kv affiché par le nœud **n'est pas un signal publié** : l'afficheur peut montrer ``q``, ``delta_P`` et ``nb_tours`` de la vanne, pas son Kv (voir :doc:`../004-hydraulic/TA_valve`, section « Signaux publiés »).\n\n"
+    ),
+    '3 - Hydraulique/Pompes/Pompes en parallele avec clapets.json': (
+        "**Pourquoi pas le double.** Une pompe ne fixe pas son débit : il se lit à l'intersection de sa courbe HMT(Q) et de la courbe du réseau, dont la perte de charge croît comme le carré du débit. Deux pompes en parallèle ajoutent leurs débits **à hauteur égale** ; or doubler le débit du réseau exigerait environ quatre fois la hauteur. Le point de fonctionnement s'établit donc plus haut sur les deux courbes, à un débit total inférieur au double. La mécanique de la courbe de pompe est décrite dans :doc:`../002-thermodynamic_cycles/pompe`.\n\n"
+        "**Paramètres à changer.** Dans chaque nœud *Pompe* (double-clic) : la courbe (« Débits courbe », « HMT courbe », « Rendements courbe ») et la « Fréquence de fonctionnement (Hz) » pour une pompe à variateur. Dans la *Vanne TA* : son ouverture, qui déplace la courbe du réseau (:doc:`../004-hydraulic/TA_valve`). Le *Clapet anti-retour* empêche une pompe arrêtée ou plus faible d'être traversée à l'envers ; son état (« État clapet ») est affiché.\n\n"
+        "**Pièges.** Deux pompes **différentes** en parallèle : la plus faible peut se retrouver contre un clapet fermé si la hauteur commune dépasse sa hauteur à débit nul — lisez son débit et l'état du clapet. Le débit saisi sur la source n'est qu'un point de départ : c'est le réseau qui le fixe. Pour afficher les grandeurs d'une pompe ailleurs dans la scène, voir les signaux publiés (``F_m3h``, ``hmt``, ``Q_pump`` en W…) dans :doc:`../002-thermodynamic_cycles/pompe`.\n\n"
+    ),
+    '3 - Hydraulique/Regulation/Vannes 2 voies - debit variable.json': (
+        "**Pourquoi le débit total chute.** Chaque vanne 2 voies est une résistance variable : en se fermant, elle diminue son Kv effectif, le débit de son terminal baisse, et comme rien ne le dérive ailleurs, le débit total de la pompe baisse aussi. La pompe remonte alors sur sa courbe : sa HMT augmente et les terminaux restés ouverts reçoivent un peu plus de pression, donc un peu plus de débit. C'est le principe du réseau à **débit variable**, celui qui permet de réduire la vitesse de la pompe quand la demande baisse.\n\n"
+        "**Paramètres à changer.** Dans chaque *Vanne générique (Kv)* : l'« Ouverture (%) », le « Coefficient Kv max » et la « Courbe d'ouverture » (logarithmique ou linéaire) ; un régulateur peut piloter l'ouverture par la socket de signal (le champ se grise alors). Dans les *Vannes TA* : la position de réglage, qui fixe la part de pression de chaque terminal (:doc:`../004-hydraulic/TA_valve`). Dans la *Pompe* : sa courbe ou sa fréquence (:doc:`../002-thermodynamic_cycles/pompe`).\n\n"
+        "**Pièges.** Une vanne réglée à 0 % n'est pas étanche dans le modèle (le Kv vaut 0,1 % du Kvs). La loi d'ouverture par défaut n'a pas de source : pour juger l'autorité d'une vanne, chargez la caractéristique du constructeur. Le ζ exporté en mode « historique » est faux dès qu'on change le Kv max ; la perte de charge, elle, est juste. Détails et signaux publiés (``Q_m3_h``, ``delta_P``, ``ouverture`` en fraction) : :doc:`../004-hydraulic/vanne_generique`.\n\n"
+    ),
+    '3 - Hydraulique/Vanne 3 voies/Montage en injection.json': (
+        "**Pourquoi le montage découple primaire et secondaire.** Chaque boucle a sa pompe : la pompe secondaire fait circuler un débit à peu près constant dans les émetteurs, quelle que soit la position de la vanne. La vanne 3 voies ne règle que la part de débit **primaire injectée** ; le reste du secondaire recircule par le bypass. La puissance livrée varie donc par la température de départ, pas par le débit des émetteurs, et les deux pompes ne se « voient » qu'à travers la vanne et le bypass.\n\n"
+        "**Paramètres à changer.** Dans la *Vanne 3 voies* : l'« Ouverture (%) », la « Caractéristique vanne », le « DN (déduit le Kvs) », et pour juger l'autorité la « ΔP branche variable (bar) » avec le « Débit design autorité » (à saisir : à 0, le calcul prend le débit maximal du nœud, pas le débit réel). Dans les deux *Pompes* : leurs courbes ; dans la *Vanne TA* : son réglage, qui équilibre la branche primaire.\n\n"
+        "**Pièges.** L'ouverture est une **commande** : la vanne ne se règle pas seule sur une température (la régulation interne a été retirée, voir :doc:`../004-hydraulic/valve_3_voies`) ; pour une régulation, reliez un régulateur à son signal d'ouverture. Le verdict de dimensionnement affiché (« Dimensionnement ») est **inversé** par rapport à son message : lisez l'autorité et le message. Signaux publiés (``alpha`` en fraction, ``opening`` en %, ``dp_valve_bar`` en bar) : même page.\n\n"
+    ),
+}
+
+
 # --------------------------------------------------------------------------- #
 # Écriture
 # --------------------------------------------------------------------------- #
@@ -765,6 +792,9 @@ def _fiche(relatif: str, m: Mesure, image: str, montre: str, observation: str) -
     L += [f"**Ouvrir.** Menu **{menu}**. À l'ouverture, la scène est calculée par le "
           f"{moteur} ; statut affiché : {statut}.", ""]
     L += [f"**Ce qu'on observe.** {observation}", ""]
+    if relatif in COMPLEMENTS:
+        L += COMPLEMENTS[relatif].rstrip().split(chr(10))
+        L.append("")
     valeurs = _valeurs_a_montrer(m)
     if valeurs:
         L += ["Valeurs affichées par les nœuds à l'ouverture (relevé automatique) :", "",
