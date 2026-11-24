@@ -1375,3 +1375,10 @@
 - Défauts de lib : `BUGS_LIB.md` (HooperMethod2K / DarbyMethod3K).
 - Banc : 95 pages au cran 5 (+1), aucun recul. Build Sphinx -W : 0 warning.
 - Suivant : `orifice.rst` (B2).
+
+## 2026-11-24 — B2 : `orifice` cran 4 -> 5
+- Unité : `004-hydraulic/orifice.rst`, modèle `Orifice` (fiche de lecture : `_zeta_thin_orifice`, `_zeta_thick_orifice`, choix du mode).
+- Fait : à quoi ça sert (formules réelles du code, pas celles du docstring), exemple exécuté (DN50, trou 25 mm, 10 m³/h : 5,66 m/s, zeta 0,2813, 4 496 Pa), table « Paramètres à personnaliser », variante d x mince/épais (épais 3,1–3,4 fois plus résistant : avertissement, le mode mince omet la ré-expansion), cas limites exécutés (aucun refusé : faute de type, L < d, beta > 1, d = 0 -> 0 Pa, d < 0), pièges.
+- Défauts de lib : `BUGS_LIB.md` (Orifice).
+- Banc : 96 pages au cran 5 (+1), aucun recul. Build Sphinx -W : 0 warning.
+- Suivant : `reduction_section.rst` (B2).
