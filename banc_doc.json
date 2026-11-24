@@ -2,9 +2,9 @@
  "version": 1,
  "pages": {
   "docs/source/001-heat_transfer/composite_wall_heat_transfer.rst": {
-   "blocs": 2,
-   "empreinte": "b0664b251dd51ab0",
-   "mesure": "2026-11-22T13:09",
+   "blocs": 4,
+   "empreinte": "514772ac6abcc8a3",
+   "mesure": "2026-11-24T11:13",
    "figures": [
     "../images/schema_mur_composite.svg"
    ],

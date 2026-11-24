@@ -1475,3 +1475,10 @@
 - Écart avec le livre : 5,2 / 8,1 % ici contre 5,3 / 8,0 % dans le livre, qui calcule depuis les rendements arrondis à 0,1 point ; aucun défaut de la bibliothèque.
 - Banc : page au cran 5 (9 blocs), 108 / 108, aucun recul. Build Sphinx -W : 0 warning.
 - Suivant : L4 (`CompositeWall`, isolation d'une enveloppe de chaudière).
+
+## 2026-11-24 — L4 : `CompositeWall`, enveloppe de chaudière
+- Unité : `001-heat_transfer/composite_wall_heat_transfer.rst` (sections ajoutées : « Fiche de lecture du modèle », « Variante exécutée : isolation d'une enveloppe de chaudière », « Pièges du calcul enchaîné »).
+- Fait : fiche de lecture (méthode Çengel ch. 3, ordre des couches extérieur -> intérieur, `parse_layers`, `summary`, réserves du docstring) ; variante exécutée Ti 180 / Te 25 °C, 50 m², he 15 / hi 20, tôle 1 mm + laine 0,04 + acier 5 mm : **valeurs du livre retrouvées à l'identique** (U 1,62 / 0,73 / 0,47 / 0,38 / 0,32 / 0,26 ; 12,6 -> 2,0 kW ; 75,4 -> 12,0 MWh/an à 6 000 h ; laine 2,50 sur 2,617 m²K/W = 95,5 % ; peau 28,9 °C à 100 mm) ; pièges exécutés (summary périmé après add_layer, parse_layers mal formé refusé).
+- Défauts de lib : `BUGS_LIB.md` (CompositeWall.summary).
+- Banc : page au cran 5 (4 blocs), 108 / 108, aucun recul. Build Sphinx -W : 0 warning.
+- Suivant : L5 (scènes hydrauliques du chapitre 5 : pompes en parallèle, V2V, injection, pompe + TA) — vérifier `interface/scenes.rst` avant d'écrire.

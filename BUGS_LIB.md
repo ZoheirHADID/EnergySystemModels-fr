@@ -1218,3 +1218,8 @@ Entrées déplacées le 28/09/2026 (lots hydraulique, facture, échangeurs/CTA, 
 - Déjà mesuré et écrit dans le code (docstring et `test_convection_naturelle_cengel.py`), remesuré par le guide sur l'exemple 9-2 de Çengel (0,6 x 0,6 m, 90 / 30 °C, e = 0) : verticale 7 535,2 W (legacy) contre 114,6 W (cengel) pour 115 W publiés ; face vers le bas 124,3 contre 64,2 W (publié 64,2). Le défaut reste `correlation='legacy'` : arbitrage (changement de résultats publiés), mais un calcul neuf par défaut est faux d'un facteur 66 pour toute plaque verticale à Ra < 1e9 (moins de ~0,65 m).
 - Face vers le haut hors domaine (Ra > 1,2e7, ex. 0,8 x 0,6 m à 60 / 25 °C) : `legacy` calcule sans avertir, `cengel` lève `OutOfRangeError` — à signaler au moins dans la voie `legacy` (invariant n°2).
 - Traitement dans le guide : avertissement, variante et pièges de `transfert_chaleur.rst` (le guide recommande `correlation='cengel'`).
+
+## HeatTransfer.CompositeWall : summary() rend un flux périmé après add_layer (relevé le 2026-11-24)
+- `summary()` ne recalcule que si `self.Q is None` : après `calculate()` puis `add_layer(...)`, il rend l'ancien flux (5,67 kW au lieu de 2,96 kW pour 50 mm de laine ajoutés). Attendu : recalcul systématique, ou invalidation de `Q` dans `add_layer`.
+- Conductivités `MATERIALS` et lames d'air sans source : déjà déclaré dans le docstring (dette invariant n°1).
+- Traitement dans le guide : « Pièges du calcul enchaîné » de `001-heat_transfer/composite_wall_heat_transfer.rst`.
