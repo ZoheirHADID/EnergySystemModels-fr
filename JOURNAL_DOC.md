@@ -1326,3 +1326,10 @@
 - Défauts de lib : `BUGS_LIB.md` (MovableFlap).
 - Banc : 88 pages au cran 5 (+1), aucun recul. Build Sphinx -W : 0 warning.
 - Suivant : `coups_de_belier.rst` (B2).
+
+## 2026-11-24 — B2 : `coups_de_belier` cran 4 -> 5
+- Unité : `004-hydraulic/coups_de_belier.rst`, fonctions `liquid_bulk_modulus`, `wave_speed`, `joukowsky_head` du module `transient` (Frelin, TI BM 4 176). La simulation de réseau reste dans `013-simulation-temporelle/coup_de_belier.rst` (renvoi, pas de doublon).
+- Fait : page « fiche » complétée : à quoi ça sert, exemple exécuté (acier DN200, 1,5 m/s : c 1 277 m/s, 195 m = 19,1 bar, 2L/c 1,57 s pour 1 000 m), table « Paramètres à personnaliser », variante matériau (acier / fonte / PVC / PEHD : 19,1 / 18,4 / 5,4 / 4,3 bar ; 2L/c 1,6 -> 6,9 s), cas limite refusé (épaisseur nulle), pièges (tube épais accepté, Joukowsky = maximum, signe de delta_V, pression de service à ajouter).
+- Défauts de lib : `BUGS_LIB.md` (transient).
+- Banc : 89 pages au cran 5 (+1), aucun recul. Build Sphinx -W : 0 warning.
+- Suivant : `dimensionnement_vannes.rst` (B2).

@@ -172,7 +172,7 @@ réelle si le modèle en a une.
   Modèles d'une même page restés sans variante propre (à reprendre si un lecteur en a besoin) :
   distributeurs DCV ; MultiEffectEvaporator, ReverseOsmosis, MSF, SprayDryer ; Absorber, Desorber,
   AmmoniaWater ; capteur solaire ; FuelCell, Reformer, Gasifier ; diagramme T-S, Merkel/Oldham, flowsheet.
-- `en cours` **B2 — `004-hydraulic`** (20 pages au cran 4 au banc du 2026-11-24 ; `TA_valve` (L1), `perte_pression_lineaire` (L2) et `clapet_volet` au cran 5 le 2026-11-24 ; 17 pages restent au cran 4).
+- `en cours` **B2 — `004-hydraulic`** (20 pages au cran 4 au banc du 2026-11-24 ; `TA_valve` (L1), `perte_pression_lineaire` (L2), `clapet_volet` et `coups_de_belier` au cran 5 le 2026-11-24 ; 16 pages restent au cran 4).
 - `fait` **B3 — `003-ahu_modules` (7 pages)** : `cta_air_neuf`, `generic_ahu` et `air_humide` cran 5 (2026-11-22) (manquent table de personnalisation + variante exécutée).
 - `fait` (mesuré cran 5 au banc le 2026-11-22) **B4 — `010-achat-energie` (10 pages)**.
 - `fait` (7 pages au cran 5 au banc le 2026-11-22) **B5 — `011-cee`** — reste éventuel : un exemple exécutable par fiche : découper par

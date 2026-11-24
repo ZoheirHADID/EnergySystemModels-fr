@@ -1126,3 +1126,8 @@ Entrées déplacées le 28/09/2026 (lots hydraulique, facture, échangeurs/CTA, 
 - `alpha_deg = 5` reçoit le zeta de 15° (11,0) et `alpha_deg = 120` celui de 90° (2,0), sans avertissement (`_lin_interp` borne aux extrémités). Pour un volet presque fermé, la perte est sous-estimée. Même chose pour `l_over_b > 10`. Attendu : refus ou avertissement hors du domaine du diagramme 4.23 (15–90°), conformément à l'invariant n°2.
 - `ValueError('flap_type invalide')` ne liste pas les trois types acceptés.
 - Traitement dans le guide : « Pièges » de `004-hydraulic/clapet_volet.rst`.
+
+## Hydraulic.transient : formule de tube mince sans garde de domaine (relevé le 2026-11-24)
+- `wave_speed(..., D_inner=0.05, wall_thickness=0.05, ...)` (épaisseur = diamètre) accepté : 1 475 m/s. La docstring déclare l'hypothèse « tube mince (e << Di) » et renvoie au tableau 1 de Frelin pour un tube épais, non implémenté. Attendu : refus ou avertissement au-delà d'un rapport e/Di à fixer depuis la source.
+- `joukowsky_head(c, delta_V=-1.5)` rend -195 m sans commentaire (dépression aval) : comportement cohérent avec le signe, à dire dans la docstring.
+- Traitement dans le guide : « Pièges » de `004-hydraulic/coups_de_belier.rst`.

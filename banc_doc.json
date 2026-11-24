@@ -671,16 +671,18 @@
    "recul": null
   },
   "docs/source/004-hydraulic/coups_de_belier.rst": {
-   "blocs": 1,
-   "empreinte": "c073a5d072fc0026",
-   "mesure": "2026-09-28T10:47",
-   "figures": [],
+   "blocs": 4,
+   "empreinte": "19eb0840dcf99ffb",
+   "mesure": "2026-11-24T02:47",
+   "figures": [
+    "../images/schema_coup_de_belier.svg"
+   ],
    "blocage": null,
-   "motif": "manque : table de personnalisation et variante exécutée",
+   "motif": "",
    "extraits": null,
-   "cran": 4,
-   "nom": "figure réelle",
-   "cran_max": 4,
+   "cran": 5,
+   "nom": "personnalisable",
+   "cran_max": 5,
    "recul": null
   },
   "docs/source/004-hydraulic/dimensionnement_vannes.rst": {
