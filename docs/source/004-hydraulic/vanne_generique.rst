@@ -225,6 +225,41 @@ Trois comportements à connaître :
   ``'aucune'``, ``'cavitation'`` ou ``'flashing'`` ;
 * un ``zeta_model`` inconnu est refusé de la même façon.
 
+Signaux publiés par la vanne
+----------------------------
+
+Dans l'IHM, l'afficheur multi-signaux et les liaisons de signal lisent les
+attributs du modèle sous la forme ``Nœud.attribut`` ; un régulateur (PID) pilote
+la vanne par l'attribut ``ouverture``. La liste exacte se lit avec
+``list_model_signals`` :
+
+.. code-block:: python
+
+    # à la suite : signaux publiés par la vanne VANNE de la variante (25 % d'ouverture)
+    from ThermodynamicCycles.Signals.Signals import list_model_signals
+
+    signaux = list_model_signals(VANNE)
+    print(len(signaux), "attributs publiables")
+    for nom in ["Q_m3_h", "Kv_effective", "delta_P", "ouverture", "Kvs"]:
+        print(f"  {nom:13s} = {signaux[nom]:.4g}")
+
+Sortie réelle :
+
+.. code-block:: text
+
+   22 attributs publiables
+     Q_m3_h        = 1.802
+     Kv_effective  = 0.7244
+     delta_P       = 6.191e+05
+     ouverture     = 0.25
+     Kvs           = 10
+
+``ouverture`` est une **fraction** (0 à 1) dans le modèle, alors que le champ du
+nœud s'affiche en pourcentage : un PID borné 0–1 se branche donc directement,
+sans facteur. ``delta_P`` est en Pa, ``Q_m3_h`` en m³/h. La scène
+« Vannes 2 voies - débit variable » (:doc:`../interface/scenes`) en emploie
+trois.
+
 Limites connues
 ---------------
 

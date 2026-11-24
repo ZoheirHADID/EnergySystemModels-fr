@@ -1488,3 +1488,10 @@
 - Fait : « Pourquoi pas le double » (intersection courbe pompe / courbe réseau, hauteur commune), paramètres à changer (champs réels du nœud Pompe : courbe, fréquence ; ouverture de la vanne TA ; état du clapet), pièges (pompes différentes contre clapet fermé, débit de source simple point de départ) ; signaux publiés : `list_model_signals` exécuté sur une pompe (36 attributs ; F_m3h 27, hmt 20,42, delta_p 2e5 Pa, eta 0,6336, Q_pump 2 367 W) avec la remarque d'unités (Q_pump en W, facteur 0,001 dans l'afficheur).
 - Banc : `pompe` au cran 5 (7 blocs), `scenes` page de prose (cran 0), 108 / 108, aucun recul. Build Sphinx -W : 0 warning.
 - Suivant : L5 (2/4) « Vannes 2 voies - débit variable ».
+
+## 2026-11-24 — L5 (2/4) : scène « Vannes 2 voies - débit variable »
+- Unité : `interface/scenes.rst` (section de la scène) et `004-hydraulic/vanne_generique.rst` (nouvelle section « Signaux publiés par la vanne »).
+- Fait : pourquoi le débit total chute et la HMT monte (résistance variable, réseau à débit variable), paramètres à changer (champs réels du nœud Vanne générique : ouverture, Kv max, courbe ; vannes TA ; pompe), pièges (vanne fermée non étanche, loi d'ouverture sans source, ζ « historique » faux après changement de Kv) ; signaux publiés exécutés (`list_model_signals` : 22 attributs ; `ouverture` en fraction 0–1, attribut piloté par un PID).
+- Écueil : premier passage au cran 2 — la page exécute ses blocs dans le même espace et `VANNE` y est redéfinie par la variante (25 % d'ouverture, Kvs 10) ; sortie publiée remplacée par la sortie réelle à cet endroit.
+- Banc : `vanne_generique` au cran 5 (4 blocs), 108 / 108, aucun recul. Build Sphinx -W : 0 warning.
+- Suivant : L5 (3/4) « Montage en injection ».

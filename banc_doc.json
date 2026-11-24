@@ -970,9 +970,9 @@
    "recul": null
   },
   "docs/source/004-hydraulic/vanne_generique.rst": {
-   "blocs": 3,
-   "empreinte": "b2179dcfcb1bce8d",
-   "mesure": "2026-09-28T11:38",
+   "blocs": 4,
+   "empreinte": "89c2540ac8df4271",
+   "mesure": "2026-11-24T12:02",
    "figures": [
     "../images/schema_generalvalve.svg",
     "../images/004_generalvalve_courbe.svg"

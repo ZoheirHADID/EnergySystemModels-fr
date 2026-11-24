@@ -1394,6 +1394,29 @@ Vannes 2 voies - debit variable
 
 **Ce qu'on observe.** Trois terminaux à vanne 2 voies ouvertes différemment : 13,4, 4,2 et 1,5 m³/h. La pompe réseau fournit la somme : 19,21 m³/h sous 28,3 m de HMT. En fermant une vanne (double-clic, onglet *Configuration*), on voit le débit total baisser et la pression monter.
 
+**Pourquoi le débit total chute.** Chaque vanne 2 voies est une résistance
+variable : en se fermant, elle diminue son Kv effectif, le débit de son terminal
+baisse, et comme rien ne le dérive ailleurs, le débit total de la pompe baisse
+aussi. La pompe remonte alors sur sa courbe : sa HMT augmente et les terminaux
+restés ouverts reçoivent un peu plus de pression, donc un peu plus de débit.
+C'est le principe du réseau à **débit variable**, celui qui permet de réduire
+la vitesse de la pompe quand la demande baisse.
+
+**Paramètres à changer.** Dans chaque *Vanne générique (Kv)* : l'« Ouverture
+(%) », le « Coefficient Kv max » et la « Courbe d'ouverture » (logarithmique ou
+linéaire) ; un régulateur peut piloter l'ouverture par la socket de signal (le
+champ se grise alors). Dans les *Vannes TA* : la position de réglage, qui fixe
+la part de pression de chaque terminal (:doc:`../004-hydraulic/TA_valve`). Dans
+la *Pompe* : sa courbe ou sa fréquence (:doc:`../002-thermodynamic_cycles/pompe`).
+
+**Pièges.** Une vanne réglée à 0 % n'est pas étanche dans le modèle (le Kv vaut
+0,1 % du Kvs). La loi d'ouverture par défaut n'a pas de source : pour juger
+l'autorité d'une vanne, chargez la caractéristique du constructeur. Le ζ exporté
+en mode « historique » est faux dès qu'on change le Kv max ; la perte de charge,
+elle, est juste. Détails et signaux publiés (``Q_m3_h``, ``delta_P``,
+``ouverture`` en fraction) : :doc:`../004-hydraulic/vanne_generique`.
+
+
 Valeurs affichées par les nœuds à l'ouverture (relevé automatique) :
 
 .. list-table::
