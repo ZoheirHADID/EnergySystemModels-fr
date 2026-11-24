@@ -879,18 +879,18 @@
    "recul": null
   },
   "docs/source/004-hydraulic/resolution_circuit.rst": {
-   "blocs": 2,
-   "empreinte": "0e170ee0a880c55a",
-   "mesure": "2026-09-28T10:57",
+   "blocs": 4,
+   "empreinte": "773758ec2ca4fa55",
+   "mesure": "2026-11-24T06:22",
    "figures": [
     "../images/schema_circuit_serie.svg"
    ],
    "blocage": null,
-   "motif": "manque : table de personnalisation et variante exécutée",
+   "motif": "",
    "extraits": null,
-   "cran": 4,
-   "nom": "figure réelle",
-   "cran_max": 4,
+   "cran": 5,
+   "nom": "personnalisable",
+   "cran_max": 5,
    "recul": null
   },
   "docs/source/004-hydraulic/serpentin.rst": {

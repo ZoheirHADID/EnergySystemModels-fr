@@ -1389,3 +1389,10 @@
 - Défauts de lib : `BUGS_LIB.md` (SuddenContraction / GradualContraction).
 - Banc : 97 pages au cran 5 (+1), aucun recul. Build Sphinx -W : 0 warning.
 - Suivant : `resolution_circuit.rst` (B2).
+
+## 2026-11-24 — B2 : `resolution_circuit` cran 4 -> 5 (solveur nodal)
+- Unité : `004-hydraulic/resolution_circuit.rst`, classe `network.HydraulicNetwork` (fiche de lecture : `add_node` / `demand`, `add_branch`, `solve`, `NetworkResult`). L'exemple « fiche à écrire » du solveur nodal est remplacé par un exemple exécuté.
+- Fait : variante exécutée « deux départs en parallèle » reliée à L1 : sans vanne 1,92 / 1,08 m³/h ; avec une vanne de Kv 3,64 (celle de `TA_valve`) 1,50 / 1,50 m³/h, le collecteur passe de 13,1 à 25,1 kPa ; table « Paramètres à personnaliser (solveur nodal) » ; deux cas refusés (branche vide, aucun nœud à pression imposée) ; pièges (converged, kg/s, deux moteurs, rebranchement).
+- Défauts de lib : aucun nouveau.
+- Banc : 98 pages au cran 5 (+1), aucun recul. Build Sphinx -W : 0 warning (un soulignement de titre trop court corrigé).
+- Suivant : `serpentin.rst` (B2).
