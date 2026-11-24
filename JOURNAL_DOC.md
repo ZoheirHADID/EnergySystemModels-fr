@@ -1382,3 +1382,10 @@
 - Défauts de lib : `BUGS_LIB.md` (Orifice).
 - Banc : 96 pages au cran 5 (+1), aucun recul. Build Sphinx -W : 0 warning.
 - Suivant : `reduction_section.rst` (B2).
+
+## 2026-11-24 — B2 : `reduction_section` cran 4 -> 5
+- Unité : `004-hydraulic/reduction_section.rst`, modèles `SuddenContraction` et `GradualContraction` (fiche de lecture : formule Idel'chik 0,5(1-n)^0,75, tableau confuseur, signe de `delta_P_static`).
+- Fait : exemple exécuté (DN100 -> DN50, 15 m³/h : zeta 0,403, perte 906 Pa, chute -3 013 Pa), table « Paramètres à personnaliser », variante brusque contre confuseur 10–180° (30° : perte divisée par 9 ; comparaison avec le diffuseur), deux cas refusés, pièges exécutés (corrélation libre pour le brusque, confuseur inversé accepté par défaut, angle nul).
+- Défauts de lib : `BUGS_LIB.md` (SuddenContraction / GradualContraction).
+- Banc : 97 pages au cran 5 (+1), aucun recul. Build Sphinx -W : 0 warning.
+- Suivant : `resolution_circuit.rst` (B2).

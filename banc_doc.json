@@ -847,20 +847,20 @@
    "recul": null
   },
   "docs/source/004-hydraulic/reduction_section.rst": {
-   "blocs": 3,
-   "empreinte": "9aa43fdc823aed15",
-   "mesure": "2026-09-28T10:57",
+   "blocs": 7,
+   "empreinte": "339f80134256538e",
+   "mesure": "2026-11-24T05:59",
    "figures": [
     "../images/assemblage_suddencontraction.svg",
-    "../images/004_suddencontraction_courbe_reseau.svg",
-    "../images/schema_gradualcontraction.svg"
+    "../images/schema_gradualcontraction.svg",
+    "../images/004_suddencontraction_courbe_reseau.svg"
    ],
    "blocage": null,
-   "motif": "manque : table de personnalisation et variante exécutée",
+   "motif": "",
    "extraits": null,
-   "cran": 4,
-   "nom": "figure réelle",
-   "cran_max": 4,
+   "cran": 5,
+   "nom": "personnalisable",
+   "cran_max": 5,
    "recul": null
   },
   "docs/source/004-hydraulic/regulateur_dp.rst": {

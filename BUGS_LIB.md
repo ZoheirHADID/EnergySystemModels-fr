@@ -1169,3 +1169,9 @@ Entrées déplacées le 28/09/2026 (lots hydraulique, facture, échangeurs/CTA, 
 - `_zeta_thin_orifice` = `0,5 (1 - beta²)² + 0,5/Re` : terme de contraction seul, sans la ré-expansion `(1 - beta²)²` que `_zeta_thick_orifice` ajoute. Mesuré (DN50, 10 m³/h) : l'orifice épais (L = 3d) sort **3,1 à 3,4 fois** plus résistant que le mince, de beta 0,3 à 0,7 ; physiquement, l'orifice à paroi mince (jet non recollé) est attendu le plus pénalisant. Le docstring annonce une formule de Hooper (`K1/Re + K_inf(1 + 1/D_in)`) que le code n'applique pas ; coefficients 0,5 / 0,5 sans `cite(...)`. À confronter aux diagrammes des diaphragmes d'Idel'chik (invariant n°4 : écrire l'écart chiffré).
 - Aucun contrôle : `d = 0` -> dP = 0 Pa (trou fermé sans perte) ; `d < 0` accepté ; `d > D1` accepté ; `orifice_type` inconnu (`'epais'`) ou `L <= d` en mode `'thick'` -> retombée silencieuse sur le mode mince.
 - Traitement dans le guide : avertissement de la variante et « Pièges » de `004-hydraulic/orifice.rst`.
+
+## Hydraulic.SuddenContraction / GradualContraction : corrélation libre, confuseur inversé accepté (relevé le 2026-11-24)
+- `SuddenContraction.correlation` : toute chaîne ne commençant pas par « hooper » donne la formule d'Idel'chik sans message (`"borda"` -> zeta 0,403, identique au défaut) ; le défaut lui-même s'écrit `"Idelcik"`. Attendu : liste fermée comme `GradualContraction.CORRELATIONS`.
+- `GradualContraction` avec la corrélation par défaut (`idelchik`, tableau) et des diamètres intervertis : zeta 0,040 accepté ; seule `idelchik_formula` contrôle `F0/F1 <= 1`.
+- `GradualContraction.angle_deg = 0` : `ZeroDivisionError` brute (même défaut que `GradualExpansion`).
+- Traitement dans le guide : « Pièges » de `004-hydraulic/reduction_section.rst`.
