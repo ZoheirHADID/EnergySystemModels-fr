@@ -1981,16 +1981,16 @@
    "recul": null
   },
   "docs/source/usage/section-6-autres.rst": {
-   "blocs": 1,
-   "empreinte": "63129c0a4d3c21d0",
-   "mesure": "2026-09-28T10:00",
+   "blocs": 2,
+   "empreinte": "892caadb6b4f06c8",
+   "mesure": "2026-11-24T10:00",
    "figures": [],
    "blocage": null,
-   "motif": "manque : table de personnalisation et variante exécutée",
+   "motif": "",
    "extraits": null,
-   "cran": 4,
-   "nom": "figure réelle",
-   "cran_max": 4,
+   "cran": 5,
+   "nom": "personnalisable",
+   "cran_max": 5,
    "recul": null
   },
   "docs/source/usage/section-6-financement-subvention.rst": {

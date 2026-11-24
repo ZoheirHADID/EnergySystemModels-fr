@@ -75,21 +75,103 @@ Imports essentiels
    from PinchAnalysis import PinchAnalysis
    from IPMVP.IPMVP import Mathematical_Models, incertitude_savings
 
-Dépendances externes
-~~~~~~~~~~~~~~~~~~~~
+Paramètres à personnaliser
+~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Le package EnergySystemModels nécessite les dépendances suivantes :
+.. list-table::
+   :header-rows: 1
+   :widths: 26 34 40
+
+   * - Besoin
+     - Paquet à importer
+     - Page du guide
+   * - Facture, TURPE, CEE
+     - ``Facture``, ``CEE``
+     - :doc:`../010-achat-energie/index`, :doc:`../011-cee/index`
+   * - Météo, DJU
+     - ``MeteoCiel``, ``OpenWeatherMap``
+     - :doc:`../008-meteo/index`
+   * - Cycles, composants à ports
+     - ``ThermodynamicCycles.<Composant>`` (classe ``Object``)
+     - :doc:`../002-thermodynamic_cycles/index`
+   * - Hydraulique
+     - ``ThermodynamicCycles.Hydraulic`` (composants) et
+       ``ThermodynamicCycles.Hydraulic.network`` (solveur nodal)
+     - :doc:`../004-hydraulic/index`
+   * - Parois, plaques, isolation
+     - ``HeatTransfer``
+     - :doc:`../001-heat_transfer/index`
+   * - CTA, air humide
+     - ``AHU``
+     - :doc:`../003-ahu_modules/index`
+   * - Pinch, IPMVP
+     - ``PinchAnalysis``, ``IPMVP``
+     - :doc:`../006-pinch_analysis/index`, :doc:`../007-ipmvp/index`
+
+Variante exécutée : vérifier une installation
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Avant un calcul, on peut vérifier que les familles dont on a besoin
+s'importent ; gardez dans ``FAMILLES`` celles qui vous concernent.
+
+.. code-block:: python
+
+    # variante : vérifier qu'une famille de modules s'importe dans votre installation
+    import importlib
+
+    FAMILLES = {                                   # gardez seulement les familles utiles
+        "Facturation": ["Facture.TURPE", "CEE.CEE"],
+        "Météo": ["MeteoCiel.DJU_costic"],
+        "Cycles": ["ThermodynamicCycles.Source", "ThermodynamicCycles.Chiller"],
+        "Transfert de chaleur": ["HeatTransfer.CompositeWall", "HeatTransfer.PlateHeatTransfer"],
+        "Hydraulique": ["ThermodynamicCycles.Hydraulic.StraightPipe",
+                        "ThermodynamicCycles.Hydraulic.network"],
+        "CTA": ["AHU.air_humide"],
+        "Pinch / IPMVP": ["PinchAnalysis", "IPMVP.IPMVP"],
+    }
+    for famille, modules in FAMILLES.items():
+        manquants = []
+        for nom in modules:
+            try:
+                importlib.import_module(nom)
+            except ImportError as erreur:
+                manquants.append(f"{nom} ({erreur.name})")
+        print(f"{famille:22s}: {'OK' if not manquants else 'manque ' + ', '.join(manquants)}")
+
+Sortie réelle :
 
 .. code-block:: text
 
-   numpy>=1.20.0
-   pandas>=1.3.0
-   matplotlib>=3.4.0
-   scipy>=1.7.0
-   pvlib>=0.9.0
-   CoolProp>=6.4.0
-   requests>=2.26.0
-   psychrolib>=2.5.0
+   Facturation           : OK
+   Météo                 : OK
+   Cycles                : OK
+   Transfert de chaleur  : OK
+   Hydraulique           : OK
+   CTA                   : OK
+   Pinch / IPMVP         : OK
+
+Pièges
+~~~~~~
+
+* **Les modules métier sont des paquets de premier niveau** : on écrit
+  ``from Facture.TURPE import …`` ; préfixer par le nom du paquet installé
+  échoue en ``ModuleNotFoundError``. La variante ci-dessus le détecte : un
+  nom de module erroné y apparaît en « manque ».
+* **Les noms de modules suivent le code, pas l'usage** : ``TA_Valve`` avec un
+  tiret bas, ``Expansion_Valve``, ``SONALGAZ`` en majuscules.
+* **Un module qui s'importe peut encore exiger le réseau** (PVGIS pour le PV,
+  MeteoCiel pour le scraping) : l'import réussi ne garantit pas le calcul hors
+  ligne.
+
+Dépendances externes
+~~~~~~~~~~~~~~~~~~~~
+
+Les dépendances déclarées dans ``setup.py`` (relevé du 24/11/2026) sont :
+``pandas`` (>= 2, < 4), ``CoolProp``, ``scipy``, ``thermo``, ``chemicals``,
+``fluids``, ``pylab-sdk``, ``matplotlib``, ``tkintertable``, ``numpy``,
+``pyqtgraph``, ``PyQt5``, ``scikit-learn``, ``beautifulsoup4``, ``tqdm``,
+``statsmodels``, ``python-docx``, ``pvlib``, ``gekko``, ``networkx``,
+``openpyxl`` et ``requests``.
 
 Installation :
 
@@ -97,10 +179,11 @@ Installation :
 
    $ pip install energysystemmodels
 
-Le paquet installe l'ensemble des dépendances ; il n'existe pas d'« extras »
-optionnels (``[pv]``, ``[hvac]``…). Certaines fonctions restent tributaires de
-dépendances lourdes ou d'un accès réseau (``pvlib`` + PVGIS pour le PV,
-``beautifulsoup4`` pour le scraping MeteoCiel).
+Deux extras optionnels existent : ``[dev]`` (``pytest``) et ``[combustion]``
+(``cantera``). L'interface graphique (``PyQt5``, ``pyqtgraph``,
+``tkintertable``) est aujourd'hui installée avec le reste, même pour un usage
+purement en script. Certaines fonctions restent tributaires d'un accès réseau
+(PVGIS pour le PV, scraping MeteoCiel).
 
 7.3. Conclusion
 ---------------
@@ -121,8 +204,7 @@ Pour plus d'informations, consultez :
 Licence
 ~~~~~~~
 
-EnergySystemModels est distribué sous licence MIT.
-
-Copyright (c) 2024 EnergySystemModels Contributors
-
-Le texte complet de la licence est livré avec le paquet installé.
+La licence n'est pas encore tranchée dans le dépôt : le fichier ``LICENSE``
+contient la GPL version 2, tandis que ``setup.py`` déclare la licence MIT
+(relevé du 24/11/2026). En cas de doute pour un usage industriel, c'est le
+fichier ``LICENSE`` qui fait foi ; renseignez-vous auprès de l'auteur.

@@ -1454,3 +1454,11 @@
 - Défauts de lib : `BUGS_LIB.md` (PlateHeatTransfer, défaut legacy).
 - Banc : 106 pages au cran 5 (+1), aucun recul. Build Sphinx -W : 0 warning.
 - Suivant : B7 `usage/section-6-autres.rst` puis `api.rst` ; ensuite L3 (b), L4, L5, L6.
+
+## 2026-11-24 — B7 : `usage/section-6-autres` cran 4 -> 5
+- Unité : `usage/section-6-autres.rst` (page d'imports et de dépendances).
+- Fait : table « Paramètres à personnaliser » (besoin -> paquet -> page) ; variante exécutée « vérifier une installation » (importlib, 7 familles OK) ; **liste de dépendances corrigée** (l'ancienne citait `psychrolib` et des versions inventées, et niait l'existence d'extras : `setup.py` déclare 22 dépendances et les extras `[dev]`, `[combustion]`) ; **licence** : la page affirmait MIT, le dépôt est contradictoire (`LICENSE` GPL-2, `setup.py` MIT) — dit tel quel.
+- Écueil banc : un cas limite montrant un faux chemin d'import (`energysystemmodels.Facture…`) est lu comme « API inexistante » (cran 1) ; bloc retiré, piège dit en texte.
+- Défauts de lib : rien de nouveau (licence et dépendances GUI déjà listées dans `CLAUDE.md` de la lib, « Hygiène du dépôt »).
+- Banc : 107 pages au cran 5 (+1), aucun recul. Build Sphinx -W : 0 warning.
+- Suivant : `api.rst` (dernier cran 4).

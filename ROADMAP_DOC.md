@@ -183,7 +183,7 @@ réelle si le modèle en a une.
 - `fait` **B6 — `001-heat_transfer`, `005-aeraulic`, `012-electrical`, `006-pinch_analysis`, `007-ipmvp`,
   `008-meteo`, `009-pv-solaire`** : toutes au cran 5 au banc du 2026-11-24 (resynchronisé : la ligne était
   restée « à faire »). `transfert_chaleur.rst` (rattaché à `001-heat_transfer`) au cran 5 le 2026-11-24.
-- `à faire` **B7 — pages transverses au cran 4** : `api.rst`, `usage/section-6-autres.rst`.
+- `en cours` **B7 — pages transverses au cran 4** : `usage/section-6-autres.rst` au cran 5 le 2026-11-24 (dépendances et licence corrigées d'après `setup.py` / `LICENSE`) ; reste `api.rst`.
 
 ### Comportements à dire au lecteur (vérifiés)
 
