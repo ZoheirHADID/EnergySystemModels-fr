@@ -1319,3 +1319,10 @@
 - Note banc : lancer avec `PYTHONIOENCODING=utf-8`, sinon l'affichage d'une ligne contenant « → » plante dans la console Windows.
 - Banc : 87 pages au cran 5 (+1), aucun recul. Build Sphinx -W : 0 warning.
 - Suivant : B2, pages `004-hydraulic` restantes au cran 4 (`clapet_volet`, `coups_de_belier`, `dimensionnement_vannes`…), ou L5 (scènes hydrauliques).
+
+## 2026-11-24 — B2 : `clapet_volet` cran 4 -> 5
+- Unité : `004-hydraulic/clapet_volet.rst`, modèle `MovableFlap` (fiche de lecture : tables Idel'chik 4.23, interpolation, contrôles).
+- Fait : la page n'était qu'une fiche (« exemple à écrire ») : ajout « À quoi ça sert », exemple exécuté (DN200, 100 m³/h d'eau, 45° : zeta 3,00, 1 171 Pa), table « Paramètres à personnaliser », variante exécutée angle 15–90° x trois types (4 293 -> 780 Pa pour un volet haut), deux cas refusés, piège exécuté (angle hors 15–90° ramené à la borne).
+- Défauts de lib : `BUGS_LIB.md` (MovableFlap).
+- Banc : 88 pages au cran 5 (+1), aucun recul. Build Sphinx -W : 0 warning.
+- Suivant : `coups_de_belier.rst` (B2).

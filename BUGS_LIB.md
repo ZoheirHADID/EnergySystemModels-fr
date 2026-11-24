@@ -1121,3 +1121,8 @@ Entrées déplacées le 28/09/2026 (lots hydraulique, facture, échangeurs/CTA, 
 - `alpha` vaut `pi/2` (tube **vertical**) par défaut. Sans effet tant que `include_static_head = False` (défaut), mais l'activer sur un tronçon dont on n'a pas saisi `alpha` ajoute `rho g L` : 250 m horizontaux deviennent 24,5 bar de colonne d'eau, et le calcul direct est refusé (« pression de sortie non physique »). Un défaut horizontal (`alpha = 0`) serait moins piégeant ; à arbitrer (changerait les scènes qui activent la hauteur statique sans saisir `alpha`).
 - Les traces `StraightPipe: P_entrée détectée … bar` (unité fausse) ne sont plus imprimées par défaut (`DEBUG_STRAIGHTPIPE = False`) : la page du guide a été remise à jour (sortie publiée périmée).
 - Traitement dans le guide : « Pièges » de `004-hydraulic/perte_pression_lineaire.rst`.
+
+## Hydraulic.MovableFlap : angle hors tableau ramené à la borne en silence (relevé le 2026-11-24)
+- `alpha_deg = 5` reçoit le zeta de 15° (11,0) et `alpha_deg = 120` celui de 90° (2,0), sans avertissement (`_lin_interp` borne aux extrémités). Pour un volet presque fermé, la perte est sous-estimée. Même chose pour `l_over_b > 10`. Attendu : refus ou avertissement hors du domaine du diagramme 4.23 (15–90°), conformément à l'invariant n°2.
+- `ValueError('flap_type invalide')` ne liste pas les trois types acceptés.
+- Traitement dans le guide : « Pièges » de `004-hydraulic/clapet_volet.rst`.
