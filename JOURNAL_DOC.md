@@ -1468,3 +1468,10 @@
 - Fait : table « deux conventions d'appel » (composants à ports : `Object()` sans argument puis attributs ; modèles à paramètres : arguments au constructeur ; fonctions ; solveur nodal), variante exécutée `inspect.signature` (PlateHeatTransfer, HydraulicNetwork.add_node, calcul_CEE), cas limite refusé (`Source.Object(fluid=...)` -> `TypeError`), pièges.
 - Banc : **108 pages au cran 5 sur 108 pages à exemples** (30 de prose / index au cran 0), aucun recul. Build Sphinx -W : 0 warning (un soulignement corrigé).
 - Suivant : section L du handbook — L3 (b) four 500 kW, puis L4 (CompositeWall), L5 (scènes hydrauliques), L6 (afficheur multi-signaux).
+
+## 2026-11-24 — L3 (b) : four 500 kW dans `ng_boiler_efficiency`
+- Unité : `002-thermodynamic_cycles/ng_boiler_efficiency.rst` (section ajoutée « Variante exécutée : récupération sur les fumées d'un four de 500 kW »), d'après le mini-cas du chapitre 6 du handbook (`git show 2190a97^:chapters/06-usages-finaux.tex`).
+- Fait : fonction `rendement(T_fumees, o2)` exécutée (50 Nm³/h, gaz du livre) : rendements 82,8 / 85,3 / 87,8 / 90,2 / 92,7 / 94,1 % **identiques au livre** ; économie de gaz à chaleur utile constante 1 − η₀/η₁ = 3,0 / 5,7 / 8,3 / 10,7 / 12,0 %, distinguée de la hausse de chaleur utile (13,7 %) — distinction que le livre a lui-même corrigée (commit 2190a97) ; excès d'air O2 3,5 -> 1,5 % : 0,8 / 1,5 / 2,5 / 5,2 / 8,1 % de 200 à 1 000 °C.
+- Écart avec le livre : 5,2 / 8,1 % ici contre 5,3 / 8,0 % dans le livre, qui calcule depuis les rendements arrondis à 0,1 point ; aucun défaut de la bibliothèque.
+- Banc : page au cran 5 (9 blocs), 108 / 108, aucun recul. Build Sphinx -W : 0 warning.
+- Suivant : L4 (`CompositeWall`, isolation d'une enveloppe de chaudière).

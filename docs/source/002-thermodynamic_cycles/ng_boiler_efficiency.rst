@@ -281,6 +281,97 @@ rendement (300 kW sur cette chaudière) ; descendre sous 2 % suppose une
 régulation O₂ et une surveillance du CO, que ce calcul ne modélise pas (la
 perte par CO reste nulle).
 
+Variante exécutée : récupération sur les fumées d'un four de 500 kW
+-------------------------------------------------------------------
+
+Même modèle et même gaz, appliqués à un four de 500 kW PCI (50 Nm³/h) dont les
+fumées sortent à 350 °C. Que rapporte un récupérateur qui les refroidit à 300,
+250, 200, 150 ou 120 °C ?
+
+.. code-block:: python
+
+    # variante : récupération sur les fumées d'un four de 500 kW
+    from ThermodynamicCycles.Combustion.NG_Boiler_Efficiency_EN1295X import NG_Boiler_Efficiency
+
+    gas = {
+        'CH4': 0.9489, 'C2H6': 0.01235, 'C3H8': 0.00935,
+        'n-C4H10': 0.00614, 'i-C5H12': 0.00162, 'n-C6H14': 0.00056,
+        'N2': 0.00839, 'CO2': 0.01269,
+    }
+
+    def rendement(T_fumees, o2=0.035):
+        b = NG_Boiler_Efficiency(gas_composition=gas, ng_flow_Nm3h=50,       # ~500 kW PCI
+                                 flue_gas_temperature_C=T_fumees, O2_measured=o2,
+                                 boiler_type='water_tube', design_useful_heat_kW=500)
+        b.calculate()
+        return b
+
+    base = rendement(350.0)
+    print(f"fumées 350 °C, O2 3,5 % : rendement PCI {base.efficiency_LHV:.1%}")
+    print("T rejet   rendement   économie de gaz   hausse de chaleur utile")
+    for T in (300, 250, 200, 150, 120):
+        r = rendement(float(T))
+        economie = 1 - base.efficiency_LHV / r.efficiency_LHV       # à chaleur utile constante
+        hausse = r.efficiency_LHV / base.efficiency_LHV - 1         # à gaz constant
+        print(f" {T:4d} °C    {r.efficiency_LHV:6.1%}        {economie:6.1%}             {hausse:6.1%}")
+
+Sortie réelle :
+
+.. code-block:: text
+
+   fumées 350 °C, O2 3,5 % : rendement PCI 82.8%
+   T rejet   rendement   économie de gaz   hausse de chaleur utile
+     300 °C     85.3%          3.0%               3.0%
+     250 °C     87.8%          5.7%               6.0%
+     200 °C     90.2%          8.3%               9.0%
+     150 °C     92.7%         10.7%              11.9%
+     120 °C     94.1%         12.0%              13.7%
+
+Lecture :
+
+* **Deux grandeurs à ne pas confondre.** À chaleur utile constante (le four
+  doit toujours fournir la même puissance), l'économie de gaz vaut
+  ``1 − η₀/η₁`` : **12,0 %** en refroidissant les fumées jusqu'à 120 °C. Le
+  rapport ``η₁/η₀ − 1`` (13,7 %) mesure autre chose : la hausse de chaleur
+  utile **à débit de gaz constant**. C'est la première qui se facture.
+* **Le gain de 15 à 25 % souvent annoncé est hors d'atteinte ici** : même à
+  120 °C, limite basse avant la condensation acide, on plafonne à 12 %. On ne
+  récupère que la chaleur sensible entre la température des fumées et celle
+  du rejet : un pourcentage annoncé sans température de rejet ne veut rien
+  dire.
+* **Réserve** : le modèle applique la norme des chaudières (EN 12952-15) avec
+  son forfait de pertes par les parois ; celles d'un four industriel sont plus
+  élevées, le rendement absolu est donc surestimé. Les **écarts** entre deux
+  températures de fumées, qui portent la conclusion, n'en dépendent pas.
+
+Le réglage de l'excès d'air, lui, ne rapporte pas la même chose selon la
+température des fumées :
+
+.. code-block:: python
+
+    # à la suite : le réglage de l'excès d'air selon la température des fumées
+    print("T fumées   O2 3,5 %   O2 1,5 %   économie de gaz")
+    for T in (200, 350, 500, 800, 1000):
+        a, b = rendement(float(T), 0.035), rendement(float(T), 0.015)
+        print(f" {T:5d} °C   {a.efficiency_LHV:6.1%}     {b.efficiency_LHV:6.1%}       "
+              f"{1 - a.efficiency_LHV / b.efficiency_LHV:5.1%}")
+
+Sortie réelle :
+
+.. code-block:: text
+
+   T fumées   O2 3,5 %   O2 1,5 %   économie de gaz
+      200 °C    90.2%      90.9%        0.8%
+      350 °C    82.8%      84.1%        1.5%
+      500 °C    75.0%      76.9%        2.5%
+      800 °C    58.6%      61.9%        5.2%
+     1000 °C    47.2%      51.3%        8.1%
+
+Les 5 à 10 % d'économie souvent annoncés pour une sonde O₂ ne se voient qu'au-
+delà de 800 °C de fumées ; sur un four à 200–400 °C, comptez 1 à 2 %. Chaque
+mètre cube d'air en excès traverse le four et sort à la température des
+fumées : ce qu'il emporte croît avec elle.
+
 Cas limite refusé : type de chaudière inconnu
 ---------------------------------------------
 
