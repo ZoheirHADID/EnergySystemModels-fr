@@ -16,6 +16,55 @@ seules données de **plaque signalétique** :
 Aucun des deux n'a de nœud dans l'interface ``PyqtSimulator`` : ils s'utilisent en
 Python.
 
+Les deux modèles, figure et fiche
+---------------------------------
+
+.. figure:: /images/schema_electrique_compensation.svg
+   :width: 100%
+   :alt: Compensation du facteur de puissance d'un moteur : la ligne, le moteur,
+         la batterie de condensateurs en dérivation et le triangle P-Q-S avec la
+         limite de facturation
+
+   Schéma produit par ``docs/schemas_electrical.py``. Bleu : ce que l'auditeur
+   relève (plaque) ; vert : ce que la bibliothèque calcule ; gris pointillé : la
+   gamme normalisée de condensateurs, jamais une valeur continue.
+
+.. figure:: /images/schema_electrique_transfo.svg
+   :width: 100%
+   :alt: Pertes d'un jeu de transformateurs : jeu de barres, appareils en
+         parallèle, pertes fer et cuivre, charge de bascule
+
+   Schéma produit par ``docs/schemas_electrical.py``. Le calcul de la charge de
+   bascule ``S*`` est un calcul **du guide** : la bibliothèque compare des cas
+   donnés, elle ne choisit pas le nombre d'appareils.
+
+.. list-table::
+   :widths: 26 34 40
+   :header-rows: 1
+
+   * - Modèle
+     - Ce que la classe calcule
+     - Ce qui reste à votre charge
+   * - ``MotorPFCompensation(I, cos_phi, U=400, cos_phi_cible=None, gamme=...)``
+     - ``P``, ``Q``, ``Q_limite`` (0,5·P par défaut), ``Qc_theorique``,
+       ``Qc_normalise`` (gamme du marché), ``Q_residuel``, ``cos_phi_nouveau``,
+       ``I_nouveau``, ``gain_courant_%``, ``gain_pertes_%``, ``conforme``
+     - Relever ``I`` et ``cos φ`` sur la plaque, choisir la tension et la gamme ;
+       les harmoniques, la résonance avec le réseau et la tenue du condensateur
+       ne sont pas modélisées
+   * - ``TransformerEnergyBalance(S_n, P0, Pcc, Ucc, I0, S_ch, n, ...)``
+     - ``taux_charge``, pertes actives (``P0`` + ``Pcc·(S_ch/(n·S_n))²``) et
+       réactives (``I0`` + ``Ucc``), énergie perdue, coût si les prix sont donnés ;
+       ``balance_transformers`` compare plusieurs cas
+     - Données de plaque, durée sous tension, prix du kWh ; la tenue thermique en
+       surcharge et le vieillissement ne sont pas évalués (surcharge = alerte)
+
+Ni ``MotorPFCompensation`` ni ``TransformerEnergyBalance`` n'a aujourd'hui de
+nœud ``PyqtSimulator`` : la figure n'emploie donc aucune icône de la palette, et
+ces deux bilans se font en Python. Le chapitre
+:doc:`../009-pv-solaire/index` montre, à côté, ce que deviennent des composants
+électriques quand ils ont un nœud et des ports (``PV.Electrique``, six nœuds).
+
 .. _electrical-motorpfcompensation:
 
 Compensation d'un moteur

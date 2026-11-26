@@ -1631,9 +1631,12 @@
   },
   "docs/source/012-electrical/index.rst": {
    "blocs": 4,
-   "empreinte": "e9d268aacb73d33d",
-   "mesure": "2026-09-28T16:08",
-   "figures": [],
+   "empreinte": "63e575af1c3d7a18",
+   "mesure": "2026-11-26T22:23",
+   "figures": [
+    "/images/schema_electrique_compensation.svg",
+    "/images/schema_electrique_transfo.svg"
+   ],
    "blocage": null,
    "motif": "",
    "extraits": null,
