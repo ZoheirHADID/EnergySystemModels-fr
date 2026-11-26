@@ -34,6 +34,7 @@ Cycles thermodynamiques
    ng_heating_value
    ng_boiler_efficiency
    chaudiere_fioul
+   chaudiere_biomasse
    chaudiere_electrique
    outils_diagrammes
    exergie

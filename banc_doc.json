@@ -114,6 +114,21 @@
    "cran_max": 5,
    "recul": null
   },
+  "docs/source/002-thermodynamic_cycles/chaudiere_biomasse.rst": {
+   "blocs": 3,
+   "empreinte": "2ec6511fb0dc4efd",
+   "mesure": "2026-11-26T06:00",
+   "figures": [
+    "../images/002_chaudiere_biomasse_bilan.svg"
+   ],
+   "blocage": null,
+   "motif": "",
+   "extraits": null,
+   "cran": 5,
+   "nom": "personnalisable",
+   "cran_max": 5,
+   "recul": null
+  },
   "docs/source/002-thermodynamic_cycles/chaudiere_electrique.rst": {
    "blocs": 2,
    "empreinte": "2f98fa1b56281c2d",
@@ -130,7 +145,7 @@
   "docs/source/002-thermodynamic_cycles/chaudiere_fioul.rst": {
    "blocs": 3,
    "empreinte": "55c34bc0a7522b4d",
-   "mesure": "2026-11-26T03:52",
+   "mesure": "2026-11-26T06:00",
    "figures": [
     "../images/002_chaudiere_fioul_bilan.svg"
    ],
