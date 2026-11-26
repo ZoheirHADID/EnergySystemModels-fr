@@ -1,0 +1,80 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="430" viewBox="0 0 960 430" role="img" aria-label="Les trois montages de la vanne 3 voies">
+<title>Les trois montages de la vanne 3 voies</title>
+<defs>
+  <marker id="fleche" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-end"><path d="M 0 0 L 10 5 L 0 10 z" fill="#1f2933"/></marker>
+  <marker id="flecheF" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-end"><path d="M 0 0 L 10 5 L 0 10 z" fill="#2f6f9f"/></marker>
+  <marker id="flecheC" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-end"><path d="M 0 0 L 10 5 L 0 10 z" fill="#c0392b"/></marker>
+</defs>
+<rect width="960" height="430" fill="#ffffff"/>
+<text x="480" y="30" text-anchor="middle" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="17" font-weight="700" fill="#1f2933">Vanne 3 voies — un seul modèle, trois montages</text>
+<text x="480" y="52" text-anchor="middle" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12.5" fill="#52606d">mode « mixing » (mélange, injection) ou « diverting » (répartition, décharge) ; les ports changent avec le mode</text>
+
+<g id="melange">
+  <text x="150" y="92" text-anchor="middle" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="14" font-weight="700" fill="#1f2933">1. Mélange (mixing)</text>
+  <text x="150" y="110" text-anchor="middle" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5" fill="#52606d">2 entrées → 1 sortie</text>
+  <line x1="28" y1="150" x2="118" y2="150" stroke="#c0392b" stroke-width="2.6" marker-end="url(#flecheC)"/>
+  <text x="28" y="140" font-family="Consolas, Courier New, monospace" font-size="11.5" fill="#c0392b">Inlet1 (chaud, réseau)</text>
+  <line x1="28" y1="228" x2="118" y2="228" stroke="#2f6f9f" stroke-width="2.6" marker-end="url(#flecheF)"/>
+  <text x="28" y="248" font-family="Consolas, Courier New, monospace" font-size="11.5" fill="#2f6f9f">Inlet2 (froid, retour)</text>
+  <circle cx="150" cy="189" r="30" fill="#f7f8fa" stroke="#1f2933" stroke-width="2"/>
+  <path d="M150 189 L132 167 M150 189 L168 167 M150 189 L150 214" stroke="#1f2933" stroke-width="2" fill="none"/>
+  <circle cx="150" cy="189" r="5" fill="#f2c14e" stroke="#1f2933" stroke-width="1.4"/>
+  <line x1="118" y1="150" x2="128" y2="166" stroke="#1f2933" stroke-width="2.2"/>
+  <line x1="118" y1="228" x2="132" y2="212" stroke="#1f2933" stroke-width="2.2"/>
+  <line x1="150" y1="219" x2="150" y2="252" stroke="#1f2933" stroke-width="2.6"/>
+  <line x1="150" y1="252" x2="205" y2="252" stroke="#1f2933" stroke-width="2.6"/>
+  <line x1="205" y1="252" x2="205" y2="300" stroke="#1f2933" stroke-width="2.6" marker-end="url(#fleche)"/>
+  <text x="216" y="332" font-family="Consolas, Courier New, monospace" font-size="11.5" fill="#1f2933">Outlet (mélange)</text>
+  <text x="30" y="302" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#52606d">débit secondaire ≈ constant,</text>
+  <text x="30" y="317" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#52606d">débit primaire variable</text>
+</g>
+
+<g id="injection">
+  <text x="410" y="92" text-anchor="middle" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="14" font-weight="700" fill="#1f2933">2. Injection</text>
+  <text x="410" y="110" text-anchor="middle" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5" fill="#52606d">2 entrées → 1 sortie (boucle secondaire)</text>
+  <line x1="288" y1="150" x2="378" y2="150" stroke="#c0392b" stroke-width="2.6" marker-end="url(#flecheC)"/>
+  <text x="288" y="140" font-family="Consolas, Courier New, monospace" font-size="11.5" fill="#c0392b">Inlet1 (primaire)</text>
+  <line x1="288" y1="228" x2="378" y2="228" stroke="#2f6f9f" stroke-width="2.6" marker-end="url(#flecheF)"/>
+  <text x="288" y="248" font-family="Consolas, Courier New, monospace" font-size="11.5" fill="#2f6f9f">Inlet2 (retour)</text>
+  <circle cx="410" cy="189" r="30" fill="#f7f8fa" stroke="#1f2933" stroke-width="2"/>
+  <path d="M410 189 L392 167 M410 189 L428 167 M410 189 L410 214" stroke="#1f2933" stroke-width="2" fill="none"/>
+  <circle cx="410" cy="189" r="5" fill="#f2c14e" stroke="#1f2933" stroke-width="1.4"/>
+  <line x1="378" y1="150" x2="388" y2="166" stroke="#1f2933" stroke-width="2.2"/>
+  <line x1="378" y1="228" x2="392" y2="212" stroke="#1f2933" stroke-width="2.2"/>
+  <line x1="410" y1="219" x2="410" y2="252" stroke="#1f2933" stroke-width="2.6"/>
+  <line x1="410" y1="252" x2="497" y2="252" stroke="#1f2933" stroke-width="2.6" marker-end="url(#fleche)"/>
+  <text x="426" y="274" font-family="Consolas, Courier New, monospace" font-size="11.5" fill="#1f2933">Outlet</text>
+  <circle cx="512" cy="252" r="13" fill="#ffffff" stroke="#1f2933" stroke-width="2"/>
+  <path d="M506 245 L520 252 L506 259 z" fill="#1f2933"/>
+  <line x1="525" y1="252" x2="565" y2="252" stroke="#1f2933" stroke-width="2.4"/>
+  <path d="M565 252 L565 150 L472 150" stroke="#1f2933" stroke-width="2.2" fill="none" stroke-dasharray="5 4"/>
+  <path d="M472 150 L484 145 L484 155 z" fill="#1f2933"/>
+  <text x="470" y="136" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#52606d">circuit secondaire (pompe dédiée)</text>
+  <text x="290" y="302" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#52606d">même topologie que le mélange,</text>
+  <text x="290" y="317" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#52606d">critère d'autorité propre</text>
+</g>
+
+<g id="repartition">
+  <text x="720" y="92" text-anchor="middle" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="14" font-weight="700" fill="#1f2933">3. Répartition / décharge (diverting)</text>
+  <text x="720" y="110" text-anchor="middle" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5" fill="#52606d">1 entrée → 2 sorties</text>
+  <line x1="598" y1="189" x2="688" y2="189" stroke="#1f2933" stroke-width="2.6" marker-end="url(#fleche)"/>
+  <text x="598" y="179" font-family="Consolas, Courier New, monospace" font-size="11.5" fill="#1f2933">Inlet (pompe)</text>
+  <circle cx="720" cy="189" r="30" fill="#f7f8fa" stroke="#1f2933" stroke-width="2"/>
+  <path d="M720 189 L702 167 M720 189 L738 167 M720 189 L720 214" stroke="#1f2933" stroke-width="2" fill="none"/>
+  <circle cx="720" cy="189" r="5" fill="#f2c14e" stroke="#1f2933" stroke-width="1.4"/>
+  <line x1="720" y1="164" x2="720" y2="150" stroke="#1f2933" stroke-width="2.2"/>
+  <line x1="720" y1="150" x2="820" y2="150" stroke="#1f2933" stroke-width="2.6" marker-end="url(#fleche)"/>
+  <text x="740" y="140" font-family="Consolas, Courier New, monospace" font-size="11.5" fill="#1f2933">Outlet1 (voie directe)</text>
+  <line x1="730" y1="206" x2="820" y2="228" stroke="#1f2933" stroke-width="2.2"/>
+  <line x1="820" y1="228" x2="880" y2="228" stroke="#2f6f9f" stroke-width="2.6" marker-end="url(#flecheF)"/>
+  <text x="740" y="250" font-family="Consolas, Courier New, monospace" font-size="11.5" fill="#2f6f9f">Outlet2 (bypass)</text>
+  <text x="600" y="302" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#52606d">débit primaire constant ; la voie directe</text>
+  <text x="600" y="317" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#52606d">reçoit ce qui n'est pas déchargé</text>
+</g>
+
+<line x1="40" y1="345" x2="920" y2="345" stroke="#d9dee3" stroke-width="1"/>
+<text x="40" y="368" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5" font-weight="700" fill="#1f2933">Perte de charge, par voie :</text>
+<text x="212" y="368" font-family="Consolas, Courier New, monospace" font-size="12" fill="#1f2933">Qv = Kvs · √(ΔPv / d)   ⇔   ΔPv = (Qv / Kvs)² · d</text>
+<text x="40" y="390" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#52606d">Le Kvs n'est pas saisi : il est déduit du DN (table DN_KVS) ; la voie de bypass vaut bypass_kvs_ratio × Kvs.</text>
+<text x="40" y="410" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#52606d">Ports : mixing = Inlet1, Inlet2, Outlet ; diverting = Inlet, Outlet1, Outlet2 ; Return_Port dans les deux modes.</text>
+</svg>

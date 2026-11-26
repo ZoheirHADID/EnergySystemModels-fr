@@ -3,6 +3,15 @@
 Vanne 3 voies
 =============
 
+.. figure:: ../images/schema_valve_3_voies.svg
+   :alt: Les trois montages de la vanne 3 voies (mélange, injection, répartition)
+   :align: center
+   :width: 100%
+
+   Les trois montages, leurs ports et la loi de perte de charge par voie. Le
+   mode change la topologie (2 entrées → 1 sortie, ou 1 entrée → 2 sorties) et
+   donc les noms des ports ; les valeurs de Kvs se déduisent du DN.
+
 La **vanne 3 voies** (``ThermodynamicCycles.Valve3Way``) modélise une vanne de
 réglage hydraulique dans ses trois montages classiques. Un **seul modèle** couvre
 les trois montages ; c'est le paramètre ``mounting`` (et le ``mode`` mixing /

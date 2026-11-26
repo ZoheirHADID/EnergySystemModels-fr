@@ -235,9 +235,9 @@
    "recul": null
   },
   "docs/source/002-thermodynamic_cycles/dessalement_evaporation.rst": {
-   "blocs": 8,
-   "empreinte": "d5d503fa530ddcc2",
-   "mesure": "2026-11-23T22:28",
+   "blocs": 7,
+   "empreinte": "5e0b7599c5d27b94",
+   "mesure": "2026-11-26T20:01",
    "figures": [],
    "blocage": null,
    "motif": "",
@@ -989,8 +989,10 @@
   "docs/source/004-hydraulic/valve_3_voies.rst": {
    "blocs": 5,
    "empreinte": "2e137f970427759f",
-   "mesure": "2026-11-24T12:24",
-   "figures": [],
+   "mesure": "2026-11-26T20:25",
+   "figures": [
+    "../images/schema_valve_3_voies.svg"
+   ],
    "blocage": null,
    "motif": "",
    "extraits": null,
