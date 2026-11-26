@@ -171,27 +171,44 @@ température de saturation de quelques degrés (``dT_lift``), de sorte qu'elle s
 directement de source chaude à ce même évaporateur. On évite la vapeur vive et le
 condenseur.
 
-Ports : ``Inlet`` (vapeur saturée à l'aspiration), ``Outlet`` (vapeur recomprimée).
+Ports : ``Inlet`` (vapeur saturée à l'aspiration) et ``Outlet`` (vapeur recomprimée) ;
+les deux portent ``fluid``, ``P``, ``h`` et ``F`` après ``calculate()``.
 
-**Modèle** — recompression **isentropique corrigée d'un rendement**, de la vapeur
-saturée à ``P_evap`` jusqu'à la saturation à :math:`T_{sat}(P_{evap}) + \Delta T_{lift}` :
+**Modèle : un composite, comme ``Chiller``.** Le MVR n'écrit aucune équation de
+thermodynamique : il **assemble deux composants existants**,
+
+.. code-block:: text
+
+    Compressor.Inlet  <-  vapeur saturée à P_evap
+    Compressor.HP     =   H de la vapeur saturée à  Tsat(P_evap) + dT_lift
+    Condenser.Inlet   <-  Compressor.Outlet      (Fluid_connect)
+    Condenser.subcooling = 0                     (liquide saturé, cas usuel)
+
+puis publie les grandeurs de procédé. La compression isentropique corrigée du
+rendement, le rendement polytropique (``eta_poly``), la détection de compression
+humide et le refus d'une consigne sous la rosée viennent donc du ``Compressor``,
+sans être réécrits.
 
 .. math::
 
-   h_3 = h_2 + \frac{h_{3s} - h_2}{\eta_{is}},\qquad
-   \dot W_{comp} = \dot m_{vap}\,(h_3 - h_2)
+   \dot W_{comp} = Q_{comp},\qquad h_{45} = h_3 - h_5,\qquad
+   \text{ratio} = \frac{h_3 - h_2}{h_{45}}
 
-où :math:`h_2` est l'enthalpie de la vapeur saturée à l'aspiration, :math:`h_{3s}` la
-compression isentropique (:math:`s_3=s_2`) à :math:`P_{dis}`. La **chaleur latente
-récupérée** au refoulement et le rapport caractéristique valent :
+où :math:`h_2` est l'enthalpie de la vapeur saturée à l'aspiration, :math:`h_3`
+celle du refoulement et :math:`h_5` celle qui sort du condenseur. Pour une vapeur
+d'aspiration saturée, :math:`h_{45} = h''(P_{dis}) - h'(P_{dis})` : la latente du
+condenseur **est** la latente à la pression de refoulement. Le ratio vaut
+**1,5 à 3 %** pour l'eau à quelques kelvins de relèvement (3 à 9 % selon Gicquel
+quand le relèvement grandit).
 
-.. math::
+Deux limites à connaître :
 
-   L_{v,dis} = h_{45},\qquad
-   \text{ratio} = \frac{h_3 - h_2}{h_{45}}\;(\approx 3\text{–}9\,\%\ \text{pour l'eau})
-
-Consommation électrique spécifique : :math:`W_{spec} = \dot W_{comp}/(\dot m_{vap}\cdot 3.6)`
-en kWhe/t.
+* **Les compresseurs de ce dépôt imposent une pression de refoulement**, pas un
+  débit. Un MVR qui doit pulser un débit donné se résout donc par la boucle de
+  vapeur complète (évaporateur → compresseur → condenseur → détente) ; imposer
+  ``F`` à l'aspiration avec du liquide ne vaporise pas.
+* ``dT_lift_degC`` est borné à **30 K** : au-delà, ce n'est plus une
+  recompression (Gicquel, ch. 17) — utiliser ``Compressor`` seul.
 
 .. list-table:: Paramètres (``__init__``)
    :header-rows: 1
@@ -202,23 +219,31 @@ en kWhe/t.
      - Description
    * - ``mdot_vapor``
      - ``None``
-     - débit de vapeur à recomprimer (kg/s)
+     - débit de vapeur à recomprimer (kg/s) — facultatif si l'amont remplit ``Inlet``
    * - ``P_evap_bar``
      - ``1.0``
      - pression à l'aspiration (évaporateur)
    * - ``dT_lift_degC``
      - ``5.5``
-     - élévation de température de saturation visée
+     - élévation de température de saturation visée (≤ 30 K)
    * - ``eta_is``
      - ``0.75``
      - rendement isentropique du compresseur
+   * - ``subcooling``
+     - ``0.0``
+     - sous-refroidissement du condenseur (K)
+   * - ``eta_poly``
+     - ``None``
+     - rendement polytropique ; s'il est donné, il remplace ``eta_is``
    * - ``fluid``
      - ``'water'``
      - fluide recomprimé
 
 Sorties principales : ``P_discharge_bar``, ``T_suction_degC``, ``dh_comp_kJ_kg``
 (h23), ``Lv_discharge_kJ_kg`` (h45), ``W_comp_kW``, ``ratio_h23_h45``,
-``W_specific_kWh_per_t``.
+``W_specific_kWh_per_t``, et — apportées par le composite — ``Q_cond_kW``,
+``T_condensation_degC``, ``Overheat_discharge_K``. Les sous-modèles restent
+accessibles (``mvr.COMP``, ``mvr.COND``) pour lire leurs propres tableaux.
 
 .. code-block:: python
 
@@ -234,6 +259,10 @@ Sorties principales : ``P_discharge_bar``, ``T_suction_degC``, ``dh_comp_kJ_kg``
     print("Refoulement  :", round(mvr.P_discharge_bar, 3), "bar")
     print("Compression  :", round(mvr.W_comp_kW, 2), "kW")
     print("h23/h45      :", round(mvr.ratio_h23_h45 * 100, 1), "%")
+    print("Latente h45  :", round(mvr.Lv_discharge_kJ_kg, 1), "kJ/kg")
+    print("Chaleur cond.:", round(mvr.Q_cond_kW, 1), "kW")
+    print("Port sortie  :", round(mvr.Outlet.P / 1e5, 3), "bar,",
+          round(mvr.Outlet.T - 273.15, 2), "degC")
 
 Sortie réelle :
 
@@ -242,6 +271,9 @@ Sortie réelle :
    Refoulement  : 1.213 bar
    Compression  : 22.36 kW
    h23/h45      : 2.0 %
+   Latente h45  : 2279.0 kJ/kg
+   Chaleur cond.: 1139.5 kW
+   Port sortie  : 1.213 bar, 122.58 degC
 
 Paramètres à personnaliser (MVR)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -307,12 +339,12 @@ Sortie réelle :
 
 .. code-block:: text
 
-   lift  3.0 K à 1 bar   : refoulement 1.112 bar,   6.8 kWhe/t, COP équivalent  92.5
-   lift  5.5 K à 1 bar   : refoulement 1.213 bar,  12.4 kWhe/t, COP équivalent  50.1
-   lift  8.0 K à 1 bar   : refoulement 1.322 bar,  18.1 kWhe/t, COP équivalent  34.3
-   lift 12.0 K à 1 bar   : refoulement 1.513 bar,  27.3 kWhe/t, COP équivalent  22.6
-   lift  5.5 K à 0.3 bar : refoulement 0.379 bar,  14.0 kWhe/t, COP équivalent  45.9
-   lift  5.5 K à 2.0 bar : refoulement 2.374 bar,  11.5 kWhe/t, COP équivalent  53.0
+   lift  3.0 K à 1 bar   : refoulement 1.112 bar,   6.8 kWhe/t, COP équivalent  93.3
+   lift  5.5 K à 1 bar   : refoulement 1.213 bar,  12.4 kWhe/t, COP équivalent  50.9
+   lift  8.0 K à 1 bar   : refoulement 1.322 bar,  18.1 kWhe/t, COP équivalent  35.1
+   lift 12.0 K à 1 bar   : refoulement 1.513 bar,  27.3 kWhe/t, COP équivalent  23.4
+   lift  5.5 K à 0.3 bar : refoulement 0.379 bar,  14.0 kWhe/t, COP équivalent  46.7
+   lift  5.5 K à 2.0 bar : refoulement 2.374 bar,  11.5 kWhe/t, COP équivalent  53.8
 
 Lecture : quadrupler le lift (3 → 12 K) multiplie la consommation par quatre.
 Ces COP sont ceux du **seul compresseur** : ils ignorent les pertes de
@@ -327,7 +359,9 @@ Cas limites refusés (MVR)
 
     from ThermodynamicCycles.MVR import MVR
 
-    for reglage in [dict(dT_lift_degC=0), dict(eta_is=1.2), dict(mdot_vapor=None)]:
+    for reglage in [dict(dT_lift_degC=0), dict(eta_is=1.2), dict(mdot_vapor=None),
+                    dict(mdot_vapor=-1.0), dict(dT_lift_degC=40.0),
+                    dict(P_evap_bar=400.0)]:
         m = MVR.Object()
         m.mdot_vapor = 1.0
         for nom, valeur in reglage.items():
@@ -341,31 +375,30 @@ Sortie réelle :
 
 .. code-block:: text
 
-   {'dT_lift_degC': 0}      refusé : MVR: dT_lift_degC doit etre > 0
-   {'eta_is': 1.2}          refusé : MVR: 0 < eta_is <= 1
-   {'mdot_vapor': None}     refusé : MVR: definir mdot_vapor (kg/s)
+   {'dT_lift_degC': 0}      refusé : MVR : dT_lift_degC doit etre > 0 (recu 0).
+   {'eta_is': 1.2}          refusé : MVR : 0 < eta_is <= 1 (recu 1.2).
+   {'mdot_vapor': None}     refusé : MVR : donner `mdot_vapor` (kg/s) ou un etat complet sur `Inlet` (fluid, P, h) ; aucun des deux n'est fourni.
+   {'mdot_vapor': -1.0}     refusé : MVR : `mdot_vapor` doit etre > 0 (recu -1.0).
+   {'dT_lift_degC': 40.0}   refusé : MVR : dT_lift_degC = 40.0 K depasse 30 K ; au-dela ce n'est plus une recompression (Gicquel ch.17 : quelques kelvins) -- utiliser `Compressor` seul.
+   {'P_evap_bar': 400.0}    refusé : MVR : `P_evap_bar` = 400.0 n'a pas de vapeur saturee pour water (au-dela du point critique ?)
 
 Pièges (MVR)
 ~~~~~~~~~~~~
 
-.. code-block:: python
+* **Débit négatif** : refusé (`mdot_vapor` doit être > 0). La version
+  précédente publiait une puissance de −44,73 kW sans rien dire.
+* **Un débit imposé ne « vaporise » pas.** Les compresseurs du dépôt imposent une
+  pression de refoulement ; donner un liquide à l'aspiration avec `F` ne rend que
+  quelques watts. Le débit d'un MVR se règle par la boucle de vapeur complète
+  (évaporateur → compresseur → condenseur → détente).
+* **Pression hors domaine** : `P_evap_bar` au-delà du point critique n'a pas de
+  vapeur saturée, le modèle refuse au lieu de laisser CoolProp échouer.
+* **Lift trop grand** : au-delà de 30 K, ce n'est plus une recompression
+  (Gicquel, ch. 17) — utiliser `Compressor` seul.
+* **La latente dépend de la pression de refoulement** : 2 279 kJ/kg à 1 bar, et
+  non 2 243 ; l'écart de 1,6 % vient de la surchauffe réelle du refoulement, que
+  le condenseur évacue aussi.
 
-    from ThermodynamicCycles.MVR import MVR
-
-    m = MVR.Object()
-    m.mdot_vapor = -1.0              # débit négatif : accepté
-    m.calculate()
-    print("W_comp :", round(m.W_comp_kW, 2), "kW")
-    print("ports  : Outlet.P =", m.Outlet.P, "; Outlet.h =", m.Outlet.h)
-
-Sortie réelle :
-
-.. code-block:: text
-
-   W_comp : -44.73 kW
-   ports  : Outlet.P = None ; Outlet.h = None
-
-* **Un débit négatif n'est pas refusé** et rend une puissance négative.
 * **Les ports ne portent que le débit** : ``Outlet.P`` et ``Outlet.h`` restent
   vides, le modèle ne se chaîne donc pas à un autre composant par
   ``Fluid_connect``. Lisez les attributs (``P_discharge_bar``,
