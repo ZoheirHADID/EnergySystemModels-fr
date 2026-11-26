@@ -97,8 +97,13 @@ page par page.
     `SystemModel`, solveurs, planification — `src/energysystemmodels/`), seuls ses
     sous-modules métier n'existent pas. Les notes « ce paquet n'existe pas » de
     `section-1`, `section-3` et `section-6-autres` corrigées le 2026-09-28.
-  - `à faire` **E-noyau** : documenter l'API `energysystemmodels` (SystemModel,
-    solveurs) — module réel sans page.
+  - `fait` (2026-11-26, cran 5, 5 blocs) **E-noyau** : `docs/source/noyau_calcul.rst`
+    (« Calcul sans interface — `energysystemmodels.service` », rubrique Référence) :
+    fiche de lecture (`solve`, `parse_model`, `capabilities`, `SystemModel`,
+    `ServiceError` et ses 4 codes), scène « Pompe et vanne d'équilibrage » calculée
+    (20,18 m³/h, 30,38 m, 39,0 kPa), variante tronçon décrit à la main (234 726 Pa en
+    DN100, accord 0,01 % avec `StraightPipe`), 6 cas limites, pièges (m³/h converti à
+    1 000 kg/m³ → `BUGS_LIB.md`). Reste éventuel : solveurs aérauliques, planification.
   - `fait` `section-5-usages-finaux.rst` (2026-09-28) : aiguillage vers 003, 006,
     007. `RC_Model` / `RC_Model_Advanced` remplacés par le **vrai** modèle
     `AHU.Building.BuildingRC` (deux nœuds `T_int`, `T_mur`) ; `GenericAHU`

@@ -6,6 +6,24 @@
 > dépôt source. Une entrée se **retire** dès qu'une exécution montre qu'elle est
 > corrigée.
 
+## `energysystemmodels.service` (solveur nodal) — débit de source en m³/h converti à 1 000 kg/m³ quelle que soit la température
+
+Constaté le 2026-11-25 (page `docs/source/noyau_calcul.rst`, section « Pièges »).
+`adapters/nodal_network.py:142-151`, `_source_mass_flow` : `m3/h` → `value * 1000 / 3600`,
+`m3/s` → `value * 1000`, sans lire la masse volumique du fluide de la source (`t`,
+`choice_fluid`). Le modèle `Source` objet, lui, convertit avec la masse volumique réelle.
+
+```python
+# tronçon 90 m³/h, DN125, 250 m, acier du commerce (cf. noyau_calcul.rst, fonction troncon)
+service.solve(troncon(90.0, 125, t_degC=80.0))
+# tube : mass_flow 25,000 kg/s, dP 70 714 Pa
+# attendu (ρ = 971,8 kg/m³ à 80 °C) : 24,30 kg/s ; Source + StraightPipe objets : 66 890 Pa
+```
+
+Effet : à 80 °C, 92,6 m³/h réels injectés au lieu de 90, perte de charge +5,7 % ; l'écart
+croît avec l'eau glycolée. Contournement dit au lecteur : saisir le débit en kg/s.
+Correction attendue : convertir avec `rho(fluide, T, P)` de la source.
+
 ## `ThermodynamicCycles.Chiller` — fluide sec à rendement élevé : refoulement à la saturation exacte, CoolProp refuse
 
 Constaté le 2026-11-21 (handbook, itération 62). Avec un fluide « sec » (R245fa) et

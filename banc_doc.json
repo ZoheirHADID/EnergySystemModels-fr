@@ -1859,6 +1859,19 @@
    "cran_max": 0,
    "recul": null
   },
+  "docs/source/noyau_calcul.rst": {
+   "blocs": 5,
+   "empreinte": "00e2904b443b37a1",
+   "mesure": "2026-11-26T01:45",
+   "figures": [],
+   "blocage": null,
+   "motif": "",
+   "extraits": null,
+   "cran": 5,
+   "nom": "personnalisable",
+   "cran_max": 5,
+   "recul": null
+  },
   "docs/source/ports_connexions.rst": {
    "blocs": 10,
    "empreinte": "1c964adc4645fda2",

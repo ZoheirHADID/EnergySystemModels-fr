@@ -111,5 +111,6 @@ Table des matières
    :titlesonly:
 
    api
+   noyau_calcul
    nomenclature
    contributing
