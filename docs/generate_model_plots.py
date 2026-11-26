@@ -389,6 +389,37 @@ def generate_fuel_oil_boiler_plot() -> None:
     plt.close("all")
 
 
+def generate_solid_fuel_boiler_plot() -> None:
+    """Bilan PCS de la chaudière biomasse, par sa propre méthode ``plot()``.
+
+    Même cas que l'exemple nominal de ``002-thermodynamic_cycles/chaudiere_biomasse.rst``
+    (cas fourni avec le classeur Veolia, 100 MW, plaquette à 30 % d'humidité).
+    """
+    from ThermodynamicCycles.Combustion.SolidFuel_Boiler_Efficiency_EN1295X import (
+        SolidFuel_Boiler_Efficiency,
+    )
+
+    b = SolidFuel_Boiler_Efficiency(
+        fuel_composition_dry={"C": 0.461985, "H": 0.06175, "O": 0.4184275, "N": 0.00665,
+                              "S": 0.00076, "Cl": 0.00038, "F": 0.0000475, "ash": 0.05},
+        fuel_moisture=0.30, fuel_LHV_ar_kJ_kg=12000,
+        fuel_temperature_C=25, fuel_cp_daf_kJ_kgK=1.03,
+        flue_gas_temperature_C=40, O2_measured=0.03415, O2_basis="dry", CO_mg_Nm3_dry=100,
+        ambient_temperature_C=25, ambient_RH=0.6,
+        air_streams=[(0.40, 70), (0.5615, 70), (0.0385, 70)],
+        ash_split={"bottom": 0.15, "under_exchanger": 0.10, "fly": 0.75},
+        ash_unburned={"bottom": 0.01, "under_exchanger": 0.06, "fly": 0.06},
+        ash_temperature_C={"bottom": 830, "under_exchanger": 200},
+        radiation_constant="water_tube_brown_coal_fluidized_bed",
+        design_useful_heat_kW=100000, useful_heat_kW=87362.88, blowdown_heat_kW=433.73,
+    )
+    b.calculate()
+    plt.close("all")
+    fig, _ = b.plot(basis="PCS", show=False)
+    fig.savefig(IMAGES / "002_chaudiere_biomasse_bilan.svg", format="svg", bbox_inches="tight")
+    plt.close("all")
+
+
 def main() -> None:
     IMAGES.mkdir(parents=True, exist_ok=True)
     generate_chiller_plots()
@@ -396,6 +427,7 @@ def main() -> None:
     generate_hydraulic_singularity_plots()
     generate_general_valve_plot()
     generate_fuel_oil_boiler_plot()
+    generate_solid_fuel_boiler_plot()
     print("generated real model plots")
 
 

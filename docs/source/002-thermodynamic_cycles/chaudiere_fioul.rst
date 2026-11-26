@@ -322,6 +322,8 @@ Voir aussi
 
 * :doc:`ng_boiler_efficiency` — même méthode pour une chaudière gaz naturel,
   avec récupération sur fumées et réglage d'excès d'air ;
+* :doc:`chaudiere_biomasse` — le modèle parent, pour le bois et le charbon
+  (humidité, cendres, imbrûlés) ;
 * :doc:`ng_heating_value` — PCI / PCS d'un gaz ;
 * :doc:`../ports_connexions` — les ports eau et fumées (``FluidPort``, mélange de
   gaz humide).
