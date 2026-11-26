@@ -152,6 +152,16 @@ def _code_sorties(exemples):
     return IMPORTS + "\n" + "\n".join(appels) + "\n"
 
 
+def _periode(info):
+    """Période de validité d'une fiche, telle que la publie le catalogue.
+
+    Rend (début, fin) en JJ/MM/AAAA. Sans début connu : « — ». Sans fin
+    connue (aucune abrogation publiée) : «  » et l'appelant écrit « sans fin
+    connue ».
+    """
+    return _fr(info["date_debut"]) or "—", _fr(info["date_fin"])
+
+
 def table_synthese(secteurs, exemples):
     """Un seul tableau par page : une ligne par fiche.
 
@@ -177,6 +187,7 @@ def table_synthese(secteurs, exemples):
         versions = CEE.VERSIONS_MULTIPLES.get(code) or (
             CEE.VERSIONS_CODEES.get(code),)
         versions = ", ".join(v for v in versions if v) or "non renseignée"
+        debut, fin = _periode(info)
         lignes.append((
             "``%s``" % code,
             info["titre"],
@@ -185,7 +196,8 @@ def table_synthese(secteurs, exemples):
             sortie.strip().replace(" MWh cumac", ""),
             ", ".join("``%s``" % p for p in signature(code)) or "aucun",
             versions,
-            _fr(info["date_fin"]) or "sans fin connue",
+            debut,
+            fin or "sans fin connue",
         ))
     # fiches du secteur sans ligne : nommées, avec leurs paramètres, plutôt
     # qu'omises en silence.
@@ -193,17 +205,52 @@ def table_synthese(secteurs, exemples):
              if c in CEE.FICHE_REGISTRY and fiches[c]["secteur"] in secteurs
              and c not in vues]
     out = [".. list-table::", "   :header-rows: 1",
-           "   :widths: 12 26 14 16 8 30 9 9",
+           "   :widths: 12 24 13 15 8 28 9 9 9",
            "", "   * - Fiche", "     - Intitulé", "     - Paramètre traité",
            "     - Appel de référence", "     - Sortie (MWh cumac)",
            "     - Paramètres de la fonction", "     - Version codée",
-           "     - Engagée jusqu'au"]
-    for code, intitule, param, appel, sortie, params, versions, fin in lignes:
+           "     - Valable du", "     - au"]
+    for code, intitule, param, appel, sortie, params, versions, debut, fin \
+            in lignes:
         out += ["   * - %s" % code, "     - %s" % intitule,
                 "     - %s" % param, "     - %s" % appel,
                 "     - %s" % sortie, "     - %s" % params,
-                "     - %s" % versions, "     - %s" % fin]
+                "     - %s" % versions, "     - %s" % debut,
+                "     - %s" % fin]
     return "\n".join(out) + "\n", len(lignes), reste
+
+
+def table_dates(secteurs):
+    """Tableau des périodes de validité des fiches **en vigueur** d'un secteur.
+
+    Une ligne par fiche : code, intitulé, version codée, début et fin de
+    validité, triées par fin (les fiches qui ne s'arrêtent pas en dernier).
+    Les 214 fiches codées des six secteurs passent par cette fonction une fois
+    chacune — l'union des appels couvre donc toute la page d'accueil, et le
+    tableau est exhaustif par construction.
+    """
+    if isinstance(secteurs, str):
+        secteurs = (secteurs,)
+    fiches = validite.catalogue()["fiches"]
+    lignes = []
+    for code in validite.fiches_applicables(DATE):
+        info = fiches[code]
+        if info["secteur"] not in secteurs or code not in CEE.FICHE_REGISTRY:
+            continue
+        versions = CEE.VERSIONS_MULTIPLES.get(code) or (
+            CEE.VERSIONS_CODEES.get(code),)
+        versions = ", ".join(v for v in versions if v) or "non renseignée"
+        debut, fin = _periode(info)
+        lignes.append((debut, fin, code, info["titre"], versions))
+    lignes.sort(key=lambda l: (l[1] == "", l[1] or "", l[2]))
+    out = [".. list-table::", "   :header-rows: 1", "   :widths: 12 46 11 11 11",
+           "", "   * - Fiche", "     - Intitulé", "     - Version codée",
+           "     - Valable du", "     - au"]
+    for debut, fin, code, intitule, versions in lignes:
+        out += ["   * - ``%s``" % code, "     - %s" % intitule,
+                "     - %s" % versions, "     - %s" % debut,
+                "     - %s" % (fin or "sans fin connue")]
+    return "\n".join(out) + "\n", len(lignes)
 
 
 def page(nom, entete, sections, reference=None, synthese=None):
@@ -895,6 +942,18 @@ def generer():
     codees = [c for c in en_vigueur if c in CEE.FICHE_REGISTRY]
 
     # ------------------------------------------------------------------ index
+    groupes = (("Résidentiel", ("Résidentiel",)),
+               ("Tertiaire", ("Tertiaire",)),
+               ("Industrie", ("Industrie",)),
+               ("Agriculture", ("Agriculture",)),
+               ("Réseaux et transport", ("Réseaux", "Transport")))
+    tables, n_total = [], 0
+    for titre_groupe, secteurs in groupes:
+        table, n = table_dates(secteurs)
+        assert n, "aucune fiche pour %s" % titre_groupe
+        n_total += n
+        tables.append("**%s** — %d fiches.\n\n%s" % (titre_groupe, n, table))
+    assert n_total == len(codees), (n_total, len(codees))
     (DOSSIER / "index.rst").write_text(textwrap.dedent("""\
         .. _cee:
 
@@ -918,8 +977,26 @@ def generer():
            tertiaire
            agriculture
            reseaux_transport
+
+        Validité des fiches en vigueur
+        ==============================
+
+        Les {n_codees} fiches calculées, avec la version dont les coefficients le
+        sont et leur **période de validité** : une opération n'ouvre droit à
+        certificats que si elle est **engagée** (devis accepté ou commande
+        signée) entre le premier et le dernier jour indiqués. Une fin sans date
+        signifie qu'aucune abrogation n'est publiée : la fiche vaut sans limite
+        connue. Le détail des règles — calcul hors période, changement de
+        version — est dans :doc:`date_validite`.
+
+        {tables}
+
+        Les 277 fiches publiées depuis 2015, y compris les abrogées, sont
+        listées par :func:`CEE.validite.validite_fiche` ; ce tableau ne retient
+        que celles qui s'appliquent au {date}.
         """).format(n_codees=len(codees), n_vigueur=len(en_vigueur),
-                    date=_fr(DATE), n_cat=len(fiches)), encoding="utf-8")
+                    date=_fr(DATE), n_cat=len(fiches),
+                    tables="\n".join(tables)), encoding="utf-8")
 
     # --------------------------------------------------------------- principe
     page("principe", """

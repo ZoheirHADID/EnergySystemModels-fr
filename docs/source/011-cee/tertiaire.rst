@@ -140,7 +140,7 @@ Sortie réelle :
 
 .. list-table::
    :header-rows: 1
-   :widths: 12 26 14 16 8 30 9 9
+   :widths: 12 24 13 15 8 28 9 9 9
 
    * - Fiche
      - Intitulé
@@ -149,7 +149,8 @@ Sortie réelle :
      - Sortie (MWh cumac)
      - Paramètres de la fonction
      - Version codée
-     - Engagée jusqu'au
+     - Valable du
+     - au
    * - ``BAT-EN-101``
      - Isolation de combles ou de toitures
      - ``surface``
@@ -157,6 +158,7 @@ Sortie réelle :
      - 1 248.0
      - ``surface``, ``zone``, ``departement``, ``secteur_activite``
      - A33-3, A64-4
+     - 01/01/2015
      - 30/04/2027
    * - ``BAT-EN-102``
      - Isolation des murs
@@ -165,6 +167,7 @@ Sortie réelle :
      - 1 152.0
      - ``surface``, ``zone``, ``departement``, ``energie_chauffage``, ``secteur_activite``
      - A27-2, A64-3
+     - 01/01/2015
      - 30/04/2027
    * - ``BAT-EN-103``
      - Isolation d’un plancher
@@ -173,6 +176,7 @@ Sortie réelle :
      - 1 248.0
      - ``surface``, ``zone``, ``departement``, ``secteur_activite``
      - A33-3, A64-4
+     - 01/01/2015
      - 30/04/2027
    * - ``BAT-EN-104``
      - Fenêtre ou porte-fenêtre complète avec vitrage isolant
@@ -181,6 +185,7 @@ Sortie réelle :
      - 1 272.0
      - ``surface``, ``zone``, ``departement``, ``secteur_activite``, ``energie_chauffage``
      - A27-2, A54-3
+     - 01/01/2015
      - 30/06/2028
    * - ``BAT-EN-106``
      - Isolation de combles ou de toitures (France d’outre-mer)
@@ -189,6 +194,7 @@ Sortie réelle :
      - 560.0
      - ``surface``, ``secteur_activite``, ``batiment``
      - A33-2, A64-3
+     - 22/12/2015
      - 30/04/2027
    * - ``BAT-EN-107``
      - Isolation des toitures terrasses
@@ -197,6 +203,7 @@ Sortie réelle :
      - 672.0
      - ``surface``, ``zone``, ``departement``, ``energie_chauffage``, ``secteur_activite``
      - A27-2, A64-3
+     - 01/01/2015
      - 30/04/2027
    * - ``BAT-EN-108``
      - Isolation des murs (France d’outre-mer)
@@ -205,6 +212,7 @@ Sortie réelle :
      - 368.0
      - ``surface``, ``secteur_activite``, ``batiment``
      - A19-1
+     - 22/12/2015
      - sans fin connue
    * - ``BAT-EN-109``
      - Réduction des apports solaires par la toiture (France d'outre mer)
@@ -213,6 +221,7 @@ Sortie réelle :
      - 480.0
      - ``surface``, ``secteur_activite``, ``batiment``, ``territoire``
      - A24-1
+     - 14/12/2016
      - sans fin connue
    * - ``BAT-EN-110``
      - Protections des baies contre le rayonnement solaire (France d’outre-mer)
@@ -221,6 +230,7 @@ Sortie réelle :
      - 440.0
      - ``surface``, ``facteur_solaire``, ``batiment``, ``secteur_activite``, ``territoire``
      - A25-1
+     - 02/03/2017
      - sans fin connue
    * - ``BAT-EN-111``
      - Fenêtre ou porte-fenêtre complète avec vitrage pariétodynamique (France métropolitaine)
@@ -229,6 +239,7 @@ Sortie réelle :
      - 1 320.0
      - ``surface``, ``zone``, ``departement``, ``secteur_activite``
      - A38-1
+     - 31/07/2021
      - sans fin connue
    * - ``BAT-EN-112``
      - Revêtements réflectifs en toiture
@@ -237,6 +248,7 @@ Sortie réelle :
      - 64.0
      - ``surface``, ``zone``, ``departement``
      - A38-1
+     - 31/07/2021
      - sans fin connue
    * - ``BAT-EN-113``
      - Façade rideau ou semi-rideau avec vitrage isolant
@@ -245,6 +257,7 @@ Sortie réelle :
      - 1 416.0
      - ``surface``, ``zone``, ``departement``, ``secteur_activite``
      - A54-1
+     - 01/10/2023
      - 30/09/2028
    * - ``BAT-EQ-117``
      - Installation frigorifique utilisant du CO2 subcritique ou transcritique
@@ -253,6 +266,7 @@ Sortie réelle :
      - 730.0
      - ``cas``, ``puissance_positive``, ``puissance_negative``, ``option``, ``regime_sature``
      - A40-2
+     - 14/12/2016
      - 31/03/2027
    * - ``BAT-EQ-123``
      - Moto-variateur synchrone à aimants permanents ou à reluctance
@@ -261,6 +275,7 @@ Sortie réelle :
      - 1 370.0
      - ``puissance_nominale``, ``application``
      - A25-2
+     - 02/06/2016
      - sans fin connue
    * - ``BAT-EQ-124``
      - Fermeture des meubles frigorifiques de vente à température positive
@@ -269,6 +284,7 @@ Sortie réelle :
      - 512.0
      - ``longueur``
      - A15-1
+     - 20/03/2015
      - sans fin connue
    * - ``BAT-EQ-125``
      - Fermeture des meubles frigorifiques de vente à température négative
@@ -277,6 +293,7 @@ Sortie réelle :
      - 134.0
      - ``longueur``, ``type_meuble``
      - A22-1
+     - 02/06/2016
      - sans fin connue
    * - ``BAT-EQ-129``
      - Lanterneaux d’éclairage zénithal (France Métropolitaine)
@@ -285,6 +302,7 @@ Sortie réelle :
      - 3 800.0
      - ``surface``, ``zone``, ``departement``, ``secteur_activite``
      - A26-1
+     - 26/07/2017
      - sans fin connue
    * - ``BAT-EQ-130``
      - Système de condensation frigorifique à haute efficacité
@@ -293,6 +311,7 @@ Sortie réelle :
      - 50.0
      - ``puissance_nominale``, ``systeme``, ``delta_t``, ``application``
      - A22-1
+     - 02/06/2016
      - sans fin connue
    * - ``BAT-EQ-131``
      - Conduits de lumière naturelle
@@ -301,6 +320,7 @@ Sortie réelle :
      - 8 550.0
      - ``surface``, ``secteur_activite``, ``localisation``
      - A15-1
+     - 20/03/2015
      - sans fin connue
    * - ``BAT-EQ-134``
      - Meuble frigorifique de vente performant avec groupe de production de froid intégré
@@ -309,6 +329,7 @@ Sortie réelle :
      - 876.0
      - ``longueur``, ``classe_energetique``, ``type_meuble``
      - A58-2
+     - 29/12/2021
      - 31/12/2028
    * - ``BAT-EQ-135``
      - Dispositif performant d’alimentation sans interruption
@@ -317,6 +338,7 @@ Sortie réelle :
      - 465.0
      - ``puissance_nominale``
      - A65-2
+     - 31/08/2024
      - 31/07/2029
    * - ``BAT-SE-103``
      - Réglage des organes d’équilibrage d’une installation de chauffage à eau chaude
@@ -325,6 +347,7 @@ Sortie réelle :
      - 48.0
      - ``surface``, ``zone``, ``departement``
      - A19-1
+     - 22/12/2015
      - sans fin connue
    * - ``BAT-SE-104``
      - Contrat de performance énergétique Services (CPE Services) Chauffage
@@ -333,6 +356,7 @@ Sortie réelle :
      - 17.4
      - ``surface``, ``duree_garantie``, ``zone``, ``departement``, ``postes``, ``secteur_activite``
      - A31-1
+     - 31/07/2019
      - sans fin connue
    * - ``BAT-SE-105``
      - Abaissement de la température de retour vers un réseau de chaleur
@@ -341,6 +365,7 @@ Sortie réelle :
      - 62.4
      - ``surface``, ``zone``, ``departement``, ``secteur_activite``
      - A32-1
+     - 10/01/2020
      - sans fin connue
    * - ``BAT-TH-103``
      - Plancher chauffant hydraulique à basse température
@@ -349,6 +374,7 @@ Sortie réelle :
      - 100.8
      - ``surface``, ``zone``, ``departement``, ``secteur_activite``
      - A31-2
+     - 31/07/2015
      - sans fin connue
    * - ``BAT-TH-105``
      - Radiateur basse température pour un chauffage central
@@ -357,6 +383,7 @@ Sortie réelle :
      - 26.9
      - ``surface``, ``zone``, ``departement``, ``secteur_activite``
      - A32-2
+     - 29/06/2015
      - sans fin connue
    * - ``BAT-TH-108``
      - Système de régulation par programmation d’intermittence
@@ -365,6 +392,7 @@ Sortie réelle :
      - 29.0
      - ``surface``, ``zone``, ``departement``, ``secteur_activite``, ``energie_chauffage``
      - A22-1
+     - 02/06/2016
      - sans fin connue
    * - ``BAT-TH-109``
      - Optimiseur de relance en chauffage collectif comprenant une fonction auto-adaptative
@@ -373,6 +401,7 @@ Sortie réelle :
      - 30.4
      - ``surface``, ``zone``, ``departement``, ``secteur_activite``
      - A31-2, A54-3
+     - 02/06/2016
      - 30/06/2028
    * - ``BAT-TH-110``
      - Récupérateur de chaleur à condensation
@@ -381,6 +410,7 @@ Sortie réelle :
      - 57.6
      - ``surface``, ``usage``, ``zone``, ``departement``, ``secteur_activite``, ``coefficient_r``, ``puissance_equipee``, ``puissance_chaufferie``
      - A15-1
+     - 20/03/2015
      - sans fin connue
    * - ``BAT-TH-111``
      - Chauffe-eau solaire collectif (France métropolitaine)
@@ -389,6 +419,7 @@ Sortie réelle :
      - 980.0
      - ``besoin_annuel``, ``taux_couverture``, ``production_solaire_utile``
      - A17-1
+     - 31/07/2015
      - sans fin connue
    * - ``BAT-TH-112``
      - Système de variation électronique de vitesse sur un moteur asynchrone
@@ -397,6 +428,7 @@ Sortie réelle :
      - 99.0
      - ``puissance_nominale``, ``application``
      - A22-2
+     - 01/01/2015
      - sans fin connue
    * - ``BAT-TH-115``
      - Climatiseur performant (France d'outre mer)
@@ -405,6 +437,7 @@ Sortie réelle :
      - 2.6
      - ``secteur_activite``, ``classe_energetique``, ``puissance_frigorifique``, ``puissance_btu``
      - A15-2
+     - 01/01/2015
      - sans fin connue
    * - ``BAT-TH-116``
      - Système de gestion technique du bâtiment pour le chauffage, l’eau chaude sanitaire, le refroidissement / climatisation, l’éclairage et les auxiliaires
@@ -413,6 +446,7 @@ Sortie réelle :
      - 158.4
      - ``surfaces``, ``classe``, ``zone``, ``departement``, ``secteur_activite``
      - A38-3, A59-5, A62-6
+     - 20/03/2015
      - 31/12/2029
    * - ``BAT-TH-121``
      - Chauffe-eau solaire (France d'outre mer)
@@ -421,6 +455,7 @@ Sortie réelle :
      - 516.0
      - ``besoin_annuel``, ``taux_couverture``, ``type_chauffe_eau``
      - A35-3
+     - 01/01/2015
      - sans fin connue
    * - ``BAT-TH-122``
      - Programmateur d’intermittence pour la climatisation (France d’outre-mer)
@@ -429,6 +464,7 @@ Sortie réelle :
      - 224.0
      - ``surface``, ``secteur_activite``
      - A22-1
+     - 02/06/2016
      - sans fin connue
    * - ``BAT-TH-125``
      - Ventilation mécanique simple flux à débit d’air constant ou modulé
@@ -437,6 +473,7 @@ Sortie réelle :
      - 64.0
      - ``surface``, ``type_ventilation``, ``zone``, ``departement``, ``secteur_activite``
      - A32-2
+     - 31/07/2015
      - sans fin connue
    * - ``BAT-TH-126``
      - Ventilation mécanique double flux avec échangeur à débit d’air constant ou modulé
@@ -445,6 +482,7 @@ Sortie réelle :
      - 163.2
      - ``surface``, ``type_ventilation``, ``zone``, ``departement``, ``secteur_activite``
      - A32-2
+     - 31/07/2015
      - sans fin connue
    * - ``BAT-TH-127``
      - Raccordement d'un bâtiment tertiaire à un réseau de chaleur
@@ -453,6 +491,7 @@ Sortie réelle :
      - 211.2
      - ``surface``, ``puissance_souscrite``, ``zone``, ``departement``, ``secteur_activite``, ``usage``
      - A79-5
+     - 31/07/2015
      - 31/12/2030
    * - ``BAT-TH-134``
      - Système de régulation sur un groupe de production de froid permettant d’avoir une haute pression flottante (France métropolitaine)
@@ -461,6 +500,7 @@ Sortie réelle :
      - 200.0
      - ``puissance_nominale``, ``application``, ``condensation``, ``zone``, ``departement``
      - A22-1
+     - 02/06/2016
      - sans fin connue
    * - ``BAT-TH-135``
      - Système de régulation sur un groupe de production de froid permettant d’avoir une haute pression flottante (France d’outre-mer)
@@ -469,6 +509,7 @@ Sortie réelle :
      - 250.0
      - ``puissance_nominale``, ``application``
      - A26-1
+     - 26/07/2017
      - sans fin connue
    * - ``BAT-TH-139``
      - Système de récupération de chaleur sur un groupe de production de froid
@@ -477,6 +518,7 @@ Sortie réelle :
      - 1 980.0
      - ``duree_annuelle``, ``puissance_recuperee``, ``puissance_compresseurs``, ``puissance_deja_recuperee``
      - A35-3
+     - 29/06/2015
      - sans fin connue
    * - ``BAT-TH-142``
      - Système de déstratification d’air
@@ -485,6 +527,7 @@ Sortie réelle :
      - 604.0
      - ``zone``, ``departement``, ``puissance_convectif``, ``puissance_radiatif``, ``hauteur``, ``type_batiment``
      - A38-2, A54-3, A71-4
+     - 22/12/2015
      - 31/07/2030
    * - ``BAT-TH-143``
      - Ventilo-convecteurs haute performance
@@ -493,6 +536,7 @@ Sortie réelle :
      - 22.3
      - ``zone``, ``departement``, ``secteur_activite``, ``surface_chauffee``, ``surface_rafraichie``
      - A16-1
+     - 29/06/2015
      - sans fin connue
    * - ``BAT-TH-145``
      - Système de régulation sur un groupe de production de froid permettant d’avoir une basse pression flottante (France métropolitaine)
@@ -501,6 +545,7 @@ Sortie réelle :
      - 31.0
      - ``puissance_nominale``, ``application``
      - A23-1
+     - 20/10/2016
      - sans fin connue
    * - ``BAT-TH-153``
      - Système de confinement des allées froides et allées chaudes dans un Data Center
@@ -509,6 +554,7 @@ Sortie réelle :
      - 1 500.0
      - ``delta_t``, ``puissance_nominale``
      - A28-1
+     - 06/12/2018
      - sans fin connue
    * - ``BAT-TH-154``
      - Récupération instantanée de chaleur sur eaux grises
@@ -517,6 +563,7 @@ Sortie réelle :
      - 132.0
      - ``nombre_unites``, ``efficacite``, ``debits``, ``usage``, ``zone``, ``departement``
      - A28-1
+     - 06/12/2018
      - sans fin connue
    * - ``BAT-TH-156``
      - Freecooling par eau de refroidissement en substitution d'un groupe froid pour la climatisation
@@ -525,6 +572,7 @@ Sortie réelle :
      - 1 530.0
      - ``puissance_compresseurs``, ``temperature_consigne``, ``zone``, ``departement``, ``secteur``
      - A31-1
+     - 31/07/2019
      - sans fin connue
    * - ``BAT-TH-157``
      - Chaudière biomasse collective
@@ -533,6 +581,7 @@ Sortie réelle :
      - 480.0
      - ``chaleur_utile``, ``puissance_chaudiere``
      - A50-2
+     - 04/05/2020
      - 31/03/2028
    * - ``BAT-TH-158``
      - Pompe à chaleur réversible de type air/air
@@ -541,6 +590,7 @@ Sortie réelle :
      - 417.6
      - ``surface``, ``zone``, ``departement``, ``secteur_activite``, ``puissance_calorifique``, ``rooftop``
      - A40-1, A62-3
+     - 29/12/2021
      - 31/12/2029
    * - ``BAT-TH-159``
      - Raccordement d’un bâtiment tertiaire à un réseau de froid
@@ -549,6 +599,7 @@ Sortie réelle :
      - 780.0
      - ``puissance_thermique``, ``zone``, ``departement``, ``secteur_activite``
      - A40-1
+     - 29/12/2021
      - sans fin connue
    * - ``BAT-TH-161``
      - Maintien en température des groupes électrogènes de secours par pompe à chaleur de type air/eau
@@ -557,6 +608,7 @@ Sortie réelle :
      - 335.6
      - ``puissance_nominale``, ``nombre_groupes``
      - A62-1
+     - 31/08/2024
      - 31/07/2029
    * - ``BAT-TH-162``
      - Système géothermique
@@ -565,6 +617,7 @@ Sortie réelle :
      - 240.0
      - ``surface``, ``puissance_thermique``, ``usage``, ``zone``, ``departement``, ``secteur_activite``, ``etas``, ``cop``, ``puissance_chaufferie``, ``coefficient_r``
      - A75-1, A81-2
+     - 01/01/2026
      - 31/12/2030
    * - ``BAT-TH-163``
      - Pompe à chaleur collective de type air/eau
@@ -573,6 +626,7 @@ Sortie réelle :
      - 192.0
      - ``surface``, ``puissance_thermique``, ``zone``, ``departement``, ``secteur_activite``, ``etas``, ``cop``, ``puissance_chaufferie``, ``coefficient_r``
      - A75-1, A81-2
+     - 01/01/2026
      - 31/12/2030
    * - ``BAT-TH-164``
      - Pompe à chaleur collective de type eau/eau ou eau glycolée/eau
@@ -581,6 +635,7 @@ Sortie réelle :
      - 192.0
      - ``surface``, ``puissance_thermique``, ``zone``, ``departement``, ``secteur_activite``, ``etas``, ``cop``, ``puissance_chaufferie``, ``coefficient_r``
      - A75-1, A81-2
+     - 01/01/2026
      - 31/12/2030
 
 Les fiches ``BAT-EN-101`` sont détaillées en fin de page, avec un cas concret et sa sortie.

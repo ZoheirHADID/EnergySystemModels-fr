@@ -102,7 +102,7 @@ Sortie réelle :
 
 .. list-table::
    :header-rows: 1
-   :widths: 12 26 14 16 8 30 9 9
+   :widths: 12 24 13 15 8 28 9 9 9
 
    * - Fiche
      - Intitulé
@@ -111,7 +111,8 @@ Sortie réelle :
      - Sortie (MWh cumac)
      - Paramètres de la fonction
      - Version codée
-     - Engagée jusqu'au
+     - Valable du
+     - au
    * - ``IND-BA-110``
      - Déstratificateur ou brasseur d'air
      - ``type_chauffage``
@@ -119,6 +120,7 @@ Sortie réelle :
      - 3 600.0
      - ``type_chauffage``, ``fonctionnement``, ``hauteur``, ``puissance_nominale``, ``zone``, ``Department``
      - A20-2, A71-4
+     - 01/01/2015
      - 31/07/2030
    * - ``IND-BA-113``
      - Lanterneaux d’éclairage zénithal (France Métropolitaine)
@@ -127,6 +129,7 @@ Sortie réelle :
      - 1 700.0
      - ``surface``, ``zone``, ``Department``
      - A26-1
+     - 26/07/2017
      - sans fin connue
    * - ``IND-BA-114``
      - Conduits de lumière naturelle
@@ -135,6 +138,7 @@ Sortie réelle :
      - 8 550.0
      - ``surface``, ``zone_geographique``
      - A15-1
+     - 20/03/2015
      - sans fin connue
    * - ``IND-BA-117``
      - Chauffage décentralisé performant
@@ -143,6 +147,7 @@ Sortie réelle :
      - 97.5
      - ``type_appareil``, ``fonctionnement``, ``puissance_nominale``, ``zone``, ``Department``
      - A27-1
+     - 22/12/2017
      - sans fin connue
    * - ``IND-EN-101``
      - Isolation des murs (France d’outre-mer)
@@ -151,6 +156,7 @@ Sortie réelle :
      - 54.0
      - ``type_construction``, ``surface``
      - A23-1
+     - 20/10/2016
      - sans fin connue
    * - ``IND-EN-102``
      - Isolation de combles ou de toitures (France d’outre-mer)
@@ -159,6 +165,7 @@ Sortie réelle :
      - 320.0
      - ``type_construction``, ``surface``
      - A33-2, A64-3
+     - 22/12/2015
      - 30/04/2027
    * - ``IND-UT-102``
      - Système de variation électronique de vitesse sur un moteur asynchrone
@@ -167,6 +174,7 @@ Sortie réelle :
      - 930.0
      - ``application``, ``puissance_nominale``
      - A19-2
+     - 01/01/2015
      - sans fin connue
    * - ``IND-UT-103``
      - Système de récupération de chaleur sur un compresseur d’air
@@ -175,6 +183,7 @@ Sortie réelle :
      - 1 970.0
      - ``fonctionnement``, ``Department``, ``Heat_Use``, ``puissance_nominale``
      - A17-2
+     - 01/01/2015
      - sans fin connue
    * - ``IND-UT-104``
      - Économiseur sur les effluents gazeux d’une chaudière de production de vapeur
@@ -183,6 +192,7 @@ Sortie réelle :
      - 4 950.0
      - ``fonctionnement``, ``puissance_nominale``
      - A14-1
+     - 01/01/2015
      - sans fin connue
    * - ``IND-UT-105``
      - Brûleur micromodulant sur chaudière industrielle
@@ -191,6 +201,7 @@ Sortie réelle :
      - 8 000.0
      - ``fonctionnement``, ``puissance_nominale``
      - A14-1
+     - 01/01/2015
      - sans fin connue
    * - ``IND-UT-113``
      - Système de condensation frigorifique à haute efficacité
@@ -199,6 +210,7 @@ Sortie réelle :
      - 2 100.0
      - ``type_condensation``, ``delta_T``, ``fonctionnement``, ``puissance_nominale``
      - A14-1
+     - 01/01/2015
      - sans fin connue
    * - ``IND-UT-114``
      - Moto-variateur synchrone à aimants permanents ou à reluctance
@@ -207,6 +219,7 @@ Sortie réelle :
      - 1 335.0
      - ``application``, ``puissance_nominale``
      - A24-2
+     - 01/01/2015
      - sans fin connue
    * - ``IND-UT-115``
      - Système de régulation sur un groupe de production de froid permettant d’avoir une basse pression flottante
@@ -215,6 +228,7 @@ Sortie réelle :
      - 750.0
      - ``puissance_nominale``
      - A15-1
+     - 20/03/2015
      - sans fin connue
    * - ``IND-UT-116``
      - Système de régulation sur un groupe de production de froid permettant d’avoir une haute pression flottante
@@ -223,6 +237,7 @@ Sortie réelle :
      - 5 850.0
      - ``type_condensation``, ``puissance_nominale``, ``zone``, ``Department``
      - A14-1
+     - 01/01/2015
      - sans fin connue
    * - ``IND-UT-118``
      - Brûleur avec dispositif de récupération de chaleur sur un four industriel
@@ -231,6 +246,7 @@ Sortie réelle :
      - 15 500.0
      - ``nature``, ``fonctionnement``, ``puissance_nominale``, ``temperature_fumees``
      - A14-1
+     - 01/01/2015
      - sans fin connue
    * - ``IND-UT-120``
      - Compresseur d’air basse pression à vis ou centrifuge
@@ -239,6 +255,7 @@ Sortie réelle :
      - 1 930.0
      - ``puissance_nominale``
      - A14-1
+     - 01/01/2015
      - sans fin connue
    * - ``IND-UT-122``
      - Sécheur d'air comprimé à adsorption utilisant un apport calorifique pour sa régénération
@@ -247,6 +264,7 @@ Sortie réelle :
      - 680.0
      - ``fonctionnement``, ``puissance_nominale``
      - A14-1
+     - 01/01/2015
      - sans fin connue
    * - ``IND-UT-124``
      - Séquenceur électronique pour le pilotage d’une centrale de production d’air comprimé
@@ -255,6 +273,7 @@ Sortie réelle :
      - 300.0
      - ``nb_compresseurs``, ``type_sequenceur``, ``puissance_nominale``
      - A14-1
+     - 01/01/2015
      - sans fin connue
    * - ``IND-UT-125``
      - Traitement d’eau performant sur chaudière de production de vapeur
@@ -263,6 +282,7 @@ Sortie réelle :
      - 1 100.0
      - ``fonctionnement``, ``puissance_nominale``, ``zone``, ``Department``
      - A14-1
+     - 01/01/2015
      - sans fin connue
    * - ``IND-UT-127``
      - Système de transmission performant
@@ -271,6 +291,7 @@ Sortie réelle :
      - 61.5
      - ``type_transmission``, ``puissance_nominale``
      - A25-2
+     - 01/01/2015
      - sans fin connue
    * - ``IND-UT-129``
      - Presse à injecter tout électrique ou hybride
@@ -279,6 +300,7 @@ Sortie réelle :
      - 18 000.0
      - ``nature``, ``fonctionnement``, ``puissance_nominale``
      - A32-3
+     - 01/01/2015
      - sans fin connue
    * - ``IND-UT-130``
      - Condenseur sur les effluents gazeux d’une chaudière de production de vapeur
@@ -287,6 +309,7 @@ Sortie réelle :
      - 5 000.0
      - ``fonctionnement``, ``puissance_nominale``
      - A19-1
+     - 22/12/2015
      - sans fin connue
    * - ``IND-UT-131``
      - Isolation thermique des parois planes ou cylindriques sur des installations industrielles (France métropolitaine)
@@ -295,6 +318,7 @@ Sortie réelle :
      - 390.0
      - ``fonctionnement``, ``Temperature``, ``Geometry``, ``S``, ``D``, ``L``
      - A37-2
+     - 14/12/2016
      - sans fin connue
    * - ``IND-UT-132``
      - Moteur asynchrone de classe IE4
@@ -303,6 +327,7 @@ Sortie réelle :
      - 64.5
      - ``puissance_utile``
      - A26-1
+     - 26/07/2017
      - sans fin connue
    * - ``IND-UT-133``
      - Système électronique de pilotage d’un moteur électrique avec récupération d’énergie
@@ -311,6 +336,7 @@ Sortie réelle :
      - 41 625.0
      - ``heures_fonctionnement``, ``taux_freinage``, ``puissance_utile``
      - A28-1
+     - 06/12/2018
      - sans fin connue
    * - ``IND-UT-134``
      - Système de mesurage d’indicateurs de performance énergétique
@@ -319,6 +345,7 @@ Sortie réelle :
      - 127.4
      - ``fonctionnement``, ``duree_contrat``, ``puissance_nominale``
      - A35-2
+     - 06/12/2018
      - sans fin connue
    * - ``IND-UT-135``
      - Freecooling par eau de refroidissement en substitution d'un groupe froid
@@ -327,6 +354,7 @@ Sortie réelle :
      - 11 100.0
      - ``fonctionnement``, ``Department``, ``Supply_Temperature``, ``puissance_nominale``
      - A31-1
+     - 31/07/2019
      - sans fin connue
    * - ``IND-UT-137``
      - Système de pompe(s) à chaleur en rehausse de température de chaleur fatale récupérée
@@ -335,6 +363,7 @@ Sortie réelle :
      - 7.7
      - ``Q``, ``Eelec``
      - A65-2, A84-3
+     - 01/01/2025
      - 31/12/2030
    * - ``IND-UT-138``
      - Conversion de chaleur fatale en électricité ou en air comprimé
@@ -343,6 +372,7 @@ Sortie réelle :
      - 4 946.9
      - ``D``, ``Precup``, ``rendement``, ``Pconso``
      - A62-1
+     - 01/01/2025
      - 31/12/2029
    * - ``IND-UT-139``
      - Système de stockage de chaleur fatale
@@ -351,6 +381,7 @@ Sortie réelle :
      - 254.4
      - ``rendement``, ``capacite_stockage``, ``nb_cycles``
      - A73-2
+     - 01/01/2025
      - 31/08/2030
    * - ``IND-UT-140``
      - Mise en veille automatique d’une machine utilisant de l’air comprimé
@@ -359,6 +390,7 @@ Sortie réelle :
      - 0.5
      - ``fonctionnement``, ``debit_air``
      - A65-1
+     - 01/01/2025
      - 31/12/2029
    * - ``IND-UT-141``
      - Chaudière industrielle électrique
@@ -367,6 +399,7 @@ Sortie réelle :
      - 43 000.0
      - ``puissance_thermique_nominale``, ``puissance_remplacee``, ``besoin_chaleur_max``
      - arrêté du 01/09/2026
+     - 05/09/2026
      - 31/08/2031
 
 Les fiches ``IND-UT-102``, ``IND-UT-141`` sont détaillées en fin de page, avec un cas concret et sa sortie.

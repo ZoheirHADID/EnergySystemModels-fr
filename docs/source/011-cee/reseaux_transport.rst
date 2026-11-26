@@ -126,7 +126,7 @@ Sortie réelle :
 
 .. list-table::
    :header-rows: 1
-   :widths: 12 26 14 16 8 30 9 9
+   :widths: 12 24 13 15 8 28 9 9 9
 
    * - Fiche
      - Intitulé
@@ -135,7 +135,8 @@ Sortie réelle :
      - Sortie (MWh cumac)
      - Paramètres de la fonction
      - Version codée
-     - Engagée jusqu'au
+     - Valable du
+     - au
    * - ``RES-CH-103``
      - Réhabilitation d’un poste de livraison de chaleur d’un bâtiment tertiaire
      - ``surface_chauffee``
@@ -143,6 +144,7 @@ Sortie réelle :
      - 1 155.0
      - ``secteur_activite``, ``surface_chauffee``, ``zone``, ``departement``
      - A36-3
+     - 29/06/2015
      - sans fin connue
    * - ``RES-CH-104``
      - Réhabilitation d’un poste de livraison de chaleur d’un bâtiment résidentiel
@@ -151,6 +153,7 @@ Sortie réelle :
      - 732.0
      - ``nb_appartements``, ``zone``, ``departement``
      - A36-3
+     - 29/06/2015
      - sans fin connue
    * - ``RES-CH-105``
      - Passage d'un réseau de chaleur en basse température
@@ -159,6 +162,7 @@ Sortie réelle :
      - 2 900.0
      - ``dn``, ``longueur``, ``duree_utilisation_mois``
      - A36-3
+     - 14/12/2016
      - sans fin connue
    * - ``RES-CH-106``
      - Mise en place d’un calorifugeage des canalisations d’un réseau de chaleur
@@ -167,6 +171,7 @@ Sortie réelle :
      - 3 400.0
      - ``norme_isolation``, ``fluide``, ``dn``, ``longueur``, ``duree_utilisation_mois``
      - A60-4
+     - 02/03/2017
      - 28/02/2029
    * - ``RES-CH-108``
      - Récupération de chaleur fatale pour valorisation sur un réseau de chaleur ou vers un tiers (France métropolitaine)
@@ -175,6 +180,7 @@ Sortie réelle :
      - 7 067.0
      - ``chaleur_nette_kwh_an``
      - A53-4
+     - 01/04/2020
      - 30/09/2028
    * - ``RES-EC-104``
      - Rénovation d’éclairage extérieur
@@ -183,6 +189,7 @@ Sortie réelle :
      - 680.0
      - ``nb_luminaires_gradation``, ``nb_luminaires_gradation_detection``
      - A77-3
+     - 01/01/2015
      - 31/12/2029
    * - ``TRA-EQ-101``
      - Unité de transport intermodal pour le transport combiné rail-route
@@ -191,6 +198,7 @@ Sortie réelle :
      - 1 860 000.0
      - ``longueur_uti``, ``nb_voyage_an``, ``nb_uti``
      - A14-1
+     - 01/01/2015
      - sans fin connue
    * - ``TRA-EQ-103``
      - Télématique embarquée pour le suivi de la conduite d’un véhicule
@@ -199,6 +207,7 @@ Sortie réelle :
      - 4.8
      - ``categorie_vehicule``, ``nb_vehicules``
      - A14-1
+     - 01/01/2015
      - sans fin connue
    * - ``TRA-EQ-104``
      - Lubrifiant économiseur d’énergie pour véhicules légers
@@ -207,6 +216,7 @@ Sortie réelle :
      - 1 650.0
      - ``volume_diesel_l``, ``fuel_economy_diesel_pct``, ``volume_essence_l``, ``fuel_economy_essence_pct``, ``volume_mixte_l``, ``fuel_economy_mixte_pct``
      - A14-1
+     - 01/01/2015
      - sans fin connue
    * - ``TRA-EQ-106``
      - Pneus de véhicules légers à basse résistance au roulement
@@ -215,6 +225,7 @@ Sortie réelle :
      - 2.2
      - ``kilometrage_annuel_moyen``, ``nb_pneus_classe_a``, ``nb_pneus_classe_b``, ``nb_pneus_classe_c``
      - A14-1
+     - 01/01/2015
      - sans fin connue
    * - ``TRA-EQ-107``
      - Unité de transport intermodal pour le transport combiné fluvial-route
@@ -223,6 +234,7 @@ Sortie réelle :
      - 380.0
      - ``type_bateau``, ``bassin_navigation``, ``nb_voyage_uti``
      - A17-1
+     - 31/07/2015
      - sans fin connue
    * - ``TRA-EQ-108``
      - Wagon d'autoroute ferroviaire
@@ -231,6 +243,7 @@ Sortie réelle :
      - 25 160.0
      - ``type_ligne``, ``nb_voyage_ligne``, ``distance_routiere_france``, ``distance_feroviaire_france``
      - A37-6
+     - 22/12/2015
      - sans fin connue
    * - ``TRA-EQ-109``
      - Barge fluviale
@@ -239,6 +252,7 @@ Sortie réelle :
      - 6 800.0
      - ``bassin_navigation``, ``tkm_releve``
      - A17-1
+     - 31/07/2015
      - sans fin connue
    * - ``TRA-EQ-110``
      - Automoteur fluvial
@@ -247,6 +261,7 @@ Sortie réelle :
      - 3 800.0
      - ``type_automoteur``, ``bassin_navigation``, ``tkm_releve``
      - A19-1
+     - 22/12/2015
      - sans fin connue
    * - ``TRA-EQ-111``
      - Groupes frigorifiques autonomes à haute efficacité énergétique pour camions, semi remorques, remorques et caisses mobiles frigorifiques
@@ -255,6 +270,7 @@ Sortie réelle :
      - 938 137.7
      - ``rg_pondere``
      - A24-1
+     - 14/12/2016
      - sans fin connue
    * - ``TRA-EQ-113``
      - Lubrifiant économiseur d’énergie pour des véhicules de transport de personnes ou de marchandises
@@ -263,6 +279,7 @@ Sortie réelle :
      - 77 400.0
      - ``volume_lubrifiant_m3``, ``y1_pct``, ``y2_pct``
      - A14-1
+     - 01/01/2015
      - sans fin connue
    * - ``TRA-EQ-114``
      - Achat ou location d’un véhicule léger électrique neuf ou opération de rétrofit électrique d’un véhicule léger, par une collectivité locale ou une autre personne morale
@@ -271,6 +288,7 @@ Sortie réelle :
      - 222.6
      - ``origine``, ``categorie_vehicule``, ``nb_vehicules``, ``masse_ordre_marche_t``, ``type_beneficiaire``, ``annee``, ``emission_co2_g_km``
      - A16-1, A65-2, A68-3, A76-4, A83-5
+     - 29/06/2015
      - 31/12/2029
    * - ``TRA-EQ-115``
      - Véhicules de transport de marchandises optimisé
@@ -279,6 +297,7 @@ Sortie réelle :
      - 543.9
      - ``nb_vehicules``
      - A14-1
+     - 01/01/2015
      - sans fin connue
    * - ``TRA-EQ-117``
      - Achat ou location d’un véhicule léger électrique neuf ou opération de rétrofit électrique d’un véhicule léger par des personnes physiques
@@ -287,6 +306,7 @@ Sortie réelle :
      - 147.3
      - ``origine``, ``categorie_vehicule``, ``masse_ordre_marche_t``, ``nb_vehicules``, ``emission_co2_g_km``
      - A16-1, A65-2, A72-4, A76-5, A83-6
+     - 29/06/2015
      - 31/12/2029
    * - ``TRA-EQ-118``
      - Lubrifiant économiseur d’énergie pour la pêche professionnelle
@@ -295,6 +315,7 @@ Sortie réelle :
      - 4 060.0
      - ``navires``, ``gain_pct``
      - A15-1
+     - 20/03/2015
      - sans fin connue
    * - ``TRA-EQ-119``
      - Optimisation de la combustion et de la propreté des moteurs Diesel
@@ -303,6 +324,7 @@ Sortie réelle :
      - 4.8
      - ``type_acquisition``, ``gain``, ``volume_auxiliaire_m3``, ``concentration``, ``volume_carburant_m3``
      - A17-2
+     - 01/01/2015
      - sans fin connue
    * - ``TRA-EQ-120``
      - Hélice avec tuyère sur une unité de transport fluvial
@@ -311,6 +333,7 @@ Sortie réelle :
      - 1 860.0
      - ``type_unite``, ``bassin_navigation``, ``port_en_lourd_t``, ``puissance_kw``, ``tkm_releve``, ``km_releve``
      - A27-1
+     - 22/12/2017
      - sans fin connue
    * - ``TRA-EQ-121``
      - Vélo à assistance électrique
@@ -319,6 +342,7 @@ Sortie réelle :
      - 400.0
      - ``mode_acquisition``, ``nb_cycles``
      - A54-2
+     - 06/12/2018
      - 30/06/2028
    * - ``TRA-EQ-122``
      - « Stop & Start » pour engins automoteurs non routiers neufs
@@ -327,6 +351,7 @@ Sortie réelle :
      - 218.7
      - ``nb_engins``
      - A32-1
+     - 31/01/2020
      - sans fin connue
    * - ``TRA-EQ-123``
      - Simulateur de conduite
@@ -335,6 +360,7 @@ Sortie réelle :
      - 174.8
      - ``categorie_vehicule``, ``nb_simulateurs``
      - A38-2
+     - 10/01/2020
      - sans fin connue
    * - ``TRA-EQ-124``
      - Branchement électrique des navires et bateaux à quai
@@ -343,6 +369,7 @@ Sortie réelle :
      - 13 400.0
      - ``type_port``, ``consommation_kwh``
      - A35-1
+     - 03/08/2020
      - sans fin connue
    * - ``TRA-EQ-125``
      - « Stop & Start » pour véhicules ferroviaires
@@ -351,6 +378,7 @@ Sortie réelle :
      - 400.0
      - ``type_vehicule``, ``nb_heures_moteur``
      - A38-1, A40-2
+     - 31/07/2021
      - 31/03/2027
    * - ``TRA-EQ-126``
      - Remotorisation en propulsion électrique ou hybride d’un bateau naviguant en eaux intérieures
@@ -359,6 +387,7 @@ Sortie réelle :
      - 2 149.7
      - ``motorisation_initiale``, ``type_bateau``, ``heures_relevees``, ``puissance_initiale_kw``, ``puissance_initiale_ch``
      - A43-1
+     - 23/02/2022
      - 28/02/2027
    * - ``TRA-EQ-127``
      - Acquisition d’un bateau neuf à propulsion électrique ou hybride, naviguant en eaux intérieures
@@ -367,6 +396,7 @@ Sortie réelle :
      - 319.6
      - ``motorisation``, ``type_bateau``, ``heures_relevees``, ``puissance_kw``
      - A54-1
+     - 01/10/2023
      - 30/06/2028
    * - ``TRA-EQ-128``
      - Achat ou location d’un autocar ou d’un autobus électrique neuf ou réalisation d’une opération de rétrofit électrique d’autocar ou d’autobus
@@ -375,6 +405,7 @@ Sortie réelle :
      - 4 808.4
      - ``categorie_vehicule``, ``nb_vehicules``, ``commune_listee_annexe_I``, ``annee_engagement``
      - A58-1, A83-4
+     - 29/12/2023
      - 31/12/2029
    * - ``TRA-EQ-129``
      - Achat ou location d’un véhicule lourd électrique neuf de transport de marchandises ou issu d’une opération de rétrofit électrique
@@ -383,6 +414,7 @@ Sortie réelle :
      - 3 047.1
      - ``operation``, ``type_vehicule``, ``nb_vehicules``, ``ptac_t``, ``commune_listee_annexe_I``
      - A65-1, A83-4
+     - 01/01/2025
      - 31/12/2029
    * - ``TRA-EQ-130``
      - Achat ou location d’un quadricycle électrique neuf
@@ -391,6 +423,7 @@ Sortie réelle :
      - 218.7
      - ``acquereur``, ``categorie_vehicule``, ``nb_vehicules``
      - A65-1, A73-3
+     - 01/01/2025
      - 31/12/2029
    * - ``TRA-EQ-132``
      - Appareil de mesure, d’analyse et d’optimisation de la consommation de carburant d’un navire de pêche
@@ -399,6 +432,7 @@ Sortie réelle :
      - 1 560.0
      - ``type_navire``, ``longueur``, ``nb_jours_mer``
      - A65-1
+     - 01/01/2025
      - 31/12/2029
    * - ``TRA-EQ-133``
      - Achat ou location d’une voiture particulière électrique d’occasion
@@ -407,6 +441,7 @@ Sortie réelle :
      - 126.6
      - ``nb_vehicules``
      - A85-1
+     - 01/09/2026
      - 31/08/2030
    * - ``TRA-SE-101``
      - Formation d’un chauffeur de transport à la conduite économe
@@ -415,6 +450,7 @@ Sortie réelle :
      - 124.0
      - ``categorie_vehicule``, ``nb_personnes_formees``
      - A14-1
+     - 01/01/2015
      - sans fin connue
    * - ``TRA-SE-102``
      - Formation d’un chauffeur de véhicule léger à la conduite économe
@@ -423,6 +459,7 @@ Sortie réelle :
      - 29.0
      - ``categorie_vehicule``, ``nb_personnes_formees``
      - A14-1
+     - 01/01/2015
      - sans fin connue
    * - ``TRA-SE-105``
      - Recreusage des pneumatiques
@@ -431,6 +468,7 @@ Sortie réelle :
      - 36.0
      - ``nb_pneumatiques``
      - A14-1
+     - 01/01/2015
      - sans fin connue
    * - ``TRA-SE-106``
      - Mesure et optimisation des consommations de carburant pour une unité de transport fluvial
@@ -439,6 +477,7 @@ Sortie réelle :
      - 80.0
      - ``type_unite``, ``bassin_navigation``, ``equipement``, ``port_en_lourd_t``, ``puissance_kw``, ``tkm_releve``, ``km_releve``
      - A19-2
+     - 31/07/2015
      - sans fin connue
    * - ``TRA-SE-107``
      - Carénage sur une unité de transport fluvial
@@ -447,6 +486,7 @@ Sortie réelle :
      - 50.0
      - ``type_unite``, ``bassin_navigation``, ``port_en_lourd_t``, ``puissance_kw``, ``tkm_releve``, ``km_releve``
      - A19-1
+     - 22/12/2015
      - sans fin connue
    * - ``TRA-SE-108``
      - Gestion externalisée de la globalité du poste pneumatique (Véhicules de transport de marchandises)
@@ -455,6 +495,7 @@ Sortie réelle :
      - 19.2
      - ``nb_ensembles_articules``, ``nb_porteurs``
      - A14-1
+     - 01/01/2015
      - sans fin connue
    * - ``TRA-SE-109``
      - Gestion externalisée de la globalité du poste pneumatique (Véhicules de transport de personnes)
@@ -463,6 +504,7 @@ Sortie réelle :
      - 1.7
      - ``nb_vehicules``
      - A14-1
+     - 01/01/2015
      - sans fin connue
    * - ``TRA-SE-110``
      - Gestion optimisée de la globalité du poste pneumatique (Véhicules de transport de marchandises)
@@ -471,6 +513,7 @@ Sortie réelle :
      - 15.9
      - ``nb_ensembles_articules``, ``nb_porteurs``
      - A14-1
+     - 01/01/2015
      - sans fin connue
    * - ``TRA-SE-111``
      - Gestion optimisée de la globalité du poste pneumatique (Véhicules de transport de personnes)
@@ -479,6 +522,7 @@ Sortie réelle :
      - 1.3
      - ``nb_vehicules``
      - A14-1
+     - 01/01/2015
      - sans fin connue
    * - ``TRA-SE-112``
      - Service d’autopartage en boucle
@@ -487,6 +531,7 @@ Sortie réelle :
      - 600.0
      - ``nb_abonnements``
      - A15-1
+     - 20/03/2015
      - sans fin connue
    * - ``TRA-SE-113``
      - Suivi des consommations de carburants grâce à des cartes privatives
@@ -495,6 +540,7 @@ Sortie réelle :
      - 75.0
      - ``nb_cartes``
      - A14-1
+     - 01/01/2015
      - sans fin connue
    * - ``TRA-SE-116``
      - Fret ferroviaire
@@ -503,6 +549,7 @@ Sortie réelle :
      - 380.0
      - ``type_flux``, ``tkm``, ``duree_contrat_mois``, ``categorie_nst``, ``traction_100_electrique``
      - A49-1, A54-2, A65-2
+     - 29/10/2022
      - 31/12/2029
    * - ``TRA-SE-117``
      - Fret fluvial
@@ -511,6 +558,7 @@ Sortie réelle :
      - 278.2
      - ``type_flux``, ``trajets``, ``duree_contrat_mois``
      - A65-1
+     - 01/01/2025
      - 31/12/2029
 
 Les fiches ``RES-CH-104`` sont détaillées en fin de page, avec un cas concret et sa sortie.

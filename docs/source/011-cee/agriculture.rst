@@ -80,7 +80,7 @@ Sortie réelle :
 
 .. list-table::
    :header-rows: 1
-   :widths: 12 26 14 16 8 30 9 9
+   :widths: 12 24 13 15 8 28 9 9 9
 
    * - Fiche
      - Intitulé
@@ -89,7 +89,8 @@ Sortie réelle :
      - Sortie (MWh cumac)
      - Paramètres de la fonction
      - Version codée
-     - Engagée jusqu'au
+     - Valable du
+     - au
    * - ``AGRI-EQ-101``
      - Module d’intégration de température installé sur un ordinateur climatique
      - ``surface``
@@ -97,6 +98,7 @@ Sortie réelle :
      - 415.0
      - ``type_serre``, ``surface``
      - A14-1
+     - 01/01/2015
      - sans fin connue
    * - ``AGRI-EQ-102``
      - Double écran thermique
@@ -105,6 +107,7 @@ Sortie réelle :
      - 1 450.0
      - ``type_serre``, ``surface``
      - A65-2
+     - 01/01/2015
      - 31/03/2030
    * - ``AGRI-EQ-104``
      - Ecrans thermiques latéraux
@@ -113,6 +116,7 @@ Sortie réelle :
      - 240.0
      - ``type_serre``, ``surface``
      - A62-2
+     - 01/01/2015
      - 31/12/2029
    * - ``AGRI-EQ-105``
      - Stop & Start pour véhicules agricoles à moteur
@@ -121,6 +125,7 @@ Sortie réelle :
      - 55.2
      - ``nombre_vehicules``
      - A28-1
+     - 19/12/2018
      - sans fin connue
    * - ``AGRI-EQ-106``
      - Régulation de la ventilation des silos et des installations de stockage en vrac de céréales
@@ -129,6 +134,7 @@ Sortie réelle :
      - 20.0
      - ``type_regulation``, ``volume_cereales``
      - A32-1
+     - 10/01/2020
      - sans fin connue
    * - ``AGRI-EQ-107``
      - Isolation des parois de serre
@@ -137,6 +143,7 @@ Sortie réelle :
      - 850.0
      - ``type_serre``, ``surface``
      - A38-1
+     - 31/07/2021
      - sans fin connue
    * - ``AGRI-EQ-108``
      - Stockage d’eau pour une serre bioclimatique
@@ -145,6 +152,7 @@ Sortie réelle :
      - 1 950.0
      - ``surface``
      - A58-2
+     - 31/07/2021
      - 31/12/2028
    * - ``AGRI-EQ-109``
      - Couverture performante de serre
@@ -153,6 +161,7 @@ Sortie réelle :
      - 5 300.0
      - ``type_paroi``, ``type_serre``, ``surface``
      - A38-1, A58-2
+     - 31/07/2021
      - 31/12/2028
    * - ``AGRI-EQ-111``
      - Simple écran thermique
@@ -161,6 +170,7 @@ Sortie réelle :
      - 1 800.0
      - ``type_serre``, ``surface``
      - A62-1
+     - 31/08/2024
      - 31/07/2029
    * - ``AGRI-EQ-112``
      - Double paroi gonflable
@@ -169,6 +179,7 @@ Sortie réelle :
      - 2 050.0
      - ``type_serre``, ``surface``
      - A73-3
+     - 01/01/2025
      - 31/08/2030
    * - ``AGRI-SE-101``
      - Contrôle et préconisations de réglage du moteur d’un tracteur
@@ -177,6 +188,7 @@ Sortie réelle :
      - 22.4
      - ``puissance_moteur_ch``
      - A19-1, A40-2
+     - 22/12/2015
      - 31/03/2027
    * - ``AGRI-TH-101``
      - Dispositif de stockage d’eau chaude de type « Open Buffer »
@@ -185,6 +197,7 @@ Sortie réelle :
      - 480.0
      - ``surface``
      - A62-2
+     - 01/01/2015
      - 31/12/2029
    * - ``AGRI-TH-102``
      - Dispositif de stockage d’eau chaude
@@ -193,6 +206,7 @@ Sortie réelle :
      - 650.0
      - ``surface``
      - A14-1
+     - 01/01/2015
      - sans fin connue
    * - ``AGRI-TH-103``
      - Pré-refroidisseur de lait
@@ -201,6 +215,7 @@ Sortie réelle :
      - 56.5
      - ``production_laitiere``
      - A15-1
+     - 20/03/2015
      - sans fin connue
    * - ``AGRI-TH-104``
      - Système de récupération de chaleur sur un groupe de production de froid hors tanks à lait
@@ -209,6 +224,7 @@ Sortie réelle :
      - 990.0
      - ``duree_besoins_ponderee``, ``duree_fonctionnement_compresseurs``, ``puissance_systeme_recuperation``, ``puissance_a_couvrir``, ``puissance_compresseurs``, ``puissance_deja_recuperee``, ``filiere``
      - A27-2, A35-3
+     - 29/06/2015
      - sans fin connue
    * - ``AGRI-TH-105``
      - Récupérateur de chaleur sur tank à lait
@@ -217,6 +233,7 @@ Sortie réelle :
      - 69.0
      - ``production_laitiere``
      - A16-1
+     - 29/06/2015
      - sans fin connue
    * - ``AGRI-TH-108``
      - Pompe à chaleur de type air/eau ou eau/eau
@@ -225,6 +242,7 @@ Sortie réelle :
      - 2 910.0
      - ``type_serre``, ``surface``, ``puissance_thermique_nominale``, ``efficacite_saisonniere``, ``type_pac``, ``cop``
      - A35-2
+     - 20/03/2015
      - sans fin connue
    * - ``AGRI-TH-109``
      - Récupérateur de chaleur à condensation pour serres horticoles
@@ -233,6 +251,7 @@ Sortie réelle :
      - 45.0
      - ``type_serre``, ``surface``
      - A54-2
+     - 01/01/2015
      - 30/06/2028
    * - ``AGRI-TH-110``
      - Chaudière à haute performance énergétique pour serres horticoles
@@ -241,6 +260,7 @@ Sortie réelle :
      - 56.0
      - ``type_serre``, ``surface``, ``puissance_thermique_nominale``
      - A35-2, A54-3
+     - 01/01/2015
      - 30/06/2028
    * - ``AGRI-TH-113``
      - Échangeur récupérateur de chaleur air/air dans un bâtiment d’élevage de volailles
@@ -249,6 +269,7 @@ Sortie réelle :
      - 1 250.0
      - ``surface``
      - A14-1
+     - 01/01/2015
      - sans fin connue
    * - ``AGRI-TH-118``
      - Double tube de chauffage pour serres
@@ -257,6 +278,7 @@ Sortie réelle :
      - 1 850.0
      - ``surface``
      - A14-1
+     - 01/01/2015
      - sans fin connue
    * - ``AGRI-UT-101``
      - Moto-variateur synchrone à aimants permanents ou à reluctance
@@ -265,6 +287,7 @@ Sortie réelle :
      - 315.0
      - ``application``, ``puissance_nominale``
      - A24-2
+     - 20/03/2015
      - sans fin connue
    * - ``AGRI-UT-102``
      - Système de variation électronique de vitesse sur un moteur asynchrone
@@ -273,6 +296,7 @@ Sortie réelle :
      - 240.0
      - ``application``, ``puissance_nominale``
      - A22-2
+     - 01/01/2015
      - sans fin connue
    * - ``AGRI-UT-103``
      - Système de régulation sur un groupe de production de froid permettant d’avoir une basse pression flottante
@@ -281,6 +305,7 @@ Sortie réelle :
      - 124.5
      - ``puissance_electrique_nominale``
      - A19-1
+     - 22/12/2015
      - sans fin connue
    * - ``AGRI-UT-104``
      - Système de régulation sur un groupe de production de froid permettant d’avoir une haute pression flottante
@@ -289,6 +314,7 @@ Sortie réelle :
      - 1 590.0
      - ``type_condensation``, ``puissance_electrique_nominale``, ``zone``, ``departement``
      - A23-1
+     - 20/10/2016
      - sans fin connue
 
 Les fiches ``AGRI-EQ-102`` sont détaillées en fin de page, avec un cas concret et sa sortie.
