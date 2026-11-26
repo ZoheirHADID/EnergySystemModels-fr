@@ -1536,3 +1536,10 @@
 - Défauts de lib : `BUGS_LIB.md` — débit de source en m³/h converti à 1 000 kg/m³ (`_source_mass_flow`) : +5,7 % de ΔP à 80 °C. La page renvoyait déjà à cette entrée, qui manquait : ajoutée.
 - Banc : `noyau_calcul` au cran 5 (5 blocs), 109 pages au cran 5, 30 de prose, 139 mesurées, aucun recul. Build Sphinx -W : 0 warning.
 - Suivant : relire les textes « ce qu'elle montre » des scènes (43 non confrontées) ; puis `detach_port` dans `ports_connexions.rst`, C1, D1, H4.
+
+## 2026-11-26 — E1 : `chaudiere_fioul.rst` (`FuelOil_Boiler_Efficiency`)
+- Choix de l'unité : l'inventaire (`--sans-page`) ne compte plus que 6 modèles sans page ; la section E (modules réels sans page) est traitée modèle par modèle, en tête le premier de la liste. Vérifié avant : aucune page ne citait `FuelOil_Boiler_Efficiency` (le « fioul » de `combustion_moteurs.rst` est un nom de variable sur du méthane).
+- Fait : nouvelle page `002-thermodynamic_cycles/chaudiere_fioul.rst` (toctree après `ng_boiler_efficiency`) — fiche de lecture (source classeur Veolia, C/H/O/N/S, PCS = PCI + 21 832 H, lois de rayonnement 0,0113 Q^0,7 / 0,0072 Q^0,6 sur la puissance nominale, refus) ; cas nominal = cas du classeur, 69 MW tubes d'eau (η PCI 94,528 %, PCS 87,754 %, rosée 49,96 °C, bilan fermé) ; figure par `plot(basis='PCS')` (`generate_fuel_oil_boiler_plot` dans `docs/generate_model_plots.py`) ; table de personnalisation (13 entrées) ; variante 2 MW tubes de fumées : O₂ 5 → 3 % = +1 point, fumées 220 → 120 °C = +4,6 points, 40 °C : 102,3 % PCI / 94,7 % PCS, 106 kg/h de condensat ; 6 refus exécutés.
+- Défauts de lib : `BUGS_LIB.md` — `plot()` titré « combustible solide » avec une barre « Pertes cendres » sur le fioul. Aucun écart de calcul (le test de la lib reproduit le classeur).
+- Banc : `chaudiere_fioul` au cran 5 (3 blocs), 110 pages au cran 5, 30 de prose, 140 mesurées, aucun recul. Build Sphinx -W : 0 warning.
+- Suivant : E2 `SolidFuel_Boiler_Efficiency` (test de la lib comme cas nominal), puis E3 à E6.

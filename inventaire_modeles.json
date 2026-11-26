@@ -305,7 +305,9 @@
     "Eff",
     "FB"
    ],
-   "refus": [],
+   "refus": [
+    "ValueError"
+   ],
    "sources": [],
    "trace": [],
    "noeud_ihm": [
@@ -760,7 +762,7 @@
    "classe": "Object",
    "import": "from AHU.FreshAir.Old import AirMix",
    "appel": "AirMix.Object()",
-   "objet": "",
+   "objet": "ANCIEN module (dossier Old, hors paquet PyPI, aucun nœud ne l'emploie).",
    "entrees": [
     {
      "nom": "Inlet1",
@@ -1575,10 +1577,16 @@
      "nom": "currency",
      "defaut": "currency",
      "note": ""
+    },
+    {
+     "nom": "on_overload",
+     "defaut": "on_overload",
+     "note": ""
     }
    ],
    "sorties": [
     "taux_charge",
+    "surcharge",
     "dP0_tot",
     "dPch_tot",
     "dQ0_tot",
@@ -1725,6 +1733,7 @@
    ],
    "sorties_df": [],
    "refus": [
+    "KeyError",
     "ValueError"
    ],
    "sources": [],
@@ -1733,13 +1742,500 @@
     "plot_detail",
     "plot_euro_MWh"
    ],
-   "noeud_ihm": [],
+   "noeud_ihm": [
+    "energy_bill"
+   ],
    "pages": [
+    "010-achat-energie/appoint_electrique_spot.rst",
     "010-achat-energie/contrat_gaz.rst",
     "010-achat-energie/guide_audit_facture.rst",
     "010-achat-energie/index.rst",
     "api.rst",
     "usage/section-1-achat-facturation.rst"
+   ]
+  },
+  "Facture.EnergyBill.Object": {
+   "module": "Facture.EnergyBill",
+   "classe": "Object",
+   "import": "from Facture import EnergyBill",
+   "appel": "EnergyBill.Object()",
+   "objet": "Facture d'énergie : entrées du tarif choisi, sorties uniformes.",
+   "entrees": [
+    {
+     "nom": "family",
+     "defaut": "'SONALGAZ_elec'",
+     "note": ""
+    },
+    {
+     "nom": "tariff_code",
+     "defaut": "None",
+     "note": ""
+    },
+    {
+     "nom": "start",
+     "defaut": "None",
+     "note": "'AAAA-MM-JJ' ou datetime.date"
+    },
+    {
+     "nom": "end",
+     "defaut": "None",
+     "note": ""
+    },
+    {
+     "nom": "PMD_kW",
+     "defaut": "0.0",
+     "note": ""
+    },
+    {
+     "nom": "PMA_kW",
+     "defaut": "0.0",
+     "note": ""
+    },
+    {
+     "nom": "kWh_pointe",
+     "defaut": "0.0",
+     "note": ""
+    },
+    {
+     "nom": "kWh_pleine",
+     "defaut": "0.0",
+     "note": ""
+    },
+    {
+     "nom": "kWh_jour",
+     "defaut": "0.0",
+     "note": ""
+    },
+    {
+     "nom": "kWh_hors_pointe",
+     "defaut": "0.0",
+     "note": ""
+    },
+    {
+     "nom": "kWh_nuit",
+     "defaut": "0.0",
+     "note": ""
+    },
+    {
+     "nom": "kWh_poste_unique",
+     "defaut": "0.0",
+     "note": ""
+    },
+    {
+     "nom": "kvarh_reactif",
+     "defaut": "0.0",
+     "note": ""
+    },
+    {
+     "nom": "energy_products_tax_cDA_kWh",
+     "defaut": "None",
+     "note": ""
+    },
+    {
+     "nom": "housing_tax_DA",
+     "defaut": "None",
+     "note": ""
+    },
+    {
+     "nom": "state_support_DA",
+     "defaut": "0.0",
+     "note": ""
+    },
+    {
+     "nom": "DMD_thermie_h",
+     "defaut": "0.0",
+     "note": ""
+    },
+    {
+     "nom": "DMA_thermie_h",
+     "defaut": "0.0",
+     "note": ""
+    },
+    {
+     "nom": "thermies",
+     "defaut": "0.0",
+     "note": ""
+    },
+    {
+     "nom": "maintenance_fee_DA",
+     "defaut": "0.0",
+     "note": ""
+    },
+    {
+     "nom": "energy_products_tax_DA_thermie",
+     "defaut": "None",
+     "note": ""
+    },
+    {
+     "nom": "gas_housing_tax_DA",
+     "defaut": "0.0",
+     "note": ""
+    },
+    {
+     "nom": "voltage_domain",
+     "defaut": "None",
+     "note": ""
+    },
+    {
+     "nom": "usage_version",
+     "defaut": "None",
+     "note": ""
+    },
+    {
+     "nom": "contract_framework",
+     "defaut": "'contrat unique'",
+     "note": ""
+    },
+    {
+     "nom": "PS_pointe_kW",
+     "defaut": "None",
+     "note": ""
+    },
+    {
+     "nom": "PS_HPH_kW",
+     "defaut": "None",
+     "note": ""
+    },
+    {
+     "nom": "PS_HCH_kW",
+     "defaut": "None",
+     "note": ""
+    },
+    {
+     "nom": "PS_HPB_kW",
+     "defaut": "None",
+     "note": ""
+    },
+    {
+     "nom": "PS_HCB_kW",
+     "defaut": "None",
+     "note": ""
+    },
+    {
+     "nom": "kWh_HPH",
+     "defaut": "0.0",
+     "note": ""
+    },
+    {
+     "nom": "kWh_HCH",
+     "defaut": "0.0",
+     "note": ""
+    },
+    {
+     "nom": "kWh_HPB",
+     "defaut": "0.0",
+     "note": ""
+    },
+    {
+     "nom": "kWh_HCB",
+     "defaut": "0.0",
+     "note": ""
+    },
+    {
+     "nom": "PS_overrun_sq_pointe_kW2",
+     "defaut": "0.0",
+     "note": ""
+    },
+    {
+     "nom": "PS_overrun_sq_HPH_kW2",
+     "defaut": "0.0",
+     "note": ""
+    },
+    {
+     "nom": "PS_overrun_sq_HCH_kW2",
+     "defaut": "0.0",
+     "note": ""
+    },
+    {
+     "nom": "PS_overrun_sq_HPB_kW2",
+     "defaut": "0.0",
+     "note": ""
+    },
+    {
+     "nom": "PS_overrun_sq_HCB_kW2",
+     "defaut": "0.0",
+     "note": ""
+    },
+    {
+     "nom": "PS_overrun_hours",
+     "defaut": "0.0",
+     "note": ""
+    },
+    {
+     "nom": "supply_price_pointe_EUR_kWh",
+     "defaut": "0.0",
+     "note": ""
+    },
+    {
+     "nom": "supply_price_HPH_EUR_kWh",
+     "defaut": "0.0",
+     "note": ""
+    },
+    {
+     "nom": "supply_price_HCH_EUR_kWh",
+     "defaut": "0.0",
+     "note": ""
+    },
+    {
+     "nom": "supply_price_HPB_EUR_kWh",
+     "defaut": "0.0",
+     "note": ""
+    },
+    {
+     "nom": "supply_price_HCB_EUR_kWh",
+     "defaut": "0.0",
+     "note": ""
+    },
+    {
+     "nom": "electricity_excise_EUR_kWh",
+     "defaut": "None",
+     "note": ""
+    },
+    {
+     "nom": "vat_rate",
+     "defaut": "None",
+     "note": ""
+    },
+    {
+     "nom": "fixed_billing",
+     "defaut": "None",
+     "note": ""
+    },
+    {
+     "nom": "supplier_subscription_EUR_year",
+     "defaut": "0.0",
+     "note": ""
+    },
+    {
+     "nom": "gas_access_tariff",
+     "defaut": "None",
+     "note": ""
+    },
+    {
+     "nom": "gas_kWh",
+     "defaut": "0.0",
+     "note": ""
+    },
+    {
+     "nom": "gas_price_EUR_kWh",
+     "defaut": "0.0",
+     "note": ""
+    },
+    {
+     "nom": "CAR_MWh",
+     "defaut": "0.0",
+     "note": ""
+    },
+    {
+     "nom": "CJA_MWh_j",
+     "defaut": "0.0",
+     "note": ""
+    },
+    {
+     "nom": "CJN_MWh_j",
+     "defaut": "None",
+     "note": ""
+    },
+    {
+     "nom": "modulation_MWh_j",
+     "defaut": "None",
+     "note": ""
+    },
+    {
+     "nom": "gas_profile",
+     "defaut": "None",
+     "note": ""
+    },
+    {
+     "nom": "weather_station",
+     "defaut": "None",
+     "note": ""
+    },
+    {
+     "nom": "transport_network",
+     "defaut": "None",
+     "note": ""
+    },
+    {
+     "nom": "regional_tariff_level",
+     "defaut": "None",
+     "note": ""
+    },
+    {
+     "nom": "distance_km",
+     "defaut": "None",
+     "note": ""
+    },
+    {
+     "nom": "gas_excise_EUR_kWh",
+     "defaut": "None",
+     "note": ""
+    },
+    {
+     "nom": "gas_distribution_cta_rate",
+     "defaut": "None",
+     "note": ""
+    }
+   ],
+   "sorties": [
+    "calculator"
+   ],
+   "sorties_df": [],
+   "refus": [
+    "UnsupportedTariffError",
+    "ValueError"
+   ],
+   "sources": [],
+   "trace": [],
+   "noeud_ihm": [
+    "energy_bill"
+   ],
+   "pages": []
+  },
+  "Facture.HybridHeatDispatch.Object": {
+   "module": "Facture.HybridHeatDispatch",
+   "classe": "Object",
+   "import": "from Facture import HybridHeatDispatch",
+   "appel": "HybridHeatDispatch.Object()",
+   "objet": "Dispatch gaz / électricité / réserve et choix de la puissance souscrite.",
+   "entrees": [
+    {
+     "nom": "country",
+     "defaut": "COUNTRY",
+     "note": "France uniquement (TURPE, accise, RTE)"
+    },
+    {
+     "nom": "load_kW",
+     "defaut": "None",
+     "note": ""
+    },
+    {
+     "nom": "spot_EUR_MWh",
+     "defaut": "None",
+     "note": ""
+    },
+    {
+     "nom": "periods",
+     "defaut": "None",
+     "note": ""
+    },
+    {
+     "nom": "afrr_up_EUR_MW_h",
+     "defaut": "None",
+     "note": ""
+    },
+    {
+     "nom": "afrr_down_EUR_MW_h",
+     "defaut": "None",
+     "note": ""
+    },
+    {
+     "nom": "P_max_kW",
+     "defaut": "None",
+     "note": ""
+    },
+    {
+     "nom": "efficiency",
+     "defaut": "None",
+     "note": "chaudière : rendement ; PAC : COP"
+    },
+    {
+     "nom": "P_min_kW",
+     "defaut": "0.0",
+     "note": ""
+    },
+    {
+     "nom": "response_time_s",
+     "defaut": "None",
+     "note": ""
+    },
+    {
+     "nom": "reserve_max_response_time_s",
+     "defaut": "None",
+     "note": ""
+    },
+    {
+     "nom": "gas_marginal_EUR_MWh_PCS",
+     "defaut": "None",
+     "note": ""
+    },
+    {
+     "nom": "gas_efficiency_PCS",
+     "defaut": "None",
+     "note": ""
+    },
+    {
+     "nom": "co2_price_EUR_t",
+     "defaut": "0.0",
+     "note": ""
+    },
+    {
+     "nom": "co2_gas_t_per_MWh_PCS",
+     "defaut": "None",
+     "note": ""
+    },
+    {
+     "nom": "co2_elec_t_per_MWh",
+     "defaut": "None",
+     "note": ""
+    },
+    {
+     "nom": "turpe_variable",
+     "defaut": "None",
+     "note": "{plage: €/MWh} ; sinon lu dans la grille"
+    },
+    {
+     "nom": "excise_EUR_MWh",
+     "defaut": "None",
+     "note": ""
+    },
+    {
+     "nom": "domaine_tension",
+     "defaut": "None",
+     "note": ""
+    },
+    {
+     "nom": "version_utilisation",
+     "defaut": "None",
+     "note": ""
+    },
+    {
+     "nom": "tariff_date",
+     "defaut": "None",
+     "note": ""
+    },
+    {
+     "nom": "base_subscribed_kW",
+     "defaut": "None",
+     "note": "{plage: kW} souscription actuelle"
+    },
+    {
+     "nom": "subscription_options",
+     "defaut": "None",
+     "note": "liste d'ensembles de plages ; défaut : k dernières"
+    },
+    {
+     "nom": "connection_cost_EUR",
+     "defaut": "None",
+     "note": "PTF Enedis + poste client (facultatif)"
+    }
+   ],
+   "sorties": [
+    "options",
+    "timeseries"
+   ],
+   "sorties_df": [],
+   "refus": [
+    "DispatchError"
+   ],
+   "sources": [],
+   "trace": [],
+   "noeud_ihm": [
+    "hybrid_heat_dispatch"
+   ],
+   "pages": [
+    "010-achat-energie/appoint_electrique_spot.rst",
+    "010-achat-energie/index.rst"
    ]
   },
   "Facture.SONALGAZ_Elec.Sonalgaz_Elec": {
@@ -1791,7 +2287,9 @@
     "plot",
     "plot_detail"
    ],
-   "noeud_ihm": [],
+   "noeud_ihm": [
+    "energy_bill"
+   ],
    "pages": [
     "010-achat-energie/guide_audit_facture.rst",
     "010-achat-energie/index.rst",
@@ -1845,7 +2343,9 @@
     "plot",
     "plot_detail"
    ],
-   "noeud_ihm": [],
+   "noeud_ihm": [
+    "energy_bill"
+   ],
    "pages": [
     "010-achat-energie/guide_audit_facture.rst",
     "010-achat-energie/index.rst",
@@ -1902,7 +2402,7 @@
    "sources": [],
    "trace": [],
    "noeud_ihm": [
-    "straight_pipe"
+    "composite_wall"
    ],
    "pages": [
     "001-heat_transfer/composite_wall_heat_transfer.rst",
@@ -2446,9 +2946,15 @@
      "nom": "P_evap_kPa",
      "defaut": "None",
      "note": ""
+    },
+    {
+     "nom": "w_rich_mode",
+     "defaut": "'mass_balance'",
+     "note": ""
     }
    ],
    "sorties": [
+    "absorbent_imbalance_kgs",
     "w_poor",
     "w_rich",
     "mdot_poor",
@@ -2750,7 +3256,12 @@
     {
      "nom": "area_ratio",
      "defaut": "None",
-     "note": ""
+     "note": "A1/Ao (SR7-2)"
+    },
+    {
+     "nom": "ao_over_A1",
+     "defaut": "None",
+     "note": "Ao/A1 (SR7-17)"
     },
     {
      "nom": "theta_deg",
@@ -2777,7 +3288,8 @@
     "citation"
    ],
    "refus": [
-    "ValueError"
+    "ValueError",
+    "UnreliableFittingError"
    ],
    "sources": [],
    "trace": [],
@@ -3335,6 +3847,49 @@
     "002-thermodynamic_cycles/combustion_moteurs.rst"
    ]
   },
+  "ThermodynamicCycles.Combustion.FuelOil_Boiler_Efficiency_EN1295X.FuelOil_Boiler_Efficiency": {
+   "module": "ThermodynamicCycles.Combustion.FuelOil_Boiler_Efficiency_EN1295X",
+   "classe": "FuelOil_Boiler_Efficiency",
+   "import": "from ThermodynamicCycles.Combustion.FuelOil_Boiler_Efficiency_EN1295X import FuelOil_Boiler_Efficiency",
+   "appel": "FuelOil_Boiler_Efficiency()",
+   "objet": "EN12952-15 / EN12953-11 indirect method efficiency of a fuel oil boiler.",
+   "entrees": [
+    {
+     "nom": "boiler_type",
+     "defaut": "boiler_type",
+     "note": ""
+    },
+    {
+     "nom": "fuel_flow_l_h",
+     "defaut": "fuel_flow_l_h",
+     "note": ""
+    },
+    {
+     "nom": "fuel_density_kg_l",
+     "defaut": "fuel_density_kg_l",
+     "note": ""
+    },
+    {
+     "nom": "CO_ppm",
+     "defaut": "CO_ppm",
+     "note": ""
+    },
+    {
+     "nom": "fuel_LHV_kWh_kg",
+     "defaut": "fuel_LHV_kWh_kg",
+     "note": ""
+    }
+   ],
+   "sorties": [],
+   "sorties_df": [],
+   "refus": [
+    "ValueError"
+   ],
+   "sources": [],
+   "trace": [],
+   "noeud_ihm": [],
+   "pages": []
+  },
   "ThermodynamicCycles.Combustion.Gaz_Boiler.Object": {
    "module": "ThermodynamicCycles.Combustion.Gaz_Boiler",
    "classe": "Object",
@@ -3498,6 +4053,7 @@
    ],
    "sorties_df": [],
    "refus": [
+    "RuntimeError",
     "ValueError",
     "ImportError"
    ],
@@ -3511,8 +4067,177 @@
    ],
    "pages": [
     "002-thermodynamic_cycles/ng_boiler_efficiency.rst",
+    "013-simulation-temporelle/signaux_operations.rst",
     "interface/noeuds.rst"
    ]
+  },
+  "ThermodynamicCycles.Combustion.SolidFuel_Boiler_Efficiency_EN1295X.SolidFuel_Boiler_Efficiency": {
+   "module": "ThermodynamicCycles.Combustion.SolidFuel_Boiler_Efficiency_EN1295X",
+   "classe": "SolidFuel_Boiler_Efficiency",
+   "import": "from ThermodynamicCycles.Combustion.SolidFuel_Boiler_Efficiency_EN1295X import SolidFuel_Boiler_Efficiency",
+   "appel": "SolidFuel_Boiler_Efficiency()",
+   "objet": "EN12952-15 / EN12953-11 indirect method efficiency of a solid fuel boiler (wood, biomass, coal).",
+   "entrees": [
+    {
+     "nom": "fuel_composition_dry",
+     "defaut": "dict(fuel_composition_dry)",
+     "note": ""
+    },
+    {
+     "nom": "fuel_moisture",
+     "defaut": "fuel_moisture",
+     "note": ""
+    },
+    {
+     "nom": "fuel_LHV_ar",
+     "defaut": "fuel_LHV_ar_kJ_kg",
+     "note": ""
+    },
+    {
+     "nom": "fuel_temperature",
+     "defaut": "fuel_temperature_C",
+     "note": ""
+    },
+    {
+     "nom": "fuel_cp_daf",
+     "defaut": "fuel_cp_daf_kJ_kgK",
+     "note": ""
+    },
+    {
+     "nom": "T_fg",
+     "defaut": "flue_gas_temperature_C",
+     "note": ""
+    },
+    {
+     "nom": "O2_measured",
+     "defaut": "O2_measured",
+     "note": ""
+    },
+    {
+     "nom": "O2_basis",
+     "defaut": "O2_basis",
+     "note": ""
+    },
+    {
+     "nom": "CO_mg_Nm3_dry",
+     "defaut": "CO_mg_Nm3_dry",
+     "note": ""
+    },
+    {
+     "nom": "T_amb",
+     "defaut": "ambient_temperature_C",
+     "note": ""
+    },
+    {
+     "nom": "RH",
+     "defaut": "ambient_RH",
+     "note": ""
+    },
+    {
+     "nom": "P_atm",
+     "defaut": "ambient_pressure_mbar * 100.0",
+     "note": "Pa"
+    },
+    {
+     "nom": "T_air",
+     "defaut": "air_temperature_C if air_temperature_C is not None else ambient_temperature_C",
+     "note": ""
+    },
+    {
+     "nom": "air_streams",
+     "defaut": "air_streams",
+     "note": ""
+    },
+    {
+     "nom": "ash_split",
+     "defaut": "ash_split",
+     "note": ""
+    },
+    {
+     "nom": "ash_unburned",
+     "defaut": "ash_unburned",
+     "note": ""
+    },
+    {
+     "nom": "ash_temperature_C",
+     "defaut": "ash_temperature_C",
+     "note": ""
+    },
+    {
+     "nom": "radiation_constant",
+     "defaut": "radiation_constant",
+     "note": ""
+    },
+    {
+     "nom": "design_useful_heat_kW",
+     "defaut": "design_useful_heat_kW",
+     "note": ""
+    },
+    {
+     "nom": "useful_heat_kW",
+     "defaut": "useful_heat_kW",
+     "note": ""
+    },
+    {
+     "nom": "blowdown_heat_kW",
+     "defaut": "blowdown_heat_kW",
+     "note": ""
+    },
+    {
+     "nom": "fuel_flow_kg_h",
+     "defaut": "fuel_flow_kg_h",
+     "note": ""
+    },
+    {
+     "nom": "electrical_credit",
+     "defaut": "electrical_credit_kW",
+     "note": ""
+    },
+    {
+     "nom": "other_heat_credit",
+     "defaut": "other_heat_credit_kW",
+     "note": ""
+    },
+    {
+     "nom": "T_ref",
+     "defaut": "T_ref",
+     "note": ""
+    },
+    {
+     "nom": "Inlet",
+     "defaut": "FluidPort()",
+     "note": ""
+    },
+    {
+     "nom": "Outlet",
+     "defaut": "FluidPort()",
+     "note": ""
+    },
+    {
+     "nom": "To",
+     "defaut": "None",
+     "note": "Target outlet water temperature (°C)"
+    },
+    {
+     "nom": "FG_Outlet",
+     "defaut": "HumidGasMixturePort()",
+     "note": ""
+    }
+   ],
+   "sorties": [],
+   "sorties_df": [],
+   "refus": [
+    "ValueError",
+    "ImportError"
+   ],
+   "sources": [
+    "ashrae_fundamentals_2021"
+   ],
+   "trace": [
+    "plot"
+   ],
+   "noeud_ihm": [],
+   "pages": []
   },
   "ThermodynamicCycles.Compressor.Compressor.Object": {
    "module": "ThermodynamicCycles.Compressor.Compressor",
@@ -3540,6 +4265,21 @@
      "nom": "Tcond_degC",
      "defaut": "None",
      "note": ""
+    },
+    {
+     "nom": "eta_poly",
+     "defaut": "None",
+     "note": ""
+    },
+    {
+     "nom": "n_stages_poly",
+     "defaut": "100",
+     "note": ""
+    },
+    {
+     "nom": "allow_wet_discharge",
+     "defaut": "False",
+     "note": ""
     }
    ],
    "sorties": [
@@ -3559,7 +4299,9 @@
     "To",
     "Q_comp",
     "Q_losses",
-    "Ti_degC"
+    "Ti_degC",
+    "eta_is_equivalent",
+    "discharge_quality"
    ],
    "sorties_df": [
     "Timestamp",
@@ -3581,11 +4323,15 @@
     "So(J/kg-K)",
     "self.Outlet.P (bar)"
    ],
-   "refus": [],
+   "refus": [
+    "DischargeBelowDewPointError",
+    "WetDischargeError"
+   ],
    "sources": [],
    "trace": [],
    "noeud_ihm": [],
    "pages": [
+    "002-thermodynamic_cycles/chiller.rst",
     "002-thermodynamic_cycles/compressor.rst",
     "002-thermodynamic_cycles/exergie.rst",
     "002-thermodynamic_cycles/outils_diagrammes.rst",
@@ -3857,6 +4603,7 @@
    "trace": [],
    "noeud_ihm": [],
    "pages": [
+    "002-thermodynamic_cycles/chiller.rst",
     "002-thermodynamic_cycles/condenseur_evaporateur.rst",
     "002-thermodynamic_cycles/outils_diagrammes.rst",
     "interface/noeuds.rst",
@@ -4077,6 +4824,7 @@
     "desuperheater"
    ],
    "pages": [
+    "002-thermodynamic_cycles/chiller.rst",
     "002-thermodynamic_cycles/echangeurs.rst",
     "interface/noeuds.rst"
    ]
@@ -4254,8 +5002,8 @@
     },
     {
      "nom": "v_3",
-     "defaut": "100.0",
-     "note": "vitesse entree (m/s)"
+     "defaut": "None",
+     "note": "vitesse entree (m/s), obligatoire"
     }
    ],
    "sorties": [
@@ -4273,7 +5021,10 @@
     "ha_kJkg",
     "hb_kJkg"
    ],
-   "refus": [],
+   "refus": [
+    "ValueError",
+    "RuntimeError"
+   ],
    "sources": [],
    "trace": [],
    "noeud_ihm": [
@@ -4398,8 +5149,8 @@
     },
     {
      "nom": "v_1",
-     "defaut": "100.0",
-     "note": "vitesse primaire entree (m/s)"
+     "defaut": "None",
+     "note": "vitesse primaire entree (m/s), obligatoire"
     }
    ],
    "sorties": [
@@ -4420,7 +5171,9 @@
     "eps_m",
     "P_bar"
    ],
-   "refus": [],
+   "refus": [
+    "ValueError"
+   ],
    "sources": [],
    "trace": [],
    "noeud_ihm": [
@@ -4474,7 +5227,9 @@
     "x_out",
     "rho_out"
    ],
-   "refus": [],
+   "refus": [
+    "ValueError"
+   ],
    "sources": [],
    "trace": [],
    "noeud_ihm": [
@@ -4483,6 +5238,97 @@
    "pages": [
     "002-thermodynamic_cycles/ejecteur_tour_refroidissement.rst",
     "interface/noeuds.rst"
+   ]
+  },
+  "ThermodynamicCycles.ElectricBoiler.ElectricBoiler.Object": {
+   "module": "ThermodynamicCycles.ElectricBoiler.ElectricBoiler",
+   "classe": "Object",
+   "import": "from ThermodynamicCycles.ElectricBoiler import ElectricBoiler",
+   "appel": "ElectricBoiler.Object()",
+   "objet": "Chaudière électrique : ``Inlet`` / ``Outlet`` (eau), consigne ``To`` (°C) ou ``Q_flow_W`` (W utiles).",
+   "entrees": [
+    {
+     "nom": "Inlet",
+     "defaut": "FluidPort()",
+     "note": ""
+    },
+    {
+     "nom": "Outlet",
+     "defaut": "FluidPort()",
+     "note": ""
+    },
+    {
+     "nom": "_hex",
+     "defaut": "_SingleStreamHEX()",
+     "note": ""
+    },
+    {
+     "nom": "technology",
+     "defaut": "None",
+     "note": "\"résistances\" | \"électrodes\" (informatif)"
+    },
+    {
+     "nom": "P_max_kW",
+     "defaut": "None",
+     "note": "puissance ÉLECTRIQUE maximale"
+    },
+    {
+     "nom": "efficiency",
+     "defaut": "None",
+     "note": "chaleur utile / électricité consommée (-)"
+    },
+    {
+     "nom": "P_min_kW",
+     "defaut": "0.0",
+     "note": "minimum de modulation électrique (0 = modulation complète)"
+    },
+    {
+     "nom": "response_time_s",
+     "defaut": "None",
+     "note": "temps pour aller de 0 à P_max (s)"
+    },
+    {
+     "nom": "To",
+     "defaut": "None",
+     "note": "température de sortie visée (°C)"
+    },
+    {
+     "nom": "Q_flow_W",
+     "defaut": "None",
+     "note": "puissance utile imposée (W)"
+    },
+    {
+     "nom": "P_drop",
+     "defaut": "0.0",
+     "note": "perte de charge côté eau (Pa)"
+    }
+   ],
+   "sorties": [
+    "Qth",
+    "Q_useful_kW",
+    "P_elec_kW",
+    "load_ratio",
+    "To_out_degC"
+   ],
+   "sorties_df": [
+    "Timestamp",
+    "To(°C)",
+    "Q_utile(kW)",
+    "P_elec(kW)",
+    "taux_de_charge(-)"
+   ],
+   "refus": [
+    "ElectricBoilerError",
+    "ElectricBoilerCapacityError",
+    "ElectricBoilerMinimumLoadError"
+   ],
+   "sources": [],
+   "trace": [],
+   "noeud_ihm": [
+    "electric_boiler"
+   ],
+   "pages": [
+    "002-thermodynamic_cycles/chaudiere_electrique.rst"
    ]
   },
   "ThermodynamicCycles.Electrolyzer.Electrolyzer.Object": {
@@ -4578,6 +5424,79 @@
     "interface/noeuds.rst"
    ]
   },
+  "ThermodynamicCycles.EvaporativeCooler.EvaporativeCooler.Object": {
+   "module": "ThermodynamicCycles.EvaporativeCooler.EvaporativeCooler",
+   "classe": "Object",
+   "import": "from ThermodynamicCycles.EvaporativeCooler import EvaporativeCooler",
+   "appel": "EvaporativeCooler.Object()",
+   "objet": "Refroidisseur évaporatif.",
+   "entrees": [
+    {
+     "nom": "Inlet",
+     "defaut": "AirPort()",
+     "note": ""
+    },
+    {
+     "nom": "Outlet",
+     "defaut": "AirPort()",
+     "note": ""
+    },
+    {
+     "nom": "Secondary_Inlet",
+     "defaut": "AirPort()",
+     "note": ""
+    },
+    {
+     "nom": "kind",
+     "defaut": "'direct'",
+     "note": ""
+    },
+    {
+     "nom": "effectiveness",
+     "defaut": "None",
+     "note": ""
+    },
+    {
+     "nom": "secondary_wet_bulb_degC",
+     "defaut": "None",
+     "note": ""
+    },
+    {
+     "nom": "P_drop",
+     "defaut": "0.0",
+     "note": ""
+    },
+    {
+     "nom": "id",
+     "defaut": "None",
+     "note": ""
+    }
+   ],
+   "sorties": [
+    "T_in",
+    "T_out",
+    "T_wb_in",
+    "T_wb_out",
+    "F_dry",
+    "F_water",
+    "Q_sensible"
+   ],
+   "sorties_df": [],
+   "refus": [
+    "ValueError"
+   ],
+   "sources": [
+    "ashrae_hvac_systems_equipment_2008"
+   ],
+   "trace": [],
+   "noeud_ihm": [
+    "evaporative_cooler"
+   ],
+   "pages": [
+    "003-ahu_modules/refroidisseur_evaporatif.rst",
+    "interface/noeuds.rst"
+   ]
+  },
   "ThermodynamicCycles.Evaporator.Evaporator.Object": {
    "module": "ThermodynamicCycles.Evaporator.Evaporator",
    "classe": "Object",
@@ -4647,6 +5566,7 @@
     "evaporator"
    ],
    "pages": [
+    "002-thermodynamic_cycles/chiller.rst",
     "002-thermodynamic_cycles/condenseur_evaporateur.rst",
     "002-thermodynamic_cycles/outils_diagrammes.rst",
     "interface/noeuds.rst",
@@ -4691,7 +5611,9 @@
    ],
    "sources": [],
    "trace": [],
-   "noeud_ihm": [],
+   "noeud_ihm": [
+    "exergy_study"
+   ],
    "pages": [
     "002-thermodynamic_cycles/exergie.rst"
    ]
@@ -4732,7 +5654,9 @@
    "trace": [
     "plot_grassmann"
    ],
-   "noeud_ihm": [],
+   "noeud_ihm": [
+    "exergy_study"
+   ],
    "pages": [
     "002-thermodynamic_cycles/exergie.rst"
    ]
@@ -4772,6 +5696,7 @@
     "expansion_valve"
    ],
    "pages": [
+    "002-thermodynamic_cycles/chiller.rst",
     "002-thermodynamic_cycles/detente_distributeurs.rst",
     "002-thermodynamic_cycles/outils_diagrammes.rst",
     "interface/noeuds.rst",
@@ -4864,7 +5789,9 @@
     "Tsat_degC",
     "P_bar"
    ],
-   "refus": [],
+   "refus": [
+    "SinglePhaseInletError"
+   ],
    "sources": [],
    "trace": [],
    "noeud_ihm": [
@@ -5104,8 +6031,8 @@
     },
     {
      "nom": "HR_in",
-     "defaut": "0.5",
-     "note": "humidite relative"
+     "defaut": "None",
+     "note": "humidite relative [0-1] (None : déduite de w_in)"
     },
     {
      "nom": "Cp_a",
@@ -5139,7 +6066,22 @@
     },
     {
      "nom": "w_in",
-     "defaut": "0.0039",
+     "defaut": "None",
+     "note": ""
+    },
+    {
+     "nom": "rtol_humidite",
+     "defaut": "0.001",
+     "note": "tolérance NUMÉRIQUE de cohérence HR_in / w_in"
+    },
+    {
+     "nom": "w_in_used",
+     "defaut": "None",
+     "note": ""
+    },
+    {
+     "nom": "HR_in_used",
+     "defaut": "None",
      "note": ""
     },
     {
@@ -5177,7 +6119,9 @@
     "Re",
     "Nu"
    ],
-   "refus": [],
+   "refus": [
+    "ValueError"
+   ],
    "sources": [],
    "trace": [],
    "noeud_ihm": [],
@@ -5263,6 +6207,8 @@
     "delta_f",
     "rho_f",
     "Frost",
+    "converged",
+    "residual",
     "dx",
     "Pv",
     "f",
@@ -5288,7 +6234,9 @@
     "Kff_W_mK",
     "Q_fin_W"
    ],
-   "refus": [],
+   "refus": [
+    "RuntimeError"
+   ],
    "sources": [],
    "trace": [],
    "noeud_ihm": [],
@@ -5321,12 +6269,26 @@
     {
      "nom": "A_T_override",
      "defaut": "None",
-     "note": "m2 -- si None, utilise 0.506*0.304"
+     "note": "m2 -- prioritaire si renseigné"
+    },
+    {
+     "nom": "surface",
+     "defaut": "'plaque_modelica'",
+     "note": ""
+    },
+    {
+     "nom": "A_T_source",
+     "defaut": "None",
+     "note": "d'où vient A_T (publié)"
+    },
+    {
+     "nom": "A_T",
+     "defaut": "None",
+     "note": ""
     }
    ],
    "sorties": [
-    "A_fin",
-    "A_T"
+    "A_fin"
    ],
    "sorties_df": [
     "Tp_degC",
@@ -5335,7 +6297,9 @@
     "R_tube_m",
     "h_fin_m"
    ],
-   "refus": [],
+   "refus": [
+    "ValueError"
+   ],
    "sources": [],
    "trace": [],
    "noeud_ihm": [],
@@ -5467,6 +6431,7 @@
     "Q_total",
     "T_out_air",
     "HR_out",
+    "sursature_out",
     "T_out_ref",
     "T_s_givre",
     "T_p",
@@ -5612,7 +6577,9 @@
     "eta_s",
     "delta_f_mm"
    ],
-   "refus": [],
+   "refus": [
+    "PassageObstrueError"
+   ],
    "sources": [],
    "trace": [],
    "noeud_ihm": [],
@@ -5715,12 +6682,17 @@
     {
      "nom": "Inlet",
      "defaut": "FluidPort()",
-     "note": ""
+     "note": "comburant (air)"
+    },
+    {
+     "nom": "fuel_Inlet",
+     "defaut": "FluidPort()",
+     "note": "combustible (facultatif)"
     },
     {
      "nom": "Outlet",
      "defaut": "FluidPort()",
-     "note": ""
+     "note": "fumees"
     },
     {
      "nom": "LHV",
@@ -5733,11 +6705,6 @@
      "note": "rendement de combustion"
     },
     {
-     "nom": "m_fuel",
-     "defaut": "0.0",
-     "note": "debit combustible (kg/s)"
-    },
-    {
      "nom": "Q_cooling",
      "defaut": "0.0",
      "note": "pertes refroidissement (W)"
@@ -5746,27 +6713,25 @@
      "nom": "AFR_stoich",
      "defaut": "None",
      "note": "kg air / kg combustible (optionnel,"
+    },
+    {
+     "nom": "fuel_composition",
+     "defaut": "None",
+     "note": "{espece: fraction molaire} (optionnel)"
     }
    ],
    "sorties": [
+    "m_fuel",
     "P_fuel",
     "Ti_degC",
     "To_degC",
-    "AFR"
+    "AFR",
+    "AFR_stoich_calc",
+    "lambda_air",
+    "excess_air_pct",
+    "flue_gas_composition"
    ],
-   "sorties_df": [
-    "Timestamp",
-    "fluid",
-    "m_air_kgs",
-    "m_fuel_kgs",
-    "m_out_kgs",
-    "Ti_degC",
-    "To_degC",
-    "P_fuel_kW",
-    "eta_comb",
-    "AFR_kg_kg",
-    "flue_gas_model"
-   ],
+   "sorties_df": [],
    "refus": [
     "ValueError",
     "CombustionRichnessError"
@@ -5989,6 +6954,7 @@
     "n_H2O",
     "n_N2",
     "syngas_vol_dry",
+    "syngas_flow_dry_Nm3s",
     "LHV_syngas_raw_MJkg",
     "LHV_syngas_dry_MJNm3",
     "HHV_biomass_MJkg",
@@ -6190,7 +7156,8 @@
    "trace": [],
    "noeud_ihm": [
     "discretized_hex",
-    "dtlm_hex"
+    "dtlm_hex",
+    "evapocondenser"
    ],
    "pages": [
     "002-thermodynamic_cycles/aerorefrigerant.rst",
@@ -6240,7 +7207,9 @@
     "Qth",
     "Q_flow",
     "To_degC",
-    "Ti_degC"
+    "Ti_degC",
+    "_Qth_calcule",
+    "_To_calcule"
    ],
    "sorties_df": [
     "Timestamp",
@@ -6252,7 +7221,8 @@
    "trace": [],
    "noeud_ihm": [
     "discretized_hex",
-    "dtlm_hex"
+    "dtlm_hex",
+    "evapocondenser"
    ],
    "pages": [
     "002-thermodynamic_cycles/echangeurs.rst",
@@ -6318,12 +7288,15 @@
     "Q_kW",
     "UA_WK"
    ],
-   "refus": [],
+   "refus": [
+    "RuntimeError"
+   ],
    "sources": [],
    "trace": [],
    "noeud_ihm": [
     "discretized_hex",
-    "dtlm_hex"
+    "dtlm_hex",
+    "evapocondenser"
    ],
    "pages": [
     "002-thermodynamic_cycles/echangeurs.rst",
@@ -6385,6 +7358,10 @@
    ],
    "sorties": [
     "Q_total_W",
+    "Q_flow_W",
+    "hot_stream",
+    "converged",
+    "residual",
     "T1_profile_degC",
     "T2_profile_degC"
    ],
@@ -6400,9 +7377,13 @@
     "T2in_degC",
     "T2out_degC",
     "Q_kW",
+    "Q_hot_to_cold_kW",
+    "hot_stream",
     "UA_WK"
    ],
-   "refus": [],
+   "refus": [
+    "_HorsBornes"
+   ],
    "sources": [],
    "trace": [],
    "noeud_ihm": [
@@ -6448,6 +7429,11 @@
     {
      "nom": "P_drop",
      "defaut": "0.0",
+     "note": "Pa, side 1"
+    },
+    {
+     "nom": "P_drop_2",
+     "defaut": "0.0",
      "note": ""
     },
     {
@@ -6466,6 +7452,16 @@
      "note": ""
     },
     {
+     "nom": "property_model",
+     "defaut": "'constant_cp'",
+     "note": ""
+    },
+    {
+     "nom": "n_segments_ntu",
+     "defaut": "40",
+     "note": ""
+    },
+    {
      "nom": "T1o",
      "defaut": "None",
      "note": ""
@@ -6473,6 +7469,11 @@
     {
      "nom": "T2o",
      "defaut": "None",
+     "note": ""
+    },
+    {
+     "nom": "balance_rtol",
+     "defaut": "0.001",
      "note": ""
     },
     {
@@ -6491,16 +7492,6 @@
      "note": ""
     },
     {
-     "nom": "A",
-     "defaut": "None",
-     "note": ""
-    },
-    {
-     "nom": "LMTD",
-     "defaut": "None",
-     "note": ""
-    },
-    {
      "nom": "dT_left",
      "defaut": "None",
      "note": ""
@@ -6509,11 +7500,19 @@
      "nom": "dT_right",
      "defaut": "None",
      "note": ""
+    },
+    {
+     "nom": "n_segments",
+     "defaut": "40",
+     "note": ""
     }
    ],
    "sorties": [
     "UA",
     "UA_eff",
+    "Eff_enthalpy",
+    "segmented_converged",
+    "segmented_residual",
     "C1",
     "C2",
     "Cmin",
@@ -6523,17 +7522,23 @@
     "NUT",
     "Qth",
     "DTLM",
-    "Q_flow"
+    "A",
+    "Q_flow",
+    "LMTD",
+    "dT_min",
+    "pinch_location"
    ],
    "sorties_df": [],
    "refus": [
-    "ValueError"
+    "ValueError",
+    "UnsupportedArrangementError"
    ],
    "sources": [],
    "trace": [],
    "noeud_ihm": [
     "discretized_hex",
-    "dtlm_hex"
+    "dtlm_hex",
+    "evapocondenser"
    ],
    "pages": [
     "002-thermodynamic_cycles/echangeurs.rst"
@@ -6766,6 +7771,11 @@
      "note": "Angle d'inclinaison pour tilting (rad)"
     },
     {
+     "nom": "D_in_pouces",
+     "defaut": "2.0",
+     "note": ""
+    },
+    {
      "nom": "dp_crack",
      "defaut": "500",
      "note": "Différence pression d'ouverture (Pa)"
@@ -6785,7 +7795,8 @@
     "delta_P",
     "m_flow",
     "is_open",
-    "flow_direction"
+    "flow_direction",
+    "blocked_flow"
    ],
    "sorties_df": [
     "Timestamp",
@@ -8332,6 +9343,85 @@
     "interface/noeuds.rst"
    ]
   },
+  "ThermodynamicCycles.Hydraulic.Manifold.Object": {
+   "module": "ThermodynamicCycles.Hydraulic.Manifold",
+   "classe": "Object",
+   "import": "from ThermodynamicCycles.Hydraulic import Manifold",
+   "appel": "Manifold.Object()",
+   "objet": "Distributeur / collecteur ISOLE, charge par une resistance par piquage.",
+   "entrees": [
+    {
+     "nom": "spec",
+     "defaut": "None",
+     "note": ""
+    },
+    {
+     "nom": "fluid",
+     "defaut": "'water'",
+     "note": ""
+    },
+    {
+     "nom": "T_K",
+     "defaut": "293.15",
+     "note": ""
+    },
+    {
+     "nom": "P_taps",
+     "defaut": "100000.0",
+     "note": "Pa, pression commune a l'aval des charges"
+    },
+    {
+     "nom": "F",
+     "defaut": "None",
+     "note": "kg/s au raccord principal"
+    },
+    {
+     "nom": "P_feed",
+     "defaut": "None",
+     "note": "Pa au raccord principal (alternative a F)"
+    },
+    {
+     "nom": "tap_load_zeta",
+     "defaut": "None",
+     "note": "un par piquage, ou un nombre"
+    }
+   ],
+   "sorties": [
+    "tap_flows",
+    "tap_pressures",
+    "dp_total",
+    "zeta_total",
+    "maldistribution",
+    "velocity_header",
+    "converged",
+    "residual",
+    "feed_split_unmodelled"
+   ],
+   "sorties_df": [
+    "Timestamp",
+    "kind",
+    "model",
+    "n_taps",
+    "F_total_kgs",
+    "V_header_ms",
+    "dp_total_Pa",
+    "zeta_total",
+    "maldistribution",
+    "converged",
+    "feed_split_unmodelled"
+   ],
+   "refus": [
+    "ValueError"
+   ],
+   "sources": [
+    "idelchik"
+   ],
+   "trace": [],
+   "noeud_ihm": [
+    "manifold"
+   ],
+   "pages": []
+  },
   "ThermodynamicCycles.Hydraulic.MovableFlap.Object": {
    "module": "ThermodynamicCycles.Hydraulic.MovableFlap",
    "classe": "Object",
@@ -8728,6 +9818,11 @@
      "note": ""
     },
     {
+     "nom": "transport_delay",
+     "defaut": "False",
+     "note": ""
+    },
+    {
      "nom": "delta_H",
      "defaut": "None",
      "note": "Modelica.Units.SI.Height delta_H perte de pression en m"
@@ -8757,6 +9852,8 @@
     "Ti",
     "K",
     "delta_Z",
+    "transport_state",
+    "transport_delay_s",
     "delta_P_static",
     "eta",
     "rho",
@@ -8794,6 +9891,7 @@
    "pages": [
     "004-hydraulic/perte_pression_lineaire.rst",
     "004-hydraulic/resolution_circuit.rst",
+    "004-hydraulic/serpentin.rst",
     "api.rst",
     "interface/noeuds.rst",
     "usage/section-4-distribution.rst",
@@ -9636,6 +10734,11 @@
      "note": ""
     },
     {
+     "nom": "curve_fit_scaling",
+     "defaut": "'auto'",
+     "note": ""
+    },
+    {
      "nom": "F_Sm3s",
      "defaut": "None",
      "note": ""
@@ -9661,6 +10764,16 @@
      "note": "m"
     },
     {
+     "nom": "X_npsh",
+     "defaut": "None",
+     "note": "m3/h"
+    },
+    {
+     "nom": "Y_npsh",
+     "defaut": "None",
+     "note": "m"
+    },
+    {
      "nom": "omega_ref",
      "defaut": "None",
      "note": "tr/min, vitesse de la courbe fournie"
@@ -9673,6 +10786,7 @@
     "Ho",
     "To",
     "W_pump",
+    "W_hydraulic",
     "X_F",
     "Y_hmt",
     "Y_eta",
@@ -9680,15 +10794,19 @@
     "model_eta",
     "polynomial_features",
     "nb_degree",
+    "curve_fit_scale_used",
     "x_new_min",
     "x_new_max",
     "Y_hmt_NEW",
     "Y_eta_NEW",
     "npsh_available",
+    "npsh_required_used",
     "npsh_margin",
     "cavitation_state",
     "npsh_warning",
     "extrapolated",
+    "operating_point_found",
+    "operating_point_warning",
     "Q_pump",
     "Ti_degC"
    ],
@@ -10169,9 +11287,16 @@
      "nom": "normal_pressure_Pa",
      "defaut": "101325.0",
      "note": ""
+    },
+    {
+     "nom": "time_constant_s",
+     "defaut": "0.0",
+     "note": ""
     }
    ],
    "sorties": [
+    "lag_state",
+    "instantaneous_value",
     "value",
     "unit",
     "temperature_degC",
@@ -10196,7 +11321,9 @@
     "normal_volume_flow_Nm3h",
     "enthalpy_kJkg",
     "density_kgm3",
-    "relative_humidity_percent"
+    "relative_humidity_percent",
+    "time_constant_s",
+    "instantaneous_value"
    ],
    "refus": [
     "ValueError"
@@ -10210,6 +11337,113 @@
     "002-thermodynamic_cycles/capteur_signaux.rst",
     "interface/noeuds.rst"
    ]
+  },
+  "ThermodynamicCycles.Signals.AdaptivePIDController.Object": {
+   "module": "ThermodynamicCycles.Signals.AdaptivePIDController",
+   "classe": "Object",
+   "import": "from ThermodynamicCycles.Signals import AdaptivePIDController",
+   "appel": "AdaptivePIDController.Object()",
+   "objet": "PID dont les gains suivent le gain du procede (voir l'en-tete).",
+   "entrees": [
+    {
+     "nom": "adaptation",
+     "defaut": "'online'",
+     "note": ""
+    },
+    {
+     "nom": "Kp0",
+     "defaut": "self.Kp",
+     "note": ""
+    },
+    {
+     "nom": "Ki0",
+     "defaut": "self.Ki",
+     "note": ""
+    },
+    {
+     "nom": "Kd0",
+     "defaut": "self.Kd",
+     "note": ""
+    },
+    {
+     "nom": "K0",
+     "defaut": "None",
+     "note": ""
+    },
+    {
+     "nom": "time_constant_s",
+     "defaut": "None",
+     "note": "TC"
+    },
+    {
+     "nom": "dead_time_s",
+     "defaut": "0.0",
+     "note": "TD"
+    },
+    {
+     "nom": "memory_s",
+     "defaut": "None",
+     "note": "None : 5.(TC + TD)"
+    },
+    {
+     "nom": "du_min",
+     "defaut": "0.005",
+     "note": "excitation minimale (unite de sortie)"
+    },
+    {
+     "nom": "change_threshold",
+     "defaut": "None",
+     "note": ""
+    },
+    {
+     "nom": "change_discount",
+     "defaut": "0.05",
+     "note": "part de la memoire conservee au changement"
+    },
+    {
+     "nom": "ratio_min",
+     "defaut": "0.1",
+     "note": "bornes de K / K0"
+    },
+    {
+     "nom": "ratio_max",
+     "defaut": "10.0",
+     "note": ""
+    }
+   ],
+   "sorties": [
+    "process_gain",
+    "_u_hist",
+    "_prev",
+    "_S",
+    "_clock_s",
+    "_ki_applied",
+    "process_offset",
+    "command_excitation",
+    "prediction_error",
+    "regime_changes",
+    "process_gain_estimate",
+    "gain_ratio",
+    "adaptation_status",
+    "samples_used"
+   ],
+   "sorties_df": [
+    "process_gain",
+    "gain_ratio",
+    "Kp",
+    "Ki",
+    "Kd",
+    "adaptation_status"
+   ],
+   "refus": [
+    "ValueError"
+   ],
+   "sources": [],
+   "trace": [],
+   "noeud_ihm": [
+    "signal_adaptive_pid"
+   ],
+   "pages": []
   },
   "ThermodynamicCycles.Signals.PIDController.Object": {
    "module": "ThermodynamicCycles.Signals.PIDController",
@@ -10358,6 +11592,7 @@
    "noeud_ihm": [],
    "pages": [
     "002-thermodynamic_cycles/aerorefrigerant.rst",
+    "002-thermodynamic_cycles/chaudiere_electrique.rst",
     "002-thermodynamic_cycles/compressor.rst",
     "002-thermodynamic_cycles/sink.rst",
     "004-hydraulic/TA_valve.rst",
@@ -10489,6 +11724,11 @@
      "nom": "effectiveness",
      "defaut": "0.7",
      "note": ""
+    },
+    {
+     "nom": "method",
+     "defaut": "'enthalpy'",
+     "note": ""
     }
    ],
    "sorties": [
@@ -10503,7 +11743,9 @@
     "T_poor_out_C",
     "Q_she_kW"
    ],
-   "refus": [],
+   "refus": [
+    "ValueError"
+   ],
    "sources": [],
    "trace": [],
    "noeud_ihm": [
@@ -10569,6 +11811,7 @@
    "pages": [
     "002-thermodynamic_cycles/aerorefrigerant.rst",
     "002-thermodynamic_cycles/capteur_signaux.rst",
+    "002-thermodynamic_cycles/chaudiere_electrique.rst",
     "002-thermodynamic_cycles/combustion_moteurs.rst",
     "002-thermodynamic_cycles/compressor.rst",
     "002-thermodynamic_cycles/condenseur_evaporateur.rst",
@@ -10581,13 +11824,26 @@
     "003-ahu_modules/batteries.rst",
     "004-hydraulic/TA_valve.rst",
     "004-hydraulic/clapet_anti_retour.rst",
+    "004-hydraulic/clapet_volet.rst",
     "004-hydraulic/coudes_tes_singularites.rst",
+    "004-hydraulic/elargissement_section.rst",
+    "004-hydraulic/entree_conduite.rst",
+    "004-hydraulic/grille_plaque.rst",
+    "004-hydraulic/lit_grains.rst",
+    "004-hydraulic/methodes_2k_3k.rst",
+    "004-hydraulic/orifice.rst",
     "004-hydraulic/perte_pression_lineaire.rst",
+    "004-hydraulic/reduction_section.rst",
     "004-hydraulic/regulateur_dp.rst",
     "004-hydraulic/resolution_circuit.rst",
-    "004-hydraulic/valve_3_voies.rst",
+    "004-hydraulic/serpentin.rst",
+    "004-hydraulic/sortie_libre.rst",
+    "004-hydraulic/te_jonction.rst",
+    "004-hydraulic/vanne_boule.rst",
     "004-hydraulic/vanne_generique.rst",
     "004-hydraulic/vanne_isolement.rst",
+    "004-hydraulic/vanne_papillon.rst",
+    "004-hydraulic/vanne_soupape.rst",
     "005-aeraulic/coude_aeraulique.rst",
     "005-aeraulic/filtre.rst",
     "005-aeraulic/obstruction.rst",
@@ -10963,6 +12219,16 @@
      "nom": "LP",
      "defaut": "1 * 100000",
      "note": ""
+    },
+    {
+     "nom": "eta_poly",
+     "defaut": "None",
+     "note": ""
+    },
+    {
+     "nom": "n_stages_poly",
+     "defaut": "100",
+     "note": ""
     }
    ],
    "sorties": [
@@ -10973,7 +12239,8 @@
     "Ho",
     "To",
     "So",
-    "Q_turb"
+    "Q_turb",
+    "IsenEff_equivalent"
    ],
    "sorties_df": [
     "Fluid",
@@ -11196,6 +12463,7 @@
     "characteristic_table",
     "interp_mode",
     "alpha",
+    "gain_T_per_opening",
     "opening",
     "last_warning",
     "design_flow_violation",
@@ -11227,6 +12495,63 @@
     "004-hydraulic/valve_3_voies.rst",
     "interface/noeuds.rst"
    ]
+  },
+  "ThermodynamicCycles.WastewaterAeration.WastewaterAeration.Object": {
+   "module": "ThermodynamicCycles.WastewaterAeration.WastewaterAeration",
+   "classe": "Object",
+   "import": "from ThermodynamicCycles.WastewaterAeration import WastewaterAeration",
+   "appel": "WastewaterAeration.Object()",
+   "objet": "Aération d'un bassin à boues activées et son surpresseur.",
+   "entrees": [
+    {
+     "nom": "P_atm_bar",
+     "defaut": "1.01325",
+     "note": ""
+    },
+    {
+     "nom": "operating_hours",
+     "defaut": "None",
+     "note": ""
+    },
+    {
+     "nom": "plant_reference_MWh_per_year",
+     "defaut": "None",
+     "note": ""
+    }
+   ],
+   "sorties": [
+    "BOD5_load_kg_d",
+    "MLVSS_kg",
+    "nitrified_N_kg_d",
+    "O2_per_N",
+    "O2_dbo_kg_j",
+    "O2_endogene_kg_j",
+    "O2_nitrification_kg_j",
+    "O2_total_kg_j",
+    "O2_total_kg_h",
+    "OTE_field",
+    "O2_mass_fraction_air",
+    "air_flow_kg_s",
+    "discharge_pressure_bar",
+    "T_discharge_degC",
+    "blower_power_kW",
+    "annual_MWh",
+    "share_of_plant_pct",
+    "compressor"
+   ],
+   "sorties_df": [],
+   "refus": [
+    "ValueError"
+   ],
+   "sources": [
+    "templeton_butler_2011",
+    "ashrae_fundamentals_2021"
+   ],
+   "trace": [],
+   "noeud_ihm": [
+    "wastewater_aeration"
+   ],
+   "pages": []
   }
  }
 }

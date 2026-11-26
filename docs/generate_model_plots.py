@@ -364,12 +364,38 @@ def generate_general_valve_plot() -> None:
     plt.close("all")
 
 
+def generate_fuel_oil_boiler_plot() -> None:
+    """Bilan PCS de la chaudière fioul, par sa propre méthode ``plot()``.
+
+    Même cas que l'exemple nominal de ``002-thermodynamic_cycles/chaudiere_fioul.rst``
+    (cas fourni avec le classeur Veolia, 69 MW, tubes d'eau).
+    """
+    from ThermodynamicCycles.Combustion.FuelOil_Boiler_Efficiency_EN1295X import (
+        FuelOil_Boiler_Efficiency,
+    )
+
+    b = FuelOil_Boiler_Efficiency(
+        fuel_composition={"C": 0.8571, "H": 0.1387, "O": 0.0010, "N": 0.0009, "S": 0.0023},
+        fuel_LHV_kWh_kg=11.818, fuel_flow_l_h=6800, fuel_density_kg_l=0.81774,
+        fuel_temperature_C=140, fuel_cp_kJ_kgK=2.0,
+        flue_gas_temperature_C=140, O2_measured=0.03, CO_ppm=40,
+        ambient_temperature_C=27, ambient_RH=0.35, air_temperature_C=60,
+        boiler_type="water_tube", design_useful_heat_kW=69000,
+    )
+    b.calculate()
+    plt.close("all")
+    fig, _ = b.plot(basis="PCS", show=False)
+    fig.savefig(IMAGES / "002_chaudiere_fioul_bilan.svg", format="svg", bbox_inches="tight")
+    plt.close("all")
+
+
 def main() -> None:
     IMAGES.mkdir(parents=True, exist_ok=True)
     generate_chiller_plots()
     generate_turpe_plots()
     generate_hydraulic_singularity_plots()
     generate_general_valve_plot()
+    generate_fuel_oil_boiler_plot()
     print("generated real model plots")
 
 

@@ -127,6 +127,21 @@
    "cran_max": 5,
    "recul": null
   },
+  "docs/source/002-thermodynamic_cycles/chaudiere_fioul.rst": {
+   "blocs": 3,
+   "empreinte": "55c34bc0a7522b4d",
+   "mesure": "2026-11-26T03:52",
+   "figures": [
+    "../images/002_chaudiere_fioul_bilan.svg"
+   ],
+   "blocage": null,
+   "motif": "",
+   "extraits": null,
+   "cran": 5,
+   "nom": "personnalisable",
+   "cran_max": 5,
+   "recul": null
+  },
   "docs/source/002-thermodynamic_cycles/chiller.rst": {
    "blocs": 6,
    "empreinte": "c2dfe3032efe1ac0",

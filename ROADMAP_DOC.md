@@ -261,6 +261,21 @@ réelle si le modèle en a une.
 `Electrical`, `Facture` au-delà du TURPE… Commencer par ceux qui ont des tests
 dans `$LIB/test/` — un test donne un exemple déjà validé.
 
+Inventaire du 2026-11-26 (`tools/inventaire_modeles.py --sans-page`) : **6 modèles
+sans page**, traités un par tour dans cet ordre :
+
+- `fait` (2026-11-26, cran 5, 3 blocs + figure `plot()`) **E1 —
+  `Combustion.FuelOil_Boiler_Efficiency`** → `002-thermodynamic_cycles/chaudiere_fioul.rst` :
+  fiche de lecture, cas du classeur Veolia 69 MW (η PCI 94,528 %, PCS 87,754 %),
+  variante 2 MW tubes de fumées (O₂ 5 → 3 %, fumées 220 → 120 → 40 °C), 6 refus.
+  Titre de `plot()` hérité du solide → `BUGS_LIB.md`.
+- `à faire` **E2 — `Combustion.SolidFuel_Boiler_Efficiency`** (test
+  `test/Combustion/test_SolidFuel_Boiler_Efficiency_EN1295X.py`) ; renvoyer depuis
+  `chaudiere_fioul`.
+- `à faire` **E3 — `Hydraulic.Manifold`**, **E4 — `Signals.AdaptivePIDController`**
+  (scène « départ chauffage PI adaptatif »), **E5 — `WastewaterAeration`**,
+  **E6 — `Facture.EnergyBill`**.
+
 ## F. Outillage du guide
 
 - `fait` **F1 — `tools/banc_doc.py`** : banc documentaire, crans 0 à 5, état dans

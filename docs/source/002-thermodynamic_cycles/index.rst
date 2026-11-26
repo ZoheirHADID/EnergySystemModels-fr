@@ -33,6 +33,7 @@ Cycles thermodynamiques
    geothermie_solaire
    ng_heating_value
    ng_boiler_efficiency
+   chaudiere_fioul
    chaudiere_electrique
    outils_diagrammes
    exergie
