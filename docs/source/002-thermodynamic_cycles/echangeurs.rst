@@ -744,9 +744,9 @@ Sortie réelle :
 
 .. code-block:: text
 
-   T_rich_out = 73.5 °C
-   T_poor_out = 51.78152063607045 °C
-   Q_she = 8744.764508859927 W
+   T_rich_out = 71.9115919575476 °C
+   T_poor_out = 51.61966096083025 °C
+   Q_she = 8483.910192450025 W
 
 .. _echangeurs-desuperheater:
 

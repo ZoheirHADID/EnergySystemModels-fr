@@ -27,6 +27,7 @@ Cycles thermodynamiques
    ballon_stratifie
    melangeur_flash_stockage
    raccords_fittings
+   collecteur_distributeur
    dessalement_evaporation
    distillation
    separation

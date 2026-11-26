@@ -269,10 +269,18 @@ sans page**, traités un par tour dans cet ordre :
   fiche de lecture, cas du classeur Veolia 69 MW (η PCI 94,528 %, PCS 87,754 %),
   variante 2 MW tubes de fumées (O₂ 5 → 3 %, fumées 220 → 120 → 40 °C), 6 refus.
   Titre de `plot()` hérité du solide → `BUGS_LIB.md`.
-- `à faire` **E2 — `Combustion.SolidFuel_Boiler_Efficiency`** (test
-  `test/Combustion/test_SolidFuel_Boiler_Efficiency_EN1295X.py`) ; renvoyer depuis
-  `chaudiere_fioul`.
-- `à faire` **E3 — `Hydraulic.Manifold`**, **E4 — `Signals.AdaptivePIDController`**
+- `fait` (2026-11-26, cran 5, 3 blocs rejoues) **E2 — `Combustion.SolidFuel_Boiler_Efficiency`**
+  → `002-thermodynamic_cycles/chaudiere_biomasse.rst` : fiche de lecture, cas du
+  classeur Veolia 100 MW (η PCS 93,97 %, η PCI 107,91 % en condensation),
+  variante 2 MW (humidité 30 → 50 %, condenseur à 50 °C), 8 refus exécutés.
+  Renvoi depuis `chaudiere_fioul`.
+- `fait` (2026-11-26, cran 5, 2 blocs + figure) **E3 — `Hydraulic.Manifold`**
+  → `002-thermodynamic_cycles/collecteur_distributeur.rst` : collecteur DN 100 à
+  six piquages DN 25 (2,4 kg/s, 80 °C), écart de répartition 0,11 % à charges
+  égales, **37,2 %** et dernier circuit à −37 % quand un circuit s'encrasse
+  (ζ 30 → 90), 9 refus vérifiés, table de personnalisation, figure
+  `002_collecteur_repartition.svg`, renvoi vers la vanne d'équilibrage.
+- `à faire` **E4 — `Signals.AdaptivePIDController`**
   (scène « départ chauffage PI adaptatif »), **E5 — `WastewaterAeration`**,
   **E6 — `Facture.EnergyBill`**.
 

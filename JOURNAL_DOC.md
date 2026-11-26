@@ -1543,3 +1543,15 @@
 - Défauts de lib : `BUGS_LIB.md` — `plot()` titré « combustible solide » avec une barre « Pertes cendres » sur le fioul. Aucun écart de calcul (le test de la lib reproduit le classeur).
 - Banc : `chaudiere_fioul` au cran 5 (3 blocs), 110 pages au cran 5, 30 de prose, 140 mesurées, aucun recul. Build Sphinx -W : 0 warning.
 - Suivant : E2 `SolidFuel_Boiler_Efficiency` (test de la lib comme cas nominal), puis E3 à E6.
+
+## 2026-11-26 — E2 : chaudiere_biomasse.rst (SolidFuel_Boiler_Efficiency)
+- Unite : 6e modele sans page de l'inventaire ; la page a ete ecrite par la session precedente et ses 3 blocs ont ete rejoues ici (sorties identiques aux valeurs publiees, au chiffre pres).
+- Fait : fiche de lecture (methode indirecte EN 12952-15 / EN 12953-11, analyse sur sec et PCI sur brut, pertes fumees / CO / cendres / rayonnement / condensat, refus), cas du classeur Veolia 100 MW (eta PCS 93,97 %, 107,91 % PCI en condensation), variante 2 MW (humidite 30 -> 50 %, condenseur a 50 C), 8 refus executes ; renvoi depuis chaudiere_fioul.
+- Banc : chaudiere_biomasse au cran 5 (3 blocs). Build Sphinx -W : 0 warning.
+- Suivant : E3 Manifold (traite dans l'entree suivante).
+
+## 2026-11-26 — E3 : collecteur_distributeur.rst (Hydraulic.Manifold)
+- Fait : nouvelle page — collecteur DN 100, six piquages DN 25, 2,4 kg/s a 80 C : repartition 0,3996-0,4004 kg/s (ecart 0,11 %, residu 1,9e-16) ; variante avec le dernier circuit a zeta 90 : 0,251 contre 0,430 kg/s (ecart 37,2 %), figure 002_collecteur_repartition.svg ; 9 refus verifies a l'execution ; table de personnalisation ; renvoi vers la vanne d'equilibrage (004-hydraulic/TA_valve).
+- Defaut de lib constate : eed_split_unmodelled vaut True des qu'il existe des piquages de part et d'autre du raccord, y compris sur son abscisse (raccord a 3,0 m de 3 piquages a 1, 2, 3 m) — la page le dit sans le masquer ; a confirmer cote lib si ce n'est pas voulu.
+- Banc : collecteur_distributeur au cran 5 (2 blocs + figure), 112 pages au cran 5. Build Sphinx -E -W : 0 warning.
+- Suivant : E4 AdaptivePIDController, E5 WastewaterAeration, E6 EnergyBill.
