@@ -1348,8 +1348,8 @@
   },
   "docs/source/009-pv-solaire/index.rst": {
    "blocs": 14,
-   "empreinte": "c8e49a2d73a87c09",
-   "mesure": "2026-11-26T06:34",
+   "empreinte": "3273a9ad02dfdf62",
+   "mesure": "2026-11-26T21:50",
    "figures": [
     "/images/schema_pv_installation.svg",
     "/009-pv-solaire/figures/009_pv_plot_production.png",

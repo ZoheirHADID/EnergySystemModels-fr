@@ -85,8 +85,9 @@ par ailleurs.
          compteur, réseau
 
    Schéma produit par ``docs/schemas_pv.py`` ; les noms portés sont ceux du code
-   de ``PV.ProductionElectriquePV``. Aucun nœud ``PyqtSimulator`` ne représente le
-   photovoltaïque : le PV s'utilise en Python.
+   de ``PV.ProductionElectriquePV``. Les éléments modélisables ont leur classe
+   (``PV.Electrique``) et leur nœud ``PyqtSimulator`` (voir le tableau ci-après) ;
+   les protections restent hors du modèle.
 
 - **Générateur** (2) : les modules sont câblés **en série** en chaînes (*strings*),
   les chaînes **en parallèle** sur l'entrée de l'onduleur. ``azimut`` et
@@ -106,6 +107,85 @@ par ailleurs.
   (courbe de charge) ; autoconsommation, injection et soutirage sont **calculés**
   par ``SolarSystem.autoconsommation()`` ou ``simuler_autoconsommation()``.
 - **Protections, câbles, raccordement** (3, 6, 9) : hors du modèle.
+
+Les neuf éléments, leur classe et leur nœud
+--------------------------------------------
+
+Chaque élément **modélisable** du schéma a désormais une classe unitaire
+réutilisable (``PV.Electrique``) et un nœud ``PyqtSimulator``, qui se relient par
+un **port électrique** (puissance apparente en kVA, sens d'écoulement porté par
+le signe). Les deux protections et les câbles restent hors du modèle : c'est
+écrit dans le schéma, pas masqué.
+
+.. list-table::
+   :widths: 6 22 30 22 20
+   :header-rows: 1
+
+   * - N°
+     - Élément
+     - Classe (``PV.Electrique``)
+     - Nœud (op)
+     - Grandeurs échangées
+   * - 1
+     - Météo horaire
+     - entrée de ``SolarSystem.weather`` (PVGIS ou relevé)
+     - —
+     - —
+   * - 2
+     - Générateur PV (chaînes × strings)
+     - ``GenerateurPV`` — ``n_s``, ``n_p``, loi de maille ``R I² − U0 I + S = 0``
+     - Générateur PV (989)
+     - ``S``, ``U``, ``I``
+   * - 3
+     - Protections DC
+     - **hors modèle** (fusibles, parafoudre)
+     - —
+     - —
+   * - 4
+     - Onduleur
+     - ``Onduleur`` — rendement constant saisi
+     - Onduleur (990)
+     - ``S_dc`` → ``S_ac``, pertes
+   * - 5
+     - Stockage
+     - ``StockageBatterie`` — capacité, SOC, puissance, rendement aller-retour
+     - Stockage électrique (991)
+     - ``S`` au nœud, SOC, énergie
+   * - 6
+     - Protections AC
+     - **hors modèle** (disjoncteur, différentiel)
+     - —
+     - —
+   * - 7
+     - Tableau et charges du site
+     - ``Utilisation`` — puissance active, facteur de puissance
+     - Charges du site (993)
+     - ``S`` absorbée
+   * - 8
+     - Compteur (injection / soutirage)
+     - ``Reseau`` (avec le réseau, élément 9)
+     - Réseau (994)
+     - injection, soutirage
+   * - 9
+     - Réseau public
+     - ``Reseau`` — sens de l'échange
+     - Réseau (994)
+     - ``S`` échangée
+   * - —
+     - Jonction de tout le monde alternatif
+     - ``NoeudElectrique`` — somme des courants
+     - Nœud électrique (992)
+     - ``S`` entrante, sortante, bilan
+
+Le **nœud électrique** (992) est la pièce qui assemble la scène : ce qui entre
+(onduleur) et ce qui sort (charges, stockage) s'y additionnent, et son bilan est
+l'excédent ou le déficit du site. Un nœud à entrée libre applique ses propres
+champs : une entrée **non reliée** n'est pas une consigne de 0 kVA. Une sortie
+fluide branchée sur une entrée électrique est refusée (``PortElectriqueError``).
+
+Le nœud « Production PV » (op 983), lui, reste l'usage **annuel** de
+``SolarSystem`` (une évaluation, valeurs par défaut = cas d'exemple) ; les six
+nœuds ci-dessus servent au **bilan électrique instantané** d'une scène.
 
 La météo : PVGIS en service réel
 ================================
