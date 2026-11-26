@@ -175,6 +175,21 @@
    "cran_max": 5,
    "recul": null
   },
+  "docs/source/002-thermodynamic_cycles/collecteur_distributeur.rst": {
+   "blocs": 2,
+   "empreinte": "5bfcf44345618d3f",
+   "mesure": "2026-11-26T06:34",
+   "figures": [
+    "../images/002_collecteur_repartition.svg"
+   ],
+   "blocage": null,
+   "motif": "",
+   "extraits": null,
+   "cran": 5,
+   "nom": "personnalisable",
+   "cran_max": 5,
+   "recul": null
+  },
   "docs/source/002-thermodynamic_cycles/combustion_moteurs.rst": {
    "blocs": 7,
    "empreinte": "a976e60413e63bf6",
@@ -261,9 +276,9 @@
    "recul": null
   },
   "docs/source/002-thermodynamic_cycles/echangeurs.rst": {
-   "blocs": 8,
-   "empreinte": "35b12abd28c94468",
-   "mesure": "2026-09-28T16:06",
+   "blocs": 11,
+   "empreinte": "83adc22f5af5514f",
+   "mesure": "2026-11-26T06:33",
    "figures": [],
    "blocage": null,
    "motif": "",
@@ -1331,8 +1346,8 @@
   },
   "docs/source/009-pv-solaire/index.rst": {
    "blocs": 14,
-   "empreinte": "29252e1c305e338e",
-   "mesure": "2026-09-28T18:14",
+   "empreinte": "c8e49a2d73a87c09",
+   "mesure": "2026-11-26T06:34",
    "figures": [
     "/images/schema_pv_installation.svg",
     "/009-pv-solaire/figures/009_pv_plot_production.png",

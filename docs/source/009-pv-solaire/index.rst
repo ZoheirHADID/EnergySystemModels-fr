@@ -285,16 +285,31 @@ Export Excel
 ``to_excel()`` écrit trois onglets : **Horaire** (production AC en kW, irradiance
 sur le plan, température de cellule et d'air), **Mensuel** et **Synthese**. Il
 s'appuie sur ``openpyxl``, que ``pip install energysystemmodels`` **n'installe
-pas** ; sans lui, la méthode lève une ``ImportError`` qui le dit :
+pas** ; sans lui, la méthode lève une ``ImportError`` qui le dit. Le banc de
+cette page tourne sur un interpréteur où ``openpyxl`` **est** installé : c'est
+donc la branche d'erreur qui est provoquée explicitement, pour que le message
+reste celui que le lecteur verra sur une installation nue :
 
 .. code-block:: python
 
+   import builtins
+
+   vrai_import = builtins.__import__
+
+   def sans_openpyxl(nom, *args, **kwargs):     # simule un environnement nu
+       if nom == "openpyxl" or nom.startswith("openpyxl."):
+           raise ModuleNotFoundError("No module named 'openpyxl'")
+       return vrai_import(nom, *args, **kwargs)
+
+   builtins.__import__ = sans_openpyxl
    try:
        chemin = pv.to_excel("production_lyon.xlsx", nb_modules=455)
    except ImportError as erreur:
        print("Export impossible :", erreur)
+   finally:
+       builtins.__import__ = vrai_import
 
-Sortie réelle (environnement sans ``openpyxl``) :
+Sortie réelle :
 
 .. code-block:: text
 
