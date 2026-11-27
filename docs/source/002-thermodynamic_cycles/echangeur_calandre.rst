@@ -202,3 +202,53 @@ Limites, dites explicitement
 * **``nb_tubes`` et l'épaisseur de calandre sont des hypothèses** déclarées,
   tant qu'elles ne sont pas lues sur le plan du constructeur.
 
+Conformité à la construction de la librairie
+--------------------------------------------
+
+Le modèle suit les conventions des autres modules à deux courants :
+
+.. list-table:: Ce que la librairie attend, et ce que ce modèle fait
+   :header-rows: 1
+   :widths: 32 30 38
+
+   * - Convention
+     - Exemple existant
+     - Ici
+   * - Ports nommés par courant
+     - ``AirCoolerDesignHEX`` : ``Fluid_`` / ``Air_``
+     - ``Tube_`` / ``Shell_``
+   * - ``Inlet`` / ``Outlet`` sur chaque courant
+     - ``SolutionHEX`` : ``Rich_``, ``Poor_``
+     - ``Tube_Inlet``, ``Tube_Outlet``, …
+   * - Connexion par ``Fluid_connect``
+     - tous les modèles
+     - ``Fluid_connect(ech.Tube_Inlet, source.Outlet)``
+   * - Sortie = état complet
+     - ``Condenser`` : ``h``, ``P``, ``T``
+     - ``h``, ``P``, ``T``, ``cp``, ``mu``, ``rho``, ``lamda``
+   * - Composition propagée
+     - ``Fluid_connect`` la transmet
+     - ``Tube_Outlet`` / ``Shell_Outlet`` la reçoivent
+   * - Pas d'affichage dans ``calculate()``
+     - aucun ``print``
+     - aucun ``print``
+
+.. note::
+
+   Deux défauts de conformité ont été trouvés en vérifiant, puis corrigés : la
+   sortie ne publiait **pas** ``cp`` (un modèle branché en aval recevait une
+   enthalpie sans propriétés) et la **composition** ne suivait pas le courant.
+   Trois tests les verrouillent : ``test_la_sortie_est_un_etat_COMPLET_pour_un_modele_aval``,
+   ``test_la_sortie_alimente_un_autre_modele_en_chaine`` et
+   ``test_la_composition_traverse_le_modele``.
+
+Une limite de la librairie, pas du modèle
+-----------------------------------------
+
+``Fluid_connect`` **ne copie pas la pression** d'une sortie vers une entrée :
+c'est un défaut mesuré et documenté de la librairie (voir
+``test_AirCoolerDesignHEX``). D'où le ``.P = None`` des exemples : un port
+préchargé garderait son ancienne pression. Ce modèle ne fait pas exception, il
+se branche comme les autres.
+
+
