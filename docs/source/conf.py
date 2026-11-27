@@ -34,5 +34,11 @@ html_theme = 'sphinx_rtd_theme'
 # (« Utilisation », « Paramètres »…) — demande de l'utilisateur, 2026-09-28.
 html_theme_options = {'titles_only': True}
 
+# Largeur : le thème limite le contenu à 800 px, ce qui laissait la moitié de
+# l'écran vide et serrait les tableaux à cinq colonnes. La feuille ci-dessous
+# lève cette limite (demande de Zoheir, 2026-11-26).
+html_css_files = ['esm_pleine_largeur.css']
+html_static_path = ['_static']
+
 # -- Options for EPUB output
 epub_show_urls = 'footnote'

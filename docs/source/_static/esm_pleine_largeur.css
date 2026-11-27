@@ -1,0 +1,24 @@
+/* Largeur de contenu : occupe l'écran (demande de Zoheir, 2026-11-26).
+ *
+ * `sphinx_rtd_theme` fixe `.wy-nav-content { max-width: 800px }` : sur un écran
+ * large, le texte n'occupait qu'environ la moitié de la fenêtre, ce qui gênait
+ * la lecture des tableaux du chapitre CEE (cinq colonnes, dont une longue
+ * liste de valeurs) et des schémas.
+ *
+ * Le contenu prend maintenant toute la largeur restante après le menu latéral.
+ * Deux limites sont conservées, volontairement :
+ *  - `padding` latéral : le texte ne colle pas au bord de la fenêtre ;
+ *  - `max-width: none` seulement : aucune contrainte de largeur de lecture,
+ *    mais les tableaux gardent leur propre défilement (`overflow-x`) sur petit
+ *    écran, comportement du thème.
+ */
+.wy-nav-content {
+  max-width: none !important;
+  margin: 0 !important;          /* le thème centre le bloc (margin: auto) */
+  padding: 1.618em 2.5em;
+}
+
+/* Les tableaux larges restent lisibles : défilement horizontal s'il le faut. */
+.wy-table-responsive table.docutils {
+  width: 100%;
+}
