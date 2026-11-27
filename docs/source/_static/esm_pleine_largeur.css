@@ -16,6 +16,35 @@
   max-width: none !important;
   margin: 0 !important;          /* le thème centre le bloc (margin: auto) */
   padding: 1.618em 2.5em;
+  height: auto;                  /* le thème pose height:100% */
+}
+
+/* `sphinx_rtd_theme` marque le conteneur `max-width: 1200px` dans une feuille
+ * chargée avant celle-ci : il briderait encore la page sur un écran large.
+ * Le `padding` du conteneur est neutralisé pour que le texte utilise la
+ * largeur entière, le retrait latéral restant assuré par `padding` ci-dessus. */
+.wy-grid.wy-nav-content-wrap,
+.wy-nav-content-wrap {
+  max-width: none !important;
+  width: auto !important;
+}
+
+/* Le contenu lui-même n'a pas de largeur maximale : tableaux et schémas
+ * s'étendent sur toute la place disponible. */
+.rst-content {
+  max-width: none !important;
+  width: auto;
+}
+
+.wy-breadcrumbs, .rst-content .section, .rst-content .document {
+  max-width: none !important;
+}
+
+/* Images et schémas : jamais plus larges que la colonne, mais ils en
+ * occupent toute la largeur quand ils sont grands. */
+.rst-content img {
+  max-width: 100%;
+  height: auto;
 }
 
 /* Les tableaux larges restent lisibles : défilement horizontal s'il le faut. */
