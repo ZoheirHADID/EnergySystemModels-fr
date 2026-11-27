@@ -3,6 +3,12 @@
 Échangeur à calandre de catalogue — méthode de Kern
 ===================================================
 
+.. index::
+   pair: échangeur; calandre
+   single: ShellAndTubeDesignHEX
+   single: EchangeurCalandreDesignHEX
+   single: Kern (méthode de)
+
 Cette page documente ``ThermodynamicCycles.HEX.EchangeurCalandreDesignHEX``
 (alias ``ShellAndTubeDesignHEX``), le seul modèle du catalogue ``HEX`` où le
 **``UA`` n'est pas une entrée** : il découle de la géométrie réelle de
@@ -241,6 +247,69 @@ Le modèle suit les conventions des autres modules à deux courants :
    Trois tests les verrouillent : ``test_la_sortie_est_un_etat_COMPLET_pour_un_modele_aval``,
    ``test_la_sortie_alimente_un_autre_modele_en_chaine`` et
    ``test_la_composition_traverse_le_modele``.
+
+Personnaliser le cas
+--------------------
+
+Les trois réglages qui comptent en pratique : le **nombre de tubes** (la surface,
+donc la puissance), les **coefficients d'intensification** des tubes rainurés, et
+l'**encrassement**. La variante suivante part de la page précédente et mesure
+l'effet de chacun.
+
+.. code-block:: python
+
+    # variante : 60 tubes, puis encrassement, puis tubes de 16 mm
+    from ThermodynamicCycles.HEX import EchangeurCalandreDesignHEX
+    from ThermodynamicCycles.Connect import Fluid_connect
+    from ThermodynamicCycles.Source import Source
+    import contextlib, io
+
+    def essai(nb_tubes=40, d_ext=0.012, fouling=0.0):
+        chaud, froid = Source.Object(), Source.Object()
+        chaud.fluid, chaud.Ti_degC, chaud.Pi_bar, chaud.F = "water", 80.0, 3.0, 1.2
+        chaud.calculate()
+        froid.fluid, froid.Ti_degC, froid.Pi_bar, froid.F = "water", 20.0, 3.0, 1.5
+        froid.calculate()
+        e = EchangeurCalandreDesignHEX(nb_tubes=nb_tubes, d_ext=d_ext,
+                                      fouling_resistance=fouling)
+        e.Tube_Inlet.P = None
+        e.Shell_Inlet.P = None
+        Fluid_connect(e.Tube_Inlet, chaud.Outlet)
+        Fluid_connect(e.Shell_Inlet, froid.Outlet)
+        e.calculate()
+        return e
+
+    for etiquette, reglages in (
+            ("40 tubes (defaut)", {}),
+            ("60 tubes          ", {"nb_tubes": 60}),
+            ("16 mm, 40 tubes   ", {"d_ext": 0.016}),
+            ("encrasse Rf=2e-4 ", {"fouling": 2e-4})):
+        e = essai(**reglages)
+        print(etiquette, "A = %.2f m2  U = %4.0f  Q = %.1f kW" % (
+            e.A_echange, e.U_global, e.Qth / 1e3))
+
+Sortie réelle :
+
+.. code-block:: text
+
+   40 tubes (defaut) A = 1.21 m2  U = 2227  Q = 82.7 kW
+   60 tubes           A = 1.81 m2  U = 2023  Q = 95.0 kW
+   16 mm, 40 tubes    A = 1.61 m2  U = 1728  Q = 84.1 kW
+   encrasse Rf=2e-4  A = 1.21 m2  U = 1536  Q = 67.5 kW
+
+Trois effets, tous explicables :
+
+* **plus de tubes** : la surface augmente de 50 %, la puissance de 15 %
+  seulement. Le ``U`` **baisse** (2 227 → 2 023) parce que le débit se partage
+  entre plus de tubes : la vitesse, donc le Reynolds et le coefficient côté
+  tubes, diminuent. C'est le compromis surface / vitesse d'un dimensionnement
+  réel, pas une anomalie ;
+* **tubes de 16 mm** : la section de passage croît comme ``d²`` alors que la
+  surface ne croît que comme ``d`` — la vitesse chute, et le ``U`` avec elle
+  (1 728) ;
+* **encrassement** : ``U`` de 2 227 à 1 536 pour ``R_f = 2·10⁻⁴ m²·K/W``, et
+  18 % de puissance en moins.
+
 
 Une limite de la librairie, pas du modèle
 -----------------------------------------

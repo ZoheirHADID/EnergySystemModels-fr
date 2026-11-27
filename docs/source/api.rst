@@ -35,11 +35,19 @@ Cycles thermodynamiques — ``ThermodynamicCycles``
    from ThermodynamicCycles.Chiller import Object as Chiller
    from ThermodynamicCycles.HEX import TwoStreamEffectivenessNTUHEX
    from ThermodynamicCycles.HEX import TwoStreamLMTDInverseDesignHEX
+   from ThermodynamicCycles.HEX import EchangeurCalandreDesignHEX
+   from ThermodynamicCycles.HEX import ShellAndTubeDesignHEX   # même classe
    from ThermodynamicCycles.Combustion import NG_Heating_Value
    from ThermodynamicCycles.Connect import Fluid_connect
 
 Les composants s'assemblent par ``Fluid_connect(aval.Inlet, amont.Outlet)``.
 Détails : :doc:`002-thermodynamic_cycles/index`.
+
+.. note::
+   ``EchangeurCalandreDesignHEX`` (alias ``ShellAndTubeDesignHEX``) est le seul
+   module de ``HEX`` où le ``UA`` **n'est pas une entrée** : il sort de la
+   géométrie de l'appareil, comme les deux pertes de charge. Voir
+   :doc:`002-thermodynamic_cycles/echangeur_calandre`.
 
 Hydraulique et aéraulique
 -------------------------

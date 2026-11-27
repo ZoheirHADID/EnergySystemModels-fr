@@ -8,6 +8,10 @@ Cette page documente les modules d'échangeurs de la bibliothèque
 
 - :ref:`HEX <echangeurs-hex>` — catalogue d'échangeurs de chaleur (mono-fluide
   et bi-fluide), en mode bilan/consigne ou en mode dimensionnement ;
+- :doc:`echangeur_calandre` — **échangeur à calandre de catalogue**
+  (``EchangeurCalandreDesignHEX``, alias ``ShellAndTubeDesignHEX``) : le seul
+  modèle où l'on part de la géométrie pour trouver le ``UA`` et les deux pertes
+  de charge, au lieu de les imposer ;
 - :ref:`SolutionHEX <echangeurs-solutionhex>` — échangeur de solution (SHE)
   d'une machine à absorption ;
 - :ref:`Desuperheater <echangeurs-desuperheater>` — désurchauffeur (retour de
