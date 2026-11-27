@@ -3,7 +3,8 @@
 # -- Project information
 
 project = 'EnergySystemModels'
-copyright = '2024-2025, Zoheir HADID'
+# Annee courante incluse : le pied de page de chaque page affiche cette ligne.
+copyright = '2024-2026, Zoheir HADID'
 author = 'Zoheir HADID'
 
 release = 'post9'

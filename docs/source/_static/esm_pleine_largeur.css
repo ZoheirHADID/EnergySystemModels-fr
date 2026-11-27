@@ -47,6 +47,61 @@
   height: auto;
 }
 
+/* Copyright : ligne du pied de page de CHAQUE page.
+ * `sphinx_rtd_theme` la rend dans `<div role="contentinfo"><p>`, sans aucune
+ * classe : petit texte gris, melange au « Built with Sphinx ». On la marque et
+ * on la rend lisible, sur sa propre ligne, separee du reste. */
+footer div[role="contentinfo"] {
+  border-top: 1px solid #d7dde2;
+  margin-top: 18px;
+  padding-top: 10px;
+}
+
+footer div[role="contentinfo"] p {
+  margin: 0;
+  font-size: 0.92em;
+  color: #1f2933;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+}
+
+/* Les deux mots « Zoheir HADID » restent sur la meme ligne que le symbole ©. */
+
+/* Mention « Built with Sphinx / theme / Read the Docs » : plus discrète que le
+ * copyright, qui doit rester la ligne la plus visible du pied de page. */
+footer > hr {
+  border-bottom: 0;
+  margin: 14px 0 6px;
+}
+
+/* Encadré « Copyright » de la page d'accueil : sobre, lisible, en bas de page.
+ * Il complete la ligne de pied de page presente sur toutes les pages. */
+.rst-content .admonition.copyright-auteur {
+  background: #f7f9fb;
+  border: 1px solid #d7dde2;
+  border-left: 4px solid #1d5f86;
+  border-radius: 6px;
+  padding: 12px 16px;
+  margin-top: 26px;
+}
+
+.rst-content .admonition.copyright-auteur p.admonition-title {
+  background: transparent;
+  color: #1d5f86;
+  font-size: 1.05em;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  padding: 0;
+  margin: 0 0 6px;
+}
+
+.rst-content .admonition.copyright-auteur p {
+  font-size: 0.95em;
+  line-height: 1.55;
+  color: #1f2933;
+  margin: 0 0 6px;
+}
+
 /* Les tableaux larges restent lisibles : défilement horizontal s'il le faut. */
 .wy-table-responsive table.docutils {
   width: 100%;

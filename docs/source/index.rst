@@ -5,6 +5,16 @@ Bienvenue dans la documentation de la bibliothèque EnergySystemModels !
 
 **Développée par Zoheir HADID**
 
+.. admonition:: Copyright
+   :class: copyright-auteur
+
+   © 2024-2026, **Zoheir HADID**. Tous droits réservés.
+
+   Le code source de la bibliothèque ``EnergySystemModels`` et le contenu de
+   cette documentation sont la propriété intellectuelle de leur auteur. Toute
+   reproduction, diffusion ou réutilisation, totale ou partielle, hors du cadre
+   prévu par la licence du dépôt, requiert son accord écrit.
+
 Objectif et approche
 --------------------
 
