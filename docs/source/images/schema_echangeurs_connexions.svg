@@ -1,0 +1,108 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="980" height="600" viewBox="0 0 980 600" role="img" aria-label="Échangeurs — ports FluidPort et nœuds de la palette">
+<title>Échangeurs — ports FluidPort et nœuds de la palette</title>
+<defs><marker id="fleche" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-end"><path d="M 0 0 L 10 5 L 0 10 z" fill="#1f2933"/></marker><marker id="fleche_cote" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-end"><path d="M 0 0 L 10 5 L 0 10 z" fill="#b46a00"/></marker><marker id="fleche_flux" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-end"><path d="M 0 0 L 10 5 L 0 10 z" fill="#2670a8"/></marker></defs>
+<rect width="980" height="600" fill="#ffffff"/>
+<g transform="translate(110.00 62.00) scale(0.6000)"><g fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="30" cy="42" r="16" />
+    <line x1="46" y1="42" x2="86" y2="42" />
+    <polygon points="24,33 24,51 39,42" fill="#000000" />
+    <polygon points="92,42 85.6,38 85.6,46" fill="#000000" />
+    <text x="30" y="80" font-family="Segoe UI, Arial, sans-serif" font-weight="bold" font-size="14" fill="#000000" stroke="none" text-anchor="middle">P,T</text>
+  </g>
+  <g class="ports">
+    <circle class="port" cx="92" cy="42" r="2.0" fill="#000000" stroke="none" data-port="port-e" data-dir="e" data-role="outlet" />
+  </g>
+</g>
+<text x="140.0" y="146.0" fill="#7b8794" text-anchor="middle" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12">nœud « Source »</text>
+<text x="140.0" y="164.0" fill="#7b8794" text-anchor="middle" font-family="Consolas, Courier New, monospace" font-size="11">pose P, h, F</text>
+<g transform="translate(770.00 62.00) scale(0.6000)"><g fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <line x1="8" y1="50" x2="42" y2="50" />
+    <circle cx="66" cy="50" r="16" />
+    <polygon points="48,50 41.6,46 41.6,54" fill="#000000" />
+    <circle cx="66" cy="50" r="6" fill="#000000" />
+  </g>
+  <g class="ports">
+    <circle class="port" cx="8" cy="50" r="2.0" fill="#000000" stroke="none" data-port="port-w" data-dir="w" data-role="inlet" />
+  </g>
+</g>
+<text x="800.0" y="146.0" fill="#7b8794" text-anchor="middle" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12">nœud « Sortie »</text>
+<text x="800.0" y="164.0" fill="#7b8794" text-anchor="middle" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11">reçoit la sortie</text>
+<rect x="300.0" y="196.0" width="296.0" height="46.0" rx="6" fill="#ffffff" stroke="#1f2933" stroke-width="1.4"/>
+<text x="448.0" y="216.0" fill="#1f2933" text-anchor="middle" font-family="Consolas, Courier New, monospace" font-size="12" font-weight="600">TwoStreamEffectivenessNTUHEX</text>
+<text x="448.0" y="233.0" fill="#2670a8" text-anchor="middle" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11">nœud « Échangeur ε-NUT »</text>
+<circle cx="300.0" cy="208.0" r="7.0" fill="#ffffff" stroke="#1d5f86" stroke-width="4"/>
+<text x="288.0" y="212.0" fill="#1d5f86" text-anchor="end" font-family="Consolas, Courier New, monospace" font-size="11.5">Inlet1</text>
+<circle cx="300.0" cy="230.0" r="7.0" fill="#ffffff" stroke="#1d5f86" stroke-width="4"/>
+<text x="288.0" y="234.0" fill="#1d5f86" text-anchor="end" font-family="Consolas, Courier New, monospace" font-size="11.5">Inlet2</text>
+<circle cx="596.0" cy="208.0" r="7.0" fill="#ffffff" stroke="#e8793a" stroke-width="4"/>
+<text x="608.0" y="212.0" fill="#e8793a" text-anchor="start" font-family="Consolas, Courier New, monospace" font-size="11.5">Outlet1</text>
+<circle cx="596.0" cy="230.0" r="7.0" fill="#ffffff" stroke="#e8793a" stroke-width="4"/>
+<text x="608.0" y="234.0" fill="#e8793a" text-anchor="start" font-family="Consolas, Courier New, monospace" font-size="11.5">Outlet2</text>
+<rect x="300.0" y="258.0" width="296.0" height="46.0" rx="6" fill="#ffffff" stroke="#1f2933" stroke-width="1.4"/>
+<text x="448.0" y="278.0" fill="#1f2933" text-anchor="middle" font-family="Consolas, Courier New, monospace" font-size="12" font-weight="600">TwoStreamLMTDInverseDesignHEX</text>
+<text x="448.0" y="295.0" fill="#2670a8" text-anchor="middle" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11">nœud « Échangeur DTLM »</text>
+<circle cx="300.0" cy="270.0" r="7.0" fill="#ffffff" stroke="#1d5f86" stroke-width="4"/>
+<text x="288.0" y="274.0" fill="#1d5f86" text-anchor="end" font-family="Consolas, Courier New, monospace" font-size="11.5">Inlet1</text>
+<circle cx="300.0" cy="292.0" r="7.0" fill="#ffffff" stroke="#1d5f86" stroke-width="4"/>
+<text x="288.0" y="296.0" fill="#1d5f86" text-anchor="end" font-family="Consolas, Courier New, monospace" font-size="11.5">Inlet2</text>
+<circle cx="596.0" cy="270.0" r="7.0" fill="#ffffff" stroke="#e8793a" stroke-width="4"/>
+<text x="608.0" y="274.0" fill="#e8793a" text-anchor="start" font-family="Consolas, Courier New, monospace" font-size="11.5">Outlet1</text>
+<circle cx="596.0" cy="292.0" r="7.0" fill="#ffffff" stroke="#e8793a" stroke-width="4"/>
+<text x="608.0" y="296.0" fill="#e8793a" text-anchor="start" font-family="Consolas, Courier New, monospace" font-size="11.5">Outlet2</text>
+<rect x="300.0" y="320.0" width="296.0" height="46.0" rx="6" fill="#ffffff" stroke="#1f2933" stroke-width="1.4"/>
+<text x="448.0" y="340.0" fill="#1f2933" text-anchor="middle" font-family="Consolas, Courier New, monospace" font-size="12" font-weight="600">TwoStreamPinchConstrainedDesignHEX</text>
+<text x="448.0" y="357.0" fill="#2670a8" text-anchor="middle" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11">nœud « Échangeur au pincement »</text>
+<circle cx="300.0" cy="332.0" r="7.0" fill="#ffffff" stroke="#1d5f86" stroke-width="4"/>
+<text x="288.0" y="336.0" fill="#1d5f86" text-anchor="end" font-family="Consolas, Courier New, monospace" font-size="11.5">Inlet1</text>
+<circle cx="300.0" cy="354.0" r="7.0" fill="#ffffff" stroke="#1d5f86" stroke-width="4"/>
+<text x="288.0" y="358.0" fill="#1d5f86" text-anchor="end" font-family="Consolas, Courier New, monospace" font-size="11.5">Inlet2</text>
+<circle cx="596.0" cy="332.0" r="7.0" fill="#ffffff" stroke="#e8793a" stroke-width="4"/>
+<text x="608.0" y="336.0" fill="#e8793a" text-anchor="start" font-family="Consolas, Courier New, monospace" font-size="11.5">Outlet1</text>
+<circle cx="596.0" cy="354.0" r="7.0" fill="#ffffff" stroke="#e8793a" stroke-width="4"/>
+<text x="608.0" y="358.0" fill="#e8793a" text-anchor="start" font-family="Consolas, Courier New, monospace" font-size="11.5">Outlet2</text>
+<rect x="300.0" y="382.0" width="296.0" height="46.0" rx="6" fill="#ffffff" stroke="#1f2933" stroke-width="1.4"/>
+<text x="448.0" y="402.0" fill="#1f2933" text-anchor="middle" font-family="Consolas, Courier New, monospace" font-size="12" font-weight="600">TwoStreamDiscretizedCounterflowHEX</text>
+<text x="448.0" y="419.0" fill="#2670a8" text-anchor="middle" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11">nœud « Echangeur discretise »</text>
+<circle cx="300.0" cy="394.0" r="7.0" fill="#ffffff" stroke="#1d5f86" stroke-width="4"/>
+<text x="288.0" y="398.0" fill="#1d5f86" text-anchor="end" font-family="Consolas, Courier New, monospace" font-size="11.5">Inlet1</text>
+<circle cx="300.0" cy="416.0" r="7.0" fill="#ffffff" stroke="#1d5f86" stroke-width="4"/>
+<text x="288.0" y="420.0" fill="#1d5f86" text-anchor="end" font-family="Consolas, Courier New, monospace" font-size="11.5">Inlet2</text>
+<circle cx="596.0" cy="394.0" r="7.0" fill="#ffffff" stroke="#e8793a" stroke-width="4"/>
+<text x="608.0" y="398.0" fill="#e8793a" text-anchor="start" font-family="Consolas, Courier New, monospace" font-size="11.5">Outlet1</text>
+<circle cx="596.0" cy="416.0" r="7.0" fill="#ffffff" stroke="#e8793a" stroke-width="4"/>
+<text x="608.0" y="420.0" fill="#e8793a" text-anchor="start" font-family="Consolas, Courier New, monospace" font-size="11.5">Outlet2</text>
+<rect x="300.0" y="444.0" width="296.0" height="46.0" rx="6" fill="#ffffff" stroke="#1f2933" stroke-width="1.4"/>
+<text x="448.0" y="464.0" fill="#1f2933" text-anchor="middle" font-family="Consolas, Courier New, monospace" font-size="12" font-weight="600">SolutionHEX.Object</text>
+<text x="448.0" y="481.0" fill="#2670a8" text-anchor="middle" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11">nœud « Échangeur de solution (SHE) »</text>
+<circle cx="300.0" cy="456.0" r="7.0" fill="#ffffff" stroke="#1d5f86" stroke-width="4"/>
+<text x="288.0" y="460.0" fill="#1d5f86" text-anchor="end" font-family="Consolas, Courier New, monospace" font-size="11.5">Rich_Inlet</text>
+<circle cx="300.0" cy="478.0" r="7.0" fill="#ffffff" stroke="#1d5f86" stroke-width="4"/>
+<text x="288.0" y="482.0" fill="#1d5f86" text-anchor="end" font-family="Consolas, Courier New, monospace" font-size="11.5">Poor_Inlet</text>
+<circle cx="596.0" cy="456.0" r="7.0" fill="#ffffff" stroke="#e8793a" stroke-width="4"/>
+<text x="608.0" y="460.0" fill="#e8793a" text-anchor="start" font-family="Consolas, Courier New, monospace" font-size="11.5">Rich_Outlet</text>
+<circle cx="596.0" cy="478.0" r="7.0" fill="#ffffff" stroke="#e8793a" stroke-width="4"/>
+<text x="608.0" y="482.0" fill="#e8793a" text-anchor="start" font-family="Consolas, Courier New, monospace" font-size="11.5">Poor_Outlet</text>
+<rect x="300.0" y="506.0" width="296.0" height="46.0" rx="6" fill="#ffffff" stroke="#1f2933" stroke-width="1.4"/>
+<text x="448.0" y="526.0" fill="#1f2933" text-anchor="middle" font-family="Consolas, Courier New, monospace" font-size="12" font-weight="600">Desuperheater.Object</text>
+<circle cx="300.0" cy="529.0" r="7.0" fill="#ffffff" stroke="#1d5f86" stroke-width="4"/>
+<text x="288.0" y="533.0" fill="#1d5f86" text-anchor="end" font-family="Consolas, Courier New, monospace" font-size="11.5">Inlet</text>
+<circle cx="596.0" cy="529.0" r="7.0" fill="#ffffff" stroke="#e8793a" stroke-width="4"/>
+<text x="608.0" y="533.0" fill="#e8793a" text-anchor="start" font-family="Consolas, Courier New, monospace" font-size="11.5">Outlet</text>
+<text x="300.0" y="190.0" fill="#2670a8" text-anchor="start" font-family="Consolas, Courier New, monospace" font-size="11.5">Fluid_connect(Aval.Inlet, Amont.Outlet)</text>
+<polyline points="140.00,96.00 140.00,226.00 300.00,226.00" fill="none" stroke="#2670a8" stroke-width="2.0" stroke-linejoin="round" marker-end="url(#fleche_flux)"/>
+<text x="300.0" y="270.0" fill="#7b8794" text-anchor="start" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11">un côté par port, jamais de mélange</text>
+<rect x="690.0" y="300.0" width="280.0" height="204.0" rx="4" fill="#f4f6f8" stroke="#c9d1d9" stroke-width="1.0"/>
+<text x="700.0" y="320.0" fill="#1f2933" text-anchor="start" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5">Règles de raccordement</text>
+<text x="700.0" y="336.0" fill="#1f2933" text-anchor="start" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5">1. Un port par courant :</text>
+<text x="700.0" y="352.0" fill="#1f2933" text-anchor="start" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5">   Inlet1 / Outlet1 : chaud,</text>
+<text x="700.0" y="368.0" fill="#1f2933" text-anchor="start" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5">   Inlet2 / Outlet2 : froid.</text>
+<text x="700.0" y="384.0" fill="#1f2933" text-anchor="start" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5">2. Sens : Aval.Inlet &lt;- Amont.Outlet.</text>
+<text x="700.0" y="400.0" fill="#1f2933" text-anchor="start" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5">3. SolutionHEX :</text>
+<text x="700.0" y="416.0" fill="#1f2933" text-anchor="start" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5">   Rich_Inlet / Poor_Inlet,</text>
+<text x="700.0" y="432.0" fill="#1f2933" text-anchor="start" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5">   Rich_Outlet / Poor_Outlet.</text>
+<text x="700.0" y="448.0" fill="#1f2933" text-anchor="start" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5"></text>
+<text x="700.0" y="464.0" fill="#1f2933" text-anchor="start" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5">Desuperheater : un seul courant,</text>
+<text x="700.0" y="480.0" fill="#1f2933" text-anchor="start" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5">Inlet (vapeur surchauffée) -&gt;</text>
+<text x="700.0" y="496.0" fill="#1f2933" text-anchor="start" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5">Outlet (vapeur saturée).</text>
+<text x="300.0" y="556.0" fill="#7b8794" text-anchor="start" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5">Les deux sorties d'un échangeur à deux fluides restent séparées : chaque flux garde sa composition.</text>
+</svg>

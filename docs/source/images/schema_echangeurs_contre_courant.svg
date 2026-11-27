@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="980" height="600" viewBox="0 0 980 600" role="img" aria-label="Échangeur à contre-courant — profil de températures du cas NUT">
+<title>Échangeur à contre-courant — profil de températures du cas NUT</title>
+<defs><marker id="fleche" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-end"><path d="M 0 0 L 10 5 L 0 10 z" fill="#1f2933"/></marker><marker id="fleche_cote" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-end"><path d="M 0 0 L 10 5 L 0 10 z" fill="#b46a00"/></marker><marker id="fleche_flux" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-end"><path d="M 0 0 L 10 5 L 0 10 z" fill="#2670a8"/></marker></defs>
+<rect width="980" height="600" fill="#ffffff"/>
+<rect x="132.0" y="120.0" width="508.0" height="252.0" rx="0" fill="#fbfcfd" stroke="#7b8794" stroke-width="1.2"/>
+<line x1="132.0" y1="372.0" x2="640.0" y2="372.0" stroke="#e3e8ec" stroke-width="1.0"/>
+<text x="122.0" y="376.0" fill="#7b8794" text-anchor="end" font-family="Consolas, Courier New, monospace" font-size="11.5">0</text>
+<line x1="132.0" y1="316.0" x2="640.0" y2="316.0" stroke="#e3e8ec" stroke-width="1.0"/>
+<text x="122.0" y="320.0" fill="#7b8794" text-anchor="end" font-family="Consolas, Courier New, monospace" font-size="11.5">20</text>
+<line x1="132.0" y1="260.0" x2="640.0" y2="260.0" stroke="#e3e8ec" stroke-width="1.0"/>
+<text x="122.0" y="264.0" fill="#7b8794" text-anchor="end" font-family="Consolas, Courier New, monospace" font-size="11.5">40</text>
+<line x1="132.0" y1="204.0" x2="640.0" y2="204.0" stroke="#e3e8ec" stroke-width="1.0"/>
+<text x="122.0" y="208.0" fill="#7b8794" text-anchor="end" font-family="Consolas, Courier New, monospace" font-size="11.5">60</text>
+<line x1="132.0" y1="148.0" x2="640.0" y2="148.0" stroke="#e3e8ec" stroke-width="1.0"/>
+<text x="122.0" y="152.0" fill="#7b8794" text-anchor="end" font-family="Consolas, Courier New, monospace" font-size="11.5">80</text>
+<text x="122.0" y="76.0" fill="#1f2933" text-anchor="start" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12" font-weight="600">T (°C)</text>
+<text x="386.0" y="394.0" fill="#1f2933" text-anchor="middle" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12" font-weight="600">x / L</text>
+<text x="152.0" y="388.0" fill="#7b8794" text-anchor="middle" font-family="Consolas, Courier New, monospace" font-size="11.5">0</text>
+<text x="640.0" y="388.0" fill="#7b8794" text-anchor="middle" font-family="Consolas, Courier New, monospace" font-size="11.5">1</text>
+<text x="386.0" y="76.0" fill="#7b8794" text-anchor="middle" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12">les deux courants circulent en sens inverse (contre-courant)</text>
+<line x1="282.0" y1="100.0" x2="580.0" y2="100.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#fleche)"/>
+<text x="580.0" y="93.0" fill="#c0392b" text-anchor="end" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11">flux 1 — chaud, de gauche à droite</text>
+<line x1="382.0" y1="412.0" x2="172.0" y2="412.0" stroke="#2670a8" stroke-width="1.8" marker-end="url(#fleche)"/>
+<text x="172.0" y="405.0" fill="#2670a8" text-anchor="start" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11">flux 2 — froid, de droite à gauche</text>
+<polyline points="132.00,148.00 640.00,239.47" fill="none" stroke="#c0392b" stroke-width="2.6" stroke-linejoin="round"/>
+<polyline points="640.00,316.00 132.00,224.38" fill="none" stroke="#2670a8" stroke-width="2.6" stroke-linejoin="round"/>
+<text x="140.0" y="140.0" fill="#c0392b" text-anchor="start" font-family="Consolas, Courier New, monospace" font-size="11.5">T1i = 80,0 °C</text>
+<text x="140.0" y="216.4" fill="#2670a8" text-anchor="start" font-family="Consolas, Courier New, monospace" font-size="11.5">T2o = 52,7 °C</text>
+<text x="386.0" y="265.5" fill="#c0392b" text-anchor="middle" font-family="Consolas, Courier New, monospace" font-size="11.5">T1o = 47,3 °C</text>
+<text x="412.0" y="304.0" fill="#2670a8" text-anchor="middle" font-family="Consolas, Courier New, monospace" font-size="11.5">T2i = 20,0 °C</text>
+<line x1="106.0" y1="148.0" x2="106.0" y2="224.4" stroke="#b46a00" stroke-width="1.4" marker-start="url(#fleche_cote)" marker-end="url(#fleche_cote)"/>
+<text x="116.0" y="184.2" fill="#b46a00" text-anchor="start" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5">ΔT</text>
+<text x="116.0" y="199.2" fill="#b46a00" text-anchor="start" font-family="Consolas, Courier New, monospace" font-size="11.5">27,3 K</text>
+<line x1="666.0" y1="239.5" x2="666.0" y2="316.0" stroke="#b46a00" stroke-width="1.4" marker-start="url(#fleche_cote)" marker-end="url(#fleche_cote)"/>
+<text x="656.0" y="275.7" fill="#b46a00" text-anchor="end" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5">ΔT</text>
+<text x="656.0" y="290.7" fill="#b46a00" text-anchor="end" font-family="Consolas, Courier New, monospace" font-size="11.5">27,3 K</text>
+<text x="132.0" y="436.0" fill="#b46a00" text-anchor="start" font-family="Consolas, Courier New, monospace" font-size="12">ΔT gauche = 27,28 K</text>
+<text x="252.0" y="436.0" fill="#b46a00" text-anchor="start" font-family="Consolas, Courier New, monospace" font-size="12">ΔT droite = 27,33 K</text>
+<text x="412.0" y="437.0" fill="#b46a00" text-anchor="start" font-family="Consolas, Courier New, monospace" font-size="13" font-weight="600">DTLM = 27,31 K</text>
+<text x="562.0" y="437.0" fill="#7b8794" text-anchor="start" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12">→ UA = Qth / DTLM</text>
+<rect x="700.0" y="132.0" width="268.0" height="236.0" rx="4" fill="#f4f6f8" stroke="#c9d1d9" stroke-width="1.0"/>
+<text x="710.0" y="152.0" fill="#1f2933" text-anchor="start" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5">TwoStreamEffectivenessNTUHEX</text>
+<text x="710.0" y="168.0" fill="#1f2933" text-anchor="start" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5">NUT  = 1,1950</text>
+<text x="710.0" y="184.0" fill="#1f2933" text-anchor="start" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5">ε    = 0,5449</text>
+<text x="710.0" y="200.0" fill="#1f2933" text-anchor="start" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5">R    = 0,9970</text>
+<text x="710.0" y="216.0" fill="#1f2933" text-anchor="start" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5">Eff_enthalpy = 0,5449</text>
+<text x="710.0" y="232.0" fill="#1f2933" text-anchor="start" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5">Qth  = 136,8 kW</text>
+<text x="710.0" y="248.0" fill="#1f2933" text-anchor="start" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5">C1   = 4 197 W/K</text>
+<text x="710.0" y="264.0" fill="#1f2933" text-anchor="start" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5">C2   = 4 184 W/K</text>
+<text x="710.0" y="280.0" fill="#1f2933" text-anchor="start" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5">UA   = 5 000 W/K</text>
+<text x="710.0" y="296.0" fill="#1f2933" text-anchor="start" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5"></text>
+<text x="710.0" y="312.0" fill="#1f2933" text-anchor="start" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5">Qth = ε·Cmin·(T1i − T2i)</text>
+<text x="710.0" y="328.0" fill="#1f2933" text-anchor="start" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5">cp évalués à l'entrée</text>
+<text x="710.0" y="344.0" fill="#1f2933" text-anchor="start" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5">arrangement = counterflow</text>
+<text x="710.0" y="360.0" fill="#1f2933" text-anchor="start" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5">P_drop = 0 Pa : Outlet1.P = Inlet1.P</text>
+<rect x="110.0" y="452.0" width="566.0" height="92.0" rx="4" fill="#f4f6f8" stroke="#c9d1d9" stroke-width="1.0"/>
+<text x="120.0" y="472.0" fill="#1f2933" text-anchor="start" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5">Le même cas relu en dimensionnement (U = 200 W/m²/K, pincement 5 K)</text>
+<text x="120.0" y="488.0" fill="#1f2933" text-anchor="start" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5">pincement effectif : ΔT gauche = 5,17 K, ΔT droite = 5,00 K → DTLM = 5,08 K</text>
+<text x="120.0" y="504.0" fill="#1f2933" text-anchor="start" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5">surface déduite A = Q / (U · DTLM) = 226,4 m²</text>
+<text x="120.0" y="520.0" fill="#1f2933" text-anchor="start" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5">Q atteint ici sa valeur maximale sous pincement, à débits relâchés :</text>
+<text x="120.0" y="536.0" fill="#1f2933" text-anchor="start" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5">c'est pourquoi il ne vaut pas le bilan du cas NUT à débit imposé.</text>
+</svg>

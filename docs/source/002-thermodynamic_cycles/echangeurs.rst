@@ -19,6 +19,26 @@ Tous les modèles échangent via des connecteurs ``FluidPort``
 massique ``h`` (J/kg) et le débit massique ``F`` (kg/s). L'appel ``calculate()``
 propage les propriétés de l'entrée vers la sortie.
 
+.. figure:: ../images/schema_echangeurs_familles.svg
+   :alt: Les deux familles de modèles d'échangeurs, ce qu'on impose et ce qu'on déduit
+   :align: center
+   :width: 100%
+
+   Les deux familles de modèles. À gauche, **bilan/consigne** : on impose l'état ou
+   la puissance, le modèle en déduit les sorties. À droite, **dimensionnement** : on
+   déduit la surface ``A`` (ou ``UA``) qui réalise le bilan. Les valeurs affichées
+   sont celles que la bibliothèque calcule pour le cas commun de la page (voir
+   ci-dessous).
+
+.. figure:: ../images/schema_echangeurs_connexions.svg
+   :alt: Ports FluidPort des modèles d'échangeurs et nœuds correspondants dans PyqtSimulator
+   :align: center
+   :width: 100%
+
+   Les ports ``FluidPort`` de chaque modèle, et le nœud de la palette
+   ``PyqtSimulator`` qui le porte. Les deux nœuds d'extrémité sont ceux du thème
+   (``Source``, ``Sortie``).
+
 .. _echangeurs-hex:
 
 HEX — catalogue d'échangeurs de chaleur
@@ -117,6 +137,19 @@ Les :math:`c_p` sont évalués aux conditions d'entrée via CoolProp. Les deux
 débits doivent être non nuls et ``UA`` défini, sinon une exception est levée.
 La perte de charge éventuelle est appliquée au flux 1 (``Outlet1.P =
 Inlet1.P - P_drop``), le flux 2 conserve sa pression.
+
+Le profil ci-dessous est celui que le modèle produit pour le cas de l'exemple
+suivant (eau 80 °C et 20 °C, 1 kg/s de part et d'autre, ``UA = 5000 W/K``) :
+
+.. figure:: ../images/schema_echangeurs_contre_courant.svg
+   :alt: Profil de températures du cas NUT en contre-courant, avec DTLM et écarts aux extrémités
+   :align: center
+   :width: 100%
+
+   Profil de températures du cas NUT. Les deux courants circulent en sens
+   inverse ; l'écart minimal est côté entrée froide, ce qui maximise la DTLM —
+   c'est l'intérêt du contre-courant. Les valeurs des quatre températures sont
+   celles calculées par ``TwoStreamEffectivenessNTUHEX``.
 
 .. list-table:: Paramètres (``__init__`` de ``TwoStreamSteadyHEX``, mode ``"ntu"``)
    :header-rows: 1
