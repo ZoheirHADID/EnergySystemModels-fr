@@ -10,9 +10,9 @@ services dans les logements.
 Tableau du secteur
 ------------------
 
-**56 fiches** en vigueur au 28/09/2026, une ligne par fiche : nom, désignation, fonction Python et valeurs des paramètres.
+**56 fiches** en vigueur au 28/09/2026, une ligne par fiche : nom, désignation, fonction Python, valeurs des paramètres et dates de validité.
 
-Les valeurs de la dernière colonne sont celles que **le code accepte** : ce sont les valeurs passées à ``calcul_CEE`` par les appels ci-dessous, exécutés à chaque construction de cette page (le banc compare la sortie publiée à la sortie réelle). Quand la docstring de la fiche ne cite aucune valeur, la cellule donne la **valeur testée** (``ex.``) et les bornes qu'elle énonce, plutôt qu'une liste inventée.
+Les valeurs de la dernière colonne sont celles que **le code accepte** : ce sont les valeurs passées à ``calcul_CEE`` par les appels ci-dessous, exécutés à chaque construction de cette page (le banc compare la sortie publiée à la sortie réelle). Quand la docstring de la fiche ne cite aucune valeur, la cellule donne la **valeur testée** (``ex.``) et les bornes qu'elle énonce, plutôt qu'une liste inventée. Les dates de validité disent entre quels jours une opération doit être **engagée** pour ouvrir droit à certificats ; « sans fin connue » signifie qu'aucune abrogation n'est publiée (règles dans :doc:`date_validite`).
 
 .. code-block:: python
 
@@ -143,236 +143,293 @@ Sortie réelle :
 
 .. list-table::
    :header-rows: 1
-   :widths: 13 26 20 41
+   :widths: 12 22 16 37 13
 
    * - Nom de la fiche
      - Désignation
      - Fonction Python
      - Valeurs possibles des paramètres
+     - Dates de validité
    * - ``BAR-EN-101``
      - Isolation de combles ou de toitures
      - ``CEE.BAR_EN_101(…)``
      - ``surface`` : ex. 90 · ``zone`` : ``"H1"``, ``"H2"``, ``"H3"`` · ``departement`` : ex. 69
+     - du 01/01/2015 au 30/04/2027
    * - ``BAR-EN-102``
      - Isolation des murs
      - ``CEE.BAR_EN_102(…)``
      - ``surface`` : ex. 90 · ``zone`` : ``"H1"``, ``"H2"``, ``"H3"`` · ``departement`` : ex. 69
+     - du 01/01/2015 au 30/04/2027
    * - ``BAR-EN-103``
      - Isolation d’un plancher
      - ``CEE.BAR_EN_103(…)``
      - ``surface`` : ex. 90 · ``zone`` : ``"H1"``, ``"H2"``, ``"H3"`` · ``departement`` : ex. 69
+     - du 01/01/2015 au 30/04/2027
    * - ``BAR-EN-104``
      - Fenêtre ou porte-fenêtre complète avec vitrage isolant
      - ``CEE.BAR_EN_104(…)``
      - ``surface`` : ex. 2 · ``zone`` : ``"H1"``, ``"H2"``, ``"H3"`` · ``departement`` : ex. 69
+     - du 01/01/2015 au 30/06/2028
    * - ``BAR-EN-105``
      - Isolation des toitures terrasses
      - ``CEE.BAR_EN_105(…)``
      - ``surface`` : ex. 90 · ``zone`` : ``"H1"``, ``"H2"``, ``"H3"`` · ``departement`` : ex. 69
+     - du 01/01/2015 au 30/04/2027
    * - ``BAR-EN-106``
      - Isolation de combles ou de toitures (France d’outre-mer)
      - ``CEE.BAR_EN_106(…)``
      - ``surface`` : ex. 90 · ``type_logement`` : ``'maison'`` · ``etat_logement`` : ``'existant'``
+     - du 20/03/2015 au 30/04/2027
    * - ``BAR-EN-107``
      - Isolation des murs (France d’outre-mer)
      - ``CEE.BAR_EN_107(…)``
      - ``surface`` : ex. 90 · ``type_logement`` : ``'maison'`` · ``etat_logement`` : ``'existant'`` · ``resistance_thermique`` : ex. 4
+     - du 20/03/2015 au 30/04/2027
    * - ``BAR-EN-108``
      - Fermeture isolante
      - ``CEE.BAR_EN_108(…)``
      - ``surface`` : ex. 90 · ``zone`` : ``"H1"``, ``"H2"``, ``"H3"`` · ``departement`` : ex. 69 · ``nombre_fermetures`` : ex. 2
+     - du 01/01/2015 au 30/06/2028
    * - ``BAR-EN-109``
      - Réduction des apports solaires par la toiture (France d'outre-mer)
      - ``CEE.BAR_EN_109(…)``
      - ``surface`` : ex. 90 · ``type_logement`` : ``'maison'``
+     - du 14/12/2016 au sans fin connue
    * - ``BAR-EN-110``
      - Fenêtre ou porte-fenêtre complète avec vitrage pariétodynamique
      - ``CEE.BAR_EN_110(…)``
      - ``nombre_fenetres`` : ex. 8 · ``zone`` : ``"H1"``, ``"H2"``, ``"H3"`` · ``departement`` : ex. 69
+     - du 24/07/2020 au sans fin connue
    * - ``BAR-EQ-115``
      - Dispositif d’affichage et d’interprétation des consommations d’énergie
      - ``CEE.BAR_EQ_115(…)``
      - ``type_logement`` : ``'maison'`` · ``surface_habitable`` : ex. 100 · ``suivi_confort`` : ex. False · ``zone`` : ``"H1"``, ``"H2"``, ``"H3"`` · ``departement`` : ex. 69 · ``nombre_appartements`` : ex. 1
+     - du 01/01/2019 au sans fin connue
    * - ``BAR-SE-104``
      - Réglage des organes d’équilibrage d’une installation de chauffage à eau chaude
      - ``CEE.BAR_SE_104(…)``
      - ``nombre_appartements`` : ex. 40 · ``zone`` : ``"H1"``, ``"H2"``, ``"H3"`` · ``departement`` : ex. 69
+     - du 22/12/2015 au sans fin connue
    * - ``BAR-SE-105``
      - Contrat de Performance Energétique Services (CPE Services)
      - ``CEE.BAR_SE_105(…)``
      - ``duree_garantie`` : ex. 2 · ``nombre_appartements`` : ex. 40 · ``zone`` : ``"H1"``, ``"H2"``, ``"H3"`` · ``departement`` : ex. 69
+     - du 06/12/2018 au sans fin connue
    * - ``BAR-SE-106``
      - Service de suivi des consommations d’énergie
      - ``CEE.BAR_SE_106(…)``
      - ``type_logement`` : ``'appartement'`` · ``usages`` : ex. ['chauffage_electrique' · ``zone`` : ``"H1"``, ``"H2"``, ``"H3"`` · ``departement`` : ex. 69
+     - du 10/01/2020 au sans fin connue
    * - ``BAR-SE-107``
      - Abaissement de la température de retour vers un réseau de chaleur
      - ``CEE.BAR_SE_107(…)``
      - ``nombre_logements`` : ex. 40 · ``zone`` : ``"H1"``, ``"H2"``, ``"H3"`` · ``departement`` : ex. 69
+     - du 31/12/2020 au sans fin connue
    * - ``BAR-SE-108``
      - Désembouage d’un réseau hydraulique individuel de chauffage en France métropolitaine
      - ``CEE.BAR_SE_108(…)``
      - ``type_logement`` : ``'appartement'`` · ``zone`` : ``"H1"``, ``"H2"``, ``"H3"`` · ``departement`` : ex. 69
+     - du 14/10/2022 au 31/07/2030
    * - ``BAR-TH-101``
      - Chauffe-eau solaire individuel (France métropolitaine)
      - ``CEE.BAR_TH_101(…)``
      - ``zone`` : ``'H1'`` · ``departement`` : numéro (69) ou code (``"2A"``) — cf. ``CEE.H1/H2/H3``
+     - du 31/07/2015 au 31/12/2030
    * - ``BAR-TH-102``
      - Chauffe-eau solaire collectif (France métropolitaine)
      - ``CEE.BAR_TH_102(…)``
      - ``besoin_annuel`` : ex. 10000 · ``taux_couverture`` : ex. 50 · ``production_solaire_utile`` : ex. 5000
+     - du 31/07/2015 au sans fin connue
    * - ``BAR-TH-110``
      - Radiateur basse température pour un chauffage central
      - ``CEE.BAR_TH_110(…)``
      - ``nombre_radiateurs`` : ex. 10 · ``type_logement`` : ``'maison'`` · ``zone`` : ``"H1"``, ``"H2"``, ``"H3"`` · ``departement`` : ex. 69
+     - du 29/06/2015 au sans fin connue
    * - ``BAR-TH-111``
      - Régulation par sonde de température extérieure
      - ``CEE.BAR_TH_111(…)``
      - ``surface_habitable`` : ex. 100 · ``energie_chauffage`` : ``'combustible'`` · ``zone`` : ``"H1"``, ``"H2"``, ``"H3"`` · ``departement`` : ex. 69
+     - du 31/07/2015 au sans fin connue
    * - ``BAR-TH-112``
      - Appareil indépendant de chauffage au bois
      - ``CEE.BAR_TH_112(…)``
      - ``etas`` : ex. 130 · ``zone`` : ``"H1"``, ``"H2"``, ``"H3"`` · ``departement`` : ex. 69
+     - du 01/01/2015 au 30/09/2027
    * - ``BAR-TH-113``
      - Chaudière biomasse individuelle
      - ``CEE.BAR_TH_113(…)``
      - ``zone`` : ``'H1'`` · ``departement`` : numéro (69) ou code (``"2A"``) — cf. ``CEE.H1/H2/H3``
+     - du 01/01/2015 au 31/12/2030
    * - ``BAR-TH-116``
      - Plancher chauffant hydraulique à basse température
      - ``CEE.BAR_TH_116(…)``
      - ``surface`` : ex. 100 · ``type_logement`` : ``'maison'`` · ``zone`` : ``"H1"``, ``"H2"``, ``"H3"`` · ``departement`` : ex. 69
+     - du 31/07/2015 au sans fin connue
    * - ``BAR-TH-117``
      - Robinet thermostatique
      - ``CEE.BAR_TH_117(…)``
      - ``nombre_robinets`` : ex. 10 · ``type_logement`` : ``'maison'`` · ``zone`` : ``"H1"``, ``"H2"``, ``"H3"`` · ``departement`` : ex. 69
+     - du 01/01/2015 au sans fin connue
    * - ``BAR-TH-122``
      - Récupérateur de chaleur à condensation
      - ``CEE.BAR_TH_122(…)``
      - ``nombre_appartements`` : ex. 40 · ``puissance_chaudieres_equipees`` : ex. 200 · ``puissance_chaufferie`` : ex. 300 · ``avec_bar_th_150`` : ``'non'`` · ``puissance_pac`` : ex. 100 · ``zone`` : ``"H1"``, ``"H2"``, ``"H3"`` · ``departement`` : ex. 69
+     - du 20/03/2015 au sans fin connue
    * - ``BAR-TH-123``
      - Optimiseur de relance en chauffage collectif
      - ``CEE.BAR_TH_123(…)``
      - ``nombre_appartements`` : ex. 40 · ``zone`` : ``"H1"``, ``"H2"``, ``"H3"`` · ``departement`` : ex. 69
+     - du 31/07/2015 au 30/06/2028
    * - ``BAR-TH-124``
      - Chauffe-eau solaire individuel (France d'outre mer)
      - ``CEE.BAR_TH_124(…)``
      - ``surface`` : ex. 90 · ``etat_logement`` : ``'existant'`` · ``territoire`` : ``'reunion'`` · ``departement`` : ex. 974
+     - du 01/01/2015 au 31/12/2030
    * - ``BAR-TH-125``
      - Système de ventilation double flux autoréglable ou modulé à haute performance (France métropolitaine)
      - ``CEE.BAR_TH_125(…)``
      - ``type_installation`` : ``'collectif'`` · ``type_ventilation`` : ``'autoreglable'`` · ``nombre_logements`` : ex. 10 · ``surface_habitable`` : ex. 700 · ``zone`` : ``"H1"``, ``"H2"``, ``"H3"`` · ``departement`` : ex. 69
+     - du 29/06/2015 au 30/06/2028
    * - ``BAR-TH-127``
      - Ventilation mécanique simple flux hygroréglable (France métropolitaine)
      - ``CEE.BAR_TH_127(…)``
      - ``type_installation`` : ``'collectif'`` · ``type_systeme`` : ``'A'`` · ``caisson`` : ``'standard'`` · ``nombre_logements`` : ex. 10 · ``surface_habitable`` : ex. 700 · ``zone`` : ``"H1"``, ``"H2"``, ``"H3"`` · ``departement`` : ex. 69
+     - du 29/06/2015 au 30/06/2028
    * - ``BAR-TH-129``
      - Pompe à chaleur de type air/air
      - ``CEE.BAR_TH_129(…)``
      - ``type_logement`` : ``'maison'`` · ``scop`` : ex. 4.5 · ``surface_chauffee`` : ex. 100 · ``zone`` : ``"H1"``, ``"H2"``, ``"H3"`` · ``departement`` : ex. 69
+     - du 01/01/2015 au sans fin connue
    * - ``BAR-TH-130``
      - Surperformance énergétique pour un bâtiment neuf (France métropolitaine)
      - ``CEE.BAR_TH_130(…)``
      - ``cef`` : ex. 2.5 · ``sref`` : ex. 100 · ``cep_max`` : ex. 50 · ``mode_chauffage`` : ``'electrique'`` · ``mode_ecs`` : ``'electrique'`` · ``cef_max`` : ex. 3
+     - du 26/07/2017 au 31/12/2027
    * - ``BAR-TH-135``
      - Chauffe-eau solaire collectif (France d'outre mer)
      - ``CEE.BAR_TH_135(…)``
      - ``besoin_annuel`` : ex. 10000 · ``taux_couverture`` : ex. 60 · ``type_appoint`` : ``'individualise'`` · ``etat_logement`` : ``'existant'`` · ``territoire`` : ``'reunion'`` · ``departement`` : ex. 974
+     - du 01/01/2015 au sans fin connue
    * - ``BAR-TH-137``
      - Raccordement d'un bâtiment résidentiel à un réseau de chaleur
      - ``CEE.BAR_TH_137(…)``
      - ``type_logement`` : ``'appartement'`` · ``nombre_appartements`` : ex. 40 · ``surface_habitable`` : ex. 2800 · ``zone`` : ``"H1"``, ``"H2"``, ``"H3"`` · ``departement`` : ex. 69
+     - du 31/07/2015 au 31/12/2030
    * - ``BAR-TH-139``
      - Système de variation électronique de vitesse sur une pompe
      - ``CEE.BAR_TH_139(…)``
      - ``puissance_nominale`` : ex. 5
+     - du 01/01/2015 au sans fin connue
    * - ``BAR-TH-141``
      - Climatiseur performant (France d'outre-mer)
      - ``CEE.BAR_TH_141(…)``
      - ``puissance_frigorifique`` : ex. 3.5 · ``puissance_btu`` : ex. 9000 · ``seer`` : ex. 7 · ``classe`` : ``'A++'`` · ``nombre_climatiseurs`` : ex. 2
+     - du 20/03/2015 au 31/07/2030
    * - ``BAR-TH-143``
      - Système solaire combiné (France métropolitaine)
      - ``CEE.BAR_TH_143(…)``
      - ``zone`` : ``'H1'`` · ``departement`` : numéro (69) ou code (``"2A"``) — cf. ``CEE.H1/H2/H3``
+     - du 02/03/2017 au 31/12/2030
    * - ``BAR-TH-148``
      - Chauffe-eau thermodynamique à accumulation
      - ``CEE.BAR_TH_148(…)``
      - ``type_logement`` : ``'maison'`` · ``engagement_avant_26_09_2017`` : ex. False
+     - du 01/01/2015 au 31/12/2030
    * - ``BAR-TH-155``
      - Ventilation hybride hygroréglable (France métropolitaine)
      - ``CEE.BAR_TH_155(…)``
      - ``nombre_appartements`` : ex. 40 · ``type_systeme`` : ``'A'`` · ``extracteur`` : ``'standard'`` · ``zone`` : ``"H1"``, ``"H2"``, ``"H3"`` · ``departement`` : ex. 69
+     - du 29/06/2015 au 31/03/2027
    * - ``BAR-TH-158``
      - Émetteur électrique à régulation électronique à fonctions avancées
      - ``CEE.BAR_TH_158(…)``
      - ``nombre_emetteurs`` : ex. 10 · ``type_logement`` : ``'maison'`` · ``zone`` : ``"H1"``, ``"H2"``, ``"H3"`` · ``departement`` : ex. 69
+     - du 20/03/2015 au 01/11/2030
    * - ``BAR-TH-159``
      - Pompe à chaleur hybride individuelle
      - ``CEE.BAR_TH_159(…)``
      - ``type_logement`` : ``'maison'`` · ``etas`` : ex. 145 · ``surface_chauffee`` : ex. 110 · ``zone`` : ``"H1"``, ``"H2"``, ``"H3"`` · ``departement`` : ex. 69
+     - du 26/07/2017 au 31/03/2028
    * - ``BAR-TH-161``
      - Isolation de points singuliers d’un réseau
      - ``CEE.BAR_TH_161(…)``
      - ``nombre_housses`` : ex. 50 · ``diametre_nominal`` : ex. 32 · ``temperature_fluide`` : ex. 100 · ``zone`` : ``"H1"``, ``"H2"``, ``"H3"`` · ``departement`` : ex. 69 · ``type_point`` : ``'housse'``
+     - du 06/12/2018 au 31/07/2030
    * - ``BAR-TH-162``
      - Système énergétique comportant des capteurs solaires photovoltaïques et thermiques à circulation d’eau (France métropolitaine)
      - ``CEE.BAR_TH_162(…)``
      - 
+     - du 06/12/2018 au sans fin connue
    * - ``BAR-TH-165``
      - Chaudière biomasse collective
      - ``CEE.BAR_TH_165(…)``
      - ``chaleur_nette_utile`` : ex. 50000 · ``puissance_nominale`` : ex. 20
+     - du 04/05/2020 au sans fin connue
    * - ``BAR-TH-168``
      - Dispositif solaire thermique (France métropolitaine)
      - ``CEE.BAR_TH_168(…)``
      - ``surface`` : ex. 4 · ``usage`` : ``'ecs'`` · ``zone`` : ``"H1"``, ``"H2"``, ``"H3"`` · ``departement`` : ex. 69
+     - du 29/12/2021 au 31/12/2030
    * - ``BAR-TH-169``
      - Pompe à chaleur collective de type air/eau ou eau/eau pour l’eau chaude sanitaire
      - ``CEE.BAR_TH_169(…)``
      - ``nombre_appartements`` : ex. 40 · ``pacs`` : ex. [(4.0 · ``zone`` : ``"H1"``, ``"H2"``, ``"H3"`` · ``departement`` : ex. 69
+     - du 05/08/2022 au 31/03/2030
    * - ``BAR-TH-170``
      - Récupération de chaleur fatale issue de serveurs informatiques pour l’eau chaude sanitaire collective
      - ``CEE.BAR_TH_170(…)``
      - ``puissance_electrique`` : ex. 1000
+     - du 01/10/2023 au 30/06/2028
    * - ``BAR-TH-171``
      - Pompe à chaleur de type air/eau
      - ``CEE.BAR_TH_171(…)``
      - ``type_logement`` : ``'maison'`` · ``etas`` : ex. 145 · ``surface_chauffee`` : ex. 110 · ``zone`` : ``'H2'`` · ``departement`` : numéro (69) ou code (``"2A"``) — cf. ``CEE.H1/H2/H3`` · ``usage`` : valeur testée non publiée
+     - du 01/01/2024 au 31/12/2030
    * - ``BAR-TH-172``
      - Pompe à chaleur de type eau/eau ou eau glycolée/eau
      - ``CEE.BAR_TH_172(…)``
      - ``etas`` : ex. 145 · ``surface_chauffee`` : ex. 110 · ``zone`` : ``"H1"``, ``"H2"``, ``"H3"`` · ``departement`` : ex. 69 · ``usage`` : ``'chauffage'``
+     - du 01/01/2024 au 31/12/2030
    * - ``BAR-TH-173``
      - Système de régulation par programmation horaire pièce par pièce
      - ``CEE.BAR_TH_173(…)``
      - ``nombre_emetteurs`` : ex. 8 · ``type_logement`` : ``'maison'`` · ``zone`` : ``"H1"``, ``"H2"``, ``"H3"`` · ``departement`` : ex. 69 · ``classe_regulation`` : ``'classe_III'`` · ``surface_chauffee`` : ex. 110
+     - du 30/11/2023 au 31/12/2026
    * - ``BAR-TH-174``
      - Rénovation d’ampleur d’une maison individuelle (France métropolitaine)
      - ``CEE.BAR_TH_174(…)``
      - ``sauts_classe`` : ex. 3 · ``surface_habitable`` : ex. 100 · ``sauts_classe_etape1`` : ex. 2
+     - du 01/01/2024 au 31/12/2030
    * - ``BAR-TH-175``
      - Rénovation d’ampleur d’un appartement (France métropolitaine)
      - ``CEE.BAR_TH_175(…)``
      - ``sauts_classe`` : ex. 3 · ``surface_habitable`` : ex. 100 · ``sauts_classe_etape1`` : ex. 2
+     - du 01/01/2024 au 31/12/2030
    * - ``BAR-TH-176``
      - Système de régulation de la consommation d’un chauffe-eau électrique à effet Joule
      - ``CEE.BAR_TH_176(…)``
      - ``type_logement`` : ``'maison'`` · ``volume_chauffe_eau`` : ex. 200 · ``zone`` : ``"H1"``, ``"H2"``, ``"H3"`` · ``departement`` : ex. 69
+     - du 29/12/2023 au 31/12/2028
    * - ``BAR-TH-177``
      - Rénovation globale d’un bâtiment résidentiel collectif (France métropolitaine)
      - ``CEE.BAR_TH_177(…)``
      - ``surface_habitable`` : ex. 100
+     - du 01/11/2024 au 31/12/2030
    * - ``BAR-TH-178``
      - Système géothermique
      - ``CEE.BAR_TH_178(…)``
      - ``nombre_appartements`` : ex. 40 · ``pacs`` : ex. [{'puissance': 100 (<= 400 ; > 400) · ``puissance_chaufferie`` : ex. 300 (< 40) · ``usage`` : ``'chauffage'`` · ``zone`` : ``"H1"``, ``"H2"``, ``"H3"`` · ``departement`` : ex. 69
+     - du 01/01/2026 au 31/12/2030
    * - ``BAR-TH-179``
      - Pompe à chaleur collective de type air/eau
      - ``CEE.BAR_TH_179(…)``
      - ``nombre_appartements`` : ex. 40 · ``pacs`` : ex. [{'puissance': 100 (<= 400) · ``puissance_chaufferie`` : ex. 300 · ``usage`` : ``'chauffage'`` · ``zone`` : ``"H1"``, ``"H2"``, ``"H3"`` · ``departement`` : ex. 69
+     - du 01/01/2026 au 31/12/2030
    * - ``BAR-TH-180``
      - Pompe à chaleur collective de type eau/eau ou eau glycolée/eau
      - ``CEE.BAR_TH_180(…)``
      - ``nombre_appartements`` : ex. 40 · ``pacs`` : ex. [{'puissance': 100 · ``puissance_chaufferie`` : ex. 300 · ``usage`` : ``'chauffage'`` · ``zone`` : ``"H1"``, ``"H2"``, ``"H3"`` · ``departement`` : ex. 69
+     - du 01/01/2026 au 31/12/2030
 
 Les fiches ``BAR-TH-171`` sont détaillées en fin de page, avec un cas concret et sa sortie.
 

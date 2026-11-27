@@ -271,15 +271,20 @@ def table_dates(secteurs, exemples=()):
             detail.append("``%s`` : %s"
                           % (nom, valeurs_cee.cellule(valeur, bornes)))
         valeur_cellule = " · ".join(detail).replace("\n", " ").replace("|", "/")
+        debut, fin = _periode(info)
         lignes.append((code, info["titre"],
-                       "``CEE.%s(…)``" % code.replace("-", "_"), valeur_cellule))
+                       "``CEE.%s(…)``" % code.replace("-", "_"), valeur_cellule,
+                       "du %s au %s" % (debut, fin or "sans fin connue")))
     lignes.sort(key=lambda l: l[0])
-    out = [".. list-table::", "   :header-rows: 1", "   :widths: 13 26 20 41",
+    out = [".. list-table::", "   :header-rows: 1",
+           "   :widths: 12 22 16 37 13",
            "", "   * - Nom de la fiche", "     - Désignation",
-           "     - Fonction Python", "     - Valeurs possibles des paramètres"]
-    for code, titre, fonction, detail in lignes:
+           "     - Fonction Python", "     - Valeurs possibles des paramètres",
+           "     - Dates de validité"]
+    for code, titre, fonction, detail, periode in lignes:
         out += ["   * - ``%s``" % code, "     - %s" % titre,
-                "     - %s" % fonction, "     - %s" % detail]
+                "     - %s" % fonction, "     - %s" % detail,
+                "     - %s" % periode]
     return "\n".join(out) + "\n", len(lignes)
 
 
@@ -331,15 +336,18 @@ def _page(nom, entete, sections, reference=None, synthese=None):
         morceaux.append(titre("Tableau du secteur", "-"))
         morceaux.append(
             "**%(n)d fiches** en vigueur au %(date)s%(secteurs)s, une ligne par "
-            "fiche : nom, désignation, fonction Python et valeurs des "
-            "paramètres.\n\n"
+            "fiche : nom, désignation, fonction Python, valeurs des paramètres "
+            "et dates de validité.\n\n"
             "Les valeurs de la dernière colonne sont celles que **le code "
             "accepte** : ce sont les valeurs passées à ``calcul_CEE`` par les "
             "appels ci-dessous, exécutés à chaque construction de cette page "
             "(le banc compare la sortie publiée à la sortie réelle). Quand la "
             "docstring de la fiche ne cite aucune valeur, la cellule donne la "
             "**valeur testée** (``ex.``) et les bornes qu'elle énonce, plutôt "
-            "qu'une liste inventée.\n"
+            "qu'une liste inventée. Les dates de validité disent entre quels "
+            "jours une opération doit être **engagée** pour ouvrir droit à "
+            "certificats ; « sans fin connue » signifie qu'aucune abrogation "
+            "n'est publiée (règles dans :doc:`date_validite`).\n"
             % {"n": n, "date": _fr(DATE),
                "secteurs": (" (%s)" % compte) if compte else ""})
     if synthese:
@@ -1020,8 +1028,8 @@ def generer():
         ==============================
 
         Un tableau par secteur, une ligne par fiche : **nom de la fiche,
-        désignation, fonction Python** et **valeurs des paramètres**. Les {n_codees}
-        fiches calculées au {date} y figurent toutes.
+        désignation, fonction Python**, **valeurs des paramètres** et **dates de
+        validité**. Les {n_codees} fiches calculées au {date} y figurent toutes.
 
         Les valeurs de la dernière colonne sont celles que le **code accepte** :
         ce sont les valeurs passées à ``calcul_CEE`` par les appels exécutés à
