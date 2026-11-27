@@ -15,6 +15,7 @@ Cycles thermodynamiques
    pompe
    detente_distributeurs
    echangeurs
+   echangeur_calandre
    aerorefrigerant
    chiller
    condenseur_evaporateur
