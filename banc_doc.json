@@ -4,7 +4,7 @@
   "docs/source/001-heat_transfer/composite_wall_heat_transfer.rst": {
    "blocs": 4,
    "empreinte": "514772ac6abcc8a3",
-   "mesure": "2026-11-27T09:19",
+   "mesure": "2026-11-27T09:26",
    "figures": [
     "../images/schema_mur_composite.svg"
    ],
@@ -19,7 +19,7 @@
   "docs/source/001-heat_transfer/corps_parallelepipedique.rst": {
    "blocs": 2,
    "empreinte": "a633a9557926c5c5",
-   "mesure": "2026-11-27T09:19",
+   "mesure": "2026-11-27T09:26",
    "figures": [
     "../images/schema_corps_parallelepipede.svg"
    ],
@@ -34,7 +34,7 @@
   "docs/source/001-heat_transfer/index.rst": {
    "blocs": 0,
    "empreinte": "da39a3ee5e6b4b0d",
-   "mesure": "2026-11-27T09:19",
+   "mesure": "2026-11-27T09:26",
    "figures": [],
    "blocage": null,
    "motif": "page de prose ou d'index",
@@ -47,7 +47,7 @@
   "docs/source/001-heat_transfer/pipe_insulation_analysis.rst": {
    "blocs": 2,
    "empreinte": "0ef7ac6ea008f47d",
-   "mesure": "2026-11-27T09:19",
+   "mesure": "2026-11-27T09:26",
    "figures": [
     "../images/schema_tuyauterie_isolee.svg"
    ],
@@ -62,7 +62,7 @@
   "docs/source/001-heat_transfer/reseau_thermique.rst": {
    "blocs": 3,
    "empreinte": "9896cc8dab0acba8",
-   "mesure": "2026-11-27T09:19",
+   "mesure": "2026-11-27T09:26",
    "figures": [],
    "blocage": null,
    "motif": "",
@@ -75,7 +75,7 @@
   "docs/source/002-thermodynamic_cycles/aerorefrigerant.rst": {
    "blocs": 4,
    "empreinte": "a9554aff2614bbaf",
-   "mesure": "2026-11-27T09:19",
+   "mesure": "2026-11-27T09:26",
    "figures": [
     "../images/schema_aerorefrigerant_geometrie.svg",
     "../images/schema_aerorefrigerant_connexions.svg",
@@ -92,7 +92,7 @@
   "docs/source/002-thermodynamic_cycles/ballon_stratifie.rst": {
    "blocs": 2,
    "empreinte": "72124af7e819c639",
-   "mesure": "2026-11-27T09:19",
+   "mesure": "2026-11-27T09:26",
    "figures": [],
    "blocage": null,
    "motif": "",
@@ -105,7 +105,7 @@
   "docs/source/002-thermodynamic_cycles/capteur_signaux.rst": {
    "blocs": 4,
    "empreinte": "864ac6ab1873b44b",
-   "mesure": "2026-11-27T09:19",
+   "mesure": "2026-11-27T09:26",
    "figures": [],
    "blocage": null,
    "motif": "",
@@ -118,7 +118,7 @@
   "docs/source/002-thermodynamic_cycles/chaudiere_biomasse.rst": {
    "blocs": 3,
    "empreinte": "2ec6511fb0dc4efd",
-   "mesure": "2026-11-27T09:19",
+   "mesure": "2026-11-27T09:26",
    "figures": [
     "../images/002_chaudiere_biomasse_bilan.svg"
    ],
@@ -133,7 +133,7 @@
   "docs/source/002-thermodynamic_cycles/chaudiere_electrique.rst": {
    "blocs": 2,
    "empreinte": "2f98fa1b56281c2d",
-   "mesure": "2026-11-27T09:19",
+   "mesure": "2026-11-27T09:26",
    "figures": [],
    "blocage": null,
    "motif": "",
@@ -146,7 +146,7 @@
   "docs/source/002-thermodynamic_cycles/chaudiere_fioul.rst": {
    "blocs": 3,
    "empreinte": "55c34bc0a7522b4d",
-   "mesure": "2026-11-27T09:19",
+   "mesure": "2026-11-27T09:26",
    "figures": [
     "../images/002_chaudiere_fioul_bilan.svg"
    ],
@@ -161,7 +161,7 @@
   "docs/source/002-thermodynamic_cycles/chiller.rst": {
    "blocs": 6,
    "empreinte": "c2dfe3032efe1ac0",
-   "mesure": "2026-11-27T09:19",
+   "mesure": "2026-11-27T09:26",
    "figures": [
     "../images/schema_cycle_chiller.svg",
     "../images/scene_machine_frigorifique.svg",
@@ -179,7 +179,7 @@
   "docs/source/002-thermodynamic_cycles/collecteur_distributeur.rst": {
    "blocs": 2,
    "empreinte": "5bfcf44345618d3f",
-   "mesure": "2026-11-27T09:19",
+   "mesure": "2026-11-27T09:26",
    "figures": [
     "../images/002_collecteur_repartition.svg"
    ],
@@ -194,7 +194,7 @@
   "docs/source/002-thermodynamic_cycles/combustion_moteurs.rst": {
    "blocs": 7,
    "empreinte": "a976e60413e63bf6",
-   "mesure": "2026-11-27T09:19",
+   "mesure": "2026-11-27T09:26",
    "figures": [],
    "blocage": null,
    "motif": "",
@@ -207,7 +207,7 @@
   "docs/source/002-thermodynamic_cycles/compressor.rst": {
    "blocs": 8,
    "empreinte": "e4b46e0fbd4a6f7d",
-   "mesure": "2026-11-27T09:19",
+   "mesure": "2026-11-27T09:26",
    "figures": [
     "../images/schema_compressor.svg"
    ],
@@ -222,7 +222,7 @@
   "docs/source/002-thermodynamic_cycles/condenseur_evaporateur.rst": {
    "blocs": 8,
    "empreinte": "e8308479ab689862",
-   "mesure": "2026-11-27T09:19",
+   "mesure": "2026-11-27T09:26",
    "figures": [
     "../images/schema_condenser.svg",
     "../images/schema_evaporator.svg"
@@ -238,7 +238,7 @@
   "docs/source/002-thermodynamic_cycles/dessalement_evaporation.rst": {
    "blocs": 7,
    "empreinte": "5e0b7599c5d27b94",
-   "mesure": "2026-11-27T09:19",
+   "mesure": "2026-11-27T09:26",
    "figures": [],
    "blocage": null,
    "motif": "",
@@ -251,7 +251,7 @@
   "docs/source/002-thermodynamic_cycles/detente_distributeurs.rst": {
    "blocs": 7,
    "empreinte": "4cdc3fab426a7f94",
-   "mesure": "2026-11-27T09:19",
+   "mesure": "2026-11-27T09:26",
    "figures": [
     "../images/schema_expansion_valve.svg"
    ],
@@ -266,7 +266,7 @@
   "docs/source/002-thermodynamic_cycles/distillation.rst": {
    "blocs": 5,
    "empreinte": "c42b905dd7996ad7",
-   "mesure": "2026-11-27T09:19",
+   "mesure": "2026-11-27T09:26",
    "figures": [],
    "blocage": null,
    "motif": "",
@@ -279,7 +279,7 @@
   "docs/source/002-thermodynamic_cycles/echangeurs.rst": {
    "blocs": 11,
    "empreinte": "83adc22f5af5514f",
-   "mesure": "2026-11-27T09:19",
+   "mesure": "2026-11-27T09:26",
    "figures": [
     "../images/schema_echangeurs_familles.svg",
     "../images/schema_echangeurs_connexions.svg",
@@ -296,7 +296,7 @@
   "docs/source/002-thermodynamic_cycles/ejecteur_tour_refroidissement.rst": {
    "blocs": 5,
    "empreinte": "e33ebc6835027756",
-   "mesure": "2026-11-27T09:19",
+   "mesure": "2026-11-27T09:26",
    "figures": [],
    "blocage": null,
    "motif": "",
@@ -309,7 +309,7 @@
   "docs/source/002-thermodynamic_cycles/exergie.rst": {
    "blocs": 4,
    "empreinte": "b82ee173d40c6a8c",
-   "mesure": "2026-11-27T09:19",
+   "mesure": "2026-11-27T09:26",
    "figures": [],
    "blocage": null,
    "motif": "",
@@ -322,7 +322,7 @@
   "docs/source/002-thermodynamic_cycles/fluid_source.rst": {
    "blocs": 4,
    "empreinte": "4307188993babb6d",
-   "mesure": "2026-11-27T09:19",
+   "mesure": "2026-11-27T09:26",
    "figures": [
     "../images/schema_source.svg"
    ],
@@ -337,7 +337,7 @@
   "docs/source/002-thermodynamic_cycles/froid_absorption.rst": {
    "blocs": 8,
    "empreinte": "b78ebd315dea9161",
-   "mesure": "2026-11-27T09:19",
+   "mesure": "2026-11-27T09:26",
    "figures": [],
    "blocage": null,
    "motif": "",
@@ -350,7 +350,7 @@
   "docs/source/002-thermodynamic_cycles/geothermie_solaire.rst": {
    "blocs": 7,
    "empreinte": "48127bb3f2544d1c",
-   "mesure": "2026-11-27T09:19",
+   "mesure": "2026-11-27T09:26",
    "figures": [],
    "blocage": null,
    "motif": "",
@@ -363,7 +363,7 @@
   "docs/source/002-thermodynamic_cycles/givrage.rst": {
    "blocs": 3,
    "empreinte": "e8644e0c18adf37d",
-   "mesure": "2026-11-27T09:19",
+   "mesure": "2026-11-27T09:26",
    "figures": [
     "../images/schema_givrage_couplage.svg",
     "../images/givrage_croissance.svg"
@@ -379,7 +379,7 @@
   "docs/source/002-thermodynamic_cycles/hydrogene_piles.rst": {
    "blocs": 7,
    "empreinte": "e6ddb95c5f1eb76b",
-   "mesure": "2026-11-27T09:19",
+   "mesure": "2026-11-27T09:26",
    "figures": [],
    "blocage": null,
    "motif": "",
@@ -392,7 +392,7 @@
   "docs/source/002-thermodynamic_cycles/index.rst": {
    "blocs": 0,
    "empreinte": "da39a3ee5e6b4b0d",
-   "mesure": "2026-11-27T09:19",
+   "mesure": "2026-11-27T09:26",
    "figures": [],
    "blocage": null,
    "motif": "page de prose ou d'index",
@@ -405,7 +405,7 @@
   "docs/source/002-thermodynamic_cycles/melangeur_flash_stockage.rst": {
    "blocs": 6,
    "empreinte": "7e7045aa82cda5ee",
-   "mesure": "2026-11-27T09:19",
+   "mesure": "2026-11-27T09:26",
    "figures": [],
    "blocage": null,
    "motif": "",
@@ -418,7 +418,7 @@
   "docs/source/002-thermodynamic_cycles/ng_boiler_efficiency.rst": {
    "blocs": 9,
    "empreinte": "27a2546ec270d2a8",
-   "mesure": "2026-11-27T09:19",
+   "mesure": "2026-11-27T09:26",
    "figures": [],
    "blocage": null,
    "motif": "",
@@ -431,7 +431,7 @@
   "docs/source/002-thermodynamic_cycles/ng_heating_value.rst": {
    "blocs": 3,
    "empreinte": "6530bb63520fff40",
-   "mesure": "2026-11-27T09:19",
+   "mesure": "2026-11-27T09:26",
    "figures": [],
    "blocage": null,
    "motif": "",
@@ -444,7 +444,7 @@
   "docs/source/002-thermodynamic_cycles/nomenclature.rst": {
    "blocs": 0,
    "empreinte": "784f7f623100a836",
-   "mesure": "2026-11-27T09:19",
+   "mesure": "2026-11-27T09:26",
    "figures": [],
    "blocage": null,
    "motif": "page de prose ou d'index",
@@ -457,7 +457,7 @@
   "docs/source/002-thermodynamic_cycles/outils_diagrammes.rst": {
    "blocs": 7,
    "empreinte": "d4e131cc226af130",
-   "mesure": "2026-11-27T09:19",
+   "mesure": "2026-11-27T09:26",
    "figures": [],
    "blocage": null,
    "motif": "",
@@ -470,7 +470,7 @@
   "docs/source/002-thermodynamic_cycles/pompe.rst": {
    "blocs": 7,
    "empreinte": "d51248b74faa93f5",
-   "mesure": "2026-11-27T09:19",
+   "mesure": "2026-11-27T09:26",
    "figures": [
     "../images/schema_pump.svg"
    ],
@@ -485,7 +485,7 @@
   "docs/source/002-thermodynamic_cycles/raccords_fittings.rst": {
    "blocs": 4,
    "empreinte": "90e0923ed0285a3f",
-   "mesure": "2026-11-27T09:19",
+   "mesure": "2026-11-27T09:26",
    "figures": [],
    "blocage": null,
    "motif": "",
@@ -498,7 +498,7 @@
   "docs/source/002-thermodynamic_cycles/refrigeration.rst": {
    "blocs": 5,
    "empreinte": "4ed6ceb85e0ee345",
-   "mesure": "2026-11-27T09:19",
+   "mesure": "2026-11-27T09:26",
    "figures": [],
    "blocage": null,
    "motif": "",
@@ -511,7 +511,7 @@
   "docs/source/002-thermodynamic_cycles/separation.rst": {
    "blocs": 6,
    "empreinte": "da1ebaa556510411",
-   "mesure": "2026-11-27T09:19",
+   "mesure": "2026-11-27T09:26",
    "figures": [
     "../images/schema_separation.svg"
    ],
@@ -526,7 +526,7 @@
   "docs/source/002-thermodynamic_cycles/sink.rst": {
    "blocs": 4,
    "empreinte": "93d0a1cc94907336",
-   "mesure": "2026-11-27T09:19",
+   "mesure": "2026-11-27T09:26",
    "figures": [
     "../images/schema_sink.svg"
    ],
@@ -541,7 +541,7 @@
   "docs/source/002-thermodynamic_cycles/turbine.rst": {
    "blocs": 3,
    "empreinte": "71c125063042500f",
-   "mesure": "2026-11-27T09:19",
+   "mesure": "2026-11-27T09:26",
    "figures": [
     "../images/schema_turbine.svg"
    ],
@@ -556,7 +556,7 @@
   "docs/source/003-ahu_modules/air_humide.rst": {
    "blocs": 3,
    "empreinte": "d7e5de735f69da1d",
-   "mesure": "2026-11-27T09:19",
+   "mesure": "2026-11-27T09:26",
    "figures": [],
    "blocage": null,
    "motif": "",
@@ -569,7 +569,7 @@
   "docs/source/003-ahu_modules/batteries.rst": {
    "blocs": 9,
    "empreinte": "9065181bf7d58e93",
-   "mesure": "2026-11-27T09:19",
+   "mesure": "2026-11-27T09:26",
    "figures": [
     "../images/schema_heatingcoil.svg",
     "../images/schema_coolingcoil.svg",
@@ -586,7 +586,7 @@
   "docs/source/003-ahu_modules/composants_cta.rst": {
    "blocs": 9,
    "empreinte": "ca17b6ec4639d757",
-   "mesure": "2026-11-27T09:19",
+   "mesure": "2026-11-27T09:26",
    "figures": [
     "../images/schema_freshair.svg",
     "../images/schema_heatplateexchanger.svg",
@@ -604,7 +604,7 @@
   "docs/source/003-ahu_modules/cta_air_neuf.rst": {
    "blocs": 2,
    "empreinte": "ac401b61ea99ca61",
-   "mesure": "2026-11-27T09:19",
+   "mesure": "2026-11-27T09:26",
    "figures": [
     "../images/schema_cta_air_neuf.svg",
     "../images/003_cta_air_neuf_psychrometrique.svg"
@@ -620,7 +620,7 @@
   "docs/source/003-ahu_modules/generic_ahu.rst": {
    "blocs": 3,
    "empreinte": "aaefbd1a4891128d",
-   "mesure": "2026-11-27T09:19",
+   "mesure": "2026-11-27T09:26",
    "figures": [],
    "blocage": null,
    "motif": "",
@@ -633,7 +633,7 @@
   "docs/source/003-ahu_modules/index.rst": {
    "blocs": 0,
    "empreinte": "da39a3ee5e6b4b0d",
-   "mesure": "2026-11-27T09:19",
+   "mesure": "2026-11-27T09:26",
    "figures": [],
    "blocage": null,
    "motif": "page de prose ou d'index",
@@ -646,7 +646,7 @@
   "docs/source/003-ahu_modules/nomenclature.rst": {
    "blocs": 0,
    "empreinte": "48aae2556706e557",
-   "mesure": "2026-11-27T09:19",
+   "mesure": "2026-11-27T09:26",
    "figures": [],
    "blocage": null,
    "motif": "page de prose ou d'index",
@@ -659,7 +659,7 @@
   "docs/source/003-ahu_modules/refroidisseur_evaporatif.rst": {
    "blocs": 1,
    "empreinte": "94d94513d64c746c",
-   "mesure": "2026-11-27T09:19",
+   "mesure": "2026-11-27T09:26",
    "figures": [],
    "blocage": null,
    "motif": "non exécutée (passe statique)",
@@ -672,7 +672,7 @@
   "docs/source/004-hydraulic/TA_valve.rst": {
    "blocs": 4,
    "empreinte": "f50af8fd0e12e474",
-   "mesure": "2026-11-27T09:19",
+   "mesure": "2026-11-27T09:26",
    "figures": [
     "../images/schema_ta_valve.svg",
     "../images/004_ta_valve_courbe_reseau.svg"
@@ -688,7 +688,7 @@
   "docs/source/004-hydraulic/clapet_anti_retour.rst": {
    "blocs": 3,
    "empreinte": "e6b620df5b33648a",
-   "mesure": "2026-11-27T09:19",
+   "mesure": "2026-11-27T09:26",
    "figures": [
     "../images/schema_checkvalve.svg"
    ],
@@ -703,7 +703,7 @@
   "docs/source/004-hydraulic/clapet_volet.rst": {
    "blocs": 4,
    "empreinte": "8e972fded431cfaf",
-   "mesure": "2026-11-27T09:19",
+   "mesure": "2026-11-27T09:26",
    "figures": [
     "../images/schema_movableflap.svg"
    ],
@@ -718,7 +718,7 @@
   "docs/source/004-hydraulic/coudes_tes_singularites.rst": {
    "blocs": 6,
    "empreinte": "11d5ed5012109a2f",
-   "mesure": "2026-11-27T09:19",
+   "mesure": "2026-11-27T09:26",
    "figures": [
     "../images/param_angle_coude.svg",
     "../images/param_edgedbend.svg",
@@ -739,7 +739,7 @@
   "docs/source/004-hydraulic/coups_de_belier.rst": {
    "blocs": 4,
    "empreinte": "19eb0840dcf99ffb",
-   "mesure": "2026-11-27T09:19",
+   "mesure": "2026-11-27T09:26",
    "figures": [
     "../images/schema_coup_de_belier.svg"
    ],
@@ -754,7 +754,7 @@
   "docs/source/004-hydraulic/dimensionnement_vannes.rst": {
    "blocs": 4,
    "empreinte": "8e2c180da6bc75fa",
-   "mesure": "2026-11-27T09:19",
+   "mesure": "2026-11-27T09:26",
    "figures": [],
    "blocage": null,
    "motif": "",
@@ -767,7 +767,7 @@
   "docs/source/004-hydraulic/elargissement_section.rst": {
    "blocs": 6,
    "empreinte": "94927a973507a3fd",
-   "mesure": "2026-11-27T09:19",
+   "mesure": "2026-11-27T09:26",
    "figures": [
     "../images/assemblage_suddenexpansion.svg",
     "../images/schema_gradualexpansion.svg",
@@ -784,7 +784,7 @@
   "docs/source/004-hydraulic/entree_conduite.rst": {
    "blocs": 4,
    "empreinte": "5680fb5815e03851",
-   "mesure": "2026-11-27T09:19",
+   "mesure": "2026-11-27T09:26",
    "figures": [
     "../images/schema_entranceshaft.svg"
    ],
@@ -799,7 +799,7 @@
   "docs/source/004-hydraulic/grille_plaque.rst": {
    "blocs": 6,
    "empreinte": "960c1ddc2dcaabf9",
-   "mesure": "2026-11-27T09:19",
+   "mesure": "2026-11-27T09:26",
    "figures": [
     "../images/schema_screengrid.svg",
     "../images/schema_thickgridplate.svg"
@@ -815,7 +815,7 @@
   "docs/source/004-hydraulic/index.rst": {
    "blocs": 0,
    "empreinte": "23234c4e6f49cfea",
-   "mesure": "2026-11-27T09:19",
+   "mesure": "2026-11-27T09:26",
    "figures": [],
    "blocage": null,
    "motif": "page de prose ou d'index",
@@ -828,7 +828,7 @@
   "docs/source/004-hydraulic/lit_grains.rst": {
    "blocs": 4,
    "empreinte": "beb9dbc75ab44808",
-   "mesure": "2026-11-27T09:19",
+   "mesure": "2026-11-27T09:26",
    "figures": [
     "../images/schema_ergunpackedbed.svg"
    ],
@@ -843,7 +843,7 @@
   "docs/source/004-hydraulic/loi_des_noeuds.rst": {
    "blocs": 0,
    "empreinte": "da39a3ee5e6b4b0d",
-   "mesure": "2026-11-27T09:19",
+   "mesure": "2026-11-27T09:26",
    "figures": [
     "../images/schema_loi_des_noeuds.svg"
    ],
@@ -858,7 +858,7 @@
   "docs/source/004-hydraulic/methodes_2k_3k.rst": {
    "blocs": 8,
    "empreinte": "697af7801236ec5f",
-   "mesure": "2026-11-27T09:19",
+   "mesure": "2026-11-27T09:26",
    "figures": [
     "../images/schema_methodes_k.svg"
    ],
@@ -873,7 +873,7 @@
   "docs/source/004-hydraulic/orifice.rst": {
    "blocs": 3,
    "empreinte": "de6dae5f4ccd4a22",
-   "mesure": "2026-11-27T09:19",
+   "mesure": "2026-11-27T09:26",
    "figures": [
     "../images/schema_orifice.svg"
    ],
@@ -888,7 +888,7 @@
   "docs/source/004-hydraulic/perte_pression_lineaire.rst": {
    "blocs": 4,
    "empreinte": "f4ddceacea1fe40c",
-   "mesure": "2026-11-27T09:19",
+   "mesure": "2026-11-27T09:26",
    "figures": [
     "../images/schema_conduite_droite.svg",
     "../images/004_straightpipe_courbe_reseau.svg"
@@ -904,7 +904,7 @@
   "docs/source/004-hydraulic/propagation_pression.rst": {
    "blocs": 0,
    "empreinte": "cdf530959b4dbf7f",
-   "mesure": "2026-11-27T09:19",
+   "mesure": "2026-11-27T09:26",
    "figures": [
     "../images/param_fluid_connect.svg"
    ],
@@ -919,7 +919,7 @@
   "docs/source/004-hydraulic/reduction_section.rst": {
    "blocs": 7,
    "empreinte": "339f80134256538e",
-   "mesure": "2026-11-27T09:19",
+   "mesure": "2026-11-27T09:26",
    "figures": [
     "../images/assemblage_suddencontraction.svg",
     "../images/schema_gradualcontraction.svg",
@@ -936,7 +936,7 @@
   "docs/source/004-hydraulic/regulateur_dp.rst": {
    "blocs": 3,
    "empreinte": "8fdf3bbb031e807b",
-   "mesure": "2026-11-27T09:19",
+   "mesure": "2026-11-27T09:26",
    "figures": [
     "../images/schema_dpregulator.svg"
    ],
@@ -951,7 +951,7 @@
   "docs/source/004-hydraulic/resolution_circuit.rst": {
    "blocs": 4,
    "empreinte": "773758ec2ca4fa55",
-   "mesure": "2026-11-27T09:19",
+   "mesure": "2026-11-27T09:26",
    "figures": [
     "../images/schema_circuit_serie.svg"
    ],
@@ -966,7 +966,7 @@
   "docs/source/004-hydraulic/serpentin.rst": {
    "blocs": 4,
    "empreinte": "4011ccae7fd27002",
-   "mesure": "2026-11-27T09:19",
+   "mesure": "2026-11-27T09:26",
    "figures": [
     "../images/schema_coil.svg"
    ],
@@ -981,7 +981,7 @@
   "docs/source/004-hydraulic/sortie_libre.rst": {
    "blocs": 4,
    "empreinte": "ffba26a5b7afb26e",
-   "mesure": "2026-11-27T09:19",
+   "mesure": "2026-11-27T09:26",
    "figures": [
     "../images/schema_freedischarge.svg"
    ],
@@ -996,7 +996,7 @@
   "docs/source/004-hydraulic/te_jonction.rst": {
    "blocs": 6,
    "empreinte": "e1efa4a0953bcc00",
-   "mesure": "2026-11-27T09:19",
+   "mesure": "2026-11-27T09:26",
    "figures": [
     "../images/assemblage_convergingtee.svg",
     "../images/assemblage_divergingtee.svg",
@@ -1014,7 +1014,7 @@
   "docs/source/004-hydraulic/valve_3_voies.rst": {
    "blocs": 5,
    "empreinte": "2e137f970427759f",
-   "mesure": "2026-11-27T09:19",
+   "mesure": "2026-11-27T09:26",
    "figures": [
     "../images/schema_valve_3_voies.svg"
    ],
@@ -1029,7 +1029,7 @@
   "docs/source/004-hydraulic/vanne_boule.rst": {
    "blocs": 4,
    "empreinte": "cdf3b7266ba3e1aa",
-   "mesure": "2026-11-27T09:19",
+   "mesure": "2026-11-27T09:26",
    "figures": [
     "../images/schema_ballvalve.svg"
    ],
@@ -1044,7 +1044,7 @@
   "docs/source/004-hydraulic/vanne_generique.rst": {
    "blocs": 4,
    "empreinte": "89c2540ac8df4271",
-   "mesure": "2026-11-27T09:19",
+   "mesure": "2026-11-27T09:26",
    "figures": [
     "../images/schema_generalvalve.svg",
     "../images/004_generalvalve_courbe.svg"
@@ -1060,7 +1060,7 @@
   "docs/source/004-hydraulic/vanne_isolement.rst": {
    "blocs": 3,
    "empreinte": "c722ac4b8d56dc60",
-   "mesure": "2026-11-27T09:19",
+   "mesure": "2026-11-27T09:26",
    "figures": [
     "../images/schema_gatevalve.svg"
    ],
@@ -1075,7 +1075,7 @@
   "docs/source/004-hydraulic/vanne_papillon.rst": {
    "blocs": 5,
    "empreinte": "a0c73d1936878eb6",
-   "mesure": "2026-11-27T09:19",
+   "mesure": "2026-11-27T09:26",
    "figures": [
     "../images/schema_butterflyvalve.svg",
     "../images/schema_rectangularbutterflyvalve.svg"
@@ -1091,7 +1091,7 @@
   "docs/source/004-hydraulic/vanne_soupape.rst": {
    "blocs": 4,
    "empreinte": "2088e82437fc502d",
-   "mesure": "2026-11-27T09:19",
+   "mesure": "2026-11-27T09:26",
    "figures": [
     "../images/schema_globevalve.svg"
    ],
@@ -1106,7 +1106,7 @@
   "docs/source/005-aeraulic/coude_aeraulique.rst": {
    "blocs": 3,
    "empreinte": "1e4d66dddd065924",
-   "mesure": "2026-11-27T09:19",
+   "mesure": "2026-11-27T09:26",
    "figures": [
     "../images/schema_edgedbend_air.svg"
    ],
@@ -1121,7 +1121,7 @@
   "docs/source/005-aeraulic/effet_systeme.rst": {
    "blocs": 4,
    "empreinte": "41cdd3f6507b4f6b",
-   "mesure": "2026-11-27T09:19",
+   "mesure": "2026-11-27T09:26",
    "figures": [
     "../images/schema_fansystemeffect_air.svg"
    ],
@@ -1136,7 +1136,7 @@
   "docs/source/005-aeraulic/filtre.rst": {
    "blocs": 3,
    "empreinte": "16188a24ab8ec084",
-   "mesure": "2026-11-27T09:19",
+   "mesure": "2026-11-27T09:26",
    "figures": [
     "../images/schema_filter_air.svg"
    ],
@@ -1151,7 +1151,7 @@
   "docs/source/005-aeraulic/index.rst": {
    "blocs": 0,
    "empreinte": "da39a3ee5e6b4b0d",
-   "mesure": "2026-11-27T09:19",
+   "mesure": "2026-11-27T09:26",
    "figures": [],
    "blocage": null,
    "motif": "page de prose ou d'index",
@@ -1164,7 +1164,7 @@
   "docs/source/005-aeraulic/obstruction.rst": {
    "blocs": 3,
    "empreinte": "ea4d2920ebfe7d68",
-   "mesure": "2026-11-27T09:19",
+   "mesure": "2026-11-27T09:26",
    "figures": [
     "../images/schema_obstruction_air.svg"
    ],
@@ -1179,7 +1179,7 @@
   "docs/source/005-aeraulic/perte_pression_lineaire.rst": {
    "blocs": 3,
    "empreinte": "7395c6a950c58987",
-   "mesure": "2026-11-27T09:19",
+   "mesure": "2026-11-27T09:26",
    "figures": [
     "../images/schema_straightpipe_air.svg"
    ],
@@ -1194,7 +1194,7 @@
   "docs/source/005-aeraulic/registre_iris.rst": {
    "blocs": 3,
    "empreinte": "40c7b0c91cd06ae1",
-   "mesure": "2026-11-27T09:19",
+   "mesure": "2026-11-27T09:26",
    "figures": [
     "../images/schema_irisdamper_air.svg"
    ],
@@ -1209,7 +1209,7 @@
   "docs/source/005-aeraulic/registre_lames.rst": {
    "blocs": 3,
    "empreinte": "994ee55e857d0dae",
-   "mesure": "2026-11-27T09:19",
+   "mesure": "2026-11-27T09:26",
    "figures": [
     "../images/schema_bladedamper_air.svg"
    ],
@@ -1224,7 +1224,7 @@
   "docs/source/005-aeraulic/te_aeraulique.rst": {
    "blocs": 3,
    "empreinte": "09d57196d28e7919",
-   "mesure": "2026-11-27T09:19",
+   "mesure": "2026-11-27T09:26",
    "figures": [
     "../images/schema_teejunction_air.svg"
    ],
@@ -1239,7 +1239,7 @@
   "docs/source/006-pinch_analysis/index.rst": {
    "blocs": 3,
    "empreinte": "81c367bd8602661a",
-   "mesure": "2026-11-27T09:19",
+   "mesure": "2026-11-27T09:26",
    "figures": [
     "../images/schema_pinch_base.svg",
     "../images/006_pinch_plot_composites.svg",
@@ -1257,7 +1257,7 @@
   "docs/source/007-ipmvp/contexte.rst": {
    "blocs": 0,
    "empreinte": "da39a3ee5e6b4b0d",
-   "mesure": "2026-11-27T09:19",
+   "mesure": "2026-11-27T09:26",
    "figures": [],
    "blocage": null,
    "motif": "page de prose ou d'index",
@@ -1270,7 +1270,7 @@
   "docs/source/007-ipmvp/exemples.rst": {
    "blocs": 3,
    "empreinte": "1d95b19733513b09",
-   "mesure": "2026-11-27T09:19",
+   "mesure": "2026-11-27T09:26",
    "figures": [],
    "blocage": null,
    "motif": "",
@@ -1283,7 +1283,7 @@
   "docs/source/007-ipmvp/index.rst": {
    "blocs": 0,
    "empreinte": "da39a3ee5e6b4b0d",
-   "mesure": "2026-11-27T09:19",
+   "mesure": "2026-11-27T09:26",
    "figures": [],
    "blocage": null,
    "motif": "page de prose ou d'index",
@@ -1296,7 +1296,7 @@
   "docs/source/007-ipmvp/mesure_economies.rst": {
    "blocs": 2,
    "empreinte": "db2dfdc0d3cfc4b7",
-   "mesure": "2026-11-27T09:19",
+   "mesure": "2026-11-27T09:26",
    "figures": [
     "../images/007_ipmvp_savings.png"
    ],
@@ -1311,7 +1311,7 @@
   "docs/source/007-ipmvp/modeles_mathematiques.rst": {
    "blocs": 4,
    "empreinte": "921eb763cdf7f325",
-   "mesure": "2026-11-27T09:19",
+   "mesure": "2026-11-27T09:26",
    "figures": [],
    "blocage": null,
    "motif": "page de développement : 4 extraits, imports vérifiés",
@@ -1324,7 +1324,7 @@
   "docs/source/008-meteo/degres_jours.rst": {
    "blocs": 3,
    "empreinte": "9e0181cc465dc370",
-   "mesure": "2026-11-27T09:19",
+   "mesure": "2026-11-27T09:26",
    "figures": [],
    "blocage": null,
    "motif": "",
@@ -1337,7 +1337,7 @@
   "docs/source/008-meteo/index.rst": {
    "blocs": 0,
    "empreinte": "da39a3ee5e6b4b0d",
-   "mesure": "2026-11-27T09:19",
+   "mesure": "2026-11-27T09:26",
    "figures": [],
    "blocage": null,
    "motif": "page de prose ou d'index",
@@ -1350,7 +1350,7 @@
   "docs/source/008-meteo/meteociel.rst": {
    "blocs": 3,
    "empreinte": "0ef52694d94359ac",
-   "mesure": "2026-11-27T09:19",
+   "mesure": "2026-11-27T09:26",
    "figures": [],
    "blocage": null,
    "motif": "",
@@ -1363,7 +1363,7 @@
   "docs/source/008-meteo/openweathermap.rst": {
    "blocs": 3,
    "empreinte": "e675b4985eaa424d",
-   "mesure": "2026-11-27T09:19",
+   "mesure": "2026-11-27T09:26",
    "figures": [],
    "blocage": null,
    "motif": "",
@@ -1376,7 +1376,7 @@
   "docs/source/009-pv-solaire/index.rst": {
    "blocs": 14,
    "empreinte": "3273a9ad02dfdf62",
-   "mesure": "2026-11-27T09:19",
+   "mesure": "2026-11-27T09:26",
    "figures": [
     "/images/schema_pv_installation.svg",
     "/009-pv-solaire/figures/009_pv_plot_production.png",
@@ -1394,7 +1394,7 @@
   "docs/source/010-achat-energie/appoint_electrique_spot.rst": {
    "blocs": 2,
    "empreinte": "a56f73d7ce37dcd3",
-   "mesure": "2026-11-27T09:19",
+   "mesure": "2026-11-27T09:26",
    "figures": [],
    "blocage": null,
    "motif": "",
@@ -1407,7 +1407,7 @@
   "docs/source/010-achat-energie/contrat_electricite.rst": {
    "blocs": 3,
    "empreinte": "98088c66a3723e02",
-   "mesure": "2026-11-27T09:19",
+   "mesure": "2026-11-27T09:26",
    "figures": [],
    "blocage": null,
    "motif": "",
@@ -1420,7 +1420,7 @@
   "docs/source/010-achat-energie/contrat_gaz.rst": {
    "blocs": 3,
    "empreinte": "b75d9113fe45a00f",
-   "mesure": "2026-11-27T09:19",
+   "mesure": "2026-11-27T09:26",
    "figures": [],
    "blocage": null,
    "motif": "",
@@ -1433,7 +1433,7 @@
   "docs/source/010-achat-energie/exemples/exemple_bt_m36_cu4.rst": {
    "blocs": 2,
    "empreinte": "d5fc3994e242857e",
-   "mesure": "2026-11-27T09:19",
+   "mesure": "2026-11-27T09:26",
    "figures": [
     "../../images/010_turpe_bt_m36_cu4_plot.svg",
     "../../images/010_turpe_bt_m36_cu4_plot_detail.svg"
@@ -1449,7 +1449,7 @@
   "docs/source/010-achat-energie/exemples/exemple_bt_p36_cu.rst": {
    "blocs": 2,
    "empreinte": "4b14ad810e06abe2",
-   "mesure": "2026-11-27T09:19",
+   "mesure": "2026-11-27T09:26",
    "figures": [
     "../../images/010_turpe_bt_p36_cu_plot.svg",
     "../../images/010_turpe_bt_p36_cu_plot_detail.svg"
@@ -1465,7 +1465,7 @@
   "docs/source/010-achat-energie/exemples/exemple_bt_p36_cu_facture_reelle.rst": {
    "blocs": 1,
    "empreinte": "fea2c462e26650f2",
-   "mesure": "2026-11-27T09:19",
+   "mesure": "2026-11-27T09:26",
    "figures": [],
    "blocage": null,
    "motif": "non exécutée (passe statique)",
@@ -1478,7 +1478,7 @@
   "docs/source/010-achat-energie/exemples/exemple_hta_cu_pf.rst": {
    "blocs": 2,
    "empreinte": "2e4b9cb75d14748d",
-   "mesure": "2026-11-27T09:19",
+   "mesure": "2026-11-27T09:26",
    "figures": [
     "../../images/010_turpe_hta_cu_pf_plot.svg",
     "../../images/010_turpe_hta_cu_pf_plot_detail.svg"
@@ -1494,7 +1494,7 @@
   "docs/source/010-achat-energie/exemples/exemple_hta_cu_pm.rst": {
    "blocs": 2,
    "empreinte": "32ccca4e9ad63ecb",
-   "mesure": "2026-11-27T09:19",
+   "mesure": "2026-11-27T09:26",
    "figures": [
     "../../images/010_turpe_hta_cu_pm_plot.svg",
     "../../images/010_turpe_hta_cu_pm_plot_detail.svg"
@@ -1510,7 +1510,7 @@
   "docs/source/010-achat-energie/exemples/exemple_hta_lu_pf.rst": {
    "blocs": 2,
    "empreinte": "5b36e37461286a14",
-   "mesure": "2026-11-27T09:19",
+   "mesure": "2026-11-27T09:26",
    "figures": [
     "../../images/010_turpe_hta_lu_pf_plot.svg",
     "../../images/010_turpe_hta_lu_pf_plot_detail.svg"
@@ -1526,7 +1526,7 @@
   "docs/source/010-achat-energie/exemples/exemple_hta_lu_pm.rst": {
    "blocs": 2,
    "empreinte": "3892a68190fa0b51",
-   "mesure": "2026-11-27T09:19",
+   "mesure": "2026-11-27T09:26",
    "figures": [
     "../../images/010_turpe_hta_lu_pm_plot.svg",
     "../../images/010_turpe_hta_lu_pm_plot_detail.svg"
@@ -1542,7 +1542,7 @@
   "docs/source/010-achat-energie/guide_audit_facture.rst": {
    "blocs": 7,
    "empreinte": "482f74fb0f78a986",
-   "mesure": "2026-11-27T09:19",
+   "mesure": "2026-11-27T09:26",
    "figures": [],
    "blocage": null,
    "motif": "",
@@ -1555,7 +1555,7 @@
   "docs/source/010-achat-energie/index.rst": {
    "blocs": 0,
    "empreinte": "76b9c152e51521f4",
-   "mesure": "2026-11-27T09:19",
+   "mesure": "2026-11-27T09:26",
    "figures": [],
    "blocage": null,
    "motif": "page de prose ou d'index",
@@ -1568,7 +1568,7 @@
   "docs/source/011-cee/agriculture.rst": {
    "blocs": 4,
    "empreinte": "c62106bafd8924cb",
-   "mesure": "2026-11-27T09:19",
+   "mesure": "2026-11-27T09:26",
    "figures": [],
    "blocage": null,
    "motif": "",
@@ -1581,7 +1581,7 @@
   "docs/source/011-cee/date_validite.rst": {
    "blocs": 5,
    "empreinte": "805e385a2652368d",
-   "mesure": "2026-11-27T09:19",
+   "mesure": "2026-11-27T09:26",
    "figures": [],
    "blocage": null,
    "motif": "",
@@ -1594,7 +1594,7 @@
   "docs/source/011-cee/index.rst": {
    "blocs": 0,
    "empreinte": "ec45176c5b36a531",
-   "mesure": "2026-11-27T09:19",
+   "mesure": "2026-11-27T09:26",
    "figures": [],
    "blocage": null,
    "motif": "page de prose ou d'index",
@@ -1607,7 +1607,7 @@
   "docs/source/011-cee/industrie.rst": {
    "blocs": 3,
    "empreinte": "6911ab96d94170d3",
-   "mesure": "2026-11-27T09:19",
+   "mesure": "2026-11-27T09:26",
    "figures": [],
    "blocage": null,
    "motif": "",
@@ -1620,7 +1620,7 @@
   "docs/source/011-cee/principe.rst": {
    "blocs": 4,
    "empreinte": "fc69d4d9ebb64154",
-   "mesure": "2026-11-27T09:19",
+   "mesure": "2026-11-27T09:26",
    "figures": [],
    "blocage": null,
    "motif": "",
@@ -1633,7 +1633,7 @@
   "docs/source/011-cee/reseaux_transport.rst": {
    "blocs": 5,
    "empreinte": "76bf907f85721dd7",
-   "mesure": "2026-11-27T09:19",
+   "mesure": "2026-11-27T09:26",
    "figures": [],
    "blocage": null,
    "motif": "",
@@ -1646,7 +1646,7 @@
   "docs/source/011-cee/residentiel.rst": {
    "blocs": 5,
    "empreinte": "62e46321e8c59bb3",
-   "mesure": "2026-11-27T09:19",
+   "mesure": "2026-11-27T09:26",
    "figures": [],
    "blocage": null,
    "motif": "",
@@ -1659,7 +1659,7 @@
   "docs/source/011-cee/tertiaire.rst": {
    "blocs": 5,
    "empreinte": "c403d664d158c731",
-   "mesure": "2026-11-27T09:19",
+   "mesure": "2026-11-27T09:26",
    "figures": [],
    "blocage": null,
    "motif": "",
@@ -1672,7 +1672,7 @@
   "docs/source/012-electrical/index.rst": {
    "blocs": 4,
    "empreinte": "63e575af1c3d7a18",
-   "mesure": "2026-11-27T09:19",
+   "mesure": "2026-11-27T09:26",
    "figures": [
     "/images/schema_electrique_compensation.svg",
     "/images/schema_electrique_transfo.svg"
@@ -1688,7 +1688,7 @@
   "docs/source/013-simulation-temporelle/bache_niveau.rst": {
    "blocs": 2,
    "empreinte": "dfccddaba78a71fc",
-   "mesure": "2026-11-27T09:19",
+   "mesure": "2026-11-27T09:26",
    "figures": [
     "../images/scene_bache_niveau.svg",
     "../images/sim_bache_niveau.png"
@@ -1704,7 +1704,7 @@
   "docs/source/013-simulation-temporelle/ballon_stratifie_temps.rst": {
    "blocs": 3,
    "empreinte": "b9d14878cec7cc87",
-   "mesure": "2026-11-27T09:19",
+   "mesure": "2026-11-27T09:26",
    "figures": [
     "../images/sim_ballon_profils.png",
     "../images/scene_ballon_stratifie.svg"
@@ -1720,7 +1720,7 @@
   "docs/source/013-simulation-temporelle/chambre_froide.rst": {
    "blocs": 2,
    "empreinte": "49d630240a7dd137",
-   "mesure": "2026-11-27T09:19",
+   "mesure": "2026-11-27T09:26",
    "figures": [
     "../images/sim_chambre_froide.png"
    ],
@@ -1735,7 +1735,7 @@
   "docs/source/013-simulation-temporelle/coup_de_belier.rst": {
    "blocs": 2,
    "empreinte": "652622dc85cf1889",
-   "mesure": "2026-11-27T09:19",
+   "mesure": "2026-11-27T09:26",
    "figures": [
     "../images/schema_coup_de_belier.svg",
     "../images/sim_belier.png"
@@ -1751,7 +1751,7 @@
   "docs/source/013-simulation-temporelle/index.rst": {
    "blocs": 0,
    "empreinte": "da39a3ee5e6b4b0d",
-   "mesure": "2026-11-27T09:19",
+   "mesure": "2026-11-27T09:26",
    "figures": [],
    "blocage": null,
    "motif": "page de prose ou d'index",
@@ -1764,7 +1764,7 @@
   "docs/source/013-simulation-temporelle/regulation_pid.rst": {
    "blocs": 4,
    "empreinte": "8129e54dc7ee4a4f",
-   "mesure": "2026-11-27T09:19",
+   "mesure": "2026-11-27T09:26",
    "figures": [
     "../images/schema_boucle_pid.svg",
     "../images/scene_regulation_debit_pid.svg",
@@ -1781,7 +1781,7 @@
   "docs/source/013-simulation-temporelle/signaux_operations.rst": {
    "blocs": 4,
    "empreinte": "3ec5744d9e714962",
-   "mesure": "2026-11-27T09:19",
+   "mesure": "2026-11-27T09:26",
    "figures": [
     "../images/sim_signaux.png"
    ],
@@ -1796,7 +1796,7 @@
   "docs/source/013-simulation-temporelle/simulation_temporelle.rst": {
    "blocs": 3,
    "empreinte": "bc5c1faac21a7d83",
-   "mesure": "2026-11-27T09:19",
+   "mesure": "2026-11-27T09:26",
    "figures": [],
    "blocage": null,
    "motif": "",
@@ -1809,7 +1809,7 @@
   "docs/source/api.rst": {
    "blocs": 12,
    "empreinte": "3aaa7887a98f53fb",
-   "mesure": "2026-11-27T09:19",
+   "mesure": "2026-11-27T09:26",
    "figures": [],
    "blocage": null,
    "motif": "",
@@ -1822,7 +1822,7 @@
   "docs/source/contributing.rst": {
    "blocs": 0,
    "empreinte": "a6d16a5b07a45198",
-   "mesure": "2026-11-27T09:19",
+   "mesure": "2026-11-27T09:26",
    "figures": [],
    "blocage": null,
    "motif": "page de prose ou d'index",
@@ -1835,7 +1835,7 @@
   "docs/source/diagrams/README.rst": {
    "blocs": 0,
    "empreinte": "64c7f07a497c668f",
-   "mesure": "2026-11-27T09:19",
+   "mesure": "2026-11-27T09:26",
    "figures": [],
    "blocage": null,
    "motif": "page de prose ou d'index",
@@ -1848,7 +1848,7 @@
   "docs/source/gui_tools.rst": {
    "blocs": 3,
    "empreinte": "c5577492bf4ee214",
-   "mesure": "2026-11-27T09:19",
+   "mesure": "2026-11-27T09:26",
    "figures": [
     "images/schema_ihm_architecture.svg",
     "images/schema_ihm_rechauffeur.svg",
@@ -1867,7 +1867,7 @@
   "docs/source/index.rst": {
    "blocs": 0,
    "empreinte": "da39a3ee5e6b4b0d",
-   "mesure": "2026-11-27T09:19",
+   "mesure": "2026-11-27T09:26",
    "figures": [],
    "blocage": null,
    "motif": "page de prose ou d'index",
@@ -1880,7 +1880,7 @@
   "docs/source/interface/noeuds.rst": {
    "blocs": 0,
    "empreinte": "9d834fd44e361769",
-   "mesure": "2026-11-27T09:19",
+   "mesure": "2026-11-27T09:26",
    "figures": [],
    "blocage": null,
    "motif": "page de prose ou d'index",
@@ -1893,7 +1893,7 @@
   "docs/source/interface/scenes.rst": {
    "blocs": 0,
    "empreinte": "abb726e668477fa9",
-   "mesure": "2026-11-27T09:19",
+   "mesure": "2026-11-27T09:26",
    "figures": [
     "../images/scene_brayton_turbine_a_gaz.svg",
     "../images/scene_brayton_helium_nucleaire.svg",
@@ -1956,7 +1956,7 @@
   "docs/source/nomenclature.rst": {
    "blocs": 0,
    "empreinte": "e81db40f31c6d807",
-   "mesure": "2026-11-27T09:19",
+   "mesure": "2026-11-27T09:26",
    "figures": [],
    "blocage": null,
    "motif": "page de prose ou d'index",
@@ -1969,7 +1969,7 @@
   "docs/source/noyau_calcul.rst": {
    "blocs": 5,
    "empreinte": "00e2904b443b37a1",
-   "mesure": "2026-11-27T09:19",
+   "mesure": "2026-11-27T09:26",
    "figures": [],
    "blocage": null,
    "motif": "",
@@ -1982,7 +1982,7 @@
   "docs/source/ports_connexions.rst": {
    "blocs": 10,
    "empreinte": "1c964adc4645fda2",
-   "mesure": "2026-11-27T09:19",
+   "mesure": "2026-11-27T09:26",
    "figures": [
     "images/param_fluid_connect.svg",
     "images/param_ports_unites.svg"
@@ -1998,7 +1998,7 @@
   "docs/source/quickstart.rst": {
    "blocs": 4,
    "empreinte": "0922a885f8f6177f",
-   "mesure": "2026-11-27T09:19",
+   "mesure": "2026-11-27T09:26",
    "figures": [],
    "blocage": null,
    "motif": "",
@@ -2011,7 +2011,7 @@
   "docs/source/transfert_chaleur.rst": {
    "blocs": 4,
    "empreinte": "d164702bdfa2fa05",
-   "mesure": "2026-11-27T09:19",
+   "mesure": "2026-11-27T09:26",
    "figures": [
     "images/schema_plaques_boite.svg"
    ],
@@ -2026,7 +2026,7 @@
   "docs/source/usage.rst": {
    "blocs": 0,
    "empreinte": "da39a3ee5e6b4b0d",
-   "mesure": "2026-11-27T09:19",
+   "mesure": "2026-11-27T09:26",
    "figures": [],
    "blocage": null,
    "motif": "page de prose ou d'index",
@@ -2039,7 +2039,7 @@
   "docs/source/usage/section-1-achat-facturation.rst": {
    "blocs": 0,
    "empreinte": "af81323cf2f0ccc3",
-   "mesure": "2026-11-27T09:19",
+   "mesure": "2026-11-27T09:26",
    "figures": [],
    "blocage": null,
    "motif": "page de prose ou d'index",
@@ -2052,7 +2052,7 @@
   "docs/source/usage/section-2-donnees-production.rst": {
    "blocs": 0,
    "empreinte": "b9ff2e93bf917f26",
-   "mesure": "2026-11-27T09:19",
+   "mesure": "2026-11-27T09:26",
    "figures": [],
    "blocage": null,
    "motif": "page de prose ou d'index",
@@ -2065,7 +2065,7 @@
   "docs/source/usage/section-3-transformation.rst": {
    "blocs": 0,
    "empreinte": "b8ff69ec21ec736b",
-   "mesure": "2026-11-27T09:19",
+   "mesure": "2026-11-27T09:26",
    "figures": [],
    "blocage": null,
    "motif": "page de prose ou d'index",
@@ -2078,7 +2078,7 @@
   "docs/source/usage/section-4-distribution.rst": {
    "blocs": 0,
    "empreinte": "9be332086d9cb857",
-   "mesure": "2026-11-27T09:19",
+   "mesure": "2026-11-27T09:26",
    "figures": [],
    "blocage": null,
    "motif": "page de prose ou d'index",
@@ -2091,7 +2091,7 @@
   "docs/source/usage/section-5-usages-finaux.rst": {
    "blocs": 0,
    "empreinte": "65888b680e885548",
-   "mesure": "2026-11-27T09:19",
+   "mesure": "2026-11-27T09:26",
    "figures": [],
    "blocage": null,
    "motif": "page de prose ou d'index",
@@ -2104,7 +2104,7 @@
   "docs/source/usage/section-6-autres.rst": {
    "blocs": 2,
    "empreinte": "892caadb6b4f06c8",
-   "mesure": "2026-11-27T09:19",
+   "mesure": "2026-11-27T09:26",
    "figures": [],
    "blocage": null,
    "motif": "",
@@ -2117,7 +2117,7 @@
   "docs/source/usage/section-6-financement-subvention.rst": {
    "blocs": 0,
    "empreinte": "7f022d4d86af79e5",
-   "mesure": "2026-11-27T09:19",
+   "mesure": "2026-11-27T09:26",
    "figures": [],
    "blocage": null,
    "motif": "page de prose ou d'index",

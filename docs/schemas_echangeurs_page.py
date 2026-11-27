@@ -160,8 +160,8 @@ def _carte_familles(a):
     m = _entete(L, H, "Échangeurs — les deux familles de modèles")
 
     # ---------------- en-tête des deux colonnes ----------------
-    m.append(_rect(24, 46, 460, H - 96, FOND1, FLUX, 10, 1.6))
-    m.append(_rect(496, 46, 460, H - 96, FOND2, OR, 10, 1.6))
+    m.append(_rect(24, 46, 460, 470, FOND1, FLUX, 10, 1.6))
+    m.append(_rect(496, 46, 460, 470, FOND2, OR, 10, 1.6))
     m.append(_texte(254, 74, "Bilan / consigne", 19, FLUX, "middle", gras=True))
     m.append(_texte(254, 94, "on impose l'état ou la puissance, on déduit les sorties",
                     12, TRAIT, "middle"))
@@ -203,28 +203,24 @@ def _carte_familles(a):
     m.append(_texte(256, yb - 7, "le même cas, deux lectures", 11.5, GRIS, "middle", gras=True))
     m.append(_texte(726, yb - 7, "le même cas, deux lectures", 11.5, GRIS, "middle", gras=True))
 
-    m.append(_texte(40, 452, "Cas commun (page) : eau 80 °C / 20 °C, 1 kg/s de part et d'autre",
+    m.append(_texte(40, 446, "Cas commun (page) : eau 80 °C / 20 °C, 1 kg/s de part et d'autre",
                     12.5, TRAIT, "start", gras=True))
-    m.append(_texte(40, 474, f"UA = 5 000 W/K  →  NUT = {_fr(a.NUT, 3)}, ε = {_fr(a.Eff, 3)}, "
+    m.append(_texte(40, 468, f"UA = 5 000 W/K  →  NUT = {_fr(a.NUT, 3)}, ε = {_fr(a.Eff, 3)}, "
                              f"Qth = {_fr(a.Qth / 1000, 1)} kW", 12, FLUX, "start", MONO))
-    m.append(_texte(40, 496, f"sorties : T1o = {_fr(_temp_k(a.Outlet1))} °C, "
+    m.append(_texte(40, 490, f"sorties : T1o = {_fr(_temp_k(a.Outlet1))} °C, "
                              f"T2o = {_fr(_temp_k(a.Outlet2))} °C", 12, FLUX, "start", MONO))
-    m.append(_texte(40, 518, "Fluid_connect(Aval.Inlet, Amont.Outlet) sur Inlet1 / Inlet2,",
-                    11.5, GRIS, "start"))
-    m.append(_texte(40, 535, "sorties sur Outlet1 / Outlet2 — jamais de mélange des deux flux.",
-                    11.5, GRIS, "start"))
+    m.append(_texte(40, 512, "Fluid_connect(Aval.Inlet, Amont.Outlet) ; Outlet1 / Outlet2 restent "
+                             "séparées.", 11.5, GRIS, "start"))
 
     p = PARAMS["pincement"]
-    m += _note(512, 446, 428, [
+    m += _note(512, 440, 428, [
         "Dimensionnement du même cas",
-        f"U = 200 W/m²/K, pincement = 5 K → A = {_fr(p.A, 1)} m²",
-        f"DTLM = {_fr(p.LMTD, 2)} K, Q = {_fr(p.Q_flow / 1000, 1)} kW",
-        "⚠ le mode dimensionnement ne reprend pas les débits imposés :",
-        f"  Q ({_fr(p.Q_flow / 1000, 0)} kW) dépasse le bilan du cas NUT "
-        f"({_fr(a.Qth / 1000, 0)} kW).",
-        "  Ce n'est pas une erreur : A est cherchée pour la puissance",
-        "  que le pincement autorise, à débits relâchés.",
+        f"U = 200 W/m²/K, pincement 5 K → A = {_fr(p.A, 1)} m², DTLM = {_fr(p.LMTD, 2)} K",
+        f"Q = {_fr(p.Q_flow / 1000, 1)} kW, au-delà du bilan NUT ({_fr(a.Qth / 1000, 1)} kW) :",
+        "  le mode ne reprend pas les débits, A suit le pincement.",
     ], taille=11.5)
+    m.append(_texte(496, 530, "Imposer A, c'est relâcher le pincement ou les débits :", 11, GRIS, "start"))
+    m.append(_texte(496, 545, "le mode choisit la surface qui suit le pincement.", 11, GRIS, "start"))
     return m
 
 

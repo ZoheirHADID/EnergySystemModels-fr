@@ -2,8 +2,8 @@
 <title>Échangeurs — les deux familles de modèles</title>
 <defs><marker id="fleche" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-end"><path d="M 0 0 L 10 5 L 0 10 z" fill="#1f2933"/></marker><marker id="fleche_cote" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-end"><path d="M 0 0 L 10 5 L 0 10 z" fill="#b46a00"/></marker><marker id="fleche_flux" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-end"><path d="M 0 0 L 10 5 L 0 10 z" fill="#2670a8"/></marker></defs>
 <rect width="980" height="560" fill="#ffffff"/>
-<rect x="24.0" y="46.0" width="460.0" height="464.0" rx="10" fill="#eef4f8" stroke="#2670a8" stroke-width="1.6"/>
-<rect x="496.0" y="46.0" width="460.0" height="464.0" rx="10" fill="#fdf3e7" stroke="#b46a00" stroke-width="1.6"/>
+<rect x="24.0" y="46.0" width="460.0" height="470.0" rx="10" fill="#eef4f8" stroke="#2670a8" stroke-width="1.6"/>
+<rect x="496.0" y="46.0" width="460.0" height="470.0" rx="10" fill="#fdf3e7" stroke="#b46a00" stroke-width="1.6"/>
 <text x="254.0" y="74.0" fill="#2670a8" text-anchor="middle" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="19" font-weight="600">Bilan / consigne</text>
 <text x="254.0" y="94.0" fill="#1f2933" text-anchor="middle" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12">on impose l'état ou la puissance, on déduit les sorties</text>
 <text x="726.0" y="74.0" fill="#b46a00" text-anchor="middle" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="19" font-weight="600">Dimensionnement</text>
@@ -44,17 +44,15 @@
 <line x1="512.0" y1="428.0" x2="944.0" y2="428.0" stroke="#7b8794" stroke-width="1.2" stroke-dasharray="5,4"/>
 <text x="256.0" y="421.0" fill="#7b8794" text-anchor="middle" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5" font-weight="600">le même cas, deux lectures</text>
 <text x="726.0" y="421.0" fill="#7b8794" text-anchor="middle" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5" font-weight="600">le même cas, deux lectures</text>
-<text x="40.0" y="452.0" fill="#1f2933" text-anchor="start" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="600">Cas commun (page) : eau 80 °C / 20 °C, 1 kg/s de part et d'autre</text>
-<text x="40.0" y="474.0" fill="#2670a8" text-anchor="start" font-family="Consolas, Courier New, monospace" font-size="12">UA = 5 000 W/K  →  NUT = 1,195, ε = 0,545, Qth = 136,8 kW</text>
-<text x="40.0" y="496.0" fill="#2670a8" text-anchor="start" font-family="Consolas, Courier New, monospace" font-size="12">sorties : T1o = 47,3 °C, T2o = 52,7 °C</text>
-<text x="40.0" y="518.0" fill="#7b8794" text-anchor="start" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5">Fluid_connect(Aval.Inlet, Amont.Outlet) sur Inlet1 / Inlet2,</text>
-<text x="40.0" y="535.0" fill="#7b8794" text-anchor="start" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5">sorties sur Outlet1 / Outlet2 — jamais de mélange des deux flux.</text>
-<rect x="512.0" y="446.0" width="428.0" height="124.0" rx="4" fill="#f4f6f8" stroke="#c9d1d9" stroke-width="1.0"/>
-<text x="522.0" y="466.0" fill="#1f2933" text-anchor="start" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5">Dimensionnement du même cas</text>
-<text x="522.0" y="482.0" fill="#1f2933" text-anchor="start" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5">U = 200 W/m²/K, pincement = 5 K → A = 226,4 m²</text>
-<text x="522.0" y="498.0" fill="#1f2933" text-anchor="start" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5">DTLM = 5,08 K, Q = 230,1 kW</text>
-<text x="522.0" y="514.0" fill="#1f2933" text-anchor="start" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5">⚠ le mode dimensionnement ne reprend pas les débits imposés :</text>
-<text x="522.0" y="530.0" fill="#1f2933" text-anchor="start" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5">  Q (230 kW) dépasse le bilan du cas NUT (137 kW).</text>
-<text x="522.0" y="546.0" fill="#1f2933" text-anchor="start" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5">  Ce n'est pas une erreur : A est cherchée pour la puissance</text>
-<text x="522.0" y="562.0" fill="#1f2933" text-anchor="start" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5">  que le pincement autorise, à débits relâchés.</text>
+<text x="40.0" y="446.0" fill="#1f2933" text-anchor="start" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="600">Cas commun (page) : eau 80 °C / 20 °C, 1 kg/s de part et d'autre</text>
+<text x="40.0" y="468.0" fill="#2670a8" text-anchor="start" font-family="Consolas, Courier New, monospace" font-size="12">UA = 5 000 W/K  →  NUT = 1,195, ε = 0,545, Qth = 136,8 kW</text>
+<text x="40.0" y="490.0" fill="#2670a8" text-anchor="start" font-family="Consolas, Courier New, monospace" font-size="12">sorties : T1o = 47,3 °C, T2o = 52,7 °C</text>
+<text x="40.0" y="512.0" fill="#7b8794" text-anchor="start" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5">Fluid_connect(Aval.Inlet, Amont.Outlet) ; Outlet1 / Outlet2 restent séparées.</text>
+<rect x="512.0" y="440.0" width="428.0" height="76.0" rx="4" fill="#f4f6f8" stroke="#c9d1d9" stroke-width="1.0"/>
+<text x="522.0" y="460.0" fill="#1f2933" text-anchor="start" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5">Dimensionnement du même cas</text>
+<text x="522.0" y="476.0" fill="#1f2933" text-anchor="start" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5">U = 200 W/m²/K, pincement 5 K → A = 226,4 m², DTLM = 5,08 K</text>
+<text x="522.0" y="492.0" fill="#1f2933" text-anchor="start" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5">Q = 230,1 kW, au-delà du bilan NUT (136,8 kW) :</text>
+<text x="522.0" y="508.0" fill="#1f2933" text-anchor="start" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5">  le mode ne reprend pas les débits, A suit le pincement.</text>
+<text x="496.0" y="530.0" fill="#7b8794" text-anchor="start" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11">Imposer A, c'est relâcher le pincement ou les débits :</text>
+<text x="496.0" y="545.0" fill="#7b8794" text-anchor="start" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11">le mode choisit la surface qui suit le pincement.</text>
 </svg>
