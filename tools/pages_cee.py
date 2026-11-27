@@ -231,51 +231,65 @@ def table_synthese(secteurs, exemples):
     return "\n".join(out) + "\n", len(lignes), reste
 
 
-def table_dates(secteurs, exemples=()):
-    """Tableau **unique** des fiches en vigueur d'un secteur.
+def table_dates(secteurs, exemples=(), toutes=False):
+    """Tableau **unique** des fiches d'un secteur.
 
-    Quatre colonnes demandées : nom de la fiche, désignation, fonction Python,
-    valeurs possibles des paramètres. Les valeurs ne sont pas recopiées d'une
-    brochure : chacune est la **valeur démontrée** de l'appel de référence de la
-    fiche (exécuté par la page et vérifié par le banc), complétée des bornes que
-    la docstring énonce — voir ``valeurs_cee``. Là où rien n'est cité, la
-    cellule le dit (« ex. » = valeur testée), plutôt que d'inventer une liste.
+    Cinq colonnes : nom de la fiche, désignation, fonction Python, valeurs
+    possibles des paramètres, dates de validité. La dernière colonne porte la
+    **fin de validité** même quand la fiche est abrogée : « du 01/01/2015 au
+    31/07/2025 » (et « sans fin connue » si aucune abrogation n'est publiée).
 
-    ``exemples`` : lignes de synthèse (code, paramètre, appel, code_py) ; on y
-    relève les valeurs passées. Sans elles (appel direct), la colonne des
-    valeurs indiquera « non citée ».
+    ``toutes=True`` : toutes les fiches du catalogue pour ces secteurs — les
+    abrogées comprises, marquées comme telles dans la colonne des valeurs —
+    au lieu des seules fiches en vigueur à ``DATE``. Les valeurs ne sont pas
+    recopiées : chacune est la **valeur démontrée** de l'appel de référence
+    (exécuté par la page, vérifié par le banc), complétée des bornes que la
+    docstring énonce — voir ``valeurs_cee``.
     """
     if isinstance(secteurs, str):
         secteurs = (secteurs,)
     fiches = validite.catalogue()["fiches"]
+    codes = (sorted(c for c, info in fiches.items() if info["secteur"] in secteurs)
+             if toutes else validite.fiches_applicables(DATE))
     valeurs_par_fiche = {code: parametres_appeles(appel)
                          for code, _p, appel, _c in exemples}
     lignes = []
-    for code in validite.fiches_applicables(DATE):
+    for code in codes:
         info = fiches[code]
-        if info["secteur"] not in secteurs or code not in CEE.FICHE_REGISTRY:
+        if info["secteur"] not in secteurs:
             continue
-        doc_fiche = _fiche(code).__doc__ or ""
+        codée = code in CEE.FICHE_REGISTRY
+        doc_fiche = _fiche(code).__doc__ if codée else ""
+        doc_fiche = doc_fiche or ""
         detail = []
-        for nom in signature(code):
-            valeur = dict(valeurs_par_fiche.get(code, ())).get(nom)
-            if valeur is None:
-                if nom in valeurs_cee.ZONES_GEOGRAPHIQUES:
-                    detail.append("``%s`` : %s"
-                                  % (nom, valeurs_cee.ZONES_GEOGRAPHIQUES[nom]))
-                else:
-                    detail.append("``%s`` : valeur testée non publiée" % nom)
-                continue
-            bornes = ([] if nom == "Data"
-                      else valeurs_cee.contraintes(doc_fiche, nom))
-            detail.append("``%s`` : %s"
-                          % (nom, valeurs_cee.cellule(valeur, bornes)))
+        if not codée:
+            detail.append("**abrogée** : aucun calcul codé")
+        else:
+            for nom in signature(code):
+                valeur = dict(valeurs_par_fiche.get(code, ())).get(nom)
+                if valeur is None:
+                    if nom in valeurs_cee.ZONES_GEOGRAPHIQUES:
+                        detail.append("``%s`` : %s"
+                                      % (nom, valeurs_cee.ZONES_GEOGRAPHIQUES[nom]))
+                    else:
+                        detail.append("``%s`` : valeur testée non publiée" % nom)
+                    continue
+                bornes = ([] if nom == "Data"
+                          else valeurs_cee.contraintes(doc_fiche, nom))
+                detail.append("``%s`` : %s"
+                              % (nom, valeurs_cee.cellule(valeur, bornes)))
         valeur_cellule = " · ".join(detail).replace("\n", " ").replace("|", "/")
         debut, fin = _periode(info)
+        if toutes:
+            etat = "abrogée" if info["date_fin"] else "en vigueur"
+            statut = "%s, du %s au %s" % (etat, debut,
+                                          fin or "sans fin connue")
+        else:
+            statut = "du %s au %s" % (debut, fin or "sans fin connue")
         lignes.append((code, info["titre"],
-                       "``CEE.%s(…)``" % code.replace("-", "_"), valeur_cellule,
-                       "du %s au %s" % (debut, fin or "sans fin connue")))
-    lignes.sort(key=lambda l: l[0])
+                       "``CEE.%s(…)``" % code.replace("-", "_") if codée else "—",
+                       valeur_cellule, statut))
+    lignes.sort(key=lambda l: (l[0].split("-")[0], l[0]))
     out = [".. list-table::", "   :header-rows: 1",
            "   :widths: 12 22 16 37 13",
            "", "   * - Nom de la fiche", "     - Désignation",
@@ -324,31 +338,42 @@ def _page(nom, entete, sections, reference=None, synthese=None):
         sections = sections[1:]
     if synthese:
         secteurs, exemples, details = synthese
-        table, n = table_dates(secteurs, exemples)
-        assert len(exemples) == n, (len(exemples), n)   # une ligne de code par fiche
+        table, n = table_dates(secteurs, exemples, toutes=True)
+        n_codees = sum(1 for s in secteurs for e in exemples
+                       if validite.catalogue()["fiches"][e[0]]["secteur"] == s)
         compte = " · ".join(
-            "%s %d" % (s, sum(1 for e in exemples
-                              if validite.catalogue()["fiches"][e[0]]["secteur"] == s))
+            "%s %d fiches dont %d avec calcul" % (
+                s, sum(1 for c, i in validite.catalogue()["fiches"].items()
+                       if i["secteur"] == s),
+                sum(1 for e in exemples
+                    if validite.catalogue()["fiches"][e[0]]["secteur"] == s))
             for s in secteurs if len(secteurs) > 1)
         sorties_tableau = ["%s : %s" % (e[0], s.strip()) for e, s in
                            zip(exemples,
                                executer([IMPORTS + e[3] for e in exemples]))]
         morceaux.append(titre("Tableau du secteur", "-"))
         morceaux.append(
-            "**%(n)d fiches** en vigueur au %(date)s%(secteurs)s, une ligne par "
-            "fiche : nom, désignation, fonction Python, valeurs des paramètres "
-            "et dates de validité.\n\n"
-            "Les valeurs de la dernière colonne sont celles que **le code "
+            "**%(n)d fiches** de ce secteur au catalogue (engagements possibles "
+            "du %(debut)s au %(fin)s ; %(n_codees)d ont un calcul codé), "
+            "une ligne par fiche%(secteurs)s : nom, désignation, fonction "
+            "Python, valeurs des paramètres et dates de validité.\n\n"
+            "La colonne **dates de validité** donne la période d'engagement : "
+            "une opération n'ouvre droit à certificats que si elle est "
+            "**engagée** entre ces deux jours. Les fiches **abrogées** restent "
+            "au tableau (elles ont servi : un engagement antérieur à leur date "
+            "de fin reste valable) et portent leur date de fin ; celles dont le "
+            "calcul n'est pas codé sont marquées comme telles, avec « — » dans "
+            "la colonne de la fonction. Règles détaillées : "
+            ":doc:`date_validite`.\n\n"
+            "Les valeurs de l'avant-dernière colonne sont celles que **le code "
             "accepte** : ce sont les valeurs passées à ``calcul_CEE`` par les "
             "appels ci-dessous, exécutés à chaque construction de cette page "
             "(le banc compare la sortie publiée à la sortie réelle). Quand la "
             "docstring de la fiche ne cite aucune valeur, la cellule donne la "
             "**valeur testée** (``ex.``) et les bornes qu'elle énonce, plutôt "
-            "qu'une liste inventée. Les dates de validité disent entre quels "
-            "jours une opération doit être **engagée** pour ouvrir droit à "
-            "certificats ; « sans fin connue » signifie qu'aucune abrogation "
-            "n'est publiée (règles dans :doc:`date_validite`).\n"
-            % {"n": n, "date": _fr(DATE),
+            "qu'une liste inventée.\n"
+            % {"n": n, "n_codees": n_codees, "date": _fr(DATE),
+               "debut": _fr("2015-01-01"), "fin": _fr(DATE),
                "secteurs": (" (%s)" % compte) if compte else ""})
     if synthese:
         # Le code d'abord (le banc rapporte une sortie publiée au bloc qui la
@@ -995,11 +1020,14 @@ def generer():
     tables, n_total = [], 0
     for titre_groupe, secteurs in SECTEURS_ACCUEIL:
         exemples = [e for s in secteurs for e in SECTEURS[s]]
-        table, n = table_dates(secteurs, exemples)
+        table, n = table_dates(secteurs, exemples, toutes=True)
         assert n, "aucune fiche pour %s" % titre_groupe
         n_total += n
         tables.append("**%s** — %d fiches.\n\n%s" % (titre_groupe, n, table))
-    assert n_total == len(codees), (n_total, len(codees))
+    #: Toutes les fiches du catalogue doivent être publiées (abrogées comprises) :
+    #: c'est la garde de l'exhaustivité, elle porte sur le catalogue, pas sur les
+    #: seules fiches codées.
+    assert n_total == len(fiches), (n_total, len(fiches))
     (DOSSIER / "index.rst").write_text(textwrap.dedent("""\
         .. _cee:
 
@@ -1024,12 +1052,14 @@ def generer():
            agriculture
            reseaux_transport
 
-        Fiches en vigueur, par secteur
-        ==============================
+        Fiches CEE, par secteur, avec leurs dates de validité
+        =====================================================
 
         Un tableau par secteur, une ligne par fiche : **nom de la fiche,
         désignation, fonction Python**, **valeurs des paramètres** et **dates de
-        validité**. Les {n_codees} fiches calculées au {date} y figurent toutes.
+        validité**. Toutes les fiches du catalogue y figurent — les {n_vigueur}
+        en vigueur au {date} comme les **abrogées**, qui portent leur date de
+        fin et restent utiles pour un engagement antérieur.
 
         Les valeurs de la dernière colonne sont celles que le **code accepte** :
         ce sont les valeurs passées à ``calcul_CEE`` par les appels exécutés à

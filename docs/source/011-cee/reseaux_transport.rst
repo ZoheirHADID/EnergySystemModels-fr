@@ -11,9 +11,11 @@ secteurs de la taxonomie CEE, « Réseaux » et « Transport ».
 Tableau du secteur
 ------------------
 
-**47 fiches** en vigueur au 28/09/2026 (Réseaux 6 · Transport 41), une ligne par fiche : nom, désignation, fonction Python, valeurs des paramètres et dates de validité.
+**57 fiches** de ce secteur au catalogue (engagements possibles du 01/01/2015 au 28/09/2026 ; 47 ont un calcul codé), une ligne par fiche (Réseaux 12 fiches dont 6 avec calcul · Transport 45 fiches dont 41 avec calcul) : nom, désignation, fonction Python, valeurs des paramètres et dates de validité.
 
-Les valeurs de la dernière colonne sont celles que **le code accepte** : ce sont les valeurs passées à ``calcul_CEE`` par les appels ci-dessous, exécutés à chaque construction de cette page (le banc compare la sortie publiée à la sortie réelle). Quand la docstring de la fiche ne cite aucune valeur, la cellule donne la **valeur testée** (``ex.``) et les bornes qu'elle énonce, plutôt qu'une liste inventée. Les dates de validité disent entre quels jours une opération doit être **engagée** pour ouvrir droit à certificats ; « sans fin connue » signifie qu'aucune abrogation n'est publiée (règles dans :doc:`date_validite`).
+La colonne **dates de validité** donne la période d'engagement : une opération n'ouvre droit à certificats que si elle est **engagée** entre ces deux jours. Les fiches **abrogées** restent au tableau (elles ont servi : un engagement antérieur à leur date de fin reste valable) et portent leur date de fin ; celles dont le calcul n'est pas codé sont marquées comme telles, avec « — » dans la colonne de la fonction. Règles détaillées : :doc:`date_validite`.
+
+Les valeurs de l'avant-dernière colonne sont celles que **le code accepte** : ce sont les valeurs passées à ``calcul_CEE`` par les appels ci-dessous, exécutés à chaque construction de cette page (le banc compare la sortie publiée à la sortie réelle). Quand la docstring de la fiche ne cite aucune valeur, la cellule donne la **valeur testée** (``ex.``) et les bornes qu'elle énonce, plutôt qu'une liste inventée.
 
 .. code-block:: python
 
@@ -133,241 +135,291 @@ Sortie réelle :
      - Fonction Python
      - Valeurs possibles des paramètres
      - Dates de validité
+   * - ``RES-CH-101``
+     - Valorisation de chaleur de récupération en réseau (France métropolitaine)
+     - —
+     - **abrogée** : aucun calcul codé
+     - abrogée, du 29/06/2015 au 31/03/2020
    * - ``RES-CH-103``
      - Réhabilitation d’un poste de livraison de chaleur d’un bâtiment tertiaire
      - ``CEE.RES_CH_103(…)``
      - ``secteur_activite`` : ``'bureaux'`` · ``surface_chauffee`` : ex. 5000 · ``zone`` : ``'H1'`` · ``departement`` : numéro (69) ou code (``"2A"``) — cf. ``CEE.H1/H2/H3``
-     - du 29/06/2015 au sans fin connue
+     - en vigueur, du 29/06/2015 au sans fin connue
    * - ``RES-CH-104``
      - Réhabilitation d’un poste de livraison de chaleur d’un bâtiment résidentiel
      - ``CEE.RES_CH_104(…)``
      - ``nb_appartements`` : ex. 40 · ``zone`` : ``"H1"``, ``"H2"``, ``"H3"`` · ``departement`` : ex. 59
-     - du 29/06/2015 au sans fin connue
+     - en vigueur, du 29/06/2015 au sans fin connue
    * - ``RES-CH-105``
      - Passage d'un réseau de chaleur en basse température
      - ``CEE.RES_CH_105(…)``
      - ``dn`` : ex. 100 · ``longueur`` : ex. 500 · ``duree_utilisation_mois`` : ex. 12
-     - du 14/12/2016 au sans fin connue
+     - en vigueur, du 14/12/2016 au sans fin connue
    * - ``RES-CH-106``
      - Mise en place d’un calorifugeage des canalisations d’un réseau de chaleur
      - ``CEE.RES_CH_106(…)``
      - ``norme_isolation`` : ``'classe_4'`` · ``fluide`` : ``'eau_chaude'`` · ``dn`` : ex. 100 (>= 400 ; ≥ 400) · ``longueur`` : ex. 500 · ``duree_utilisation_mois`` : ex. 12
-     - du 02/03/2017 au 28/02/2029
+     - abrogée, du 02/03/2017 au 28/02/2029
+   * - ``RES-CH-107``
+     - Isolation de points singuliers sur un réseau de chaleur
+     - —
+     - **abrogée** : aucun calcul codé
+     - abrogée, du 14/12/2016 au 31/07/2025
    * - ``RES-CH-108``
      - Récupération de chaleur fatale pour valorisation sur un réseau de chaleur ou vers un tiers (France métropolitaine)
      - ``CEE.RES_CH_108(…)``
      - ``chaleur_nette_kwh_an`` : ex. 500000
-     - du 01/04/2020 au 30/09/2028
+     - abrogée, du 01/04/2020 au 30/09/2028
+   * - ``RES-EC-101``
+     - Système de régulation de tension en éclairage extérieur
+     - —
+     - **abrogée** : aucun calcul codé
+     - abrogée, du 01/01/2015 au 31/03/2022
+   * - ``RES-EC-102``
+     - Système de maîtrise de la puissance réactive en éclairage extérieur
+     - —
+     - **abrogée** : aucun calcul codé
+     - abrogée, du 01/01/2015 au 31/03/2022
+   * - ``RES-EC-103``
+     - Système de variation de puissance en éclairage extérieur
+     - —
+     - **abrogée** : aucun calcul codé
+     - abrogée, du 01/01/2015 au 31/12/2024
    * - ``RES-EC-104``
      - Rénovation d’éclairage extérieur
      - ``CEE.RES_EC_104(…)``
      - ``nb_luminaires_gradation`` : ex. 100 · ``nb_luminaires_gradation_detection`` : ex. 50
-     - du 01/01/2015 au 31/12/2029
+     - abrogée, du 01/01/2015 au 31/12/2029
+   * - ``RES-EC-107``
+     - Horloge astronomique pour l’éclairage extérieur
+     - —
+     - **abrogée** : aucun calcul codé
+     - abrogée, du 01/01/2015 au 31/12/2021
    * - ``TRA-EQ-101``
      - Unité de transport intermodal pour le transport combiné rail-route
      - ``CEE.TRA_EQ_101(…)``
      - ``longueur_uti`` : ``'UTIinf9'`` · ``nb_voyage_an`` : ex. 2000 · ``nb_uti`` : ex. 100
-     - du 01/01/2015 au sans fin connue
+     - en vigueur, du 01/01/2015 au sans fin connue
    * - ``TRA-EQ-103``
      - Télématique embarquée pour le suivi de la conduite d’un véhicule
      - ``CEE.TRA_EQ_103(…)``
      - ``categorie_vehicule`` : ``'M1'`` · ``nb_vehicules`` : ex. 3
-     - du 01/01/2015 au sans fin connue
+     - en vigueur, du 01/01/2015 au sans fin connue
    * - ``TRA-EQ-104``
      - Lubrifiant économiseur d’énergie pour véhicules légers
      - ``CEE.TRA_EQ_104(…)``
      - ``volume_diesel_l`` : ex. 10000 · ``fuel_economy_diesel_pct`` : ex. 5 · ``volume_essence_l`` : ex. 0 · ``fuel_economy_essence_pct`` : ex. 0 · ``volume_mixte_l`` : ex. 0 · ``fuel_economy_mixte_pct`` : ex. 0
-     - du 01/01/2015 au sans fin connue
+     - en vigueur, du 01/01/2015 au sans fin connue
    * - ``TRA-EQ-106``
      - Pneus de véhicules légers à basse résistance au roulement
      - ``CEE.TRA_EQ_106(…)``
      - ``kilometrage_annuel_moyen`` : ex. 50000 · ``nb_pneus_classe_a`` : ex. 4 · ``nb_pneus_classe_b`` : ex. 0 · ``nb_pneus_classe_c`` : ex. 0
-     - du 01/01/2015 au sans fin connue
+     - en vigueur, du 01/01/2015 au sans fin connue
    * - ``TRA-EQ-107``
      - Unité de transport intermodal pour le transport combiné fluvial-route
      - ``CEE.TRA_EQ_107(…)``
      - ``type_bateau`` : ``'Bateau DEK (1 000 t)'`` · ``bassin_navigation`` : ``'Seine'`` · ``nb_voyage_uti`` : ex. 100
-     - du 31/07/2015 au sans fin connue
+     - en vigueur, du 31/07/2015 au sans fin connue
    * - ``TRA-EQ-108``
      - Wagon d'autoroute ferroviaire
      - ``CEE.TRA_EQ_108(…)``
      - ``type_ligne`` : ``'Calais_Folkstone'`` · ``nb_voyage_ligne`` : ex. 2000 · ``distance_routiere_france`` : ex. 800 · ``distance_feroviaire_france`` : ex. 800
-     - du 22/12/2015 au sans fin connue
+     - en vigueur, du 22/12/2015 au sans fin connue
    * - ``TRA-EQ-109``
      - Barge fluviale
      - ``CEE.TRA_EQ_109(…)``
      - ``bassin_navigation`` : ``'seine'`` · ``tkm_releve`` : ex. 1000000 (≤ 6)
-     - du 31/07/2015 au sans fin connue
+     - en vigueur, du 31/07/2015 au sans fin connue
    * - ``TRA-EQ-110``
      - Automoteur fluvial
      - ``CEE.TRA_EQ_110(…)``
      - ``type_automoteur`` : ``'dek'`` · ``bassin_navigation`` : ``'seine'`` · ``tkm_releve`` : ex. 1000000
-     - du 22/12/2015 au sans fin connue
+     - en vigueur, du 22/12/2015 au sans fin connue
    * - ``TRA-EQ-111``
      - Groupes frigorifiques autonomes à haute efficacité énergétique pour camions, semi remorques, remorques et caisses mobiles frigorifiques
      - ``CEE.TRA_EQ_111(…)``
      - ``rg_pondere`` : ex. 5000
-     - du 14/12/2016 au sans fin connue
+     - en vigueur, du 14/12/2016 au sans fin connue
    * - ``TRA-EQ-113``
      - Lubrifiant économiseur d’énergie pour des véhicules de transport de personnes ou de marchandises
      - ``CEE.TRA_EQ_113(…)``
      - ``volume_lubrifiant_m3`` : ex. 1000 · ``y1_pct`` : ex. 2 · ``y2_pct`` : ex. 4
-     - du 01/01/2015 au sans fin connue
+     - en vigueur, du 01/01/2015 au sans fin connue
    * - ``TRA-EQ-114``
      - Achat ou location d’un véhicule léger électrique neuf ou opération de rétrofit électrique d’un véhicule léger, par une collectivité locale ou une autre personne morale
      - ``CEE.TRA_EQ_114(…)``
      - ``origine`` : ``'neuf'`` · ``categorie_vehicule`` : ``'M1'`` · ``nb_vehicules`` : ex. 3 · ``masse_ordre_marche_t`` : ex. 2 (≤ 1,55) · ``type_beneficiaire`` : ``'collectivite'`` · ``annee`` : ex. 2026 · ``emission_co2_g_km`` : ex. 0
-     - du 29/06/2015 au 31/12/2029
+     - abrogée, du 29/06/2015 au 31/12/2029
    * - ``TRA-EQ-115``
      - Véhicules de transport de marchandises optimisé
      - ``CEE.TRA_EQ_115(…)``
      - ``nb_vehicules`` : ex. 3
-     - du 01/01/2015 au sans fin connue
+     - en vigueur, du 01/01/2015 au sans fin connue
    * - ``TRA-EQ-117``
      - Achat ou location d’un véhicule léger électrique neuf ou opération de rétrofit électrique d’un véhicule léger par des personnes physiques
      - ``CEE.TRA_EQ_117(…)``
      - ``origine`` : ``'neuf'`` · ``categorie_vehicule`` : ``'M1'`` · ``masse_ordre_marche_t`` : ex. 2 (≤ 1,55) · ``nb_vehicules`` : ex. 3 · ``emission_co2_g_km`` : ex. 0
-     - du 29/06/2015 au 31/12/2029
+     - abrogée, du 29/06/2015 au 31/12/2029
    * - ``TRA-EQ-118``
      - Lubrifiant économiseur d’énergie pour la pêche professionnelle
      - ``CEE.TRA_EQ_118(…)``
      - ``navires`` : ex. [{'facade': 'manche' · ``gain_pct`` : ex. 2
-     - du 20/03/2015 au sans fin connue
+     - en vigueur, du 20/03/2015 au sans fin connue
    * - ``TRA-EQ-119``
      - Optimisation de la combustion et de la propreté des moteurs Diesel
      - ``CEE.TRA_EQ_119(…)``
      - ``type_acquisition`` : ``'auxiliaire'`` · ``gain`` : ex. 0.05 · ``volume_auxiliaire_m3`` : ex. 100 · ``concentration`` : ex. 10 · ``volume_carburant_m3`` : ex. 1000
-     - du 01/01/2015 au sans fin connue
+     - en vigueur, du 01/01/2015 au sans fin connue
    * - ``TRA-EQ-120``
      - Hélice avec tuyère sur une unité de transport fluvial
      - ``CEE.TRA_EQ_120(…)``
      - ``type_unite`` : ``'automoteur'`` · ``bassin_navigation`` : ``'seine'`` · ``port_en_lourd_t`` : ex. 400 · ``puissance_kw`` : ex. 100 · ``tkm_releve`` : ex. 1000000 (≤ 6) · ``km_releve`` : ex. 0 (≤ 6)
-     - du 22/12/2017 au sans fin connue
+     - en vigueur, du 22/12/2017 au sans fin connue
    * - ``TRA-EQ-121``
      - Vélo à assistance électrique
      - ``CEE.TRA_EQ_121(…)``
      - ``mode_acquisition`` : ``'location'`` · ``nb_cycles`` : ex. 100
-     - du 06/12/2018 au 30/06/2028
+     - abrogée, du 06/12/2018 au 30/06/2028
    * - ``TRA-EQ-122``
      - « Stop & Start » pour engins automoteurs non routiers neufs
      - ``CEE.TRA_EQ_122(…)``
      - ``nb_engins`` : ex. 3
-     - du 31/01/2020 au sans fin connue
+     - en vigueur, du 31/01/2020 au sans fin connue
    * - ``TRA-EQ-123``
      - Simulateur de conduite
      - ``CEE.TRA_EQ_123(…)``
      - ``categorie_vehicule`` : ``'M1'`` · ``nb_simulateurs`` : ex. 2
-     - du 10/01/2020 au sans fin connue
+     - en vigueur, du 10/01/2020 au sans fin connue
    * - ``TRA-EQ-124``
      - Branchement électrique des navires et bateaux à quai
      - ``CEE.TRA_EQ_124(…)``
      - ``type_port`` : ``'maritime'`` · ``consommation_kwh`` : ex. 1000000
-     - du 03/08/2020 au sans fin connue
+     - en vigueur, du 03/08/2020 au sans fin connue
    * - ``TRA-EQ-125``
      - « Stop & Start » pour véhicules ferroviaires
      - ``CEE.TRA_EQ_125(…)``
      - ``type_vehicule`` : ``'fret'`` · ``nb_heures_moteur`` : ex. 500
-     - du 31/07/2021 au 31/03/2027
+     - abrogée, du 31/07/2021 au 31/03/2027
    * - ``TRA-EQ-126``
      - Remotorisation en propulsion électrique ou hybride d’un bateau naviguant en eaux intérieures
      - ``CEE.TRA_EQ_126(…)``
      - ``motorisation_initiale`` : ``'thermique'`` · ``type_bateau`` : ``'plaisance'`` · ``heures_relevees`` : ex. 200 · ``puissance_initiale_kw`` : ex. 150 · ``puissance_initiale_ch`` : ex. None
-     - du 23/02/2022 au 28/02/2027
+     - abrogée, du 23/02/2022 au 28/02/2027
    * - ``TRA-EQ-127``
      - Acquisition d’un bateau neuf à propulsion électrique ou hybride, naviguant en eaux intérieures
      - ``CEE.TRA_EQ_127(…)``
      - ``motorisation`` : ``'electrique'`` · ``type_bateau`` : ``'plaisance'`` · ``heures_relevees`` : ex. 200 · ``puissance_kw`` : ex. 50
-     - du 01/10/2023 au 30/06/2028
+     - abrogée, du 01/10/2023 au 30/06/2028
    * - ``TRA-EQ-128``
      - Achat ou location d’un autocar ou d’un autobus électrique neuf ou réalisation d’une opération de rétrofit électrique d’autocar ou d’autobus
      - ``CEE.TRA_EQ_128(…)``
      - ``categorie_vehicule`` : ``'autocar_standard'`` · ``nb_vehicules`` : ex. 3 · ``commune_listee_annexe_I`` : ex. False (≤ 250 000) · ``annee_engagement`` : ex. 2
-     - du 29/12/2023 au 31/12/2029
+     - abrogée, du 29/12/2023 au 31/12/2029
    * - ``TRA-EQ-129``
      - Achat ou location d’un véhicule lourd électrique neuf de transport de marchandises ou issu d’une opération de rétrofit électrique
      - ``CEE.TRA_EQ_129(…)``
      - ``operation`` : ``'neuf'`` · ``type_vehicule`` : ``'porteur'`` · ``nb_vehicules`` : ex. 3 · ``ptac_t`` : ex. 19 · ``commune_listee_annexe_I`` : ex. False (≤ 250 000 ; > 1 572 900)
-     - du 01/01/2025 au 31/12/2029
+     - abrogée, du 01/01/2025 au 31/12/2029
    * - ``TRA-EQ-130``
      - Achat ou location d’un quadricycle électrique neuf
      - ``CEE.TRA_EQ_130(…)``
      - ``acquereur`` : ``'autre_personne_morale'`` · ``categorie_vehicule`` : ``'L7e-C'`` · ``nb_vehicules`` : ex. 3
-     - du 01/01/2025 au 31/12/2029
+     - abrogée, du 01/01/2025 au 31/12/2029
+   * - ``TRA-EQ-131``
+     - Achat ou location, par une personne morale, de vélos-cargos neufs ou reconditionnés
+     - —
+     - **abrogée** : aucun calcul codé
+     - abrogée, du 01/01/2025 au 30/09/2025
    * - ``TRA-EQ-132``
      - Appareil de mesure, d’analyse et d’optimisation de la consommation de carburant d’un navire de pêche
      - ``CEE.TRA_EQ_132(…)``
      - ``type_navire`` : ``'art_trainant'`` · ``longueur`` : ex. 100 (≤ 16) · ``nb_jours_mer`` : ex. 200
-     - du 01/01/2025 au 31/12/2029
+     - abrogée, du 01/01/2025 au 31/12/2029
    * - ``TRA-EQ-133``
      - Achat ou location d’une voiture particulière électrique d’occasion
      - ``CEE.TRA_EQ_133(…)``
      - ``nb_vehicules`` : ex. 3
-     - du 01/09/2026 au 31/08/2030
+     - abrogée, du 01/09/2026 au 31/08/2030
    * - ``TRA-SE-101``
      - Formation d’un chauffeur de transport à la conduite économe
      - ``CEE.TRA_SE_101(…)``
      - ``categorie_vehicule`` : ``'N2'`` · ``nb_personnes_formees`` : ex. 10
-     - du 01/01/2015 au sans fin connue
+     - en vigueur, du 01/01/2015 au sans fin connue
    * - ``TRA-SE-102``
      - Formation d’un chauffeur de véhicule léger à la conduite économe
      - ``CEE.TRA_SE_102(…)``
      - ``categorie_vehicule`` : ``'M1'`` · ``nb_personnes_formees`` : ex. 10
-     - du 01/01/2015 au sans fin connue
+     - en vigueur, du 01/01/2015 au sans fin connue
+   * - ``TRA-SE-104``
+     - Station de gonflage des pneumatiques
+     - —
+     - **abrogée** : aucun calcul codé
+     - abrogée, du 01/01/2015 au 23/09/2026
    * - ``TRA-SE-105``
      - Recreusage des pneumatiques
      - ``CEE.TRA_SE_105(…)``
      - ``nb_pneumatiques`` : ex. 100
-     - du 01/01/2015 au sans fin connue
+     - en vigueur, du 01/01/2015 au sans fin connue
    * - ``TRA-SE-106``
      - Mesure et optimisation des consommations de carburant pour une unité de transport fluvial
      - ``CEE.TRA_SE_106(…)``
      - ``type_unite`` : ``'automoteur'`` · ``bassin_navigation`` : ``'seine'`` · ``equipement`` : ``'debitmetre'`` · ``port_en_lourd_t`` : ex. 400 (≤ 400) · ``puissance_kw`` : ex. 100 · ``tkm_releve`` : ex. 1000000 (≤ 6) · ``km_releve`` : ex. 0 (≤ 6)
-     - du 31/07/2015 au sans fin connue
+     - en vigueur, du 31/07/2015 au sans fin connue
    * - ``TRA-SE-107``
      - Carénage sur une unité de transport fluvial
      - ``CEE.TRA_SE_107(…)``
      - ``type_unite`` : ``'automoteur'`` · ``bassin_navigation`` : ``'seine'`` · ``port_en_lourd_t`` : ex. 400 · ``puissance_kw`` : ex. 100 · ``tkm_releve`` : ex. 1000000 (≤ 6) · ``km_releve`` : ex. 0 (≤ 6)
-     - du 22/12/2015 au sans fin connue
+     - en vigueur, du 22/12/2015 au sans fin connue
    * - ``TRA-SE-108``
      - Gestion externalisée de la globalité du poste pneumatique (Véhicules de transport de marchandises)
      - ``CEE.TRA_SE_108(…)``
      - ``nb_ensembles_articules`` : ex. 3 · ``nb_porteurs`` : ex. 3
-     - du 01/01/2015 au sans fin connue
+     - en vigueur, du 01/01/2015 au sans fin connue
    * - ``TRA-SE-109``
      - Gestion externalisée de la globalité du poste pneumatique (Véhicules de transport de personnes)
      - ``CEE.TRA_SE_109(…)``
      - ``nb_vehicules`` : ex. 3
-     - du 01/01/2015 au sans fin connue
+     - en vigueur, du 01/01/2015 au sans fin connue
    * - ``TRA-SE-110``
      - Gestion optimisée de la globalité du poste pneumatique (Véhicules de transport de marchandises)
      - ``CEE.TRA_SE_110(…)``
      - ``nb_ensembles_articules`` : ex. 3 · ``nb_porteurs`` : ex. 3
-     - du 01/01/2015 au sans fin connue
+     - en vigueur, du 01/01/2015 au sans fin connue
    * - ``TRA-SE-111``
      - Gestion optimisée de la globalité du poste pneumatique (Véhicules de transport de personnes)
      - ``CEE.TRA_SE_111(…)``
      - ``nb_vehicules`` : ex. 3
-     - du 01/01/2015 au sans fin connue
+     - en vigueur, du 01/01/2015 au sans fin connue
    * - ``TRA-SE-112``
      - Service d’autopartage en boucle
      - ``CEE.TRA_SE_112(…)``
      - ``nb_abonnements`` : ex. 100
-     - du 20/03/2015 au sans fin connue
+     - en vigueur, du 20/03/2015 au sans fin connue
    * - ``TRA-SE-113``
      - Suivi des consommations de carburants grâce à des cartes privatives
      - ``CEE.TRA_SE_113(…)``
      - ``nb_cartes`` : ex. 100
-     - du 01/01/2015 au sans fin connue
+     - en vigueur, du 01/01/2015 au sans fin connue
+   * - ``TRA-SE-114``
+     - Covoiturage de longue distance
+     - —
+     - **abrogée** : aucun calcul codé
+     - abrogée, du 01/01/2023 au 05/09/2024
+   * - ``TRA-SE-115``
+     - Covoiturage de courte distance
+     - —
+     - **abrogée** : aucun calcul codé
+     - abrogée, du 01/01/2023 au 31/01/2025
    * - ``TRA-SE-116``
      - Fret ferroviaire
      - ``CEE.TRA_SE_116(…)``
      - ``type_flux`` : ``'existant'`` · ``tkm`` : ex. 1000000 · ``duree_contrat_mois`` : ex. 12 · ``categorie_nst`` : ``'autre'`` · ``traction_100_electrique`` : ex. False (> 6 ; <= 12)
-     - du 29/10/2022 au 31/12/2029
+     - abrogée, du 29/10/2022 au 31/12/2029
    * - ``TRA-SE-117``
      - Fret fluvial
      - ``CEE.TRA_SE_117(…)``
      - ``type_flux`` : ``'existant'`` · ``trajets`` : ex. [{'type_bateau': 'automoteur' (< 400) · ``duree_contrat_mois`` : ex. 12
-     - du 01/01/2025 au 31/12/2029
+     - abrogée, du 01/01/2025 au 31/12/2029
 
 Les fiches ``RES-CH-104`` sont détaillées en fin de page, avec un cas concret et sa sortie.
 
