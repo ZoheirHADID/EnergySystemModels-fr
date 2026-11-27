@@ -17,6 +17,19 @@ l'appareil, comme les **deux pertes de charge**.
 Pourquoi ce modèle existe
 -------------------------
 
+.. figure:: ../images/schema_echangeur_calandre.svg
+   :alt: Coupe d'un échangeur à calandre DN200 à tubes en U, et chemin de la chaleur
+   :align: center
+   :width: 100%
+
+   À gauche, la coupe de l'appareil tel que le modèle le voit : calandre
+   DN200, chicanes segmentaires alternées, faisceau en deux épingles en U, et
+   les quatre ports avec leurs températures ou débits. À droite, le **chemin
+   de la chaleur** : chaque bande a la largeur de sa résistance, ce qui montre
+   d'un coup d'œil où se joue le ``U``. Toutes les valeurs sont celles que la
+   bibliothèque calcule pour le cas de cette page (eau 80 °C dans les tubes,
+   eau 20 °C dans la calandre).
+
 Tous les autres modules de ``HEX`` prennent ``UA`` en paramètre et des chutes
 de pression ``P_drop`` / ``P_drop_2`` **imposées** : ils répondent à « que fait
 cet échangeur si je lui donne cette conductance ? ». Aucun ne répondait à « que

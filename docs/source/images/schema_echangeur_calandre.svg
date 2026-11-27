@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="980" height="470" viewBox="0 0 980 470" role="img" aria-label="Échangeur à calandre UDH 219 08C 2B — coupe et chemin de la chaleur">
+<title>Échangeur à calandre UDH 219 08C 2B — coupe et chemin de la chaleur</title>
+<defs><marker id="fleche" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-end"><path d="M 0 0 L 10 5 L 0 10 z" fill="#1f2933"/></marker><marker id="fleche_cote" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-end"><path d="M 0 0 L 10 5 L 0 10 z" fill="#b46a00"/></marker><marker id="fleche_flux" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-end"><path d="M 0 0 L 10 5 L 0 10 z" fill="#2670a8"/></marker></defs>
+<rect width="980" height="470" fill="#ffffff"/>
+<rect x="210.0" y="96.0" width="340.0" height="204.0" rx="4" fill="#f4f8fb" stroke="#1f2933" stroke-width="2.2"/>
+<text x="220.0" y="74.0" fill="#1f2933" text-anchor="start" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="600">calandre DN200</text>
+<text x="220.0" y="90.0" fill="#1f2933" text-anchor="start" font-family="Consolas, Courier New, monospace" font-size="11.5">D_ext = 219,1 mm, D_int = 207,1 mm</text>
+<line x1="266.7" y1="96.0" x2="266.7" y2="249.0" stroke="#8c8c8c" stroke-width="3.0"/>
+<line x1="323.3" y1="147.0" x2="323.3" y2="300.0" stroke="#8c8c8c" stroke-width="3.0"/>
+<line x1="380.0" y1="96.0" x2="380.0" y2="249.0" stroke="#8c8c8c" stroke-width="3.0"/>
+<line x1="436.7" y1="147.0" x2="436.7" y2="300.0" stroke="#8c8c8c" stroke-width="3.0"/>
+<line x1="493.3" y1="96.0" x2="493.3" y2="249.0" stroke="#8c8c8c" stroke-width="3.0"/>
+<text x="380.0" y="314.0" fill="#7b8794" text-anchor="middle" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11">6 chicanes, coupe 25 %, pas L_bc = 150,0 mm</text>
+<polyline points="228.00,136.80 544.40,136.80 544.40,177.60 228.00,177.60" fill="none" stroke="#c0392b" stroke-width="2.4" stroke-linejoin="round"/>
+<polyline points="228.00,218.40 544.40,218.40 544.40,259.20 228.00,259.20" fill="none" stroke="#c0392b" stroke-width="2.4" stroke-linejoin="round"/>
+<text x="214.0" y="110.0" fill="#c0392b" text-anchor="start" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" font-weight="600">tubes : 2 passes en U</text>
+<text x="214.0" y="125.0" fill="#c0392b" text-anchor="start" font-family="Consolas, Courier New, monospace" font-size="10">40 tubes Ø 12 mm, L = 0,8 m</text>
+<line x1="104.0" y1="136.8" x2="210.0" y2="136.8" stroke="#c0392b" stroke-width="2.4"/>
+<text x="100.0" y="130.8" fill="#c0392b" text-anchor="end" font-family="Consolas, Courier New, monospace" font-size="11.5">Tube_Inlet</text>
+<text x="100.0" y="150.8" fill="#c0392b" text-anchor="end" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5">80 °C, 1,2 kg/s</text>
+<line x1="104.0" y1="288.0" x2="210.0" y2="288.0" stroke="#2670a8" stroke-width="2.4"/>
+<text x="100.0" y="282.0" fill="#2670a8" text-anchor="end" font-family="Consolas, Courier New, monospace" font-size="11.5">Shell_Inlet</text>
+<text x="100.0" y="302.0" fill="#2670a8" text-anchor="end" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5">20 °C, 1,5 kg/s</text>
+<line x1="550.0" y1="218.4" x2="576.0" y2="218.4" stroke="#c0392b" stroke-width="2.4"/>
+<line x1="550.0" y1="288.0" x2="576.0" y2="288.0" stroke="#2670a8" stroke-width="2.4"/>
+<text x="544.0" y="212.4" fill="#c0392b" text-anchor="end" font-family="Consolas, Courier New, monospace" font-size="11.5">Tube_Outlet</text>
+<text x="544.0" y="230.4" fill="#c0392b" text-anchor="end" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5">63,6 °C</text>
+<text x="544.0" y="268.0" fill="#2670a8" text-anchor="end" font-family="Consolas, Courier New, monospace" font-size="11.5">Shell_Outlet</text>
+<text x="544.0" y="286.0" fill="#2670a8" text-anchor="end" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5">33,2 °C</text>
+<rect x="210.0" y="322.0" width="400.0" height="60.0" rx="4" fill="#f4f6f8" stroke="#c9d1d9" stroke-width="1.0"/>
+<text x="220.0" y="342.0" fill="#1f2933" text-anchor="start" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5">surface : 1,21 m²   U = 2 227 W/m²·K</text>
+<text x="220.0" y="358.0" fill="#1f2933" text-anchor="start" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5">Q = 82,7 kW</text>
+<text x="220.0" y="374.0" fill="#1f2933" text-anchor="start" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5">ΔP tubes = 3,21 kPa, ΔP calandre = 1,93 kPa</text>
+<text x="596.0" y="74.0" fill="#1f2933" text-anchor="start" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="15" font-weight="600">Le chemin de la chaleur</text>
+<text x="596.0" y="90.0" fill="#1f2933" text-anchor="start" font-family="Consolas, Courier New, monospace" font-size="12">1/U = 1/h_tubes + e/λ + 1/h_calendre</text>
+<rect x="596.0" y="106.0" width="214.3" height="96.0" rx="3" fill="#2670a8" stroke="#1f2933" stroke-width="1.4"/>
+<text x="703.1" y="130.0" fill="#ffffff" text-anchor="middle" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" font-weight="600">calandre</text>
+<text x="703.1" y="150.0" fill="#ffffff" text-anchor="middle" font-family="Consolas, Courier New, monospace" font-size="9.5">h = 3 471</text>
+<text x="703.1" y="176.0" fill="#ffffff" text-anchor="middle" font-family="Consolas, Courier New, monospace" font-size="12" font-weight="600">64 %</text>
+<rect x="810.3" y="106.0" width="76.0" height="96.0" rx="3" fill="#b8c2cc" stroke="#1f2933" stroke-width="1.4"/>
+<text x="848.3" y="130.0" fill="#1f2933" text-anchor="middle" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" font-weight="600">paroi</text>
+<text x="848.3" y="150.0" fill="#1f2933" text-anchor="middle" font-family="Consolas, Courier New, monospace" font-size="9.5">e/λ = 5,3e-5</text>
+<text x="848.3" y="176.0" fill="#1f2933" text-anchor="middle" font-family="Consolas, Courier New, monospace" font-size="12" font-weight="600">12 %</text>
+<rect x="886.3" y="106.0" width="80.0" height="96.0" rx="3" fill="#c0392b" stroke="#1f2933" stroke-width="1.4"/>
+<text x="926.3" y="130.0" fill="#ffffff" text-anchor="middle" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" font-weight="600">tubes</text>
+<text x="926.3" y="150.0" fill="#ffffff" text-anchor="middle" font-family="Consolas, Courier New, monospace" font-size="9.5">h = 9 293</text>
+<text x="926.3" y="176.0" fill="#ffffff" text-anchor="middle" font-family="Consolas, Courier New, monospace" font-size="12" font-weight="600">24 %</text>
+<text x="596.0" y="226.0" fill="#7b8794" text-anchor="start" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11">Chaque bande a la largeur de sa RÉSISTANCE ;</text>
+<text x="596.0" y="242.0" fill="#7b8794" text-anchor="start" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11">le pourcentage est sa part dans 1/U.</text>
+<text x="596.0" y="264.0" fill="#7b8794" text-anchor="start" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5">h et e/λ sont en W/m²·K (paroi 316L).</text>
+<text x="596.0" y="284.0" fill="#7b8794" text-anchor="start" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5">Vitesse faible ou encrassement se paient d'abord</text>
+<text x="596.0" y="298.0" fill="#7b8794" text-anchor="start" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5">sur la bande la plus large.</text>
+<text x="596.0" y="330.0" fill="#2670a8" text-anchor="start" font-family="Consolas, Courier New, monospace" font-size="14" font-weight="600">U = 2 227 W/m²·K</text>
+</svg>

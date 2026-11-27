@@ -279,8 +279,10 @@
   "docs/source/002-thermodynamic_cycles/echangeur_calandre.rst": {
    "blocs": 2,
    "empreinte": "e3908fb854b5b220",
-   "mesure": "2026-11-27T16:42",
-   "figures": [],
+   "mesure": "2026-11-27T16:49",
+   "figures": [
+    "../images/schema_echangeur_calandre.svg"
+   ],
    "blocage": null,
    "motif": "",
    "extraits": null,
