@@ -208,6 +208,65 @@ Limites, dites explicitement
 * **``nb_tubes`` et l'épaisseur de calandre sont des hypothèses** déclarées,
   tant qu'elles ne sont pas lues sur le plan du constructeur.
 
+Le nœud PyqtSimulator
+---------------------
+
+Le modèle a son nœud : **« Échangeur à calandre (Kern) »**, code d'opération
+**505**, dans la palette ``PyqtSimulator``, avec son icône propre (calandre,
+chicanes alternées, deux passes en U, quatre ports).
+
+.. list-table:: Ce que le panneau du nœud demande
+   :header-rows: 1
+   :widths: 34 18 48
+
+   * - Champ
+     - Unité
+     - Remarque
+   * - Calandre D ext / épaisseur
+     - mm
+     - 219,1 / 6 par défaut (DN200)
+   * - Nombre de chicanes / coupe
+     - — / —
+     - 6 et 0,25 par défaut
+   * - Pas des chicanes
+     - mm
+     - **0 = déduit** par le modèle (0,4 à 0,8 ``D_int``)
+   * - Nombre de tubes
+     - —
+     - 40 par défaut, doit être **pair** (épingles)
+   * - Tube D ext / épaisseur / longueur
+     - mm, mm, m
+     - 12 / 0,8 / 0,8 par défaut
+   * - Pas triangulaire
+     - mm
+     - **0 = 1,25 × D ext**
+   * - ``E_h`` / ``E_f``
+     - —
+     - intensification des tubes rainurés (1,7 / 2,6)
+   * - Encrassement ``R_f``
+     - m²·K/W
+     - **0 par défaut** : jamais deviné
+   * - Passes / matériau
+     - liste
+     - 2 / 4 / 6 / 1 passes ; 316L, acier carbone, cuivre
+
+Le nœud a **2 entrées et 2 sorties** de fluide (plus le connecteur de signal),
+comme les nœuds ε-NUT, DTLM, pincement et discrétisé :
+
+* entrée 1 = **tubes**, entrée 2 = **calandre** ;
+* sortie 1 = tubes, sortie 2 = calandre ;
+* côté chaud : **mesuré**, pas supposé — le nœud affiche lequel des deux
+  courants est le chaud.
+
+Il publie la puissance, la surface, ``U``, les deux coefficients ``h``, les deux
+températures de sortie et **les deux pertes de charge**.
+
+.. note::
+
+   Le côté chaud n'est pas un réglage : le modèle le déduit des enthalpies
+   entrantes. Brancher l'eau chaude sur la calandre plutôt que sur les tubes
+   donne le même résultat physique, et le nœud l'indique.
+
 Conformité à la construction de la librairie
 --------------------------------------------
 
