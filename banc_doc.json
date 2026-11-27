@@ -1526,9 +1526,9 @@
    "recul": null
   },
   "docs/source/011-cee/agriculture.rst": {
-   "blocs": 2,
-   "empreinte": "c5ddd0cfa35ad39c",
-   "mesure": "2026-09-28T16:11",
+   "blocs": 4,
+   "empreinte": "4d217754e5fced56",
+   "mesure": "2026-11-27T05:25",
    "figures": [],
    "blocage": null,
    "motif": "",
@@ -1566,8 +1566,8 @@
   },
   "docs/source/011-cee/industrie.rst": {
    "blocs": 3,
-   "empreinte": "2c79798ca9e5cc27",
-   "mesure": "2026-09-28T16:11",
+   "empreinte": "e5f24591bf33e791",
+   "mesure": "2026-11-27T05:29",
    "figures": [],
    "blocage": null,
    "motif": "",
@@ -1591,9 +1591,9 @@
    "recul": null
   },
   "docs/source/011-cee/reseaux_transport.rst": {
-   "blocs": 3,
-   "empreinte": "abe436fc64c4ac47",
-   "mesure": "2026-09-28T16:11",
+   "blocs": 5,
+   "empreinte": "d4379cf62df7b1dd",
+   "mesure": "2026-11-27T05:25",
    "figures": [],
    "blocage": null,
    "motif": "",
@@ -1604,9 +1604,9 @@
    "recul": null
   },
   "docs/source/011-cee/residentiel.rst": {
-   "blocs": 3,
-   "empreinte": "a51f919f0c8f4fd8",
-   "mesure": "2026-09-28T16:11",
+   "blocs": 5,
+   "empreinte": "4d11b6e42d0be401",
+   "mesure": "2026-11-27T05:25",
    "figures": [],
    "blocage": null,
    "motif": "",
@@ -1617,9 +1617,9 @@
    "recul": null
   },
   "docs/source/011-cee/tertiaire.rst": {
-   "blocs": 3,
-   "empreinte": "52249c85f0c8c89f",
-   "mesure": "2026-09-28T16:11",
+   "blocs": 5,
+   "empreinte": "803600fea42c1a01",
+   "mesure": "2026-11-27T05:25",
    "figures": [],
    "blocage": null,
    "motif": "",

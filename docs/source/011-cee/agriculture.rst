@@ -6,12 +6,12 @@ Agriculture
 
 Fiches AGRI : serres, élevage, séchage, tracteurs et moteurs agricoles.
 
-Synthèse du secteur
--------------------
+Tableau du secteur
+------------------
 
-**25 fiches** en vigueur au 28/09/2026. Pour chacune : le paramètre que l'exemple fait varier, l'appel passé à ``calcul_CEE`` (fiche, date d'engagement ``28/09/2026`` et paramètres), la sortie en MWh cumac et les paramètres de la fonction.
+**25 fiches** en vigueur au 28/09/2026, une ligne par fiche : nom, désignation, fonction Python et valeurs des paramètres.
 
-Les valeurs admises d'un paramètre sont données par l'aide de la fonction (``help(calcul_CEE)``) ; le message d'erreur les énumère aussi quand une valeur est refusée.
+Les valeurs de la dernière colonne sont celles que **le code accepte** : ce sont les valeurs passées à ``calcul_CEE`` par les appels ci-dessous, exécutés à chaque construction de cette page (le banc compare la sortie publiée à la sortie réelle). Quand la docstring de la fiche ne cite aucune valeur, la cellule donne la **valeur testée** (``ex.``) et les bornes qu'elle énonce, plutôt qu'une liste inventée.
 
 .. code-block:: python
 
@@ -80,242 +80,112 @@ Sortie réelle :
 
 .. list-table::
    :header-rows: 1
-   :widths: 12 24 13 15 8 28 9 9 9
+   :widths: 13 26 20 41
 
-   * - Fiche
-     - Intitulé
-     - Paramètre traité
-     - Appel de référence
-     - Sortie (MWh cumac)
-     - Paramètres de la fonction
-     - Version codée
-     - Valable du
-     - au
+   * - Nom de la fiche
+     - Désignation
+     - Fonction Python
+     - Valeurs possibles des paramètres
    * - ``AGRI-EQ-101``
      - Module d’intégration de température installé sur un ordinateur climatique
-     - ``surface``
-     - ``type_serre='maraichere', surface=5000``
-     - 415.0
-     - ``type_serre``, ``surface``
-     - A14-1
-     - 01/01/2015
-     - sans fin connue
+     - ``CEE.AGRI_EQ_101(…)``
+     - ``type_serre`` : ``'maraichere'`` · ``surface`` : ex. 5000
    * - ``AGRI-EQ-102``
      - Double écran thermique
-     - ``surface``
-     - ``type_serre='maraichere', surface=5000``
-     - 1 450.0
-     - ``type_serre``, ``surface``
-     - A65-2
-     - 01/01/2015
-     - 31/03/2030
+     - ``CEE.AGRI_EQ_102(…)``
+     - ``type_serre`` : ``'maraichere'`` · ``surface`` : ex. 5000
    * - ``AGRI-EQ-104``
      - Ecrans thermiques latéraux
-     - ``surface``
-     - ``type_serre='maraichere', surface=5000``
-     - 240.0
-     - ``type_serre``, ``surface``
-     - A62-2
-     - 01/01/2015
-     - 31/12/2029
+     - ``CEE.AGRI_EQ_104(…)``
+     - ``type_serre`` : ``'maraichere'`` · ``surface`` : ex. 5000
    * - ``AGRI-EQ-105``
      - Stop & Start pour véhicules agricoles à moteur
-     - ``nombre_vehicules``
-     - ``nombre_vehicules=3``
-     - 55.2
-     - ``nombre_vehicules``
-     - A28-1
-     - 19/12/2018
-     - sans fin connue
+     - ``CEE.AGRI_EQ_105(…)``
+     - ``nombre_vehicules`` : ex. 3
    * - ``AGRI-EQ-106``
      - Régulation de la ventilation des silos et des installations de stockage en vrac de céréales
-     - ``volume_cereales``
-     - ``type_regulation='capteurs_thermiques', volume_cereales=2000``
-     - 20.0
-     - ``type_regulation``, ``volume_cereales``
-     - A32-1
-     - 10/01/2020
-     - sans fin connue
+     - ``CEE.AGRI_EQ_106(…)``
+     - ``type_regulation`` : ``'capteurs_thermiques'`` · ``volume_cereales`` : ex. 2000
    * - ``AGRI-EQ-107``
      - Isolation des parois de serre
-     - ``surface``
-     - ``type_serre='maraichere', surface=5000``
-     - 850.0
-     - ``type_serre``, ``surface``
-     - A38-1
-     - 31/07/2021
-     - sans fin connue
+     - ``CEE.AGRI_EQ_107(…)``
+     - ``type_serre`` : ``'maraichere'`` · ``surface`` : ex. 5000
    * - ``AGRI-EQ-108``
      - Stockage d’eau pour une serre bioclimatique
-     - ``surface``
-     - ``surface=5000``
-     - 1 950.0
-     - ``surface``
-     - A58-2
-     - 31/07/2021
-     - 31/12/2028
+     - ``CEE.AGRI_EQ_108(…)``
+     - ``surface`` : ex. 5000
    * - ``AGRI-EQ-109``
      - Couverture performante de serre
-     - ``surface``
-     - ``type_paroi='double_paroi_etfe', type_serre='maraichere', surface=5000``
-     - 5 300.0
-     - ``type_paroi``, ``type_serre``, ``surface``
-     - A38-1, A58-2
-     - 31/07/2021
-     - 31/12/2028
+     - ``CEE.AGRI_EQ_109(…)``
+     - ``type_paroi`` : ``'double_paroi_etfe'`` · ``type_serre`` : ``'maraichere'`` · ``surface`` : ex. 5000
    * - ``AGRI-EQ-111``
      - Simple écran thermique
-     - ``surface``
-     - ``type_serre='maraichere', surface=5000``
-     - 1 800.0
-     - ``type_serre``, ``surface``
-     - A62-1
-     - 31/08/2024
-     - 31/07/2029
+     - ``CEE.AGRI_EQ_111(…)``
+     - ``type_serre`` : ``'maraichere'`` · ``surface`` : ex. 5000
    * - ``AGRI-EQ-112``
      - Double paroi gonflable
-     - ``surface``
-     - ``type_serre='maraichere', surface=5000``
-     - 2 050.0
-     - ``type_serre``, ``surface``
-     - A73-3
-     - 01/01/2025
-     - 31/08/2030
+     - ``CEE.AGRI_EQ_112(…)``
+     - ``type_serre`` : ``'maraichere'`` · ``surface`` : ex. 5000
    * - ``AGRI-SE-101``
      - Contrôle et préconisations de réglage du moteur d’un tracteur
-     - ``puissance_moteur_ch``
-     - ``puissance_moteur_ch=150``
-     - 22.4
-     - ``puissance_moteur_ch``
-     - A19-1, A40-2
-     - 22/12/2015
-     - 31/03/2027
+     - ``CEE.AGRI_SE_101(…)``
+     - ``puissance_moteur_ch`` : ex. 150
    * - ``AGRI-TH-101``
      - Dispositif de stockage d’eau chaude de type « Open Buffer »
-     - ``surface``
-     - ``surface=5000``
-     - 480.0
-     - ``surface``
-     - A62-2
-     - 01/01/2015
-     - 31/12/2029
+     - ``CEE.AGRI_TH_101(…)``
+     - ``surface`` : ex. 5000
    * - ``AGRI-TH-102``
      - Dispositif de stockage d’eau chaude
-     - ``surface``
-     - ``surface=5000``
-     - 650.0
-     - ``surface``
-     - A14-1
-     - 01/01/2015
-     - sans fin connue
+     - ``CEE.AGRI_TH_102(…)``
+     - ``surface`` : ex. 5000
    * - ``AGRI-TH-103``
      - Pré-refroidisseur de lait
-     - ``production_laitiere``
-     - ``production_laitiere=500000``
-     - 56.5
-     - ``production_laitiere``
-     - A15-1
-     - 20/03/2015
-     - sans fin connue
+     - ``CEE.AGRI_TH_103(…)``
+     - ``production_laitiere`` : ex. 500000
    * - ``AGRI-TH-104``
      - Système de récupération de chaleur sur un groupe de production de froid hors tanks à lait
-     - ``puissance_compresseurs``
-     - ``duree_besoins_ponderee=3000, duree_fonctionnement_compresseurs=2000, puissance_systeme_recuperation=50, puissance_a_couvrir=100, puissance_compresseurs=150, puissance_deja_recuperee=0, filiere='lait'``
-     - 990.0
-     - ``duree_besoins_ponderee``, ``duree_fonctionnement_compresseurs``, ``puissance_systeme_recuperation``, ``puissance_a_couvrir``, ``puissance_compresseurs``, ``puissance_deja_recuperee``, ``filiere``
-     - A27-2, A35-3
-     - 29/06/2015
-     - sans fin connue
+     - ``CEE.AGRI_TH_104(…)``
+     - ``duree_besoins_ponderee`` : ex. 3000 · ``duree_fonctionnement_compresseurs`` : ex. 2000 · ``puissance_systeme_recuperation`` : ex. 50 · ``puissance_a_couvrir`` : ex. 100 · ``puissance_compresseurs`` : ex. 150 · ``puissance_deja_recuperee`` : ex. 0 · ``filiere`` : ``'lait'``
    * - ``AGRI-TH-105``
      - Récupérateur de chaleur sur tank à lait
-     - ``production_laitiere``
-     - ``production_laitiere=500000``
-     - 69.0
-     - ``production_laitiere``
-     - A16-1
-     - 29/06/2015
-     - sans fin connue
+     - ``CEE.AGRI_TH_105(…)``
+     - ``production_laitiere`` : ex. 500000
    * - ``AGRI-TH-108``
      - Pompe à chaleur de type air/eau ou eau/eau
-     - ``efficacite_saisonniere``
-     - ``type_serre='maraichere', surface=5000, puissance_thermique_nominale=200, efficacite_saisonniere=130, type_pac='basse', cop=None``
-     - 2 910.0
-     - ``type_serre``, ``surface``, ``puissance_thermique_nominale``, ``efficacite_saisonniere``, ``type_pac``, ``cop``
-     - A35-2
-     - 20/03/2015
-     - sans fin connue
+     - ``CEE.AGRI_TH_108(…)``
+     - ``type_serre`` : ``'maraichere'`` · ``surface`` : ex. 5000 · ``puissance_thermique_nominale`` : ex. 200 · ``efficacite_saisonniere`` : ex. 130 (>= 126 ; < 126) · ``type_pac`` : ``'basse'`` · ``cop`` : ex. None
    * - ``AGRI-TH-109``
      - Récupérateur de chaleur à condensation pour serres horticoles
-     - ``surface``
-     - ``type_serre='maraichere', surface=5000``
-     - 45.0
-     - ``type_serre``, ``surface``
-     - A54-2
-     - 01/01/2015
-     - 30/06/2028
+     - ``CEE.AGRI_TH_109(…)``
+     - ``type_serre`` : ``'maraichere'`` · ``surface`` : ex. 5000
    * - ``AGRI-TH-110``
      - Chaudière à haute performance énergétique pour serres horticoles
-     - ``surface``
-     - ``type_serre='maraichere', surface=5000, puissance_thermique_nominale=500``
-     - 56.0
-     - ``type_serre``, ``surface``, ``puissance_thermique_nominale``
-     - A35-2, A54-3
-     - 01/01/2015
-     - 30/06/2028
+     - ``CEE.AGRI_TH_110(…)``
+     - ``type_serre`` : ``'maraichere'`` · ``surface`` : ex. 5000 · ``puissance_thermique_nominale`` : ex. 500
    * - ``AGRI-TH-113``
      - Échangeur récupérateur de chaleur air/air dans un bâtiment d’élevage de volailles
-     - ``surface``
-     - ``surface=5000``
-     - 1 250.0
-     - ``surface``
-     - A14-1
-     - 01/01/2015
-     - sans fin connue
+     - ``CEE.AGRI_TH_113(…)``
+     - ``surface`` : ex. 5000
    * - ``AGRI-TH-118``
      - Double tube de chauffage pour serres
-     - ``surface``
-     - ``surface=5000``
-     - 1 850.0
-     - ``surface``
-     - A14-1
-     - 01/01/2015
-     - sans fin connue
+     - ``CEE.AGRI_TH_118(…)``
+     - ``surface`` : ex. 5000
    * - ``AGRI-UT-101``
      - Moto-variateur synchrone à aimants permanents ou à reluctance
-     - ``puissance_nominale``
-     - ``application='pompage_irrigation', puissance_nominale=150``
-     - 315.0
-     - ``application``, ``puissance_nominale``
-     - A24-2
-     - 20/03/2015
-     - sans fin connue
+     - ``CEE.AGRI_UT_101(…)``
+     - ``application`` : ``'pompage_irrigation'`` · ``puissance_nominale`` : ex. 150
    * - ``AGRI-UT-102``
      - Système de variation électronique de vitesse sur un moteur asynchrone
-     - ``puissance_nominale``
-     - ``application='pompe_irrigation', puissance_nominale=150``
-     - 240.0
-     - ``application``, ``puissance_nominale``
-     - A22-2
-     - 01/01/2015
-     - sans fin connue
+     - ``CEE.AGRI_UT_102(…)``
+     - ``application`` : ``'pompe_irrigation'`` · ``puissance_nominale`` : ex. 150
    * - ``AGRI-UT-103``
      - Système de régulation sur un groupe de production de froid permettant d’avoir une basse pression flottante
-     - ``puissance_electrique_nominale``
-     - ``puissance_electrique_nominale=150``
-     - 124.5
-     - ``puissance_electrique_nominale``
-     - A19-1
-     - 22/12/2015
-     - sans fin connue
+     - ``CEE.AGRI_UT_103(…)``
+     - ``puissance_electrique_nominale`` : ex. 150
    * - ``AGRI-UT-104``
      - Système de régulation sur un groupe de production de froid permettant d’avoir une haute pression flottante
-     - ``puissance_electrique_nominale``
-     - ``type_condensation='atmosphere', puissance_electrique_nominale=150, zone='H1'``
-     - 1 590.0
-     - ``type_condensation``, ``puissance_electrique_nominale``, ``zone``, ``departement``
-     - A23-1
-     - 20/10/2016
-     - sans fin connue
+     - ``CEE.AGRI_UT_104(…)``
+     - ``type_condensation`` : ``'atmosphere'`` · ``puissance_electrique_nominale`` : ex. 150 · ``zone`` : ``'H1'`` · ``departement`` : numéro (69) ou code (``"2A"``) — cf. ``CEE.H1/H2/H3``
 
 Les fiches ``AGRI-EQ-102`` sont détaillées en fin de page, avec un cas concret et sa sortie.
 

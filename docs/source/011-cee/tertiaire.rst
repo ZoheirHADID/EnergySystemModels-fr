@@ -8,12 +8,12 @@ Fiches BAT : enveloppe, équipements, chauffage, climatisation et services
 des bâtiments tertiaires. Beaucoup appliquent un facteur selon le secteur
 d'activité du bâtiment.
 
-Synthèse du secteur
--------------------
+Tableau du secteur
+------------------
 
-**54 fiches** en vigueur au 28/09/2026. Pour chacune : le paramètre que l'exemple fait varier, l'appel passé à ``calcul_CEE`` (fiche, date d'engagement ``28/09/2026`` et paramètres), la sortie en MWh cumac et les paramètres de la fonction.
+**54 fiches** en vigueur au 28/09/2026, une ligne par fiche : nom, désignation, fonction Python et valeurs des paramètres.
 
-Les valeurs admises d'un paramètre sont données par l'aide de la fonction (``help(calcul_CEE)``) ; le message d'erreur les énumère aussi quand une valeur est refusée.
+Les valeurs de la dernière colonne sont celles que **le code accepte** : ce sont les valeurs passées à ``calcul_CEE`` par les appels ci-dessous, exécutés à chaque construction de cette page (le banc compare la sortie publiée à la sortie réelle). Quand la docstring de la fiche ne cite aucune valeur, la cellule donne la **valeur testée** (``ex.``) et les bornes qu'elle énonce, plutôt qu'une liste inventée.
 
 .. code-block:: python
 
@@ -140,503 +140,228 @@ Sortie réelle :
 
 .. list-table::
    :header-rows: 1
-   :widths: 12 24 13 15 8 28 9 9 9
+   :widths: 13 26 20 41
 
-   * - Fiche
-     - Intitulé
-     - Paramètre traité
-     - Appel de référence
-     - Sortie (MWh cumac)
-     - Paramètres de la fonction
-     - Version codée
-     - Valable du
-     - au
+   * - Nom de la fiche
+     - Désignation
+     - Fonction Python
+     - Valeurs possibles des paramètres
    * - ``BAT-EN-101``
      - Isolation de combles ou de toitures
-     - ``surface``
-     - ``surface=400, zone='H1', secteur_activite='sante'``
-     - 1 248.0
-     - ``surface``, ``zone``, ``departement``, ``secteur_activite``
-     - A33-3, A64-4
-     - 01/01/2015
-     - 30/04/2027
+     - ``CEE.BAT_EN_101(…)``
+     - ``surface`` : ex. 400 · ``zone`` : ``'H1'`` · ``departement`` : numéro (69) ou code (``"2A"``) — cf. ``CEE.H1/H2/H3`` · ``secteur_activite`` : ``'sante'``
    * - ``BAT-EN-102``
      - Isolation des murs
-     - ``surface``
-     - ``surface=400, zone='H1', energie_chauffage='combustible', secteur_activite='bureaux'``
-     - 1 152.0
-     - ``surface``, ``zone``, ``departement``, ``energie_chauffage``, ``secteur_activite``
-     - A27-2, A64-3
-     - 01/01/2015
-     - 30/04/2027
+     - ``CEE.BAT_EN_102(…)``
+     - ``surface`` : ex. 400 · ``zone`` : ``'H1'`` · ``departement`` : numéro (69) ou code (``"2A"``) — cf. ``CEE.H1/H2/H3`` · ``energie_chauffage`` : ``'combustible'`` · ``secteur_activite`` : ``'bureaux'``
    * - ``BAT-EN-103``
      - Isolation d’un plancher
-     - ``surface``
-     - ``surface=400, zone='H1', secteur_activite='bureaux'``
-     - 1 248.0
-     - ``surface``, ``zone``, ``departement``, ``secteur_activite``
-     - A33-3, A64-4
-     - 01/01/2015
-     - 30/04/2027
+     - ``CEE.BAT_EN_103(…)``
+     - ``surface`` : ex. 400 · ``zone`` : ``'H1'`` · ``departement`` : numéro (69) ou code (``"2A"``) — cf. ``CEE.H1/H2/H3`` · ``secteur_activite`` : ``'bureaux'``
    * - ``BAT-EN-104``
      - Fenêtre ou porte-fenêtre complète avec vitrage isolant
-     - ``surface``
-     - ``surface=400, zone='H1', secteur_activite='bureaux', energie_chauffage='combustible'``
-     - 1 272.0
-     - ``surface``, ``zone``, ``departement``, ``secteur_activite``, ``energie_chauffage``
-     - A27-2, A54-3
-     - 01/01/2015
-     - 30/06/2028
+     - ``CEE.BAT_EN_104(…)``
+     - ``surface`` : ex. 400 · ``zone`` : ``'H1'`` · ``departement`` : numéro (69) ou code (``"2A"``) — cf. ``CEE.H1/H2/H3`` · ``secteur_activite`` : ``'bureaux'`` · ``energie_chauffage`` : ``'combustible'``
    * - ``BAT-EN-106``
      - Isolation de combles ou de toitures (France d’outre-mer)
-     - ``surface``
-     - ``surface=400, secteur_activite='bureaux', batiment='existant'``
-     - 560.0
-     - ``surface``, ``secteur_activite``, ``batiment``
-     - A33-2, A64-3
-     - 22/12/2015
-     - 30/04/2027
+     - ``CEE.BAT_EN_106(…)``
+     - ``surface`` : ex. 400 · ``secteur_activite`` : ``'bureaux'`` · ``batiment`` : ``'existant'``
    * - ``BAT-EN-107``
      - Isolation des toitures terrasses
-     - ``surface``
-     - ``surface=400, zone='H1', energie_chauffage='combustible', secteur_activite='bureaux'``
-     - 672.0
-     - ``surface``, ``zone``, ``departement``, ``energie_chauffage``, ``secteur_activite``
-     - A27-2, A64-3
-     - 01/01/2015
-     - 30/04/2027
+     - ``CEE.BAT_EN_107(…)``
+     - ``surface`` : ex. 400 · ``zone`` : ``'H1'`` · ``departement`` : numéro (69) ou code (``"2A"``) — cf. ``CEE.H1/H2/H3`` · ``energie_chauffage`` : ``'combustible'`` · ``secteur_activite`` : ``'bureaux'``
    * - ``BAT-EN-108``
      - Isolation des murs (France d’outre-mer)
-     - ``surface``
-     - ``surface=400, secteur_activite='bureaux', batiment='existant'``
-     - 368.0
-     - ``surface``, ``secteur_activite``, ``batiment``
-     - A19-1
-     - 22/12/2015
-     - sans fin connue
+     - ``CEE.BAT_EN_108(…)``
+     - ``surface`` : ex. 400 (<= 10 000) · ``secteur_activite`` : ``'bureaux'`` · ``batiment`` : ``'existant'``
    * - ``BAT-EN-109``
      - Réduction des apports solaires par la toiture (France d'outre mer)
-     - ``surface``
-     - ``surface=400, secteur_activite='bureaux', batiment='existant', territoire='reunion'``
-     - 480.0
-     - ``surface``, ``secteur_activite``, ``batiment``, ``territoire``
-     - A24-1
-     - 14/12/2016
-     - sans fin connue
+     - ``CEE.BAT_EN_109(…)``
+     - ``surface`` : ex. 400 (<= 10 000) · ``secteur_activite`` : ``'bureaux'`` · ``batiment`` : ``'existant'`` · ``territoire`` : ``'reunion'``
    * - ``BAT-EN-110``
      - Protections des baies contre le rayonnement solaire (France d’outre-mer)
-     - ``surface``
-     - ``surface=400, facteur_solaire=0.3, batiment='existant', secteur_activite='bureaux', territoire='reunion'``
-     - 440.0
-     - ``surface``, ``facteur_solaire``, ``batiment``, ``secteur_activite``, ``territoire``
-     - A25-1
-     - 02/03/2017
-     - sans fin connue
+     - ``CEE.BAT_EN_110(…)``
+     - ``surface`` : ex. 400 (<= 10 000) · ``facteur_solaire`` : ex. 0.3 · ``batiment`` : ``'existant'`` · ``secteur_activite`` : ``'bureaux'`` · ``territoire`` : ``'reunion'``
    * - ``BAT-EN-111``
      - Fenêtre ou porte-fenêtre complète avec vitrage pariétodynamique (France métropolitaine)
-     - ``surface``
-     - ``surface=400, zone='H1', secteur_activite='bureaux'``
-     - 1 320.0
-     - ``surface``, ``zone``, ``departement``, ``secteur_activite``
-     - A38-1
-     - 31/07/2021
-     - sans fin connue
+     - ``CEE.BAT_EN_111(…)``
+     - ``surface`` : ex. 400 · ``zone`` : ``'H1'`` · ``departement`` : numéro (69) ou code (``"2A"``) — cf. ``CEE.H1/H2/H3`` · ``secteur_activite`` : ``'bureaux'``
    * - ``BAT-EN-112``
      - Revêtements réflectifs en toiture
-     - ``surface``
-     - ``surface=400, zone='H1'``
-     - 64.0
-     - ``surface``, ``zone``, ``departement``
-     - A38-1
-     - 31/07/2021
-     - sans fin connue
+     - ``CEE.BAT_EN_112(…)``
+     - ``surface`` : ex. 400 · ``zone`` : ``'H1'`` · ``departement`` : numéro (69) ou code (``"2A"``) — cf. ``CEE.H1/H2/H3``
    * - ``BAT-EN-113``
      - Façade rideau ou semi-rideau avec vitrage isolant
-     - ``surface``
-     - ``surface=400, zone='H1', secteur_activite='bureaux'``
-     - 1 416.0
-     - ``surface``, ``zone``, ``departement``, ``secteur_activite``
-     - A54-1
-     - 01/10/2023
-     - 30/09/2028
+     - ``CEE.BAT_EN_113(…)``
+     - ``surface`` : ex. 400 · ``zone`` : ``'H1'`` · ``departement`` : numéro (69) ou code (``"2A"``) — cf. ``CEE.H1/H2/H3`` · ``secteur_activite`` : ``'bureaux'``
    * - ``BAT-EQ-117``
      - Installation frigorifique utilisant du CO2 subcritique ou transcritique
-     - ``puissance_positive``
-     - ``cas=1, puissance_positive=100, puissance_negative=0, option='standard', regime_sature='non'``
-     - 730.0
-     - ``cas``, ``puissance_positive``, ``puissance_negative``, ``option``, ``regime_sature``
-     - A40-2
-     - 14/12/2016
-     - 31/03/2027
+     - ``CEE.BAT_EQ_117(…)``
+     - ``cas`` : ex. 1 · ``puissance_positive`` : ex. 100 · ``puissance_negative`` : ex. 0 · ``option`` : ``'standard'`` · ``regime_sature`` : ``'non'``
    * - ``BAT-EQ-123``
      - Moto-variateur synchrone à aimants permanents ou à reluctance
-     - ``puissance_nominale``
-     - ``puissance_nominale=100, application='chauffage_pompage'``
-     - 1 370.0
-     - ``puissance_nominale``, ``application``
-     - A25-2
-     - 02/06/2016
-     - sans fin connue
+     - ``CEE.BAT_EQ_123(…)``
+     - ``puissance_nominale`` : ex. 100 · ``application`` : ``'chauffage_pompage'``
    * - ``BAT-EQ-124``
      - Fermeture des meubles frigorifiques de vente à température positive
-     - ``longueur``
-     - ``longueur=20``
-     - 512.0
-     - ``longueur``
-     - A15-1
-     - 20/03/2015
-     - sans fin connue
+     - ``CEE.BAT_EQ_124(…)``
+     - ``longueur`` : ex. 20
    * - ``BAT-EQ-125``
      - Fermeture des meubles frigorifiques de vente à température négative
-     - ``longueur``
-     - ``longueur=20, type_meuble='simple'``
-     - 134.0
-     - ``longueur``, ``type_meuble``
-     - A22-1
-     - 02/06/2016
-     - sans fin connue
+     - ``CEE.BAT_EQ_125(…)``
+     - ``longueur`` : ex. 20 · ``type_meuble`` : ``'simple'``
    * - ``BAT-EQ-129``
      - Lanterneaux d’éclairage zénithal (France Métropolitaine)
-     - ``surface``
-     - ``surface=400, zone='H1', secteur_activite='commerces'``
-     - 3 800.0
-     - ``surface``, ``zone``, ``departement``, ``secteur_activite``
-     - A26-1
-     - 26/07/2017
-     - sans fin connue
+     - ``CEE.BAT_EQ_129(…)``
+     - ``surface`` : ex. 400 · ``zone`` : ``'H1'`` · ``departement`` : numéro (69) ou code (``"2A"``) — cf. ``CEE.H1/H2/H3`` · ``secteur_activite`` : ``'commerces'``
    * - ``BAT-EQ-130``
      - Système de condensation frigorifique à haute efficacité
-     - ``puissance_nominale``
-     - ``puissance_nominale=100, systeme='eau', delta_t=8, application='climatisation_confort'``
-     - 50.0
-     - ``puissance_nominale``, ``systeme``, ``delta_t``, ``application``
-     - A22-1
-     - 02/06/2016
-     - sans fin connue
+     - ``CEE.BAT_EQ_130(…)``
+     - ``puissance_nominale`` : ex. 100 · ``systeme`` : ``'eau'`` · ``delta_t`` : ex. 8 · ``application`` : ``'climatisation_confort'``
    * - ``BAT-EQ-131``
      - Conduits de lumière naturelle
-     - ``surface``
-     - ``surface=400, secteur_activite='bureaux', localisation='metropole'``
-     - 8 550.0
-     - ``surface``, ``secteur_activite``, ``localisation``
-     - A15-1
-     - 20/03/2015
-     - sans fin connue
+     - ``CEE.BAT_EQ_131(…)``
+     - ``surface`` : ex. 400 · ``secteur_activite`` : ``'bureaux'`` · ``localisation`` : ``'metropole'``
    * - ``BAT-EQ-134``
      - Meuble frigorifique de vente performant avec groupe de production de froid intégré
-     - ``longueur``
-     - ``longueur=20, classe_energetique='A', type_meuble='armoire_verticale'``
-     - 876.0
-     - ``longueur``, ``classe_energetique``, ``type_meuble``
-     - A58-2
-     - 29/12/2021
-     - 31/12/2028
+     - ``CEE.BAT_EQ_134(…)``
+     - ``longueur`` : ex. 20 · ``classe_energetique`` : ``'A'`` · ``type_meuble`` : ``'armoire_verticale'``
    * - ``BAT-EQ-135``
      - Dispositif performant d’alimentation sans interruption
-     - ``puissance_nominale``
-     - ``puissance_nominale=150``
-     - 465.0
-     - ``puissance_nominale``
-     - A65-2
-     - 31/08/2024
-     - 31/07/2029
+     - ``CEE.BAT_EQ_135(…)``
+     - ``puissance_nominale`` : ex. 150
    * - ``BAT-SE-103``
      - Réglage des organes d’équilibrage d’une installation de chauffage à eau chaude
-     - ``surface``
-     - ``surface=400, zone='H1'``
-     - 48.0
-     - ``surface``, ``zone``, ``departement``
-     - A19-1
-     - 22/12/2015
-     - sans fin connue
+     - ``CEE.BAT_SE_103(…)``
+     - ``surface`` : ex. 400 · ``zone`` : ``'H1'`` · ``departement`` : numéro (69) ou code (``"2A"``) — cf. ``CEE.H1/H2/H3``
    * - ``BAT-SE-104``
      - Contrat de performance énergétique Services (CPE Services) Chauffage
-     - ``surface``
-     - ``surface=400, duree_garantie=3, zone='H1', postes='climatisation', secteur_activite='bureaux'``
-     - 17.4
-     - ``surface``, ``duree_garantie``, ``zone``, ``departement``, ``postes``, ``secteur_activite``
-     - A31-1
-     - 31/07/2019
-     - sans fin connue
+     - ``CEE.BAT_SE_104(…)``
+     - ``surface`` : ex. 400 · ``duree_garantie`` : ex. 3 (>= 2) · ``zone`` : ``'H1'`` · ``departement`` : numéro (69) ou code (``"2A"``) — cf. ``CEE.H1/H2/H3`` · ``postes`` : ``'climatisation'`` · ``secteur_activite`` : ``'bureaux'``
    * - ``BAT-SE-105``
      - Abaissement de la température de retour vers un réseau de chaleur
-     - ``surface``
-     - ``surface=400, zone='H1', secteur_activite='bureaux'``
-     - 62.4
-     - ``surface``, ``zone``, ``departement``, ``secteur_activite``
-     - A32-1
-     - 10/01/2020
-     - sans fin connue
+     - ``CEE.BAT_SE_105(…)``
+     - ``surface`` : ex. 400 · ``zone`` : ``'H1'`` · ``departement`` : numéro (69) ou code (``"2A"``) — cf. ``CEE.H1/H2/H3`` · ``secteur_activite`` : ``'bureaux'``
    * - ``BAT-TH-103``
      - Plancher chauffant hydraulique à basse température
-     - ``surface``
-     - ``surface=400, zone='H1', secteur_activite='bureaux'``
-     - 100.8
-     - ``surface``, ``zone``, ``departement``, ``secteur_activite``
-     - A31-2
-     - 31/07/2015
-     - sans fin connue
+     - ``CEE.BAT_TH_103(…)``
+     - ``surface`` : ex. 400 · ``zone`` : ``'H1'`` · ``departement`` : numéro (69) ou code (``"2A"``) — cf. ``CEE.H1/H2/H3`` · ``secteur_activite`` : ``'bureaux'``
    * - ``BAT-TH-105``
      - Radiateur basse température pour un chauffage central
-     - ``surface``
-     - ``surface=400, zone='H1', secteur_activite='bureaux'``
-     - 26.9
-     - ``surface``, ``zone``, ``departement``, ``secteur_activite``
-     - A32-2
-     - 29/06/2015
-     - sans fin connue
+     - ``CEE.BAT_TH_105(…)``
+     - ``surface`` : ex. 400 · ``zone`` : ``'H1'`` · ``departement`` : numéro (69) ou code (``"2A"``) — cf. ``CEE.H1/H2/H3`` · ``secteur_activite`` : ``'bureaux'``
    * - ``BAT-TH-108``
      - Système de régulation par programmation d’intermittence
-     - ``surface``
-     - ``surface=400, zone='H1', secteur_activite='bureaux', energie_chauffage='combustible'``
-     - 29.0
-     - ``surface``, ``zone``, ``departement``, ``secteur_activite``, ``energie_chauffage``
-     - A22-1
-     - 02/06/2016
-     - sans fin connue
+     - ``CEE.BAT_TH_108(…)``
+     - ``surface`` : ex. 400 (<= 10 000) · ``zone`` : ``'H1'`` · ``departement`` : numéro (69) ou code (``"2A"``) — cf. ``CEE.H1/H2/H3`` · ``secteur_activite`` : ``'bureaux'`` · ``energie_chauffage`` : ``'combustible'``
    * - ``BAT-TH-109``
      - Optimiseur de relance en chauffage collectif comprenant une fonction auto-adaptative
-     - ``surface``
-     - ``surface=400, zone='H1', secteur_activite='bureaux'``
-     - 30.4
-     - ``surface``, ``zone``, ``departement``, ``secteur_activite``
-     - A31-2, A54-3
-     - 02/06/2016
-     - 30/06/2028
+     - ``CEE.BAT_TH_109(…)``
+     - ``surface`` : ex. 400 · ``zone`` : ``'H1'`` · ``departement`` : numéro (69) ou code (``"2A"``) — cf. ``CEE.H1/H2/H3`` · ``secteur_activite`` : ``'bureaux'``
    * - ``BAT-TH-110``
      - Récupérateur de chaleur à condensation
-     - ``surface``
-     - ``surface=400, usage='chauffage', zone='H1', secteur_activite='bureaux', coefficient_r=0.8, puissance_equipee=None, puissance_chaufferie=None``
-     - 57.6
-     - ``surface``, ``usage``, ``zone``, ``departement``, ``secteur_activite``, ``coefficient_r``, ``puissance_equipee``, ``puissance_chaufferie``
-     - A15-1
-     - 20/03/2015
-     - sans fin connue
+     - ``CEE.BAT_TH_110(…)``
+     - ``surface`` : ex. 400 (<= 10 000) · ``usage`` : ``'chauffage'`` · ``zone`` : ``'H1'`` · ``departement`` : numéro (69) ou code (``"2A"``) — cf. ``CEE.H1/H2/H3`` · ``secteur_activite`` : ``'bureaux'`` · ``coefficient_r`` : ex. 0.8 (<= 1 ; < 1) · ``puissance_equipee`` : ex. None (< 1) · ``puissance_chaufferie`` : ex. None (< 1)
    * - ``BAT-TH-111``
      - Chauffe-eau solaire collectif (France métropolitaine)
-     - ``taux_couverture``
-     - ``besoin_annuel=100000, taux_couverture=50, production_solaire_utile=None``
-     - 980.0
-     - ``besoin_annuel``, ``taux_couverture``, ``production_solaire_utile``
-     - A17-1
-     - 31/07/2015
-     - sans fin connue
+     - ``CEE.BAT_TH_111(…)``
+     - ``besoin_annuel`` : ex. 100000 · ``taux_couverture`` : ex. 50 · ``production_solaire_utile`` : ex. None
    * - ``BAT-TH-112``
      - Système de variation électronique de vitesse sur un moteur asynchrone
-     - ``puissance_nominale``
-     - ``puissance_nominale=100, application='climatisation'``
-     - 99.0
-     - ``puissance_nominale``, ``application``
-     - A22-2
-     - 01/01/2015
-     - sans fin connue
+     - ``CEE.BAT_TH_112(…)``
+     - ``puissance_nominale`` : ex. 100 · ``application`` : ``'climatisation'``
    * - ``BAT-TH-115``
      - Climatiseur performant (France d'outre mer)
-     - ``puissance_frigorifique``
-     - ``secteur_activite='bureaux', classe_energetique='A', puissance_frigorifique=8.21, puissance_btu=None``
-     - 2.6
-     - ``secteur_activite``, ``classe_energetique``, ``puissance_frigorifique``, ``puissance_btu``
-     - A15-2
-     - 01/01/2015
-     - sans fin connue
+     - ``CEE.BAT_TH_115(…)``
+     - ``secteur_activite`` : ``'bureaux'`` · ``classe_energetique`` : ``'A'`` · ``puissance_frigorifique`` : ex. 8.21 · ``puissance_btu`` : ex. None
    * - ``BAT-TH-116``
      - Système de gestion technique du bâtiment pour le chauffage, l’eau chaude sanitaire, le refroidissement / climatisation, l’éclairage et les auxiliaires
-     - ``surfaces``
-     - ``surfaces={'chauffage': 400}, classe='A', zone='H1', secteur_activite='bureaux'``
-     - 158.4
-     - ``surfaces``, ``classe``, ``zone``, ``departement``, ``secteur_activite``
-     - A38-3, A59-5, A62-6
-     - 20/03/2015
-     - 31/12/2029
+     - ``CEE.BAT_TH_116(…)``
+     - ``surfaces`` : ex. {'chauffage': 400} · ``classe`` : ``'A'`` · ``zone`` : ``'H1'`` · ``departement`` : numéro (69) ou code (``"2A"``) — cf. ``CEE.H1/H2/H3`` · ``secteur_activite`` : ``'bureaux'``
    * - ``BAT-TH-121``
      - Chauffe-eau solaire (France d'outre mer)
-     - ``taux_couverture``
-     - ``besoin_annuel=100000, taux_couverture=60, type_chauffe_eau='collectif_centralise'``
-     - 516.0
-     - ``besoin_annuel``, ``taux_couverture``, ``type_chauffe_eau``
-     - A35-3
-     - 01/01/2015
-     - sans fin connue
+     - ``CEE.BAT_TH_121(…)``
+     - ``besoin_annuel`` : ex. 100000 · ``taux_couverture`` : ex. 60 · ``type_chauffe_eau`` : ``'collectif_centralise'``
    * - ``BAT-TH-122``
      - Programmateur d’intermittence pour la climatisation (France d’outre-mer)
-     - ``surface``
-     - ``surface=400, secteur_activite='bureaux'``
-     - 224.0
-     - ``surface``, ``secteur_activite``
-     - A22-1
-     - 02/06/2016
-     - sans fin connue
+     - ``CEE.BAT_TH_122(…)``
+     - ``surface`` : ex. 400 (< 10 000) · ``secteur_activite`` : ``'bureaux'``
    * - ``BAT-TH-125``
      - Ventilation mécanique simple flux à débit d’air constant ou modulé
-     - ``surface``
-     - ``surface=400, type_ventilation='debit_constant', zone='H1', secteur_activite='bureaux'``
-     - 64.0
-     - ``surface``, ``type_ventilation``, ``zone``, ``departement``, ``secteur_activite``
-     - A32-2
-     - 31/07/2015
-     - sans fin connue
+     - ``CEE.BAT_TH_125(…)``
+     - ``surface`` : ex. 400 · ``type_ventilation`` : ``'debit_constant'`` · ``zone`` : ``'H1'`` · ``departement`` : numéro (69) ou code (``"2A"``) — cf. ``CEE.H1/H2/H3`` · ``secteur_activite`` : ``'bureaux'``
    * - ``BAT-TH-126``
      - Ventilation mécanique double flux avec échangeur à débit d’air constant ou modulé
-     - ``surface``
-     - ``surface=400, type_ventilation='debit_constant', zone='H1', secteur_activite='bureaux'``
-     - 163.2
-     - ``surface``, ``type_ventilation``, ``zone``, ``departement``, ``secteur_activite``
-     - A32-2
-     - 31/07/2015
-     - sans fin connue
+     - ``CEE.BAT_TH_126(…)``
+     - ``surface`` : ex. 400 · ``type_ventilation`` : ``'debit_constant'`` · ``zone`` : ``'H1'`` · ``departement`` : numéro (69) ou code (``"2A"``) — cf. ``CEE.H1/H2/H3`` · ``secteur_activite`` : ``'bureaux'``
    * - ``BAT-TH-127``
      - Raccordement d'un bâtiment tertiaire à un réseau de chaleur
-     - ``surface``
-     - ``surface=400, puissance_souscrite=100, zone='H1', secteur_activite='bureaux', usage='chauffage'``
-     - 211.2
-     - ``surface``, ``puissance_souscrite``, ``zone``, ``departement``, ``secteur_activite``, ``usage``
-     - A79-5
-     - 31/07/2015
-     - 31/12/2030
+     - ``CEE.BAT_TH_127(…)``
+     - ``surface`` : ex. 400 · ``puissance_souscrite`` : ex. 100 · ``zone`` : ``'H1'`` · ``departement`` : numéro (69) ou code (``"2A"``) — cf. ``CEE.H1/H2/H3`` · ``secteur_activite`` : ``'bureaux'`` · ``usage`` : ``'chauffage'``
    * - ``BAT-TH-134``
      - Système de régulation sur un groupe de production de froid permettant d’avoir une haute pression flottante (France métropolitaine)
-     - ``puissance_nominale``
-     - ``puissance_nominale=100, application='climatisation_confort', condensation='atmosphere', departement=69``
-     - 200.0
-     - ``puissance_nominale``, ``application``, ``condensation``, ``zone``, ``departement``
-     - A22-1
-     - 02/06/2016
-     - sans fin connue
+     - ``CEE.BAT_TH_134(…)``
+     - ``puissance_nominale`` : ex. 100 · ``application`` : ``'climatisation_confort'`` · ``condensation`` : ``'atmosphere'`` · ``zone`` : ``"H1"``, ``"H2"``, ``"H3"`` · ``departement`` : ex. 69
    * - ``BAT-TH-135``
      - Système de régulation sur un groupe de production de froid permettant d’avoir une haute pression flottante (France d’outre-mer)
-     - ``puissance_nominale``
-     - ``puissance_nominale=100, application='climatisation_confort'``
-     - 250.0
-     - ``puissance_nominale``, ``application``
-     - A26-1
-     - 26/07/2017
-     - sans fin connue
+     - ``CEE.BAT_TH_135(…)``
+     - ``puissance_nominale`` : ex. 100 · ``application`` : ``'climatisation_confort'``
    * - ``BAT-TH-139``
      - Système de récupération de chaleur sur un groupe de production de froid
-     - ``puissance_recuperee``
-     - ``duree_annuelle=2000, puissance_recuperee=100, puissance_compresseurs=300, puissance_deja_recuperee=0``
-     - 1 980.0
-     - ``duree_annuelle``, ``puissance_recuperee``, ``puissance_compresseurs``, ``puissance_deja_recuperee``
-     - A35-3
-     - 29/06/2015
-     - sans fin connue
+     - ``CEE.BAT_TH_139(…)``
+     - ``duree_annuelle`` : ex. 2000 · ``puissance_recuperee`` : ex. 100 · ``puissance_compresseurs`` : ex. 300 · ``puissance_deja_recuperee`` : ex. 0
    * - ``BAT-TH-142``
      - Système de déstratification d’air
-     - ``puissance_convectif``
-     - ``zone='H2', puissance_convectif=120, puissance_radiatif=40, hauteur=8, type_batiment='bureaux'``
-     - 604.0
-     - ``zone``, ``departement``, ``puissance_convectif``, ``puissance_radiatif``, ``hauteur``, ``type_batiment``
-     - A38-2, A54-3, A71-4
-     - 22/12/2015
-     - 31/07/2030
+     - ``CEE.BAT_TH_142(…)``
+     - ``zone`` : ``'H2'`` · ``departement`` : numéro (69) ou code (``"2A"``) — cf. ``CEE.H1/H2/H3`` · ``puissance_convectif`` : ex. 120 · ``puissance_radiatif`` : ex. 40 · ``hauteur`` : ex. 8 (>= 20) · ``type_batiment`` : ``'bureaux'``
    * - ``BAT-TH-143``
      - Ventilo-convecteurs haute performance
-     - ``surface_chauffee``
-     - ``zone='H1', secteur_activite='bureaux_restauration_commerces', surface_chauffee=400, surface_rafraichie=400``
-     - 22.3
-     - ``zone``, ``departement``, ``secteur_activite``, ``surface_chauffee``, ``surface_rafraichie``
-     - A16-1
-     - 29/06/2015
-     - sans fin connue
+     - ``CEE.BAT_TH_143(…)``
+     - ``zone`` : ``'H1'`` · ``departement`` : numéro (69) ou code (``"2A"``) — cf. ``CEE.H1/H2/H3`` · ``secteur_activite`` : ``'bureaux_restauration_commerces'`` · ``surface_chauffee`` : ex. 400 (> 0) · ``surface_rafraichie`` : ex. 400 (> 0)
    * - ``BAT-TH-145``
      - Système de régulation sur un groupe de production de froid permettant d’avoir une basse pression flottante (France métropolitaine)
-     - ``puissance_nominale``
-     - ``puissance_nominale=100, application='climatisation_confort'``
-     - 31.0
-     - ``puissance_nominale``, ``application``
-     - A23-1
-     - 20/10/2016
-     - sans fin connue
+     - ``CEE.BAT_TH_145(…)``
+     - ``puissance_nominale`` : ex. 100 · ``application`` : ``'climatisation_confort'``
    * - ``BAT-TH-153``
      - Système de confinement des allées froides et allées chaudes dans un Data Center
-     - ``puissance_nominale``
-     - ``delta_t=10, puissance_nominale=100``
-     - 1 500.0
-     - ``delta_t``, ``puissance_nominale``
-     - A28-1
-     - 06/12/2018
-     - sans fin connue
+     - ``CEE.BAT_TH_153(…)``
+     - ``delta_t`` : ex. 10 · ``puissance_nominale`` : ex. 100
    * - ``BAT-TH-154``
      - Récupération instantanée de chaleur sur eaux grises
-     - ``nombre_unites``
-     - ``nombre_unites=10, efficacite=0.8, debits='egaux', usage='hotellerie', departement=69``
-     - 132.0
-     - ``nombre_unites``, ``efficacite``, ``debits``, ``usage``, ``zone``, ``departement``
-     - A28-1
-     - 06/12/2018
-     - sans fin connue
+     - ``CEE.BAT_TH_154(…)``
+     - ``nombre_unites`` : ex. 10 · ``efficacite`` : ex. 0.8 · ``debits`` : ``'egaux'`` · ``usage`` : ``'hotellerie'`` · ``zone`` : ``"H1"``, ``"H2"``, ``"H3"`` · ``departement`` : ex. 69
    * - ``BAT-TH-156``
      - Freecooling par eau de refroidissement en substitution d'un groupe froid pour la climatisation
-     - ``puissance_compresseurs``
-     - ``puissance_compresseurs=300, temperature_consigne=16, departement=69, secteur='hors_datacenter'``
-     - 1 530.0
-     - ``puissance_compresseurs``, ``temperature_consigne``, ``zone``, ``departement``, ``secteur``
-     - A31-1
-     - 31/07/2019
-     - sans fin connue
+     - ``CEE.BAT_TH_156(…)``
+     - ``puissance_compresseurs`` : ex. 300 · ``temperature_consigne`` : ex. 16 · ``zone`` : ``"H1"``, ``"H2"``, ``"H3"`` · ``departement`` : ex. 69 · ``secteur`` : ``'hors_datacenter'``
    * - ``BAT-TH-157``
      - Chaudière biomasse collective
-     - ``puissance_chaudiere``
-     - ``chaleur_utile=100000, puissance_chaudiere=500``
-     - 480.0
-     - ``chaleur_utile``, ``puissance_chaudiere``
-     - A50-2
-     - 04/05/2020
-     - 31/03/2028
+     - ``CEE.BAT_TH_157(…)``
+     - ``chaleur_utile`` : ex. 100000 · ``puissance_chaudiere`` : ex. 500
    * - ``BAT-TH-158``
      - Pompe à chaleur réversible de type air/air
-     - ``surface``
-     - ``surface=400, zone='H1', secteur_activite='bureaux', puissance_calorifique=100, rooftop=False``
-     - 417.6
-     - ``surface``, ``zone``, ``departement``, ``secteur_activite``, ``puissance_calorifique``, ``rooftop``
-     - A40-1, A62-3
-     - 29/12/2021
-     - 31/12/2029
+     - ``CEE.BAT_TH_158(…)``
+     - ``surface`` : ex. 400 · ``zone`` : ``'H1'`` · ``departement`` : numéro (69) ou code (``"2A"``) — cf. ``CEE.H1/H2/H3`` · ``secteur_activite`` : ``'bureaux'`` · ``puissance_calorifique`` : ex. 100 · ``rooftop`` : ex. False
    * - ``BAT-TH-159``
      - Raccordement d’un bâtiment tertiaire à un réseau de froid
-     - ``puissance_thermique``
-     - ``puissance_thermique=100, zone='H1', secteur_activite='bureaux'``
-     - 780.0
-     - ``puissance_thermique``, ``zone``, ``departement``, ``secteur_activite``
-     - A40-1
-     - 29/12/2021
-     - sans fin connue
+     - ``CEE.BAT_TH_159(…)``
+     - ``puissance_thermique`` : ex. 100 · ``zone`` : ``'H1'`` · ``departement`` : numéro (69) ou code (``"2A"``) — cf. ``CEE.H1/H2/H3`` · ``secteur_activite`` : ``'bureaux'``
    * - ``BAT-TH-161``
      - Maintien en température des groupes électrogènes de secours par pompe à chaleur de type air/eau
-     - ``puissance_nominale``
-     - ``puissance_nominale=900, nombre_groupes=2``
-     - 335.6
-     - ``puissance_nominale``, ``nombre_groupes``
-     - A62-1
-     - 31/08/2024
-     - 31/07/2029
+     - ``CEE.BAT_TH_161(…)``
+     - ``puissance_nominale`` : ex. 900 · ``nombre_groupes`` : ex. 2
    * - ``BAT-TH-162``
      - Système géothermique
-     - ``surface``
-     - ``surface=400, puissance_thermique=100, usage='chauffage', zone='H1', secteur_activite='bureaux', etas=130, cop=None, puissance_chaufferie=300, coefficient_r=None``
-     - 240.0
-     - ``surface``, ``puissance_thermique``, ``usage``, ``zone``, ``departement``, ``secteur_activite``, ``etas``, ``cop``, ``puissance_chaufferie``, ``coefficient_r``
-     - A75-1, A81-2
-     - 01/01/2026
-     - 31/12/2030
+     - ``CEE.BAT_TH_162(…)``
+     - ``surface`` : ex. 400 · ``puissance_thermique`` : ex. 100 · ``usage`` : ``'chauffage'`` · ``zone`` : ``'H1'`` · ``departement`` : numéro (69) ou code (``"2A"``) — cf. ``CEE.H1/H2/H3`` · ``secteur_activite`` : ``'bureaux'`` · ``etas`` : ex. 130 · ``cop`` : ex. None · ``puissance_chaufferie`` : ex. 300 · ``coefficient_r`` : ex. None
    * - ``BAT-TH-163``
      - Pompe à chaleur collective de type air/eau
-     - ``surface``
-     - ``surface=400, puissance_thermique=100, zone='H1', secteur_activite='bureaux', etas=130, cop=None, puissance_chaufferie=300, coefficient_r=None``
-     - 192.0
-     - ``surface``, ``puissance_thermique``, ``zone``, ``departement``, ``secteur_activite``, ``etas``, ``cop``, ``puissance_chaufferie``, ``coefficient_r``
-     - A75-1, A81-2
-     - 01/01/2026
-     - 31/12/2030
+     - ``CEE.BAT_TH_163(…)``
+     - ``surface`` : ex. 400 · ``puissance_thermique`` : ex. 100 · ``zone`` : ``'H1'`` · ``departement`` : numéro (69) ou code (``"2A"``) — cf. ``CEE.H1/H2/H3`` · ``secteur_activite`` : ``'bureaux'`` · ``etas`` : ex. 130 · ``cop`` : ex. None · ``puissance_chaufferie`` : ex. 300 · ``coefficient_r`` : ex. None
    * - ``BAT-TH-164``
      - Pompe à chaleur collective de type eau/eau ou eau glycolée/eau
-     - ``surface``
-     - ``surface=400, puissance_thermique=100, zone='H1', secteur_activite='bureaux', etas=130, cop=None, puissance_chaufferie=300, coefficient_r=None``
-     - 192.0
-     - ``surface``, ``puissance_thermique``, ``zone``, ``departement``, ``secteur_activite``, ``etas``, ``cop``, ``puissance_chaufferie``, ``coefficient_r``
-     - A75-1, A81-2
-     - 01/01/2026
-     - 31/12/2030
+     - ``CEE.BAT_TH_164(…)``
+     - ``surface`` : ex. 400 · ``puissance_thermique`` : ex. 100 · ``zone`` : ``'H1'`` · ``departement`` : numéro (69) ou code (``"2A"``) — cf. ``CEE.H1/H2/H3`` · ``secteur_activite`` : ``'bureaux'`` · ``etas`` : ex. 130 · ``cop`` : ex. None · ``puissance_chaufferie`` : ex. 300 · ``coefficient_r`` : ex. None
 
 Les fiches ``BAT-EN-101`` sont détaillées en fin de page, avec un cas concret et sa sortie.
 

@@ -14,12 +14,12 @@ Sur une pompe de 75 kW (IND-UT-102), puis sur un ventilateur de "
 30 kW : le forfait par kW ne change pas, c'est la puissance qui fait "
 le volume.
 
-Synthèse du secteur
--------------------
+Tableau du secteur
+------------------
 
-**32 fiches** en vigueur au 28/09/2026. Pour chacune : le paramètre que l'exemple fait varier, l'appel passé à ``calcul_CEE`` (fiche, date d'engagement ``28/09/2026`` et paramètres), la sortie en MWh cumac et les paramètres de la fonction.
+**32 fiches** en vigueur au 28/09/2026, une ligne par fiche : nom, désignation, fonction Python et valeurs des paramètres.
 
-Les valeurs admises d'un paramètre sont données par l'aide de la fonction (``help(calcul_CEE)``) ; le message d'erreur les énumère aussi quand une valeur est refusée.
+Les valeurs de la dernière colonne sont celles que **le code accepte** : ce sont les valeurs passées à ``calcul_CEE`` par les appels ci-dessous, exécutés à chaque construction de cette page (le banc compare la sortie publiée à la sortie réelle). Quand la docstring de la fiche ne cite aucune valeur, la cellule donne la **valeur testée** (``ex.``) et les bornes qu'elle énonce, plutôt qu'une liste inventée.
 
 .. code-block:: python
 
@@ -102,305 +102,140 @@ Sortie réelle :
 
 .. list-table::
    :header-rows: 1
-   :widths: 12 24 13 15 8 28 9 9 9
+   :widths: 13 26 20 41
 
-   * - Fiche
-     - Intitulé
-     - Paramètre traité
-     - Appel de référence
-     - Sortie (MWh cumac)
-     - Paramètres de la fonction
-     - Version codée
-     - Valable du
-     - au
+   * - Nom de la fiche
+     - Désignation
+     - Fonction Python
+     - Valeurs possibles des paramètres
    * - ``IND-BA-110``
      - Déstratificateur ou brasseur d'air
-     - ``type_chauffage``
-     - ``type_chauffage='convectif', fonctionnement='3*8h_ArrWE', hauteur=12, puissance_nominale=500, zone='H1'``
-     - 3 600.0
-     - ``type_chauffage``, ``fonctionnement``, ``hauteur``, ``puissance_nominale``, ``zone``, ``Department``
-     - A20-2, A71-4
-     - 01/01/2015
-     - 31/07/2030
+     - ``CEE.IND_BA_110(…)``
+     - ``type_chauffage`` : ``'convectif'`` · ``fonctionnement`` : ``'3*8h_ArrWE'`` · ``hauteur`` : ex. 12 · ``puissance_nominale`` : ex. 500 · ``zone`` : ``'H1'`` · ``Department`` : numéro (69) ou code (``"2A"``) — cf. ``CEE.H1/H2/H3``
    * - ``IND-BA-113``
      - Lanterneaux d’éclairage zénithal (France Métropolitaine)
-     - ``surface``
-     - ``surface=500, zone='H1'``
-     - 1 700.0
-     - ``surface``, ``zone``, ``Department``
-     - A26-1
-     - 26/07/2017
-     - sans fin connue
+     - ``CEE.IND_BA_113(…)``
+     - ``surface`` : ex. 500 · ``zone`` : ``'H1'`` · ``Department`` : numéro (69) ou code (``"2A"``) — cf. ``CEE.H1/H2/H3``
    * - ``IND-BA-114``
      - Conduits de lumière naturelle
-     - ``surface``
-     - ``surface=500``
-     - 8 550.0
-     - ``surface``, ``zone_geographique``
-     - A15-1
-     - 20/03/2015
-     - sans fin connue
+     - ``CEE.IND_BA_114(…)``
+     - ``surface`` : ex. 500 · ``zone_geographique`` : ``"H1"``, ``"H2"``, ``"H3"``
    * - ``IND-BA-117``
      - Chauffage décentralisé performant
-     - ``puissance_nominale``
-     - ``type_appareil='radiant', fonctionnement='3*8h_ArrWE', puissance_nominale=50, zone='H1'``
-     - 97.5
-     - ``type_appareil``, ``fonctionnement``, ``puissance_nominale``, ``zone``, ``Department``
-     - A27-1
-     - 22/12/2017
-     - sans fin connue
+     - ``CEE.IND_BA_117(…)``
+     - ``type_appareil`` : ``'radiant'`` · ``fonctionnement`` : ``'3*8h_ArrWE'`` · ``puissance_nominale`` : ex. 50 · ``zone`` : ``'H1'`` · ``Department`` : numéro (69) ou code (``"2A"``) — cf. ``CEE.H1/H2/H3``
    * - ``IND-EN-101``
      - Isolation des murs (France d’outre-mer)
-     - ``surface``
-     - ``type_construction='existant', surface=200``
-     - 54.0
-     - ``type_construction``, ``surface``
-     - A23-1
-     - 20/10/2016
-     - sans fin connue
+     - ``CEE.IND_EN_101(…)``
+     - ``type_construction`` : ``'existant'`` · ``surface`` : ex. 200
    * - ``IND-EN-102``
      - Isolation de combles ou de toitures (France d’outre-mer)
-     - ``surface``
-     - ``type_construction='existant', surface=200``
-     - 320.0
-     - ``type_construction``, ``surface``
-     - A33-2, A64-3
-     - 22/12/2015
-     - 30/04/2027
+     - ``CEE.IND_EN_102(…)``
+     - ``type_construction`` : ``'existant'`` · ``surface`` : ex. 200
    * - ``IND-UT-102``
      - Système de variation électronique de vitesse sur un moteur asynchrone
-     - ``application``
-     - ``application='pompage', puissance_nominale=75``
-     - 930.0
-     - ``application``, ``puissance_nominale``
-     - A19-2
-     - 01/01/2015
-     - sans fin connue
+     - ``CEE.IND_UT_102(…)``
+     - ``application`` : ``'pompage'`` · ``puissance_nominale`` : ex. 75
    * - ``IND-UT-103``
      - Système de récupération de chaleur sur un compresseur d’air
-     - ``puissance_nominale``
-     - ``fonctionnement='3*8h_ArrWE', Department=75, Heat_Use='chauffage de locaux', puissance_nominale=100``
-     - 1 970.0
-     - ``fonctionnement``, ``Department``, ``Heat_Use``, ``puissance_nominale``
-     - A17-2
-     - 01/01/2015
-     - sans fin connue
+     - ``CEE.IND_UT_103(…)``
+     - ``fonctionnement`` : ``'3*8h_ArrWE'`` · ``Department`` : ex. 75 · ``Heat_Use`` : ``'chauffage de locaux'`` · ``puissance_nominale`` : ex. 100
    * - ``IND-UT-104``
      - Économiseur sur les effluents gazeux d’une chaudière de production de vapeur
-     - ``puissance_nominale``
-     - ``fonctionnement='3*8h_ArrWE', puissance_nominale=5000``
-     - 4 950.0
-     - ``fonctionnement``, ``puissance_nominale``
-     - A14-1
-     - 01/01/2015
-     - sans fin connue
+     - ``CEE.IND_UT_104(…)``
+     - ``fonctionnement`` : ``'3*8h_ArrWE'`` · ``puissance_nominale`` : ex. 5000
    * - ``IND-UT-105``
      - Brûleur micromodulant sur chaudière industrielle
-     - ``puissance_nominale``
-     - ``fonctionnement='3*8h_ArrWE', puissance_nominale=5000``
-     - 8 000.0
-     - ``fonctionnement``, ``puissance_nominale``
-     - A14-1
-     - 01/01/2015
-     - sans fin connue
+     - ``CEE.IND_UT_105(…)``
+     - ``fonctionnement`` : ``'3*8h_ArrWE'`` · ``puissance_nominale`` : ex. 5000
    * - ``IND-UT-113``
      - Système de condensation frigorifique à haute efficacité
-     - ``type_condensation``
-     - ``type_condensation='air_sec', delta_T=10, fonctionnement='3*8h_ArrWE', puissance_nominale=500``
-     - 2 100.0
-     - ``type_condensation``, ``delta_T``, ``fonctionnement``, ``puissance_nominale``
-     - A14-1
-     - 01/01/2015
-     - sans fin connue
+     - ``CEE.IND_UT_113(…)``
+     - ``type_condensation`` : ``'air_sec'`` · ``delta_T`` : ex. 10 · ``fonctionnement`` : ``'3*8h_ArrWE'`` · ``puissance_nominale`` : ex. 500
    * - ``IND-UT-114``
      - Moto-variateur synchrone à aimants permanents ou à reluctance
-     - ``application``
-     - ``application='pompage', puissance_nominale=75``
-     - 1 335.0
-     - ``application``, ``puissance_nominale``
-     - A24-2
-     - 01/01/2015
-     - sans fin connue
+     - ``CEE.IND_UT_114(…)``
+     - ``application`` : ``'pompage'`` · ``puissance_nominale`` : ex. 75
    * - ``IND-UT-115``
      - Système de régulation sur un groupe de production de froid permettant d’avoir une basse pression flottante
-     - ``puissance_nominale``
-     - ``puissance_nominale=500``
-     - 750.0
-     - ``puissance_nominale``
-     - A15-1
-     - 20/03/2015
-     - sans fin connue
+     - ``CEE.IND_UT_115(…)``
+     - ``puissance_nominale`` : ex. 500
    * - ``IND-UT-116``
      - Système de régulation sur un groupe de production de froid permettant d’avoir une haute pression flottante
-     - ``puissance_nominale``
-     - ``type_condensation='eau', puissance_nominale=500, zone='H1'``
-     - 5 850.0
-     - ``type_condensation``, ``puissance_nominale``, ``zone``, ``Department``
-     - A14-1
-     - 01/01/2015
-     - sans fin connue
+     - ``CEE.IND_UT_116(…)``
+     - ``type_condensation`` : ``'eau'`` · ``puissance_nominale`` : ex. 500 · ``zone`` : ``'H1'`` · ``Department`` : numéro (69) ou code (``"2A"``) — cf. ``CEE.H1/H2/H3``
    * - ``IND-UT-118``
      - Brûleur avec dispositif de récupération de chaleur sur un four industriel
-     - ``puissance_nominale``
-     - ``nature='recuperateur_fumees', fonctionnement='3*8h_ArrWE', puissance_nominale=5000, temperature_fumees=400``
-     - 15 500.0
-     - ``nature``, ``fonctionnement``, ``puissance_nominale``, ``temperature_fumees``
-     - A14-1
-     - 01/01/2015
-     - sans fin connue
+     - ``CEE.IND_UT_118(…)``
+     - ``nature`` : ``'recuperateur_fumees'`` · ``fonctionnement`` : ``'3*8h_ArrWE'`` · ``puissance_nominale`` : ex. 5000 · ``temperature_fumees`` : ex. 400
    * - ``IND-UT-120``
      - Compresseur d’air basse pression à vis ou centrifuge
-     - ``puissance_nominale``
-     - ``puissance_nominale=100``
-     - 1 930.0
-     - ``puissance_nominale``
-     - A14-1
-     - 01/01/2015
-     - sans fin connue
+     - ``CEE.IND_UT_120(…)``
+     - ``puissance_nominale`` : ex. 100
    * - ``IND-UT-122``
      - Sécheur d'air comprimé à adsorption utilisant un apport calorifique pour sa régénération
-     - ``puissance_nominale``
-     - ``fonctionnement='3*8h_ArrWE', puissance_nominale=100``
-     - 680.0
-     - ``fonctionnement``, ``puissance_nominale``
-     - A14-1
-     - 01/01/2015
-     - sans fin connue
+     - ``CEE.IND_UT_122(…)``
+     - ``fonctionnement`` : ``'3*8h_ArrWE'`` · ``puissance_nominale`` : ex. 100
    * - ``IND-UT-124``
      - Séquenceur électronique pour le pilotage d’une centrale de production d’air comprimé
-     - ``nb_compresseurs``
-     - ``nb_compresseurs=3, type_sequenceur='avec', puissance_nominale=100``
-     - 300.0
-     - ``nb_compresseurs``, ``type_sequenceur``, ``puissance_nominale``
-     - A14-1
-     - 01/01/2015
-     - sans fin connue
+     - ``CEE.IND_UT_124(…)``
+     - ``nb_compresseurs`` : ex. 3 · ``type_sequenceur`` : ``'avec'`` · ``puissance_nominale`` : ex. 100
    * - ``IND-UT-125``
      - Traitement d’eau performant sur chaudière de production de vapeur
-     - ``puissance_nominale``
-     - ``fonctionnement='3*8h_ArrWE', puissance_nominale=5000, zone='A'``
-     - 1 100.0
-     - ``fonctionnement``, ``puissance_nominale``, ``zone``, ``Department``
-     - A14-1
-     - 01/01/2015
-     - sans fin connue
+     - ``CEE.IND_UT_125(…)``
+     - ``fonctionnement`` : ``'3*8h_ArrWE'`` · ``puissance_nominale`` : ex. 5000 · ``zone`` : ``'A'`` · ``Department`` : numéro (69) ou code (``"2A"``) — cf. ``CEE.H1/H2/H3``
    * - ``IND-UT-127``
      - Système de transmission performant
-     - ``type_transmission``
-     - ``type_transmission='poulie_courroie_synchrone', puissance_nominale=75``
-     - 61.5
-     - ``type_transmission``, ``puissance_nominale``
-     - A25-2
-     - 01/01/2015
-     - sans fin connue
+     - ``CEE.IND_UT_127(…)``
+     - ``type_transmission`` : ``'poulie_courroie_synchrone'`` · ``puissance_nominale`` : ex. 75
    * - ``IND-UT-129``
      - Presse à injecter tout électrique ou hybride
-     - ``puissance_nominale``
-     - ``nature='electrique_neuve', fonctionnement='3*8h_ArrWE', puissance_nominale=500``
-     - 18 000.0
-     - ``nature``, ``fonctionnement``, ``puissance_nominale``
-     - A32-3
-     - 01/01/2015
-     - sans fin connue
+     - ``CEE.IND_UT_129(…)``
+     - ``nature`` : ``'electrique_neuve'`` · ``fonctionnement`` : ``'3*8h_ArrWE'`` · ``puissance_nominale`` : ex. 500
    * - ``IND-UT-130``
      - Condenseur sur les effluents gazeux d’une chaudière de production de vapeur
-     - ``puissance_nominale``
-     - ``fonctionnement='3*8h_ArrWE', puissance_nominale=5000``
-     - 5 000.0
-     - ``fonctionnement``, ``puissance_nominale``
-     - A19-1
-     - 22/12/2015
-     - sans fin connue
+     - ``CEE.IND_UT_130(…)``
+     - ``fonctionnement`` : ``'3*8h_ArrWE'`` · ``puissance_nominale`` : ex. 5000
    * - ``IND-UT-131``
      - Isolation thermique des parois planes ou cylindriques sur des installations industrielles (France métropolitaine)
-     - ``Geometry``
-     - ``fonctionnement='3*8h_ArrWE', Temperature=75, Geometry='plan', S=100``
-     - 390.0
-     - ``fonctionnement``, ``Temperature``, ``Geometry``, ``S``, ``D``, ``L``
-     - A37-2
-     - 14/12/2016
-     - sans fin connue
+     - ``CEE.IND_UT_131(…)``
+     - ``fonctionnement`` : ``'3*8h_ArrWE'`` · ``Temperature`` : ex. 75 · ``Geometry`` : ``'plan'`` · ``S`` : ex. 100 · ``D`` : valeur testée non publiée · ``L`` : valeur testée non publiée
    * - ``IND-UT-132``
      - Moteur asynchrone de classe IE4
-     - ``puissance_utile``
-     - ``puissance_utile=75``
-     - 64.5
-     - ``puissance_utile``
-     - A26-1
-     - 26/07/2017
-     - sans fin connue
+     - ``CEE.IND_UT_132(…)``
+     - ``puissance_utile`` : ex. 75
    * - ``IND-UT-133``
      - Système électronique de pilotage d’un moteur électrique avec récupération d’énergie
-     - ``puissance_utile``
-     - ``heures_fonctionnement=2000, taux_freinage=30, puissance_utile=75``
-     - 41 625.0
-     - ``heures_fonctionnement``, ``taux_freinage``, ``puissance_utile``
-     - A28-1
-     - 06/12/2018
-     - sans fin connue
+     - ``CEE.IND_UT_133(…)``
+     - ``heures_fonctionnement`` : ex. 2000 · ``taux_freinage`` : ex. 30 · ``puissance_utile`` : ex. 75
    * - ``IND-UT-134``
      - Système de mesurage d’indicateurs de performance énergétique
-     - ``puissance_nominale``
-     - ``fonctionnement='3*8h_ArrWE', duree_contrat=3, puissance_nominale=500, prix_mwh_cumac=5``
-     - 127.4
-     - ``fonctionnement``, ``duree_contrat``, ``puissance_nominale``
-     - A35-2
-     - 06/12/2018
-     - sans fin connue
+     - ``CEE.IND_UT_134(…)``
+     - ``fonctionnement`` : ``'3*8h_ArrWE'`` · ``duree_contrat`` : ex. 3 · ``puissance_nominale`` : ex. 500
    * - ``IND-UT-135``
      - Freecooling par eau de refroidissement en substitution d'un groupe froid
-     - ``puissance_nominale``
-     - ``fonctionnement='3*8h_ArrWE', Department=75, Supply_Temperature=12, puissance_nominale=500``
-     - 11 100.0
-     - ``fonctionnement``, ``Department``, ``Supply_Temperature``, ``puissance_nominale``
-     - A31-1
-     - 31/07/2019
-     - sans fin connue
+     - ``CEE.IND_UT_135(…)``
+     - ``fonctionnement`` : ``'3*8h_ArrWE'`` · ``Department`` : ex. 75 · ``Supply_Temperature`` : ex. 12 · ``puissance_nominale`` : ex. 500
    * - ``IND-UT-137``
      - Système de pompe(s) à chaleur en rehausse de température de chaleur fatale récupérée
-     - ``Q``
-     - ``Q=1000, Eelec=300``
-     - 7.7
-     - ``Q``, ``Eelec``
-     - A65-2, A84-3
-     - 01/01/2025
-     - 31/12/2030
+     - ``CEE.IND_UT_137(…)``
+     - ``Q`` : ex. 1000 · ``Eelec`` : ex. 300
    * - ``IND-UT-138``
      - Conversion de chaleur fatale en électricité ou en air comprimé
-     - ``Precup``
-     - ``D=5000, Precup=300, rendement=0.4, Pconso=50``
-     - 4 946.9
-     - ``D``, ``Precup``, ``rendement``, ``Pconso``
-     - A62-1
-     - 01/01/2025
-     - 31/12/2029
+     - ``CEE.IND_UT_138(…)``
+     - ``D`` : ex. 5000 · ``Precup`` : ex. 300 · ``rendement`` : ex. 0.4 · ``Pconso`` : ex. 50
    * - ``IND-UT-139``
      - Système de stockage de chaleur fatale
-     - ``capacite_stockage``
-     - ``rendement=0.9, capacite_stockage=100, nb_cycles=200``
-     - 254.4
-     - ``rendement``, ``capacite_stockage``, ``nb_cycles``
-     - A73-2
-     - 01/01/2025
-     - 31/08/2030
+     - ``CEE.IND_UT_139(…)``
+     - ``rendement`` : ex. 0.9 · ``capacite_stockage`` : ex. 100 · ``nb_cycles`` : ex. 200
    * - ``IND-UT-140``
      - Mise en veille automatique d’une machine utilisant de l’air comprimé
-     - ``debit_air``
-     - ``fonctionnement='3*8h_ArrWE', debit_air=10``
-     - 0.5
-     - ``fonctionnement``, ``debit_air``
-     - A65-1
-     - 01/01/2025
-     - 31/12/2029
+     - ``CEE.IND_UT_140(…)``
+     - ``fonctionnement`` : ``'3*8h_ArrWE'`` · ``debit_air`` : ex. 10
    * - ``IND-UT-141``
      - Chaudière industrielle électrique
-     - ``puissance_thermique_nominale``
-     - ``puissance_thermique_nominale=6, puissance_remplacee=5``
-     - 43 000.0
-     - ``puissance_thermique_nominale``, ``puissance_remplacee``, ``besoin_chaleur_max``
-     - arrêté du 01/09/2026
-     - 05/09/2026
-     - 31/08/2031
+     - ``CEE.IND_UT_141(…)``
+     - ``puissance_thermique_nominale`` : ex. 6 · ``puissance_remplacee`` : ex. 5 · ``besoin_chaleur_max`` : valeur testée non publiée
 
 Les fiches ``IND-UT-102``, ``IND-UT-141`` sont détaillées en fin de page, avec un cas concret et sa sortie.
 
