@@ -14,4 +14,5 @@ Modèles aérauliques
    registre_lames
    obstruction
    filtre
+   ventilateur
    effet_systeme

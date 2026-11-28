@@ -1251,6 +1251,19 @@
    "cran_max": 5,
    "recul": null
   },
+  "docs/source/005-aeraulic/ventilateur.rst": {
+   "blocs": 2,
+   "empreinte": "eea32248784fbf08",
+   "mesure": "2026-11-28T11:50",
+   "figures": [],
+   "blocage": null,
+   "motif": "",
+   "extraits": null,
+   "cran": 5,
+   "nom": "personnalisable",
+   "cran_max": 5,
+   "recul": null
+  },
   "docs/source/006-pinch_analysis/index.rst": {
    "blocs": 3,
    "empreinte": "81c367bd8602661a",

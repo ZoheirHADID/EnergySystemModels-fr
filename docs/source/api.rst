@@ -56,6 +56,7 @@ Hydraulique et aéraulique
 
    from ThermodynamicCycles.Hydraulic import StraightPipe, TA_Valve
    from ThermodynamicCycles.Aeraulic import StraightPipe as AirDuct
+   from ThermodynamicCycles.Aeraulic.FanPower import FanPower
 
 Détails : :doc:`004-hydraulic/index` et :doc:`005-aeraulic/index`.
 
